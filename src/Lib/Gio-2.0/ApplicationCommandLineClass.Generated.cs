@@ -32,11 +32,11 @@ namespace GISharp.Lib.Gio
 
         static ApplicationCommandLineClass()
         {
-            System.Int32 printLiteralOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PrintLiteral));
+            int printLiteralOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PrintLiteral));
             RegisterVirtualMethod(printLiteralOffset, PrintLiteralMarshal.Create);
-            System.Int32 printerrLiteralOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PrinterrLiteral));
+            int printerrLiteralOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PrinterrLiteral));
             RegisterVirtualMethod(printerrLiteralOffset, PrinterrLiteralMarshal.Create);
-            System.Int32 getStdinOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetStdin));
+            int getStdinOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetStdin));
             RegisterVirtualMethod(getStdinOffset, GetStdinMarshal.Create);
         }
 

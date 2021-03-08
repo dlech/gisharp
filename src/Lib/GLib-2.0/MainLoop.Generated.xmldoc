@@ -12,7 +12,7 @@ Checks to see if the main loop is currently being run via <see cref="MainLoop.Ru
 </summary>
 </member>
 
-<member name='MainLoop.MainLoop(GISharp.Lib.GLib.MainContext?,System.Boolean)'>
+<member name='MainLoop.MainLoop(GISharp.Lib.GLib.MainContext?,bool)'>
 <summary>
 Creates a new <see cref="MainLoop"/> structure.
 </summary>

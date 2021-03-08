@@ -26,7 +26,7 @@ namespace GISharp.Lib.Gio
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IAsyncResult.DoIsTagged(System.IntPtr)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedIsTagged))]
-        System.Boolean DoIsTagged(System.IntPtr sourceTag);
+        bool DoIsTagged(System.IntPtr sourceTag);
     }
 
     /// <summary>
@@ -127,7 +127,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public static System.Boolean IsTagged(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag)
+        public static bool IsTagged(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag)
         {
             CheckIsTaggedArgs(res, sourceTag);
             var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;

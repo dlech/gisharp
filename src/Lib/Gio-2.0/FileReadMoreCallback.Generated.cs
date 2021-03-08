@@ -25,7 +25,7 @@ namespace GISharp.Lib.Gio
     System.IntPtr callbackData);
 
     /// <include file="FileReadMoreCallback.xmldoc" path="declaration/member[@name='FileReadMoreCallback']/*" />
-    public delegate System.Boolean FileReadMoreCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, long fileSize);
+    public delegate bool FileReadMoreCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, long fileSize);
 
     /// <summary>
     /// Class for marshalling <see cref="FileReadMoreCallback"/> methods.
@@ -38,7 +38,7 @@ namespace GISharp.Lib.Gio
         public static GISharp.Lib.Gio.FileReadMoreCallback FromPointer(delegate* unmanaged[Cdecl]<byte*, long, System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
             var callbackData_ = userData_;
-            System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, long fileSize)
+            bool managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, long fileSize)
             {
                 var fileContents_ = (byte*)fileContents.UnsafeHandle;
                 var fileSize_ = (long)fileSize;

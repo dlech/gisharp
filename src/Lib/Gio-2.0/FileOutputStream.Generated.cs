@@ -267,7 +267,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoCanSeek()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedCanSeek))]
-        protected virtual System.Boolean DoCanSeek()
+        protected virtual bool DoCanSeek()
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedCanSeek>(_GType)!(stream_);
@@ -277,7 +277,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoCanTruncate()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedCanTruncate))]
-        protected virtual System.Boolean DoCanTruncate()
+        protected virtual bool DoCanTruncate()
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedCanTruncate>(_GType)!(stream_);
@@ -389,12 +389,12 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        System.Boolean GISharp.Lib.Gio.ISeekable.DoCanSeek()
+        bool GISharp.Lib.Gio.ISeekable.DoCanSeek()
         {
             throw new System.NotImplementedException();
         }
 
-        System.Boolean GISharp.Lib.Gio.ISeekable.DoCanTruncate()
+        bool GISharp.Lib.Gio.ISeekable.DoCanTruncate()
         {
             throw new System.NotImplementedException();
         }

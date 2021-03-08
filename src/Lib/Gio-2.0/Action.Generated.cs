@@ -13,7 +13,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.Enabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
-        System.Boolean Enabled { get; }
+        bool Enabled { get; }
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -63,7 +63,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.NameIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static System.Boolean NameIsValid(GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static bool NameIsValid(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckNameIsValidArgs(actionName);
             var actionName_ = (byte*)actionName.UnsafeHandle;
@@ -218,7 +218,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetEnabled()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetEnabled))]
-        System.Boolean DoGetEnabled();
+        bool DoGetEnabled();
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetName()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -364,7 +364,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='Action.GetEnabled(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static System.Boolean GetEnabled(this GISharp.Lib.Gio.IAction action)
+        public static bool GetEnabled(this GISharp.Lib.Gio.IAction action)
         {
             CheckGetEnabledArgs(action);
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;

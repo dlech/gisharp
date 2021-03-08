@@ -104,7 +104,7 @@ namespace GISharp.Lib.GObject
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.IsValidName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.66")]
-        public static System.Boolean IsValidName(GISharp.Lib.GLib.UnownedUtf8 name)
+        public static bool IsValidName(GISharp.Lib.GLib.UnownedUtf8 name)
         {
             CheckIsValidNameArgs(name);
             var name_ = (byte*)name.UnsafeHandle;
@@ -458,7 +458,7 @@ namespace GISharp.Lib.GObject
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DoValueValidate(GISharp.Lib.GObject.Value)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ParamSpecClass.UnmanagedValueValidate))]
-        protected virtual System.Boolean DoValueValidate(GISharp.Lib.GObject.Value value)
+        protected virtual bool DoValueValidate(GISharp.Lib.GObject.Value value)
         {
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var value_ = &value;

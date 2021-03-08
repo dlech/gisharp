@@ -23,7 +23,7 @@ namespace GISharp.Lib.Gio
 
         static InitableIface()
         {
-            System.Int32 initOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Init));
+            int initOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Init));
             RegisterVirtualMethod(initOffset, InitMarshal.Create);
         }
 

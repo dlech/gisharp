@@ -164,7 +164,7 @@ namespace GISharp.Lib.GLib
         partial void CheckTrylockArgs();
 
         /// <include file="Mutex.xmldoc" path="declaration/member[@name='Mutex.Trylock()']/*" />
-        public System.Boolean Trylock()
+        public bool Trylock()
         {
             fixed (GISharp.Lib.GLib.Mutex* this_ = &this)
             {

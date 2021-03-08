@@ -838,7 +838,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
+<member name='KeyFile.SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,bool)'>
 <summary>
 Associates a new boolean value with <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.

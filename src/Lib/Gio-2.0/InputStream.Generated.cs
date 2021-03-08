@@ -25,7 +25,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="InputStream.xmldoc" path="declaration/member[@name='InputStream.IsClosed']/*" />
-        public System.Boolean IsClosed { get => GetIsClosed(); }
+        public bool IsClosed { get => GetIsClosed(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -267,7 +267,7 @@ namespace GISharp.Lib.Gio
         partial void CheckHasPendingArgs();
 
         /// <include file="InputStream.xmldoc" path="declaration/member[@name='InputStream.HasPending()']/*" />
-        public System.Boolean HasPending()
+        public bool HasPending()
         {
             CheckHasPendingArgs();
             var stream_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)UnsafeHandle;
@@ -294,7 +294,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream);
         partial void CheckGetIsClosedArgs();
 
-        private System.Boolean GetIsClosed()
+        private bool GetIsClosed()
         {
             CheckGetIsClosedArgs();
             var stream_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)UnsafeHandle;

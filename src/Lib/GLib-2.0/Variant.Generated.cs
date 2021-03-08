@@ -19,7 +19,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Boolean']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public System.Boolean Boolean { get => GetBoolean(); }
+        public bool Boolean { get => GetBoolean(); }
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Byte']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
@@ -107,15 +107,15 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.IsContainer']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public System.Boolean IsContainer { get => GetIsContainer(); }
+        public bool IsContainer { get => GetIsContainer(); }
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.IsFloating']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Boolean IsFloating { get => GetIsFloating(); }
+        public bool IsFloating { get => GetIsFloating(); }
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.IsNormalForm']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public System.Boolean IsNormalForm { get => GetIsNormalForm(); }
+        public bool IsNormalForm { get => GetIsNormalForm(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -215,10 +215,10 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean value);
-        static partial void CheckNewBooleanArgs(System.Boolean value);
+        static partial void CheckNewBooleanArgs(bool value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
-        static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewBoolean(System.Boolean value)
+        static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewBoolean(bool value)
         {
             CheckNewBooleanArgs(value);
             var value_ = GISharp.Runtime.BooleanExtensions.ToBoolean(value);
@@ -226,9 +226,9 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Variant(System.Boolean)']/*" />
+        /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Variant(bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public Variant(System.Boolean value) : this((System.IntPtr)NewBoolean(value), GISharp.Runtime.Transfer.None)
+        public Variant(bool value) : this((System.IntPtr)NewBoolean(value), GISharp.Runtime.Transfer.None)
         {
         }
 
@@ -548,10 +548,10 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean trusted);
-        static partial void CheckNewFromBytesArgs(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, System.Boolean trusted);
+        static partial void CheckNewFromBytesArgs(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, bool trusted);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
-        static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewFromBytes(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, System.Boolean trusted)
+        static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewFromBytes(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, bool trusted)
         {
             CheckNewFromBytesArgs(type, bytes, trusted);
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)type.UnsafeHandle;
@@ -561,9 +561,9 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Variant(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Bytes,System.Boolean)']/*" />
+        /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Variant(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Bytes,bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public Variant(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, System.Boolean trusted) : this((System.IntPtr)NewFromBytes(type, bytes, trusted), GISharp.Runtime.Transfer.None)
+        public Variant(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, bool trusted) : this((System.IntPtr)NewFromBytes(type, bytes, trusted), GISharp.Runtime.Transfer.None)
         {
         }
 
@@ -1365,7 +1365,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.IsObjectPath(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public static System.Boolean IsObjectPath(GISharp.Lib.GLib.UnownedUtf8 @string)
+        public static bool IsObjectPath(GISharp.Lib.GLib.UnownedUtf8 @string)
         {
             CheckIsObjectPathArgs(@string);
             var @string_ = (byte*)@string.UnsafeHandle;
@@ -1401,7 +1401,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.IsSignature(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public static System.Boolean IsSignature(GISharp.Lib.GLib.UnownedUtf8 @string)
+        public static bool IsSignature(GISharp.Lib.GLib.UnownedUtf8 @string)
         {
             CheckIsSignatureArgs(@string);
             var @string_ = (byte*)@string.UnsafeHandle;
@@ -1692,11 +1692,11 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean copyOnly);
-        partial void CheckCheckFormatStringArgs(GISharp.Lib.GLib.UnownedUtf8 formatString, System.Boolean copyOnly);
+        partial void CheckCheckFormatStringArgs(GISharp.Lib.GLib.UnownedUtf8 formatString, bool copyOnly);
 
-        /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.CheckFormatString(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
+        /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.CheckFormatString(GISharp.Lib.GLib.UnownedUtf8,bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public System.Boolean CheckFormatString(GISharp.Lib.GLib.UnownedUtf8 formatString, System.Boolean copyOnly)
+        public bool CheckFormatString(GISharp.Lib.GLib.UnownedUtf8 formatString, bool copyOnly)
         {
             CheckCheckFormatStringArgs(formatString, copyOnly);
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
@@ -2004,7 +2004,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Equals(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public System.Boolean Equals(GISharp.Lib.GLib.Variant? two)
+        public bool Equals(GISharp.Lib.GLib.Variant? two)
         {
             if (two is null)
             {
@@ -2020,7 +2020,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public override System.Boolean Equals(System.Object? other)
+        public override bool Equals(object? other)
         {
             if (other is GISharp.Lib.GLib.Variant variant)
             {
@@ -2031,7 +2031,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public static System.Boolean operator ==(GISharp.Lib.GLib.Variant a, GISharp.Lib.GLib.Variant b)
+        public static bool operator ==(GISharp.Lib.GLib.Variant a, GISharp.Lib.GLib.Variant b)
         {
             return a.Equals(b);
         }
@@ -2066,7 +2066,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetBooleanArgs();
 
         [GISharp.Runtime.SinceAttribute("2.24")]
-        private System.Boolean GetBoolean()
+        private bool GetBoolean()
         {
             CheckGetBooleanArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
@@ -3048,7 +3048,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetIsContainerArgs();
 
         [GISharp.Runtime.SinceAttribute("2.24")]
-        private System.Boolean GetIsContainer()
+        private bool GetIsContainer()
         {
             CheckGetIsContainerArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
@@ -3086,7 +3086,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetIsFloatingArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Boolean GetIsFloating()
+        private bool GetIsFloating()
         {
             CheckGetIsFloatingArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
@@ -3128,7 +3128,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetIsNormalFormArgs();
 
         [GISharp.Runtime.SinceAttribute("2.24")]
-        private System.Boolean GetIsNormalForm()
+        private bool GetIsNormalForm()
         {
             CheckGetIsNormalFormArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
@@ -3164,7 +3164,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.IsOfType(GISharp.Lib.GLib.VariantType)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public System.Boolean IsOfType(GISharp.Lib.GLib.VariantType type)
+        public bool IsOfType(GISharp.Lib.GLib.VariantType type)
         {
             CheckIsOfTypeArgs(type);
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
@@ -3310,11 +3310,11 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean typeAnnotate);
-        partial void CheckPrintArgs(System.Boolean typeAnnotate);
+        partial void CheckPrintArgs(bool typeAnnotate);
 
-        /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Print(System.Boolean)']/*" />
+        /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Print(bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public GISharp.Lib.GLib.Utf8 Print(System.Boolean typeAnnotate)
+        public GISharp.Lib.GLib.Utf8 Print(bool typeAnnotate)
         {
             CheckPrintArgs(typeAnnotate);
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;

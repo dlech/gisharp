@@ -32,7 +32,7 @@ namespace GISharp.Lib.GIRepository
         public int Size { get => GetSize(); }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.IsDiscriminated']/*" />
-        public System.Boolean IsDiscriminated { get => GetIsDiscriminated(); }
+        public bool IsDiscriminated { get => GetIsDiscriminated(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -367,7 +367,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetIsDiscriminatedArgs();
 
-        private System.Boolean GetIsDiscriminated()
+        private bool GetIsDiscriminated()
         {
             CheckGetIsDiscriminatedArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;

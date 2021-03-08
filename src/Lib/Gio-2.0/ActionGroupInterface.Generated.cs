@@ -62,36 +62,36 @@ namespace GISharp.Lib.Gio
 
         static ActionGroupInterface()
         {
-            System.Int32 hasActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.HasAction));
+            int hasActionOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.HasAction));
             RegisterVirtualMethod(hasActionOffset, HasActionMarshal.Create);
-            System.Int32 listActionsOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ListActions));
+            int listActionsOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ListActions));
             RegisterVirtualMethod(listActionsOffset, ListActionsMarshal.Create);
-            System.Int32 getActionEnabledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionEnabled));
+            int getActionEnabledOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionEnabled));
             RegisterVirtualMethod(getActionEnabledOffset, GetActionEnabledMarshal.Create);
-            System.Int32 getActionParameterTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionParameterType));
+            int getActionParameterTypeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionParameterType));
             RegisterVirtualMethod(getActionParameterTypeOffset, GetActionParameterTypeMarshal.Create);
-            System.Int32 getActionStateTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionStateType));
+            int getActionStateTypeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionStateType));
             RegisterVirtualMethod(getActionStateTypeOffset, GetActionStateTypeMarshal.Create);
-            System.Int32 getActionStateHintOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionStateHint));
+            int getActionStateHintOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionStateHint));
             RegisterVirtualMethod(getActionStateHintOffset, GetActionStateHintMarshal.Create);
-            System.Int32 getActionStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionState));
+            int getActionStateOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionState));
             RegisterVirtualMethod(getActionStateOffset, GetActionStateMarshal.Create);
-            System.Int32 changeActionStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ChangeActionState));
+            int changeActionStateOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ChangeActionState));
             RegisterVirtualMethod(changeActionStateOffset, ChangeActionStateMarshal.Create);
-            System.Int32 activateActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActivateAction));
+            int activateActionOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActivateAction));
             RegisterVirtualMethod(activateActionOffset, ActivateActionMarshal.Create);
-            System.Int32 actionAddedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionAdded));
+            int actionAddedOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionAdded));
             RegisterVirtualMethod(actionAddedOffset, ActionAddedMarshal.Create);
-            System.Int32 actionRemovedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionRemoved));
+            int actionRemovedOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionRemoved));
             RegisterVirtualMethod(actionRemovedOffset, ActionRemovedMarshal.Create);
-            System.Int32 actionEnabledChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionEnabledChanged));
+            int actionEnabledChangedOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionEnabledChanged));
             RegisterVirtualMethod(actionEnabledChangedOffset, ActionEnabledChangedMarshal.Create);
-            System.Int32 actionStateChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionStateChanged));
+            int actionStateChangedOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionStateChanged));
             RegisterVirtualMethod(actionStateChangedOffset, ActionStateChangedMarshal.Create);
         }
 
         /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='HasAction']/*" />
-        public delegate System.Boolean HasAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        public delegate bool HasAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -158,7 +158,7 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup);
         }
 
         /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionEnabled']/*" />
-        public delegate System.Boolean GetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        public delegate bool GetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -470,7 +470,7 @@ byte* actionName);
         }
 
         /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionEnabledChanged']/*" />
-        public delegate void ActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled);
+        public delegate void ActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, bool enabled);
 
         /// <summary>
         /// Unmanaged callback

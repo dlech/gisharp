@@ -20,7 +20,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Completed_']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         [GISharp.Runtime.GPropertyAttribute("completed")]
-        public System.Boolean Completed_ { get => (System.Boolean)GetProperty("completed")!; }
+        public bool Completed_ { get => (bool)GetProperty("completed")!; }
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Cancellable']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -28,11 +28,11 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.CheckCancellable']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public System.Boolean CheckCancellable { get => GetCheckCancellable(); set => SetCheckCancellable(value); }
+        public bool CheckCancellable { get => GetCheckCancellable(); set => SetCheckCancellable(value); }
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Completed']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public System.Boolean Completed { get => GetCompleted(); }
+        public bool Completed { get => GetCompleted(); }
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Context']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -48,7 +48,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnOnCancel']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public System.Boolean ReturnOnCancel { get => GetReturnOnCancel(); }
+        public bool ReturnOnCancel { get => GetReturnOnCancel(); }
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.SourceObject']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -174,7 +174,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.IsValid(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.GObject.Object?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public static System.Boolean IsValid(GISharp.Lib.Gio.IAsyncResult result, GISharp.Lib.GObject.Object? sourceObject)
+        public static bool IsValid(GISharp.Lib.Gio.IAsyncResult result, GISharp.Lib.GObject.Object? sourceObject)
         {
             CheckIsValidArgs(result, sourceObject);
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
@@ -299,7 +299,7 @@ namespace GISharp.Lib.Gio
         partial void CheckGetCheckCancellableArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
-        private System.Boolean GetCheckCancellable()
+        private bool GetCheckCancellable()
         {
             CheckGetCheckCancellableArgs();
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -330,7 +330,7 @@ namespace GISharp.Lib.Gio
         partial void CheckGetCompletedArgs();
 
         [GISharp.Runtime.SinceAttribute("2.44")]
-        private System.Boolean GetCompleted()
+        private bool GetCompleted()
         {
             CheckGetCompletedArgs();
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -451,7 +451,7 @@ namespace GISharp.Lib.Gio
         partial void CheckGetReturnOnCancelArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
-        private System.Boolean GetReturnOnCancel()
+        private bool GetReturnOnCancel()
         {
             CheckGetReturnOnCancelArgs();
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -569,7 +569,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.HadError()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public System.Boolean HadError()
+        public bool HadError()
         {
             CheckHadErrorArgs();
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -807,11 +807,11 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean result);
-        partial void CheckReturnBooleanArgs(System.Boolean result);
+        partial void CheckReturnBooleanArgs(bool result);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnBoolean(System.Boolean)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnBoolean(bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public void ReturnBoolean(System.Boolean result)
+        public void ReturnBoolean(bool result)
         {
             CheckReturnBooleanArgs(result);
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -886,7 +886,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnErrorIfCancelled()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public System.Boolean ReturnErrorIfCancelled()
+        public bool ReturnErrorIfCancelled()
         {
             CheckReturnErrorIfCancelledArgs();
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -1121,10 +1121,10 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean checkCancellable);
-        partial void CheckSetCheckCancellableArgs(System.Boolean checkCancellable);
+        partial void CheckSetCheckCancellableArgs(bool checkCancellable);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
-        private void SetCheckCancellable(System.Boolean checkCancellable)
+        private void SetCheckCancellable(bool checkCancellable)
         {
             CheckSetCheckCancellableArgs(checkCancellable);
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -1264,11 +1264,11 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean returnOnCancel);
-        partial void CheckSetReturnOnCancelArgs(System.Boolean returnOnCancel);
+        partial void CheckSetReturnOnCancelArgs(bool returnOnCancel);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.SetReturnOnCancel(System.Boolean)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.SetReturnOnCancel(bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public System.Boolean SetReturnOnCancel(System.Boolean returnOnCancel)
+        public bool SetReturnOnCancel(bool returnOnCancel)
         {
             CheckSetReturnOnCancelArgs(returnOnCancel);
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -1351,7 +1351,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        System.Boolean GISharp.Lib.Gio.IAsyncResult.DoIsTagged(System.IntPtr sourceTag)
+        bool GISharp.Lib.Gio.IAsyncResult.DoIsTagged(System.IntPtr sourceTag)
         {
             throw new System.NotImplementedException();
         }

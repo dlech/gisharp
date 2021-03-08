@@ -61,23 +61,23 @@ namespace GISharp.Lib.Gio
 
         static InputStreamClass()
         {
-            System.Int32 readFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFn));
+            int readFnOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFn));
             RegisterVirtualMethod(readFnOffset, ReadFnMarshal.Create);
-            System.Int32 skipOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Skip));
+            int skipOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Skip));
             RegisterVirtualMethod(skipOffset, SkipMarshal.Create);
-            System.Int32 closeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFn));
+            int closeFnOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFn));
             RegisterVirtualMethod(closeFnOffset, CloseFnMarshal.Create);
-            System.Int32 readAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadAsync));
+            int readAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadAsync));
             RegisterVirtualMethod(readAsyncOffset, ReadAsyncMarshal.Create);
-            System.Int32 readFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFinish));
+            int readFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFinish));
             RegisterVirtualMethod(readFinishOffset, ReadFinishMarshal.Create);
-            System.Int32 skipAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SkipAsync));
+            int skipAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SkipAsync));
             RegisterVirtualMethod(skipAsyncOffset, SkipAsyncMarshal.Create);
-            System.Int32 skipFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SkipFinish));
+            int skipFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SkipFinish));
             RegisterVirtualMethod(skipFinishOffset, SkipFinishMarshal.Create);
-            System.Int32 closeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseAsync));
+            int closeAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseAsync));
             RegisterVirtualMethod(closeAsyncOffset, CloseAsyncMarshal.Create);
-            System.Int32 closeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFinish));
+            int closeFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFinish));
             RegisterVirtualMethod(closeFinishOffset, CloseFinishMarshal.Create);
         }
 

@@ -44,21 +44,21 @@ namespace GISharp.Lib.Gio
 
         static ActionInterface()
         {
-            System.Int32 getNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetName));
+            int getNameOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetName));
             RegisterVirtualMethod(getNameOffset, GetNameMarshal.Create);
-            System.Int32 getParameterTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetParameterType));
+            int getParameterTypeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetParameterType));
             RegisterVirtualMethod(getParameterTypeOffset, GetParameterTypeMarshal.Create);
-            System.Int32 getStateTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetStateType));
+            int getStateTypeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetStateType));
             RegisterVirtualMethod(getStateTypeOffset, GetStateTypeMarshal.Create);
-            System.Int32 getStateHintOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetStateHint));
+            int getStateHintOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetStateHint));
             RegisterVirtualMethod(getStateHintOffset, GetStateHintMarshal.Create);
-            System.Int32 getEnabledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetEnabled));
+            int getEnabledOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetEnabled));
             RegisterVirtualMethod(getEnabledOffset, GetEnabledMarshal.Create);
-            System.Int32 getStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetState));
+            int getStateOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetState));
             RegisterVirtualMethod(getStateOffset, GetStateMarshal.Create);
-            System.Int32 changeStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ChangeState));
+            int changeStateOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ChangeState));
             RegisterVirtualMethod(changeStateOffset, ChangeStateMarshal.Create);
-            System.Int32 activateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Activate));
+            int activateOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Activate));
             RegisterVirtualMethod(activateOffset, ActivateMarshal.Create);
         }
 
@@ -187,7 +187,7 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         }
 
         /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='GetEnabled']/*" />
-        public delegate System.Boolean GetEnabled();
+        public delegate bool GetEnabled();
 
         /// <summary>
         /// Unmanaged callback

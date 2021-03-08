@@ -20,7 +20,7 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GObject.SignalFlags Flags { get => GetFlags(); }
 
         /// <include file="SignalInfo.xmldoc" path="declaration/member[@name='SignalInfo.TrueStopsEmit']/*" />
-        public System.Boolean TrueStopsEmit { get => GetTrueStopsEmit(); }
+        public bool TrueStopsEmit { get => GetTrueStopsEmit(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -106,7 +106,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct* info);
         partial void CheckGetTrueStopsEmitArgs();
 
-        private System.Boolean GetTrueStopsEmit()
+        private bool GetTrueStopsEmit()
         {
             CheckGetTrueStopsEmitArgs();
             var info_ = (GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct*)UnsafeHandle;

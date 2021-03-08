@@ -14,7 +14,7 @@ namespace GISharp.Lib.GObject
         public fixed long Data[2];
 #pragma warning restore CS0169, CS0649
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Boolean']/*" />
-        public System.Boolean Boolean { get => GetBoolean(); set => SetBoolean(value); }
+        public bool Boolean { get => GetBoolean(); set => SetBoolean(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Boxed']/*" />
         public System.IntPtr Boxed { get => GetBoxed(); set => SetBoxed(value); }
@@ -119,7 +119,7 @@ namespace GISharp.Lib.GObject
         static partial void CheckTypeCompatibleArgs(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType);
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TypeCompatible(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)']/*" />
-        public static System.Boolean TypeCompatible(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType)
+        public static bool TypeCompatible(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType)
         {
             CheckTypeCompatibleArgs(srcType, destType);
             var srcType_ = (GISharp.Lib.GObject.GType)srcType;
@@ -157,7 +157,7 @@ namespace GISharp.Lib.GObject
         static partial void CheckTypeTransformableArgs(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType);
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TypeTransformable(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)']/*" />
-        public static System.Boolean TypeTransformable(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType)
+        public static bool TypeTransformable(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType)
         {
             CheckTypeTransformableArgs(srcType, destType);
             var srcType_ = (GISharp.Lib.GObject.GType)srcType;
@@ -325,7 +325,7 @@ namespace GISharp.Lib.GObject
         partial void CheckFitsPointerArgs();
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.FitsPointer()']/*" />
-        public System.Boolean FitsPointer()
+        public bool FitsPointer()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -355,7 +355,7 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetBooleanArgs();
 
-        private System.Boolean GetBoolean()
+        private bool GetBoolean()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -1145,9 +1145,9 @@ namespace GISharp.Lib.GObject
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean vBoolean);
-        partial void CheckSetBooleanArgs(System.Boolean vBoolean);
+        partial void CheckSetBooleanArgs(bool vBoolean);
 
-        private void SetBoolean(System.Boolean vBoolean)
+        private void SetBoolean(bool vBoolean)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -2190,7 +2190,7 @@ namespace GISharp.Lib.GObject
         partial void CheckTransformArgs(GISharp.Lib.GObject.Value destValue);
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Transform(GISharp.Lib.GObject.Value)']/*" />
-        public System.Boolean Transform(GISharp.Lib.GObject.Value destValue)
+        public bool Transform(GISharp.Lib.GObject.Value destValue)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {

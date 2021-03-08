@@ -29,7 +29,7 @@ namespace GISharp.Lib.GObject
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.IsFloating']/*" />
         [GISharp.Runtime.SinceAttribute("2.10")]
-        public System.Boolean IsFloating { get => GetIsFloating(); }
+        public bool IsFloating { get => GetIsFloating(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -729,7 +729,7 @@ System.IntPtr data);
         partial void CheckGetIsFloatingArgs();
 
         [GISharp.Runtime.SinceAttribute("2.10")]
-        private System.Boolean GetIsFloating()
+        private bool GetIsFloating()
         {
             CheckGetIsFloatingArgs();
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;

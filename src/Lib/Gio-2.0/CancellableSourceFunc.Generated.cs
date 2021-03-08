@@ -22,7 +22,7 @@ namespace GISharp.Lib.Gio
 
     /// <include file="CancellableSourceFunc.xmldoc" path="declaration/member[@name='CancellableSourceFunc']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
-    public delegate System.Boolean CancellableSourceFunc(GISharp.Lib.Gio.Cancellable? cancellable = null);
+    public delegate bool CancellableSourceFunc(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
     /// <summary>
     /// Class for marshalling <see cref="CancellableSourceFunc"/> methods.
@@ -34,7 +34,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public static GISharp.Lib.Gio.CancellableSourceFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            System.Boolean managedCallback(GISharp.Lib.Gio.Cancellable? cancellable)
+            bool managedCallback(GISharp.Lib.Gio.Cancellable? cancellable)
             {
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
                 var ret_ = callback_(cancellable_,userData_);

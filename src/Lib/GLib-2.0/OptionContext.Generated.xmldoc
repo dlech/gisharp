@@ -9,14 +9,14 @@ Returns the description. See <see cref="OptionContext.SetDescription(GISharp.Lib
 <member name='OptionContext.HelpEnabled'>
 <summary>
 Returns whether automatic `--help` generation
-is turned on for this instance. See <see cref="OptionContext.SetHelpEnabled(System.Boolean)"/>.
+is turned on for this instance. See <see cref="OptionContext.SetHelpEnabled(bool)"/>.
 </summary>
 </member>
 
 <member name='OptionContext.IgnoreUnknownOptions'>
 <summary>
 Returns whether unknown options are ignored or not. See
-<see cref="OptionContext.SetIgnoreUnknownOptions(System.Boolean)"/>.
+<see cref="OptionContext.SetIgnoreUnknownOptions(bool)"/>.
 </summary>
 </member>
 
@@ -31,7 +31,7 @@ Returns a pointer to the main group of this instance.
 Returns whether strict POSIX code is enabled.
 </summary>
 <remarks>
-See <see cref="OptionContext.SetStrictPosix(System.Boolean)"/> for more information.
+See <see cref="OptionContext.SetStrictPosix(bool)"/> for more information.
 </remarks>
 </member>
 
@@ -52,7 +52,7 @@ the group to add
 </param>
 </member>
 
-<member name='OptionContext.GetHelp(System.Boolean,GISharp.Lib.GLib.OptionGroup?)'>
+<member name='OptionContext.GetHelp(bool,GISharp.Lib.GLib.OptionGroup?)'>
 <summary>
 Returns a formatted, translated help text for the given context.
 To obtain the text produced by `--help`, call

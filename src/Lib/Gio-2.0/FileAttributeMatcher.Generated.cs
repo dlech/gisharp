@@ -115,7 +115,7 @@ namespace GISharp.Lib.Gio
         partial void CheckEnumerateNamespaceArgs(GISharp.Lib.GLib.UnownedUtf8 ns);
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public System.Boolean EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8 ns)
+        public bool EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8 ns)
         {
             CheckEnumerateNamespaceArgs(ns);
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
@@ -181,7 +181,7 @@ namespace GISharp.Lib.Gio
         partial void CheckMatchesArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Matches(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public System.Boolean Matches(GISharp.Lib.GLib.UnownedUtf8 attribute)
+        public bool Matches(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             CheckMatchesArgs(attribute);
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
@@ -217,7 +217,7 @@ namespace GISharp.Lib.Gio
         partial void CheckMatchesOnlyArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public System.Boolean MatchesOnly(GISharp.Lib.GLib.UnownedUtf8 attribute)
+        public bool MatchesOnly(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             CheckMatchesOnlyArgs(attribute);
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;

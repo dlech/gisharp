@@ -110,7 +110,7 @@ namespace GISharp.CodeGen
             var name = type.GirName switch {
                 // basic/fundamental types
                 "none" => "void",
-                "gboolean" => typeof(bool).ToString(),
+                "gboolean" => "bool",
                 var x when x == "gchar" || x == "gint8" => "sbyte",
                 var x when x == "guchar" || x == "guint8" => "byte",
                 var x when x == "gshort" || x == "gint16" => "short",

@@ -61,23 +61,23 @@ namespace GISharp.Lib.Gio
 
         static FileIOStreamClass()
         {
-            System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Tell));
+            int tellOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Tell));
             RegisterVirtualMethod(tellOffset, TellMarshal.Create);
-            System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanSeek));
+            int canSeekOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanSeek));
             RegisterVirtualMethod(canSeekOffset, CanSeekMarshal.Create);
-            System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Seek));
+            int seekOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Seek));
             RegisterVirtualMethod(seekOffset, SeekMarshal.Create);
-            System.Int32 canTruncateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanTruncate));
+            int canTruncateOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanTruncate));
             RegisterVirtualMethod(canTruncateOffset, CanTruncateMarshal.Create);
-            System.Int32 truncateFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TruncateFn));
+            int truncateFnOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TruncateFn));
             RegisterVirtualMethod(truncateFnOffset, TruncateFnMarshal.Create);
-            System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfo));
+            int queryInfoOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfo));
             RegisterVirtualMethod(queryInfoOffset, QueryInfoMarshal.Create);
-            System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoAsync));
+            int queryInfoAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoAsync));
             RegisterVirtualMethod(queryInfoAsyncOffset, QueryInfoAsyncMarshal.Create);
-            System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoFinish));
+            int queryInfoFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoFinish));
             RegisterVirtualMethod(queryInfoFinishOffset, QueryInfoFinishMarshal.Create);
-            System.Int32 getEtagOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetEtag));
+            int getEtagOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetEtag));
             RegisterVirtualMethod(getEtagOffset, GetEtagMarshal.Create);
         }
 
@@ -113,7 +113,7 @@ GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* stream);
         }
 
         /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='CanSeek']/*" />
-        public delegate System.Boolean CanSeek();
+        public delegate bool CanSeek();
 
         /// <summary>
         /// Unmanaged callback
@@ -187,7 +187,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='CanTruncate']/*" />
-        public delegate System.Boolean CanTruncate();
+        public delegate bool CanTruncate();
 
         /// <summary>
         /// Unmanaged callback

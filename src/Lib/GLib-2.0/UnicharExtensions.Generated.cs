@@ -122,7 +122,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.TryCompose(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static System.Boolean TryCompose(this GISharp.Lib.GLib.Unichar a, GISharp.Lib.GLib.Unichar b, out GISharp.Lib.GLib.Unichar ch)
+        public static bool TryCompose(this GISharp.Lib.GLib.Unichar a, GISharp.Lib.GLib.Unichar b, out GISharp.Lib.GLib.Unichar ch)
         {
             CheckTryComposeArgs(a, b);
             var a_ = (GISharp.Lib.GLib.Unichar)a;
@@ -190,7 +190,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.TryDecompose(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static System.Boolean TryDecompose(this GISharp.Lib.GLib.Unichar ch, out GISharp.Lib.GLib.Unichar a, out GISharp.Lib.GLib.Unichar b)
+        public static bool TryDecompose(this GISharp.Lib.GLib.Unichar ch, out GISharp.Lib.GLib.Unichar a, out GISharp.Lib.GLib.Unichar b)
         {
             CheckTryDecomposeArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
@@ -326,7 +326,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.TryGetMirrorChar(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
-        public static System.Boolean TryGetMirrorChar(this GISharp.Lib.GLib.Unichar ch, out GISharp.Lib.GLib.Unichar mirroredCh)
+        public static bool TryGetMirrorChar(this GISharp.Lib.GLib.Unichar ch, out GISharp.Lib.GLib.Unichar mirroredCh)
         {
             CheckTryGetMirrorCharArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
@@ -395,7 +395,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsAlphaNumericArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsAlphaNumeric(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsAlphaNumeric(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsAlphaNumeric(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsAlphaNumericArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -425,7 +425,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsAlphaArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsAlpha(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsAlpha(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsAlpha(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsAlphaArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -455,7 +455,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsControlArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsControl(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsControl(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsControl(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsControlArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -484,7 +484,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsDefinedArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsDefined(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsDefined(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsDefined(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsDefinedArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -514,7 +514,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsDigitArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsDigit(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsDigit(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsDigit(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsDigitArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -546,7 +546,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsGraphArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsGraph(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsGraph(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsGraph(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsGraphArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -576,7 +576,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsLowerArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsLower(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsLower(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsLower(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsLowerArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -615,7 +615,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsMark(GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public static System.Boolean IsMark(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsMark(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsMarkArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -646,7 +646,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsPrintableArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsPrintable(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsPrintable(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsPrintable(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsPrintableArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -676,7 +676,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsPunctuationArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsPunctuation(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsPunctuation(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsPunctuation(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsPunctuationArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -711,7 +711,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsSpaceArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsSpace(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsSpace(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsSpace(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsSpaceArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -744,7 +744,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsTitleArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsTitle(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsTitle(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsTitle(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsTitleArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -772,7 +772,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsUpperArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsUpper(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsUpper(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsUpper(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsUpperArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -801,7 +801,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsWideArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsWide(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsWide(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsWideArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -841,7 +841,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsWideCjk(GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public static System.Boolean IsWideCjk(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsWideCjk(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsWideCjkArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -869,7 +869,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckIsHexDigitArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsHexDigit(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean IsHexDigit(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsHexDigit(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsHexDigitArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -908,7 +908,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsZeroWidth(GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public static System.Boolean IsZeroWidth(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsZeroWidth(this GISharp.Lib.GLib.Unichar c)
         {
             CheckIsZeroWidthArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
@@ -1081,7 +1081,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckValidateArgs(this GISharp.Lib.GLib.Unichar ch);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.Validate(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Boolean Validate(this GISharp.Lib.GLib.Unichar ch)
+        public static bool Validate(this GISharp.Lib.GLib.Unichar ch)
         {
             CheckValidateArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;

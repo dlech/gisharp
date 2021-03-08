@@ -28,7 +28,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.UseDefaultFallbacks']/*" />
         [GISharp.Runtime.GPropertyAttribute("use-default-fallbacks", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public System.Boolean UseDefaultFallbacks { get => (System.Boolean)GetProperty("use-default-fallbacks")!; set => SetProperty("use-default-fallbacks", value); }
+        public bool UseDefaultFallbacks { get => (bool)GetProperty("use-default-fallbacks")!; set => SetProperty("use-default-fallbacks", value); }
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Names']/*" />
         public GISharp.Lib.GLib.Strv Names { get => GetNames(); }
@@ -256,7 +256,7 @@ namespace GISharp.Lib.Gio
             g_themed_icon_prepend_name(icon_, iconname_);
         }
 
-        System.Boolean GISharp.Lib.Gio.IIcon.DoEqual(GISharp.Lib.Gio.IIcon? icon2)
+        bool GISharp.Lib.Gio.IIcon.DoEqual(GISharp.Lib.Gio.IIcon? icon2)
         {
             throw new System.NotImplementedException();
         }

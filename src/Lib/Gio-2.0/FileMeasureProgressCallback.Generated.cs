@@ -57,7 +57,7 @@ namespace GISharp.Lib.Gio
 
     /// <include file="FileMeasureProgressCallback.xmldoc" path="declaration/member[@name='FileMeasureProgressCallback']/*" />
     [GISharp.Runtime.SinceAttribute("2.38")]
-    public delegate void FileMeasureProgressCallback(System.Boolean reporting, ulong currentSize, ulong numDirs, ulong numFiles);
+    public delegate void FileMeasureProgressCallback(bool reporting, ulong currentSize, ulong numDirs, ulong numFiles);
 
     /// <summary>
     /// Class for marshalling <see cref="FileMeasureProgressCallback"/> methods.
@@ -69,7 +69,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public static GISharp.Lib.Gio.FileMeasureProgressCallback FromPointer(delegate* unmanaged[Cdecl]<GISharp.Runtime.Boolean, ulong, ulong, ulong, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(System.Boolean reporting, ulong currentSize, ulong numDirs, ulong numFiles)
+            void managedCallback(bool reporting, ulong currentSize, ulong numDirs, ulong numFiles)
             {
                 var reporting_ = GISharp.Runtime.BooleanExtensions.ToBoolean(reporting);
                 var currentSize_ = (ulong)currentSize;

@@ -29,11 +29,11 @@ namespace GISharp.Lib.Gio
 
         static ActionMapInterface()
         {
-            System.Int32 lookupActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.LookupAction));
+            int lookupActionOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.LookupAction));
             RegisterVirtualMethod(lookupActionOffset, LookupActionMarshal.Create);
-            System.Int32 addActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AddAction));
+            int addActionOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AddAction));
             RegisterVirtualMethod(addActionOffset, AddActionMarshal.Create);
-            System.Int32 removeActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.RemoveAction));
+            int removeActionOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.RemoveAction));
             RegisterVirtualMethod(removeActionOffset, RemoveActionMarshal.Create);
         }
 

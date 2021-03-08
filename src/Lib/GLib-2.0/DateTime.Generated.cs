@@ -87,7 +87,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.IsDaylightSavings']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Boolean IsDaylightSavings { get => GetIsDaylightSavings(); }
+        public bool IsDaylightSavings { get => GetIsDaylightSavings(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -1918,7 +1918,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetIsDaylightSavingsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Boolean GetIsDaylightSavings()
+        private bool GetIsDaylightSavings()
         {
             CheckGetIsDaylightSavingsArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
@@ -2031,7 +2031,7 @@ namespace GISharp.Lib.GLib
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_to_unix() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Boolean ToTimeval(GISharp.Lib.GLib.TimeVal tv)
+        public bool ToTimeval(GISharp.Lib.GLib.TimeVal tv)
         {
             CheckToTimevalArgs(tv);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
@@ -2217,7 +2217,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Equals(GISharp.Lib.GLib.DateTime?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Boolean Equals(GISharp.Lib.GLib.DateTime? dt2)
+        public bool Equals(GISharp.Lib.GLib.DateTime? dt2)
         {
             if (dt2 is null)
             {
@@ -2233,7 +2233,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public override System.Boolean Equals(System.Object? other)
+        public override bool Equals(object? other)
         {
             if (other is GISharp.Lib.GLib.DateTime dateTime)
             {
@@ -2244,7 +2244,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public static System.Boolean operator ==(GISharp.Lib.GLib.DateTime a, GISharp.Lib.GLib.DateTime b)
+        public static bool operator ==(GISharp.Lib.GLib.DateTime a, GISharp.Lib.GLib.DateTime b)
         {
             return a.Equals(b);
         }

@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gtk
     public static unsafe partial class Initialize
     {
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.IsInitialized']/*" />
-        public static System.Boolean IsInitialized { get => GetIsInitialized(); }
+        public static bool IsInitialized { get => GetIsInitialized(); }
 
         /// <summary>
         /// Prevents gtk_init(), gtk_init_check() and
@@ -89,7 +89,7 @@ namespace GISharp.Lib.Gtk
         static partial void CheckTryInitArgs();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.TryInit()']/*" />
-        public static System.Boolean TryInit()
+        public static bool TryInit()
         {
             CheckTryInitArgs();
             var ret_ = gtk_init_check();
@@ -110,7 +110,7 @@ namespace GISharp.Lib.Gtk
         private static extern GISharp.Runtime.Boolean gtk_is_initialized();
         static partial void CheckGetIsInitializedArgs();
 
-        private static System.Boolean GetIsInitialized()
+        private static bool GetIsInitialized()
         {
             CheckGetIsInitializedArgs();
             var ret_ = gtk_is_initialized();

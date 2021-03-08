@@ -26,9 +26,9 @@ namespace GISharp.Lib.Gio
 
         static AsyncInitableIface()
         {
-            System.Int32 initAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.InitAsync));
+            int initAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.InitAsync));
             RegisterVirtualMethod(initAsyncOffset, InitAsyncMarshal.Create);
-            System.Int32 initFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.InitFinish));
+            int initFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.InitFinish));
             RegisterVirtualMethod(initFinishOffset, InitFinishMarshal.Create);
         }
 

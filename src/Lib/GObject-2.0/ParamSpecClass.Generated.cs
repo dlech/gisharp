@@ -37,13 +37,13 @@ namespace GISharp.Lib.GObject
 
         static ParamSpecClass()
         {
-            System.Int32 finalizeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Finalize));
+            int finalizeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Finalize));
             RegisterVirtualMethod(finalizeOffset, FinalizeMarshal.Create);
-            System.Int32 valueSetDefaultOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ValueSetDefault));
+            int valueSetDefaultOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ValueSetDefault));
             RegisterVirtualMethod(valueSetDefaultOffset, ValueSetDefaultMarshal.Create);
-            System.Int32 valueValidateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ValueValidate));
+            int valueValidateOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ValueValidate));
             RegisterVirtualMethod(valueValidateOffset, ValueValidateMarshal.Create);
-            System.Int32 valuesCmpOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ValuesCmp));
+            int valuesCmpOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ValuesCmp));
             RegisterVirtualMethod(valuesCmpOffset, ValuesCmpMarshal.Create);
         }
 
@@ -113,7 +113,7 @@ GISharp.Lib.GObject.Value* value);
         }
 
         /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='ValueValidate']/*" />
-        public delegate System.Boolean ValueValidate(GISharp.Lib.GObject.Value value);
+        public delegate bool ValueValidate(GISharp.Lib.GObject.Value value);
 
         /// <summary>
         /// Unmanaged callback

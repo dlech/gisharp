@@ -158,10 +158,10 @@ namespace GISharp.CodeGen.Syntax
         {
             var type = method.Parameters.InstanceParameter.Type.GetManagedType();
             var identifier = method.Parameters.InstanceParameter.Type.GetManagedType().Split('.').Last().ToCamelCase();
-            var syntax = MethodDeclaration(ParseTypeName(typeof(bool).FullName), "Equals")
+            var syntax = MethodDeclaration(ParseTypeName("bool"), "Equals")
                 .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
                 .AddParameterListParameters(Parameter(Identifier("other"))
-                    .WithType(ParseTypeName($"{typeof(object).FullName}?")))
+                    .WithType(ParseTypeName("object?")))
                 .AddBodyStatements(
                     IfStatement(
                         ParseExpression($"other is {type} {identifier}"),
@@ -177,7 +177,7 @@ namespace GISharp.CodeGen.Syntax
         private static OperatorDeclarationSyntax GetEqualityOperatorDeclaration(this Method method)
         {
             var parameterType = ParseTypeName(method.ManagedParameters.RegularParameters.Single().Type.GetManagedType());
-            return OperatorDeclaration(ParseTypeName("System.Boolean"), Token(EqualsEqualsToken))
+            return OperatorDeclaration(ParseTypeName("bool"), Token(EqualsEqualsToken))
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .AddParameterListParameters(
                     Parameter(Identifier("a")).WithType(parameterType),

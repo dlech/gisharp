@@ -106,7 +106,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Contains(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public System.Boolean Contains(GISharp.Lib.GLib.UnownedUtf8 key)
+        public bool Contains(GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckContainsArgs(key);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -305,7 +305,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Remove(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public System.Boolean Remove(GISharp.Lib.GLib.UnownedUtf8 key)
+        public bool Remove(GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckRemoveArgs(key);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;

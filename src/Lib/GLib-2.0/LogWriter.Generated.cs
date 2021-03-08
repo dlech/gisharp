@@ -148,11 +148,11 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean useColor);
-        static partial void CheckFormatFieldsArgs(GISharp.Lib.GLib.LogLevelFlags logLevel, System.ReadOnlySpan<GISharp.Lib.GLib.LogField> fields, System.Boolean useColor);
+        static partial void CheckFormatFieldsArgs(GISharp.Lib.GLib.LogLevelFlags logLevel, System.ReadOnlySpan<GISharp.Lib.GLib.LogField> fields, bool useColor);
 
-        /// <include file="LogWriter.xmldoc" path="declaration/member[@name='LogWriter.FormatFields(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan&lt;GISharp.Lib.GLib.LogField&gt;,System.Boolean)']/*" />
+        /// <include file="LogWriter.xmldoc" path="declaration/member[@name='LogWriter.FormatFields(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan&lt;GISharp.Lib.GLib.LogField&gt;,bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.50")]
-        public static GISharp.Lib.GLib.Utf8 FormatFields(GISharp.Lib.GLib.LogLevelFlags logLevel, System.ReadOnlySpan<GISharp.Lib.GLib.LogField> fields, System.Boolean useColor)
+        public static GISharp.Lib.GLib.Utf8 FormatFields(GISharp.Lib.GLib.LogLevelFlags logLevel, System.ReadOnlySpan<GISharp.Lib.GLib.LogField> fields, bool useColor)
         {
             fixed (GISharp.Lib.GLib.LogField* fieldsData_ = fields)
             {
@@ -197,7 +197,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="LogWriter.xmldoc" path="declaration/member[@name='LogWriter.IsJournald(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.50")]
-        public static System.Boolean IsJournald(int outputFd)
+        public static bool IsJournald(int outputFd)
         {
             CheckIsJournaldArgs(outputFd);
             var outputFd_ = (int)outputFd;
@@ -330,7 +330,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="LogWriter.xmldoc" path="declaration/member[@name='LogWriter.SupportsColor(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.50")]
-        public static System.Boolean SupportsColor(int outputFd)
+        public static bool SupportsColor(int outputFd)
         {
             CheckSupportsColorArgs(outputFd);
             var outputFd_ = (int)outputFd;

@@ -77,7 +77,7 @@ System.IntPtr* symbol);
         partial void CheckTrySymbolArgs(GISharp.Lib.GLib.UnownedUtf8 symbolName);
 
         /// <include file="Typelib.xmldoc" path="declaration/member[@name='Typelib.TrySymbol(GISharp.Lib.GLib.UnownedUtf8,System.IntPtr)']/*" />
-        public System.Boolean TrySymbol(GISharp.Lib.GLib.UnownedUtf8 symbolName, out System.IntPtr symbol)
+        public bool TrySymbol(GISharp.Lib.GLib.UnownedUtf8 symbolName, out System.IntPtr symbol)
         {
             fixed (System.IntPtr* symbol_ = &symbol)
             {

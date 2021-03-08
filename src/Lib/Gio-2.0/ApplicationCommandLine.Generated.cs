@@ -31,7 +31,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.IsRemote_']/*" />
         [GISharp.Runtime.GPropertyAttribute("is-remote")]
-        public System.Boolean IsRemote_ { get => (System.Boolean)GetProperty("is-remote")!; }
+        public bool IsRemote_ { get => (bool)GetProperty("is-remote")!; }
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Options_']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -61,7 +61,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.IsRemote']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public System.Boolean IsRemote { get => GetIsRemote(); }
+        public bool IsRemote { get => GetIsRemote(); }
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Options']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
@@ -315,7 +315,7 @@ namespace GISharp.Lib.Gio
         partial void CheckGetIsRemoteArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private System.Boolean GetIsRemote()
+        private bool GetIsRemote()
         {
             CheckGetIsRemoteArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;

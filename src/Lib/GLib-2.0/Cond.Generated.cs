@@ -273,7 +273,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Cond.xmldoc" path="declaration/member[@name='Cond.WaitUntil(GISharp.Lib.GLib.Mutex,long)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public System.Boolean WaitUntil(GISharp.Lib.GLib.Mutex mutex, long endTime)
+        public bool WaitUntil(GISharp.Lib.GLib.Mutex mutex, long endTime)
         {
             fixed (GISharp.Lib.GLib.Cond* this_ = &this)
             {

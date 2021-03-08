@@ -1517,7 +1517,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoReplace(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoReplace(GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Returns an output stream for overwriting the file, possibly
 creating a backup copy of the file first. If the file doesn't exist,
@@ -1585,13 +1585,13 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file, replacing the contents,
 possibly creating a backup copy of the file first.
 </summary>
 <remarks>
-For more details, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
+For more details, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
 
 When the operation is finished, <paramref name="callback"/> will be called.
@@ -1624,7 +1624,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoReplaceFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file replace operation started with
-<see cref="File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -1638,14 +1638,14 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoReplaceReadwrite(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoReplaceReadwrite(GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Returns an output stream for overwriting the file in readwrite mode,
 possibly creating a backup copy of the file first. If the file doesn't
 exist, it will be created.
 </summary>
 <remarks>
-For details about the behaviour, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which does the
+For details about the behaviour, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which does the
 same thing but returns an output stream only.
 
 Note that in many non-local file cases read and write streams are not
@@ -1675,14 +1675,14 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file in read-write mode,
 replacing the contents, possibly creating a backup copy
 of the file first.
 </summary>
 <remarks>
-For more details, see <see cref="File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
+For more details, see <see cref="File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
 
 When the operation is finished, <paramref name="callback"/> will be called.
@@ -1715,7 +1715,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoReplaceReadwriteFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file replace operation started with
-<see cref="File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -3790,7 +3790,7 @@ optional <see cref="Cancellable"/> object,
 </param>
 </member>
 
-<member name='File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Returns an output stream for overwriting the file, possibly
 creating a backup copy of the file first. If the file doesn't exist,
@@ -3861,13 +3861,13 @@ On error
 </exception>
 </member>
 
-<member name='File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file, replacing the contents,
 possibly creating a backup copy of the file first.
 </summary>
 <remarks>
-For more details, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
+For more details, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
 
 When the operation is finished, <paramref name="callback"/> will be called.
@@ -3896,7 +3896,7 @@ optional <see cref="Cancellable"/> object,
 </param>
 </member>
 
-<member name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Replaces the contents of <paramref name="file"/> with <paramref name="contents"/> of the length of <paramref name="contents"/> bytes.
 </summary>
@@ -3905,7 +3905,7 @@ If <paramref name="etag"/> is specified (not <c>null</c>), any existing file mus
 or the error <see cref="IOErrorEnum.WrongEtag"/> will be returned.
 
 If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a backup
-of <paramref name="file"/>. Internally, it uses <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>, so will try to replace the
+of <paramref name="file"/>. Internally, it uses <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>, so will try to replace the
 file contents in the safest way possible. For example, atomic renames are
 used when replacing local files’ contents.
 
@@ -3945,7 +3945,7 @@ On error
 </exception>
 </member>
 
-<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Starts an asynchronous replacement of <paramref name="file"/> with the given
 <paramref name="contents"/> of the length of <paramref name="contents"/> bytes. <paramref name="etag"/> will replace the document's
@@ -3964,7 +3964,7 @@ If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to
 make a backup of <paramref name="file"/>.
 
 Note that no copy of <paramref name="contents"/> will be made, so it must stay valid
-until <paramref name="callback"/> is called. See <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>
+until <paramref name="callback"/> is called. See <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>
 for a #GBytes version that will automatically hold a reference to the
 contents (without copying) for the duration of the call.
 </remarks>
@@ -3988,11 +3988,11 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Same as <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> but takes a #GBytes input instead.
+Same as <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{byte},GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> but takes a #GBytes input instead.
 This function will keep a ref on <paramref name="contents"/> until the operation is done.
-Unlike <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> this allows forgetting about the
+Unlike <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{byte},GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> this allows forgetting about the
 content without waiting for the callback.
 </summary>
 <remarks>
@@ -4020,14 +4020,14 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Returns an output stream for overwriting the file in readwrite mode,
 possibly creating a backup copy of the file first. If the file doesn't
 exist, it will be created.
 </summary>
 <remarks>
-For details about the behaviour, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which does the
+For details about the behaviour, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which does the
 same thing but returns an output stream only.
 
 Note that in many non-local file cases read and write streams are not
@@ -4060,14 +4060,14 @@ On error
 </exception>
 </member>
 
-<member name='File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file in read-write mode,
 replacing the contents, possibly creating a backup copy
 of the file first.
 </summary>
 <remarks>
-For more details, see <see cref="File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
+For more details, see <see cref="File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
 
 When the operation is finished, <paramref name="callback"/> will be called.

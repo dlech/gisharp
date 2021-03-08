@@ -97,7 +97,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoEqual(GISharp.Lib.Gio.IIcon?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedEqual))]
-        System.Boolean DoEqual(GISharp.Lib.Gio.IIcon? icon2);
+        bool DoEqual(GISharp.Lib.Gio.IIcon? icon2);
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoHash()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedHash))]
@@ -175,7 +175,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckEqualsArgs(this GISharp.Lib.Gio.IIcon? icon1, GISharp.Lib.Gio.IIcon? icon2);
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.Equals(GISharp.Lib.Gio.IIcon?,GISharp.Lib.Gio.IIcon?)']/*" />
-        public static System.Boolean Equals(this GISharp.Lib.Gio.IIcon? icon1, GISharp.Lib.Gio.IIcon? icon2)
+        public static bool Equals(this GISharp.Lib.Gio.IIcon? icon1, GISharp.Lib.Gio.IIcon? icon2)
         {
             CheckEqualsArgs(icon1, icon2);
             var icon1_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)(icon1?.UnsafeHandle ?? System.IntPtr.Zero);

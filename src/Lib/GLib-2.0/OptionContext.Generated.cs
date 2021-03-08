@@ -19,11 +19,11 @@ namespace GISharp.Lib.GLib
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.HelpEnabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean HelpEnabled { get => GetHelpEnabled(); set => SetHelpEnabled(value); }
+        public bool HelpEnabled { get => GetHelpEnabled(); set => SetHelpEnabled(value); }
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.IgnoreUnknownOptions']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean IgnoreUnknownOptions { get => GetIgnoreUnknownOptions(); set => SetIgnoreUnknownOptions(value); }
+        public bool IgnoreUnknownOptions { get => GetIgnoreUnknownOptions(); set => SetIgnoreUnknownOptions(value); }
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.MainGroup']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
@@ -31,7 +31,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.StrictPosix']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public System.Boolean StrictPosix { get => GetStrictPosix(); set => SetStrictPosix(value); }
+        public bool StrictPosix { get => GetStrictPosix(); set => SetStrictPosix(value); }
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.Summary']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
@@ -224,11 +224,11 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group);
-        partial void CheckGetHelpArgs(System.Boolean mainHelp, GISharp.Lib.GLib.OptionGroup? group);
+        partial void CheckGetHelpArgs(bool mainHelp, GISharp.Lib.GLib.OptionGroup? group);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.GetHelp(System.Boolean,GISharp.Lib.GLib.OptionGroup?)']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.GetHelp(bool,GISharp.Lib.GLib.OptionGroup?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public GISharp.Lib.GLib.Utf8 GetHelp(System.Boolean mainHelp, GISharp.Lib.GLib.OptionGroup? group)
+        public GISharp.Lib.GLib.Utf8 GetHelp(bool mainHelp, GISharp.Lib.GLib.OptionGroup? group)
         {
             CheckGetHelpArgs(mainHelp, group);
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
@@ -260,7 +260,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetHelpEnabledArgs();
 
         [GISharp.Runtime.SinceAttribute("2.6")]
-        private System.Boolean GetHelpEnabled()
+        private bool GetHelpEnabled()
         {
             CheckGetHelpEnabledArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
@@ -290,7 +290,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetIgnoreUnknownOptionsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.6")]
-        private System.Boolean GetIgnoreUnknownOptions()
+        private bool GetIgnoreUnknownOptions()
         {
             CheckGetIgnoreUnknownOptionsArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
@@ -353,7 +353,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetStrictPosixArgs();
 
         [GISharp.Runtime.SinceAttribute("2.44")]
-        private System.Boolean GetStrictPosix()
+        private bool GetStrictPosix()
         {
             CheckGetStrictPosixArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
@@ -451,10 +451,10 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean helpEnabled);
-        partial void CheckSetHelpEnabledArgs(System.Boolean helpEnabled);
+        partial void CheckSetHelpEnabledArgs(bool helpEnabled);
 
         [GISharp.Runtime.SinceAttribute("2.6")]
-        private void SetHelpEnabled(System.Boolean helpEnabled)
+        private void SetHelpEnabled(bool helpEnabled)
         {
             CheckSetHelpEnabledArgs(helpEnabled);
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
@@ -490,10 +490,10 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean ignoreUnknown);
-        partial void CheckSetIgnoreUnknownOptionsArgs(System.Boolean ignoreUnknown);
+        partial void CheckSetIgnoreUnknownOptionsArgs(bool ignoreUnknown);
 
         [GISharp.Runtime.SinceAttribute("2.6")]
-        private void SetIgnoreUnknownOptions(System.Boolean ignoreUnknown)
+        private void SetIgnoreUnknownOptions(bool ignoreUnknown)
         {
             CheckSetIgnoreUnknownOptionsArgs(ignoreUnknown);
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
@@ -579,10 +579,10 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean strictPosix);
-        partial void CheckSetStrictPosixArgs(System.Boolean strictPosix);
+        partial void CheckSetStrictPosixArgs(bool strictPosix);
 
         [GISharp.Runtime.SinceAttribute("2.44")]
-        private void SetStrictPosix(System.Boolean strictPosix)
+        private void SetStrictPosix(bool strictPosix)
         {
             CheckSetStrictPosixArgs(strictPosix);
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;

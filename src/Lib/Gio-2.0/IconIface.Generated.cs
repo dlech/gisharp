@@ -34,11 +34,11 @@ namespace GISharp.Lib.Gio
 
         static IconIface()
         {
-            System.Int32 hashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Hash));
+            int hashOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Hash));
             RegisterVirtualMethod(hashOffset, HashMarshal.Create);
-            System.Int32 equalOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Equal));
+            int equalOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Equal));
             RegisterVirtualMethod(equalOffset, EqualMarshal.Create);
-            System.Int32 serializeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Serialize));
+            int serializeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Serialize));
             RegisterVirtualMethod(serializeOffset, SerializeMarshal.Create);
         }
 
@@ -74,7 +74,7 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
         }
 
         /// <include file="IconIface.xmldoc" path="declaration/member[@name='Equal']/*" />
-        public delegate System.Boolean Equal(GISharp.Lib.Gio.IIcon? icon2);
+        public delegate bool Equal(GISharp.Lib.Gio.IIcon? icon2);
 
         /// <summary>
         /// Unmanaged callback

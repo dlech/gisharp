@@ -17,11 +17,11 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable.DoCanSeek()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedCanSeek))]
-        System.Boolean DoCanSeek();
+        bool DoCanSeek();
 
         /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable.DoCanTruncate()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedCanTruncate))]
-        System.Boolean DoCanTruncate();
+        bool DoCanTruncate();
 
         /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable.DoSeek(long,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedSeek))]
@@ -67,7 +67,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckCanSeekArgs(this GISharp.Lib.Gio.ISeekable seekable);
 
         /// <include file="Seekable.xmldoc" path="declaration/member[@name='Seekable.CanSeek(GISharp.Lib.Gio.ISeekable)']/*" />
-        public static System.Boolean CanSeek(this GISharp.Lib.Gio.ISeekable seekable)
+        public static bool CanSeek(this GISharp.Lib.Gio.ISeekable seekable)
         {
             CheckCanSeekArgs(seekable);
             var seekable_ = (GISharp.Lib.Gio.Seekable.UnmanagedStruct*)seekable.UnsafeHandle;
@@ -96,7 +96,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckCanTruncateArgs(this GISharp.Lib.Gio.ISeekable seekable);
 
         /// <include file="Seekable.xmldoc" path="declaration/member[@name='Seekable.CanTruncate(GISharp.Lib.Gio.ISeekable)']/*" />
-        public static System.Boolean CanTruncate(this GISharp.Lib.Gio.ISeekable seekable)
+        public static bool CanTruncate(this GISharp.Lib.Gio.ISeekable seekable)
         {
             CheckCanTruncateArgs(seekable);
             var seekable_ = (GISharp.Lib.Gio.Seekable.UnmanagedStruct*)seekable.UnsafeHandle;

@@ -88,7 +88,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckRemoveByDataArgs(System.IntPtr data);
 
         /// <include file="Idle.xmldoc" path="declaration/member[@name='Idle.RemoveByData(System.IntPtr)']/*" />
-        public static System.Boolean RemoveByData(System.IntPtr data)
+        public static bool RemoveByData(System.IntPtr data)
         {
             CheckRemoveByDataArgs(data);
             var data_ = (System.IntPtr)data;

@@ -825,7 +825,7 @@ byte* directory);
         partial void CheckIsRegisteredArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace, GISharp.Lib.GLib.NullableUnownedUtf8 version);
 
         /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.IsRegistered(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
-        public System.Boolean IsRegistered(GISharp.Lib.GLib.UnownedUtf8 @namespace, GISharp.Lib.GLib.NullableUnownedUtf8 version)
+        public bool IsRegistered(GISharp.Lib.GLib.UnownedUtf8 @namespace, GISharp.Lib.GLib.NullableUnownedUtf8 version)
         {
             CheckIsRegisteredArgs(@namespace, version);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;

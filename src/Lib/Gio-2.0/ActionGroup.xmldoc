@@ -86,7 +86,7 @@ the name of an action in the group
 </param>
 </member>
 
-<member name='IActionGroup.DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
+<member name='IActionGroup.DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8,bool)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-enabled-changed signal on this instance.
 </summary>
@@ -359,9 +359,9 @@ on individual actions.
 
 Implementations of <see cref="IActionGroup"/> should provide implementations for
 the virtual functions <see cref="ActionGroup.ListActions(GISharp.Lib.Gio.IActionGroup)"/> and
-<see cref="ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,out System.Boolean,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.Variant,out GISharp.Lib.GLib.Variant)"/>.  The other virtual functions should
+<see cref="ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,out bool,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.Variant,out GISharp.Lib.GLib.Variant)"/>.  The other virtual functions should
 not be implemented - their "wrappers" are actually implemented with
-calls to <see cref="ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,out System.Boolean,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.Variant,out GISharp.Lib.GLib.Variant)"/>.
+calls to <see cref="ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,out bool,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.Variant,out GISharp.Lib.GLib.Variant)"/>.
 </remarks>
 </member>
 
@@ -380,7 +380,7 @@ the name of an action in the group
 </param>
 </member>
 
-<member name='ActionGroup.ActionEnabledChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
+<member name='ActionGroup.ActionEnabledChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,bool)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-enabled-changed signal on <paramref name="actionGroup"/>.
 </summary>
@@ -644,7 +644,7 @@ actions in the group
 </returns>
 </member>
 
-<member name='ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)'>
+<member name='ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,bool,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)'>
 <summary>
 Queries all aspects of the named action within an <paramref name="actionGroup"/>.
 </summary>

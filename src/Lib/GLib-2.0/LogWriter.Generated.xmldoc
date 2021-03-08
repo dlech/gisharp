@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='LogWriter.FormatFields(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan&lt;GISharp.Lib.GLib.LogField&gt;,System.Boolean)'>
+<member name='LogWriter.FormatFields(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan&lt;GISharp.Lib.GLib.LogField&gt;,bool)'>
 <summary>
 Format a structured log message as a string suitable for outputting to the
 terminal (or elsewhere). This will include the values of all fields it knows

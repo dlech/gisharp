@@ -65,7 +65,7 @@ namespace GISharp.Lib.GLib
         public const System.Boolean Remove = false;
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.CanRecurse']/*" />
-        public System.Boolean CanRecurse { get => GetCanRecurse(); set => SetCanRecurse(value); }
+        public bool CanRecurse { get => GetCanRecurse(); set => SetCanRecurse(value); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Context']/*" />
         public GISharp.Lib.GLib.MainContext? Context { get => GetContext(); }
@@ -89,7 +89,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.IsDestroyed']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public System.Boolean IsDestroyed { get => GetIsDestroyed(); }
+        public bool IsDestroyed { get => GetIsDestroyed(); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Current']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
@@ -192,7 +192,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckRemoveByIdArgs(uint tag);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.RemoveById(uint)']/*" />
-        public static System.Boolean RemoveById(uint tag)
+        public static bool RemoveById(uint tag)
         {
             CheckRemoveByIdArgs(tag);
             var tag_ = (uint)tag;
@@ -228,7 +228,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckRemoveByFuncsUserDataArgs(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.RemoveByFuncsUserData(GISharp.Lib.GLib.SourceFuncs,System.IntPtr)']/*" />
-        public static System.Boolean RemoveByFuncsUserData(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData)
+        public static bool RemoveByFuncsUserData(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData)
         {
             CheckRemoveByFuncsUserDataArgs(funcs, userData);
             var funcs_ = &funcs;
@@ -259,7 +259,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckRemoveByUserDataArgs(System.IntPtr userData);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.RemoveByUserData(System.IntPtr)']/*" />
-        public static System.Boolean RemoveByUserData(System.IntPtr userData)
+        public static bool RemoveByUserData(System.IntPtr userData)
         {
             CheckRemoveByUserDataArgs(userData);
             var userData_ = (System.IntPtr)userData;
@@ -585,7 +585,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetCanRecurseArgs();
 
-        private System.Boolean GetCanRecurse()
+        private bool GetCanRecurse()
         {
             CheckGetCanRecurseArgs();
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
@@ -913,7 +913,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetIsDestroyedArgs();
 
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private System.Boolean GetIsDestroyed()
+        private bool GetIsDestroyed()
         {
             CheckGetIsDestroyedArgs();
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
@@ -1288,9 +1288,9 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean canRecurse);
-        partial void CheckSetCanRecurseArgs(System.Boolean canRecurse);
+        partial void CheckSetCanRecurseArgs(bool canRecurse);
 
-        private void SetCanRecurse(System.Boolean canRecurse)
+        private void SetCanRecurse(bool canRecurse)
         {
             CheckSetCanRecurseArgs(canRecurse);
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;

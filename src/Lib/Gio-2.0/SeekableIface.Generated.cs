@@ -34,15 +34,15 @@ namespace GISharp.Lib.Gio
 
         static SeekableIface()
         {
-            System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Tell));
+            int tellOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Tell));
             RegisterVirtualMethod(tellOffset, TellMarshal.Create);
-            System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanSeek));
+            int canSeekOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanSeek));
             RegisterVirtualMethod(canSeekOffset, CanSeekMarshal.Create);
-            System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Seek));
+            int seekOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Seek));
             RegisterVirtualMethod(seekOffset, SeekMarshal.Create);
-            System.Int32 canTruncateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanTruncate));
+            int canTruncateOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanTruncate));
             RegisterVirtualMethod(canTruncateOffset, CanTruncateMarshal.Create);
-            System.Int32 truncateFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TruncateFn));
+            int truncateFnOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TruncateFn));
             RegisterVirtualMethod(truncateFnOffset, TruncateFnMarshal.Create);
         }
 
@@ -78,7 +78,7 @@ GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable);
         }
 
         /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='CanSeek']/*" />
-        public delegate System.Boolean CanSeek();
+        public delegate bool CanSeek();
 
         /// <summary>
         /// Unmanaged callback
@@ -152,7 +152,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='CanTruncate']/*" />
-        public delegate System.Boolean CanTruncate();
+        public delegate bool CanTruncate();
 
         /// <summary>
         /// Unmanaged callback

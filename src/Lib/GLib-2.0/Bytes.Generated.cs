@@ -308,7 +308,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Equals(GISharp.Lib.GLib.Bytes?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public System.Boolean Equals(GISharp.Lib.GLib.Bytes? bytes2)
+        public bool Equals(GISharp.Lib.GLib.Bytes? bytes2)
         {
             if (bytes2 is null)
             {
@@ -324,7 +324,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public override System.Boolean Equals(System.Object? other)
+        public override bool Equals(object? other)
         {
             if (other is GISharp.Lib.GLib.Bytes bytes)
             {
@@ -335,7 +335,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public static System.Boolean operator ==(GISharp.Lib.GLib.Bytes a, GISharp.Lib.GLib.Bytes b)
+        public static bool operator ==(GISharp.Lib.GLib.Bytes a, GISharp.Lib.GLib.Bytes b)
         {
             return a.Equals(b);
         }

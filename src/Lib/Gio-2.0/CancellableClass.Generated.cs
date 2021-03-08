@@ -37,7 +37,7 @@ namespace GISharp.Lib.Gio
 
         static CancellableClass()
         {
-            System.Int32 cancelledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Cancelled));
+            int cancelledOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Cancelled));
             RegisterVirtualMethod(cancelledOffset, CancelledMarshal.Create);
         }
 

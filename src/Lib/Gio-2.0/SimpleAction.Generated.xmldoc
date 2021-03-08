@@ -155,7 +155,7 @@ the requested value for the state
 <seealso cref="ChangeStateSignalHandler"/>
 </member>
 
-<member name='SimpleAction.SetEnabled(System.Boolean)'>
+<member name='SimpleAction.SetEnabled(bool)'>
 <summary>
 Sets the action as enabled or not.
 </summary>

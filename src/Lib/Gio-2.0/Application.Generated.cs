@@ -44,15 +44,15 @@ namespace GISharp.Lib.Gio
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IsBusy_']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         [GISharp.Runtime.GPropertyAttribute("is-busy")]
-        public System.Boolean IsBusy_ { get => (System.Boolean)GetProperty("is-busy")!; }
+        public bool IsBusy_ { get => (bool)GetProperty("is-busy")!; }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IsRegistered_']/*" />
         [GISharp.Runtime.GPropertyAttribute("is-registered")]
-        public System.Boolean IsRegistered_ { get => (System.Boolean)GetProperty("is-registered")!; }
+        public bool IsRegistered_ { get => (bool)GetProperty("is-registered")!; }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IsRemote_']/*" />
         [GISharp.Runtime.GPropertyAttribute("is-remote")]
-        public System.Boolean IsRemote_ { get => (System.Boolean)GetProperty("is-remote")!; }
+        public bool IsRemote_ { get => (bool)GetProperty("is-remote")!; }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.ResourceBasePath_']/*" />
         [GISharp.Runtime.GPropertyAttribute("resource-base-path")]
@@ -80,15 +80,15 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IsBusy']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public System.Boolean IsBusy { get => GetIsBusy(); }
+        public bool IsBusy { get => GetIsBusy(); }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IsRegistered']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public System.Boolean IsRegistered { get => GetIsRegistered(); }
+        public bool IsRegistered { get => GetIsRegistered(); }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IsRemote']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public System.Boolean IsRemote { get => GetIsRemote(); }
+        public bool IsRemote { get => GetIsRemote(); }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.ResourceBasePath']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
@@ -236,7 +236,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='NameLostSignalHandler']/*" />
-        public delegate System.Boolean NameLostSignalHandler(GISharp.Lib.Gio.Application application);
+        public delegate bool NameLostSignalHandler(GISharp.Lib.Gio.Application application);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.NameLostSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
@@ -447,7 +447,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckIdIsValidArgs(GISharp.Lib.GLib.UnownedUtf8 applicationId);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static System.Boolean IdIsValid(GISharp.Lib.GLib.UnownedUtf8 applicationId)
+        public static bool IdIsValid(GISharp.Lib.GLib.UnownedUtf8 applicationId)
         {
             CheckIdIsValidArgs(applicationId);
             var applicationId_ = (byte*)applicationId.UnsafeHandle;
@@ -925,7 +925,7 @@ namespace GISharp.Lib.Gio
         partial void CheckGetIsBusyArgs();
 
         [GISharp.Runtime.SinceAttribute("2.44")]
-        private System.Boolean GetIsBusy()
+        private bool GetIsBusy()
         {
             CheckGetIsBusyArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -958,7 +958,7 @@ namespace GISharp.Lib.Gio
         partial void CheckGetIsRegisteredArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private System.Boolean GetIsRegistered()
+        private bool GetIsRegistered()
         {
             CheckGetIsRegisteredArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -997,7 +997,7 @@ namespace GISharp.Lib.Gio
         partial void CheckGetIsRemoteArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private System.Boolean GetIsRemote()
+        private bool GetIsRemote()
         {
             CheckGetIsRemoteArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1972,7 +1972,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv,int)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedTryLocalCommandLine))]
-        protected virtual System.Boolean DoTryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out int exitStatus)
+        protected virtual bool DoTryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out int exitStatus)
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var arguments_ = (byte**)arguments.Take();
@@ -1986,7 +1986,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoNameLost()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedNameLost))]
-        protected virtual System.Boolean DoNameLost()
+        protected virtual bool DoNameLost()
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedNameLost>(_GType)!(application_);
@@ -2046,7 +2046,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.IActionGroup.DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled)
+        void GISharp.Lib.Gio.IActionGroup.DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, bool enabled)
         {
             throw new System.NotImplementedException();
         }
@@ -2071,7 +2071,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        System.Boolean GISharp.Lib.Gio.IActionGroup.DoGetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName)
+        bool GISharp.Lib.Gio.IActionGroup.DoGetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
@@ -2096,7 +2096,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        System.Boolean GISharp.Lib.Gio.IActionGroup.DoHasAction(GISharp.Lib.GLib.UnownedUtf8 actionName)
+        bool GISharp.Lib.Gio.IActionGroup.DoHasAction(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }

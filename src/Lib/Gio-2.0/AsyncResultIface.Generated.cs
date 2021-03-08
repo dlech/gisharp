@@ -28,11 +28,11 @@ namespace GISharp.Lib.Gio
 
         static AsyncResultIface()
         {
-            System.Int32 getUserDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUserData));
+            int getUserDataOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUserData));
             RegisterVirtualMethod(getUserDataOffset, GetUserDataMarshal.Create);
-            System.Int32 getSourceObjectOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetSourceObject));
+            int getSourceObjectOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetSourceObject));
             RegisterVirtualMethod(getSourceObjectOffset, GetSourceObjectMarshal.Create);
-            System.Int32 isTaggedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.IsTagged));
+            int isTaggedOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.IsTagged));
             RegisterVirtualMethod(isTaggedOffset, IsTaggedMarshal.Create);
         }
 
@@ -99,7 +99,7 @@ GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res);
         }
 
         /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='IsTagged']/*" />
-        public delegate System.Boolean IsTagged(System.IntPtr sourceTag);
+        public delegate bool IsTagged(System.IntPtr sourceTag);
 
         /// <summary>
         /// Unmanaged callback

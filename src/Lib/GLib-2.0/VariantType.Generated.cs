@@ -20,28 +20,28 @@ namespace GISharp.Lib.GLib
         public int StringLength { get => GetStringLength(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsArray']/*" />
-        public System.Boolean IsArray { get => GetIsArray(); }
+        public bool IsArray { get => GetIsArray(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsBasic']/*" />
-        public System.Boolean IsBasic { get => GetIsBasic(); }
+        public bool IsBasic { get => GetIsBasic(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsContainer']/*" />
-        public System.Boolean IsContainer { get => GetIsContainer(); }
+        public bool IsContainer { get => GetIsContainer(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsDefinite']/*" />
-        public System.Boolean IsDefinite { get => GetIsDefinite(); }
+        public bool IsDefinite { get => GetIsDefinite(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsDictEntry']/*" />
-        public System.Boolean IsDictEntry { get => GetIsDictEntry(); }
+        public bool IsDictEntry { get => GetIsDictEntry(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsMaybe']/*" />
-        public System.Boolean IsMaybe { get => GetIsMaybe(); }
+        public bool IsMaybe { get => GetIsMaybe(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsTuple']/*" />
-        public System.Boolean IsTuple { get => GetIsTuple(); }
+        public bool IsTuple { get => GetIsTuple(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsVariant']/*" />
-        public System.Boolean IsVariant { get => GetIsVariant(); }
+        public bool IsVariant { get => GetIsVariant(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -325,7 +325,7 @@ byte* typeString);
         static partial void CheckStringIsValidArgs(GISharp.Lib.GLib.UnownedUtf8 typeString);
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.StringIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static System.Boolean StringIsValid(GISharp.Lib.GLib.UnownedUtf8 typeString)
+        public static bool StringIsValid(GISharp.Lib.GLib.UnownedUtf8 typeString)
         {
             CheckStringIsValidArgs(typeString);
             var typeString_ = (byte*)typeString.UnsafeHandle;
@@ -380,7 +380,7 @@ byte* typeString);
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.TryStringScan(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.Utf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public static System.Boolean TryStringScan(GISharp.Lib.GLib.UnownedUtf8 @string, GISharp.Lib.GLib.NullableUnownedUtf8 limit, out GISharp.Lib.GLib.Utf8 endptr)
+        public static bool TryStringScan(GISharp.Lib.GLib.UnownedUtf8 @string, GISharp.Lib.GLib.NullableUnownedUtf8 limit, out GISharp.Lib.GLib.Utf8 endptr)
         {
             CheckTryStringScanArgs(@string, limit);
             var @string_ = (byte*)@string.UnsafeHandle;
@@ -519,7 +519,7 @@ byte* typeString);
         partial void CheckEqualsArgs(GISharp.Lib.GLib.VariantType type2);
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Equals(GISharp.Lib.GLib.VariantType?)']/*" />
-        public System.Boolean Equals(GISharp.Lib.GLib.VariantType? type2)
+        public bool Equals(GISharp.Lib.GLib.VariantType? type2)
         {
             if (type2 is null)
             {
@@ -535,7 +535,7 @@ byte* typeString);
         }
 
         /// <inheritdoc/>
-        public override System.Boolean Equals(System.Object? other)
+        public override bool Equals(object? other)
         {
             if (other is GISharp.Lib.GLib.VariantType variantType)
             {
@@ -546,7 +546,7 @@ byte* typeString);
         }
 
         /// <inheritdoc/>
-        public static System.Boolean operator ==(GISharp.Lib.GLib.VariantType a, GISharp.Lib.GLib.VariantType b)
+        public static bool operator ==(GISharp.Lib.GLib.VariantType a, GISharp.Lib.GLib.VariantType b)
         {
             return a.Equals(b);
         }
@@ -725,7 +725,7 @@ byte* typeString);
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsArrayArgs();
 
-        private System.Boolean GetIsArray()
+        private bool GetIsArray()
         {
             CheckGetIsArrayArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
@@ -763,7 +763,7 @@ byte* typeString);
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsBasicArgs();
 
-        private System.Boolean GetIsBasic()
+        private bool GetIsBasic()
         {
             CheckGetIsBasicArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
@@ -800,7 +800,7 @@ byte* typeString);
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsContainerArgs();
 
-        private System.Boolean GetIsContainer()
+        private bool GetIsContainer()
         {
             CheckGetIsContainerArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
@@ -839,7 +839,7 @@ byte* typeString);
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsDefiniteArgs();
 
-        private System.Boolean GetIsDefinite()
+        private bool GetIsDefinite()
         {
             CheckGetIsDefiniteArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
@@ -874,7 +874,7 @@ byte* typeString);
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsDictEntryArgs();
 
-        private System.Boolean GetIsDictEntry()
+        private bool GetIsDictEntry()
         {
             CheckGetIsDictEntryArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
@@ -909,7 +909,7 @@ byte* typeString);
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsMaybeArgs();
 
-        private System.Boolean GetIsMaybe()
+        private bool GetIsMaybe()
         {
             CheckGetIsMaybeArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
@@ -950,7 +950,7 @@ byte* typeString);
         partial void CheckIsSubtypeOfArgs(GISharp.Lib.GLib.VariantType supertype);
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsSubtypeOf(GISharp.Lib.GLib.VariantType)']/*" />
-        public System.Boolean IsSubtypeOf(GISharp.Lib.GLib.VariantType supertype)
+        public bool IsSubtypeOf(GISharp.Lib.GLib.VariantType supertype)
         {
             CheckIsSubtypeOfArgs(supertype);
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
@@ -987,7 +987,7 @@ byte* typeString);
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsTupleArgs();
 
-        private System.Boolean GetIsTuple()
+        private bool GetIsTuple()
         {
             CheckGetIsTupleArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
@@ -1016,7 +1016,7 @@ byte* typeString);
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsVariantArgs();
 
-        private System.Boolean GetIsVariant()
+        private bool GetIsVariant()
         {
             CheckGetIsVariantArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;

@@ -14,13 +14,13 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.Abstract']/*" />
-        public System.Boolean Abstract { get => GetAbstract(); }
+        public bool Abstract { get => GetAbstract(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.ClassStruct']/*" />
         public GISharp.Lib.GIRepository.StructInfo? ClassStruct { get => GetClassStruct(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.Fundamental']/*" />
-        public System.Boolean Fundamental { get => GetFundamental(); }
+        public bool Fundamental { get => GetFundamental(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.GetValueFunction']/*" />
         public GISharp.Lib.GLib.NullableUnownedUtf8 GetValueFunction { get => GetGetValueFunction(); }
@@ -308,7 +308,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetAbstractArgs();
 
-        private System.Boolean GetAbstract()
+        private bool GetAbstract()
         {
             CheckGetAbstractArgs();
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
@@ -435,7 +435,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetFundamentalArgs();
 
-        private System.Boolean GetFundamental()
+        private bool GetFundamental()
         {
             CheckGetFundamentalArgs();
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;

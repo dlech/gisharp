@@ -20,7 +20,7 @@ namespace GISharp.Lib.GLib
         public GISharp.Lib.GLib.MainContext Context { get => GetContext(); }
 
         /// <include file="MainLoop.xmldoc" path="declaration/member[@name='MainLoop.IsRunning']/*" />
-        public System.Boolean IsRunning { get => GetIsRunning(); }
+        public bool IsRunning { get => GetIsRunning(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -58,9 +58,9 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean isRunning);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.MainContext? context = null, System.Boolean isRunning = false);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.MainContext? context = null, bool isRunning = false);
 
-        static GISharp.Lib.GLib.MainLoop.UnmanagedStruct* New(GISharp.Lib.GLib.MainContext? context = null, System.Boolean isRunning = false)
+        static GISharp.Lib.GLib.MainLoop.UnmanagedStruct* New(GISharp.Lib.GLib.MainContext? context = null, bool isRunning = false)
         {
             CheckNewArgs(context, isRunning);
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)(context?.UnsafeHandle ?? System.IntPtr.Zero);
@@ -69,8 +69,8 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="MainLoop.xmldoc" path="declaration/member[@name='MainLoop.MainLoop(GISharp.Lib.GLib.MainContext?,System.Boolean)']/*" />
-        public MainLoop(GISharp.Lib.GLib.MainContext? context = null, System.Boolean isRunning = false) : this((System.IntPtr)New(context, isRunning), GISharp.Runtime.Transfer.Full)
+        /// <include file="MainLoop.xmldoc" path="declaration/member[@name='MainLoop.MainLoop(GISharp.Lib.GLib.MainContext?,bool)']/*" />
+        public MainLoop(GISharp.Lib.GLib.MainContext? context = null, bool isRunning = false) : this((System.IntPtr)New(context, isRunning), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -124,7 +124,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.MainLoop.UnmanagedStruct* loop);
         partial void CheckGetIsRunningArgs();
 
-        private System.Boolean GetIsRunning()
+        private bool GetIsRunning()
         {
             CheckGetIsRunningArgs();
             var loop_ = (GISharp.Lib.GLib.MainLoop.UnmanagedStruct*)UnsafeHandle;

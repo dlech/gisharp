@@ -33,10 +33,10 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GIRepository.TypeTag Tag { get => GetTag(); }
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.IsPointer']/*" />
-        public System.Boolean IsPointer { get => GetIsPointer(); }
+        public bool IsPointer { get => GetIsPointer(); }
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.IsZeroTerminated']/*" />
-        public System.Boolean IsZeroTerminated { get => GetIsZeroTerminated(); }
+        public bool IsZeroTerminated { get => GetIsZeroTerminated(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -378,7 +378,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* info);
         partial void CheckGetIsPointerArgs();
 
-        private System.Boolean GetIsPointer()
+        private bool GetIsPointer()
         {
             CheckGetIsPointerArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
@@ -406,7 +406,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* info);
         partial void CheckGetIsZeroTerminatedArgs();
 
-        private System.Boolean GetIsZeroTerminated()
+        private bool GetIsZeroTerminated()
         {
             CheckGetIsZeroTerminatedArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;

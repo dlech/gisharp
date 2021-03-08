@@ -15,7 +15,7 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.CanThrowGError']/*" />
         [GISharp.Runtime.SinceAttribute("1.34")]
-        public System.Boolean CanThrowGError { get => GetCanThrowGError(); }
+        public bool CanThrowGError { get => GetCanThrowGError(); }
 
         /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.CallerOwns']/*" />
         public GISharp.Lib.GIRepository.Transfer CallerOwns { get => GetCallerOwns(); }
@@ -32,13 +32,13 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.IsMethod']/*" />
         [GISharp.Runtime.SinceAttribute("1.34")]
-        public System.Boolean IsMethod { get => GetIsMethod(); }
+        public bool IsMethod { get => GetIsMethod(); }
 
         /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.MayReturnNull']/*" />
-        public System.Boolean MayReturnNull { get => GetMayReturnNull(); }
+        public bool MayReturnNull { get => GetMayReturnNull(); }
 
         /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.IsSkipReturn']/*" />
-        public System.Boolean IsSkipReturn { get => GetIsSkipReturn(); }
+        public bool IsSkipReturn { get => GetIsSkipReturn(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -68,7 +68,7 @@ namespace GISharp.Lib.GIRepository
         partial void CheckGetCanThrowGErrorArgs();
 
         [GISharp.Runtime.SinceAttribute("1.34")]
-        private System.Boolean GetCanThrowGError()
+        private bool GetCanThrowGError()
         {
             CheckGetCanThrowGErrorArgs();
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
@@ -361,7 +361,7 @@ namespace GISharp.Lib.GIRepository
         partial void CheckGetIsMethodArgs();
 
         [GISharp.Runtime.SinceAttribute("1.34")]
-        private System.Boolean GetIsMethod()
+        private bool GetIsMethod()
         {
             CheckGetIsMethodArgs();
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
@@ -415,7 +415,7 @@ namespace GISharp.Lib.GIRepository
         byte** value);
         partial void CheckTryIterateReturnAttributesArgs(ref GISharp.Lib.GIRepository.AttributeIter iterator);
 
-        private System.Boolean TryIterateReturnAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
+        private bool TryIterateReturnAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
         {
             CheckTryIterateReturnAttributesArgs(ref iterator);
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
@@ -504,7 +504,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetMayReturnNullArgs();
 
-        private System.Boolean GetMayReturnNull()
+        private bool GetMayReturnNull()
         {
             CheckGetMayReturnNullArgs();
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
@@ -531,7 +531,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetIsSkipReturnArgs();
 
-        private System.Boolean GetIsSkipReturn()
+        private bool GetIsSkipReturn()
         {
             CheckGetIsSkipReturnArgs();
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;

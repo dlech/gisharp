@@ -20,7 +20,7 @@ namespace GISharp.Lib.GModule
         public static GISharp.Lib.GLib.UnownedUtf8 Error { get => GetError(); }
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.Supported']/*" />
-        public static System.Boolean Supported { get => GetSupported(); }
+        public static bool Supported { get => GetSupported(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -162,7 +162,7 @@ namespace GISharp.Lib.GModule
         private static extern GISharp.Runtime.Boolean g_module_supported();
         static partial void CheckGetSupportedArgs();
 
-        private static System.Boolean GetSupported()
+        private static bool GetSupported()
         {
             CheckGetSupportedArgs();
             var ret_ = g_module_supported();
@@ -187,10 +187,10 @@ namespace GISharp.Lib.GModule
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.Module.UnmanagedStruct* module);
         partial void CheckCloseArgs();
-        partial void CheckCloseReturn(System.Boolean ret);
+        partial void CheckCloseReturn(bool ret);
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.Close()']/*" />
-        public System.Boolean Close()
+        public bool Close()
         {
             CheckCloseArgs();
             var module_ = (GISharp.Lib.GModule.Module.UnmanagedStruct*)UnsafeHandle;
@@ -286,7 +286,7 @@ namespace GISharp.Lib.GModule
         partial void CheckTrySymbolArgs(GISharp.Lib.GLib.UnownedUtf8 symbolName);
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.TrySymbol(GISharp.Lib.GLib.UnownedUtf8,System.IntPtr)']/*" />
-        public System.Boolean TrySymbol(GISharp.Lib.GLib.UnownedUtf8 symbolName, out System.IntPtr symbol)
+        public bool TrySymbol(GISharp.Lib.GLib.UnownedUtf8 symbolName, out System.IntPtr symbol)
         {
             CheckTrySymbolArgs(symbolName);
             var module_ = (GISharp.Lib.GModule.Module.UnmanagedStruct*)UnsafeHandle;

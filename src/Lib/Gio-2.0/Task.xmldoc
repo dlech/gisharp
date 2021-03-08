@@ -24,7 +24,7 @@ Gets this instance's <see cref="Cancellable"/>
 <member name='Task.CheckCancellable'>
 <summary>
 Gets this instance's check-cancellable flag. See
-<see cref="Task.SetCheckCancellable(System.Boolean)"/> for more details.
+<see cref="Task.SetCheckCancellable(bool)"/> for more details.
 </summary>
 </member>
 
@@ -73,7 +73,7 @@ Gets this instance's priority
 <member name='Task.ReturnOnCancel'>
 <summary>
 Gets this instance's return-on-cancel flag. See
-<see cref="Task.SetReturnOnCancel(System.Boolean)"/> for more details.
+<see cref="Task.SetReturnOnCancel(bool)"/> for more details.
 </summary>
 </member>
 
@@ -114,7 +114,7 @@ already completed before the cancellation. This allows for
 simplified handling in cases where cancellation may imply that
 other objects that the task depends on have been destroyed. If you
 do not want this behavior, you can use
-<see cref="Task.SetCheckCancellable(System.Boolean)"/> to change it.
+<see cref="Task.SetCheckCancellable(bool)"/> to change it.
 </remarks>
 <param name="sourceObject">
 the #GObject that owns
@@ -260,7 +260,7 @@ On error
 </exception>
 </member>
 
-<member name='Task.ReturnBoolean(System.Boolean)'>
+<member name='Task.ReturnBoolean(bool)'>
 <summary>
 Sets this instance's result to <paramref name="result"/> and completes the task (see
 g_task_return_pointer() for more discussion of exactly what this
@@ -331,7 +331,7 @@ the #GValue result of a task function
 </param>
 </member>
 
-<member name='Task.SetReturnOnCancel(System.Boolean)'>
+<member name='Task.SetReturnOnCancel(bool)'>
 <summary>
 Sets or clears this instance's return-on-cancel flag. This is only
 meaningful for tasks run via g_task_run_in_thread() or
@@ -347,15 +347,15 @@ This allows you to create a cancellable wrapper around an
 uninterruptible function. The <see cref="TaskThreadFunc"/> just needs to be
 careful that it does not modify any externally-visible state after
 it has been cancelled. To do that, the thread should call
-<see cref="Task.SetReturnOnCancel(System.Boolean)"/> again to (atomically) set
+<see cref="Task.SetReturnOnCancel(bool)"/> again to (atomically) set
 return-on-cancel <c>false</c> before making externally-visible changes;
 if the task gets cancelled before the return-on-cancel flag could
-be changed, <see cref="Task.SetReturnOnCancel(System.Boolean)"/> will indicate this by
+be changed, <see cref="Task.SetReturnOnCancel(bool)"/> will indicate this by
 returning <c>false</c>.
 
 You can disable and re-enable this flag multiple times if you wish.
 If the task's <see cref="Cancellable"/> is cancelled while return-on-cancel is
-<c>false</c>, then calling <see cref="Task.SetReturnOnCancel(System.Boolean)"/> to set it <c>true</c>
+<c>false</c>, then calling <see cref="Task.SetReturnOnCancel(bool)"/> to set it <c>true</c>
 again will cause the task to be cancelled at that point.
 
 If the task's <see cref="Cancellable"/> is already cancelled before you call
@@ -715,7 +715,7 @@ Running a task in a thread:
 
 Finally, g_task_run_in_thread() and g_task_run_in_thread_sync()
 can be used to turn an uncancellable operation into a
-cancellable one. If you call <see cref="Task.SetReturnOnCancel(System.Boolean)"/>,
+cancellable one. If you call <see cref="Task.SetReturnOnCancel(bool)"/>,
 passing <c>true</c>, then if the task's <see cref="Cancellable"/> is cancelled,
 it will return control back to the caller immediately, while
 allowing the task thread to continue running in the background
@@ -750,7 +750,7 @@ Cancelling a task:
       // If the task has already been cancelled, then we don't want to add
       // the cake to the cake cache. Likewise, we don't  want to have the
       // task get cancelled in the middle of updating the cache.
-      // <see cref="Task.SetReturnOnCancel(System.Boolean)"/> will return <c>true</c> here if it managed
+      // <see cref="Task.SetReturnOnCancel(bool)"/> will return <c>true</c> here if it managed
       // to disable return-on-cancel, or <c>false</c> if the task was cancelled
       // before it could.
       if (g_task_set_return_on_cancel (task, FALSE))
@@ -835,7 +835,7 @@ in several ways:
   overrides any other <see cref="Task"/> return value by default, like
   #GSimpleAsyncResult does when
   g_simple_async_result_set_check_cancellable() is called.
-  (You can use <see cref="Task.SetCheckCancellable(System.Boolean)"/> to turn off that
+  (You can use <see cref="Task.SetCheckCancellable(bool)"/> to turn off that
   behavior.) On the other hand, g_task_run_in_thread()
   guarantees that it will always run your
   `task_func`, even if the task's <see cref="Cancellable"/>

@@ -18,10 +18,10 @@ namespace GISharp.Lib.GLib
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.IsOwner']/*" />
         [GISharp.Runtime.SinceAttribute("2.10")]
-        public System.Boolean IsOwner { get => GetIsOwner(); }
+        public bool IsOwner { get => GetIsOwner(); }
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.IsPending']/*" />
-        public System.Boolean IsPending { get => GetIsPending(); }
+        public bool IsPending { get => GetIsPending(); }
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Default']/*" />
         public static GISharp.Lib.GLib.MainContext Default { get => GetDefault(); }
@@ -344,7 +344,7 @@ namespace GISharp.Lib.GLib
         partial void CheckAcquireArgs();
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Acquire()']/*" />
-        public System.Boolean Acquire()
+        public bool Acquire()
         {
             CheckAcquireArgs();
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
@@ -439,7 +439,7 @@ namespace GISharp.Lib.GLib
         partial void CheckCheckArgs(int maxPriority, System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds);
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Check(int,System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;)']/*" />
-        public System.Boolean Check(int maxPriority, System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds)
+        public bool Check(int maxPriority, System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds)
         {
             fixed (GISharp.Lib.GLib.PollFD* fdsData_ = fds)
             {
@@ -695,7 +695,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetIsOwnerArgs();
 
         [GISharp.Runtime.SinceAttribute("2.10")]
-        private System.Boolean GetIsOwner()
+        private bool GetIsOwner()
         {
             CheckGetIsOwnerArgs();
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
@@ -738,10 +738,10 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean mayBlock);
-        partial void CheckIterationArgs(System.Boolean mayBlock);
+        partial void CheckIterationArgs(bool mayBlock);
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Iteration(System.Boolean)']/*" />
-        public System.Boolean Iteration(System.Boolean mayBlock)
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Iteration(bool)']/*" />
+        public bool Iteration(bool mayBlock)
         {
             CheckIterationArgs(mayBlock);
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
@@ -769,7 +769,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckGetIsPendingArgs();
 
-        private System.Boolean GetIsPending()
+        private bool GetIsPending()
         {
             CheckGetIsPendingArgs();
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
@@ -836,7 +836,7 @@ namespace GISharp.Lib.GLib
         partial void CheckTryPrepareArgs();
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.TryPrepare(int)']/*" />
-        public System.Boolean TryPrepare(out int priority)
+        public bool TryPrepare(out int priority)
         {
             CheckTryPrepareArgs();
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;

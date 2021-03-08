@@ -26,7 +26,7 @@ namespace GISharp.Lib.GLib
     System.IntPtr userData);
 
     /// <include file="HRFunc.xmldoc" path="declaration/member[@name='HRFunc']/*" />
-    public delegate System.Boolean HRFunc(System.IntPtr key, System.IntPtr value);
+    public delegate bool HRFunc(System.IntPtr key, System.IntPtr value);
 
     /// <summary>
     /// Class for marshalling <see cref="HRFunc"/> methods.
@@ -38,7 +38,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static GISharp.Lib.GLib.HRFunc FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            System.Boolean managedCallback(System.IntPtr key, System.IntPtr value)
+            bool managedCallback(System.IntPtr key, System.IntPtr value)
             {
                 var key_ = (System.IntPtr)key;
                 var value_ = (System.IntPtr)value;

@@ -51,7 +51,7 @@ the byte data to be added
 </param>
 </member>
 
-<member name='ByteArray.Free(System.Boolean)'>
+<member name='ByteArray.Free(bool)'>
 <summary>
 Frees the memory allocated by the <see cref="ByteArray"/>. If <paramref name="freeSegment"/> is
 <c>true</c> it frees the actual byte data. If the reference count of
@@ -76,7 +76,7 @@ The <see cref="ByteArray"/> is freed unless the reference count of this instance
 than one, the <see cref="ByteArray"/> wrapper is preserved but the size of this instance
 will be set to zero.
 
-This is identical to using <see cref="Bytes.Bytes(GISharp.Runtime.CArray{byte})"/> and <see cref="ByteArray.Free(System.Boolean)"/>
+This is identical to using <see cref="Bytes.Bytes(GISharp.Runtime.CArray{byte})"/> and <see cref="ByteArray.Free(bool)"/>
 together.
 </remarks>
 <returns>

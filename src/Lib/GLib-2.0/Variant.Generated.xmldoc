@@ -322,7 +322,7 @@ Checks if this instance is in normal form.
 <remarks>
 The main reason to do this is to detect if a given chunk of
 serialised data is in normal form: load the data into a <see cref="Variant"/>
-using <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},System.Boolean,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> and then use this function to
+using <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},bool,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> and then use this function to
 check.
 
 If this instance is found to be in normal form then it will be marked as
@@ -362,7 +362,7 @@ an array of
 </param>
 </member>
 
-<member name='Variant.Variant(System.Boolean)'>
+<member name='Variant.Variant(bool)'>
 <summary>
 Creates a new boolean <see cref="Variant"/> instance -- either <c>true</c> or <c>false</c>.
 </summary>
@@ -466,7 +466,7 @@ the size of each element
 </param>
 </member>
 
-<member name='Variant.Variant(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Bytes,System.Boolean)'>
+<member name='Variant.Variant(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Bytes,bool)'>
 <summary>
 Constructs a new serialised-mode <see cref="Variant"/> instance.  This is the
 inner interface for creation of new serialised values that gets
@@ -783,7 +783,7 @@ In case of any error, <c>null</c> will be returned.  If <see cref="GISharp.Runti
 then it will be set to reflect the error that occurred.
 
 Officially, the language understood by the parser is "any string
-produced by <see cref="Variant.Print(System.Boolean)"/>".
+produced by <see cref="Variant.Print(bool)"/>".
 
 There may be implementation specific restrictions on deeply nested values,
 which would result in a <see cref="VariantParseError.Recursion"/> error. <see cref="Variant"/> is
@@ -882,7 +882,7 @@ the byteswapped form of this instance
 </returns>
 </member>
 
-<member name='Variant.CheckFormatString(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
+<member name='Variant.CheckFormatString(GISharp.Lib.GLib.UnownedUtf8,bool)'>
 <summary>
 Checks if calling g_variant_get() with <paramref name="formatString"/> on this instance would
 be valid from a type-compatibility standpoint.  <paramref name="formatString"/> is
@@ -1177,7 +1177,7 @@ the number of children in the container
 </returns>
 </member>
 
-<member name='Variant.Print(System.Boolean)'>
+<member name='Variant.Print(bool)'>
 <summary>
 Pretty-prints this instance in the format understood by <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
 </summary>
@@ -1360,7 +1360,7 @@ or network stream).
 A <see cref="Variant"/>'s size is limited mainly by any lower level operating
 system constraints, such as the number of bits in #gsize.  For
 example, it is reasonable to have a 2GB file mapped into memory
-with #GMappedFile, and call <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},System.Boolean,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> on it.
+with #GMappedFile, and call <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},bool,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> on it.
 
 For convenience to C programmers, <see cref="Variant"/> features powerful
 varargs-based value construction and destruction.  This feature is

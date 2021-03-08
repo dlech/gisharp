@@ -42,9 +42,9 @@ their <see cref="Source"/>s to.
 Returns the depth of the stack of calls to
 <see cref="MainContext.Dispatch()"/> on any <see cref="MainContext"/> in the current thread.
  That is, when called from the toplevel, it gives 0. When
-called from within a callback from <see cref="MainContext.Iteration(System.Boolean)"/>
+called from within a callback from <see cref="MainContext.Iteration(bool)"/>
 (or <see cref="MainLoop.Run()"/>, etc.) it returns 1. When called from within
-a callback to a recursive call to <see cref="MainContext.Iteration(System.Boolean)"/>,
+a callback to a recursive call to <see cref="MainContext.Iteration(bool)"/>,
 it returns 2. And so forth.
 </summary>
 <remarks>
@@ -319,7 +319,7 @@ the priority at which to run <paramref name="function"/>
 </param>
 </member>
 
-<member name='MainContext.Iteration(System.Boolean)'>
+<member name='MainContext.Iteration(bool)'>
 <summary>
 Runs a single iteration for the given main loop. This involves
 checking to see if any event sources are ready to be processed,
@@ -332,7 +332,7 @@ given moment without further waiting.
 </summary>
 <remarks>
 Note that even when <paramref name="mayBlock"/> is <c>true</c>, it is still possible for
-<see cref="MainContext.Iteration(System.Boolean)"/> to return <c>false</c>, since the wait may
+<see cref="MainContext.Iteration(bool)"/> to return <c>false</c>, since the wait may
 be interrupted for other reasons than an event source becoming ready.
 </remarks>
 <param name="mayBlock">
@@ -459,10 +459,10 @@ a <see cref="PollFD"/> descriptor previously added with <see cref="MainContext.A
 
 <member name='MainContext.WakeUp()'>
 <summary>
-If this instance is currently blocking in <see cref="MainContext.Iteration(System.Boolean)"/>
+If this instance is currently blocking in <see cref="MainContext.Iteration(bool)"/>
 waiting for a source to become ready, cause it to stop blocking
 and return.  Otherwise, cause the next invocation of
-<see cref="MainContext.Iteration(System.Boolean)"/> to return without blocking.
+<see cref="MainContext.Iteration(bool)"/> to return without blocking.
 </summary>
 <remarks>
 This API is useful for low-level control over <see cref="MainContext"/>; for

@@ -109,7 +109,7 @@ namespace GISharp.CodeGen.Syntax
         // IntPtr xxxOffset = Marshal.OffsetOf<Struct>(nameof(Struct.xxx));
         static VariableDeclarationSyntax GetOffsetDeclaration(this Field field)
         {
-            var variableType = ParseTypeName(typeof(int).FullName);
+            var variableType = ParseTypeName("int");
             var variableName = field.ManagedName.ToCamelCase() + "Offset";
             var valueExpression = ParseExpression(string.Format("({0}){1}.{2}<UnmanagedStruct>(nameof(UnmanagedStruct.{3}))",
                 variableType,

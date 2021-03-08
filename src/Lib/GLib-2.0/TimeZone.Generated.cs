@@ -517,7 +517,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.IsDst(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Boolean IsDst(int interval)
+        public bool IsDst(int interval)
         {
             CheckIsDstArgs(interval);
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;

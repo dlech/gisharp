@@ -22,7 +22,7 @@ namespace GISharp.Lib.GLib
     System.IntPtr userData);
 
     /// <include file="SourceFunc.xmldoc" path="declaration/member[@name='SourceFunc']/*" />
-    public delegate System.Boolean SourceFunc();
+    public delegate bool SourceFunc();
 
     /// <summary>
     /// Class for marshalling <see cref="SourceFunc"/> methods.
@@ -34,7 +34,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static GISharp.Lib.GLib.SourceFunc FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            System.Boolean managedCallback()
+            bool managedCallback()
             {
                 var ret_ = callback_(userData_);
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);

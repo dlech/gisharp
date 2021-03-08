@@ -218,7 +218,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean GetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
+        public bool GetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetBooleanArgs(groupName, key);
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
@@ -1375,7 +1375,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.HasGroup(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean HasGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
+        public bool HasGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
             CheckHasGroupArgs(groupName);
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
@@ -1984,11 +1984,11 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean value);
-        partial void CheckSetBooleanArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Boolean value);
+        partial void CheckSetBooleanArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, bool value);
 
-        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public void SetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Boolean value)
+        public void SetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, bool value)
         {
             CheckSetBooleanArgs(groupName, key, value);
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;

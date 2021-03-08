@@ -4,7 +4,7 @@
 <summary>
 An option was not known to the parser.
  This error will only be reported, if the parser hasn't been instructed
- to ignore unknown options, see <see cref="OptionContext.SetIgnoreUnknownOptions(System.Boolean)"/>.
+ to ignore unknown options, see <see cref="OptionContext.SetIgnoreUnknownOptions(bool)"/>.
 </summary>
 </member>
 

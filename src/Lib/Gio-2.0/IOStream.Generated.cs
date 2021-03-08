@@ -27,7 +27,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.IsClosed_']/*" />
         [GISharp.Runtime.GPropertyAttribute("closed")]
-        public System.Boolean IsClosed_ { get => (System.Boolean)GetProperty("closed")!; }
+        public bool IsClosed_ { get => (bool)GetProperty("closed")!; }
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.InputStream_']/*" />
         [GISharp.Runtime.GPropertyAttribute("input-stream")]
@@ -47,7 +47,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.IsClosed']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public System.Boolean IsClosed { get => GetIsClosed(); }
+        public bool IsClosed { get => GetIsClosed(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -418,7 +418,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.HasPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public System.Boolean HasPending()
+        public bool HasPending()
         {
             CheckHasPendingArgs();
             var stream_ = (GISharp.Lib.Gio.IOStream.UnmanagedStruct*)UnsafeHandle;
@@ -447,7 +447,7 @@ namespace GISharp.Lib.Gio
         partial void CheckGetIsClosedArgs();
 
         [GISharp.Runtime.SinceAttribute("2.22")]
-        private System.Boolean GetIsClosed()
+        private bool GetIsClosed()
         {
             CheckGetIsClosedArgs();
             var stream_ = (GISharp.Lib.Gio.IOStream.UnmanagedStruct*)UnsafeHandle;

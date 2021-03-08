@@ -36,7 +36,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionEnabledChangedSignalHandler']/*" />
-        public delegate void ActionEnabledChangedSignalHandler(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled);
+        public delegate void ActionEnabledChangedSignalHandler(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, bool enabled);
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionEnabledChangedSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -122,10 +122,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionGroupInterface.UnmanagedActionAdded))]
         void DoActionAdded(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8,bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionGroupInterface.UnmanagedActionEnabledChanged))]
-        void DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled);
+        void DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, bool enabled);
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoActionRemoved(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -150,7 +150,7 @@ namespace GISharp.Lib.Gio
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoGetActionEnabled(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionGroupInterface.UnmanagedGetActionEnabled))]
-        System.Boolean DoGetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        bool DoGetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoGetActionParameterType(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -175,7 +175,7 @@ namespace GISharp.Lib.Gio
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoHasAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionGroupInterface.UnmanagedHasAction))]
-        System.Boolean DoHasAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        bool DoHasAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoListActions()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -259,11 +259,11 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean enabled);
-        static partial void CheckActionEnabledChangedArgs(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled);
+        static partial void CheckActionEnabledChangedArgs(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, bool enabled);
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ActionEnabledChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ActionEnabledChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void ActionEnabledChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled)
+        public static void ActionEnabledChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, bool enabled)
         {
             CheckActionEnabledChangedArgs(actionGroup, actionName, enabled);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -475,7 +475,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.GetActionEnabled(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static System.Boolean GetActionEnabled(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static bool GetActionEnabled(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionEnabledArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -715,7 +715,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.HasAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static System.Boolean HasAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static bool HasAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckHasActionArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -844,9 +844,9 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.Variant.UnmanagedStruct** state);
         static partial void CheckTryQueryActionArgs(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName);
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,bool,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static System.Boolean TryQueryAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, out System.Boolean enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state)
+        public static bool TryQueryAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, out bool enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state)
         {
             CheckTryQueryActionArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;

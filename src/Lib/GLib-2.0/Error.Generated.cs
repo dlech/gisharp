@@ -174,7 +174,7 @@ namespace GISharp.Lib.GLib
         partial void CheckMatchesArgs(GISharp.Lib.GLib.Quark domain, int code);
 
         /// <include file="Error.xmldoc" path="declaration/member[@name='Error.Matches(GISharp.Lib.GLib.Quark,int)']/*" />
-        public System.Boolean Matches(GISharp.Lib.GLib.Quark domain, int code)
+        public bool Matches(GISharp.Lib.GLib.Quark domain, int code)
         {
             CheckMatchesArgs(domain, code);
             var error_ = (GISharp.Lib.GLib.Error.UnmanagedStruct*)UnsafeHandle;

@@ -52,19 +52,19 @@ namespace GISharp.Lib.GObject
 
         static ObjectClass()
         {
-            System.Int32 setPropertyOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetProperty));
+            int setPropertyOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetProperty));
             RegisterVirtualMethod(setPropertyOffset, SetPropertyMarshal.Create);
-            System.Int32 getPropertyOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetProperty));
+            int getPropertyOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetProperty));
             RegisterVirtualMethod(getPropertyOffset, GetPropertyMarshal.Create);
-            System.Int32 disposeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Dispose));
+            int disposeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Dispose));
             RegisterVirtualMethod(disposeOffset, DisposeMarshal.Create);
-            System.Int32 finalizeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Finalize));
+            int finalizeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Finalize));
             RegisterVirtualMethod(finalizeOffset, FinalizeMarshal.Create);
-            System.Int32 dispatchPropertiesChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DispatchPropertiesChanged));
+            int dispatchPropertiesChangedOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DispatchPropertiesChanged));
             RegisterVirtualMethod(dispatchPropertiesChangedOffset, DispatchPropertiesChangedMarshal.Create);
-            System.Int32 notifyOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Notify));
+            int notifyOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Notify));
             RegisterVirtualMethod(notifyOffset, NotifyMarshal.Create);
-            System.Int32 constructedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Constructed));
+            int constructedOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Constructed));
             RegisterVirtualMethod(constructedOffset, ConstructedMarshal.Create);
         }
 

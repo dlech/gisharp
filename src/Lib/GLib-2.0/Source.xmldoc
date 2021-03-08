@@ -56,7 +56,7 @@ the <see cref="Source"/> from the main loop.
 <member name='Source.CanRecurse'>
 <summary>
 Checks whether a source is allowed to be called recursively.
-see <see cref="Source.SetCanRecurse(System.Boolean)"/>.
+see <see cref="Source.SetCanRecurse(bool)"/>.
 </summary>
 </member>
 

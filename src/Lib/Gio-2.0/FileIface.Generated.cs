@@ -328,161 +328,161 @@ namespace GISharp.Lib.Gio
 
         static FileIface()
         {
-            System.Int32 dupOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Dup));
+            int dupOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Dup));
             RegisterVirtualMethod(dupOffset, DupMarshal.Create);
-            System.Int32 hashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Hash));
+            int hashOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Hash));
             RegisterVirtualMethod(hashOffset, HashMarshal.Create);
-            System.Int32 equalOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Equal));
+            int equalOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Equal));
             RegisterVirtualMethod(equalOffset, EqualMarshal.Create);
-            System.Int32 isNativeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.IsNative));
+            int isNativeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.IsNative));
             RegisterVirtualMethod(isNativeOffset, IsNativeMarshal.Create);
-            System.Int32 hasUriSchemeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.HasUriScheme));
+            int hasUriSchemeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.HasUriScheme));
             RegisterVirtualMethod(hasUriSchemeOffset, HasUriSchemeMarshal.Create);
-            System.Int32 getUriSchemeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUriScheme));
+            int getUriSchemeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUriScheme));
             RegisterVirtualMethod(getUriSchemeOffset, GetUriSchemeMarshal.Create);
-            System.Int32 getBasenameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetBasename));
+            int getBasenameOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetBasename));
             RegisterVirtualMethod(getBasenameOffset, GetBasenameMarshal.Create);
-            System.Int32 getPathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetPath));
+            int getPathOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetPath));
             RegisterVirtualMethod(getPathOffset, GetPathMarshal.Create);
-            System.Int32 getUriOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUri));
+            int getUriOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUri));
             RegisterVirtualMethod(getUriOffset, GetUriMarshal.Create);
-            System.Int32 getParseNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetParseName));
+            int getParseNameOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetParseName));
             RegisterVirtualMethod(getParseNameOffset, GetParseNameMarshal.Create);
-            System.Int32 getParentOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetParent));
+            int getParentOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetParent));
             RegisterVirtualMethod(getParentOffset, GetParentMarshal.Create);
-            System.Int32 prefixMatchesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PrefixMatches));
+            int prefixMatchesOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PrefixMatches));
             RegisterVirtualMethod(prefixMatchesOffset, PrefixMatchesMarshal.Create);
-            System.Int32 getRelativePathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetRelativePath));
+            int getRelativePathOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetRelativePath));
             RegisterVirtualMethod(getRelativePathOffset, GetRelativePathMarshal.Create);
-            System.Int32 resolveRelativePathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ResolveRelativePath));
+            int resolveRelativePathOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ResolveRelativePath));
             RegisterVirtualMethod(resolveRelativePathOffset, ResolveRelativePathMarshal.Create);
-            System.Int32 getChildForDisplayNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetChildForDisplayName));
+            int getChildForDisplayNameOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetChildForDisplayName));
             RegisterVirtualMethod(getChildForDisplayNameOffset, GetChildForDisplayNameMarshal.Create);
-            System.Int32 enumerateChildrenAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.EnumerateChildrenAsync));
+            int enumerateChildrenAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.EnumerateChildrenAsync));
             RegisterVirtualMethod(enumerateChildrenAsyncOffset, EnumerateChildrenAsyncMarshal.Create);
-            System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfo));
+            int queryInfoOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfo));
             RegisterVirtualMethod(queryInfoOffset, QueryInfoMarshal.Create);
-            System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoAsync));
+            int queryInfoAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoAsync));
             RegisterVirtualMethod(queryInfoAsyncOffset, QueryInfoAsyncMarshal.Create);
-            System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoFinish));
+            int queryInfoFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoFinish));
             RegisterVirtualMethod(queryInfoFinishOffset, QueryInfoFinishMarshal.Create);
-            System.Int32 queryFilesystemInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryFilesystemInfo));
+            int queryFilesystemInfoOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryFilesystemInfo));
             RegisterVirtualMethod(queryFilesystemInfoOffset, QueryFilesystemInfoMarshal.Create);
-            System.Int32 queryFilesystemInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryFilesystemInfoAsync));
+            int queryFilesystemInfoAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryFilesystemInfoAsync));
             RegisterVirtualMethod(queryFilesystemInfoAsyncOffset, QueryFilesystemInfoAsyncMarshal.Create);
-            System.Int32 queryFilesystemInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryFilesystemInfoFinish));
+            int queryFilesystemInfoFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryFilesystemInfoFinish));
             RegisterVirtualMethod(queryFilesystemInfoFinishOffset, QueryFilesystemInfoFinishMarshal.Create);
-            System.Int32 findEnclosingMountAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.FindEnclosingMountAsync));
+            int findEnclosingMountAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.FindEnclosingMountAsync));
             RegisterVirtualMethod(findEnclosingMountAsyncOffset, FindEnclosingMountAsyncMarshal.Create);
-            System.Int32 setDisplayNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetDisplayName));
+            int setDisplayNameOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetDisplayName));
             RegisterVirtualMethod(setDisplayNameOffset, SetDisplayNameMarshal.Create);
-            System.Int32 setDisplayNameAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetDisplayNameAsync));
+            int setDisplayNameAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetDisplayNameAsync));
             RegisterVirtualMethod(setDisplayNameAsyncOffset, SetDisplayNameAsyncMarshal.Create);
-            System.Int32 setDisplayNameFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetDisplayNameFinish));
+            int setDisplayNameFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetDisplayNameFinish));
             RegisterVirtualMethod(setDisplayNameFinishOffset, SetDisplayNameFinishMarshal.Create);
-            System.Int32 querySettableAttributesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QuerySettableAttributes));
+            int querySettableAttributesOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QuerySettableAttributes));
             RegisterVirtualMethod(querySettableAttributesOffset, QuerySettableAttributesMarshal.Create);
-            System.Int32 queryWritableNamespacesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryWritableNamespaces));
+            int queryWritableNamespacesOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryWritableNamespaces));
             RegisterVirtualMethod(queryWritableNamespacesOffset, QueryWritableNamespacesMarshal.Create);
-            System.Int32 setAttributeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttribute));
+            int setAttributeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttribute));
             RegisterVirtualMethod(setAttributeOffset, SetAttributeMarshal.Create);
-            System.Int32 setAttributesFromInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttributesFromInfo));
+            int setAttributesFromInfoOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttributesFromInfo));
             RegisterVirtualMethod(setAttributesFromInfoOffset, SetAttributesFromInfoMarshal.Create);
-            System.Int32 setAttributesAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttributesAsync));
+            int setAttributesAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttributesAsync));
             RegisterVirtualMethod(setAttributesAsyncOffset, SetAttributesAsyncMarshal.Create);
-            System.Int32 setAttributesFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttributesFinish));
+            int setAttributesFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttributesFinish));
             RegisterVirtualMethod(setAttributesFinishOffset, SetAttributesFinishMarshal.Create);
-            System.Int32 readFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFn));
+            int readFnOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFn));
             RegisterVirtualMethod(readFnOffset, ReadFnMarshal.Create);
-            System.Int32 readAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadAsync));
+            int readAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadAsync));
             RegisterVirtualMethod(readAsyncOffset, ReadAsyncMarshal.Create);
-            System.Int32 readFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFinish));
+            int readFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFinish));
             RegisterVirtualMethod(readFinishOffset, ReadFinishMarshal.Create);
-            System.Int32 appendToOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AppendTo));
+            int appendToOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AppendTo));
             RegisterVirtualMethod(appendToOffset, AppendToMarshal.Create);
-            System.Int32 appendToAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AppendToAsync));
+            int appendToAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AppendToAsync));
             RegisterVirtualMethod(appendToAsyncOffset, AppendToAsyncMarshal.Create);
-            System.Int32 appendToFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AppendToFinish));
+            int appendToFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AppendToFinish));
             RegisterVirtualMethod(appendToFinishOffset, AppendToFinishMarshal.Create);
-            System.Int32 createOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Create));
+            int createOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Create));
             RegisterVirtualMethod(createOffset, CreateMarshal.Create);
-            System.Int32 createAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateAsync));
+            int createAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateAsync));
             RegisterVirtualMethod(createAsyncOffset, CreateAsyncMarshal.Create);
-            System.Int32 createFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateFinish));
+            int createFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateFinish));
             RegisterVirtualMethod(createFinishOffset, CreateFinishMarshal.Create);
-            System.Int32 replaceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Replace));
+            int replaceOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Replace));
             RegisterVirtualMethod(replaceOffset, ReplaceMarshal.Create);
-            System.Int32 replaceAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceAsync));
+            int replaceAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceAsync));
             RegisterVirtualMethod(replaceAsyncOffset, ReplaceAsyncMarshal.Create);
-            System.Int32 replaceFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceFinish));
+            int replaceFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceFinish));
             RegisterVirtualMethod(replaceFinishOffset, ReplaceFinishMarshal.Create);
-            System.Int32 deleteFileOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DeleteFile));
+            int deleteFileOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DeleteFile));
             RegisterVirtualMethod(deleteFileOffset, DeleteFileMarshal.Create);
-            System.Int32 deleteFileAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DeleteFileAsync));
+            int deleteFileAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DeleteFileAsync));
             RegisterVirtualMethod(deleteFileAsyncOffset, DeleteFileAsyncMarshal.Create);
-            System.Int32 deleteFileFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DeleteFileFinish));
+            int deleteFileFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DeleteFileFinish));
             RegisterVirtualMethod(deleteFileFinishOffset, DeleteFileFinishMarshal.Create);
-            System.Int32 trashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Trash));
+            int trashOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Trash));
             RegisterVirtualMethod(trashOffset, TrashMarshal.Create);
-            System.Int32 trashAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TrashAsync));
+            int trashAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TrashAsync));
             RegisterVirtualMethod(trashAsyncOffset, TrashAsyncMarshal.Create);
-            System.Int32 trashFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TrashFinish));
+            int trashFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TrashFinish));
             RegisterVirtualMethod(trashFinishOffset, TrashFinishMarshal.Create);
-            System.Int32 makeDirectoryOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeDirectory));
+            int makeDirectoryOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeDirectory));
             RegisterVirtualMethod(makeDirectoryOffset, MakeDirectoryMarshal.Create);
-            System.Int32 makeDirectoryAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeDirectoryAsync));
+            int makeDirectoryAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeDirectoryAsync));
             RegisterVirtualMethod(makeDirectoryAsyncOffset, MakeDirectoryAsyncMarshal.Create);
-            System.Int32 makeDirectoryFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeDirectoryFinish));
+            int makeDirectoryFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeDirectoryFinish));
             RegisterVirtualMethod(makeDirectoryFinishOffset, MakeDirectoryFinishMarshal.Create);
-            System.Int32 makeSymbolicLinkOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeSymbolicLink));
+            int makeSymbolicLinkOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeSymbolicLink));
             RegisterVirtualMethod(makeSymbolicLinkOffset, MakeSymbolicLinkMarshal.Create);
-            System.Int32 copyOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Copy));
+            int copyOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Copy));
             RegisterVirtualMethod(copyOffset, CopyMarshal.Create);
-            System.Int32 copyAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CopyAsync));
+            int copyAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CopyAsync));
             RegisterVirtualMethod(copyAsyncOffset, CopyAsyncMarshal.Create);
-            System.Int32 copyFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CopyFinish));
+            int copyFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CopyFinish));
             RegisterVirtualMethod(copyFinishOffset, CopyFinishMarshal.Create);
-            System.Int32 moveOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Move));
+            int moveOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Move));
             RegisterVirtualMethod(moveOffset, MoveMarshal.Create);
-            System.Int32 mountMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MountMountableFinish));
+            int mountMountableFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MountMountableFinish));
             RegisterVirtualMethod(mountMountableFinishOffset, MountMountableFinishMarshal.Create);
-            System.Int32 unmountMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.UnmountMountableFinish));
+            int unmountMountableFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.UnmountMountableFinish));
             RegisterVirtualMethod(unmountMountableFinishOffset, UnmountMountableFinishMarshal.Create);
-            System.Int32 ejectMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.EjectMountableFinish));
+            int ejectMountableFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.EjectMountableFinish));
             RegisterVirtualMethod(ejectMountableFinishOffset, EjectMountableFinishMarshal.Create);
-            System.Int32 mountEnclosingVolumeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MountEnclosingVolumeFinish));
+            int mountEnclosingVolumeFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MountEnclosingVolumeFinish));
             RegisterVirtualMethod(mountEnclosingVolumeFinishOffset, MountEnclosingVolumeFinishMarshal.Create);
-            System.Int32 openReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.OpenReadwrite));
+            int openReadwriteOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.OpenReadwrite));
             RegisterVirtualMethod(openReadwriteOffset, OpenReadwriteMarshal.Create);
-            System.Int32 openReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.OpenReadwriteAsync));
+            int openReadwriteAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.OpenReadwriteAsync));
             RegisterVirtualMethod(openReadwriteAsyncOffset, OpenReadwriteAsyncMarshal.Create);
-            System.Int32 openReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.OpenReadwriteFinish));
+            int openReadwriteFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.OpenReadwriteFinish));
             RegisterVirtualMethod(openReadwriteFinishOffset, OpenReadwriteFinishMarshal.Create);
-            System.Int32 createReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateReadwrite));
+            int createReadwriteOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateReadwrite));
             RegisterVirtualMethod(createReadwriteOffset, CreateReadwriteMarshal.Create);
-            System.Int32 createReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateReadwriteAsync));
+            int createReadwriteAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateReadwriteAsync));
             RegisterVirtualMethod(createReadwriteAsyncOffset, CreateReadwriteAsyncMarshal.Create);
-            System.Int32 createReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateReadwriteFinish));
+            int createReadwriteFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateReadwriteFinish));
             RegisterVirtualMethod(createReadwriteFinishOffset, CreateReadwriteFinishMarshal.Create);
-            System.Int32 replaceReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceReadwrite));
+            int replaceReadwriteOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceReadwrite));
             RegisterVirtualMethod(replaceReadwriteOffset, ReplaceReadwriteMarshal.Create);
-            System.Int32 replaceReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceReadwriteAsync));
+            int replaceReadwriteAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceReadwriteAsync));
             RegisterVirtualMethod(replaceReadwriteAsyncOffset, ReplaceReadwriteAsyncMarshal.Create);
-            System.Int32 replaceReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceReadwriteFinish));
+            int replaceReadwriteFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceReadwriteFinish));
             RegisterVirtualMethod(replaceReadwriteFinishOffset, ReplaceReadwriteFinishMarshal.Create);
-            System.Int32 startMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.StartMountableFinish));
+            int startMountableFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.StartMountableFinish));
             RegisterVirtualMethod(startMountableFinishOffset, StartMountableFinishMarshal.Create);
-            System.Int32 stopMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.StopMountableFinish));
+            int stopMountableFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.StopMountableFinish));
             RegisterVirtualMethod(stopMountableFinishOffset, StopMountableFinishMarshal.Create);
-            System.Int32 unmountMountableWithOperationFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.UnmountMountableWithOperationFinish));
+            int unmountMountableWithOperationFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.UnmountMountableWithOperationFinish));
             RegisterVirtualMethod(unmountMountableWithOperationFinishOffset, UnmountMountableWithOperationFinishMarshal.Create);
-            System.Int32 ejectMountableWithOperationFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.EjectMountableWithOperationFinish));
+            int ejectMountableWithOperationFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.EjectMountableWithOperationFinish));
             RegisterVirtualMethod(ejectMountableWithOperationFinishOffset, EjectMountableWithOperationFinishMarshal.Create);
-            System.Int32 pollMountableOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PollMountable));
+            int pollMountableOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PollMountable));
             RegisterVirtualMethod(pollMountableOffset, PollMountableMarshal.Create);
-            System.Int32 pollMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PollMountableFinish));
+            int pollMountableFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PollMountableFinish));
             RegisterVirtualMethod(pollMountableFinishOffset, PollMountableFinishMarshal.Create);
-            System.Int32 measureDiskUsageFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MeasureDiskUsageFinish));
+            int measureDiskUsageFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MeasureDiskUsageFinish));
             RegisterVirtualMethod(measureDiskUsageFinishOffset, MeasureDiskUsageFinishMarshal.Create);
         }
 
@@ -549,7 +549,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='Equal']/*" />
-        public delegate System.Boolean Equal(GISharp.Lib.Gio.IFile file2);
+        public delegate bool Equal(GISharp.Lib.Gio.IFile file2);
 
         /// <summary>
         /// Unmanaged callback
@@ -583,7 +583,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file2);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='IsNative']/*" />
-        public delegate System.Boolean IsNative();
+        public delegate bool IsNative();
 
         /// <summary>
         /// Unmanaged callback
@@ -614,7 +614,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='HasUriScheme']/*" />
-        public delegate System.Boolean HasUriScheme(GISharp.Lib.GLib.UnownedUtf8 uriScheme);
+        public delegate bool HasUriScheme(GISharp.Lib.GLib.UnownedUtf8 uriScheme);
 
         /// <summary>
         /// Unmanaged callback
@@ -834,7 +834,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='PrefixMatches']/*" />
-        public delegate System.Boolean PrefixMatches(GISharp.Lib.Gio.IFile file);
+        public delegate bool PrefixMatches(GISharp.Lib.Gio.IFile file);
 
         /// <summary>
         /// Unmanaged callback
@@ -2058,7 +2058,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='Replace']/*" />
-        public delegate GISharp.Lib.Gio.FileOutputStream Replace(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate GISharp.Lib.Gio.FileOutputStream Replace(GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -2104,7 +2104,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceAsync']/*" />
-        public delegate void ReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void ReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -3162,7 +3162,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwrite']/*" />
-        public delegate GISharp.Lib.Gio.FileIOStream ReplaceReadwrite(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate GISharp.Lib.Gio.FileIOStream ReplaceReadwrite(GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -3208,7 +3208,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwriteAsync']/*" />
-        public delegate void ReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void ReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback

@@ -32,20 +32,20 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GIRepository.TypeInfo Type { get => GetType_(); }
 
         /// <include file="ArgInfo.xmldoc" path="declaration/member[@name='ArgInfo.IsCallerAllocates']/*" />
-        public System.Boolean IsCallerAllocates { get => GetIsCallerAllocates(); }
+        public bool IsCallerAllocates { get => GetIsCallerAllocates(); }
 
         /// <include file="ArgInfo.xmldoc" path="declaration/member[@name='ArgInfo.IsOptional']/*" />
-        public System.Boolean IsOptional { get => GetIsOptional(); }
+        public bool IsOptional { get => GetIsOptional(); }
 
         /// <include file="ArgInfo.xmldoc" path="declaration/member[@name='ArgInfo.IsReturnValue']/*" />
-        public System.Boolean IsReturnValue { get => GetIsReturnValue(); }
+        public bool IsReturnValue { get => GetIsReturnValue(); }
 
         /// <include file="ArgInfo.xmldoc" path="declaration/member[@name='ArgInfo.IsSkip']/*" />
         [GISharp.Runtime.SinceAttribute("1.30")]
-        public System.Boolean IsSkip { get => GetIsSkip(); }
+        public bool IsSkip { get => GetIsSkip(); }
 
         /// <include file="ArgInfo.xmldoc" path="declaration/member[@name='ArgInfo.MayBeNull']/*" />
-        public System.Boolean MayBeNull { get => GetMayBeNull(); }
+        public bool MayBeNull { get => GetMayBeNull(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -247,7 +247,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetIsCallerAllocatesArgs();
 
-        private System.Boolean GetIsCallerAllocates()
+        private bool GetIsCallerAllocates()
         {
             CheckGetIsCallerAllocatesArgs();
             var info_ = (GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct*)UnsafeHandle;
@@ -275,7 +275,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetIsOptionalArgs();
 
-        private System.Boolean GetIsOptional()
+        private bool GetIsOptional()
         {
             CheckGetIsOptionalArgs();
             var info_ = (GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct*)UnsafeHandle;
@@ -303,7 +303,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetIsReturnValueArgs();
 
-        private System.Boolean GetIsReturnValue()
+        private bool GetIsReturnValue()
         {
             CheckGetIsReturnValueArgs();
             var info_ = (GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct*)UnsafeHandle;
@@ -332,7 +332,7 @@ namespace GISharp.Lib.GIRepository
         partial void CheckGetIsSkipArgs();
 
         [GISharp.Runtime.SinceAttribute("1.30")]
-        private System.Boolean GetIsSkip()
+        private bool GetIsSkip()
         {
             CheckGetIsSkipArgs();
             var info_ = (GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct*)UnsafeHandle;
@@ -389,7 +389,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetMayBeNullArgs();
 
-        private System.Boolean GetMayBeNull()
+        private bool GetMayBeNull()
         {
             CheckGetMayBeNullArgs();
             var info_ = (GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct*)UnsafeHandle;

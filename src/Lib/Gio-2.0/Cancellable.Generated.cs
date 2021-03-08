@@ -31,7 +31,7 @@ namespace GISharp.Lib.Gio
         public int Fd { get => GetFd(); }
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.IsCancelled']/*" />
-        public System.Boolean IsCancelled { get => GetIsCancelled(); }
+        public bool IsCancelled { get => GetIsCancelled(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -340,7 +340,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
         partial void CheckGetIsCancelledArgs();
 
-        private System.Boolean GetIsCancelled()
+        private bool GetIsCancelled()
         {
             CheckGetIsCancelledArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
@@ -395,7 +395,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.TryMakePollfd(GISharp.Lib.GLib.PollFD)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public System.Boolean TryMakePollfd(out GISharp.Lib.GLib.PollFD pollfd)
+        public bool TryMakePollfd(out GISharp.Lib.GLib.PollFD pollfd)
         {
             CheckTryMakePollfdArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;

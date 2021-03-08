@@ -21,7 +21,7 @@ namespace GISharp.Lib.GLib
     System.IntPtr b);
 
     /// <include file="EqualFunc.xmldoc" path="declaration/member[@name='EqualFunc']/*" />
-    public delegate System.Boolean EqualFunc(System.IntPtr a, System.IntPtr b);
+    public delegate bool EqualFunc(System.IntPtr a, System.IntPtr b);
 
     /// <summary>
     /// Class for marshalling <see cref="EqualFunc"/> methods.
@@ -33,7 +33,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static GISharp.Lib.GLib.EqualFunc FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            System.Boolean managedCallback(System.IntPtr a, System.IntPtr b)
+            bool managedCallback(System.IntPtr a, System.IntPtr b)
             {
                 var a_ = (System.IntPtr)a;
                 var b_ = (System.IntPtr)b;

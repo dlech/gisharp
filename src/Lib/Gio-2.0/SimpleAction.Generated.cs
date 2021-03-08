@@ -19,7 +19,7 @@ namespace GISharp.Lib.Gio
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.Enabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
-        public System.Boolean Enabled { get => (System.Boolean)GetProperty("enabled")!; set => SetProperty("enabled", value); }
+        public bool Enabled { get => (bool)GetProperty("enabled")!; set => SetProperty("enabled", value); }
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -235,11 +235,11 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean enabled);
-        partial void CheckSetEnabledArgs(System.Boolean enabled);
+        partial void CheckSetEnabledArgs(bool enabled);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetEnabled(System.Boolean)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetEnabled(bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public void SetEnabled(System.Boolean enabled)
+        public void SetEnabled(bool enabled)
         {
             CheckSetEnabledArgs(enabled);
             var simple_ = (GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*)UnsafeHandle;
@@ -335,7 +335,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        System.Boolean GISharp.Lib.Gio.IAction.DoGetEnabled()
+        bool GISharp.Lib.Gio.IAction.DoGetEnabled()
         {
             throw new System.NotImplementedException();
         }

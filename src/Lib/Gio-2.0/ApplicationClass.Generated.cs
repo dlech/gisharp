@@ -68,31 +68,31 @@ namespace GISharp.Lib.Gio
 
         static ApplicationClass()
         {
-            System.Int32 startupOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Startup));
+            int startupOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Startup));
             RegisterVirtualMethod(startupOffset, StartupMarshal.Create);
-            System.Int32 activateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Activate));
+            int activateOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Activate));
             RegisterVirtualMethod(activateOffset, ActivateMarshal.Create);
-            System.Int32 openOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Open));
+            int openOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Open));
             RegisterVirtualMethod(openOffset, OpenMarshal.Create);
-            System.Int32 commandLineOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CommandLine));
+            int commandLineOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CommandLine));
             RegisterVirtualMethod(commandLineOffset, CommandLineMarshal.Create);
-            System.Int32 localCommandLineOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.LocalCommandLine));
+            int localCommandLineOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.LocalCommandLine));
             RegisterVirtualMethod(localCommandLineOffset, TryLocalCommandLineMarshal.Create);
-            System.Int32 beforeEmitOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.BeforeEmit));
+            int beforeEmitOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.BeforeEmit));
             RegisterVirtualMethod(beforeEmitOffset, BeforeEmitMarshal.Create);
-            System.Int32 afterEmitOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AfterEmit));
+            int afterEmitOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AfterEmit));
             RegisterVirtualMethod(afterEmitOffset, AfterEmitMarshal.Create);
-            System.Int32 addPlatformDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AddPlatformData));
+            int addPlatformDataOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AddPlatformData));
             RegisterVirtualMethod(addPlatformDataOffset, AddPlatformDataMarshal.Create);
-            System.Int32 quitMainloopOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QuitMainloop));
+            int quitMainloopOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QuitMainloop));
             RegisterVirtualMethod(quitMainloopOffset, QuitMainloopMarshal.Create);
-            System.Int32 runMainloopOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.RunMainloop));
+            int runMainloopOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.RunMainloop));
             RegisterVirtualMethod(runMainloopOffset, RunMainloopMarshal.Create);
-            System.Int32 shutdownOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Shutdown));
+            int shutdownOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Shutdown));
             RegisterVirtualMethod(shutdownOffset, ShutdownMarshal.Create);
-            System.Int32 handleLocalOptionsOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.HandleLocalOptions));
+            int handleLocalOptionsOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.HandleLocalOptions));
             RegisterVirtualMethod(handleLocalOptionsOffset, HandleLocalOptionsMarshal.Create);
-            System.Int32 nameLostOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.NameLost));
+            int nameLostOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.NameLost));
             RegisterVirtualMethod(nameLostOffset, NameLostMarshal.Create);
         }
 
@@ -235,7 +235,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine);
         }
 
         /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='TryLocalCommandLine']/*" />
-        public delegate System.Boolean TryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out int exitStatus);
+        public delegate bool TryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out int exitStatus);
 
         /// <summary>
         /// Unmanaged callback
@@ -503,7 +503,7 @@ GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options);
         }
 
         /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='NameLost']/*" />
-        public delegate System.Boolean NameLost();
+        public delegate bool NameLost();
 
         /// <summary>
         /// Unmanaged callback

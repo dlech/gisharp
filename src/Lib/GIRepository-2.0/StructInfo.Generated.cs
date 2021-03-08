@@ -26,10 +26,10 @@ namespace GISharp.Lib.GIRepository
         public int Size { get => GetSize(); }
 
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.IsForeign']/*" />
-        public System.Boolean IsForeign { get => GetIsForeign(); }
+        public bool IsForeign { get => GetIsForeign(); }
 
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.IsGtypeStruct']/*" />
-        public System.Boolean IsGtypeStruct { get => GetIsGtypeStruct(); }
+        public bool IsGtypeStruct { get => GetIsGtypeStruct(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -309,7 +309,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info);
         partial void CheckGetIsForeignArgs();
 
-        private System.Boolean GetIsForeign()
+        private bool GetIsForeign()
         {
             CheckGetIsForeignArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
@@ -338,7 +338,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info);
         partial void CheckGetIsGtypeStructArgs();
 
-        private System.Boolean GetIsGtypeStruct()
+        private bool GetIsGtypeStruct()
         {
             CheckGetIsGtypeStructArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;

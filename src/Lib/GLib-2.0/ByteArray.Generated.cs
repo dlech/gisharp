@@ -227,10 +227,10 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean freeSegment);
-        partial void CheckFreeArgs(System.Boolean freeSegment);
+        partial void CheckFreeArgs(bool freeSegment);
 
-        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.Free(System.Boolean)']/*" />
-        public ref readonly byte Free(System.Boolean freeSegment)
+        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.Free(bool)']/*" />
+        public ref readonly byte Free(bool freeSegment)
         {
             CheckFreeArgs(freeSegment);
             var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)UnsafeHandle;

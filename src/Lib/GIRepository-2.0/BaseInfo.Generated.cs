@@ -57,7 +57,7 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GIRepository.Typelib Typelib { get => GetTypelib(); }
 
         /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo.IsDeprecated']/*" />
-        public System.Boolean IsDeprecated { get => GetIsDeprecated(); }
+        public bool IsDeprecated { get => GetIsDeprecated(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -106,7 +106,7 @@ namespace GISharp.Lib.GIRepository
         partial void CheckEqualsArgs(GISharp.Lib.GIRepository.BaseInfo info2);
 
         /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo.Equals(GISharp.Lib.GIRepository.BaseInfo?)']/*" />
-        public System.Boolean Equals(GISharp.Lib.GIRepository.BaseInfo? info2)
+        public bool Equals(GISharp.Lib.GIRepository.BaseInfo? info2)
         {
             if (info2 is null)
             {
@@ -122,7 +122,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <inheritdoc/>
-        public override System.Boolean Equals(System.Object? other)
+        public override bool Equals(object? other)
         {
             if (other is GISharp.Lib.GIRepository.BaseInfo baseInfo)
             {
@@ -133,7 +133,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <inheritdoc/>
-        public static System.Boolean operator ==(GISharp.Lib.GIRepository.BaseInfo a, GISharp.Lib.GIRepository.BaseInfo b)
+        public static bool operator ==(GISharp.Lib.GIRepository.BaseInfo a, GISharp.Lib.GIRepository.BaseInfo b)
         {
             return a.Equals(b);
         }
@@ -337,7 +337,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* info);
         partial void CheckGetIsDeprecatedArgs();
 
-        private System.Boolean GetIsDeprecated()
+        private bool GetIsDeprecated()
         {
             CheckGetIsDeprecatedArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
@@ -408,7 +408,7 @@ namespace GISharp.Lib.GIRepository
         byte** value);
         partial void CheckTryIterateAttributesArgs(ref GISharp.Lib.GIRepository.AttributeIter iterator);
 
-        private System.Boolean TryIterateAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
+        private bool TryIterateAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
         {
             CheckTryIterateAttributesArgs(ref iterator);
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;

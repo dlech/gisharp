@@ -64,15 +64,15 @@ namespace GISharp.Lib.Gio
 
         static IOStreamClass()
         {
-            System.Int32 getInputStreamOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetInputStream));
+            int getInputStreamOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetInputStream));
             RegisterVirtualMethod(getInputStreamOffset, GetInputStreamMarshal.Create);
-            System.Int32 getOutputStreamOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetOutputStream));
+            int getOutputStreamOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetOutputStream));
             RegisterVirtualMethod(getOutputStreamOffset, GetOutputStreamMarshal.Create);
-            System.Int32 closeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFn));
+            int closeFnOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFn));
             RegisterVirtualMethod(closeFnOffset, CloseFnMarshal.Create);
-            System.Int32 closeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseAsync));
+            int closeAsyncOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseAsync));
             RegisterVirtualMethod(closeAsyncOffset, CloseAsyncMarshal.Create);
-            System.Int32 closeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFinish));
+            int closeFinishOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFinish));
             RegisterVirtualMethod(closeFinishOffset, CloseFinishMarshal.Create);
         }
 

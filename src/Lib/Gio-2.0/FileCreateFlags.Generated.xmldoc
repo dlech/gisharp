@@ -23,7 +23,7 @@ Replace the destination
    You can think of it as "unlink destination" before
    writing to it, although the implementation may not
    be exactly like that. This flag can only be used with
-   <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> and its variants, including <see cref="File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan{byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/>.
+   <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> and its variants, including <see cref="File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan{byte},GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 </member>
 

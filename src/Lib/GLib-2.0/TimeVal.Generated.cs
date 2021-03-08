@@ -61,7 +61,7 @@ namespace GISharp.Lib.GLib
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_iso8601() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public static System.Boolean TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
+        public static bool TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
         {
             fixed (GISharp.Lib.GLib.TimeVal* time_ = &time)
             {

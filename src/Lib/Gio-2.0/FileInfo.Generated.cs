@@ -40,13 +40,13 @@ namespace GISharp.Lib.Gio
         public GISharp.Lib.Gio.IIcon Icon { get => GetIcon(); set => SetIcon(value); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.IsBackup']/*" />
-        public System.Boolean IsBackup { get => GetIsBackup(); }
+        public bool IsBackup { get => GetIsBackup(); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.IsHidden']/*" />
-        public System.Boolean IsHidden { get => GetIsHidden(); set => SetIsHidden(value); }
+        public bool IsHidden { get => GetIsHidden(); set => SetIsHidden(value); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.IsSymlink']/*" />
-        public System.Boolean IsSymlink { get => GetIsSymlink(); set => SetIsSymlink(value); }
+        public bool IsSymlink { get => GetIsSymlink(); set => SetIsSymlink(value); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.ModificationDateTime']/*" />
         [GISharp.Runtime.SinceAttribute("2.62")]
@@ -253,7 +253,7 @@ namespace GISharp.Lib.Gio
         partial void CheckGetAttributeBooleanArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public System.Boolean GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8 attribute)
+        public bool GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             CheckGetAttributeBooleanArgs(attribute);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -345,7 +345,7 @@ namespace GISharp.Lib.Gio
         partial void CheckTryGetAttributeDataArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
-        public System.Boolean TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8 attribute, out GISharp.Lib.Gio.FileAttributeType type, out System.IntPtr valuePp, out GISharp.Lib.Gio.FileAttributeStatus status)
+        public bool TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8 attribute, out GISharp.Lib.Gio.FileAttributeType type, out System.IntPtr valuePp, out GISharp.Lib.Gio.FileAttributeStatus status)
         {
             CheckTryGetAttributeDataArgs(attribute);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -910,7 +910,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info);
         partial void CheckGetIsBackupArgs();
 
-        private System.Boolean GetIsBackup()
+        private bool GetIsBackup()
         {
             CheckGetIsBackupArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -937,7 +937,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info);
         partial void CheckGetIsHiddenArgs();
 
-        private System.Boolean GetIsHidden()
+        private bool GetIsHidden()
         {
             CheckGetIsHiddenArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -964,7 +964,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info);
         partial void CheckGetIsSymlinkArgs();
 
-        private System.Boolean GetIsSymlink()
+        private bool GetIsSymlink()
         {
             CheckGetIsSymlinkArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -1209,7 +1209,7 @@ namespace GISharp.Lib.Gio
         partial void CheckHasAttributeArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.HasAttribute(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public System.Boolean HasAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute)
+        public bool HasAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             CheckHasAttributeArgs(attribute);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -1248,7 +1248,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.HasNamespace(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public System.Boolean HasNamespace(GISharp.Lib.GLib.UnownedUtf8 nameSpace)
+        public bool HasNamespace(GISharp.Lib.GLib.UnownedUtf8 nameSpace)
         {
             CheckHasNamespaceArgs(nameSpace);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -1399,10 +1399,10 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean attrValue);
-        partial void CheckSetAttributeBooleanArgs(GISharp.Lib.GLib.UnownedUtf8 attribute, System.Boolean attrValue);
+        partial void CheckSetAttributeBooleanArgs(GISharp.Lib.GLib.UnownedUtf8 attribute, bool attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
-        public void SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8 attribute, System.Boolean attrValue)
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8,bool)']/*" />
+        public void SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8 attribute, bool attrValue)
         {
             CheckSetAttributeBooleanArgs(attribute, attrValue);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -1632,7 +1632,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public System.Boolean SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeStatus status)
+        public bool SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeStatus status)
         {
             CheckSetAttributeStatusArgs(attribute, status);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -1971,9 +1971,9 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean isHidden);
-        partial void CheckSetIsHiddenArgs(System.Boolean isHidden);
+        partial void CheckSetIsHiddenArgs(bool isHidden);
 
-        private void SetIsHidden(System.Boolean isHidden)
+        private void SetIsHidden(bool isHidden)
         {
             CheckSetIsHiddenArgs(isHidden);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
@@ -2001,9 +2001,9 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean isSymlink);
-        partial void CheckSetIsSymlinkArgs(System.Boolean isSymlink);
+        partial void CheckSetIsSymlinkArgs(bool isSymlink);
 
-        private void SetIsSymlink(System.Boolean isSymlink)
+        private void SetIsSymlink(bool isSymlink)
         {
             CheckSetIsSymlinkArgs(isSymlink);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;

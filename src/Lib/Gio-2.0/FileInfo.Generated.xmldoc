@@ -405,7 +405,7 @@ pointer to the value
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
+<member name='FileInfo.SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8,bool)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
