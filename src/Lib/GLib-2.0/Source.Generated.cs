@@ -56,6 +56,14 @@ namespace GISharp.Lib.GLib
 #pragma warning restore CS0169, CS0649
         }
 
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Continue']/*" />
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public const System.Boolean Continue = true;
+
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Remove']/*" />
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public const System.Boolean Remove = false;
+
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.CanRecurse']/*" />
         public System.Boolean CanRecurse { get => GetCanRecurse(); set => SetCanRecurse(value); }
 
@@ -82,6 +90,10 @@ namespace GISharp.Lib.GLib
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.IsDestroyed']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public System.Boolean IsDestroyed { get => GetIsDestroyed(); }
+
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Current']/*" />
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        public static GISharp.Lib.GLib.Source Current { get => GetCurrent(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -177,12 +189,12 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint tag);
-        static partial void CheckRemoveArgs(uint tag);
+        static partial void CheckRemoveByIdArgs(uint tag);
 
-        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Remove(uint)']/*" />
-        public static System.Boolean Remove(uint tag)
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.RemoveById(uint)']/*" />
+        public static System.Boolean RemoveById(uint tag)
         {
-            CheckRemoveArgs(tag);
+            CheckRemoveByIdArgs(tag);
             var tag_ = (uint)tag;
             var ret_ = g_source_remove(tag_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -302,6 +314,28 @@ namespace GISharp.Lib.GLib
             var tag_ = (uint)tag;
             var name_ = (byte*)name.UnsafeHandle;
             g_source_set_name_by_id(tag_, name_);
+        }
+
+        /// <summary>
+        /// Returns the currently firing source for this thread.
+        /// </summary>
+        /// <returns>
+        /// The currently firing source or %NULL.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_main_current_source();
+        static partial void CheckGetCurrentArgs();
+
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        private static GISharp.Lib.GLib.Source GetCurrent()
+        {
+            CheckGetCurrentArgs();
+            var ret_ = g_main_current_source();
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            return ret;
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

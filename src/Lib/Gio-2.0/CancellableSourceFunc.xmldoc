@@ -2,8 +2,8 @@
 
 <member name='CancellableSourceFunc'>
 <summary>
-This is the function type of the callback used for the #GSource
-returned by <see cref="CancellableSource.CancellableSource(GISharp.Lib.Gio.Cancellable)"/>.
+This is the function type of the callback used for the <see cref="GISharp.Lib.GLib.Source"/>
+returned by <see cref="CancellableSource.New(GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 </member>
 

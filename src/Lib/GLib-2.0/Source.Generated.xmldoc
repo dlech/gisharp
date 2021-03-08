@@ -39,6 +39,20 @@
 <member name='UnmanagedStruct.Priv'>
 </member>
 
+<member name='Source.Continue'>
+<summary>
+Use this macro as the return value of a <see cref="SourceFunc"/> to leave
+the <see cref="Source"/> in the main loop.
+</summary>
+</member>
+
+<member name='Source.Remove'>
+<summary>
+Use this macro as the return value of a <see cref="SourceFunc"/> to remove
+the <see cref="Source"/> from the main loop.
+</summary>
+</member>
+
 <member name='Source.CanRecurse'>
 <summary>
 Checks whether a source is allowed to be called recursively.
@@ -55,7 +69,7 @@ You can call this on a source that has been destroyed, provided
 that the <see cref="MainContext"/> it was attached to still exists (in which
 case it will return that <see cref="MainContext"/>). In particular, you can
 always call this function on the source returned from
-g_main_current_source(). But calling this function on a source
+<see cref="Source.GetCurrent()"/>. But calling this function on a source
 whose <see cref="MainContext"/> has been destroyed is an error.
 </remarks>
 </member>
@@ -184,6 +198,12 @@ used for opportunistic checks from any thread.
 </remarks>
 </member>
 
+<member name='Source.Current'>
+<summary>
+Returns the currently firing source for this thread.
+</summary>
+</member>
+
 <member name='Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)'>
 <summary>
 Creates a new <see cref="Source"/> structure. The size is specified to
@@ -205,7 +225,7 @@ size of the <see cref="Source"/> structure to create.
 </param>
 </member>
 
-<member name='Source.Remove(uint)'>
+<member name='Source.RemoveById(uint)'>
 <summary>
 Removes the source with the given ID from the default main context. You must
 use <see cref="Source.Destroy()"/> for sources added to a non-default main context.

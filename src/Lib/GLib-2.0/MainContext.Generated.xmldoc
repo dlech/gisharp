@@ -9,20 +9,136 @@ blocking to get ownership of this instance.
 </summary>
 </member>
 
+<member name='MainContext.IsPending'>
+<summary>
+Checks if any sources have pending events for the given context.
+</summary>
+</member>
+
+<member name='MainContext.Default'>
+<summary>
+Returns the global default main context. This is the main context
+used for main loop functions when a main loop is not explicitly
+specified, and corresponds to the "main" main loop. See also
+g_main_context_get_thread_default().
+</summary>
+</member>
+
 <member name='MainContext.ThreadDefault'>
 <summary>
-Gets the thread-default <see cref="MainContext"/> for this thread. Asynchronous
-operations that want to be able to be run in contexts other than
-the default one should call this method or
-<see cref="MainContext.RefThreadDefault()"/> to get a <see cref="MainContext"/> to add
-their #GSources to. (Note that even in single-threaded
-programs applications may sometimes want to temporarily push a
-non-default context, so it is not safe to assume that this will
-always return <c>null</c> if you are running in the default thread.)
+Gets the thread-default <see cref="MainContext"/> for this thread, as with
+g_main_context_get_thread_default(), but also adds a reference to
+it with <see cref="MainContext.Ref()"/>. In addition, unlike
+g_main_context_get_thread_default(), if the thread-default context
+is the global default context, this will return that <see cref="MainContext"/>
+(with a ref added to it) rather than returning <c>null</c>.
+</summary>
+</member>
+
+<member name='MainContext.Depth'>
+<summary>
+Returns the depth of the stack of calls to
+<see cref="MainContext.Dispatch()"/> on any <see cref="MainContext"/> in the current thread.
+ That is, when called from the toplevel, it gives 0. When
+called from within a callback from <see cref="MainContext.Iteration(System.Boolean)"/>
+(or <see cref="MainLoop.Run()"/>, etc.) it returns 1. When called from within
+a callback to a recursive call to <see cref="MainContext.Iteration(System.Boolean)"/>,
+it returns 2. And so forth.
 </summary>
 <remarks>
-If you need to hold a reference on the context, use
-<see cref="MainContext.RefThreadDefault()"/> instead.
+This function is useful in a situation like the following:
+Imagine an extremely simple "garbage collected" system.
+
+|[&lt;!-- language="C" --&gt;
+static GList *free_list;
+
+gpointer
+allocate_memory (gsize size)
+{
+  gpointer result = g_malloc (size);
+  free_list = g_list_prepend (free_list, result);
+  return result;
+}
+
+void
+free_allocated_memory (void)
+{
+  GList *l;
+  for (l = free_list; l; l = l-&gt;next);
+    g_free (l-&gt;data);
+  g_list_free (free_list);
+  free_list = NULL;
+ }
+
+[...]
+
+while (TRUE);
+ {
+   g_main_context_iteration (NULL, TRUE);
+   free_allocated_memory();
+  }
+]|
+
+This works from an application, however, if you want to do the same
+thing from a library, it gets more difficult, since you no longer
+control the main loop. You might think you can simply use an idle
+function to make the call to free_allocated_memory(), but that
+doesn't work, since the idle function could be called from a
+recursive callback. This can be fixed by using <see cref="MainContext.GetDepth()"/>
+
+|[&lt;!-- language="C" --&gt;
+gpointer
+allocate_memory (gsize size)
+{
+  FreeListBlock *block = g_new (FreeListBlock, 1);
+  block-&gt;mem = g_malloc (size);
+  block-&gt;depth = g_main_depth ();
+  free_list = g_list_prepend (free_list, block);
+  return block-&gt;mem;
+}
+
+void
+free_allocated_memory (void)
+{
+  GList *l;
+  
+  int depth = g_main_depth ();
+  for (l = free_list; l; );
+    {
+      GList *next = l-&gt;next;
+      FreeListBlock *block = l-&gt;data;
+      if (block-&gt;depth &gt; depth)
+        {
+          g_free (block-&gt;mem);
+          g_free (block);
+          free_list = g_list_delete_link (free_list, l);
+        }
+              
+      l = next;
+    }
+  }
+]|
+
+There is a temptation to use <see cref="MainContext.GetDepth()"/> to solve
+problems with reentrancy. For instance, while waiting for data
+to be received from the network in response to a menu item,
+the menu item might be selected again. It might seem that
+one could make the menu item's callback return immediately
+and do nothing if <see cref="MainContext.GetDepth()"/> returns a value greater than 1.
+However, this should be avoided since the user then sees selecting
+the menu item do nothing. Furthermore, you'll find yourself adding
+these checks all over your code, since there are doubtless many,
+many things that the user could do. Instead, you can use the
+following techniques:
+
+1. Use gtk_widget_set_sensitive() or modal dialogs to prevent
+   the user from interacting with elements while the main
+   loop is recursing.
+
+2. Avoid main loop recursion in situations where you can't handle
+   arbitrary  callbacks. Instead, structure your code so that you
+   simply return to the main loop and then get called again when
+   there is more work to do.
 </remarks>
 </member>
 
@@ -32,30 +148,37 @@ Creates a new <see cref="MainContext"/> structure.
 </summary>
 </member>
 
-<member name='MainContext.Default()'>
+<member name='MainContext.Poll(System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;,int)'>
 <summary>
-Returns the global default main context. This is the main context
-used for main loop functions when a main loop is not explicitly
-specified, and corresponds to the "main" main loop. See also
-<see cref="MainContext.GetThreadDefault()"/>.
+Polls <paramref name="fds"/>, as with the poll() system call, but portably. (On
+systems that don't have poll(), it is emulated using select().)
+This is used internally by <see cref="MainContext"/>, but it can be called
+directly if you need to block until a file descriptor is ready, but
+don't want to run the full main loop.
 </summary>
-<returns>
-the global default main context.
-</returns>
-</member>
+<remarks>
+Each element of <paramref name="fds"/> is a <see cref="PollFD"/> describing a single file
+descriptor to poll. The <c>fd</c> field indicates the file descriptor,
+and the <c>events</c> field indicates the events to poll for. On return,
+the <c>revents</c> fields will be filled with the events that actually
+occurred.
 
-<member name='MainContext.RefThreadDefault()'>
-<summary>
-Gets the thread-default <see cref="MainContext"/> for this thread, as with
-<see cref="MainContext.GetThreadDefault()"/>, but also adds a reference to
-it with <see cref="MainContext.Ref()"/>. In addition, unlike
-<see cref="MainContext.GetThreadDefault()"/>, if the thread-default context
-is the global default context, this will return that <see cref="MainContext"/>
-(with a ref added to it) rather than returning <c>null</c>.
-</summary>
+On POSIX systems, the file descriptors in <paramref name="fds"/> can be any sort of
+file descriptor, but the situation is much more complicated on
+Windows. If you need to use <see cref="MainContext.Poll(System.ReadOnlySpan{GISharp.Lib.GLib.PollFD},int)"/> in code that has to run on
+Windows, the easiest solution is to construct all of your
+<see cref="PollFD"/>s with g_io_channel_win32_make_pollfd().
+</remarks>
+<param name="fds">
+file descriptors to poll
+</param>
+<param name="timeout">
+amount of time to wait, in milliseconds, or -1 to wait forever
+</param>
 <returns>
-the thread-default <see cref="MainContext"/>. Unref
-    with <see cref="MainContext.Unref()"/> when you are done with it.
+the number of entries in <paramref name="fds"/> whose <c>revents</c> fields
+were filled in, or 0 if the operation timed out, or -1 on error or
+if the call was interrupted.
 </returns>
 </member>
 
@@ -181,7 +304,7 @@ the source, if one was found, otherwise <c>null</c>
 </returns>
 </member>
 
-<member name='MainContext.InvokeFull(int,GISharp.Lib.GLib.SourceFunc)'>
+<member name='MainContext.Invoke(GISharp.Lib.GLib.SourceFunc,int)'>
 <summary>
 Invokes a function in such a way that this instance is owned during the
 invocation of <paramref name="function"/>.
@@ -194,11 +317,11 @@ scheduled as an idle and also lets you give a <see cref="DestroyNotify"/> for <p
 <paramref name="notify"/> should not assume that it is called from any particular
 thread or with any particular context acquired.
 </remarks>
-<param name="priority">
-the priority at which to run <paramref name="function"/>
-</param>
 <param name="function">
 function to call
+</param>
+<param name="priority">
+the priority at which to run <paramref name="function"/>
 </param>
 </member>
 
@@ -223,15 +346,6 @@ whether the call may block.
 </param>
 <returns>
 <c>true</c> if events were dispatched.
-</returns>
-</member>
-
-<member name='MainContext.Pending()'>
-<summary>
-Checks if any sources have pending events for the given context.
-</summary>
-<returns>
-<c>true</c> if events are pending.
 </returns>
 </member>
 
@@ -269,8 +383,8 @@ current thread. This will cause certain asynchronous operations
 started in this thread to run under this instance and deliver their
 results to its main loop, rather than running under the global
 default context in the main thread. Note that calling this function
-changes the context returned by <see cref="MainContext.GetThreadDefault()"/>,
-not the one returned by <see cref="MainContext.Default()"/>, so it does not affect
+changes the context returned by g_main_context_get_thread_default(),
+not the one returned by <see cref="MainContext.GetDefault()"/>, so it does not affect
 the context used by functions like g_idle_add().
 </summary>
 <remarks>
@@ -349,27 +463,7 @@ a <see cref="PollFD"/> descriptor previously added with <see cref="MainContext.A
 </param>
 </member>
 
-<member name='MainContext.Wait(GISharp.Lib.GLib.Cond,GISharp.Lib.GLib.Mutex)'>
-<summary>
-Tries to become the owner of the specified context,
-as with <see cref="MainContext.Acquire()"/>. But if another thread
-is the owner, atomically drop <paramref name="mutex"/> and wait on <paramref name="cond"/> until
-that owner releases ownership or until <paramref name="cond"/> is signaled, then
-try again (once) to become the owner.
-</summary>
-<param name="cond">
-a condition variable
-</param>
-<param name="mutex">
-a mutex, currently held
-</param>
-<returns>
-<c>true</c> if the operation succeeded, and
-  this thread is now the owner of this instance.
-</returns>
-</member>
-
-<member name='MainContext.Wakeup()'>
+<member name='MainContext.WakeUp()'>
 <summary>
 If this instance is currently blocking in <see cref="MainContext.Iteration(System.Boolean)"/>
 waiting for a source to become ready, cause it to stop blocking

@@ -21,7 +21,7 @@ namespace GISharp.Test.GLib
             source.SetCallback(() => {
                 mainLoop.Quit();
                 timeoutInvoked = true;
-                return Source.Remove_;
+                return Source.Remove;
             });
 
             source.Attach(context);
@@ -47,7 +47,7 @@ namespace GISharp.Test.GLib
             source.SetCallback(() => {
                 mainLoop.Quit();
                 timeoutInvoked = true;
-                return Source.Remove_;
+                return Source.Remove;
             });
 
             source.Attach(context);

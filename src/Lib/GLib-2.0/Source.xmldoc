@@ -39,6 +39,20 @@
 <member name='UnmanagedStruct.Priv'>
 </member>
 
+<member name='Source.Continue'>
+<summary>
+Use this macro as the return value of a <see cref="SourceFunc"/> to leave
+the <see cref="Source"/> in the main loop.
+</summary>
+</member>
+
+<member name='Source.Remove'>
+<summary>
+Use this macro as the return value of a <see cref="SourceFunc"/> to remove
+the <see cref="Source"/> from the main loop.
+</summary>
+</member>
+
 <member name='Source.CanRecurse'>
 <summary>
 Checks whether a source is allowed to be called recursively.
@@ -55,7 +69,7 @@ You can call this on a source that has been destroyed, provided
 that the <see cref="MainContext"/> it was attached to still exists (in which
 case it will return that <see cref="MainContext"/>). In particular, you can
 always call this function on the source returned from
-g_main_current_source(). But calling this function on a source
+<see cref="Source.Current"/>. But calling this function on a source
 whose <see cref="MainContext"/> has been destroyed is an error.
 </remarks>
 </member>
@@ -184,6 +198,12 @@ used for opportunistic checks from any thread.
 </remarks>
 </member>
 
+<member name='Source.Current'>
+<summary>
+Returns the currently firing source for this thread.
+</summary>
+</member>
+
 <member name='Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)'>
 <summary>
 Creates a new <see cref="Source"/> structure. The size is specified to
@@ -205,15 +225,15 @@ size of the <see cref="Source"/> structure to create.
 </param>
 </member>
 
-<member name='Source.Remove(uint)'>
+<member name='Source.RemoveById(uint)'>
 <summary>
 Removes the source with the given ID from the default main context. You must
 use <see cref="Source.Destroy()"/> for sources added to a non-default main context.
 </summary>
 <remarks>
 The ID of a <see cref="Source"/> is given by <see cref="Source.GetId()"/>, or will be
-returned by the functions <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/>, g_idle_add(),
-<see cref="Idle.Add(GISharp.Lib.GLib.SourceFunc,int)"/>, g_timeout_add(), g_timeout_add_full(),
+returned by the functions <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/>,
+<see cref="Idle.Add(GISharp.Lib.GLib.SourceFunc,int)"/>, <see cref="Timeout.Add(uint,GISharp.Lib.GLib.SourceFunc,int)"/>,
 g_child_watch_add(), g_child_watch_add_full(), g_io_add_watch(), and
 g_io_add_watch_full().
 
@@ -397,11 +417,13 @@ context. It is safe to call this on sources which have already been
 removed from their context.
 </summary>
 <remarks>
-This does not unref the <see cref="Source"/>: if you still hold a reference, use
-<see cref="Source.Unref()"/> to drop it.
-
+<p>
+This does not dispose the <see cref="Source"/> object.
+</p>
+<p>
 This function is safe to call from any thread, regardless of which thread
 the <see cref="MainContext"/> is running in.
+</p>
 </remarks>
 </member>
 
@@ -513,20 +535,17 @@ Sets the callback function for a source. The callback for a source is
 called from the source's dispatch function.
 </summary>
 <remarks>
-The exact type of <paramref name="func"/> depends on the type of source; ie. you
-should not count on <paramref name="func"/> being called with <paramref name="data"/> as its first
-parameter. Cast <paramref name="func"/> with G_SOURCE_FUNC() to avoid warnings about
-incompatible function types.
-
-See [memory management of sources][mainloop-memory-management] for details
-on how to handle memory management of <paramref name="data"/>.
-
-Typically, you won't use this function. Instead use functions specific
-to the type of source you are using, such as g_idle_add() or g_timeout_add().
-
+<p>
+The exact type of <paramref name="func"/> depends on the type of source; ie.
+the source may not be compatible with <see cref="SourceFunc"/> in which case
+you must not call this function. Instead use functions specific
+to the type of source you are using, such as <see cref="Idle.Add(SourceFunc,int)"/> or <see cref="Timeout.Add"/>.
+</p>
+<p>
 It is safe to call this function multiple times on a source which has already
 been attached to a context. The changes will take effect for the next time
 the source is dispatched after this call returns.
+</p>
 </remarks>
 <param name="func">
 a callback function

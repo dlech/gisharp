@@ -20,9 +20,18 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.10")]
         public System.Boolean IsOwner { get => GetIsOwner(); }
 
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.IsPending']/*" />
+        public System.Boolean IsPending { get => GetIsPending(); }
+
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Default']/*" />
+        public static GISharp.Lib.GLib.MainContext Default { get => GetDefault(); }
+
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.ThreadDefault']/*" />
-        [GISharp.Runtime.SinceAttribute("2.22")]
+        [GISharp.Runtime.SinceAttribute("2.32")]
         public static GISharp.Lib.GLib.MainContext ThreadDefault { get => GetThreadDefault(); }
+
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Depth']/*" />
+        public static int Depth { get => GetDepth(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -73,47 +82,12 @@ namespace GISharp.Lib.GLib
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_default();
-        static partial void CheckDefaultArgs();
+        static partial void CheckGetDefaultArgs();
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Default()']/*" />
-        public static GISharp.Lib.GLib.MainContext Default()
+        private static GISharp.Lib.GLib.MainContext GetDefault()
         {
-            CheckDefaultArgs();
+            CheckGetDefaultArgs();
             var ret_ = g_main_context_default();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
-            return ret;
-        }
-
-        /// <summary>
-        /// Gets the thread-default #GMainContext for this thread. Asynchronous
-        /// operations that want to be able to be run in contexts other than
-        /// the default one should call this method or
-        /// g_main_context_ref_thread_default() to get a #GMainContext to add
-        /// their #GSources to. (Note that even in single-threaded
-        /// programs applications may sometimes want to temporarily push a
-        /// non-default context, so it is not safe to assume that this will
-        /// always return %NULL if you are running in the default thread.)
-        /// </summary>
-        /// <remarks>
-        /// If you need to hold a reference on the context, use
-        /// g_main_context_ref_thread_default() instead.
-        /// </remarks>
-        /// <returns>
-        /// the thread-default #GMainContext, or
-        /// %NULL if the thread-default context is the global default context.
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.22")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_get_thread_default();
-        static partial void CheckGetThreadDefaultArgs();
-
-        [GISharp.Runtime.SinceAttribute("2.22")]
-        private static GISharp.Lib.GLib.MainContext GetThreadDefault()
-        {
-            CheckGetThreadDefaultArgs();
-            var ret_ = g_main_context_get_thread_default();
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -135,16 +109,204 @@ namespace GISharp.Lib.GLib
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_ref_thread_default();
-        static partial void CheckRefThreadDefaultArgs();
+        static partial void CheckGetThreadDefaultArgs();
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.RefThreadDefault()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static GISharp.Lib.GLib.MainContext RefThreadDefault()
+        private static GISharp.Lib.GLib.MainContext GetThreadDefault()
         {
-            CheckRefThreadDefaultArgs();
+            CheckGetThreadDefaultArgs();
             var ret_ = g_main_context_ref_thread_default();
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
+        }
+
+        /// <summary>
+        /// Returns the depth of the stack of calls to
+        /// g_main_context_dispatch() on any #GMainContext in the current thread.
+        ///  That is, when called from the toplevel, it gives 0. When
+        /// called from within a callback from g_main_context_iteration()
+        /// (or g_main_loop_run(), etc.) it returns 1. When called from within
+        /// a callback to a recursive call to g_main_context_iteration(),
+        /// it returns 2. And so forth.
+        /// </summary>
+        /// <remarks>
+        /// This function is useful in a situation like the following:
+        /// Imagine an extremely simple "garbage collected" system.
+        /// 
+        /// |[&lt;!-- language="C" --&gt;
+        /// static GList *free_list;
+        /// 
+        /// gpointer
+        /// allocate_memory (gsize size)
+        /// {
+        ///   gpointer result = g_malloc (size);
+        ///   free_list = g_list_prepend (free_list, result);
+        ///   return result;
+        /// }
+        /// 
+        /// void
+        /// free_allocated_memory (void)
+        /// {
+        ///   GList *l;
+        ///   for (l = free_list; l; l = l-&gt;next);
+        ///     g_free (l-&gt;data);
+        ///   g_list_free (free_list);
+        ///   free_list = NULL;
+        ///  }
+        /// 
+        /// [...]
+        /// 
+        /// while (TRUE);
+        ///  {
+        ///    g_main_context_iteration (NULL, TRUE);
+        ///    free_allocated_memory();
+        ///   }
+        /// ]|
+        /// 
+        /// This works from an application, however, if you want to do the same
+        /// thing from a library, it gets more difficult, since you no longer
+        /// control the main loop. You might think you can simply use an idle
+        /// function to make the call to free_allocated_memory(), but that
+        /// doesn't work, since the idle function could be called from a
+        /// recursive callback. This can be fixed by using g_main_depth()
+        /// 
+        /// |[&lt;!-- language="C" --&gt;
+        /// gpointer
+        /// allocate_memory (gsize size)
+        /// {
+        ///   FreeListBlock *block = g_new (FreeListBlock, 1);
+        ///   block-&gt;mem = g_malloc (size);
+        ///   block-&gt;depth = g_main_depth ();
+        ///   free_list = g_list_prepend (free_list, block);
+        ///   return block-&gt;mem;
+        /// }
+        /// 
+        /// void
+        /// free_allocated_memory (void)
+        /// {
+        ///   GList *l;
+        ///   
+        ///   int depth = g_main_depth ();
+        ///   for (l = free_list; l; );
+        ///     {
+        ///       GList *next = l-&gt;next;
+        ///       FreeListBlock *block = l-&gt;data;
+        ///       if (block-&gt;depth &gt; depth)
+        ///         {
+        ///           g_free (block-&gt;mem);
+        ///           g_free (block);
+        ///           free_list = g_list_delete_link (free_list, l);
+        ///         }
+        ///               
+        ///       l = next;
+        ///     }
+        ///   }
+        /// ]|
+        /// 
+        /// There is a temptation to use g_main_depth() to solve
+        /// problems with reentrancy. For instance, while waiting for data
+        /// to be received from the network in response to a menu item,
+        /// the menu item might be selected again. It might seem that
+        /// one could make the menu item's callback return immediately
+        /// and do nothing if g_main_depth() returns a value greater than 1.
+        /// However, this should be avoided since the user then sees selecting
+        /// the menu item do nothing. Furthermore, you'll find yourself adding
+        /// these checks all over your code, since there are doubtless many,
+        /// many things that the user could do. Instead, you can use the
+        /// following techniques:
+        /// 
+        /// 1. Use gtk_widget_set_sensitive() or modal dialogs to prevent
+        ///    the user from interacting with elements while the main
+        ///    loop is recursing.
+        /// 
+        /// 2. Avoid main loop recursion in situations where you can't handle
+        ///    arbitrary  callbacks. Instead, structure your code so that you
+        ///    simply return to the main loop and then get called again when
+        ///    there is more work to do.
+        /// </remarks>
+        /// <returns>
+        /// The main loop recursion level in the current thread
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern int g_main_depth();
+        static partial void CheckGetDepthArgs();
+
+        private static int GetDepth()
+        {
+            CheckGetDepthArgs();
+            var ret_ = g_main_depth();
+            var ret = (int)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Polls @fds, as with the poll() system call, but portably. (On
+        /// systems that don't have poll(), it is emulated using select().)
+        /// This is used internally by #GMainContext, but it can be called
+        /// directly if you need to block until a file descriptor is ready, but
+        /// don't want to run the full main loop.
+        /// </summary>
+        /// <remarks>
+        /// Each element of @fds is a #GPollFD describing a single file
+        /// descriptor to poll. The @fd field indicates the file descriptor,
+        /// and the @events field indicates the events to poll for. On return,
+        /// the @revents fields will be filled with the events that actually
+        /// occurred.
+        /// 
+        /// On POSIX systems, the file descriptors in @fds can be any sort of
+        /// file descriptor, but the situation is much more complicated on
+        /// Windows. If you need to use g_poll() in code that has to run on
+        /// Windows, the easiest solution is to construct all of your
+        /// #GPollFDs with g_io_channel_win32_make_pollfd().
+        /// </remarks>
+        /// <param name="fds">
+        /// file descriptors to poll
+        /// </param>
+        /// <param name="nfds">
+        /// the number of file descriptors in @fds
+        /// </param>
+        /// <param name="timeout">
+        /// amount of time to wait, in milliseconds, or -1 to wait forever
+        /// </param>
+        /// <returns>
+        /// the number of entries in @fds whose @revents fields
+        /// were filled in, or 0 if the operation timed out, or -1 on error or
+        /// if the call was interrupted.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern int g_poll(
+        /* <array type="GPollFD*" length="1" managed-name="GISharp.Runtime.CArray" is-pointer="1">
+*   <type name="PollFD" type="GPollFD" managed-name="PollFD" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.PollFD* fds,
+        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* transfer-ownership:none direction:in */
+        uint nfds,
+        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        int timeout);
+        static partial void CheckPollArgs(System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds, int timeout = -1);
+
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Poll(System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;,int)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        public static int Poll(System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds, int timeout = -1)
+        {
+            fixed (GISharp.Lib.GLib.PollFD* fdsData_ = fds)
+            {
+                CheckPollArgs(fds, timeout);
+                var fds_ = (GISharp.Lib.GLib.PollFD*)fdsData_;
+                var nfds_ = (uint)fds.Length;
+                var timeout_ = (int)timeout;
+                var ret_ = g_poll(fds_,nfds_,timeout_);
+                var ret = (int)ret_;
+                return ret;
+            }
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -221,10 +383,10 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         int priority);
-        partial void CheckAddPollArgs(GISharp.Lib.GLib.PollFD fd, int priority);
+        partial void CheckAddPollArgs(GISharp.Lib.GLib.PollFD fd, int priority = GISharp.Lib.GLib.Priority.Default);
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.AddPoll(GISharp.Lib.GLib.PollFD,int)']/*" />
-        public void AddPoll(GISharp.Lib.GLib.PollFD fd, int priority)
+        public void AddPoll(GISharp.Lib.GLib.PollFD fd, int priority = GISharp.Lib.GLib.Priority.Default)
         {
             CheckAddPollArgs(fd, priority);
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
@@ -494,19 +656,19 @@ namespace GISharp.Lib.GLib
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> notify);
-        partial void CheckInvokeFullArgs(int priority, GISharp.Lib.GLib.SourceFunc function);
+        partial void CheckInvokeArgs(GISharp.Lib.GLib.SourceFunc function, int priority = GISharp.Lib.GLib.Priority.Default);
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.InvokeFull(int,GISharp.Lib.GLib.SourceFunc)']/*" />
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Invoke(GISharp.Lib.GLib.SourceFunc,int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public void InvokeFull(int priority, GISharp.Lib.GLib.SourceFunc function)
+        public void Invoke(GISharp.Lib.GLib.SourceFunc function, int priority = GISharp.Lib.GLib.Priority.Default)
         {
-            CheckInvokeFullArgs(priority, function);
+            CheckInvokeArgs(function, priority);
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-            var priority_ = (int)priority;
             var function_ = (delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean>)&GISharp.Lib.GLib.SourceFuncMarshal.Callback;
             var functionHandle = System.Runtime.InteropServices.GCHandle.Alloc((function, GISharp.Runtime.CallbackScope.Notified));
             var data_ = (System.IntPtr)functionHandle;
             var notify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
+            var priority_ = (int)priority;
             g_main_context_invoke_full(context_, priority_, function_, data_, notify_);
         }
 
@@ -605,12 +767,11 @@ namespace GISharp.Lib.GLib
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
-        partial void CheckPendingArgs();
+        partial void CheckGetIsPendingArgs();
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Pending()']/*" />
-        public System.Boolean Pending()
+        private System.Boolean GetIsPending()
         {
-            CheckPendingArgs();
+            CheckGetIsPendingArgs();
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_main_context_pending(context_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -925,57 +1086,6 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Tries to become the owner of the specified context,
-        /// as with g_main_context_acquire(). But if another thread
-        /// is the owner, atomically drop @mutex and wait on @cond until
-        /// that owner releases ownership or until @cond is signaled, then
-        /// try again (once) to become the owner.
-        /// </summary>
-        /// <param name="context">
-        /// a #GMainContext
-        /// </param>
-        /// <param name="cond">
-        /// a condition variable
-        /// </param>
-        /// <param name="mutex">
-        /// a mutex, currently held
-        /// </param>
-        /// <returns>
-        /// %TRUE if the operation succeeded, and
-        ///   this thread is now the owner of @context.
-        /// </returns>
-        [System.ObsoleteAttribute("Use g_main_context_is_owner() and separate locking instead.")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.58")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.Boolean g_main_context_wait(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="Cond" type="GCond*" managed-name="Cond" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Cond* cond,
-        /* <type name="Mutex" type="GMutex*" managed-name="Mutex" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Mutex* mutex);
-        partial void CheckWaitArgs(GISharp.Lib.GLib.Cond cond, GISharp.Lib.GLib.Mutex mutex);
-
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Wait(GISharp.Lib.GLib.Cond,GISharp.Lib.GLib.Mutex)']/*" />
-        [System.ObsoleteAttribute("Use g_main_context_is_owner() and separate locking instead.")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.58")]
-        public System.Boolean Wait(GISharp.Lib.GLib.Cond cond, GISharp.Lib.GLib.Mutex mutex)
-        {
-            CheckWaitArgs(cond, mutex);
-            var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-            var cond_ = &cond;
-            var mutex_ = &mutex;
-            var ret_ = g_main_context_wait(context_,cond_,mutex_);
-            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-            return ret;
-        }
-
-        /// <summary>
         /// If @context is currently blocking in g_main_context_iteration()
         /// waiting for a source to become ready, cause it to stop blocking
         /// and return.  Otherwise, cause the next invocation of
@@ -1016,12 +1126,12 @@ namespace GISharp.Lib.GLib
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
-        partial void CheckWakeupArgs();
+        partial void CheckWakeUpArgs();
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Wakeup()']/*" />
-        public void Wakeup()
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.WakeUp()']/*" />
+        public void WakeUp()
         {
-            CheckWakeupArgs();
+            CheckWakeUpArgs();
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
             g_main_context_wakeup(context_);
         }

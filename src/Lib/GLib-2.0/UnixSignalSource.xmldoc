@@ -3,8 +3,8 @@
 <member name='UnixSignalSource.New(int)'>
 <summary>
 Create a <see cref="Source"/> that will be dispatched upon delivery of the UNIX
-signal <paramref name="signum"/>.  In GLib versions before 2.36, only <c>SIGHUP<c/>, <c>SIGINT<c/>,
-<c>SIGTERM<c> can be monitored.  In GLib 2.36, <c>SIGUSR1</c> and <c>SIGUSR2</c>
+signal <paramref name="signum"/>.  In GLib versions before 2.36, only <c>SIGHUP</c>, <c>SIGINT</c>,
+<c>SIGTERM</c> can be monitored.  In GLib 2.36, <c>SIGUSR1</c> and <c>SIGUSR2</c>
 were added. In GLib 2.54, <c>SIGWINCH</c> was added.
 </summary>
 <remarks>

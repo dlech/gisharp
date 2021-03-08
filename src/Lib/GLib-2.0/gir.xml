@@ -7729,7 +7729,7 @@ a typical event source will use g_source_add_unix_fd() instead.</doc>
      descriptor to watch.</doc>
             <type name="PollFD" c:type="GPollFD*" gs:managed-name="PollFD" gs:is-pointer="1" />
           </parameter>
-          <parameter name="priority" transfer-ownership="none" gs:managed-name="priority" direction="in">
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="21886">the priority for this file descriptor which should be
      the same as the priority used for g_source_attach() to ensure that the
      file descriptor is polled whenever the results may be needed.</doc>
@@ -7742,7 +7742,7 @@ a typical event source will use g_source_add_unix_fd() instead.</doc>
      descriptor to watch.</doc>
             <type name="PollFD" c:type="GPollFD*" gs:managed-name="PollFD" gs:is-pointer="1" />
           </parameter>
-          <parameter name="priority" transfer-ownership="none" gs:managed-name="priority" direction="in">
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="21886">the priority for this file descriptor which should be
      the same as the priority used for g_source_attach() to ensure that the
      file descriptor is polled whenever the results may be needed.</doc>
@@ -7907,7 +7907,7 @@ one found will be returned.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="invoke_full" c:identifier="g_main_context_invoke_full" version="2.28" gs:dll-name="glib-2.0" gs:managed-name="InvokeFull">
+      <method name="invoke_full" c:identifier="g_main_context_invoke_full" version="2.28" shadows="invoke" gs:dll-name="glib-2.0" gs:managed-name="Invoke">
         <doc xml:space="preserve" filename="glib-2.0.c" line="22048">Invokes a function in such a way that @context is owned during the
 invocation of @function.
 
@@ -7926,7 +7926,7 @@ thread or with any particular context acquired.</doc>
             <doc xml:space="preserve" filename="glib-2.0.c" line="22050">a #GMainContext, or %NULL</doc>
             <type name="MainContext" c:type="GMainContext*" gs:managed-name="MainContext" gs:is-pointer="1" />
           </instance-parameter>
-          <parameter name="priority" transfer-ownership="none" gs:managed-name="priority" direction="in">
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="22051">the priority at which to run @function</doc>
             <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
           </parameter>
@@ -7944,13 +7944,13 @@ thread or with any particular context acquired.</doc>
           </parameter>
         </parameters>
         <gs:managed-parameters>
-          <parameter name="priority" transfer-ownership="none" gs:managed-name="priority" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="22051">the priority at which to run @function</doc>
-            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
-          </parameter>
           <parameter name="function" transfer-ownership="none" scope="notified" closure="2" destroy="3" gs:managed-name="function" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="22052">function to call</doc>
             <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
+          </parameter>
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="22051">the priority at which to run @function</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -8025,7 +8025,22 @@ be interrupted for other reasons than an event source becoming ready.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="pending" c:identifier="g_main_context_pending" gs:dll-name="glib-2.0" gs:managed-name="Pending">
+      <gs:managed-property name="is_pending" gs:dll-name="glib-2.0" gs:managed-name="IsPending">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="22115">Checks if any sources have pending events for the given context.</doc>
+        <source-position filename="gmain.h" line="368" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="22121">%TRUE if events are pending.</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="context" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="context" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="22117">a #GMainContext (if %NULL, the default context will be used)</doc>
+            <type name="MainContext" c:type="GMainContext*" gs:managed-name="MainContext" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <method name="is_pending" c:identifier="g_main_context_pending" gs:dll-name="glib-2.0" gs:managed-name="GetIsPending" gs:property-getter-for="IsPending" gs:access-modifiers="private">
         <doc xml:space="preserve" filename="glib-2.0.c" line="22115">Checks if any sources have pending events for the given context.</doc>
         <source-position filename="gmain.h" line="368" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -8263,45 +8278,7 @@ the result is zero, free the context and free all associated memory.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="wait" c:identifier="g_main_context_wait" deprecated="1" deprecated-version="2.58" gs:dll-name="glib-2.0" gs:managed-name="Wait">
-        <doc xml:space="preserve" filename="glib-2.0.c" line="22291">Tries to become the owner of the specified context,
-as with g_main_context_acquire(). But if another thread
-is the owner, atomically drop @mutex and wait on @cond until
-that owner releases ownership or until @cond is signaled, then
-try again (once) to become the owner.</doc>
-        <doc-deprecated xml:space="preserve">Use g_main_context_is_owner() and separate locking instead.</doc-deprecated>
-        <source-position filename="gmain.h" line="394" />
-        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="glib-2.0.c" line="22303">%TRUE if the operation succeeded, and
-  this thread is now the owner of @context.</doc>
-          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
-        </return-value>
-        <parameters>
-          <instance-parameter name="context" transfer-ownership="none" gs:managed-name="context" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="22293">a #GMainContext</doc>
-            <type name="MainContext" c:type="GMainContext*" gs:managed-name="MainContext" gs:is-pointer="1" />
-          </instance-parameter>
-          <parameter name="cond" transfer-ownership="none" gs:managed-name="cond" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="22294">a condition variable</doc>
-            <type name="Cond" c:type="GCond*" gs:managed-name="Cond" gs:is-pointer="1" />
-          </parameter>
-          <parameter name="mutex" transfer-ownership="none" gs:managed-name="mutex" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="22295">a mutex, currently held</doc>
-            <type name="Mutex" c:type="GMutex*" gs:managed-name="Mutex" gs:is-pointer="1" />
-          </parameter>
-        </parameters>
-        <gs:managed-parameters>
-          <parameter name="cond" transfer-ownership="none" gs:managed-name="cond" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="22294">a condition variable</doc>
-            <type name="Cond" c:type="GCond*" gs:managed-name="Cond" gs:is-pointer="1" />
-          </parameter>
-          <parameter name="mutex" transfer-ownership="none" gs:managed-name="mutex" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="22295">a mutex, currently held</doc>
-            <type name="Mutex" c:type="GMutex*" gs:managed-name="Mutex" gs:is-pointer="1" />
-          </parameter>
-        </gs:managed-parameters>
-      </method>
-      <method name="wakeup" c:identifier="g_main_context_wakeup" gs:dll-name="glib-2.0" gs:managed-name="Wakeup">
+      <method name="wake_up" c:identifier="g_main_context_wakeup" gs:dll-name="glib-2.0" gs:managed-name="WakeUp">
         <doc xml:space="preserve" filename="glib-2.0.c" line="22309">If @context is currently blocking in g_main_context_iteration()
 waiting for a source to become ready, cause it to stop blocking
 and return.  Otherwise, cause the next invocation of
@@ -8342,7 +8319,20 @@ Then in a thread:
         </parameters>
         <gs:managed-parameters />
       </method>
-      <function name="default" c:identifier="g_main_context_default" gs:dll-name="glib-2.0" gs:managed-name="Default">
+      <gs:managed-property name="get_default" gs:dll-name="glib-2.0" gs:managed-name="Default">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21913">Returns the global default main context. This is the main context
+used for main loop functions when a main loop is not explicitly
+specified, and corresponds to the "main" main loop. See also
+g_main_context_get_thread_default().</doc>
+        <source-position filename="gmain.h" line="362" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21921">the global default main context.</doc>
+          <type name="MainContext" c:type="GMainContext*" gs:managed-name="MainContext" gs:is-pointer="1" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <function name="get_default" c:identifier="g_main_context_default" gs:dll-name="glib-2.0" gs:managed-name="GetDefault" gs:property-getter-for="Default" gs:access-modifiers="private">
         <doc xml:space="preserve" filename="glib-2.0.c" line="21913">Returns the global default main context. This is the main context
 used for main loop functions when a main loop is not explicitly
 specified, and corresponds to the "main" main loop. See also
@@ -8355,49 +8345,7 @@ g_main_context_get_thread_default().</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-      <gs:managed-property name="get_thread_default" version="2.22" gs:dll-name="glib-2.0" gs:managed-name="ThreadDefault">
-        <doc xml:space="preserve" filename="glib-2.0.c" line="21995">Gets the thread-default #GMainContext for this thread. Asynchronous
-operations that want to be able to be run in contexts other than
-the default one should call this method or
-g_main_context_ref_thread_default() to get a #GMainContext to add
-their #GSources to. (Note that even in single-threaded
-programs applications may sometimes want to temporarily push a
-non-default context, so it is not safe to assume that this will
-always return %NULL if you are running in the default thread.)
-
-If you need to hold a reference on the context, use
-g_main_context_ref_thread_default() instead.</doc>
-        <source-position filename="gmain.h" line="443" />
-        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="glib-2.0.c" line="22010">the thread-default #GMainContext, or
-%NULL if the thread-default context is the global default context.</doc>
-          <type name="MainContext" c:type="GMainContext*" gs:managed-name="MainContext" gs:is-pointer="1" />
-        </return-value>
-        <parameters />
-        <gs:managed-parameters />
-      </gs:managed-property>
-      <function name="get_thread_default" c:identifier="g_main_context_get_thread_default" version="2.22" gs:dll-name="glib-2.0" gs:managed-name="GetThreadDefault" gs:property-getter-for="ThreadDefault" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="glib-2.0.c" line="21995">Gets the thread-default #GMainContext for this thread. Asynchronous
-operations that want to be able to be run in contexts other than
-the default one should call this method or
-g_main_context_ref_thread_default() to get a #GMainContext to add
-their #GSources to. (Note that even in single-threaded
-programs applications may sometimes want to temporarily push a
-non-default context, so it is not safe to assume that this will
-always return %NULL if you are running in the default thread.)
-
-If you need to hold a reference on the context, use
-g_main_context_ref_thread_default() instead.</doc>
-        <source-position filename="gmain.h" line="443" />
-        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="glib-2.0.c" line="22010">the thread-default #GMainContext, or
-%NULL if the thread-default context is the global default context.</doc>
-          <type name="MainContext" c:type="GMainContext*" gs:managed-name="MainContext" gs:is-pointer="1" />
-        </return-value>
-        <parameters />
-        <gs:managed-parameters />
-      </function>
-      <function name="ref_thread_default" c:identifier="g_main_context_ref_thread_default" version="2.32" gs:dll-name="glib-2.0" gs:managed-name="RefThreadDefault">
+      <gs:managed-property name="get_thread_default" version="2.32" gs:dll-name="glib-2.0" gs:managed-name="ThreadDefault">
         <doc xml:space="preserve" filename="glib-2.0.c" line="22230">Gets the thread-default #GMainContext for this thread, as with
 g_main_context_get_thread_default(), but also adds a reference to
 it with g_main_context_ref(). In addition, unlike
@@ -8412,6 +8360,296 @@ is the global default context, this will return that #GMainContext
         </return-value>
         <parameters />
         <gs:managed-parameters />
+      </gs:managed-property>
+      <function name="get_thread_default" c:identifier="g_main_context_ref_thread_default" version="2.32" gs:dll-name="glib-2.0" gs:managed-name="GetThreadDefault" gs:property-getter-for="ThreadDefault" gs:access-modifiers="private">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="22230">Gets the thread-default #GMainContext for this thread, as with
+g_main_context_get_thread_default(), but also adds a reference to
+it with g_main_context_ref(). In addition, unlike
+g_main_context_get_thread_default(), if the thread-default context
+is the global default context, this will return that #GMainContext
+(with a ref added to it) rather than returning %NULL.</doc>
+        <source-position filename="gmain.h" line="445" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="22240">the thread-default #GMainContext. Unref
+    with g_main_context_unref() when you are done with it.</doc>
+          <type name="MainContext" c:type="GMainContext*" gs:managed-name="MainContext" gs:is-pointer="1" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+      <gs:managed-property name="get_depth" gs:dll-name="glib-2.0" gs:managed-name="Depth">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="22354">Returns the depth of the stack of calls to
+g_main_context_dispatch() on any #GMainContext in the current thread.
+ That is, when called from the toplevel, it gives 0. When
+called from within a callback from g_main_context_iteration()
+(or g_main_loop_run(), etc.) it returns 1. When called from within
+a callback to a recursive call to g_main_context_iteration(),
+it returns 2. And so forth.
+
+This function is useful in a situation like the following:
+Imagine an extremely simple "garbage collected" system.
+
+|[&lt;!-- language="C" --&gt;
+static GList *free_list;
+
+gpointer
+allocate_memory (gsize size)
+{
+  gpointer result = g_malloc (size);
+  free_list = g_list_prepend (free_list, result);
+  return result;
+}
+
+void
+free_allocated_memory (void)
+{
+  GList *l;
+  for (l = free_list; l; l = l-&gt;next);
+    g_free (l-&gt;data);
+  g_list_free (free_list);
+  free_list = NULL;
+ }
+
+[...]
+
+while (TRUE);
+ {
+   g_main_context_iteration (NULL, TRUE);
+   free_allocated_memory();
+  }
+]|
+
+This works from an application, however, if you want to do the same
+thing from a library, it gets more difficult, since you no longer
+control the main loop. You might think you can simply use an idle
+function to make the call to free_allocated_memory(), but that
+doesn't work, since the idle function could be called from a
+recursive callback. This can be fixed by using g_main_depth()
+
+|[&lt;!-- language="C" --&gt;
+gpointer
+allocate_memory (gsize size)
+{
+  FreeListBlock *block = g_new (FreeListBlock, 1);
+  block-&gt;mem = g_malloc (size);
+  block-&gt;depth = g_main_depth ();
+  free_list = g_list_prepend (free_list, block);
+  return block-&gt;mem;
+}
+
+void
+free_allocated_memory (void)
+{
+  GList *l;
+  
+  int depth = g_main_depth ();
+  for (l = free_list; l; );
+    {
+      GList *next = l-&gt;next;
+      FreeListBlock *block = l-&gt;data;
+      if (block-&gt;depth &gt; depth)
+        {
+          g_free (block-&gt;mem);
+          g_free (block);
+          free_list = g_list_delete_link (free_list, l);
+        }
+              
+      l = next;
+    }
+  }
+]|
+
+There is a temptation to use g_main_depth() to solve
+problems with reentrancy. For instance, while waiting for data
+to be received from the network in response to a menu item,
+the menu item might be selected again. It might seem that
+one could make the menu item's callback return immediately
+and do nothing if g_main_depth() returns a value greater than 1.
+However, this should be avoided since the user then sees selecting
+the menu item do nothing. Furthermore, you'll find yourself adding
+these checks all over your code, since there are doubtless many,
+many things that the user could do. Instead, you can use the
+following techniques:
+
+1. Use gtk_widget_set_sensitive() or modal dialogs to prevent
+   the user from interacting with elements while the main
+   loop is recursing.
+
+2. Avoid main loop recursion in situations where you can't handle
+   arbitrary  callbacks. Instead, structure your code so that you
+   simply return to the main loop and then get called again when
+   there is more work to do.</doc>
+        <source-position filename="gmain.h" line="432" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="22459">The main loop recursion level in the current thread</doc>
+          <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <function name="get_depth" c:identifier="g_main_depth" gs:dll-name="glib-2.0" gs:managed-name="GetDepth" gs:property-getter-for="Depth" gs:access-modifiers="private">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="22354">Returns the depth of the stack of calls to
+g_main_context_dispatch() on any #GMainContext in the current thread.
+ That is, when called from the toplevel, it gives 0. When
+called from within a callback from g_main_context_iteration()
+(or g_main_loop_run(), etc.) it returns 1. When called from within
+a callback to a recursive call to g_main_context_iteration(),
+it returns 2. And so forth.
+
+This function is useful in a situation like the following:
+Imagine an extremely simple "garbage collected" system.
+
+|[&lt;!-- language="C" --&gt;
+static GList *free_list;
+
+gpointer
+allocate_memory (gsize size)
+{
+  gpointer result = g_malloc (size);
+  free_list = g_list_prepend (free_list, result);
+  return result;
+}
+
+void
+free_allocated_memory (void)
+{
+  GList *l;
+  for (l = free_list; l; l = l-&gt;next);
+    g_free (l-&gt;data);
+  g_list_free (free_list);
+  free_list = NULL;
+ }
+
+[...]
+
+while (TRUE);
+ {
+   g_main_context_iteration (NULL, TRUE);
+   free_allocated_memory();
+  }
+]|
+
+This works from an application, however, if you want to do the same
+thing from a library, it gets more difficult, since you no longer
+control the main loop. You might think you can simply use an idle
+function to make the call to free_allocated_memory(), but that
+doesn't work, since the idle function could be called from a
+recursive callback. This can be fixed by using g_main_depth()
+
+|[&lt;!-- language="C" --&gt;
+gpointer
+allocate_memory (gsize size)
+{
+  FreeListBlock *block = g_new (FreeListBlock, 1);
+  block-&gt;mem = g_malloc (size);
+  block-&gt;depth = g_main_depth ();
+  free_list = g_list_prepend (free_list, block);
+  return block-&gt;mem;
+}
+
+void
+free_allocated_memory (void)
+{
+  GList *l;
+  
+  int depth = g_main_depth ();
+  for (l = free_list; l; );
+    {
+      GList *next = l-&gt;next;
+      FreeListBlock *block = l-&gt;data;
+      if (block-&gt;depth &gt; depth)
+        {
+          g_free (block-&gt;mem);
+          g_free (block);
+          free_list = g_list_delete_link (free_list, l);
+        }
+              
+      l = next;
+    }
+  }
+]|
+
+There is a temptation to use g_main_depth() to solve
+problems with reentrancy. For instance, while waiting for data
+to be received from the network in response to a menu item,
+the menu item might be selected again. It might seem that
+one could make the menu item's callback return immediately
+and do nothing if g_main_depth() returns a value greater than 1.
+However, this should be avoided since the user then sees selecting
+the menu item do nothing. Furthermore, you'll find yourself adding
+these checks all over your code, since there are doubtless many,
+many things that the user could do. Instead, you can use the
+following techniques:
+
+1. Use gtk_widget_set_sensitive() or modal dialogs to prevent
+   the user from interacting with elements while the main
+   loop is recursing.
+
+2. Avoid main loop recursion in situations where you can't handle
+   arbitrary  callbacks. Instead, structure your code so that you
+   simply return to the main loop and then get called again when
+   there is more work to do.</doc>
+        <source-position filename="gmain.h" line="432" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="22459">The main loop recursion level in the current thread</doc>
+          <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+      <function name="poll" c:identifier="g_poll" version="2.20" gs:dll-name="glib-2.0" gs:managed-name="Poll">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25055">Polls @fds, as with the poll() system call, but portably. (On
+systems that don't have poll(), it is emulated using select().)
+This is used internally by #GMainContext, but it can be called
+directly if you need to block until a file descriptor is ready, but
+don't want to run the full main loop.
+
+Each element of @fds is a #GPollFD describing a single file
+descriptor to poll. The @fd field indicates the file descriptor,
+and the @events field indicates the events to poll for. On return,
+the @revents fields will be filled with the events that actually
+occurred.
+
+On POSIX systems, the file descriptors in @fds can be any sort of
+file descriptor, but the situation is much more complicated on
+Windows. If you need to use g_poll() in code that has to run on
+Windows, the easiest solution is to construct all of your
+#GPollFDs with g_io_channel_win32_make_pollfd().</doc>
+        <source-position filename="gpoll.h" line="114" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25079">the number of entries in @fds whose @revents fields
+were filled in, or 0 if the operation timed out, or -1 on error or
+if the call was interrupted.</doc>
+          <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+        </return-value>
+        <parameters>
+          <parameter name="fds" transfer-ownership="none" gs:managed-name="fds" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25057">file descriptors to poll</doc>
+            <array c:type="GPollFD*" length="1" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="PollFD" c:type="GPollFD" gs:managed-name="PollFD" />
+            </array>
+          </parameter>
+          <parameter name="nfds" transfer-ownership="none" gs:managed-name="nfds" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25058">the number of file descriptors in @fds</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="timeout" transfer-ownership="none" gs:default="-1" gs:managed-name="timeout" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25059">amount of time to wait, in milliseconds, or -1 to wait forever</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="fds" transfer-ownership="none" gs:managed-name="fds" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25057">file descriptors to poll</doc>
+            <array c:type="GPollFD*" length="1" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="PollFD" c:type="GPollFD" gs:managed-name="PollFD" />
+            </array>
+          </parameter>
+          <parameter name="timeout" transfer-ownership="none" gs:default="-1" gs:managed-name="timeout" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25059">amount of time to wait, in milliseconds, or -1 to wait forever</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_main_context_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
@@ -12241,7 +12479,7 @@ memory will be destroyed.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <function name="remove" c:identifier="g_source_remove" gs:dll-name="glib-2.0" gs:managed-name="Remove">
+      <function name="remove_by_id" c:identifier="g_source_remove" gs:dll-name="glib-2.0" gs:managed-name="RemoveById">
         <doc xml:space="preserve" filename="glib-2.0.c" line="30140">Removes the source with the given ID from the default main context. You must
 use g_source_destroy() for sources added to a non-default main context.
 
@@ -12372,6 +12610,38 @@ wrong source.</doc>
             <type name="utf8" c:type="const char*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
+      </function>
+      <constant name="CONTINUE" value="true" c:type="G_SOURCE_CONTINUE" version="2.32" gs:managed-name="Continue">
+        <doc xml:space="preserve" filename="gmain.h" line="343">Use this macro as the return value of a #GSourceFunc to leave
+the #GSource in the main loop.</doc>
+        <source-position filename="gmain.h" line="351" />
+        <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+      </constant>
+      <constant name="REMOVE" value="false" c:type="G_SOURCE_REMOVE" version="2.32" gs:managed-name="Remove">
+        <doc xml:space="preserve" filename="gmain.h" line="333">Use this macro as the return value of a #GSourceFunc to remove
+the #GSource from the main loop.</doc>
+        <source-position filename="gmain.h" line="341" />
+        <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+      </constant>
+      <gs:managed-property name="get_current" version="2.12" gs:dll-name="glib-2.0" gs:managed-name="Current">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="22344">Returns the currently firing source for this thread.</doc>
+        <source-position filename="gmain.h" line="434" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="22349">The currently firing source or %NULL.</doc>
+          <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <function name="get_current" c:identifier="g_main_current_source" version="2.12" gs:dll-name="glib-2.0" gs:managed-name="GetCurrent" gs:property-getter-for="Current" gs:access-modifiers="private">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="22344">Returns the currently firing source for this thread.</doc>
+        <source-position filename="gmain.h" line="434" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="22349">The currently firing source or %NULL.</doc>
+          <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_source_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
@@ -23459,6 +23729,49 @@ executed.</doc>
           </parameter>
         </gs:managed-parameters>
       </function>
+    </gs:static-class>
+    <gs:static-class name="Priority" gs:managed-name="Priority">
+      <constant name="DEFAULT" value="0" c:type="G_PRIORITY_DEFAULT" gs:managed-name="Default">
+        <doc xml:space="preserve" filename="gmain.h" line="291">Use this for default priority event sources.
+
+In GLib this priority is used when adding timeout functions
+with g_timeout_add(). In GDK this priority is used for events
+from the X server.</doc>
+        <source-position filename="gmain.h" line="300" />
+        <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+      </constant>
+      <constant name="DEFAULT_IDLE" value="200" c:type="G_PRIORITY_DEFAULT_IDLE" gs:managed-name="DefaultIdle">
+        <doc xml:space="preserve" filename="gmain.h" line="314">Use this for default priority idle functions.
+
+In GLib this priority is used when adding idle functions with
+g_idle_add().</doc>
+        <source-position filename="gmain.h" line="322" />
+        <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+      </constant>
+      <constant name="HIGH" value="-100" c:type="G_PRIORITY_HIGH" gs:managed-name="High">
+        <doc xml:space="preserve" filename="gmain.h" line="282">Use this for high priority event sources.
+
+It is not used within GLib or GTK+.</doc>
+        <source-position filename="gmain.h" line="289" />
+        <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+      </constant>
+      <constant name="HIGH_IDLE" value="100" c:type="G_PRIORITY_HIGH_IDLE" gs:managed-name="HighIdle">
+        <doc xml:space="preserve" filename="gmain.h" line="302">Use this for high priority idle functions.
+
+GTK+ uses #G_PRIORITY_HIGH_IDLE + 10 for resizing operations,
+and #G_PRIORITY_HIGH_IDLE + 20 for redrawing operations. (This is
+done to ensure that any pending resizes are processed before any
+pending redraws, so that widgets are not redrawn twice unnecessarily.)</doc>
+        <source-position filename="gmain.h" line="312" />
+        <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+      </constant>
+      <constant name="LOW" value="300" c:type="G_PRIORITY_LOW" gs:managed-name="Low">
+        <doc xml:space="preserve" filename="gmain.h" line="324">Use this for very low priority background tasks.
+
+It is not used within GLib or GTK+.</doc>
+        <source-position filename="gmain.h" line="331" />
+        <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+      </constant>
     </gs:static-class>
     <gs:static-class name="Timeout" gs:managed-name="Timeout">
       <function name="add_full" c:identifier="g_timeout_add_full" shadows="add" gs:dll-name="glib-2.0" gs:managed-name="Add">

@@ -34995,8 +34995,8 @@ compresses data using zlib.</doc>
       <doc xml:space="preserve" filename="gio-2.0.c" line="9964">#GZlibDecompressor is an implementation of #GConverter that
 decompresses data compressed with zlib.</doc>
     </docsection>
-    <record name="CancellableSource" gs:source="1" gs:managed-name="CancellableSource">
-      <constructor name="new" c:identifier="g_cancellable_source_new" version="2.28" introspectable="1" gs:dll-name="gio-2.0" gs:managed-name="New">
+    <gs:static-class name="CancellableSource" gs:managed-name="CancellableSource">
+      <function name="new" c:identifier="g_cancellable_source_new" version="2.28" introspectable="1" gs:dll-name="gio-2.0" gs:managed-name="New">
         <doc xml:space="preserve" filename="gio-2.0.c" line="13667">Creates a source that triggers if @cancellable is cancelled and
 calls its callback of type #GCancellableSourceFunc. This is
 primarily useful for attaching to another (non-cancellable) source
@@ -35023,8 +35023,8 @@ The new #GSource will hold a reference to the #GCancellable.</doc>
             <type name="Cancellable" c:type="GCancellable*" gs:managed-name="Cancellable" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
-      </constructor>
-    </record>
+      </function>
+    </gs:static-class>
     <gs:static-class name="FileAttribute" gs:managed-name="FileAttribute">
       <constant name="ACCESS_CAN_DELETE" value="access::can-delete" c:type="G_FILE_ATTRIBUTE_ACCESS_CAN_DELETE" gs:managed-name="AccessCanDelete">
         <doc xml:space="preserve" filename="gfileinfo.h" line="327">A key in the "access" namespace for checking deletion privileges.

@@ -17,7 +17,7 @@ namespace GISharp.Test.GLib
             // so we need to use a lock to ensure exclusive use of the main
             // context.
             lock (MainContextTests.MainContextLock) {
-                Assert.That(() => UnixSignal.Add(0, () => Source.Remove_), Throws.ArgumentException);
+                Assert.That(() => UnixSignal.Add(0, () => Source.Remove), Throws.ArgumentException);
 
                 var callbackInvoked = false;
 
@@ -25,7 +25,7 @@ namespace GISharp.Test.GLib
                     var id = UnixSignal.Add((int)Signum.SIGINT, () => {
                         mainLoop.Quit();
                         callbackInvoked = true;
-                        return Source.Remove_;
+                        return Source.Remove;
                     });
 
                     Assert.That(id, Is.Not.Zero);

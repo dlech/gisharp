@@ -1,24 +1,24 @@
 
 ### CancellableSource ###
 
-# Create a new CancellableSource record and move the constructor there
+# Create a new static class and move the constructor there
 - !add-element
-  xml: <gi:record name="CancellableSource" gs:source="1" />
+  xml: <gs:static-class name="CancellableSource" />
   xpath: gi:repository/gi:namespace
 - !move-element
   xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='source_new']
-  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='CancellableSource']
 - !set-attribute
   name: name
   value: new
-  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']/gi:method[@name='source_new']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='CancellableSource']/gi:method[@name='source_new']
 - !set-attribute
   name: introspectable
   value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']/gi:method[@name='new']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='CancellableSource']/gi:method[@name='new']
 - !change-element
-  new-name: gi:constructor
-  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']/gi:method[@name='new']
+  new-name: gi:function
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='CancellableSource']/gi:method[@name='new']
 - !change-element
   new-name: gi:parameter
-  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']/gi:constructor[@name='new']/gi:parameters/gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='CancellableSource']/gi:function[@name='new']/gi:parameters/gi:instance-parameter

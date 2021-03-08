@@ -22,7 +22,7 @@ namespace GISharp.Test.GLib
                     var id = Idle.Add(() => {
                         mainLoop.Quit();
                         idleInvoked = true;
-                        return Source.Remove_;
+                        return Source.Remove;
                     });
 
                     Assert.That(id, Is.Not.Zero);
@@ -42,7 +42,7 @@ namespace GISharp.Test.GLib
         public void TestRemoveByUserData()
         {
             lock (MainContextTests.MainContextLock) {
-                Idle.Add(() => Source.Remove_, out var data);
+                Idle.Add(() => Source.Remove, out var data);
                 Assume.That(MainContext.Default.FindSourceByUserData(data), Is.Not.Null);
                 Assert.That(Idle.RemoveByData(data), Is.True);
                 Assert.That(MainContext.Default.FindSourceByUserData(data), Is.Null);

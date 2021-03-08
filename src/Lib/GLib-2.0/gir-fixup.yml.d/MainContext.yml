@@ -1,0 +1,74 @@
+
+### MainContext ###
+
+# Cond and Mutex are not implemented yet
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[gi:parameters/gi:parameter/gi:type[@name='Cond' or @name='Mutex']]
+
+# make property
+- !set-attribute
+  name: name
+  value: get_default
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='default']
+
+# fix shadows
+- !set-attribute
+  name: shadows
+  value: invoke
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke_full']
+
+# use only ref_thread_default
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='get_thread_default']
+- !set-attribute
+  name: name
+  value: get_thread_default
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='ref_thread_default']
+
+# add default value
+- !set-attribute
+  name: gs:default
+  value: GISharp.Lib.GLib.Priority.Default
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method/gi:parameters/gi:parameter[@name='priority' and not(@direction="out")]
+
+# better names
+- !set-attribute
+  name: name
+  value: is_pending
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='pending']
+- !set-attribute
+  name: name
+  value: wake_up
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='wakeup']
+
+# include g_main_depth
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='main_depth']
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']
+- !set-attribute
+  name: name
+  value: get_depth
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='main_depth']
+
+# include g_poll
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='poll']
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']
+- !add-element
+  xml: <array c:type="GPollFD*" length="1" />
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='poll']/gi:parameters/gi:parameter[@name="fds"]
+- !set-attribute
+  name: c:type
+  value: GPollFD
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='poll']/gi:parameters/gi:parameter[@name="fds"]/gi:type
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='poll']/gi:parameters/gi:parameter[@name="fds"]/gi:type
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='poll']/gi:parameters/gi:parameter[@name="fds"]/gi:array
+- !set-attribute
+  name: gs:default
+  value: -1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='poll']/gi:parameters/gi:parameter[@name="timeout"]

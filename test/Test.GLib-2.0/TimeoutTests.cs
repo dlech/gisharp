@@ -21,7 +21,7 @@ namespace GISharp.Test.GLib
                 var id = Timeout.Add(0, () => {
                     mainLoop.Quit();
                     timeoutInvoked = true;
-                    return Source.Remove_;
+                    return Source.Remove;
                 });
 
                 Assert.That(id, Is.Not.Zero);
@@ -48,7 +48,7 @@ namespace GISharp.Test.GLib
                 var id = Timeout.AddSeconds(0, () => {
                     mainLoop.Quit();
                     timeoutInvoked = true;
-                    return Source.Remove_;
+                    return Source.Remove;
                 });
 
                 Assert.That(id, Is.Not.EqualTo(0));

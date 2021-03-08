@@ -84,20 +84,4 @@ namespace GISharp.Lib.GLib
     /// the element's data
     /// </param>
     public delegate void Func<in T>(T data) where T : IOpaque?;
-
-    /// <summary>
-    /// Specifies the type of function passed to <see cref="MainContext.PollFunc"/>.
-    /// The semantics of the function should match those of the poll() system call.
-    /// </summary>
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate int UnmanagedPollFunc(
-        /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
-        /* transfer-ownership:none */
-        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] PollFD[] ufds,
-        /* <type name="guint" type="guint" managed-name="Guint" /> */
-        /* transfer-ownership:none */
-        uint nfsd,
-        /* <type name="gint" type="gint" managed-name="Gint" /> */
-        /* transfer-ownership:none */
-        int timeout);
 }

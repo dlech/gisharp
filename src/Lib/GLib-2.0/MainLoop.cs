@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
-using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace GISharp.Lib.GLib

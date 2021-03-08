@@ -1,0 +1,27 @@
+
+### Source ###
+
+# move constants
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'SOURCE_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='Source']
+- !change-attribute
+  name: name
+  regex: SOURCE_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Source']/gi:constant
+
+# fix name conflict with constant
+- !set-attribute
+  name: name
+  value: remove_by_id
+  xpath: gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove']
+
+# include g_main_current_source
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='main_current_source']
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='Source']
+- !set-attribute
+  name: name
+  value: get_current
+  xpath: gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='main_current_source']

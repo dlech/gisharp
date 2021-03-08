@@ -76,7 +76,7 @@ namespace GISharp
                 ts.SetCallback(() => {
                     task.Dispose();
                     loop.Quit();
-                    return Source.Remove_;
+                    return Source.Remove;
                 });
                 task.ContinueWith(_ => loop.Quit());
                 loop.Run();

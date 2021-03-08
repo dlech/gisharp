@@ -78,7 +78,7 @@ namespace GISharp.Test.GLib
             context.Invoke(() => {
                 mainLoop.Quit();
                 invoked = true;
-                return Source.Remove_;
+                return Source.Remove;
             });
 
             Assert.That(invoked, Is.False);
@@ -102,10 +102,10 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
-        public void TestCheckPending()
+        public void TestPending()
         {
             using var context = new MainContext();
-            var pending = context.CheckPending();
+            var pending = context.IsPending;
             Assert.That(pending, Is.False);
         }
 
@@ -173,7 +173,7 @@ namespace GISharp.Test.GLib
                             TaskCreationOptions.None,
                             scheduler);
                     });
-                    return Source.Remove_;
+                    return Source.Remove;
                 });
                 source.Attach(context);
 

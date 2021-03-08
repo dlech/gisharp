@@ -140,10 +140,7 @@ namespace GISharp.Runtime
                 return getInstance(handle, ownership);
             }
 
-            if (typeof(Source).IsAssignableFrom(type)) {
-                type = typeof(UnmanagedSource);
-            }
-            else if (typeof(TypeInstance).IsAssignableFrom(type)) {
+            if (typeof(TypeInstance).IsAssignableFrom(type)) {
                 var gclassPtr = Marshal.ReadIntPtr(handle);
                 var gtype = Marshal.PtrToStructure<GType>(gclassPtr);
                 type = gtype.GetGTypeStruct();

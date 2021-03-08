@@ -32,19 +32,11 @@
 - !set-attribute
   name: introspectable
   value: 0
-  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]
-- !set-attribute
-  name: introspectable
-  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='PollFunc']
 - !set-attribute
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='SList']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'SOURCE_')]
 - !set-attribute
   name: introspectable
   value: 0
@@ -97,10 +89,6 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'log_') and not(contains(@name,'writer'))]
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'main_')]
 - !set-attribute
   name: introspectable
   value: 0
@@ -1281,10 +1269,6 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='pointer_bit_unlock']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:function[@name='poll']
 - !set-attribute
   name: introspectable
   value: 0

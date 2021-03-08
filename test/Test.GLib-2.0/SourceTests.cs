@@ -27,7 +27,7 @@ namespace GISharp.Test.GLib
                         try {
                             Assert.That(Source.Current.UnsafeHandle, Is.EqualTo(source.UnsafeHandle));
                             callbackInvoked = true;
-                            return Source.Remove_;
+                            return Source.Remove;
                         }
                         finally {
                             mainLoop.Quit();
@@ -45,9 +45,9 @@ namespace GISharp.Test.GLib
         public void TestRemove()
         {
             lock (MainContextTests.MainContextLock) {
-                var id = Idle.Add(() => Source.Remove_);
+                var id = Idle.Add(() => Source.Remove);
                 Assume.That(MainContext.Default.FindSourceById(id), Is.Not.Null);
-                Source.Remove(id);
+                Source.RemoveById(id);
                 Assert.That(MainContext.Default.FindSourceById(id), Is.Null);
             }
         }
@@ -56,7 +56,7 @@ namespace GISharp.Test.GLib
         public void TestRemoveByUserData()
         {
             lock (MainContextTests.MainContextLock) {
-                Idle.Add(() => Source.Remove_, out var userData);
+                Idle.Add(() => Source.Remove, out var userData);
                 Assume.That(MainContext.Default.FindSourceByUserData(userData), Is.Not.Null);
                 Source.RemoveByUserData(userData);
                 Assert.That(MainContext.Default.FindSourceByUserData(userData), Is.Null);

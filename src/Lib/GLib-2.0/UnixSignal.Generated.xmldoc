@@ -4,7 +4,7 @@
 <summary>
 A convenience function for <see cref="UnixSignalSource.New(int)"/>, which
 attaches to the default <see cref="MainContext"/>.  You can remove the watch
-using <see cref="Source.Remove(uint)"/>.
+using <see cref="Source.RemoveById(uint)"/>.
 </summary>
 <param name="signum">
 Signal number

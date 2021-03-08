@@ -20,7 +20,7 @@ namespace GISharp.Test.GLib
             source.SetCallback(() => {
                 mainLoop.Quit();
                 idleInvoked = true;
-                return Source.Remove_;
+                return Source.Remove;
             });
             source.Attach(context);
 
