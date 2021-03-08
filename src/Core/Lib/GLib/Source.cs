@@ -348,7 +348,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// The id of a <see cref="Source"/> is given by <see cref="Id"/>, or will be
-        /// returned by the functions <see cref="Attach"/>, <see cref="Idle.Add"/>,
+        /// returned by the functions <see cref="Attach"/>, <see cref="M:Idle.Add"/>,
         /// <see cref="Timeout.Add"/>, <see cref="M:ChildWatch.Add"/>
         /// and <see cref="M:Gio.AddWatch"/>.
         ///
@@ -360,7 +360,7 @@ namespace GISharp.Lib.GLib
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
-        /// scheduling an idle to run in another thread with <see cref="Idle.Add"/>: the
+        /// scheduling an idle to run in another thread with <see cref="M:Idle.Add"/>: the
         /// idle may already have run and been removed by the time this function
         /// is called on its (now invalid) source ID.  This source ID may have
         /// been reissued, leading to the operation being performed against the
@@ -373,6 +373,22 @@ namespace GISharp.Lib.GLib
         public static void Remove(uint id)
         {
             g_source_remove(id);
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_source_remove_by_user_data(IntPtr userData);
+
+        /// <summary>
+        /// Removes a source from the default main loop context given the user data for the callback.
+        /// </summary>
+        /// <remarks>
+        /// If multiple sources exist with the same user data, only one will be destroyed.
+        /// </remarks>
+        public static bool RemoveByUserData(IntPtr userData)
+        {
+            var ret_ = g_source_remove_by_user_data(userData);
+            var ret = ret_.IsTrue();
+            return ret;
         }
 
         /// <summary>
@@ -417,7 +433,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// This is a convenience utility to set source names from the return
-        /// value of <see cref="Idle.Add"/>, <see cref="Timeout.Add"/>, etc.
+        /// value of <see cref="M:Idle.Add"/>, <see cref="Timeout.Add"/>, etc.
         ///
         /// It is a programmer error to attempt to set the name of a non-existent
         /// source.
@@ -425,7 +441,7 @@ namespace GISharp.Lib.GLib
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
-        /// scheduling an idle to run in another thread with <see cref="Idle.Add"/>: the
+        /// scheduling an idle to run in another thread with <see cref="M:Idle.Add"/>: the
         /// idle may already have run and been removed by the time this function
         /// is called on its (now invalid) source ID.  This source ID may have
         /// been reissued, leading to the operation being performed against the

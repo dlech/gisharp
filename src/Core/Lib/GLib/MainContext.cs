@@ -718,7 +718,7 @@ namespace GISharp.Lib.GLib
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
-        /// scheduling an idle to run in another thread with <see cref="Idle.Add"/>: the
+        /// scheduling an idle to run in another thread with <see cref="M:Idle.Add"/>: the
         /// idle may already have run and been removed by the time this function
         /// is called on its (now invalid) source ID.  This source ID may have
         /// been reissued, leading to the operation being performed against the
@@ -762,6 +762,27 @@ namespace GISharp.Lib.GLib
             /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
             IntPtr userData);
+
+        /// <summary>
+        /// Finds a source with the given user data for the callback.
+        /// </summary>
+        /// <remarks>
+        /// If multiple sources exist with the same user data, the first
+        /// one found will be returned.
+        /// </remarks>
+        /// <param name="userData">
+        /// the user data handle for the callback.
+        /// </param>
+        /// <returns>
+        /// the source, if one was found, otherwise <c>null</c>
+        /// </returns>
+        public Source? FindSourceByUserData(IntPtr userData)
+        {
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_main_context_find_source_by_user_data(context_, userData);
+            var ret = GetInstance<Source>((IntPtr)ret_, Transfer.None);
+            return ret;
+        }
 
         /// <summary>
         /// Finds a source with the given user data for the callback.
@@ -1178,7 +1199,7 @@ namespace GISharp.Lib.GLib
         /// default context in the main thread. Note that calling this function
         /// changes the context returned by <see cref="ThreadDefault"/>,
         /// not the one returned by <see cref="Default"/>, so it does not affect
-        /// the context used by functions like <see cref="Idle.Add"/>.
+        /// the context used by functions like <see cref="M:Idle.Add"/>.
         /// </summary>
         /// <remarks>
         /// Normally you would call this function shortly after creating a new

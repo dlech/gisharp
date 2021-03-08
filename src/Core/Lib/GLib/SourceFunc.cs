@@ -10,7 +10,7 @@ namespace GISharp.Lib.GLib
 {
     /// <summary>
     /// Specifies the type of function passed to <see cref="Timeout.Add"/>,
-    /// and <see cref="Idle.Add"/>.
+    /// and <see cref="M:Idle.Add"/>.
     /// </summary>
     public delegate bool SourceFunc();
 
@@ -73,6 +73,30 @@ namespace GISharp.Lib.GLib
             catch (Exception ex) {
                 ex.LogUnhandledException();
             }
+        }
+
+        /// <summary>
+        /// For runtime use only.
+        /// </summary>
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        public static Runtime.Boolean Callback(IntPtr userData_)
+        {
+            try {
+                var userDataHandle = (GCHandle)userData_;
+                var (userData, userDataScope) = ((SourceFunc, CallbackScope))userDataHandle.Target!;
+                var ret = userData.Invoke();
+                if (userDataScope == CallbackScope.Async) {
+                    userDataHandle.Free();
+                }
+
+                var ret_ = BooleanExtensions.ToBoolean(ret);
+                return ret_;
+            }
+            catch (Exception ex) {
+                Log.LogUnhandledException(ex);
+            }
+
+            return default;
         }
     }
 }

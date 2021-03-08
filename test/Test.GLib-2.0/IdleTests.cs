@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System.Threading.Tasks;
 using GISharp.Lib.GLib;
@@ -19,7 +19,7 @@ namespace GISharp.Test.GLib
                 var idleInvoked = false;
 
                 using (var mainLoop = new MainLoop()) {
-                    var (id, _) = Idle.Add(() => {
+                    var id = Idle.Add(() => {
                         mainLoop.Quit();
                         idleInvoked = true;
                         return Source.Remove_;
@@ -35,6 +35,17 @@ namespace GISharp.Test.GLib
                 }
 
                 Assert.That(idleInvoked, Is.True);
+            }
+        }
+
+        [Test]
+        public void TestRemoveByUserData()
+        {
+            lock (MainContextTests.MainContextLock) {
+                Idle.Add(() => Source.Remove_, out var data);
+                Assume.That(MainContext.Default.FindSourceByUserData(data), Is.Not.Null);
+                Assert.That(Idle.RemoveByData(data), Is.True);
+                Assert.That(MainContext.Default.FindSourceByUserData(data), Is.Null);
             }
         }
     }

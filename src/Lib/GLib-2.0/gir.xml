@@ -21944,6 +21944,15 @@ system journal.</doc>
 Windows platform. If your application really needs the POSIX
 APIs, we suggest you try the Cygwin project.</doc>
     </docsection>
+    <alias name="IdleSource" gs:managed-name="IdleSource">
+  <type name="Source" c:type="GSource" gs:managed-name="Source" />
+<constructor name="new" c:identifier="g_idle_source_new" gs:dll-name="glib-2.0" gs:managed-name="New"><doc xml:space="preserve" filename="glib-2.0.c" line="18970">Creates a new idle source.
+
+The source will not initially be associated with any #GMainContext
+and must be added to one with g_source_attach() before it will be
+executed. Note that the default priority for idle sources is
+%G_PRIORITY_DEFAULT_IDLE, as compared to other sources which
+have a default priority of %G_PRIORITY_DEFAULT.</doc><source-position filename="gmain.h" line="669" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="18981">the newly-created idle source</doc><type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" /></return-value><parameters /><gs:managed-parameters /></constructor></alias>
     <gs:static-class name="UnicharExtensions" gs:managed-name="UnicharExtensions">
       <constant name="MAX_DECOMPOSITION_LENGTH" value="18" c:type="G_UNICHAR_MAX_DECOMPOSITION_LENGTH" version="2.32" gs:access-modifiers="private" gs:managed-name="maxDecompositionLength">
         <doc xml:space="preserve" filename="gunicode.h" line="729">The maximum length (in codepoints) of a compatibility or canonical
@@ -23214,6 +23223,77 @@ messages.</doc>
           <parameter name="output_fd" transfer-ownership="none" gs:managed-name="outputFd" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="21806">output file descriptor to check</doc>
             <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+    </gs:static-class>
+    <gs:static-class name="Idle" gs:managed-name="Idle">
+      <function name="add_full" c:identifier="g_idle_add_full" shadows="add" gs:dll-name="glib-2.0" gs:managed-name="Add">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18935">Adds a function to be called whenever there are no higher priority
+events pending.  If the function returns %FALSE it is automatically
+removed from the list of event sources and will not be called again.
+
+See [memory management of sources][mainloop-memory-management] for details
+on how to handle the return value and memory management of @data.
+
+This internally creates a main loop source using g_idle_source_new()
+and attaches it to the global #GMainContext using g_source_attach(), so
+the callback will be invoked in whichever thread is running that main
+context. You can do these steps manually if you need greater control or to
+use a custom main context.</doc>
+        <source-position filename="gmain.h" line="766" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18956">the ID (greater than 0) of the event source.</doc>
+          <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+        </return-value>
+        <parameters>
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.DefaultIdle" gs:managed-name="priority" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18937">the priority of the idle source. Typically this will be in the
+           range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="function" transfer-ownership="none" scope="notified" closure="2" destroy="3" gs:managed-name="function" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18939">function to call</doc>
+            <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18940">data to pass to @function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="notify" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="notify" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18941">function to call when the idle is removed, or %NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="function" transfer-ownership="none" scope="notified" closure="2" destroy="3" gs:managed-name="function" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18939">function to call</doc>
+            <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
+          </parameter>
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.DefaultIdle" gs:managed-name="priority" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18937">the priority of the idle source. Typically this will be in the
+           range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_by_data" c:identifier="g_idle_remove_by_data" gs:dll-name="glib-2.0" gs:managed-name="RemoveByData">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18960">Removes the idle function with the given data.</doc>
+        <source-position filename="gmain.h" line="771" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18966">%TRUE if an idle source was found and removed.</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18962">the data for the idle source's callback.</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18962">the data for the idle source's callback.</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
       </function>

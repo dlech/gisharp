@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System.Threading.Tasks;
 using NUnit.Framework;
@@ -45,7 +45,7 @@ namespace GISharp.Test.GLib
         public void TestRemove()
         {
             lock (MainContextTests.MainContextLock) {
-                var (id, _) = Idle.Add(() => Source.Remove_);
+                var id = Idle.Add(() => Source.Remove_);
                 Assume.That(MainContext.Default.FindSourceById(id), Is.Not.Null);
                 Source.Remove(id);
                 Assert.That(MainContext.Default.FindSourceById(id), Is.Null);
@@ -53,12 +53,12 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
-        public void TestRemoveUserData()
+        public void TestRemoveByUserData()
         {
             lock (MainContextTests.MainContextLock) {
-                var (_, userData) = Idle.Add(() => Source.Remove_);
+                Idle.Add(() => Source.Remove_, out var userData);
                 Assume.That(MainContext.Default.FindSourceByUserData(userData), Is.Not.Null);
-                userData.Dispose();
+                Source.RemoveByUserData(userData);
                 Assert.That(MainContext.Default.FindSourceByUserData(userData), Is.Null);
             }
         }

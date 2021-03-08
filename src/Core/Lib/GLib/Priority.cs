@@ -23,7 +23,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// In GLib this priority is used when adding idle functions with
-        /// <see cref="Idle.Add"/>.
+        /// <see cref="M:Idle.Add"/>.
         /// </remarks>
         public const int DefaultIdle = 200;
 

@@ -11,7 +11,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// <see cref="Source"/> that runs when the event loop is idle.
     /// </summary>
-    public sealed unsafe class IdleSource : Source
+    internal sealed unsafe class IdleSource : Source
     {
         /// <summary>
         /// Creates a new idle source.
@@ -60,7 +60,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="Priority.DefaultIdle"/>, as compared to other sources which
         /// have a default priority of <see cref="Priority.Default"/>.
         /// </remarks>
-        public IdleSource() : this((IntPtr)New(), Transfer.Full)
+        internal IdleSource() : this((IntPtr)New(), Transfer.Full)
         {
         }
 
@@ -68,7 +68,7 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public IdleSource(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        internal IdleSource(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 
@@ -76,7 +76,7 @@ namespace GISharp.Lib.GLib
         /// Sets the callback function for a source. The callback for a source is
         /// called from the source's dispatch function.
         /// </summary>
-        public void SetCallback(SourceFunc func)
+        internal void SetCallback(SourceFunc func)
         {
             SetCallback(func, SourceFuncMarshal.ToUnmanagedFunctionPointer);
         }
