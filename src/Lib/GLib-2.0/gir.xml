@@ -21944,15 +21944,24 @@ system journal.</doc>
 Windows platform. If your application really needs the POSIX
 APIs, we suggest you try the Cygwin project.</doc>
     </docsection>
-    <alias name="IdleSource" gs:managed-name="IdleSource">
-  <type name="Source" c:type="GSource" gs:managed-name="Source" />
-<constructor name="new" c:identifier="g_idle_source_new" gs:dll-name="glib-2.0" gs:managed-name="New"><doc xml:space="preserve" filename="glib-2.0.c" line="18970">Creates a new idle source.
+    <gs:static-class name="IdleSource" gs:managed-name="IdleSource">
+      <function name="new" c:identifier="g_idle_source_new" gs:dll-name="glib-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18970">Creates a new idle source.
 
 The source will not initially be associated with any #GMainContext
 and must be added to one with g_source_attach() before it will be
 executed. Note that the default priority for idle sources is
 %G_PRIORITY_DEFAULT_IDLE, as compared to other sources which
-have a default priority of %G_PRIORITY_DEFAULT.</doc><source-position filename="gmain.h" line="669" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="18981">the newly-created idle source</doc><type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" /></return-value><parameters /><gs:managed-parameters /></constructor></alias>
+have a default priority of %G_PRIORITY_DEFAULT.</doc>
+        <source-position filename="gmain.h" line="669" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18981">the newly-created idle source</doc>
+          <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </gs:static-class>
     <gs:static-class name="UnicharExtensions" gs:managed-name="UnicharExtensions">
       <constant name="MAX_DECOMPOSITION_LENGTH" value="18" c:type="G_UNICHAR_MAX_DECOMPOSITION_LENGTH" version="2.32" gs:access-modifiers="private" gs:managed-name="maxDecompositionLength">
         <doc xml:space="preserve" filename="gunicode.h" line="729">The maximum length (in codepoints) of a compatibility or canonical

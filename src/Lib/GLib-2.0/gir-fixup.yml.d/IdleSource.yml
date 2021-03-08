@@ -1,23 +1,15 @@
 
-# add alias
+# add static class
 - !add-element
-  xml: |
-    <gi:alias name='IdleSource'>
-      <gi:type name='Source' c:type='GSource'/>
-    </gi:alias>
+  xml: <gs:static-class name='IdleSource' />
   xpath: gi:repository/gi:namespace
 
-# Move functions to alias
+# Move functions to static class
 - !move-element
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'idle_source_')]
-  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='IdleSource']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='IdleSource']
 - !change-attribute
   name: name
   regex:  idle_source_(.*)
   replace: $1
-  xpath: gi:repository/gi:namespace/gi:alias[@name='IdleSource']/gi:function
-
-# flag constructors
-- !change-element
-  new-name: gi:constructor
-  xpath: gi:repository/gi:namespace/gi:alias[@name='IdleSource']/gi:function[starts-with(@name,'new')]
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='IdleSource']/gi:function

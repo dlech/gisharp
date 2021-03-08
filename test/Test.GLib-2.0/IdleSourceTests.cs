@@ -16,7 +16,7 @@ namespace GISharp.Test.GLib
 
             using var context = new MainContext();
             using var mainLoop = new MainLoop(context);
-            using var source = new IdleSource();
+            using var source = IdleSource.New();
             source.SetCallback(() => {
                 mainLoop.Quit();
                 idleInvoked = true;

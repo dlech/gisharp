@@ -22,7 +22,7 @@ namespace GISharp.Test.GLib
                     using var context = new MainContext();
                     context.PushThreadDefault();
                     using var mainLoop = new MainLoop(context);
-                    using var source = new IdleSource();
+                    using var source = IdleSource.New();
                     source.SetCallback(() => {
                         try {
                             Assert.That(Source.Current.UnsafeHandle, Is.EqualTo(source.UnsafeHandle));
@@ -68,7 +68,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestPollFD()
         {
-            using var s = new IdleSource();
+            using var s = IdleSource.New();
             s.AddPoll(testPollFD);
             s.RemovePoll(testPollFD);
         }

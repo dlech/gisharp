@@ -4,23 +4,8 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="IdleSource.xmldoc" path="declaration/member[@name='IdleSource']/*" />
-    public sealed unsafe partial class IdleSource : GISharp.Lib.GLib.Source
+    public static unsafe partial class IdleSource
     {
-        /// <summary>
-        /// The unmanaged data structure.
-        /// </summary>
-        public new struct UnmanagedStruct
-        {
-        }
-
-        /// <summary>
-        /// For internal runtime use only.
-        /// </summary>
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public IdleSource(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
-        {
-        }
-
         /// <summary>
         /// Creates a new idle source.
         /// </summary>
@@ -40,16 +25,13 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_idle_source_new();
         static partial void CheckNewArgs();
 
-        static GISharp.Lib.GLib.Source.UnmanagedStruct* New()
+        /// <include file="IdleSource.xmldoc" path="declaration/member[@name='IdleSource.New()']/*" />
+        public static GISharp.Lib.GLib.Source New()
         {
             CheckNewArgs();
             var ret_ = g_idle_source_new();
-            return ret_;
-        }
-
-        /// <include file="IdleSource.xmldoc" path="declaration/member[@name='IdleSource.IdleSource()']/*" />
-        public IdleSource() : this((System.IntPtr)New(), GISharp.Runtime.Transfer.Full)
-        {
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
         }
     }
 }

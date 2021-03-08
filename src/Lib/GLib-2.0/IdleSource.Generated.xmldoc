@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='IdleSource.IdleSource()'>
+<member name='IdleSource.New()'>
 <summary>
 Creates a new idle source.
 </summary>
@@ -11,6 +11,9 @@ executed. Note that the default priority for idle sources is
 %G_PRIORITY_DEFAULT_IDLE, as compared to other sources which
 have a default priority of %G_PRIORITY_DEFAULT.
 </remarks>
+<returns>
+the newly-created idle source
+</returns>
 </member>
 
 <member name='IdleSource'>

@@ -10,7 +10,7 @@ removed from the list of event sources and will not be called again.
 See [memory management of sources][mainloop-memory-management] for details
 on how to handle the return value and memory management of <paramref name="data"/>.
 
-This internally creates a main loop source using <see cref="IdleSource.IdleSource()"/>
+This internally creates a main loop source using <see cref="IdleSource.New()"/>
 and attaches it to the global <see cref="MainContext"/> using <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/>, so
 the callback will be invoked in whichever thread is running that main
 context. You can do these steps manually if you need greater control or to
