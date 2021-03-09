@@ -538,7 +538,7 @@ time.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <record name="Closure" c:type="GClosure" glib:type-name="GClosure" glib:get-type="g_closure_get_type" c:symbol-prefix="closure" gs:managed-name="Closure">
+    <glib:boxed name="Closure" c:type="GClosure" glib:type-name="GClosure" glib:get-type="g_closure_get_type" c:symbol-prefix="closure" gs:managed-name="Closure">
       <doc xml:space="preserve" filename="gobject-2.0.c" line="275">A #GClosure represents a callback supplied by the programmer. It
 will generally comprise a function of some kind and a marshaller
 used to call it. It is the responsibility of the marshaller to
@@ -946,7 +946,7 @@ closure, then the closure will be destroyed and freed.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <callback name="ClosureNotify" c:type="GClosureNotify" gs:dll-name="gobject-2.0" gs:managed-name="ClosureNotify">
       <doc xml:space="preserve" filename="gclosure.h" line="87">The type used for the various notification callbacks which can be registered
 on closures.</doc>
@@ -3435,7 +3435,7 @@ stages of a signal emission.</doc>
     <union name="TypeCValue" c:type="GTypeCValue" gs:managed-name="TypeCValue">
       <source-position filename="gtype.h" line="389" />
     </union>
-    <record name="TypeClass" c:type="GTypeClass" gs:managed-name="TypeClass">
+    <record name="TypeClass" c:type="GTypeClass" disguised="1" gs:managed-name="TypeClass">
       <doc xml:space="preserve" filename="gtype.h" line="403">An opaque structure used as the base of all classes.</doc>
       <source-position filename="gtype.h" line="412" />
       <field name="g_type" readable="0" private="1" gs:managed-name="GType">
@@ -3743,7 +3743,7 @@ across invocation of g_type_register_static().</doc>
         <type name="TypeValueTable" c:type="const GTypeValueTable*" gs:managed-name="TypeValueTable" gs:is-pointer="1" />
       </field>
     </record>
-    <record name="TypeInstance" c:type="GTypeInstance" gs:managed-name="TypeInstance">
+    <record name="TypeInstance" c:type="GTypeInstance" disguised="1" gs:managed-name="TypeInstance">
       <doc xml:space="preserve" filename="gtype.h" line="413">An opaque structure used as the base of all type instances.</doc>
       <source-position filename="gtype.h" line="422" />
       <field name="g_class" readable="0" private="1" gs:managed-name="GClass">
@@ -3769,7 +3769,7 @@ across invocation of g_type_register_static().</doc>
         </gs:managed-parameters>
       </method>
     </record>
-    <record name="TypeInterface" c:type="GTypeInterface" gs:managed-name="TypeInterface">
+    <record name="TypeInterface" c:type="GTypeInterface" disguised="1" gs:managed-name="TypeInterface">
       <doc xml:space="preserve" filename="gtype.h" line="423">An opaque structure used as the base of all interface types.</doc>
       <source-position filename="gtype.h" line="433" />
       <field name="g_type" readable="0" private="1" gs:managed-name="GType">

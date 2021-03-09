@@ -304,6 +304,12 @@ namespace GISharp.CodeGen
 
             document.Root.SetAttributeValue(XNamespace.Xmlns + "gs", gs.NamespaceName);
 
+            // copy glib:name attribute to name
+
+            foreach (var element in document.Descendants(glib + "boxed")) {
+                element.SetAttributeValue("name", element.Attribute(glib + "name").Value);
+            }
+
             // ensure that functions without parameters have an empty <parameters> element
 
             foreach (var element in document.Descendants(gi + "function")
@@ -674,6 +680,14 @@ namespace GISharp.CodeGen
             foreach (var element in elementsWithRefMethod) {
                 element.SetAttributeValue(gs + "special-func", "ref");
                 element.SetAttributeValue(gs + "pinvoke-only", "1");
+
+                // change record to glib:boxed
+                if (element.Ancestors(gi + "record")
+                    .SingleOrDefault(x => x.Attribute(glib + "type-name") is not null)
+                        is XElement recordElement
+                ) {
+                    recordElement.Name = glib + "boxed";
+                }
             }
 
             // flag unref methods
@@ -694,6 +708,14 @@ namespace GISharp.CodeGen
             foreach (var element in elementsWithCopyMethod) {
                 element.SetAttributeValue(gs + "special-func", "copy");
                 element.SetAttributeValue(gs + "pinvoke-only", "1");
+
+                // change record to glib:boxed
+                if (element.Ancestors(gi + "record")
+                    .SingleOrDefault(x => x.Attribute(glib + "type-name") is not null)
+                        is XElement recordElement
+                ) {
+                    recordElement.Name = glib + "boxed";
+                }
             }
 
             // flag free methods

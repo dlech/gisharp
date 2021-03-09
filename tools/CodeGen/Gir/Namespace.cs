@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
@@ -46,6 +46,12 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public IEnumerable<Bitfield> Bitfields => _Bitfields.Value;
         readonly Lazy<List<Bitfield>> _Bitfields;
+
+        /// <summary>
+        /// Gets a list of boxeds
+        /// </summary>
+        public IEnumerable<Boxed> Boxeds => _Boxeds.Value;
+        readonly Lazy<List<Boxed>> _Boxeds;
 
         /// <summary>
         /// Gets a list of callbacks
@@ -111,6 +117,7 @@ namespace GISharp.CodeGen.Gir
             CSymbolPrefixes = element.Attribute(c + "symbol-prefixes").Value.Split(',');
             _Aliases = new(() => LazyGetAliases().ToList(), false);
             _Bitfields = new(() => LazyGetBitfields().ToList(), false);
+            _Boxeds = new(() => LazyGetBoxeds().ToList(), false);
             _Callbacks = new(() => LazyGetCallbacks().ToList(), false);
             _Classes = new(() => LazyGetClasses().ToList(), false);
             _Enumerations = new(() => LazyGetEnumerations().ToList(), false);
@@ -141,6 +148,9 @@ namespace GISharp.CodeGen.Gir
         IEnumerable<Bitfield> LazyGetBitfields() =>
             Element.Elements(gi + "bitfield").Select(x => (Bitfield)GetNode(x));
 
+        IEnumerable<Boxed> LazyGetBoxeds() =>
+            Element.Elements(glib + "boxed").Select(x => (Boxed)GetNode(x));
+
         IEnumerable<Callback> LazyGetCallbacks() =>
             Element.Elements(gi + "callback").Select(x => (Callback)GetNode(x));
 
@@ -163,7 +173,7 @@ namespace GISharp.CodeGen.Gir
             Element.Elements(gi + "union").Select(x => (Union)GetNode(x));
 
         IEnumerable<GIBase> LazyGetAllTypes() =>
-            Element.Elements().Select(x => GirNode.GetNode(x))
+            Element.Elements().Select(x => GetNode(x))
                 .Where(x => x is GIRegisteredType || x is Callback)
                 .Cast<GIBase>();
     }

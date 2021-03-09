@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
@@ -8,12 +8,17 @@ using System.Xml.Linq;
 
 namespace GISharp.CodeGen.Gir
 {
-    public abstract class GIRegisteredType: GIBase
+    public abstract class GIRegisteredType : GIBase
     {
         /// <summary>
         /// Gets the C type of this type
         /// </summary>
         public string CType { get; }
+
+        /// <summary>
+        /// Gets the C symbol prefix.
+        /// </summary>
+        public string CSymbolPrefix { get; }
 
         /// <summary>
         /// Gets the name of the GType, if any
@@ -91,12 +96,13 @@ namespace GISharp.CodeGen.Gir
         readonly Lazy<List<VirtualMethod>> _VirtualMethods;
 
         private protected GIRegisteredType(XElement element, GirNode parent)
-            : base (element, parent ?? throw new ArgumentNullException(nameof(parent)))
+            : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
             CType = element.Attribute(c + "type").AsString();
+            CSymbolPrefix = element.Attribute(c + "symbol-prefix").AsString();
             GTypeName = element.Attribute(glib + "type-name").AsString();
-            GTypeGetter = element.Attribute (glib + "get-type").AsString();
-            GTypeStruct = element.Attribute (glib + "type-struct").AsString();
+            GTypeGetter = element.Attribute(glib + "get-type").AsString();
+            GTypeStruct = element.Attribute(glib + "type-struct").AsString();
             _GTypeStructNode = new(LazyGetGTypeStructNode, false);
             _Constants = new(() => LazyGetConstants().ToList(), false);
             _Fields = new(() => LazyGetFields().ToList(), false);
@@ -114,7 +120,7 @@ namespace GISharp.CodeGen.Gir
             if (GTypeStruct is null) {
                 return null;
             }
-            return (Record)GirNode.GetNode(Element.Parent.Elements(gi + "record")
+            return (Record)GetNode(Element.Parent.Elements(gi + "record")
                 .Single(x => x.Attribute("name")?.Value == GTypeStruct));
         }
 

@@ -1045,7 +1045,7 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Value* value,
         /* <type name="TypeInstance" type="gpointer" managed-name="TypeInstance" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.TypeInstance* instance);
+        GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance);
         partial void CheckInitFromInstanceArgs(GISharp.Lib.GObject.TypeInstance instance);
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.InitFromInstance(GISharp.Lib.GObject.TypeInstance)']/*" />
@@ -1056,7 +1056,7 @@ namespace GISharp.Lib.GObject
             {
                 CheckInitFromInstanceArgs(instance);
                 var value_ = this_;
-                var instance_ = &instance;
+                var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)instance.UnsafeHandle;
                 g_value_init_from_instance(value_, instance_);
             }
         }

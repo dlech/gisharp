@@ -108,7 +108,7 @@ namespace GISharp.Lib.GObject
     public unsafe delegate void UnmanagedClassInitFunc(
     /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    GISharp.Lib.GObject.TypeClass* gClass,
+    GISharp.Lib.GObject.TypeClass.UnmanagedStruct* gClass,
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr classData);
@@ -124,11 +124,11 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="ClassInitFunc"/>.
         /// </summary>
-        public static GISharp.Lib.GObject.ClassInitFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass*, System.IntPtr, void> callback_, System.IntPtr userData_)
+        public static GISharp.Lib.GObject.ClassInitFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
             void managedCallback(GISharp.Lib.GObject.TypeClass gClass, System.IntPtr classData)
             {
-                var gClass_ = &gClass;
+                var gClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)gClass.UnsafeHandle;
                 var classData_ = (System.IntPtr)classData;
                 callback_(gClass_, classData_);
             }

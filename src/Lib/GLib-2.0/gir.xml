@@ -48,7 +48,7 @@ g_auto().</doc>
         <type name="gint64" c:type="gint64" gs:managed-name="System.Int64" />
       </constant>
     </alias>
-    <record name="Array" c:type="GArray" glib:type-name="GArray" glib:get-type="g_array_get_type" c:symbol-prefix="array" gs:inheritance-modifiers="abstract" gs:managed-name="Array">
+    <glib:boxed name="Array" c:type="GArray" glib:type-name="GArray" glib:get-type="g_array_get_type" c:symbol-prefix="array" gs:inheritance-modifiers="abstract" gs:managed-name="Array">
       <doc xml:space="preserve" filename="glib-2.0.c" line="68">Contains the public fields of a GArray.</doc>
       <source-position filename="garray.h" line="45" />
       <field name="data" writable="1" gs:managed-name="Data">
@@ -847,8 +847,8 @@ thread.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
-    <record name="ByteArray" c:type="GByteArray" glib:type-name="GByteArray" glib:get-type="g_byte_array_get_type" c:symbol-prefix="byte_array" gs:managed-name="ByteArray">
+    </glib:boxed>
+    <glib:boxed name="ByteArray" c:type="GByteArray" glib:type-name="GByteArray" glib:get-type="g_byte_array_get_type" c:symbol-prefix="byte_array" gs:managed-name="ByteArray">
       <doc xml:space="preserve" filename="glib-2.0.c" line="88">Contains the public fields of a GByteArray.</doc>
       <source-position filename="garray.h" line="51" />
       <field name="data" writable="1" gs:managed-name="Data">
@@ -1292,8 +1292,8 @@ thread.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
-    <record name="Bytes" c:type="GBytes" version="2.32" glib:type-name="GBytes" glib:get-type="g_bytes_get_type" c:symbol-prefix="bytes" gs:managed-name="Bytes">
+    </glib:boxed>
+    <glib:boxed name="Bytes" c:type="GBytes" version="2.32" glib:type-name="GBytes" glib:get-type="g_bytes_get_type" c:symbol-prefix="bytes" gs:managed-name="Bytes">
       <doc xml:space="preserve" filename="glib-2.0.c" line="98">A simple refcounted data type representing an immutable sequence of zero or
 more bytes from an unspecified origin.
 
@@ -1750,7 +1750,7 @@ data is copied.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <callback name="CompareDataFunc" c:type="GCompareDataFunc" gs:dll-name="glib-2.0" gs:managed-name="CompareDataFunc">
       <doc xml:space="preserve" filename="glib-2.0.c" line="130">Specifies the type of a comparison function used to compare two
 values.  The function should return a negative integer if the first
@@ -2123,7 +2123,7 @@ when doing a deep-copy of a tree.</doc>
 accessed via the following functions.</doc>
       <source-position filename="gdataset.h" line="36" />
     </record>
-    <record name="DateTime" c:type="GDateTime" version="2.26" glib:type-name="GDateTime" glib:get-type="g_date_time_get_type" c:symbol-prefix="date_time" gs:managed-name="DateTime">
+    <glib:boxed name="DateTime" c:type="GDateTime" version="2.26" glib:type-name="GDateTime" glib:get-type="g_date_time_get_type" c:symbol-prefix="date_time" gs:managed-name="DateTime">
       <doc xml:space="preserve" filename="gdatetime.h" line="89">`GDateTime` is an opaque structure whose members
 cannot be accessed directly.</doc>
       <source-position filename="gdatetime.h" line="97" />
@@ -3970,7 +3970,7 @@ them to the same time zone.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <callback name="DestroyNotify" c:type="GDestroyNotify" gs:dll-name="glib-2.0" gs:managed-name="DestroyNotify">
       <doc xml:space="preserve" filename="glib-2.0.c" line="343">Specifies the type of function which is called when a data element
 is destroyed. It is passed the pointer to the data element and
@@ -4022,7 +4022,7 @@ and %FALSE otherwise.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <record name="Error" c:type="GError" glib:type-name="GError" glib:get-type="g_error_get_type" c:symbol-prefix="error" gs:managed-name="Error">
+    <glib:boxed name="Error" c:type="GError" glib:type-name="GError" glib:get-type="g_error_get_type" c:symbol-prefix="error" gs:managed-name="Error">
       <doc xml:space="preserve" filename="gerror.h" line="32">The `GError` structure contains information about
 an error that has occurred.</doc>
       <source-position filename="gerror.h" line="48" />
@@ -4154,7 +4154,7 @@ a certain case, your code will still work.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <callback name="Func" c:type="GFunc" gs:dll-name="glib-2.0" gs:managed-name="Func">
       <doc xml:space="preserve" filename="glib-2.0.c" line="542">Specifies the type of functions passed to g_list_foreach() and
 g_slist_foreach().</doc>
@@ -4298,7 +4298,7 @@ must be an element of randomness that an attacker is unable to guess.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <record name="HashTable" c:type="GHashTable" glib:type-name="GHashTable" glib:get-type="g_hash_table_get_type" c:symbol-prefix="hash_table" gs:inheritance-modifiers="abstract" gs:managed-name="HashTable">
+    <glib:boxed name="HashTable" c:type="GHashTable" glib:type-name="GHashTable" glib:get-type="g_hash_table_get_type" c:symbol-prefix="hash_table" gs:inheritance-modifiers="abstract" gs:managed-name="HashTable">
       <doc xml:space="preserve" filename="glib-2.0.c" line="620">The #GHashTable struct is an opaque data structure to represent a
 [Hash Table][glib-Hash-Tables]. It should only be accessed via the
 following functions.</doc>
@@ -5299,7 +5299,7 @@ This function is MT-safe and may be called from any thread.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <bitfield name="IOCondition" glib:type-name="GIOCondition" glib:get-type="g_io_condition_get_type" c:type="GIOCondition" gs:managed-name="IOCondition">
       <doc xml:space="preserve" filename="glib-2.0.c" line="957">A bitwise combination representing a condition to watch for on an
 event source.</doc>
@@ -5330,7 +5330,7 @@ event source.</doc>
         <gs:managed-parameters />
       </function>
     </bitfield>
-    <record name="KeyFile" c:type="GKeyFile" glib:type-name="GKeyFile" glib:get-type="g_key_file_get_type" c:symbol-prefix="key_file" gs:managed-name="KeyFile">
+    <glib:boxed name="KeyFile" c:type="GKeyFile" glib:type-name="GKeyFile" glib:get-type="g_key_file_get_type" c:symbol-prefix="key_file" gs:managed-name="KeyFile">
       <doc xml:space="preserve" filename="glib-2.0.c" line="1075">The GKeyFile struct contains only private data
 and should not be accessed directly.</doc>
       <source-position filename="gkeyfile.h" line="48" />
@@ -7482,7 +7482,7 @@ entries representing links to documents.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <enumeration name="KeyFileError" c:type="GKeyFileError" glib:error-domain="g-key-file-error-quark" gs:managed-name="KeyFileError">
       <doc xml:space="preserve" filename="glib-2.0.c" line="1083">Error codes returned by key file parsing.</doc>
       <source-position filename="gkeyfile.h" line="41" />
@@ -7672,7 +7672,7 @@ If a #GLogWriterFunc ignores a log entry, it should return
         <doc xml:space="preserve" filename="gmessages.h" line="123">Log writer could not handle the log entry.</doc>
       </member>
     </enumeration>
-    <record name="MainContext" c:type="GMainContext" glib:type-name="GMainContext" glib:get-type="g_main_context_get_type" c:symbol-prefix="main_context" gs:managed-name="MainContext">
+    <glib:boxed name="MainContext" c:type="GMainContext" glib:type-name="GMainContext" glib:get-type="g_main_context_get_type" c:symbol-prefix="main_context" gs:managed-name="MainContext">
       <doc xml:space="preserve" filename="gmain.h" line="42">The `GMainContext` struct is an opaque data
 type representing a set of sources to be handled in a main loop.</doc>
       <source-position filename="gmain.h" line="48" />
@@ -8658,8 +8658,8 @@ if the call was interrupted.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
-    <record name="MainLoop" c:type="GMainLoop" glib:type-name="GMainLoop" glib:get-type="g_main_loop_get_type" c:symbol-prefix="main_loop" gs:managed-name="MainLoop">
+    </glib:boxed>
+    <glib:boxed name="MainLoop" c:type="GMainLoop" glib:type-name="GMainLoop" glib:get-type="g_main_loop_get_type" c:symbol-prefix="main_loop" gs:managed-name="MainLoop">
       <doc xml:space="preserve" filename="gmain.h" line="50">The `GMainLoop` struct is an opaque data type
 representing the main event loop of a GLib or GTK+ application.</doc>
       <source-position filename="gmain.h" line="56" />
@@ -8827,7 +8827,7 @@ the result is zero, free the loop and free all associated memory.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <union name="Mutex" c:type="GMutex" gs:managed-name="Mutex">
       <doc xml:space="preserve" filename="glib-2.0.c" line="1307">The #GMutex struct is an opaque data structure to represent a mutex
 (mutual exclusion). It can be used to protect data against shared
@@ -9871,7 +9871,7 @@ or g_option_group_add_entries().</doc>
     your direct control.</doc>
       </member>
     </bitfield>
-    <record name="OptionGroup" c:type="GOptionGroup" glib:type-name="GOptionGroup" glib:get-type="g_option_group_get_type" c:symbol-prefix="option_group" gs:managed-name="OptionGroup">
+    <glib:boxed name="OptionGroup" c:type="GOptionGroup" glib:type-name="GOptionGroup" glib:get-type="g_option_group_get_type" c:symbol-prefix="option_group" gs:managed-name="OptionGroup">
       <doc xml:space="preserve" filename="goption.h" line="40">A `GOptionGroup` struct defines the options in a single
 group. The struct has only private fields and should not be directly accessed.
 
@@ -10107,7 +10107,7 @@ and all memory allocated by the @group is released.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <callback name="OptionParseFunc" c:type="GOptionParseFunc" throws="1" gs:dll-name="glib-2.0" gs:managed-name="OptionParseFunc">
       <doc xml:space="preserve" filename="goption.h" line="154">The type of function that can be called before and after parsing.</doc>
       <source-position filename="goption.h" line="167" />
@@ -10174,7 +10174,7 @@ occurred.</doc>
         <gs:managed-parameters />
       </function>
     </record>
-    <record name="PtrArray" c:type="GPtrArray" glib:type-name="GPtrArray" glib:get-type="g_ptr_array_get_type" c:symbol-prefix="ptr_array" gs:inheritance-modifiers="abstract" gs:managed-name="PtrArray">
+    <glib:boxed name="PtrArray" c:type="GPtrArray" glib:type-name="GPtrArray" glib:get-type="g_ptr_array_get_type" c:symbol-prefix="ptr_array" gs:inheritance-modifiers="abstract" gs:managed-name="PtrArray">
       <doc xml:space="preserve" filename="glib-2.0.c" line="1488">Contains the public fields of a pointer array.</doc>
       <source-position filename="garray.h" line="57" />
       <field name="pdata" writable="1" gs:managed-name="Pdata">
@@ -11313,7 +11313,7 @@ is thread-safe and may be called from any thread.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <enumeration name="SeekType" c:type="GSeekType" gs:managed-name="SeekType">
       <doc xml:space="preserve" filename="glib-2.0.c" line="1816">An enumeration specifying the base position for a
 g_io_channel_seek_position() operation.</doc>
@@ -11328,7 +11328,7 @@ g_io_channel_seek_position() operation.</doc>
         <doc xml:space="preserve" filename="glib-2.0.c" line="1820">the end of the file.</doc>
       </member>
     </enumeration>
-    <record name="Source" c:type="GSource" glib:type-name="GSource" glib:get-type="g_source_get_type" c:symbol-prefix="source" gs:managed-name="Source">
+    <glib:boxed name="Source" c:type="GSource" glib:type-name="GSource" glib:get-type="g_source_get_type" c:symbol-prefix="source" gs:managed-name="Source">
       <doc xml:space="preserve" filename="gmain.h" line="58">The `GSource` struct is an opaque data type
 representing an event source.</doc>
       <source-position filename="gmain.h" line="244" />
@@ -12650,7 +12650,7 @@ the #GSource from the main loop.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <record name="SourceCallbackFuncs" c:type="GSourceCallbackFuncs" gs:managed-name="SourceCallbackFuncs">
       <doc xml:space="preserve" filename="gmain.h" line="67">The `GSourceCallbackFuncs` struct contains
 functions for managing callback objects.</doc>
@@ -13042,7 +13042,7 @@ g_date_time_unref (dt);
         </gs:managed-parameters>
       </function>
     </record>
-    <record name="TimeZone" c:type="GTimeZone" version="2.26" glib:type-name="GTimeZone" glib:get-type="g_time_zone_get_type" c:symbol-prefix="time_zone" gs:managed-name="TimeZone">
+    <glib:boxed name="TimeZone" c:type="GTimeZone" version="2.26" glib:type-name="GTimeZone" glib:get-type="g_time_zone_get_type" c:symbol-prefix="time_zone" gs:managed-name="TimeZone">
       <doc xml:space="preserve" filename="glib-2.0.c" line="2106">#GTimeZone is an opaque structure whose members cannot be accessed
 directly.</doc>
       <source-position filename="gtimezone.h" line="31" />
@@ -13481,7 +13481,7 @@ west of GMT, positive numbers for east).</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <callback name="TranslateFunc" c:type="GTranslateFunc" gs:dll-name="glib-2.0" gs:managed-name="TranslateFunc">
       <doc xml:space="preserve" filename="gtypes.h" line="145">The type of functions which are used to translate user-visible
 strings, for &lt;option&gt;--help&lt;/option&gt; output.</doc>
@@ -14289,7 +14289,7 @@ See [Unicode Character Database](http://www.unicode.org/reports/tr44/#General_Ca
         <doc xml:space="preserve" filename="gunicode.h" line="110">General category "Separator, Space" (Zs)</doc>
       </member>
     </enumeration>
-    <record name="Variant" c:type="GVariant" version="2.24" glib:type-name="GVariant" glib:get-type="intern" c:symbol-prefix="variant" gs:managed-name="Variant">
+    <glib:boxed name="Variant" c:type="GVariant" version="2.24" glib:type-name="GVariant" glib:get-type="intern" c:symbol-prefix="variant" gs:managed-name="Variant">
       <doc xml:space="preserve" filename="glib-2.0.c" line="6210">#GVariant is a variant datatype; it can contain one or more values
 along with information about the type of the values.
 
@@ -17321,8 +17321,8 @@ function.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
-    <record name="VariantBuilder" c:type="GVariantBuilder" glib:type-name="GVariantBuilder" glib:get-type="g_variant_builder_get_type" c:symbol-prefix="variant_builder" gs:managed-name="VariantBuilder">
+    </glib:boxed>
+    <glib:boxed name="VariantBuilder" c:type="GVariantBuilder" glib:type-name="GVariantBuilder" glib:get-type="g_variant_builder_get_type" c:symbol-prefix="variant_builder" gs:managed-name="VariantBuilder">
       <doc xml:space="preserve" filename="glib-2.0.c" line="2630">A utility type for constructing container-type #GVariant instances.
 
 This is an opaque structure and may only be accessed using the
@@ -17566,7 +17566,7 @@ things will happen.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <enumeration name="VariantClass" version="2.24" c:type="GVariantClass" gs:managed-name="VariantClass">
       <doc xml:space="preserve" filename="glib-2.0.c" line="2643">The range of possible top-level types of #GVariant instances.</doc>
       <source-position filename="gvariant.h" line="56" />
@@ -17627,7 +17627,7 @@ things will happen.</doc>
         <doc xml:space="preserve" filename="glib-2.0.c" line="2664">The #GVariant is a dictionary entry.</doc>
       </member>
     </enumeration>
-    <record name="VariantDict" c:type="GVariantDict" version="2.40" glib:type-name="GVariantDict" glib:get-type="g_variant_dict_get_type" c:symbol-prefix="variant_dict" gs:managed-name="VariantDict">
+    <glib:boxed name="VariantDict" c:type="GVariantDict" version="2.40" glib:type-name="GVariantDict" glib:get-type="g_variant_dict_get_type" c:symbol-prefix="variant_dict" gs:managed-name="VariantDict">
       <doc xml:space="preserve" filename="glib-2.0.c" line="2672">#GVariantDict is a mutable interface to #GVariant dictionaries.
 
 It can be used for doing a sequence of dictionary lookups in an
@@ -17960,7 +17960,7 @@ things will happen.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <enumeration name="VariantParseError" c:type="GVariantParseError" glib:error-domain="g-variant-parse-error-quark" gs:managed-name="VariantParseError">
       <doc xml:space="preserve" filename="glib-2.0.c" line="2777">Error codes returned by parsing text-format GVariants.</doc>
       <source-position filename="gvariant.h" line="332" />
@@ -18022,7 +18022,7 @@ things will happen.</doc>
         <doc xml:space="preserve" filename="glib-2.0.c" line="2797">variant was too deeply nested; #GVariant is only guaranteed to handle nesting up to 64 levels ()</doc>
       </member>
     </enumeration>
-    <record name="VariantType" c:type="GVariantType" glib:type-name="GVariantType" glib:get-type="g_variant_type_get_gtype" c:symbol-prefix="variant_type" gs:managed-name="VariantType">
+    <glib:boxed name="VariantType" c:type="GVariantType" glib:type-name="GVariantType" glib:get-type="g_variant_type_get_gtype" c:symbol-prefix="variant_type" gs:managed-name="VariantType">
       <doc xml:space="preserve" filename="glib-2.0.c" line="6461">This section introduces the GVariant type system. It is based, in
 large part, on the D-Bus type system, with two major changes and
 some minor lifting of restrictions. The
@@ -19109,7 +19109,7 @@ see g_variant_type_string_is_valid().</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <docsection name="arcbox" gs:managed-name="Arcbox">
       <doc xml:space="preserve" filename="glib-2.0.c" line="4828">An "atomically reference counted box", or "ArcBox", is an opaque wrapper
 data type that is guaranteed to be as big as the size of a given data type,

@@ -24,10 +24,10 @@ namespace GISharp.Lib.GObject
     public unsafe delegate void UnmanagedInstanceInitFunc(
     /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    GISharp.Lib.GObject.TypeInstance* instance,
+    GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance,
     /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    GISharp.Lib.GObject.TypeClass* gClass);
+    GISharp.Lib.GObject.TypeClass.UnmanagedStruct* gClass);
 
     /// <include file="InstanceInitFunc.xmldoc" path="declaration/member[@name='InstanceInitFunc']/*" />
     public delegate void InstanceInitFunc(GISharp.Lib.GObject.TypeInstance instance, GISharp.Lib.GObject.TypeClass gClass);
@@ -40,12 +40,12 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="InstanceInitFunc"/>.
         /// </summary>
-        public static GISharp.Lib.GObject.InstanceInitFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInstance*, GISharp.Lib.GObject.TypeClass*, void> callback_, System.IntPtr userData_)
+        public static GISharp.Lib.GObject.InstanceInitFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*, GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, void> callback_, System.IntPtr userData_)
         {
             void managedCallback(GISharp.Lib.GObject.TypeInstance instance, GISharp.Lib.GObject.TypeClass gClass)
             {
-                var instance_ = &instance;
-                var gClass_ = &gClass;
+                var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)instance.UnsafeHandle;
+                var gClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)gClass.UnsafeHandle;
                 callback_(instance_, gClass_);
             }
 

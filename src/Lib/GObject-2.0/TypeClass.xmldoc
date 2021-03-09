@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='TypeClass.GType'>
+<member name='UnmanagedStruct.GType'>
 </member>
 
 <member name='TypeClass.AdjustPrivateOffset(System.IntPtr,int)'>

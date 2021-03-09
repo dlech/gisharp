@@ -4389,7 +4389,7 @@ in a #GIBaseInfo struct.</doc>
         <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
       </field>
     </record>
-    <record name="BaseInfo" c:type="GIBaseInfo" glib:type-name="GIBaseInfo" glib:get-type="g_base_info_gtype_get_type" c:symbol-prefix="base_info_gtype" gs:inheritance-modifiers="abstract" gs:managed-name="BaseInfo">
+    <glib:boxed name="BaseInfo" c:type="GIBaseInfo" glib:type-name="GIBaseInfo" glib:get-type="g_base_info_gtype_get_type" c:symbol-prefix="base_info_gtype" gs:inheritance-modifiers="abstract" gs:managed-name="BaseInfo">
       <doc xml:space="preserve" filename="girepository/gibaseinfo.c" line="183">GIBaseInfo is the common base struct of all other *Info structs
 accessible through the #GIRepository API.
 All other structs can be casted to a #GIBaseInfo, for instance:
@@ -4798,7 +4798,7 @@ drops to 0, the info is freed.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <enumeration name="Direction" c:type="GIDirection" gs:managed-name="Direction">
       <doc xml:space="preserve" filename="girepository/gitypes.h" line="343">The direction of a #GIArgInfo.</doc>
       <source-position filename="girepository/gitypes.h" line="355" />

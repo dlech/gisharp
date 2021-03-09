@@ -15,28 +15,52 @@ readonly XNamespace gs = "http://gisharp.org/introspection/gisharp/1.0";
 foreach (var f in Directory.GetFiles("/usr/local/share/gir-1.0", "*.gir")) {
     WriteLine(f);
     var doc = XDocument.Load(f);
-    foreach (var element in doc.Descendants(gi + "doc")
-        .Concat(doc.Descendants(gi + "source-position")).ToList()
+    // foreach (var element in doc.Descendants(gi + "doc")
+    //     .Concat(doc.Descendants(gi + "source-position")).ToList()
+    // ) {
+    //     element.Remove();
+    // }
+
+    // foreach (var element in doc.Descendants(gi + "record")
+    //     .Where(x => !(x.Attribute("name")?.Value?.EndsWith("Private") ?? false))
+    //     .Where(x => x.Attribute(glib + "is-gtype-struct-for") is null)
+    //     .Where(x => x.Attribute("disguised")?.Value == "1")
+    // ) {
+    //     element.RemoveNodes();
+    //     WriteLine(element);
+    // }
+
+    // foreach (var element in doc.Descendants(gi + "record")
+    //     .Where(x => x.Attribute(glib + "type-name") is null)
+    //     .Where(x => x.Attribute(glib + "is-gtype-struct-for") is null)
+    //     .Where(x => x.Attribute("disguised")?.Value != "1")
+    // ) {
+    //     element.RemoveNodes();
+    //     WriteLine(element);
+    // }
+
+    foreach (var element in doc.Descendants(glib + "boxed")
     ) {
-        element.Remove();
+        element.RemoveNodes();
+        WriteLine(element);
     }
 
-    foreach (var item in doc.Descendants(gi + "parameters")
-        .Select(x => (
-            x.Parent!.Name.LocalName,
-            x.Parent!.Attribute("name")?.Value,
-            x.Elements().Count(x => x.Attribute("destroy") is not null)
-        ))
-        .Where(x => x.Item3 > 1)
-        .GroupBy(x => x, x => x, (x, e) => new {
-            Element = x.LocalName,
-            Names = string.Join(", ", e.Select(y => y.Value)),
-            Num = x.Item3,
-            Count = e.Count(),
-        })
-    ) {
-        WriteLine($"{item}");
-    }
+    // foreach (var item in doc.Descendants(gi + "parameters")
+    //     .Select(x => (
+    //         x.Parent!.Name.LocalName,
+    //         x.Parent!.Attribute("name")?.Value,
+    //         x.Elements().Count(x => x.Attribute("destroy") is not null)
+    //     ))
+    //     .Where(x => x.Item3 > 1)
+    //     .GroupBy(x => x, x => x, (x, e) => new {
+    //         Element = x.LocalName,
+    //         Names = string.Join(", ", e.Select(y => y.Value)),
+    //         Num = x.Item3,
+    //         Count = e.Count(),
+    //     })
+    // ) {
+    //     WriteLine($"{item}");
+    // }
 
     // foreach (var item in doc.Descendants(gi + "parameters")
     //     .Select(x => (

@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='TypeInstance.GClass'>
+<member name='UnmanagedStruct.GClass'>
 </member>
 
 <member name='TypeInstance.GetPrivate(GISharp.Lib.GObject.GType)'>

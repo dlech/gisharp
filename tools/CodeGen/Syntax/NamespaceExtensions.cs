@@ -48,6 +48,10 @@ namespace GISharp.CodeGen.Syntax
                         .WithMembers(extensionMembers);
                 }
                 break;
+            case Boxed boxed:
+                yield return boxed.GetClassDeclaration()
+                    .WithMembers(boxed.GetClassMembers());
+                break;
             case Callback callback:
                 yield return callback.GetUnmanagedDeclaration();
                 if (!callback.IsPInvokeOnly) {
@@ -80,13 +84,13 @@ namespace GISharp.CodeGen.Syntax
                     yield return record.GetGTypeStructClassDeclaration()
                         .WithMembers(record.GetGTypeStructClassMembers());
                 }
-                else if (record.IsValueType()) {
-                    yield return record.GetStructDeclaration()
-                        .WithMembers(record.GetStructMembers());
-                }
-                else {
+                else if (record.IsDisguised) {
                     yield return record.GetClassDeclaration()
                         .WithMembers(record.GetClassMembers());
+                }
+                else {
+                    yield return record.GetStructDeclaration()
+                        .WithMembers(record.GetStructMembers());
                 }
                 break;
             case StaticClass staticClass:

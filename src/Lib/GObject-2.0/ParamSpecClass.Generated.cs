@@ -13,7 +13,7 @@ namespace GISharp.Lib.GObject
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GTypeClass']/*" />
-            public readonly GISharp.Lib.GObject.TypeClass GTypeClass;
+            public readonly GISharp.Lib.GObject.TypeClass.UnmanagedStruct GTypeClass;
 
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ValueType']/*" />
             public readonly GISharp.Lib.GObject.GType ValueType;

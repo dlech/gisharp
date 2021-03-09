@@ -13,7 +13,7 @@ namespace GISharp.Lib.GObject
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GTypeClass']/*" />
-            public readonly GISharp.Lib.GObject.TypeClass GTypeClass;
+            public readonly GISharp.Lib.GObject.TypeClass.UnmanagedStruct GTypeClass;
 
             /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ConstructProperties']/*" />
             private readonly GISharp.Lib.GLib.SList.UnmanagedStruct* ConstructProperties;

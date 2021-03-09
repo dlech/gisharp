@@ -164,27 +164,6 @@ namespace GISharp.CodeGen
             return $"GISharp.Lib.{type.Namespace.Name}.{interfacePrefix}{type.GirName}";
         }
 
-        public static bool IsValueType(this Record record)
-        {
-            // TODO: need better way to detect struct vs opaque
-            if (record.GTypeName == "GValue") {
-                return true;
-            }
-            if (record.GTypeName == "GPollFD") {
-                return true;
-            }
-            if (record.CType == "GTypeInterface") {
-                return false;
-            }
-            if (record.GTypeName is not null || record.IsDisguised) {
-                return false;
-            }
-            if (record.IsGTypeStructFor is not null) {
-                return false;
-            }
-            return true;
-        }
-
         /// <summary>
         /// Tests if the managed type is a value type.
         /// </summary>
@@ -215,7 +194,7 @@ namespace GISharp.CodeGen
             }
 
             if (type.Interface is Record record) {
-                return record.IsValueType();
+                return !record.IsDisguised && record.IsGTypeStructFor is null;
             }
 
             if (type.Interface is Alias alias) {

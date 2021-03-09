@@ -62,9 +62,6 @@ namespace GISharp.CodeGen.Gir
                 }
                 throw new NotSupportedException("Don't know how to get the parent for this GType struct");
             }
-            if (GTypeName is not null) {
-                return "GISharp.Lib.GObject.Boxed";
-            }
             if (IsDisguised) {
                 return typeof(Opaque).FullName;
             }

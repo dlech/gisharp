@@ -16270,7 +16270,7 @@ with g_file_unmount_mountable_with_operation().</doc>
         <gs:managed-parameters />
       </function>
     </bitfield>
-    <record name="FileAttributeInfoList" c:type="GFileAttributeInfoList" glib:type-name="GFileAttributeInfoList" glib:get-type="g_file_attribute_info_list_get_type" c:symbol-prefix="file_attribute_info_list" gs:managed-name="FileAttributeInfoList">
+    <glib:boxed name="FileAttributeInfoList" c:type="GFileAttributeInfoList" glib:type-name="GFileAttributeInfoList" glib:get-type="g_file_attribute_info_list_get_type" c:symbol-prefix="file_attribute_info_list" gs:managed-name="FileAttributeInfoList">
       <doc xml:space="preserve" filename="gfileattribute.h" line="47">Acts as a lightweight registry for possible valid file attributes.
 The registry stores Key-Value pair formats as #GFileAttributeInfos.</doc>
       <source-position filename="gfileattribute.h" line="59" />
@@ -16409,8 +16409,8 @@ falls to zero, the @list is deleted.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
-    <record name="FileAttributeMatcher" c:type="GFileAttributeMatcher" glib:type-name="GFileAttributeMatcher" glib:get-type="g_file_attribute_matcher_get_type" c:symbol-prefix="file_attribute_matcher" gs:managed-name="FileAttributeMatcher">
+    </glib:boxed>
+    <glib:boxed name="FileAttributeMatcher" c:type="GFileAttributeMatcher" glib:type-name="GFileAttributeMatcher" glib:get-type="g_file_attribute_matcher_get_type" c:symbol-prefix="file_attribute_matcher" gs:managed-name="FileAttributeMatcher">
       <doc xml:space="preserve" filename="giotypes.h" line="87">Determines if a string matches a file attribute.</doc>
       <source-position filename="giotypes.h" line="92" />
       <constructor name="new" c:identifier="g_file_attribute_matcher_new" gs:dll-name="gio-2.0" gs:managed-name="New">
@@ -16636,7 +16636,7 @@ the @matcher is automatically freed.</doc>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </record>
+    </glib:boxed>
     <enumeration name="FileAttributeStatus" glib:type-name="GFileAttributeStatus" glib:get-type="g_file_attribute_status_get_type" c:type="GFileAttributeStatus" gs:managed-name="FileAttributeStatus">
       <doc xml:space="preserve" filename="gioenums.h" line="162">Used by g_file_set_attributes_from_info() when setting file attributes.</doc>
       <member name="unset" value="0" c:identifier="G_FILE_ATTRIBUTE_STATUS_UNSET" glib:nick="unset" gs:managed-name="Unset">

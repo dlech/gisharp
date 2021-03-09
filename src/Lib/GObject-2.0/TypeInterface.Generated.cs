@@ -4,12 +4,12 @@
 namespace GISharp.Lib.GObject
 {
     /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='TypeInterface']/*" />
-    public sealed unsafe partial class TypeInterface : System.ValueType
+    public sealed unsafe partial class TypeInterface : GISharp.Runtime.Opaque
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public new struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GType']/*" />
@@ -122,7 +122,7 @@ namespace GISharp.Lib.GObject
         private static extern GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* g_type_interface_peek(
         /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.TypeClass* instanceClass,
+        GISharp.Lib.GObject.TypeClass.UnmanagedStruct* instanceClass,
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.GType ifaceType);
@@ -132,7 +132,7 @@ namespace GISharp.Lib.GObject
         public static GISharp.Lib.GObject.TypeInterface Peek(GISharp.Lib.GObject.TypeClass instanceClass, GISharp.Lib.GObject.GType ifaceType)
         {
             CheckPeekArgs(instanceClass, ifaceType);
-            var instanceClass_ = &instanceClass;
+            var instanceClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)instanceClass.UnsafeHandle;
             var ifaceType_ = (GISharp.Lib.GObject.GType)ifaceType;
             var ret_ = g_type_interface_peek(instanceClass_,ifaceType_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.TypeInterface>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
