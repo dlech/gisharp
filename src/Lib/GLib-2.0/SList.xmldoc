@@ -1,0 +1,23 @@
+<declaration>
+
+<member name='UnmanagedStruct.Data'>
+<summary>
+holds the element's data, which can be a pointer to any kind
+       of data, or any integer value using <see cref="GISharp.Runtime.OpaqueInt"/>
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Next'>
+<summary>
+contains the link to the next element in the list.
+</summary>
+</member>
+
+<member name='SList'>
+<summary>
+The <see cref="SList"/> struct is used for each element in the singly-linked
+list.
+</summary>
+</member>
+
+</declaration>

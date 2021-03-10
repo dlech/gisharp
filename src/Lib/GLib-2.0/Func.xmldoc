@@ -2,8 +2,8 @@
 
 <member name='Func'>
 <summary>
-Specifies the type of functions passed to <see cref="List{T}.Foreach"/> and
-g_slist_foreach().
+Specifies the type of functions passed to <see cref="List.Foreach"/> and
+<see cref="SList.Foreach"/>.
 </summary>
 </member>
 

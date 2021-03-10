@@ -1,0 +1,32 @@
+
+### SList ###
+
+# don't treat as struct
+- !set-attribute
+  name: disguised
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SList']
+
+# make abstract
+- !set-attribute
+  name: gs:inheritance-modifiers
+  value: abstract
+  xpath: gi:repository/gi:namespace/gi:record[@name='SList']
+
+# requires special handling
+- !set-attribute
+  name: gs:custom-default-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SList']
+
+# make introspectable
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SList']/gi:function
+
+# nearly everything needs special handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SList']/gi:function

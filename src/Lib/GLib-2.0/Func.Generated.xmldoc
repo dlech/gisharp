@@ -3,7 +3,7 @@
 <member name='Func'>
 <summary>
 Specifies the type of functions passed to <see cref="List.Foreach(GISharp.Lib.GLib.UnownedList{System.IntPtr},GISharp.Lib.GLib.Func)"/> and
-g_slist_foreach().
+<see cref="SList.Foreach(GISharp.Lib.GLib.UnownedSList{System.IntPtr},GISharp.Lib.GLib.Func)"/>.
 </summary>
 </member>
 
