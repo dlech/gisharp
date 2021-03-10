@@ -1,0 +1,11 @@
+
+### ConvertError ###
+
+# fix error quark
+- !move-element
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='ConvertError']
+  xpath: gi:repository/gi:namespace/gi:function[@name='convert_error_quark']
+- !set-attribute
+  name: name
+  value: quark
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ConvertError']/gi:function[@name='convert_error_quark']

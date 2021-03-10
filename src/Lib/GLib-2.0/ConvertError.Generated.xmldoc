@@ -1,0 +1,64 @@
+<declaration>
+
+<member name='ConvertError.NoConversion'>
+<summary>
+Conversion between the requested character
+    sets is not supported.
+</summary>
+</member>
+
+<member name='ConvertError.IllegalSequence'>
+<summary>
+Invalid byte sequence in conversion input;
+   or the character sequence could not be represented in the target
+   character set.
+</summary>
+</member>
+
+<member name='ConvertError.Failed'>
+<summary>
+Conversion failed for some reason.
+</summary>
+</member>
+
+<member name='ConvertError.PartialInput'>
+<summary>
+Partial character sequence at end of input.
+</summary>
+</member>
+
+<member name='ConvertError.BadUri'>
+<summary>
+URI is invalid.
+</summary>
+</member>
+
+<member name='ConvertError.NotAbsolutePath'>
+<summary>
+Pathname is not an absolute path.
+</summary>
+</member>
+
+<member name='ConvertError.NoMemory'>
+<summary>
+No memory available.
+</summary>
+</member>
+
+<member name='ConvertError.EmbeddedNul'>
+<summary>
+An embedded NUL character is present in
+    conversion output where a NUL-terminated string is expected.
+</summary>
+</member>
+
+<member name='ConvertError'>
+<summary>
+Error codes returned by character set conversion routines.
+</summary>
+</member>
+
+<member name='ConvertErrorDomain.Quark'>
+</member>
+
+</declaration>
