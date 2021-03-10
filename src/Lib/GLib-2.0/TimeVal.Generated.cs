@@ -4,6 +4,8 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal']/*" />
+    [System.ObsoleteAttribute("Use #GDateTime or #guint64 instead.")]
+    [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
     public unsafe partial struct TimeVal
     {
 #pragma warning disable CS0169, CS0649

@@ -4,6 +4,8 @@
 namespace GISharp.Lib.GObject
 {
     /// <include file="Parameter.xmldoc" path="declaration/member[@name='Parameter']/*" />
+    [System.ObsoleteAttribute("This type is not introspectable.")]
+    [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
     public unsafe partial struct Parameter
     {
 #pragma warning disable CS0169, CS0649

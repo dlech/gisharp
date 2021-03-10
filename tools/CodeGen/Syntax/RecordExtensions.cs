@@ -23,6 +23,7 @@ namespace GISharp.CodeGen.Syntax
             var identifier = record.ManagedName;
             return StructDeclaration(identifier)
                 .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
+                .WithAttributeLists(record.GetGTypeAttributeLists())
                 .WithLeadingTrivia(record.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
@@ -32,12 +33,18 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static SyntaxList<MemberDeclarationSyntax> GetStructMembers(this Record record)
         {
-            return List<MemberDeclarationSyntax>()
+            var members = List<MemberDeclarationSyntax>()
                 .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.Fields.GetStructDeclaration(forUnmanagedStruct: false).Members)
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
                 .AddRange(record.Functions.GetMemberDeclarations())
                 .AddRange(record.Methods.GetMemberDeclarations());
+
+            if (record.GTypeName is not null) {
+                members = members.Insert(0, record.GetGTypeFieldDeclaration());
+            }
+
+            return members;
         }
 
         /// <summary>

@@ -4,6 +4,7 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="LogField.xmldoc" path="declaration/member[@name='LogField']/*" />
+    [GISharp.Runtime.SinceAttribute("2.50")]
     public unsafe partial struct LogField
     {
 #pragma warning disable CS0169, CS0649

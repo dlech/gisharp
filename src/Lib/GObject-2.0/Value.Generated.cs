@@ -4,8 +4,10 @@
 namespace GISharp.Lib.GObject
 {
     /// <include file="Value.xmldoc" path="declaration/member[@name='Value']/*" />
+    [GISharp.Runtime.GTypeAttribute("GValue", IsProxyForUnmanagedType = true)]
     public unsafe partial struct Value
     {
+        private static readonly GISharp.Lib.GObject.GType _GType = g_value_get_type();
 #pragma warning disable CS0169, CS0649
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.GType']/*" />
         public readonly GISharp.Lib.GObject.GType GType;

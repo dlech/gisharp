@@ -4,6 +4,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector']/*" />
+    [GISharp.Runtime.SinceAttribute("2.22")]
     public unsafe partial struct OutputVector
     {
 #pragma warning disable CS0169, CS0649

@@ -4,8 +4,10 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD']/*" />
+    [GISharp.Runtime.GTypeAttribute("GPollFD", IsProxyForUnmanagedType = true)]
     public unsafe partial struct PollFD
     {
+        private static readonly GISharp.Lib.GObject.GType _GType = g_pollfd_get_type();
 #pragma warning disable CS0169, CS0649
         /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.Fd']/*" />
         public readonly int Fd;
