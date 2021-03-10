@@ -3374,6 +3374,197 @@ g_param_type_register_static().</doc>
         </array>
       </field>
     </record>
+    <record name="ParamSpecPool" c:type="GParamSpecPool" disguised="1" gs:managed-name="ParamSpecPool">
+      <doc xml:space="preserve" filename="gobject-2.0.c" line="89">A #GParamSpecPool maintains a collection of #GParamSpecs which can be
+quickly accessed by owner and name. The implementation of the #GObject property
+system uses such a pool to store the #GParamSpecs of the properties all object
+types.</doc>
+      <source-position filename="gparam.h" line="195" />
+      <method name="insert" c:identifier="g_param_spec_pool_insert" gs:dll-name="gobject-2.0" gs:managed-name="Insert">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="3899">Inserts a #GParamSpec in the pool.</doc>
+        <source-position filename="gparam.h" line="417" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="pool" transfer-ownership="none" gs:managed-name="pool" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3901">a #GParamSpecPool.</doc>
+            <type name="ParamSpecPool" c:type="GParamSpecPool*" gs:managed-name="ParamSpecPool" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="pspec" transfer-ownership="none" gs:managed-name="pspec" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3902">the #GParamSpec to insert</doc>
+            <type name="ParamSpec" c:type="GParamSpec*" gs:managed-name="ParamSpec" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3903">a #GType identifying the owner of @pspec</doc>
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="pspec" transfer-ownership="none" gs:managed-name="pspec" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3902">the #GParamSpec to insert</doc>
+            <type name="ParamSpec" c:type="GParamSpec*" gs:managed-name="ParamSpec" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3903">a #GType identifying the owner of @pspec</doc>
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="list" c:identifier="g_param_spec_pool_list" gs:dll-name="gobject-2.0" gs:managed-name="List">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="3909">Gets an array of all #GParamSpecs owned by @owner_type in
+the pool.</doc>
+        <source-position filename="gparam.h" line="432" />
+        <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gobject-2.0.c" line="3918">a newly
+         allocated array containing pointers to all #GParamSpecs
+         owned by @owner_type in the pool</doc>
+          <array length="1" zero-terminated="0" c:type="GParamSpec**" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+            <type name="ParamSpec" c:type="GParamSpec*" gs:managed-name="ParamSpec" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pool" transfer-ownership="none" gs:managed-name="pool" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3911">a #GParamSpecPool</doc>
+            <type name="ParamSpecPool" c:type="GParamSpecPool*" gs:managed-name="ParamSpecPool" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3912">the owner to look for</doc>
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          </parameter>
+          <parameter name="n_pspecs_p" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="nPspecsP">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3913">return location for the length of the returned array</doc>
+            <type name="guint" c:type="guint*" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3912">the owner to look for</doc>
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="list_owned" c:identifier="g_param_spec_pool_list_owned" gs:dll-name="gobject-2.0" gs:managed-name="ListOwned">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="3924">Gets an #GList of all #GParamSpecs owned by @owner_type in
+the pool.</doc>
+        <source-position filename="gparam.h" line="429" />
+        <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gobject-2.0.c" line="3932">a
+         #GList of all #GParamSpecs owned by @owner_type in
+         the pool#GParamSpecs.</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="ParamSpec" gs:managed-name="ParamSpec" />
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="pool" transfer-ownership="none" gs:managed-name="pool" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3926">a #GParamSpecPool</doc>
+            <type name="ParamSpecPool" c:type="GParamSpecPool*" gs:managed-name="ParamSpecPool" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3927">the owner to look for</doc>
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3927">the owner to look for</doc>
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="lookup" c:identifier="g_param_spec_pool_lookup" gs:dll-name="gobject-2.0" gs:managed-name="Lookup">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="3938">Looks up a #GParamSpec in the pool.</doc>
+        <source-position filename="gparam.h" line="424" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gobject-2.0.c" line="3948">The found #GParamSpec, or %NULL if no
+matching #GParamSpec was found.</doc>
+          <type name="ParamSpec" c:type="GParamSpec*" gs:managed-name="ParamSpec" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="pool" transfer-ownership="none" gs:managed-name="pool" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3940">a #GParamSpecPool</doc>
+            <type name="ParamSpecPool" c:type="GParamSpecPool*" gs:managed-name="ParamSpecPool" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="param_name" transfer-ownership="none" gs:managed-name="paramName" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3941">the name to look for</doc>
+            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3942">the owner to look for</doc>
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          </parameter>
+          <parameter name="walk_ancestors" transfer-ownership="none" gs:managed-name="walkAncestors" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3943">If %TRUE, also try to find a #GParamSpec with @param_name
+ owned by an ancestor of @owner_type.</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="param_name" transfer-ownership="none" gs:managed-name="paramName" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3941">the name to look for</doc>
+            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3942">the owner to look for</doc>
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          </parameter>
+          <parameter name="walk_ancestors" transfer-ownership="none" gs:managed-name="walkAncestors" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3943">If %TRUE, also try to find a #GParamSpec with @param_name
+ owned by an ancestor of @owner_type.</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="remove" c:identifier="g_param_spec_pool_remove" gs:dll-name="gobject-2.0" gs:managed-name="Remove">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="3968">Removes a #GParamSpec from the pool.</doc>
+        <source-position filename="gparam.h" line="421" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="pool" transfer-ownership="none" gs:managed-name="pool" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3970">a #GParamSpecPool</doc>
+            <type name="ParamSpecPool" c:type="GParamSpecPool*" gs:managed-name="ParamSpecPool" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="pspec" transfer-ownership="none" gs:managed-name="pspec" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3971">the #GParamSpec to remove</doc>
+            <type name="ParamSpec" c:type="GParamSpec*" gs:managed-name="ParamSpec" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="pspec" transfer-ownership="none" gs:managed-name="pspec" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3971">the #GParamSpec to remove</doc>
+            <type name="ParamSpec" c:type="GParamSpec*" gs:managed-name="ParamSpec" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <function name="new" c:identifier="g_param_spec_pool_new" gs:dll-name="gobject-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="3953">Creates a new #GParamSpecPool.
+
+If @type_prefixing is %TRUE, lookups in the newly created pool will
+allow to specify the owner as a colon-separated prefix of the
+property name, like "GtkContainer:border-width". This feature is
+deprecated, so you should always set @type_prefixing to %FALSE.</doc>
+        <source-position filename="gparam.h" line="415" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gobject-2.0.c" line="3964">a newly allocated #GParamSpecPool.</doc>
+          <type name="ParamSpecPool" c:type="GParamSpecPool*" gs:managed-name="ParamSpecPool" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="type_prefixing" transfer-ownership="none" gs:managed-name="typePrefixing" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3955">Whether the pool will support type-prefixed property names.</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="type_prefixing" transfer-ownership="none" gs:managed-name="typePrefixing" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="3955">Whether the pool will support type-prefixed property names.</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+    </record>
     <record name="Parameter" c:type="GParameter" deprecated="1" deprecated-version="2.54" gs:managed-name="Parameter">
       <doc xml:space="preserve" filename="gparam.h" line="261">The GParameter struct is an auxiliary structure used
 to hand parameter name/value pairs to g_object_newv().</doc>

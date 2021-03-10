@@ -85,7 +85,7 @@ namespace GISharp.CodeGen.Syntax
                 .Add(record.Fields.GetStructDeclaration().AddModifiers(fieldStructModifiers.ToArray()))
                 .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
-                .Add(record.GetDefaultConstructor())
+                .AddIf(!record.IsCustomDefaultConstructor, record.GetDefaultConstructor())
                 .AddRange(record.Constructors.GetMemberDeclarations())
                 .AddRange(record.Functions.GetMemberDeclarations())
                 .AddRange(record.Methods.GetMemberDeclarations());
@@ -160,7 +160,9 @@ namespace GISharp.CodeGen.Syntax
 
             // add the default constructor
 
-            list = list.Add(record.GetDefaultConstructor());
+            if (!record.IsCustomDefaultConstructor) {
+                list = list.Add(record.GetDefaultConstructor());
+            }
 
             return list;
         }

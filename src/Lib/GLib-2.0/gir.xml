@@ -7539,6 +7539,1308 @@ entries representing links to documents.</doc>
     written back.</doc>
       </member>
     </bitfield>
+    <record name="List" c:type="GList" disguised="1" gs:inheritance-modifiers="abstract" gs:custom-default-constructor="1" gs:managed-name="List">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="1209">The #GList struct is used for each element in a doubly-linked list.</doc>
+      <source-position filename="glist.h" line="44" />
+      <field name="data" writable="1" gs:managed-name="Data">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1211">holds the element's data, which can be a pointer to any kind
+       of data, or any integer value using the
+       [Type Conversion Macros][glib-Type-Conversion-Macros]</doc>
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+      </field>
+      <field name="next" writable="1" gs:managed-name="Next">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1214">contains the link to the next element in the list</doc>
+        <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </type>
+      </field>
+      <field name="prev" writable="1" gs:managed-name="Prev">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1215">contains the link to the previous element in the list</doc>
+        <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </type>
+      </field>
+      <function name="alloc" c:identifier="g_list_alloc" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Alloc">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20654">Allocates space for one #GList element. It is called by
+g_list_append(), g_list_prepend(), g_list_insert() and
+g_list_insert_sorted() and so is rarely used on its own.</doc>
+        <source-position filename="glist.h" line="49" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20661">a pointer to the newly-allocated #GList element</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+      <function name="append" c:identifier="g_list_append" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Append">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20665">Adds a new element on to the end of the list.
+
+Note that the return value is the new start of the list,
+if @list was empty; make sure you store the new value.
+
+g_list_append() has to traverse the entire list to find the end,
+which is inefficient when adding multiple elements. A common idiom
+to avoid the inefficiency is to use g_list_prepend() and reverse
+the list with g_list_reverse() when all elements have been added.
+
+|[&lt;!-- language="C" --&gt;
+// Notice that these are initialized to the empty list.
+GList *string_list = NULL, *number_list = NULL;
+
+// This is a list of strings.
+string_list = g_list_append (string_list, "first");
+string_list = g_list_append (string_list, "second");
+
+// This is a list of integers.
+number_list = g_list_append (number_list, GINT_TO_POINTER (27));
+number_list = g_list_append (number_list, GINT_TO_POINTER (14));
+]|</doc>
+        <source-position filename="glist.h" line="59" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20693">either @list or the new start of the #GList if @list was %NULL</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20667">a pointer to a #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20668">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20667">a pointer to a #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20668">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="concat" c:identifier="g_list_concat" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Concat">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20697">Adds the second #GList onto the end of the first #GList.
+Note that the elements of the second #GList are not copied.
+They are used directly.
+
+This function is for example used to move an element in the list.
+The following example moves an element to the top of the list:
+|[&lt;!-- language="C" --&gt;
+list = g_list_remove_link (list, llink);
+list = g_list_concat (llink, list);
+]|</doc>
+        <source-position filename="glist.h" line="86" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20714">the start of the new #GList, which equals @list1 if not %NULL</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list1" transfer-ownership="none" gs:managed-name="list1" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20699">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="list2" transfer-ownership="none" gs:managed-name="list2" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20700">the #GList to add to the end of the first #GList,
+    this must point  to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list1" transfer-ownership="none" gs:managed-name="list1" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20699">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="list2" transfer-ownership="none" gs:managed-name="list2" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20700">the #GList to add to the end of the first #GList,
+    this must point  to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="copy" c:identifier="g_list_copy" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Copy">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20718">Copies a #GList.
+
+Note that this is a "shallow" copy. If the list elements
+consist of pointers to data, the pointers are copied but
+the actual data is not. See g_list_copy_deep() if you need
+to copy the data as well.</doc>
+        <source-position filename="glist.h" line="103" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20729">the start of the new list that holds the same data as @list</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20720">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20720">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="copy_deep" c:identifier="g_list_copy_deep" version="2.34" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="CopyDeep">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20733">Makes a full (deep) copy of a #GList.
+
+In contrast with g_list_copy(), this function uses @func to make
+a copy of each list element, in addition to copying the list
+container itself.
+
+@func, as a #GCopyFunc, takes two arguments, the data to be copied
+and a @user_data pointer. On common processor architectures, it's safe to
+pass %NULL as @user_data if the copy function takes only one argument. You
+may get compiler warnings from this though if compiling with GCC’s
+`-Wcast-function-type` warning.
+
+For instance, if @list holds a list of GObjects, you can do:
+|[&lt;!-- language="C" --&gt;
+another_list = g_list_copy_deep (list, (GCopyFunc) g_object_ref, NULL);
+]|
+
+And, to entirely free the new list, you could do:
+|[&lt;!-- language="C" --&gt;
+g_list_free_full (another_list, g_object_unref);
+]|</doc>
+        <source-position filename="glist.h" line="106" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20761">the start of the new list that holds a full copy of @list,
+    use g_list_free_full() to free it</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20735">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20736">a copy function used to copy every element in the list</doc>
+            <type name="CopyFunc" c:type="GCopyFunc" gs:managed-name="CopyFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20737">user data passed to the copy function @func, or %NULL</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20735">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20736">a copy function used to copy every element in the list</doc>
+            <type name="CopyFunc" c:type="GCopyFunc" gs:managed-name="CopyFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="delete_link" c:identifier="g_list_delete_link" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="DeleteLink">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20767">Removes the node link_ from the list and frees it.
+Compare this to g_list_remove_link() which removes the node
+without freeing it.</doc>
+        <source-position filename="glist.h" line="98" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20776">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20769">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="link_" transfer-ownership="none" gs:managed-name="link" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20770">node to delete from @list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20769">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="link_" transfer-ownership="none" gs:managed-name="link" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20770">node to delete from @list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="find" c:identifier="g_list_find" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Find">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20780">Finds the element in a #GList which contains the given data.</doc>
+        <source-position filename="glist.h" line="117" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20787">the found #GList element, or %NULL if it is not found</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20782">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20783">the element data to find</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20782">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20783">the element data to find</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="find_custom" c:identifier="g_list_find_custom" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="FindCustom">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20791">Finds an element in a #GList, using a supplied function to
+find the desired element. It iterates over the list, calling
+the given function which should return 0 when the desired
+element is found. The function takes two #gconstpointer arguments,
+the #GList element's data as the first argument and the
+given user data.</doc>
+        <source-position filename="glist.h" line="120" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20805">the found #GList element, or %NULL if it is not found</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20793">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20794">user data passed to the function</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="func" transfer-ownership="none" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20795">the function to call for each element.
+    It should return 0 when the desired element is found</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20793">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20794">user data passed to the function</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="func" transfer-ownership="none" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20795">the function to call for each element.
+    It should return 0 when the desired element is found</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="first" c:identifier="g_list_first" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="First">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20809">Gets the first element in a #GList.</doc>
+        <source-position filename="glist.h" line="132" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20815">the first element in the #GList,
+    or %NULL if the #GList has no elements</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20811">any #GList element</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20811">any #GList element</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="foreach" c:identifier="g_list_foreach" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Foreach">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20820">Calls a function for each element of a #GList.
+
+It is safe for @func to remove the element from @list, but it must
+not modify any part of the list after that element.</doc>
+        <source-position filename="glist.h" line="136" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20822">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20823">the function to call with each element's data</doc>
+            <type name="Func" c:type="GFunc" gs:managed-name="Func" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20824">user data to pass to the function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20822">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20823">the function to call with each element's data</doc>
+            <type name="Func" c:type="GFunc" gs:managed-name="Func" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="free" c:identifier="g_list_free" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Free">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20833">Frees all of the memory used by a #GList.
+The freed elements are returned to the slice allocator.
+
+If list elements contain dynamically-allocated memory, you should
+either use g_list_free_full() or free them manually first.
+
+It can be combined with g_steal_pointer() to ensure the list head pointer
+is not left dangling:
+|[&lt;!-- language="C" --&gt;
+GList *list_of_borrowed_things = …;  /&lt;!-- --&gt;* (transfer container) *&lt;!-- --&gt;/
+g_list_free (g_steal_pointer (&amp;list_of_borrowed_things));
+]|</doc>
+        <source-position filename="glist.h" line="51" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20835">the first link of a #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20835">the first link of a #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="free_1" c:identifier="g_list_free_1" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Free1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20859">Frees one #GList element, but does not update links from the next and
+previous elements in the list, so you should not call this function on an
+element that is currently part of a list.
+
+It is usually used after g_list_remove_link().</doc>
+        <source-position filename="glist.h" line="53" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20861">a #GList element</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20861">a #GList element</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="free_full" c:identifier="g_list_free_full" version="2.28" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="FreeFull">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20871">Convenience method, which frees all the memory used by a #GList,
+and calls @free_func on every element's data.
+
+@free_func must not modify the list (eg, by removing the freed
+element from it).
+
+It can be combined with g_steal_pointer() to ensure the list head pointer
+is not left dangling ­— this also has the nice property that the head pointer
+is cleared before any of the list elements are freed, to prevent double frees
+from @free_func:
+|[&lt;!-- language="C" --&gt;
+GList *list_of_owned_things = …;  /&lt;!-- --&gt;* (transfer full) (element-type GObject) *&lt;!-- --&gt;/
+g_list_free_full (g_steal_pointer (&amp;list_of_owned_things), g_object_unref);
+]|</doc>
+        <source-position filename="glist.h" line="56" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20873">the first link of a #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="free_func" transfer-ownership="none" scope="async" gs:managed-name="freeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20874">the function to be called to free each element's data</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20873">the first link of a #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="free_func" transfer-ownership="none" scope="async" gs:managed-name="freeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20874">the function to be called to free each element's data</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="index" c:identifier="g_list_index" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Index">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20895">Gets the position of the element containing
+the given data (starting from 0).</doc>
+        <source-position filename="glist.h" line="127" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20903">the index of the element containing the data,
+    or -1 if the data is not found</doc>
+          <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20897">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20898">the data to find</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20897">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20898">the data to find</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="insert" c:identifier="g_list_insert" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Insert">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20908">Inserts a new element into the list at the given position.</doc>
+        <source-position filename="glist.h" line="65" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20918">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20910">a pointer to a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20911">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="position" transfer-ownership="none" gs:managed-name="position" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20912">the position to insert the element. If this is
+    negative, or is larger than the number of elements in the
+    list, the new element is added on to the end of the list.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20910">a pointer to a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20911">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="position" transfer-ownership="none" gs:managed-name="position" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20912">the position to insert the element. If this is
+    negative, or is larger than the number of elements in the
+    list, the new element is added on to the end of the list.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="insert_before" c:identifier="g_list_insert_before" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="InsertBefore">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20922">Inserts a new element into the list before the given position.</doc>
+        <source-position filename="glist.h" line="78" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20931">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20924">a pointer to a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="sibling" transfer-ownership="none" gs:managed-name="sibling" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20925">the list element before which the new element
+    is inserted or %NULL to insert at the end of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20927">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20924">a pointer to a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="sibling" transfer-ownership="none" gs:managed-name="sibling" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20925">the list element before which the new element
+    is inserted or %NULL to insert at the end of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20927">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="insert_before_link" c:identifier="g_list_insert_before_link" version="2.62" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="InsertBeforeLink">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20935">Inserts @link_ into the list before the given position.</doc>
+        <source-position filename="glist.h" line="82" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20945">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20937">a pointer to a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="sibling" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="sibling" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20938">the list element before which the new element
+    is inserted or %NULL to insert at the end of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="link_" transfer-ownership="none" gs:managed-name="link" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20940">the list element to be added, which must not be part of
+    any other list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20937">a pointer to a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="sibling" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="sibling" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20938">the list element before which the new element
+    is inserted or %NULL to insert at the end of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="link_" transfer-ownership="none" gs:managed-name="link" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20940">the list element to be added, which must not be part of
+    any other list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="insert_sorted" c:identifier="g_list_insert_sorted" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="InsertSorted">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20950">Inserts a new element into the list, using the given comparison
+function to determine its position.
+
+If you are adding many new elements to a list, and the number of
+new elements is much larger than the length of the list, use
+g_list_prepend() to add the new items and sort the list afterwards
+with g_list_sort().</doc>
+        <source-position filename="glist.h" line="69" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20967">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20952">a pointer to a #GList, this must point to the top of the
+    already sorted list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20954">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="func" transfer-ownership="none" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20955">the function to compare elements in the list. It should
+    return a number &gt; 0 if the first parameter comes after the
+    second parameter in the sort order.</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20952">a pointer to a #GList, this must point to the top of the
+    already sorted list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20954">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="func" transfer-ownership="none" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20955">the function to compare elements in the list. It should
+    return a number &gt; 0 if the first parameter comes after the
+    second parameter in the sort order.</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="insert_sorted_with_data" c:identifier="g_list_insert_sorted_with_data" version="2.10" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="InsertSortedWithData">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20971">Inserts a new element into the list, using the given comparison
+function to determine its position.
+
+If you are adding many new elements to a list, and the number of
+new elements is much larger than the length of the list, use
+g_list_prepend() to add the new items and sort the list afterwards
+with g_list_sort().</doc>
+        <source-position filename="glist.h" line="73" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="20989">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20973">a pointer to a #GList, this must point to the top of the
+    already sorted list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20975">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="3" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20976">the function to compare elements in the list. It should
+    return a number &gt; 0 if the first parameter  comes after the
+    second parameter in the sort order.</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20979">user data to pass to comparison function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20973">a pointer to a #GList, this must point to the top of the
+    already sorted list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20975">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="3" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20976">the function to compare elements in the list. It should
+    return a number &gt; 0 if the first parameter  comes after the
+    second parameter in the sort order.</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="last" c:identifier="g_list_last" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Last">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="20994">Gets the last element in a #GList.</doc>
+        <source-position filename="glist.h" line="130" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21000">the last element in the #GList,
+    or %NULL if the #GList has no elements</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20996">any #GList element</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="20996">any #GList element</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="length" c:identifier="g_list_length" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Length">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21005">Gets the number of elements in a #GList.
+
+This function iterates over the whole list to count its elements.
+Use a #GQueue instead of a GList if you regularly need the number
+of items. To check whether the list is non-empty, it is faster to check
+@list against %NULL.</doc>
+        <source-position filename="glist.h" line="134" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21016">the number of elements in the #GList</doc>
+          <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21007">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21007">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="nth" c:identifier="g_list_nth" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Nth">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21032">Gets the element at the given position in a #GList.
+
+This iterates over the list until it reaches the @n-th position. If you
+intend to iterate over every element, it is better to use a for-loop as
+described in the #GList introduction.</doc>
+        <source-position filename="glist.h" line="111" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21043">the element, or %NULL if the position is off
+    the end of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21034">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="n" transfer-ownership="none" gs:managed-name="n" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21035">the position of the element, counting from 0</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21034">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="n" transfer-ownership="none" gs:managed-name="n" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21035">the position of the element, counting from 0</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="nth_data" c:identifier="g_list_nth_data" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="NthData">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21048">Gets the data of the element at the given position.
+
+This iterates over the list until it reaches the @n-th position. If you
+intend to iterate over every element, it is better to use a for-loop as
+described in the #GList introduction.</doc>
+        <source-position filename="glist.h" line="147" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21059">the element's data, or %NULL if the position
+    is off the end of the #GList</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21050">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="n" transfer-ownership="none" gs:managed-name="n" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21051">the position of the element</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21050">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="n" transfer-ownership="none" gs:managed-name="n" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21051">the position of the element</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="nth_prev" c:identifier="g_list_nth_prev" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="NthPrev">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21064">Gets the element @n places before @list.</doc>
+        <source-position filename="glist.h" line="114" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21071">the element, or %NULL if the position is
+    off the end of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21066">a #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="n" transfer-ownership="none" gs:managed-name="n" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21067">the position of the element, counting from 0</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21066">a #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="n" transfer-ownership="none" gs:managed-name="n" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21067">the position of the element, counting from 0</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="position" c:identifier="g_list_position" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Position">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21076">Gets the position of the given element
+in the #GList (starting from 0).</doc>
+        <source-position filename="glist.h" line="124" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21084">the position of the element in the #GList,
+    or -1 if the element is not found</doc>
+          <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21078">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="llink" transfer-ownership="none" gs:managed-name="llink" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21079">an element in the #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21078">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="llink" transfer-ownership="none" gs:managed-name="llink" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21079">an element in the #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="prepend" c:identifier="g_list_prepend" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Prepend">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21089">Prepends a new element on to the start of the list.
+
+Note that the return value is the new start of the list,
+which will have changed, so make sure you store the new value.
+
+|[&lt;!-- language="C" --&gt;
+// Notice that it is initialized to the empty list.
+GList *list = NULL;
+
+list = g_list_prepend (list, "last");
+list = g_list_prepend (list, "first");
+]|
+
+Do not use this function to prepend a new element to a different
+element than the start of the list. Use g_list_insert_before() instead.</doc>
+        <source-position filename="glist.h" line="62" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21110">a pointer to the newly prepended element, which is the new
+    start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21091">a pointer to a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21092">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21091">a pointer to a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21092">the data for the new element</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove" c:identifier="g_list_remove" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Remove">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21128">Removes an element from a #GList.
+If two elements contain the same data, only the first is removed.
+If none of the elements contain the data, the #GList is unchanged.</doc>
+        <source-position filename="glist.h" line="89" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21137">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21130">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21131">the data of the element to remove</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21130">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21131">the data of the element to remove</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_all" c:identifier="g_list_remove_all" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveAll">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21141">Removes all list nodes with data equal to @data.
+Returns the new head of the list. Contrast with
+g_list_remove() which removes only the first node
+matching the given data.</doc>
+        <source-position filename="glist.h" line="92" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21151">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21143">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21144">data to remove</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21143">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21144">data to remove</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_link" c:identifier="g_list_remove_link" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveLink">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21155">Removes an element from a #GList, without freeing the element.
+The removed element's prev and next links are set to %NULL, so
+that it becomes a self-contained list with one element.
+
+This function is for example used to move an element in the list
+(see the example for g_list_concat()) or to remove an element in
+the list before freeing its data:
+|[&lt;!-- language="C" --&gt;
+list = g_list_remove_link (list, llink);
+free_some_data_that_may_access_the_list_again (llink-&gt;data);
+g_list_free (llink);
+]|</doc>
+        <source-position filename="glist.h" line="95" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21173">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21157">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="llink" transfer-ownership="none" gs:managed-name="llink" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21158">an element in the #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21157">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="llink" transfer-ownership="none" gs:managed-name="llink" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21158">an element in the #GList</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="reverse" c:identifier="g_list_reverse" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Reverse">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21177">Reverses a #GList.
+It simply switches the next and prev pointers of each element.</doc>
+        <source-position filename="glist.h" line="101" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21184">the start of the reversed #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21179">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21179">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="sort" c:identifier="g_list_sort" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Sort">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21188">Sorts a #GList using the given comparison function. The algorithm
+used is a stable sort.</doc>
+        <source-position filename="glist.h" line="140" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21200">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21190">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21191">the comparison function used to sort the #GList.
+    This function is passed the data from 2 elements of the #GList
+    and should return 0 if they are equal, a negative value if the
+    first element comes before the second, or a positive value if
+    the first element comes after the second.</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21190">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21191">the comparison function used to sort the #GList.
+    This function is passed the data from 2 elements of the #GList
+    and should return 0 if they are equal, a negative value if the
+    first element comes before the second, or a positive value if
+    the first element comes after the second.</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="sort_with_data" c:identifier="g_list_sort_with_data" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SortWithData">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21204">Like g_list_sort(), but the comparison function accepts
+a user data argument.</doc>
+        <source-position filename="glist.h" line="143" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21213">the (possibly changed) start of the #GList</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21206">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" closure="2" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21207">comparison function</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21208">user data to pass to comparison function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="list" transfer-ownership="none" gs:managed-name="list" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21206">a #GList, this must point to the top of the list</doc>
+            <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" closure="2" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21207">comparison function</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+    </record>
     <record name="LogField" c:type="GLogField" version="2.50" gs:managed-name="LogField">
       <doc xml:space="preserve" filename="gmessages.h" line="140">Structure representing a single field in a structured log entry. See
 g_log_structured() for details.

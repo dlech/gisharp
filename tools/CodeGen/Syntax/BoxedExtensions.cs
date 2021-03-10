@@ -56,7 +56,7 @@ namespace GISharp.CodeGen.Syntax
                 .Add(boxed.Fields.GetStructDeclaration().AddModifiers(fieldStructModifiers.ToArray()))
                 .AddRange(boxed.Constants.GetMemberDeclarations())
                 .AddRange(boxed.ManagedProperties.GetMemberDeclarations())
-                .Add(boxed.GetDefaultConstructor())
+                .AddIf(!boxed.IsCustomDefaultConstructor, boxed.GetDefaultConstructor())
                 .AddRange(boxed.Constructors.GetMemberDeclarations())
                 .AddRange(boxed.Functions.GetMemberDeclarations())
                 .AddRange(boxed.Methods.GetMemberDeclarations());

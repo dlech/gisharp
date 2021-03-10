@@ -1,0 +1,101 @@
+<declaration>
+
+<member name='ParamSpecPool.New(bool)'>
+<summary>
+Creates a new <see cref="ParamSpecPool"/>.
+</summary>
+<remarks>
+If <paramref name="typePrefixing"/> is <c>true</c>, lookups in the newly created pool will
+allow to specify the owner as a colon-separated prefix of the
+property name, like "GtkContainer:border-width". This feature is
+deprecated, so you should always set <paramref name="typePrefixing"/> to <c>false</c>.
+</remarks>
+<param name="typePrefixing">
+Whether the pool will support type-prefixed property names.
+</param>
+<returns>
+a newly allocated <see cref="ParamSpecPool"/>.
+</returns>
+</member>
+
+<member name='ParamSpecPool.Insert(GISharp.Lib.GObject.ParamSpec,GISharp.Lib.GObject.GType)'>
+<summary>
+Inserts a <see cref="ParamSpec"/> in the pool.
+</summary>
+<param name="pspec">
+the <see cref="ParamSpec"/> to insert
+</param>
+<param name="ownerType">
+a <see cref="GType"/> identifying the owner of <paramref name="pspec"/>
+</param>
+</member>
+
+<member name='ParamSpecPool.List(GISharp.Lib.GObject.GType)'>
+<summary>
+Gets an array of all <see cref="ParamSpec"/>s owned by <paramref name="ownerType"/> in
+the pool.
+</summary>
+<param name="ownerType">
+the owner to look for
+</param>
+<returns>
+a newly
+         allocated array containing pointers to all <see cref="ParamSpec"/>s
+         owned by <paramref name="ownerType"/> in the pool
+</returns>
+</member>
+
+<member name='ParamSpecPool.ListOwned(GISharp.Lib.GObject.GType)'>
+<summary>
+Gets an <see cref="GISharp.Lib.GLib.List"/> of all <see cref="ParamSpec"/>s owned by <paramref name="ownerType"/> in
+the pool.
+</summary>
+<param name="ownerType">
+the owner to look for
+</param>
+<returns>
+a
+         <see cref="GISharp.Lib.GLib.List"/> of all <see cref="ParamSpec"/>s owned by <paramref name="ownerType"/> in
+         the pool<see cref="ParamSpec"/>s.
+</returns>
+</member>
+
+<member name='ParamSpecPool.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.GType,bool)'>
+<summary>
+Looks up a <see cref="ParamSpec"/> in the pool.
+</summary>
+<param name="paramName">
+the name to look for
+</param>
+<param name="ownerType">
+the owner to look for
+</param>
+<param name="walkAncestors">
+If <c>true</c>, also try to find a <see cref="ParamSpec"/> with <paramref name="paramName"/>
+ owned by an ancestor of <paramref name="ownerType"/>.
+</param>
+<returns>
+The found <see cref="ParamSpec"/>, or <c>null</c> if no
+matching <see cref="ParamSpec"/> was found.
+</returns>
+</member>
+
+<member name='ParamSpecPool.Remove(GISharp.Lib.GObject.ParamSpec)'>
+<summary>
+Removes a <see cref="ParamSpec"/> from the pool.
+</summary>
+<param name="pspec">
+the <see cref="ParamSpec"/> to remove
+</param>
+</member>
+
+<member name='ParamSpecPool'>
+<summary>
+A <see cref="ParamSpecPool"/> maintains a collection of <see cref="ParamSpec"/>s which can be
+quickly accessed by owner and name. The implementation of the <see cref="Object"/> property
+system uses such a pool to store the <see cref="ParamSpec"/>s of the properties all object
+types.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,29 @@
+<declaration>
+
+<member name='UnmanagedStruct.Data'>
+<summary>
+holds the element's data, which can be a pointer to any kind
+       of data, or any integer value using the
+       [Type Conversion Macros][glib-Type-Conversion-Macros]
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Next'>
+<summary>
+contains the link to the next element in the list
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Prev'>
+<summary>
+contains the link to the previous element in the list
+</summary>
+</member>
+
+<member name='List'>
+<summary>
+The <see cref="List"/> struct is used for each element in a doubly-linked list.
+</summary>
+</member>
+
+</declaration>

@@ -57,5 +57,20 @@ namespace GISharp.CodeGen.Syntax
                 _ => throw new ArgumentException($"Unknown syntax type {node.GetType()}", nameof(node)),
             };
         }
+
+        /// <summary>
+        /// Add a<paramref name="member"/> to a syntax <paramref name="list"/>
+        /// only if <paramref name="condition"/> is <c>true</c>.
+        /// </summary>
+        public static SyntaxList<MemberDeclarationSyntax> AddIf(
+            this SyntaxList<MemberDeclarationSyntax> list,
+            bool condition,
+            MemberDeclarationSyntax member)
+        {
+            if (condition) {
+                return list.Add(member);
+            }
+            return list;
+        }
     }
 }

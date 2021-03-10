@@ -55,7 +55,16 @@ Attributes
 
 ``gs:custom-constructor``
     Description
-        Specifies that the constructor should not be automatically generated.
+        Specifies that a constructor should not be automatically generated. This
+        is similar to ``gs:pinvoke-only`` but still generates a static method
+        that the constructor can call.
+    Values
+        ``1`` (true), ``0`` (false)
+
+``gs:custom-default-constructor``
+    Description
+        Prevents generation of the default constructor so that a custom
+        implementation can be used instead.
     Values
         ``1`` (true), ``0`` (false)
 
@@ -106,7 +115,7 @@ Attributes
         Indicates that a method performs a special function. These attributes
         are automatically added when a matching ``method`` element is found.
     Values
-        ``ref``, ``unref``, ``free``, ``equal``, ``compare``
+        ``ref``, ``unref``, ``copy``, ``free``, ``equal``, ``compare``
 
 
 Commands

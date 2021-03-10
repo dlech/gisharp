@@ -61,7 +61,7 @@ namespace GISharp.CodeGen.Syntax
                 .Add(alias.Fields.GetStructDeclaration().AddModifiers(Token(NewKeyword)))
                 .AddRange(alias.Constants.GetMemberDeclarations())
                 .AddRange(alias.ManagedProperties.GetMemberDeclarations())
-                .Add(alias.GetDefaultConstructor())
+                .AddIf(!alias.IsCustomDefaultConstructor, alias.GetDefaultConstructor())
                 .AddRange(alias.Constructors.GetMemberDeclarations())
                 .AddRange(alias.Functions.GetMemberDeclarations())
                 .AddRange(alias.Methods.GetMemberDeclarations());

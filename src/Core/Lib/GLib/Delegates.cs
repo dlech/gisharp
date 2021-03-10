@@ -27,7 +27,7 @@ namespace GISharp.Lib.GLib
     public delegate int UnmanagedCompareFunc(IntPtr a, IntPtr b);
 
     /// <summary>
-    /// Specifies the type of functions passed to <see cref="List.Foreach"/> and
+    /// Specifies the type of functions passed to <see cref="M:List.Foreach"/> and
     /// <see cref="SList.Foreach"/>.
     /// </summary>
     /// <param name="data">

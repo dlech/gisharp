@@ -36,6 +36,12 @@ namespace GISharp.CodeGen.Gir
         public string GTypeStruct { get; }
 
         /// <summary>
+        /// Gets if the default constructor should not be emtted so that a custom
+        /// one can be used instead.
+        /// </summary>
+        public bool IsCustomDefaultConstructor { get; }
+
+        /// <summary>
         /// Gets the GIR node for the GType struct, if any
         /// </summary>
         public Record GTypeStructNode => _GTypeStructNode.Value;
@@ -103,6 +109,7 @@ namespace GISharp.CodeGen.Gir
             GTypeName = element.Attribute(glib + "type-name").AsString();
             GTypeGetter = element.Attribute(glib + "get-type").AsString();
             GTypeStruct = element.Attribute(glib + "type-struct").AsString();
+            IsCustomDefaultConstructor = element.Attribute(gs + "custom-default-constructor").AsBool();
             _GTypeStructNode = new(LazyGetGTypeStructNode, false);
             _Constants = new(() => LazyGetConstants().ToList(), false);
             _Fields = new(() => LazyGetFields().ToList(), false);
