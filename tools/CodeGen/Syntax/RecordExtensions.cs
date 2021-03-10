@@ -34,15 +34,12 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetStructMembers(this Record record)
         {
             var members = List<MemberDeclarationSyntax>()
+                .AddIf(record.GTypeName is not null, () => record.GetGTypeFieldDeclaration())
                 .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.Fields.GetStructDeclaration(forUnmanagedStruct: false).Members)
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
                 .AddRange(record.Functions.GetMemberDeclarations())
                 .AddRange(record.Methods.GetMemberDeclarations());
-
-            if (record.GTypeName is not null) {
-                members = members.Insert(0, record.GetGTypeFieldDeclaration());
-            }
 
             return members;
         }
@@ -89,17 +86,14 @@ namespace GISharp.CodeGen.Syntax
             }
 
             var members = List<MemberDeclarationSyntax>()
+                .AddIf(record.GTypeName is not null, () => record.GetGTypeFieldDeclaration())
                 .Add(record.Fields.GetStructDeclaration().AddModifiers(fieldStructModifiers.ToArray()))
                 .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
-                .AddIf(!record.IsCustomDefaultConstructor, record.GetDefaultConstructor())
+                .AddIf(!record.IsCustomDefaultConstructor, () => record.GetDefaultConstructor())
                 .AddRange(record.Constructors.GetMemberDeclarations())
                 .AddRange(record.Functions.GetMemberDeclarations())
                 .AddRange(record.Methods.GetMemberDeclarations());
-
-            if (record.GTypeName is not null) {
-                members = members.Insert(0, record.GetGTypeFieldDeclaration());
-            }
 
             return members;
         }

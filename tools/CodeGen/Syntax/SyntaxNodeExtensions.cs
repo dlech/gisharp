@@ -65,10 +65,10 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> AddIf(
             this SyntaxList<MemberDeclarationSyntax> list,
             bool condition,
-            MemberDeclarationSyntax member)
+            Func<MemberDeclarationSyntax> member)
         {
             if (condition) {
-                return list.Add(member);
+                return list.Add(member());
             }
             return list;
         }

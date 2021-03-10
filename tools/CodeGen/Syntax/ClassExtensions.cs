@@ -70,7 +70,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(@class.Constants.GetMemberDeclarations())
                 .AddRange(@class.Properties.GetMemberDeclarations())
                 .AddRange(@class.ManagedProperties.GetMemberDeclarations())
-                .AddIf(!@class.IsCustomDefaultConstructor, @class.GetDefaultConstructor())
+                .AddIf(!@class.IsCustomDefaultConstructor, () => @class.GetDefaultConstructor())
                 .AddRange(@class.Constructors.GetMemberDeclarations())
                 .AddRange(@class.Signals.GetMemberDeclarations())
                 .AddRange(@class.Implements.GetSignalMemberDeclarations())
