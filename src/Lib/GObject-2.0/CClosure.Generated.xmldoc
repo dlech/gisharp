@@ -1,0 +1,21 @@
+<declaration>
+
+<member name='UnmanagedStruct.Closure'>
+<summary>
+the <see cref="Closure"/>
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Callback'>
+<summary>
+the callback function
+</summary>
+</member>
+
+<member name='CClosure'>
+<summary>
+A <see cref="CClosure"/> is a specialization of <see cref="Closure"/> for C function callbacks.
+</summary>
+</member>
+
+</declaration>

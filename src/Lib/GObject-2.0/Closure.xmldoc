@@ -210,7 +210,7 @@ and transform the return value back into a <see cref="Value"/>.
 In the case of C programs, a closure usually just holds a pointer
 to a function and maybe a data argument, and the marshaller
 converts between <see cref="Value"/> and native C types. The GObject
-library provides the #GCClosure type for this purpose. Bindings for
+library provides the <see cref="CClosure"/> type for this purpose. Bindings for
 other languages need marshallers which convert between <see cref="Value"/>s
 and suitable representations in the runtime of the language in
 order to use functions written in that language as callbacks. Use

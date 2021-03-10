@@ -288,10 +288,6 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (arg.Type.Interface is Callback callback) {
                 if (arg.Callable.Parameters.RegularParameters.ElementAtOrDefault(arg.ClosureIndex) is Parameter userData) {
-                    if (arg.Scope is null) {
-                        throw new Exception("closure without callback scope");
-                    }
-
                     // if the callback is a closure (has user data) then we use the
                     // unmanaged callers only callback and pass the managed callback
                     // GC handle as the user data.

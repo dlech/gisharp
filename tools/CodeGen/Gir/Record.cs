@@ -28,6 +28,11 @@ namespace GISharp.CodeGen.Gir
         readonly Lazy<GIRegisteredType> _IsGTypeStructForType;
 
         /// <summary>
+        /// Indicates that the first field in the struct is the parent type.
+        /// </summary>
+        public bool HasParent { get; }
+
+        /// <summary>
         /// Gets the base type for an opaque record. Not valid for records that
         /// are structs.
         /// </summary>
@@ -41,6 +46,7 @@ namespace GISharp.CodeGen.Gir
             }
             IsDisguised = Element.Attribute("disguised").AsBool();
             IsGTypeStructFor = element.Attribute(glib + "is-gtype-struct-for").AsString();
+            HasParent = element.Attribute(gs + "has-parent").AsBool();
             _IsGTypeStructForType = new(LazyGetIsGTypeStructForType, false);
             _BaseType = new(LazyGetBaseType, false);
         }
@@ -63,6 +69,9 @@ namespace GISharp.CodeGen.Gir
                 throw new NotSupportedException("Don't know how to get the parent for this GType struct");
             }
             if (IsDisguised) {
+                if (HasParent) {
+                    return Fields.First().Type.GetManagedType();
+                }
                 return typeof(Opaque).FullName;
             }
             return typeof(ValueType).FullName;

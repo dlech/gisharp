@@ -85,12 +85,12 @@ namespace GISharp.CodeGen.Gir
 
 
         private protected GIArg(XElement element, GirNode parent)
-            : base (element, parent ?? throw new ArgumentNullException(nameof(parent)))
+            : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
             TransferOwnership = Element.Attribute("transfer-ownership").Value;
             Direction = Element.Attribute("direction").Value;
             IsCallerAllocates = Element.Attribute("caller-allocates").AsBool();
-            Scope = Element.Attribute("scope").AsString();
+            Scope = Element.Attribute("scope").AsString("unknown");
             ClosureIndex = Element.Attribute("closure").AsInt(-1);
             DestroyIndex = Element.Attribute("destroy").AsInt(-1);
             IsNullable = Element.Attribute("nullable").AsBool();

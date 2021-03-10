@@ -1,0 +1,634 @@
+<declaration>
+
+<member name='CClosure.Closure'>
+<summary>
+the <see cref="Closure"/>
+</summary>
+</member>
+
+<member name='CClosure.Callback'>
+<summary>
+the callback function
+</summary>
+</member>
+
+<member name='CClosure.MarshalBooleanBoxedBoxed(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A #GClosureMarshal function for use with signals with handlers that
+take two boxed pointers as arguments and return a boolean.  If you
+have such a signal, you will probably also need to use an
+accumulator, such as g_signal_accumulator_true_handled().
+</summary>
+<param name="closure">
+A <see cref="Closure"/>.
+</param>
+<param name="returnValue">
+A <see cref="Value"/> to store the return value. May be <c>null</c>
+  if the callback of closure doesn't return a value.
+</param>
+<param name="nParamValues">
+The length of the <paramref name="paramValues"/> array.
+</param>
+<param name="paramValues">
+An array of #GValues holding the arguments
+  on which to invoke the callback of closure.
+</param>
+<param name="invocationHint">
+The invocation hint given as the last argument to
+  <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>.
+</param>
+<param name="marshalData">
+Additional data specified when registering the
+  marshaller, see g_closure_set_marshal() and
+  g_closure_set_meta_marshal()
+</param>
+</member>
+
+<member name='CClosure.MarshalBooleanFlags(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`gboolean (*callback) (gpointer instance, gint arg1, gpointer user_data)` where the #gint parameter
+denotes a flags type.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+a <see cref="Value"/> which can store the returned #gboolean
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding instance and arg1
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalStringObjectPointer(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`gchar* (*callback) (gpointer instance, GObject *arg1, gpointer arg2, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+a <see cref="Value"/>, which can store the returned string
+</param>
+<param name="nParamValues">
+3
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding instance, arg1 and arg2
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidBoolean(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gboolean arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #gboolean parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidBoxed(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, GBoxed *arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #GBoxed* parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidChar(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gchar arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #gchar parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidDouble(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gdouble arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #gdouble parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidEnum(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gint arg1, gpointer user_data)` where the #gint parameter denotes an enumeration type..
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the enumeration parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidFlags(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gint arg1, gpointer user_data)` where the #gint parameter denotes a flags type.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the flags parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidFloat(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gfloat arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #gfloat parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidInt(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gint arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #gint parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidLong(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, glong arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #glong parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidObject(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, GObject *arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the <see cref="Object"/>* parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidParam(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, GParamSpec *arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the <see cref="ParamSpec"/>* parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidPointer(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gpointer arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #gpointer parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidString(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, const gchar *arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #gchar* parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidUchar(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, guchar arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #guchar parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidUint(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, guint arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #guint parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidUintPointer(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, guint arg1, gpointer arg2, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+3
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding instance, arg1 and arg2
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidUlong(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gulong arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #gulong parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidVariant(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, GVariant *arg1, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+2
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding the instance and the #GVariant* parameter
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalVoidVoid(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A marshaller for a <see cref="CClosure"/> with a callback of type
+`void (*callback) (gpointer instance, gpointer user_data)`.
+</summary>
+<param name="closure">
+the <see cref="Closure"/> to which the marshaller belongs
+</param>
+<param name="returnValue">
+ignored
+</param>
+<param name="nParamValues">
+1
+</param>
+<param name="paramValues">
+a <see cref="Value"/> array holding only the instance
+</param>
+<param name="invocationHint">
+the invocation hint given as the last argument
+ to <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>
+</param>
+<param name="marshalData">
+additional data specified when registering the marshaller
+</param>
+</member>
+
+<member name='CClosure.MarshalGeneric(GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Value,uint,GISharp.Lib.GObject.Value,System.IntPtr,System.IntPtr)'>
+<summary>
+A generic marshaller function implemented via
+[libffi](http://sourceware.org/libffi/).
+</summary>
+<remarks>
+Normally this function is not passed explicitly to g_signal_new(),
+but used automatically by GLib when specifying a <c>null</c> marshaller.
+</remarks>
+<param name="closure">
+A <see cref="Closure"/>.
+</param>
+<param name="returnGvalue">
+A <see cref="Value"/> to store the return value. May be <c>null</c>
+  if the callback of closure doesn't return a value.
+</param>
+<param name="nParamValues">
+The length of the <paramref name="paramValues"/> array.
+</param>
+<param name="paramValues">
+An array of #GValues holding the arguments
+  on which to invoke the callback of closure.
+</param>
+<param name="invocationHint">
+The invocation hint given as the last argument to
+  <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/>.
+</param>
+<param name="marshalData">
+Additional data specified when registering the
+  marshaller, see g_closure_set_marshal() and
+  g_closure_set_meta_marshal()
+</param>
+</member>
+
+<member name='CClosure'>
+<summary>
+A <see cref="CClosure"/> is a specialization of <see cref="Closure"/> for C function callbacks.
+</summary>
+</member>
+
+</declaration>

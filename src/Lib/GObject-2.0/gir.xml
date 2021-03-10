@@ -384,6 +384,165 @@ This enumeration can be extended at later date.</doc>
         <gs:managed-parameters />
       </function>
     </bitfield>
+    <record name="CClosure" c:type="GCClosure" disguised="1" gs:has-parent="1" gs:managed-name="CClosure">
+      <doc xml:space="preserve" filename="gclosure.h" line="150">A #GCClosure is a specialization of #GClosure for C function callbacks.</doc>
+      <source-position filename="gclosure.h" line="220" />
+      <field name="closure" writable="1" gs:managed-name="Closure">
+        <doc xml:space="preserve" filename="gclosure.h" line="152">the #GClosure</doc>
+        <type name="Closure" c:type="GClosure" gs:managed-name="Closure" />
+      </field>
+      <field name="callback" writable="1" gs:managed-name="Callback">
+        <doc xml:space="preserve" filename="gclosure.h" line="153">the callback function</doc>
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+      </field>
+      <constructor name="new" c:identifier="g_cclosure_new" introspectable="1" gs:pinvoke-only="1" gs:dll-name="gobject-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="1749">Creates a new closure which invokes @callback_func with @user_data as
+the last parameter.
+
+@destroy_data will be called as a finalize notifier on the #GClosure.</doc>
+        <source-position filename="gclosure.h" line="225" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gobject-2.0.c" line="1760">a floating reference to a new #GCClosure</doc>
+          <type name="Closure" c:type="GClosure*" gs:managed-name="Closure" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="callback_func" transfer-ownership="none" nullable="1" allow-none="1" closure="1" gs:managed-name="callbackFunc" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1751">the function to invoke</doc>
+            <type name="Callback" c:type="GCallback" gs:managed-name="Callback" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="0" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1752">user data to pass to @callback_func</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="destroy_data" transfer-ownership="none" gs:managed-name="destroyData" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1753">destroy notify to be called when @user_data is no longer used</doc>
+            <type name="ClosureNotify" c:type="GClosureNotify" gs:managed-name="ClosureNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="callback_func" transfer-ownership="none" nullable="1" allow-none="1" closure="1" gs:managed-name="callbackFunc" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1751">the function to invoke</doc>
+            <type name="Callback" c:type="GCallback" gs:managed-name="Callback" />
+          </parameter>
+          <parameter name="destroy_data" transfer-ownership="none" gs:managed-name="destroyData" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1753">destroy notify to be called when @user_data is no longer used</doc>
+            <type name="ClosureNotify" c:type="GClosureNotify" gs:managed-name="ClosureNotify" />
+          </parameter>
+        </gs:managed-parameters>
+      </constructor>
+      <constructor name="new_object" c:identifier="g_cclosure_new_object" introspectable="1" gs:pinvoke-only="1" gs:dll-name="gobject-2.0" gs:managed-name="NewObject">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="1764">A variant of g_cclosure_new() which uses @object as @user_data and
+calls g_object_watch_closure() on @object and the created
+closure. This function is useful when you have a callback closely
+associated with a #GObject, and want the callback to no longer run
+after the object is is freed.</doc>
+        <source-position filename="gobject.h" line="610" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gobject-2.0.c" line="1775">a new #GCClosure</doc>
+          <type name="Closure" c:type="GClosure*" gs:managed-name="Closure" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="callback_func" transfer-ownership="none" gs:managed-name="callbackFunc" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1766">the function to invoke</doc>
+            <type name="Callback" c:type="GCallback" gs:managed-name="Callback" />
+          </parameter>
+          <parameter name="object" transfer-ownership="none" gs:managed-name="@object" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1767">a #GObject pointer to pass to @callback_func</doc>
+            <type name="Object" c:type="GObject*" gs:managed-name="Object" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="callback_func" transfer-ownership="none" gs:managed-name="callbackFunc" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1766">the function to invoke</doc>
+            <type name="Callback" c:type="GCallback" gs:managed-name="Callback" />
+          </parameter>
+          <parameter name="object" transfer-ownership="none" gs:managed-name="@object" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1767">a #GObject pointer to pass to @callback_func</doc>
+            <type name="Object" c:type="GObject*" gs:managed-name="Object" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </constructor>
+      <constructor name="new_object_swap" c:identifier="g_cclosure_new_object_swap" introspectable="1" gs:pinvoke-only="1" gs:dll-name="gobject-2.0" gs:managed-name="NewObjectSwap">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="1779">A variant of g_cclosure_new_swap() which uses @object as @user_data
+and calls g_object_watch_closure() on @object and the created
+closure. This function is useful when you have a callback closely
+associated with a #GObject, and want the callback to no longer run
+after the object is is freed.</doc>
+        <source-position filename="gobject.h" line="613" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gobject-2.0.c" line="1790">a new #GCClosure</doc>
+          <type name="Closure" c:type="GClosure*" gs:managed-name="Closure" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="callback_func" transfer-ownership="none" gs:managed-name="callbackFunc" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1781">the function to invoke</doc>
+            <type name="Callback" c:type="GCallback" gs:managed-name="Callback" />
+          </parameter>
+          <parameter name="object" transfer-ownership="none" gs:managed-name="@object" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1782">a #GObject pointer to pass to @callback_func</doc>
+            <type name="Object" c:type="GObject*" gs:managed-name="Object" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="callback_func" transfer-ownership="none" gs:managed-name="callbackFunc" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1781">the function to invoke</doc>
+            <type name="Callback" c:type="GCallback" gs:managed-name="Callback" />
+          </parameter>
+          <parameter name="object" transfer-ownership="none" gs:managed-name="@object" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1782">a #GObject pointer to pass to @callback_func</doc>
+            <type name="Object" c:type="GObject*" gs:managed-name="Object" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </constructor>
+      <constructor name="new_swap" c:identifier="g_cclosure_new_swap" introspectable="1" gs:pinvoke-only="1" gs:dll-name="gobject-2.0" gs:managed-name="NewSwap">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="1794">Creates a new closure which invokes @callback_func with @user_data as
+the first parameter.
+
+@destroy_data will be called as a finalize notifier on the #GClosure.</doc>
+        <source-position filename="gclosure.h" line="229" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gobject-2.0.c" line="1805">a floating reference to a new #GCClosure</doc>
+          <type name="Closure" c:type="GClosure*" gs:managed-name="Closure" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="callback_func" transfer-ownership="none" nullable="1" allow-none="1" closure="1" gs:managed-name="callbackFunc" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1796">the function to invoke</doc>
+            <type name="Callback" c:type="GCallback" gs:managed-name="Callback" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="0" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1797">user data to pass to @callback_func</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="destroy_data" transfer-ownership="none" gs:managed-name="destroyData" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1798">destroy notify to be called when @user_data is no longer used</doc>
+            <type name="ClosureNotify" c:type="GClosureNotify" gs:managed-name="ClosureNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="callback_func" transfer-ownership="none" nullable="1" allow-none="1" closure="1" gs:managed-name="callbackFunc" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1796">the function to invoke</doc>
+            <type name="Callback" c:type="GCallback" gs:managed-name="Callback" />
+          </parameter>
+          <parameter name="destroy_data" transfer-ownership="none" gs:managed-name="destroyData" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="1798">destroy notify to be called when @user_data is no longer used</doc>
+            <type name="ClosureNotify" c:type="GClosureNotify" gs:managed-name="ClosureNotify" />
+          </parameter>
+        </gs:managed-parameters>
+      </constructor>
+    </record>
+    <callback name="Callback" c:type="GCallback" gs:dll-name="gobject-2.0" gs:managed-name="Callback">
+      <doc xml:space="preserve" filename="gclosure.h" line="77">The type used for callback functions in structure definitions and function
+signatures. This doesn't mean that all callback functions must take no
+parameters and return void. The required signature of a callback function
+is determined by the context in which is used (e.g. the signal to which it
+is connected). Use G_CALLBACK() to cast the callback function to a #GCallback.</doc>
+      <source-position filename="gclosure.h" line="86" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <type name="none" c:type="void" gs:managed-name="System.Void" />
+      </return-value>
+      <parameters />
+      <gs:managed-parameters />
+    </callback>
     <callback name="ClassFinalizeFunc" c:type="GClassFinalizeFunc" gs:dll-name="gobject-2.0" gs:managed-name="ClassFinalizeFunc">
       <doc xml:space="preserve" filename="gtype.h" line="887">A callback function used by the type system to finalize a class.
 This function is rarely needed, as dynamically allocated class resources
