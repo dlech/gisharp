@@ -214,7 +214,7 @@ namespace GISharp.Lib.GObject
 
                 // override virtual methods
 
-                objectClass->Constructor = &ManagedClassConstructor;
+                objectClass->Constructor = managedClassConstructor;
                 objectClass->SetProperty = &ManagedClassSetProperty;
                 objectClass->GetProperty = &ManagedClassGetProperty;
 
@@ -456,6 +456,11 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        // have to keep a pointer to ManagedClassConstructor since we use it for
+        // comparison later, otherwise we run into CS8909.
+        // https://stackoverflow.com/q/66630082/1976323
+        static readonly delegate* unmanaged[Cdecl]<GType, uint, IntPtr, IntPtr> managedClassConstructor = &ManagedClassConstructor;
+
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static IntPtr ManagedClassConstructor(GType type_, uint nConstructProperties_, IntPtr constructProperties_)
         {
@@ -467,9 +472,11 @@ namespace GISharp.Lib.GObject
                 var parentClass = (UnmanagedStruct*)objectClass;
                 for (; ; ) {
                     parentClass = (UnmanagedStruct*)g_type_class_peek_parent((IntPtr)parentClass);
-                    if (parentClass->Constructor != (delegate* unmanaged[Cdecl]<GType, uint, IntPtr, IntPtr>)&ManagedClassConstructor) {
+#pragma warning disable CS8909
+                    if (parentClass->Constructor != managedClassConstructor) {
                         break;
                     }
+#pragma warning restore CS8909
                 }
                 var handle_ = parentClass->Constructor(type_, 0, IntPtr.Zero);
 
