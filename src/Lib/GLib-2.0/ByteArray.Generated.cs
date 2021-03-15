@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray']/*" />
     [GISharp.Runtime.GTypeAttribute("GByteArray", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class ByteArray : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class ByteArray : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_byte_array_get_type();
 

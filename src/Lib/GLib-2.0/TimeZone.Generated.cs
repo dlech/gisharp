@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
     /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone']/*" />
     [GISharp.Runtime.SinceAttribute("2.26")]
     [GISharp.Runtime.GTypeAttribute("GTimeZone", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class TimeZone : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class TimeZone : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_time_zone_get_type();
 

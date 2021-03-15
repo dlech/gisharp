@@ -5,7 +5,7 @@ namespace GISharp.Lib.Gio
 {
     /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileAttributeMatcher", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class FileAttributeMatcher : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class FileAttributeMatcher : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_matcher_get_type();
 

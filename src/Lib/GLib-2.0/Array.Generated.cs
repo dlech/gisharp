@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="Array.xmldoc" path="declaration/member[@name='Array']/*" />
     [GISharp.Runtime.GTypeAttribute("GArray", IsProxyForUnmanagedType = true)]
-    public abstract unsafe partial class Array : GISharp.Lib.GObject.Boxed
+    public abstract unsafe partial class Array : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_array_get_type();
 

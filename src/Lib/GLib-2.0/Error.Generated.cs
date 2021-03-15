@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="Error.xmldoc" path="declaration/member[@name='Error']/*" />
     [GISharp.Runtime.GTypeAttribute("GError", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class Error : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class Error : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_error_get_type();
 

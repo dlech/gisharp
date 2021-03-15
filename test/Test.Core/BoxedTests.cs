@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2019-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
-
-using GISharp.Lib.GObject;
+using GISharp.Runtime;
 using NUnit.Framework;
 
 namespace GISharp.Test.GObject
@@ -21,6 +20,7 @@ namespace GISharp.Test.GObject
             }
         }
 
+#if false
         [Test]
         public void TestGType()
         {
@@ -30,5 +30,6 @@ namespace GISharp.Test.GObject
             gtype = GType.Of<Boxed<object>>();
             Assert.That<string?>(gtype.Name, Is.EqualTo("GISharp-Lib-GObject-Boxed--of--1System-Object"));
         }
+#endif
     }
 }

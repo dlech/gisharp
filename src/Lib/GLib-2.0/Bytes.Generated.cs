@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
     /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes']/*" />
     [GISharp.Runtime.SinceAttribute("2.32")]
     [GISharp.Runtime.GTypeAttribute("GBytes", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class Bytes : GISharp.Lib.GObject.Boxed, System.IComparable<Bytes>, System.IEquatable<Bytes>
+    public sealed unsafe partial class Bytes : GISharp.Runtime.Boxed, System.IComparable<Bytes>, System.IEquatable<Bytes>
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_bytes_get_type();
 

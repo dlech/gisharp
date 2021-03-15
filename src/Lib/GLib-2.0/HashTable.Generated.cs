@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="HashTable.xmldoc" path="declaration/member[@name='HashTable']/*" />
     [GISharp.Runtime.GTypeAttribute("GHashTable", IsProxyForUnmanagedType = true)]
-    public abstract unsafe partial class HashTable : GISharp.Lib.GObject.Boxed
+    public abstract unsafe partial class HashTable : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_hash_table_get_type();
 

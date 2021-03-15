@@ -38,7 +38,7 @@ namespace GISharp.CodeGen.Syntax
         static BaseListSyntax GetBaseList(this Boxed boxed)
         {
             var list = SeparatedList<BaseTypeSyntax>()
-                .Add(SimpleBaseType(ParseTypeName("GISharp.Lib.GObject.Boxed")))
+                .Add(SimpleBaseType(ParseTypeName("GISharp.Runtime.Boxed")))
                 .AddRange(boxed.Functions.GetBaseListTypes())
                 .AddRange(boxed.Methods.GetBaseListTypes());
             return BaseList(list);

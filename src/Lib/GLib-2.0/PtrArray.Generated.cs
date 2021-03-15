@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="PtrArray.xmldoc" path="declaration/member[@name='PtrArray']/*" />
     [GISharp.Runtime.GTypeAttribute("GPtrArray", IsProxyForUnmanagedType = true)]
-    public abstract unsafe partial class PtrArray : GISharp.Lib.GObject.Boxed
+    public abstract unsafe partial class PtrArray : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_ptr_array_get_type();
 

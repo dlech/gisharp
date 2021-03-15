@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext']/*" />
     [GISharp.Runtime.GTypeAttribute("GMainContext", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class MainContext : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class MainContext : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_main_context_get_type();
 

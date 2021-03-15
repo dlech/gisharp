@@ -6,9 +6,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
+using GISharp.Lib.GObject;
 
-namespace GISharp.Lib.GObject
+namespace GISharp.Runtime
 {
     /// <summary>
     /// A mechanism to wrap opaque C structures registered by the type system

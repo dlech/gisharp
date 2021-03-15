@@ -81,7 +81,7 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Record record)
         {
             var fieldStructModifiers = new List<SyntaxToken>();
-            if (record.BaseType != "GISharp.Lib.GObject.Boxed" && record.BaseType != typeof(Opaque).FullName) {
+            if (record.BaseType != typeof(Opaque).FullName) {
                 fieldStructModifiers.Add(Token(NewKeyword));
             }
 

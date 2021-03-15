@@ -92,7 +92,7 @@ namespace GISharp.CodeGen.Syntax
                     $"this.handle = (System.IntPtr){method.CIdentifier}((UnmanagedStruct*)handle)"
                 )))));
             }
-            else if (type is Boxed) {
+            else if (type is Gir.Boxed) {
                 throw new ArgumentException("Boxed GType should have ref or copy function.");
             }
 

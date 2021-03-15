@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="MainLoop.xmldoc" path="declaration/member[@name='MainLoop']/*" />
     [GISharp.Runtime.GTypeAttribute("GMainLoop", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class MainLoop : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class MainLoop : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_main_loop_get_type();
 

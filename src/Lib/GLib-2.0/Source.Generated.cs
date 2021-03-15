@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="Source.xmldoc" path="declaration/member[@name='Source']/*" />
     [GISharp.Runtime.GTypeAttribute("GSource", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class Source : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class Source : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_source_get_type();
 

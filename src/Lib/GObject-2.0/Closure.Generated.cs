@@ -5,7 +5,7 @@ namespace GISharp.Lib.GObject
 {
     /// <include file="Closure.xmldoc" path="declaration/member[@name='Closure']/*" />
     [GISharp.Runtime.GTypeAttribute("GClosure", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class Closure : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class Closure : GISharp.Runtime.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_closure_get_type();
 
