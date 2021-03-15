@@ -2,13 +2,16 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using GISharp.Runtime;
-using System.Reflection;
-
 using GISharp.Lib.GLib;
+using GISharp.Runtime;
+
+using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
 {
@@ -21,8 +24,7 @@ namespace GISharp.Lib.GObject
     public unsafe class Object : TypeInstance, INotifyPropertyChanged
     {
         static readonly Quark toggleRefGCHandleQuark = Quark.FromString("gisharp-gobject-toggle-ref-gc-handle-quark");
-
-        UnmanagedToggleNotify toggleNotifyDelegate;
+        readonly UnmanagedToggleNotify toggleNotifyDelegate;
 
         /// <summary>
         /// The unmanaged data structure for <see cref="Object"/>.
@@ -137,6 +139,71 @@ namespace GISharp.Lib.GObject
 
         static GType _GType => g_object_get_type();
 
+        readonly ConcurrentDictionary<string, LinkedList<(IntPtr, culong)>> eventSignalHandlers = new();
+
+        /// <summary>
+        /// Connects event handler as signal.
+        /// </summary>
+        protected void AddEventSignalHandler(string signal, Delegate handler)
+        {
+            var instance_ = (UnmanagedStruct*)UnsafeHandle;
+            using var detailedSignal = (Utf8)signal;
+            var detailedSignal_ = (byte*)detailedSignal.UnsafeHandle;
+            var handler_ = (delegate* unmanaged[Cdecl]<void>)handler.GetCClosureUnmanagedFunctionPointer();
+            var data = new CClosureData(handler);
+            var dataHandle = GCHandle.Alloc(data);
+            var data_ = (IntPtr)dataHandle;
+            var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&FreeEventSignalHandler;
+            var connectFlags_ = default(ConnectFlags);
+            var ret = Signal.g_signal_connect_data(instance_, detailedSignal_, handler_, data_, notify_, connectFlags_);
+
+            if (ret == 0) {
+                dataHandle.Free();
+                throw new Exception("Failed to connect signal.");
+            }
+
+            var list = eventSignalHandlers.GetOrAdd(signal, (_) => new());
+            var element = list.AddFirst((data_, ret));
+            // REVISIT: could signal handler be removed in another thread before
+            // setting the free func? Does list need to be thread safe?
+            data.Free = () => list.Remove(element);
+        }
+
+        /// <summary>
+        /// Disconnects a signal handler that was connected with <see cref="AddEventSignalHandler"/>.
+        /// </summary>
+        protected void RemoveEventSignalHandler(string signal, Delegate handler)
+        {
+            if (!eventSignalHandlers.TryGetValue(signal, out var list)) {
+                throw new ArgumentException($"signal not found", nameof(signal));
+            }
+
+            for (var element = list.First; element is not null; element = element.Next) {
+                var (data_, id) = element.Value;
+                var dataHandle = (GCHandle)data_;
+                if (((CClosureData)dataHandle.Target!).Callback == handler) {
+                    SignalHandler.Disconnect(this, id);
+                    return;
+                }
+            }
+
+            throw new ArgumentException("handler not found", nameof(handler));
+        }
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static void FreeEventSignalHandler(IntPtr data_)
+        {
+            try {
+                var dataHandle = GCHandle.FromIntPtr(data_);
+                var data = (CClosureData)dataHandle.Target!;
+                data.Free?.Invoke();
+                dataHandle.Free();
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+            }
+        }
+
         /// <summary>
         /// Callback for <see cref="NotifySignal"/>.
         /// </summary>
@@ -147,8 +214,6 @@ namespace GISharp.Lib.GObject
         /// the <see cref="ParamSpec"/> of the property which changed.
         /// </param>
         public delegate void NotifySignalHandler(Object gobject, ParamSpec pspec);
-
-        readonly GSignalManager<NotifySignalHandler> notifySignalManager = new("notify", _GType);
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static void ManagedNotifySignalHandler(IntPtr gobject_, IntPtr pspec_, IntPtr userData_)
@@ -183,8 +248,8 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         [GSignal("notify", When = EmissionStage.First, IsNoRecurse = true, IsDetailed = true, IsAction = true, IsNoHooks = true)]
         public event NotifySignalHandler NotifySignal {
-            add => notifySignalManager.Add(this, value);
-            remove => notifySignalManager.Remove(value);
+            add => AddEventSignalHandler("notify", value);
+            remove => RemoveEventSignalHandler("notify", value);
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]

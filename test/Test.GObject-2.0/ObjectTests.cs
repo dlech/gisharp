@@ -217,6 +217,30 @@ namespace GISharp.Test.GObject
         }
 
         [Test]
+        public void TestEventSignal()
+        {
+            using var obj = new Object();
+            var id = Signal.TryLookup<Object>("notify");
+            Assume.That(id, Is.Not.Zero);
+            Assume.That(() => SignalHandler.Find(obj, id), Throws.Exception);
+
+            static void notify(Object gobject, ParamSpec pspec)
+            {
+            }
+
+            // adding event handler should connect signal
+            obj.NotifySignal += notify;
+            Assert.That(SignalHandler.Find(obj, id), Is.Not.Null);
+
+            // removing event handler should disconnect signal
+            obj.NotifySignal -= notify;
+            Assert.That(() => SignalHandler.Find(obj, id), Throws.Exception);
+
+            // removing non-added event should throw
+            Assert.That(() => obj.NotifySignal -= notify, Throws.Exception);
+        }
+
+        [Test]
         public void TestSignalRegistration()
         {
             using var obj = TestObjectSignal.New();

@@ -58,6 +58,11 @@ namespace GISharp.Lib.GObject
             g_signal_handler_disconnect(instance.UnsafeHandle, handlerId);
         }
 
+        internal static void Disconnect(Object instance, culong handlerId)
+        {
+            g_signal_handler_disconnect(instance.UnsafeHandle, handlerId);
+        }
+
         /// <summary>
         /// Finds the first signal handler that matches certain selection criteria.
         /// The criteria mask is passed as an OR-ed combination of #GSignalMatchType
@@ -116,45 +121,76 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             IntPtr data);
 
-        ///// <summary>
-        ///// Finds the first signal handler that matches certain selection criteria.
-        ///// The criteria mask is passed as an OR-ed combination of #GSignalMatchType
-        ///// flags, and the criteria values are passed as arguments.
-        ///// The match @mask has to be non-0 for successful matches.
-        ///// If no handler was found, 0 is returned.
-        ///// </summary>
-        ///// <param name="instance">
-        ///// The instance owning the signal handler to be found.
-        ///// </param>
-        ///// <param name="mask">
-        ///// Mask indicating which of @signal_id, @detail, @closure, @func
-        /////  and/or @data the handler has to match.
-        ///// </param>
-        ///// <param name="signalId">
-        ///// Signal the handler has to be connected to.
-        ///// </param>
-        ///// <param name="detail">
-        ///// Signal detail the handler has to be connected to.
-        ///// </param>
-        ///// <param name="closure">
-        ///// The closure the handler will invoke.
-        ///// </param>
-        ///// <param name="func">
-        ///// The C closure callback of the handler (useless for non-C closures).
-        ///// </param>
-        ///// <param name="data">
-        ///// The closure data of the handler's closure.
-        ///// </param>
-        ///// <returns>
-        ///// A valid non-0 signal handler id for a successful match.
-        ///// </returns>
-        //public static SignalHandler Find(Object instance, SignalMatchType mask, uint signalId, Quark detail, Closure? closure, IntPtr func, IntPtr data)
-        //{
-        //    var instance_ = instance.UnsafeHandle;
-        //    var closure_ = closure?.UnsafeHandle ?? IntPtr.Zero;
-        //    var ret = g_signal_handler_find (instance_, mask, signalId, detail, closure_, func, data);
-        //    return ret;
-        //}
+        /// <summary>
+        /// Finds the first signal handler that matches certain selection criteria.
+        /// The non-null criteria are passed in an OR-ed combination.
+        /// If no handler was found, 0 is returned.
+        /// </summary>
+        /// <param name="instance">
+        /// The instance owning the signal handler to be found.
+        /// </param>
+        /// <param name="signalId">
+        /// Signal the handler has to be connected to.
+        /// </param>
+        /// <param name="detail">
+        /// Signal detail the handler has to be connected to.
+        /// </param>
+        /// <param name="closure">
+        /// The closure the handler will invoke.
+        /// </param>
+        /// <param name="func">
+        /// The C closure callback of the handler (useless for non-C closures).
+        /// </param>
+        /// <param name="data">
+        /// The closure data of the handler's closure.
+        /// </param>
+        /// <param name="unblocked">
+        /// Only unblocked signals will be matched.
+        /// </param>
+        /// <returns>
+        /// A valid non-0 signal handler id for a successful match.
+        /// </returns>
+        public static SignalHandler Find(Object instance, uint? signalId = default,
+            Quark? detail = default, Closure? closure = default, IntPtr? func = default,
+            IntPtr? data = default, bool unblocked = default)
+        {
+            var instance_ = instance.UnsafeHandle;
+            var mask_ = default(SignalMatchType);
+            var signalId_ = default(uint);
+            if (signalId.HasValue) {
+                signalId_ = signalId.Value;
+                mask_ |= SignalMatchType.Id;
+            }
+            var detail_ = default(Quark);
+            if (detail.HasValue) {
+                detail_ = detail.Value;
+                mask_ |= SignalMatchType.Detail;
+            }
+            var closure_ = default(IntPtr);
+            if (closure is not null) {
+                closure_ = closure.UnsafeHandle;
+                mask_ |= SignalMatchType.Closure;
+            }
+            var func_ = default(IntPtr);
+            if (func.HasValue) {
+                func_ = func.Value;
+                mask_ |= SignalMatchType.Func;
+            }
+            var data_ = default(IntPtr);
+            if (data.HasValue) {
+                data_ = data.Value;
+                mask_ |= SignalMatchType.Data;
+            }
+            if (unblocked) {
+                mask_ |= SignalMatchType.Unblocked;
+            }
+            var ret = g_signal_handler_find(instance_, mask_, signalId_, detail_, closure_, func_, data_);
+            if (ret == 0) {
+                // TODO: better exception
+                throw new Exception("no match found");
+            }
+            return new SignalHandler(instance, ret);
+        }
 
         /// <summary>
         /// Returns whether @handler_id is the id of a handler connected to @instance.

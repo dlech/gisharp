@@ -11,5 +11,11 @@ namespace GISharp.Runtime
     /// <param name="Callback">
     /// The user-defined signal callback.
     /// </param>
-    public record CClosureData(Delegate Callback);
+    public record CClosureData(Delegate Callback)
+    {
+        /// <summary>
+        /// Optional free function for releasing additional resources.
+        /// </summary>
+        public Action? Free { get; set; }
+    }
 }
