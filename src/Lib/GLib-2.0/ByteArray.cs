@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {

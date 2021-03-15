@@ -66,7 +66,7 @@ GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
             /// </summary>
             public static UnmanagedCancelled Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCancelled(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_) { try { var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCancelled = (Cancelled)methodInfo.CreateDelegate(typeof(Cancelled), cancellable); doCancelled(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedCancelled(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_) { try { var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCancelled = (Cancelled)methodInfo.CreateDelegate(typeof(Cancelled), cancellable); doCancelled(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedCancelled;
             }

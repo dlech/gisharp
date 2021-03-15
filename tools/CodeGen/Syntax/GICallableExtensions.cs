@@ -398,7 +398,7 @@ namespace GISharp.CodeGen.Syntax
                 .WithDeclaration(CatchDeclaration(ParseTypeName("System.Exception"),
                     ParseToken("ex")))
                 .WithBlock(Block(ExpressionStatement(ParseExpression(
-                    "GISharp.Lib.GLib.Log.LogUnhandledException(ex)"
+                    "GISharp.Runtime.GMarshal.LogUnhandledException(ex)"
                 ))))
             );
 
@@ -436,7 +436,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var catchType = ParseTypeName("System.Exception");
             var catchStatement = ExpressionStatement(ParseExpression(
-                "GISharp.Lib.GLib.Log.LogUnhandledException(ex)"
+                "GISharp.Runtime.GMarshal.LogUnhandledException(ex)"
             ));
             yield return TryStatement()
                 .WithBlock(callable.GetCallbackTryBlock())

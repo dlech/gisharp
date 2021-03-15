@@ -61,7 +61,7 @@ GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res);
             /// </summary>
             public static UnmanagedGetUserData Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetUserData(GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_) { try { var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doGetUserData = (GetUserData)methodInfo.CreateDelegate(typeof(GetUserData), res); var ret = doGetUserData(); var ret_ = (System.IntPtr)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.IntPtr); }
+                System.IntPtr unmanagedGetUserData(GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_) { try { var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doGetUserData = (GetUserData)methodInfo.CreateDelegate(typeof(GetUserData), res); var ret = doGetUserData(); var ret_ = (System.IntPtr)ret; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(System.IntPtr); }
 
                 return unmanagedGetUserData;
             }
@@ -92,7 +92,7 @@ GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res);
             /// </summary>
             public static UnmanagedGetSourceObject Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.GObject.Object.UnmanagedStruct* unmanagedGetSourceObject(GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_) { try { var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doGetSourceObject = (GetSourceObject)methodInfo.CreateDelegate(typeof(GetSourceObject), res); var ret = doGetSourceObject(); var ret_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.GObject.Object.UnmanagedStruct*); }
+                GISharp.Lib.GObject.Object.UnmanagedStruct* unmanagedGetSourceObject(GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_) { try { var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doGetSourceObject = (GetSourceObject)methodInfo.CreateDelegate(typeof(GetSourceObject), res); var ret = doGetSourceObject(); var ret_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GObject.Object.UnmanagedStruct*); }
 
                 return unmanagedGetSourceObject;
             }
@@ -126,7 +126,7 @@ System.IntPtr sourceTag);
             /// </summary>
             public static UnmanagedIsTagged Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedIsTagged(GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr sourceTag_) { try { var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var sourceTag = (System.IntPtr)sourceTag_; var doIsTagged = (IsTagged)methodInfo.CreateDelegate(typeof(IsTagged), res); var ret = doIsTagged(sourceTag); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedIsTagged(GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr sourceTag_) { try { var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var sourceTag = (System.IntPtr)sourceTag_; var doIsTagged = (IsTagged)methodInfo.CreateDelegate(typeof(IsTagged), res); var ret = doIsTagged(sourceTag); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedIsTagged;
             }

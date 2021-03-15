@@ -121,7 +121,7 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
             /// </summary>
             public static UnmanagedStartup Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedStartup(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doStartup = (Startup)methodInfo.CreateDelegate(typeof(Startup), application); doStartup(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedStartup(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doStartup = (Startup)methodInfo.CreateDelegate(typeof(Startup), application); doStartup(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedStartup;
             }
@@ -152,7 +152,7 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
             /// </summary>
             public static UnmanagedActivate Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedActivate(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doActivate = (Activate)methodInfo.CreateDelegate(typeof(Activate), application); doActivate(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedActivate(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doActivate = (Activate)methodInfo.CreateDelegate(typeof(Activate), application); doActivate(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedActivate;
             }
@@ -194,7 +194,7 @@ byte* hint);
             /// </summary>
             public static UnmanagedOpen Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedOpen(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct** files_, int nFiles_, byte* hint_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_); var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_); var doOpen = (Open)methodInfo.CreateDelegate(typeof(Open), application); doOpen(files, hint); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedOpen(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct** files_, int nFiles_, byte* hint_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_); var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_); var doOpen = (Open)methodInfo.CreateDelegate(typeof(Open), application); doOpen(files, hint); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedOpen;
             }
@@ -228,7 +228,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine);
             /// </summary>
             public static UnmanagedCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
-                int unmanagedCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var commandLine = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)commandLine_, GISharp.Runtime.Transfer.None)!; var doCommandLine = (CommandLine)methodInfo.CreateDelegate(typeof(CommandLine), application); var ret = doCommandLine(commandLine); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(int); }
+                int unmanagedCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var commandLine = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)commandLine_, GISharp.Runtime.Transfer.None)!; var doCommandLine = (CommandLine)methodInfo.CreateDelegate(typeof(CommandLine), application); var ret = doCommandLine(commandLine); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(int); }
 
                 return unmanagedCommandLine;
             }
@@ -267,7 +267,7 @@ int* exitStatus);
             /// </summary>
             public static UnmanagedTryLocalCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedTryLocalCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, byte*** arguments_, int* exitStatus_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var arguments = new GISharp.Lib.GLib.Strv((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full); var doTryLocalCommandLine = (TryLocalCommandLine)methodInfo.CreateDelegate(typeof(TryLocalCommandLine), application); var ret = doTryLocalCommandLine(ref arguments,out var exitStatus); *arguments_ = (byte**)arguments.Take(); *exitStatus_ = (int)exitStatus; var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedTryLocalCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, byte*** arguments_, int* exitStatus_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var arguments = new GISharp.Lib.GLib.Strv((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full); var doTryLocalCommandLine = (TryLocalCommandLine)methodInfo.CreateDelegate(typeof(TryLocalCommandLine), application); var ret = doTryLocalCommandLine(ref arguments,out var exitStatus); *arguments_ = (byte**)arguments.Take(); *exitStatus_ = (int)exitStatus; var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedTryLocalCommandLine;
             }
@@ -301,7 +301,7 @@ GISharp.Lib.GLib.Variant.UnmanagedStruct* platformData);
             /// </summary>
             public static UnmanagedBeforeEmit Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedBeforeEmit(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.Variant.UnmanagedStruct* platformData_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var platformData = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)platformData_, GISharp.Runtime.Transfer.None)!; var doBeforeEmit = (BeforeEmit)methodInfo.CreateDelegate(typeof(BeforeEmit), application); doBeforeEmit(platformData); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedBeforeEmit(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.Variant.UnmanagedStruct* platformData_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var platformData = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)platformData_, GISharp.Runtime.Transfer.None)!; var doBeforeEmit = (BeforeEmit)methodInfo.CreateDelegate(typeof(BeforeEmit), application); doBeforeEmit(platformData); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedBeforeEmit;
             }
@@ -335,7 +335,7 @@ GISharp.Lib.GLib.Variant.UnmanagedStruct* platformData);
             /// </summary>
             public static UnmanagedAfterEmit Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedAfterEmit(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.Variant.UnmanagedStruct* platformData_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var platformData = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)platformData_, GISharp.Runtime.Transfer.None)!; var doAfterEmit = (AfterEmit)methodInfo.CreateDelegate(typeof(AfterEmit), application); doAfterEmit(platformData); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedAfterEmit(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.Variant.UnmanagedStruct* platformData_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var platformData = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)platformData_, GISharp.Runtime.Transfer.None)!; var doAfterEmit = (AfterEmit)methodInfo.CreateDelegate(typeof(AfterEmit), application); doAfterEmit(platformData); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedAfterEmit;
             }
@@ -369,7 +369,7 @@ GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder);
             /// </summary>
             public static UnmanagedAddPlatformData Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedAddPlatformData(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var builder = GISharp.Lib.GLib.VariantBuilder.GetInstance<GISharp.Lib.GLib.VariantBuilder>((System.IntPtr)builder_, GISharp.Runtime.Transfer.None)!; var doAddPlatformData = (AddPlatformData)methodInfo.CreateDelegate(typeof(AddPlatformData), application); doAddPlatformData(builder); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedAddPlatformData(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var builder = GISharp.Lib.GLib.VariantBuilder.GetInstance<GISharp.Lib.GLib.VariantBuilder>((System.IntPtr)builder_, GISharp.Runtime.Transfer.None)!; var doAddPlatformData = (AddPlatformData)methodInfo.CreateDelegate(typeof(AddPlatformData), application); doAddPlatformData(builder); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedAddPlatformData;
             }
@@ -400,7 +400,7 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
             /// </summary>
             public static UnmanagedQuitMainloop Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedQuitMainloop(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doQuitMainloop = (QuitMainloop)methodInfo.CreateDelegate(typeof(QuitMainloop), application); doQuitMainloop(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedQuitMainloop(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doQuitMainloop = (QuitMainloop)methodInfo.CreateDelegate(typeof(QuitMainloop), application); doQuitMainloop(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedQuitMainloop;
             }
@@ -431,7 +431,7 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
             /// </summary>
             public static UnmanagedRunMainloop Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedRunMainloop(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doRunMainloop = (RunMainloop)methodInfo.CreateDelegate(typeof(RunMainloop), application); doRunMainloop(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedRunMainloop(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doRunMainloop = (RunMainloop)methodInfo.CreateDelegate(typeof(RunMainloop), application); doRunMainloop(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedRunMainloop;
             }
@@ -462,7 +462,7 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
             /// </summary>
             public static UnmanagedShutdown Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedShutdown(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doShutdown = (Shutdown)methodInfo.CreateDelegate(typeof(Shutdown), application); doShutdown(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedShutdown(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doShutdown = (Shutdown)methodInfo.CreateDelegate(typeof(Shutdown), application); doShutdown(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedShutdown;
             }
@@ -496,7 +496,7 @@ GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options);
             /// </summary>
             public static UnmanagedHandleLocalOptions Create(System.Reflection.MethodInfo methodInfo)
             {
-                int unmanagedHandleLocalOptions(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var options = GISharp.Lib.GLib.VariantDict.GetInstance<GISharp.Lib.GLib.VariantDict>((System.IntPtr)options_, GISharp.Runtime.Transfer.None)!; var doHandleLocalOptions = (HandleLocalOptions)methodInfo.CreateDelegate(typeof(HandleLocalOptions), application); var ret = doHandleLocalOptions(options); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(int); }
+                int unmanagedHandleLocalOptions(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var options = GISharp.Lib.GLib.VariantDict.GetInstance<GISharp.Lib.GLib.VariantDict>((System.IntPtr)options_, GISharp.Runtime.Transfer.None)!; var doHandleLocalOptions = (HandleLocalOptions)methodInfo.CreateDelegate(typeof(HandleLocalOptions), application); var ret = doHandleLocalOptions(options); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(int); }
 
                 return unmanagedHandleLocalOptions;
             }
@@ -527,7 +527,7 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
             /// </summary>
             public static UnmanagedNameLost Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedNameLost(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doNameLost = (NameLost)methodInfo.CreateDelegate(typeof(NameLost), application); var ret = doNameLost(); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedNameLost(GISharp.Lib.Gio.Application.UnmanagedStruct* application_) { try { var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var doNameLost = (NameLost)methodInfo.CreateDelegate(typeof(NameLost), application); var ret = doNameLost(); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedNameLost;
             }

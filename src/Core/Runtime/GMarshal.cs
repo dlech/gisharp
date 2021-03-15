@@ -377,5 +377,35 @@ namespace GISharp.Runtime
 
             return managedCallback.MethodHandle.GetFunctionPointer();
         }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void g_log(IntPtr logDomain, uint logLevel, IntPtr format, IntPtr arg);
+
+        private static readonly IntPtr logFormat = Marshal.StringToCoTaskMemUTF8("%s");
+
+        /// <summary>
+        /// Log an unhandled exception.
+        /// </summary>
+        /// <remarks>
+        /// This is to be used in callbacks from unmanaged code. Unmanaged C
+        /// code does not know about managed exceptions. So all exceptions in
+        /// callbacks need to be caught and this function should be called.
+        /// </remarks>
+        public static void LogUnhandledException(this Exception ex, [CallerMemberName] string caller = "")
+        {
+            try {
+                var logDomain = Marshal.StringToCoTaskMemUTF8(ex?.TargetSite?.Module?.Name);
+                var message = Marshal.StringToCoTaskMemUTF8($"Unhandled exception in {caller}: {ex?.Message}");
+                var stackTrace = Marshal.StringToCoTaskMemUTF8(ex?.StackTrace);
+                g_log(logDomain, 0x08 /* critical */, logFormat, message);
+                g_log(logDomain, 0x80 /* debug */, logFormat, stackTrace);
+                Marshal.FreeCoTaskMem(stackTrace);
+                Marshal.FreeCoTaskMem(message);
+                Marshal.FreeCoTaskMem(logDomain);
+            }
+            catch {
+                // This must absolutely not throw an exception
+            }
+        }
     }
 }

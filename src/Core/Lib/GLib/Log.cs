@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 using Microsoft.Extensions.Logging;
@@ -142,25 +141,6 @@ namespace GISharp.Lib.GLib
         public static void Debug(NullableUnownedUtf8 message)
         {
             Log_(DefaultDomain, LogLevelFlags.Debug, message);
-        }
-
-        /// <summary>
-        /// Log an unhandled exception.
-        /// </summary>
-        /// <remarks>
-        /// This is to be used in callbacks from unmanaged code. Unmanaged C
-        /// code does not know about managed exceptions. So all exceptions in
-        /// callbacks need to be caught and this function should be called.
-        /// </remarks>
-        public static void LogUnhandledException(this Exception ex, [CallerMemberName] string caller = "")
-        {
-            try {
-                var domain = ex?.TargetSite?.Module?.Name;
-                Log_(domain, LogLevelFlags.Critical, $"Unhandled exception in {caller}\n{ex}");
-            }
-            catch {
-                // This must absolutely not throw an exception
-            }
         }
 
         /// <summary>

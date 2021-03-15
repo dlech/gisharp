@@ -72,7 +72,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
             /// </summary>
             public static UnmanagedFinalize Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedFinalize(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doFinalize = (Finalize)methodInfo.CreateDelegate(typeof(Finalize), pspec); doFinalize(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedFinalize(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doFinalize = (Finalize)methodInfo.CreateDelegate(typeof(Finalize), pspec); doFinalize(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedFinalize;
             }
@@ -106,7 +106,7 @@ GISharp.Lib.GObject.Value* value);
             /// </summary>
             public static UnmanagedValueSetDefault Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedValueSetDefault(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value = (GISharp.Lib.GObject.Value)value_; var doValueSetDefault = (ValueSetDefault)methodInfo.CreateDelegate(typeof(ValueSetDefault), pspec); doValueSetDefault(value); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedValueSetDefault(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value = (GISharp.Lib.GObject.Value)value_; var doValueSetDefault = (ValueSetDefault)methodInfo.CreateDelegate(typeof(ValueSetDefault), pspec); doValueSetDefault(value); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedValueSetDefault;
             }
@@ -140,7 +140,7 @@ GISharp.Lib.GObject.Value* value);
             /// </summary>
             public static UnmanagedValueValidate Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedValueValidate(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value = (GISharp.Lib.GObject.Value)value_; var doValueValidate = (ValueValidate)methodInfo.CreateDelegate(typeof(ValueValidate), pspec); var ret = doValueValidate(value); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedValueValidate(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value = (GISharp.Lib.GObject.Value)value_; var doValueValidate = (ValueValidate)methodInfo.CreateDelegate(typeof(ValueValidate), pspec); var ret = doValueValidate(value); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedValueValidate;
             }
@@ -177,7 +177,7 @@ GISharp.Lib.GObject.Value* value2);
             /// </summary>
             public static UnmanagedValuesCmp Create(System.Reflection.MethodInfo methodInfo)
             {
-                int unmanagedValuesCmp(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value1_, GISharp.Lib.GObject.Value* value2_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value1 = (GISharp.Lib.GObject.Value)value1_; var value2 = (GISharp.Lib.GObject.Value)value2_; var doValuesCmp = (ValuesCmp)methodInfo.CreateDelegate(typeof(ValuesCmp), pspec); var ret = doValuesCmp(value1, value2); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(int); }
+                int unmanagedValuesCmp(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value1_, GISharp.Lib.GObject.Value* value2_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value1 = (GISharp.Lib.GObject.Value)value1_; var value2 = (GISharp.Lib.GObject.Value)value2_; var doValuesCmp = (ValuesCmp)methodInfo.CreateDelegate(typeof(ValuesCmp), pspec); var ret = doValuesCmp(value1, value2); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(int); }
 
                 return unmanagedValuesCmp;
             }

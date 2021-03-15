@@ -74,7 +74,7 @@ namespace GISharp.Lib.GLib
             }
             catch (System.Exception ex)
             {
-                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
             }
         }
     }
