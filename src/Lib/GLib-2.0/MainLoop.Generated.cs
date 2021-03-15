@@ -102,7 +102,7 @@ namespace GISharp.Lib.GLib
             CheckGetContextArgs();
             var loop_ = (GISharp.Lib.GLib.MainLoop.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_main_loop_get_context(loop_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.MainContext.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 

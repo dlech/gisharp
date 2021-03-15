@@ -133,7 +133,7 @@ namespace GISharp.Lib.Gio
             CheckDupArgs();
             var list_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_attribute_info_list_dup(list_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeInfoList>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.Gio.FileAttributeInfoList.GetInstance<GISharp.Lib.Gio.FileAttributeInfoList>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

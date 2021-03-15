@@ -76,7 +76,7 @@ int* privateSizeOrOffset);
             CheckPeekArgs(type);
             var type_ = (GISharp.Lib.GObject.GType)type;
             var ret_ = g_type_class_peek(type_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.TypeClass>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.TypeClass.GetInstance<GISharp.Lib.GObject.TypeClass>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -109,7 +109,7 @@ int* privateSizeOrOffset);
             CheckPeekStaticArgs(type);
             var type_ = (GISharp.Lib.GObject.GType)type;
             var ret_ = g_type_class_peek_static(type_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.TypeClass>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.TypeClass.GetInstance<GISharp.Lib.GObject.TypeClass>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -140,7 +140,7 @@ int* privateSizeOrOffset);
             CheckRefArgs(type);
             var type_ = (GISharp.Lib.GObject.GType)type;
             var ret_ = g_type_class_ref(type_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.TypeClass>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.TypeClass.GetInstance<GISharp.Lib.GObject.TypeClass>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -300,7 +300,7 @@ GISharp.Lib.GObject.GType privateType);
             CheckPeekParentArgs();
             var gClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_class_peek_parent(gClass_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.TypeClass>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.TypeClass.GetInstance<GISharp.Lib.GObject.TypeClass>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 

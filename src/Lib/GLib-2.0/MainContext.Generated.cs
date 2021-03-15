@@ -88,7 +88,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetDefaultArgs();
             var ret_ = g_main_context_default();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.MainContext.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -116,7 +116,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetThreadDefaultArgs();
             var ret_ = g_main_context_ref_thread_default();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.MainContext.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -521,7 +521,7 @@ namespace GISharp.Lib.GLib
             var funcs_ = &funcs;
             var userData_ = (System.IntPtr)userData;
             var ret_ = g_main_context_find_source_by_funcs_user_data(context_,funcs_,userData_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -568,7 +568,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
             var sourceId_ = (uint)sourceId;
             var ret_ = g_main_context_find_source_by_id(context_,sourceId_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -605,7 +605,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
             var userData_ = (System.IntPtr)userData;
             var ret_ = g_main_context_find_source_by_user_data(context_,userData_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 

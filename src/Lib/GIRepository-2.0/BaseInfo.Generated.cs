@@ -204,7 +204,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetContainerArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_get_container(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -314,7 +314,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetTypelibArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_get_typelib(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.Typelib>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GIRepository.Typelib.GetInstance<GISharp.Lib.GIRepository.Typelib>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 

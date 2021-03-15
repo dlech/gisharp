@@ -205,7 +205,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetLocalArgs();
             var ret_ = g_time_zone_new_local();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.TimeZone>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.TimeZone.GetInstance<GISharp.Lib.GLib.TimeZone>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -234,7 +234,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetUtcArgs();
             var ret_ = g_time_zone_new_utc();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.TimeZone>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.TimeZone.GetInstance<GISharp.Lib.GLib.TimeZone>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

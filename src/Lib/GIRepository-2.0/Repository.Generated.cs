@@ -107,7 +107,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckGetDefaultArgs();
             var ret_ = g_irepository_get_default();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.Repository>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GIRepository.Repository.GetInstance<GISharp.Lib.GIRepository.Repository>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -219,7 +219,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_enumerate_versions(repository_,@namespace_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.List<GISharp.Lib.GLib.Utf8>>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.List<GISharp.Lib.GLib.Utf8>.GetInstance<GISharp.Lib.GLib.List<GISharp.Lib.GLib.Utf8>>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -261,7 +261,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var domain_ = (GISharp.Lib.GLib.Quark)domain;
             var ret_ = g_irepository_find_by_error_domain(repository_,domain_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.EnumInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.EnumInfo.GetInstance<GISharp.Lib.GIRepository.EnumInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -302,7 +302,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var gtype_ = (GISharp.Lib.GObject.GType)gtype;
             var ret_ = g_irepository_find_by_gtype(repository_,gtype_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -348,7 +348,7 @@ byte* directory);
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_irepository_find_by_name(repository_,@namespace_,name_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -533,7 +533,7 @@ byte* directory);
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var index_ = (int)index;
             var ret_ = g_irepository_get_info(repository_,@namespace_,index_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

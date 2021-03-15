@@ -180,7 +180,7 @@ namespace GISharp.Lib.GLib
                 CheckToIso8601Args();
                 var time_ = this_;
                 var ret_ = g_time_val_to_iso8601(time_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+                var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
                 return ret;
             }
         }

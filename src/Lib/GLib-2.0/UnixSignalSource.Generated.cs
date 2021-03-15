@@ -55,7 +55,7 @@ namespace GISharp.Lib.GLib
             CheckNewArgs(signum);
             var signum_ = (int)signum;
             var ret_ = g_unix_signal_source_new(signum_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
     }

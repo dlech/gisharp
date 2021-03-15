@@ -282,7 +282,7 @@ namespace GISharp.Lib.GLib
             var text_ = (byte*)text.UnsafeHandle;
             var defaultTz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)(defaultTz?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_date_time_new_from_iso8601(text_,defaultTz_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -328,7 +328,7 @@ namespace GISharp.Lib.GLib
             CheckFromTimevalLocalArgs(tv);
             var tv_ = &tv;
             var ret_ = g_date_time_new_from_timeval_local(tv_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -372,7 +372,7 @@ namespace GISharp.Lib.GLib
             CheckFromTimevalUtcArgs(tv);
             var tv_ = &tv;
             var ret_ = g_date_time_new_from_timeval_utc(tv_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -413,7 +413,7 @@ namespace GISharp.Lib.GLib
             CheckFromUnixLocalArgs(t);
             var t_ = (long)t;
             var ret_ = g_date_time_new_from_unix_local(t_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -453,7 +453,7 @@ namespace GISharp.Lib.GLib
             CheckFromUnixUtcArgs(t);
             var t_ = (long)t;
             var ret_ = g_date_time_new_from_unix_utc(t_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -523,7 +523,7 @@ namespace GISharp.Lib.GLib
             var minute_ = (int)minute;
             var seconds_ = (double)seconds;
             var ret_ = g_date_time_new_local(year_,month_,day_,hour_,minute_,seconds_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -562,7 +562,7 @@ namespace GISharp.Lib.GLib
             CheckGetNowArgs(tz);
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)tz.UnsafeHandle;
             var ret_ = g_date_time_new_now(tz_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -589,7 +589,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetNowLocalArgs();
             var ret_ = g_date_time_new_now_local();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -615,7 +615,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetNowUtcArgs();
             var ret_ = g_date_time_new_now_utc();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -685,7 +685,7 @@ namespace GISharp.Lib.GLib
             var minute_ = (int)minute;
             var seconds_ = (double)seconds;
             var ret_ = g_date_time_new_utc(year_,month_,day_,hour_,minute_,seconds_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -767,7 +767,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var timespan_ = (GISharp.Lib.GLib.TimeSpan)timespan;
             var ret_ = g_date_time_add(datetime_,timespan_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -806,7 +806,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var days_ = (int)days;
             var ret_ = g_date_time_add_days(datetime_,days_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -880,7 +880,7 @@ namespace GISharp.Lib.GLib
             var minutes_ = (int)minutes;
             var seconds_ = (double)seconds;
             var ret_ = g_date_time_add_full(datetime_,years_,months_,days_,hours_,minutes_,seconds_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -919,7 +919,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var hours_ = (int)hours;
             var ret_ = g_date_time_add_hours(datetime_,hours_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -958,7 +958,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var minutes_ = (int)minutes;
             var ret_ = g_date_time_add_minutes(datetime_,minutes_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1003,7 +1003,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var months_ = (int)months;
             var ret_ = g_date_time_add_months(datetime_,months_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1042,7 +1042,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var seconds_ = (double)seconds;
             var ret_ = g_date_time_add_seconds(datetime_,seconds_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1081,7 +1081,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var weeks_ = (int)weeks;
             var ret_ = g_date_time_add_weeks(datetime_,weeks_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1124,7 +1124,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var years_ = (int)years;
             var ret_ = g_date_time_add_years(datetime_,years_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1304,7 +1304,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var format_ = (byte*)format.UnsafeHandle;
             var ret_ = g_date_time_format(datetime_,format_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1341,7 +1341,7 @@ namespace GISharp.Lib.GLib
             CheckFormatIso8601Args();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_format_iso8601(datetime_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1636,7 +1636,7 @@ namespace GISharp.Lib.GLib
             CheckGetTimezoneArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_timezone(datetime_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.TimeZone>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.TimeZone.GetInstance<GISharp.Lib.GLib.TimeZone>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -1983,7 +1983,7 @@ namespace GISharp.Lib.GLib
             CheckToLocalArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_to_local(datetime_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -2081,7 +2081,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)tz.UnsafeHandle;
             var ret_ = g_date_time_to_timezone(datetime_,tz_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -2152,7 +2152,7 @@ namespace GISharp.Lib.GLib
             CheckToUtcArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_to_utc(datetime_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

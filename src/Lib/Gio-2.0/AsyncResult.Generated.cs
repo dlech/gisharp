@@ -66,7 +66,7 @@ namespace GISharp.Lib.Gio
             CheckGetSourceObjectArgs(res);
             var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;
             var ret_ = g_async_result_get_source_object(res_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

@@ -77,7 +77,7 @@ namespace GISharp.Lib.GModule
             var directory_ = (byte*)directory.UnsafeHandle;
             var moduleName_ = (byte*)moduleName.UnsafeHandle;
             var ret_ = g_module_build_path(directory_,moduleName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -146,7 +146,7 @@ namespace GISharp.Lib.GModule
             var fileName_ = (byte*)fileName.UnsafeHandle;
             var flags_ = (GISharp.Lib.GModule.ModuleFlags)flags;
             var ret_ = g_module_open(fileName_,flags_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GModule.Module>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GModule.Module.GetInstance<GISharp.Lib.GModule.Module>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

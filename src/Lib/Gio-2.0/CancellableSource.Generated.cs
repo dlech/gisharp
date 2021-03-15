@@ -41,7 +41,7 @@ namespace GISharp.Lib.Gio
             CheckNewArgs(cancellable);
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_cancellable_source_new(cancellable_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
     }

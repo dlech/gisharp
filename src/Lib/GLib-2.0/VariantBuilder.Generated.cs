@@ -192,7 +192,7 @@ namespace GISharp.Lib.GLib
             CheckEndArgs();
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_builder_end(builder_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 

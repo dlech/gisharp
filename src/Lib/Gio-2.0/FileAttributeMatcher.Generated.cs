@@ -290,7 +290,7 @@ namespace GISharp.Lib.Gio
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var subtract_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)subtract.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_subtract(matcher_,subtract_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeMatcher>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.Gio.FileAttributeMatcher.GetInstance<GISharp.Lib.Gio.FileAttributeMatcher>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -324,7 +324,7 @@ namespace GISharp.Lib.Gio
             CheckToStringArgs();
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_attribute_matcher_to_string(matcher_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

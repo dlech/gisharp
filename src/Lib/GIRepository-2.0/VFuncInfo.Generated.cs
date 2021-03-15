@@ -138,7 +138,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetInvokerArgs();
             var info_ = (GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_vfunc_info_get_invoker(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -195,7 +195,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetSignalArgs();
             var info_ = (GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_vfunc_info_get_signal(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.SignalInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.SignalInfo.GetInstance<GISharp.Lib.GIRepository.SignalInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
     }

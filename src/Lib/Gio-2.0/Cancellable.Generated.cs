@@ -85,7 +85,7 @@ namespace GISharp.Lib.Gio
         {
             try
             {
-                var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None)!;
+                var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((CancelledSignalHandler)userData.Callback)(cancellable);
@@ -113,7 +113,7 @@ namespace GISharp.Lib.Gio
         {
             CheckGetCurrentArgs();
             var ret_ = g_cancellable_get_current();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 

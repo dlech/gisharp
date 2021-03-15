@@ -141,7 +141,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetType_Args();
             var info_ = (GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_field_info_get_type(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.TypeInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.TypeInfo.GetInstance<GISharp.Lib.GIRepository.TypeInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
     }

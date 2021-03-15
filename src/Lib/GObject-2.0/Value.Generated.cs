@@ -236,7 +236,7 @@ namespace GISharp.Lib.GObject
                 CheckDupObjectArgs();
                 var value_ = this_;
                 var ret_ = g_value_dup_object(value_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
                 return ret;
             }
         }
@@ -267,7 +267,7 @@ namespace GISharp.Lib.GObject
                 CheckDupStringArgs();
                 var value_ = this_;
                 var ret_ = g_value_dup_string(value_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
                 return ret;
             }
         }
@@ -302,7 +302,7 @@ namespace GISharp.Lib.GObject
                 CheckDupVariantArgs();
                 var value_ = this_;
                 var ret_ = g_value_dup_variant(value_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+                var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
                 return ret;
             }
         }
@@ -704,7 +704,7 @@ namespace GISharp.Lib.GObject
                 CheckGetObjectArgs();
                 var value_ = this_;
                 var ret_ = g_value_get_object(value_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+                var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
                 return ret;
             }
         }
@@ -734,7 +734,7 @@ namespace GISharp.Lib.GObject
                 CheckGetParamArgs();
                 var value_ = this_;
                 var ret_ = g_value_get_param(value_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+                var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
                 return ret;
             }
         }
@@ -978,7 +978,7 @@ namespace GISharp.Lib.GObject
                 CheckGetVariantArgs();
                 var value_ = this_;
                 var ret_ = g_value_get_variant(value_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
+                var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
                 return ret;
             }
         }

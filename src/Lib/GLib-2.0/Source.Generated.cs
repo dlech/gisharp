@@ -334,7 +334,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetCurrentArgs();
             var ret_ = g_main_current_source();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -627,7 +627,7 @@ namespace GISharp.Lib.GLib
             CheckGetContextArgs();
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_source_get_context(source_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Lib.GLib.MainContext.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 

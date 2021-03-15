@@ -59,7 +59,7 @@ namespace GISharp.Lib.Gio
         {
             try
             {
-                var sourceObject = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)sourceObject_, GISharp.Runtime.Transfer.None);
+                var sourceObject = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)sourceObject_, GISharp.Runtime.Transfer.None);
                 var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!;
                 var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var (userData, userDataScope) = ((AsyncReadyCallback, GISharp.Runtime.CallbackScope))userDataHandle.Target!;

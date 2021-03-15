@@ -87,7 +87,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetPropertyArgs();
             var info_ = (GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_function_info_get_property(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.PropertyInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.PropertyInfo.GetInstance<GISharp.Lib.GIRepository.PropertyInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -146,7 +146,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetVFuncArgs();
             var info_ = (GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_function_info_get_vfunc(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.VFuncInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.VFuncInfo.GetInstance<GISharp.Lib.GIRepository.VFuncInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
     }

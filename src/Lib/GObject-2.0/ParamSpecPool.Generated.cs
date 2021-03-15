@@ -51,7 +51,7 @@ namespace GISharp.Lib.GObject
             CheckNewArgs(typePrefixing);
             var typePrefixing_ = GISharp.Runtime.BooleanExtensions.ToBoolean(typePrefixing);
             var ret_ = g_param_spec_pool_new(typePrefixing_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpecPool>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.ParamSpecPool.GetInstance<GISharp.Lib.GObject.ParamSpecPool>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -175,7 +175,7 @@ namespace GISharp.Lib.GObject
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;
             var ownerType_ = (GISharp.Lib.GObject.GType)ownerType;
             var ret_ = g_param_spec_pool_list_owned(pool_,ownerType_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.WeakList<GISharp.Lib.GObject.ParamSpec>>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Container)!;
+            var ret = GISharp.Lib.GLib.WeakList<GISharp.Lib.GObject.ParamSpec>.GetInstance<GISharp.Lib.GLib.WeakList<GISharp.Lib.GObject.ParamSpec>>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Container)!;
             return ret;
         }
 
@@ -226,7 +226,7 @@ namespace GISharp.Lib.GObject
             var ownerType_ = (GISharp.Lib.GObject.GType)ownerType;
             var walkAncestors_ = GISharp.Runtime.BooleanExtensions.ToBoolean(walkAncestors);
             var ret_ = g_param_spec_pool_lookup(pool_,paramName_,ownerType_,walkAncestors_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 

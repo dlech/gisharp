@@ -277,7 +277,7 @@ namespace GISharp.Lib.GLib
             CheckFreeToBytesArgs();
             var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)Take();
             var ret_ = g_byte_array_free_to_bytes(array_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Bytes>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Bytes.GetInstance<GISharp.Lib.GLib.Bytes>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

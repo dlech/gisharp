@@ -38,7 +38,7 @@ namespace GISharp.Lib.GLib
             CheckNewArgs(interval);
             var interval_ = (uint)interval;
             var ret_ = g_timeout_source_new(interval_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -79,7 +79,7 @@ namespace GISharp.Lib.GLib
             CheckNewSecondsArgs(interval);
             var interval_ = (uint)interval;
             var ret_ = g_timeout_source_new_seconds(interval_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
     }

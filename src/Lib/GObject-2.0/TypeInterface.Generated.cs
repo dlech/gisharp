@@ -135,7 +135,7 @@ namespace GISharp.Lib.GObject
             var instanceClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)instanceClass.UnsafeHandle;
             var ifaceType_ = (GISharp.Lib.GObject.GType)ifaceType;
             var ret_ = g_type_interface_peek(instanceClass_,ifaceType_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.TypeInterface>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.TypeInterface.GetInstance<GISharp.Lib.GObject.TypeInterface>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -211,7 +211,7 @@ namespace GISharp.Lib.GObject
             CheckPeekParentArgs();
             var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_interface_peek_parent(gIface_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.TypeInterface>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.TypeInterface.GetInstance<GISharp.Lib.GObject.TypeInterface>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
     }

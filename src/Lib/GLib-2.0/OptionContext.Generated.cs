@@ -235,7 +235,7 @@ namespace GISharp.Lib.GLib
             var mainHelp_ = GISharp.Runtime.BooleanExtensions.ToBoolean(mainHelp);
             var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)(group?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_option_context_get_help(context_,mainHelp_,group_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -326,7 +326,7 @@ namespace GISharp.Lib.GLib
             CheckGetMainGroupArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_option_context_get_main_group(context_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.OptionGroup.GetInstance<GISharp.Lib.GLib.OptionGroup>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 

@@ -55,7 +55,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetClassClosureArgs();
             var info_ = (GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_signal_info_get_class_closure(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.VFuncInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GIRepository.VFuncInfo.GetInstance<GISharp.Lib.GIRepository.VFuncInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

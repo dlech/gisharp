@@ -705,7 +705,7 @@ namespace GISharp.Lib.GLib
             var startPos_ = (GISharp.Runtime.CLong)startPos;
             var endPos_ = (GISharp.Runtime.CLong)endPos;
             var ret_ = g_utf8_substring(str_,startPos_,endPos_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

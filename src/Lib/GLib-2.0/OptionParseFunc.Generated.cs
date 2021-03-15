@@ -62,8 +62,8 @@ namespace GISharp.Lib.GLib
         {
             try
             {
-                var context = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionContext>((System.IntPtr)context_, GISharp.Runtime.Transfer.None)!;
-                var group = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>((System.IntPtr)group_, GISharp.Runtime.Transfer.None)!;
+                var context = GISharp.Lib.GLib.OptionContext.GetInstance<GISharp.Lib.GLib.OptionContext>((System.IntPtr)context_, GISharp.Runtime.Transfer.None)!;
+                var group = GISharp.Lib.GLib.OptionGroup.GetInstance<GISharp.Lib.GLib.OptionGroup>((System.IntPtr)group_, GISharp.Runtime.Transfer.None)!;
                 var dataHandle = (System.Runtime.InteropServices.GCHandle)data_;
                 var (data, dataScope) = ((OptionParseFunc, GISharp.Runtime.CallbackScope))dataHandle.Target!;
                 data.Invoke(context, group);

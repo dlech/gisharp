@@ -102,7 +102,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
             /// </summary>
             public static UnmanagedSetProperty Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedSetProperty(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, uint propertyId_, GISharp.Lib.GObject.Value* value_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var propertyId = (uint)propertyId_; var value = (GISharp.Lib.GObject.Value)value_; var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doSetProperty = (SetProperty)methodInfo.CreateDelegate(typeof(SetProperty), @object); doSetProperty(propertyId, value, pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedSetProperty(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, uint propertyId_, GISharp.Lib.GObject.Value* value_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var propertyId = (uint)propertyId_; var value = (GISharp.Lib.GObject.Value)value_; var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doSetProperty = (SetProperty)methodInfo.CreateDelegate(typeof(SetProperty), @object); doSetProperty(propertyId, value, pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedSetProperty;
             }
@@ -142,7 +142,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
             /// </summary>
             public static UnmanagedGetProperty Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedGetProperty(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, uint propertyId_, GISharp.Lib.GObject.Value* value_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var propertyId = (uint)propertyId_; var value = (GISharp.Lib.GObject.Value)value_; var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doGetProperty = (GetProperty)methodInfo.CreateDelegate(typeof(GetProperty), @object); doGetProperty(propertyId, value, pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedGetProperty(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, uint propertyId_, GISharp.Lib.GObject.Value* value_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var propertyId = (uint)propertyId_; var value = (GISharp.Lib.GObject.Value)value_; var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doGetProperty = (GetProperty)methodInfo.CreateDelegate(typeof(GetProperty), @object); doGetProperty(propertyId, value, pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedGetProperty;
             }
@@ -173,7 +173,7 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
             /// </summary>
             public static UnmanagedDispose Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedDispose(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var doDispose = (Dispose)methodInfo.CreateDelegate(typeof(Dispose), @object); doDispose(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedDispose(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_) { try { var @object = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var doDispose = (Dispose)methodInfo.CreateDelegate(typeof(Dispose), @object); doDispose(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedDispose;
             }
@@ -204,7 +204,7 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
             /// </summary>
             public static UnmanagedFinalize Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedFinalize(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var doFinalize = (Finalize)methodInfo.CreateDelegate(typeof(Finalize), @object); doFinalize(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedFinalize(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_) { try { var @object = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var doFinalize = (Finalize)methodInfo.CreateDelegate(typeof(Finalize), @object); doFinalize(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedFinalize;
             }
@@ -241,7 +241,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspecs);
             /// </summary>
             public static UnmanagedDispatchPropertiesChanged Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedDispatchPropertiesChanged(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, uint nPspecs_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspecs_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var nPspecs = (uint)nPspecs_; var pspecs = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspecs_, GISharp.Runtime.Transfer.None)!; var doDispatchPropertiesChanged = (DispatchPropertiesChanged)methodInfo.CreateDelegate(typeof(DispatchPropertiesChanged), @object); doDispatchPropertiesChanged(nPspecs, pspecs); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedDispatchPropertiesChanged(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, uint nPspecs_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspecs_) { try { var @object = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var nPspecs = (uint)nPspecs_; var pspecs = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspecs_, GISharp.Runtime.Transfer.None)!; var doDispatchPropertiesChanged = (DispatchPropertiesChanged)methodInfo.CreateDelegate(typeof(DispatchPropertiesChanged), @object); doDispatchPropertiesChanged(nPspecs, pspecs); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedDispatchPropertiesChanged;
             }
@@ -275,7 +275,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
             /// </summary>
             public static UnmanagedNotify Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedNotify(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doNotify = (Notify)methodInfo.CreateDelegate(typeof(Notify), @object); doNotify(pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedNotify(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doNotify = (Notify)methodInfo.CreateDelegate(typeof(Notify), @object); doNotify(pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedNotify;
             }
@@ -306,7 +306,7 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
             /// </summary>
             public static UnmanagedConstructed Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedConstructed(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var doConstructed = (Constructed)methodInfo.CreateDelegate(typeof(Constructed), @object); doConstructed(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedConstructed(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_) { try { var @object = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var doConstructed = (Constructed)methodInfo.CreateDelegate(typeof(Constructed), @object); doConstructed(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedConstructed;
             }

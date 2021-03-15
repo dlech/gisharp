@@ -101,7 +101,7 @@ namespace GISharp.Lib.Gio
             {
                 var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!;
                 var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_);
-                var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)value_, GISharp.Runtime.Transfer.None)!;
+                var value = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)value_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((ActionStateChangedSignalHandler)userData.Callback)(actionGroup, actionName, value);
@@ -531,7 +531,7 @@ namespace GISharp.Lib.Gio
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
             var actionName_ = (byte*)actionName.UnsafeHandle;
             var ret_ = g_action_group_get_action_parameter_type(actionGroup_,actionName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -576,7 +576,7 @@ namespace GISharp.Lib.Gio
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
             var actionName_ = (byte*)actionName.UnsafeHandle;
             var ret_ = g_action_group_get_action_state(actionGroup_,actionName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -631,7 +631,7 @@ namespace GISharp.Lib.Gio
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
             var actionName_ = (byte*)actionName.UnsafeHandle;
             var ret_ = g_action_group_get_action_state_hint(actionGroup_,actionName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -684,7 +684,7 @@ namespace GISharp.Lib.Gio
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
             var actionName_ = (byte*)actionName.UnsafeHandle;
             var ret_ = g_action_group_get_action_state_type(actionGroup_,actionName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -858,10 +858,10 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GLib.Variant.UnmanagedStruct* state_;
             var ret_ = g_action_group_query_action(actionGroup_,actionName_,&enabled_,&parameterType_,&stateType_,&stateHint_,&state_);
             enabled = GISharp.Runtime.BooleanExtensions.IsTrue(enabled_);
-            parameterType = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)parameterType_, GISharp.Runtime.Transfer.Full)!;
-            stateType = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)stateType_, GISharp.Runtime.Transfer.Full)!;
-            stateHint = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)stateHint_, GISharp.Runtime.Transfer.Full)!;
-            state = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)state_, GISharp.Runtime.Transfer.Full)!;
+            parameterType = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)parameterType_, GISharp.Runtime.Transfer.Full)!;
+            stateType = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)stateType_, GISharp.Runtime.Transfer.Full)!;
+            stateHint = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)stateHint_, GISharp.Runtime.Transfer.Full)!;
+            state = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)state_, GISharp.Runtime.Transfer.Full)!;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

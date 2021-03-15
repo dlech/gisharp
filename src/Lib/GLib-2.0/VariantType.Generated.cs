@@ -279,7 +279,7 @@ byte* arg0);
             CheckCheckedArgs(arg0);
             var arg0_ = (byte*)arg0.UnsafeHandle;
             var ret_ = g_variant_type_checked_(arg0_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -387,7 +387,7 @@ byte* typeString);
             var limit_ = (byte*)limit.UnsafeHandle;
             byte* endptr_;
             var ret_ = g_variant_type_string_scan(@string_,limit_,&endptr_);
-            endptr = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)endptr_, GISharp.Runtime.Transfer.Full)!;
+            endptr = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)endptr_, GISharp.Runtime.Transfer.Full)!;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -445,7 +445,7 @@ byte* typeString);
             CheckDupStringArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_dup_string(type_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -478,7 +478,7 @@ byte* typeString);
             CheckElementArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_element(type_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -597,7 +597,7 @@ byte* typeString);
             CheckFirstArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_first(type_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -1056,7 +1056,7 @@ byte* typeString);
             CheckKeyArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_key(type_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -1136,7 +1136,7 @@ byte* typeString);
             CheckNextArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_next(type_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -1169,7 +1169,7 @@ byte* typeString);
             CheckValueArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_value(type_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
     }

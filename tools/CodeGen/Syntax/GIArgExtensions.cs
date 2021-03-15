@@ -390,9 +390,8 @@ namespace GISharp.CodeGen.Syntax
                 expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {getter}"));
             }
             else if (arg.Type.IsOpaque()) {
-                var getInstance = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}";
                 var notNullable = arg.IsNullable ? "" : "!";
-                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {getInstance}<{type}>((System.IntPtr){arg.ManagedName}_, {ownership}){notNullable}"));
+                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {type}.GetInstance<{type}>((System.IntPtr){arg.ManagedName}_, {ownership}){notNullable}"));
             }
             else {
                 expressions.Add(ParseExpression(

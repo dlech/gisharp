@@ -162,7 +162,7 @@ namespace GISharp.Lib.GLib
                 var nFields_ = (nuint)fields.Length;
                 var useColor_ = GISharp.Runtime.BooleanExtensions.ToBoolean(useColor);
                 var ret_ = g_log_writer_format_fields(logLevel_,fields_,nFields_,useColor_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
                 return ret;
             }
         }

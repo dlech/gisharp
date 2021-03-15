@@ -116,8 +116,8 @@ namespace GISharp.Lib.GObject
         {
             try
             {
-                var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!;
-                var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!;
+                var @object = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!;
+                var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((NotifySignalHandler)userData.Callback)(@object, pspec);
@@ -191,7 +191,7 @@ System.IntPtr data);
             var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;
             var propertyName_ = (byte*)propertyName.UnsafeHandle;
             var ret_ = g_object_interface_find_property(gIface_,propertyName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -375,7 +375,7 @@ System.IntPtr data);
             var targetProperty_ = (byte*)targetProperty.UnsafeHandle;
             var flags_ = (GISharp.Lib.GObject.BindingFlags)flags;
             var ret_ = g_object_bind_property(source_,sourceProperty_,target_,targetProperty_,flags_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Binding>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.Binding.GetInstance<GISharp.Lib.GObject.Binding>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -458,7 +458,7 @@ System.IntPtr data);
             var transformTo_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)transformTo.UnsafeHandle;
             var transformFrom_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)transformFrom.UnsafeHandle;
             var ret_ = g_object_bind_property_with_closures(source_,sourceProperty_,target_,targetProperty_,flags_,transformTo_,transformFrom_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Binding>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.Binding.GetInstance<GISharp.Lib.GObject.Binding>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -912,7 +912,7 @@ System.IntPtr data);
             CheckRefSinkArgs();
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_object_ref_sink(@object_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 

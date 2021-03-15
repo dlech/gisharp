@@ -509,7 +509,7 @@ namespace GISharp.Lib.GLib
             var offset_ = (nuint)offset;
             var length_ = (nuint)length;
             var ret_ = g_bytes_new_from_bytes(bytes_,offset_,length_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Bytes>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Bytes.GetInstance<GISharp.Lib.GLib.Bytes>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -599,7 +599,7 @@ namespace GISharp.Lib.GLib
             CheckUnrefToArrayArgs();
             var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)Take();
             var ret_ = g_bytes_unref_to_array(bytes_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.ByteArray>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.ByteArray.GetInstance<GISharp.Lib.GLib.ByteArray>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
