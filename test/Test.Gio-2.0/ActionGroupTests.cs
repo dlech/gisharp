@@ -180,36 +180,24 @@ namespace GISharp.Test.Gio
 
         void IActionGroup.DoActivateAction(UnownedUtf8 actionName, Variant? parameter) => ActionActivated?.Invoke(this, parameter);
 
-        readonly GSignalManager<IActionGroup.ActionAddedSignalHandler> actionAddedSignalManager =
-            new("action-added", gtype);
-
         public event IActionGroup.ActionAddedSignalHandler ActionAddedSignal {
-            add => actionAddedSignalManager.Add(this, value);
-            remove => actionAddedSignalManager.Remove(value);
+            add => AddEventSignalHandler("action-added", value);
+            remove => RemoveEventSignalHandler("action-added", value);
         }
-
-        readonly GSignalManager<IActionGroup.ActionEnabledChangedSignalHandler> actionEnabledChangedSignalManager =
-            new("action-enabled-changed", gtype);
 
         public event IActionGroup.ActionEnabledChangedSignalHandler ActionEnabledChangedSignal {
-            add => actionEnabledChangedSignalManager.Add(this, value);
-            remove => actionEnabledChangedSignalManager.Remove(value);
+            add => AddEventSignalHandler("action-enabled-changed", value);
+            remove => RemoveEventSignalHandler("action-enabled-changed", value);
         }
-
-        readonly GSignalManager<IActionGroup.ActionRemovedSignalHandler> actionRemovedSignalManager =
-            new("action-removed", gtype);
 
         public event IActionGroup.ActionRemovedSignalHandler ActionRemovedSignal {
-            add => actionRemovedSignalManager.Add(this, value);
-            remove => actionRemovedSignalManager.Remove(value);
+            add => AddEventSignalHandler("action-removed", value);
+            remove => RemoveEventSignalHandler("action-removed", value);
         }
 
-        readonly GSignalManager<IActionGroup.ActionStateChangedSignalHandler> actionStateChangedSignalManager =
-            new("action-state-changed", gtype);
-
         public event IActionGroup.ActionStateChangedSignalHandler ActionStateChangedSignal {
-            add => actionStateChangedSignalManager.Add(this, value);
-            remove => actionStateChangedSignalManager.Remove(value);
+            add => AddEventSignalHandler("action-state-changed", value);
+            remove => RemoveEventSignalHandler("action-state-changed", value);
         }
 
         public event EventHandler<Variant>? StateChanged;

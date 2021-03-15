@@ -73,14 +73,12 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        readonly GISharp.Runtime.GSignalManager<CancelledSignalHandler> cancelledSignalSignalManager = new GISharp.Runtime.GSignalManager<CancelledSignalHandler>("cancelled", _GType);
-
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='CancelledSignalHandler']/*" />
         public delegate void CancelledSignalHandler(GISharp.Lib.Gio.Cancellable cancellable);
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.CancelledSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("cancelled", When = GISharp.Runtime.EmissionStage.Last)]
-        public event CancelledSignalHandler CancelledSignal { add => cancelledSignalSignalManager.Add(this, value); remove => cancelledSignalSignalManager.Remove(value); }
+        public event CancelledSignalHandler CancelledSignal { add => AddEventSignalHandler("cancelled", value); remove => RemoveEventSignalHandler("cancelled", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static void ManagedCancelledSignalHandler(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr userData_)

@@ -85,24 +85,24 @@ namespace GISharp.CodeGen.Syntax
         /// Gets an event declaration like:
         /// <code>
         /// public event SomethingChangedSignalHandler SomethingChangedSignal {
-        ///     add => somethingChangedSignalManager.Add(this, value);
-        ///     remove => somethingChangedSignalManager.Remove(value);
+        ///     add => AddEventSignalHandler("name", value);
+        ///     remove => RemoveEventSignalHandler("name", value);
         /// }
         /// </code>
         /// </summary>
         public static EventDeclarationSyntax GetEventDeclaration(this Signal signal)
         {
             var typeName = ParseTypeName($"{signal.ManagedName}Handler");
-            var signalManager = $"{signal.ManagedName.ToCamelCase()}SignalManager";
+            var name = signal.GirName;
 
-            var addExpression = ParseExpression($"{signalManager}.Add(this, value)");
             var addAccessor = AccessorDeclaration(AddAccessorDeclaration)
-                .WithExpressionBody(ArrowExpressionClause(addExpression))
+                .WithExpressionBody(ArrowExpressionClause(ParseExpression(
+                    $"AddEventSignalHandler(\"{name}\", value)")))
                 .WithSemicolonToken(Token(SemicolonToken));
 
-            var removeExpression = ParseExpression($"{signalManager}.Remove(value)");
             var removeAccessor = AccessorDeclaration(RemoveAccessorDeclaration)
-                .WithExpressionBody(ArrowExpressionClause(removeExpression))
+                .WithExpressionBody(ArrowExpressionClause(ParseExpression(
+                    $"RemoveEventSignalHandler(\"{name}\", value)")))
                 .WithSemicolonToken(Token(SemicolonToken));
 
             var accessorList = AccessorList().AddAccessors(addAccessor, removeAccessor);
@@ -137,30 +137,6 @@ namespace GISharp.CodeGen.Syntax
         }
 
         /// <summary>
-        /// generates a field like:
-        /// <code>
-        /// readonly GSignalManager&lt;SomethingChangedSignalHandler&gt; somethingChangedSignalManager =
-        ///      new GSignalManager&lt;SomethingChangedSignalHandler&gt;("something-changed", _GType);
-        /// </code>
-        /// </summary>
-        public static FieldDeclarationSyntax GetGSignalManagerFieldDeclaration(this Signal signal)
-        {
-            var managerType = typeof(GSignalManager<>).FullName;
-            managerType = managerType.Substring(0, managerType.IndexOf('`'));
-            managerType += $"<{signal.ManagedName}Handler>";
-            var init = string.Format("new {0}(\"{1}\", _GType)",
-                managerType,
-                signal.GirName);
-            var signalManager = $"{signal.ManagedName.ToCamelCase()}SignalManager";
-            var initExpression = ParseExpression(init);
-            var idVariable = VariableDeclaration(ParseTypeName(managerType))
-                .AddVariables(VariableDeclarator(signalManager)
-                    .WithInitializer(EqualsValueClause(initExpression)));
-            return FieldDeclaration(idVariable)
-                .AddModifiers(Token(ReadOnlyKeyword));
-        }
-
-        /// <summary>
         /// Gets the member declarations for the signals, logging a warning
         /// for any exceptions that are thrown.
         /// </summary>
@@ -175,7 +151,6 @@ namespace GISharp.CodeGen.Syntax
                         list = list.Add(signal.GetInterfaceEventDeclaration());
                     }
                     else {
-                        list = list.Insert(0, signal.GetGSignalManagerFieldDeclaration());
                         list = list.Add(signal.GetEventDeclaration());
                     }
                     list = list.Add(signal.GetManagedSignalCallbackDeclaration());
@@ -208,23 +183,23 @@ namespace GISharp.CodeGen.Syntax
 
         // Gets an event declaration like:
         // public event SomethingChangedSignalHandler SomethingChangedSignal {
-        //      add => somethingChangedSignalManager.Add(this, value);
-        //      remove => somethingChangedSignalManager.Remove(value);
+        ///     add => AddEventSignalHandler("name", value);
+        ///     remove => RemoveEventSignalHandler("name", value);
         // }
         internal static EventDeclarationSyntax GetImplementsEventDeclaration(this Signal signal)
         {
             var delcaringType = signal.Ancestors.OfType<Interface>().Single();
             var typeName = ParseTypeName($"{delcaringType.GetManagedType()}.{signal.ManagedName}Handler");
-            var signalManager = $"{signal.ManagedName.ToCamelCase()}SignalManager";
+            var name = signal.GirName;
 
-            var addExpression = ParseExpression($"{signalManager}.Add(this, value)");
             var addAccessor = AccessorDeclaration(AddAccessorDeclaration)
-                .WithExpressionBody(ArrowExpressionClause(addExpression))
+                .WithExpressionBody(ArrowExpressionClause(ParseExpression(
+                    $"AddEventSignalHandler(\"{name}\", value)")))
                 .WithSemicolonToken(Token(SemicolonToken));
 
-            var removeExpression = ParseExpression($"{signalManager}.Remove(value)");
             var removeAccessor = AccessorDeclaration(RemoveAccessorDeclaration)
-                .WithExpressionBody(ArrowExpressionClause(removeExpression))
+                .WithExpressionBody(ArrowExpressionClause(ParseExpression(
+                    $"RemoveEventSignalHandler(\"{name}\", value)")))
                 .WithSemicolonToken(Token(SemicolonToken));
 
             return EventDeclaration(typeName, signal.ManagedName)
@@ -236,28 +211,6 @@ namespace GISharp.CodeGen.Syntax
                     // get docs from the GIR XML
                     .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\n")))
                 .AddAccessorListAccessors(addAccessor, removeAccessor);
-        }
-
-        // generates a field like:
-        // readonly GSignalManager<SomethingChangedSignalHandler> somethingChangedSignalManager =
-        //      new GSignalManager<SomethingChangedSignalHandler>("something-changed", _GType);
-        internal static FieldDeclarationSyntax GetImplementsGSignalManagerFieldDeclaration(this Signal signal)
-        {
-            var delcaringType = signal.Ancestors.OfType<Interface>().Single();
-            var typeName = ParseTypeName(delcaringType.GetManagedType());
-            var managerType = typeof(GSignalManager<>).FullName;
-            managerType = managerType.Substring(0, managerType.IndexOf('`'));
-            managerType += $"<{typeName}.{signal.ManagedName}Handler>";
-            var init = string.Format("new {0}(\"{1}\", _GType)",
-                managerType,
-                signal.GirName);
-            var signalManager = $"{signal.ManagedName.ToCamelCase()}SignalManager";
-            var initExpression = ParseExpression(init);
-            var idVariable = VariableDeclaration(ParseTypeName(managerType))
-                .AddVariables(VariableDeclarator(signalManager)
-                    .WithInitializer(EqualsValueClause(initExpression)));
-            return FieldDeclaration(idVariable)
-                .AddModifiers(Token(ReadOnlyKeyword));
         }
     }
 }

@@ -23,9 +23,7 @@ namespace GISharp.CodeGen.Syntax
             var list = List<MemberDeclarationSyntax>();
 
             foreach (var signal in implements.Interface.Signals) {
-                list = list
-                    .Add(signal.GetImplementsGSignalManagerFieldDeclaration())
-                    .Add(signal.GetImplementsEventDeclaration());
+                list = list.Add(signal.GetImplementsEventDeclaration());
             }
 
             return list;

@@ -150,16 +150,13 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        readonly GISharp.Runtime.GSignalManager<ChangeStateSignalHandler> changeStateSignalSignalManager = new GISharp.Runtime.GSignalManager<ChangeStateSignalHandler>("change-state", _GType);
-        readonly GISharp.Runtime.GSignalManager<ActivateSignalHandler> activateSignalSignalManager = new GISharp.Runtime.GSignalManager<ActivateSignalHandler>("activate", _GType);
-
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivateSignalHandler']/*" />
         public delegate void ActivateSignalHandler(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? parameter);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.ActivateSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
-        public event ActivateSignalHandler ActivateSignal { add => activateSignalSignalManager.Add(this, value); remove => activateSignalSignalManager.Remove(value); }
+        public event ActivateSignalHandler ActivateSignal { add => AddEventSignalHandler("activate", value); remove => RemoveEventSignalHandler("activate", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static void ManagedActivateSignalHandler(GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* simpleAction_, GISharp.Lib.GLib.Variant.UnmanagedStruct* parameter_, System.IntPtr userData_)
@@ -184,7 +181,7 @@ namespace GISharp.Lib.Gio
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.ChangeStateSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         [GISharp.Runtime.GSignalAttribute("change-state", When = GISharp.Runtime.EmissionStage.Last)]
-        public event ChangeStateSignalHandler ChangeStateSignal { add => changeStateSignalSignalManager.Add(this, value); remove => changeStateSignalSignalManager.Remove(value); }
+        public event ChangeStateSignalHandler ChangeStateSignal { add => AddEventSignalHandler("change-state", value); remove => RemoveEventSignalHandler("change-state", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static void ManagedChangeStateSignalHandler(GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* simpleAction_, GISharp.Lib.GLib.Variant.UnmanagedStruct* value_, System.IntPtr userData_)

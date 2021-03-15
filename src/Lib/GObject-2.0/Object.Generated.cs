@@ -104,14 +104,12 @@ namespace GISharp.Lib.GObject
         {
         }
 
-        readonly GISharp.Runtime.GSignalManager<NotifySignalHandler> notifySignalSignalManager = new GISharp.Runtime.GSignalManager<NotifySignalHandler>("notify", _GType);
-
         /// <include file="Object.xmldoc" path="declaration/member[@name='NotifySignalHandler']/*" />
         public delegate void NotifySignalHandler(GISharp.Lib.GObject.Object @object, GISharp.Lib.GObject.ParamSpec pspec);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.NotifySignal']/*" />
         [GISharp.Runtime.GSignalAttribute("notify", When = GISharp.Runtime.EmissionStage.First, IsNoRecurse = true, IsDetailed = true, IsAction = true, IsNoHooks = true)]
-        public event NotifySignalHandler NotifySignal { add => notifySignalSignalManager.Add(this, value); remove => notifySignalSignalManager.Remove(value); }
+        public event NotifySignalHandler NotifySignal { add => AddEventSignalHandler("notify", value); remove => RemoveEventSignalHandler("notify", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static void ManagedNotifySignalHandler(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, System.IntPtr userData_)

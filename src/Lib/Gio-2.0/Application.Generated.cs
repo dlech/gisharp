@@ -147,20 +147,12 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        readonly GISharp.Runtime.GSignalManager<StartupSignalHandler> startupSignalSignalManager = new GISharp.Runtime.GSignalManager<StartupSignalHandler>("startup", _GType);
-        readonly GISharp.Runtime.GSignalManager<ShutdownSignalHandler> shutdownSignalSignalManager = new GISharp.Runtime.GSignalManager<ShutdownSignalHandler>("shutdown", _GType);
-        readonly GISharp.Runtime.GSignalManager<OpenSignalHandler> openSignalSignalManager = new GISharp.Runtime.GSignalManager<OpenSignalHandler>("open", _GType);
-        readonly GISharp.Runtime.GSignalManager<NameLostSignalHandler> nameLostSignalSignalManager = new GISharp.Runtime.GSignalManager<NameLostSignalHandler>("name-lost", _GType);
-        readonly GISharp.Runtime.GSignalManager<HandleLocalOptionsSignalHandler> handleLocalOptionsSignalSignalManager = new GISharp.Runtime.GSignalManager<HandleLocalOptionsSignalHandler>("handle-local-options", _GType);
-        readonly GISharp.Runtime.GSignalManager<CommandLineSignalHandler> commandLineSignalSignalManager = new GISharp.Runtime.GSignalManager<CommandLineSignalHandler>("command-line", _GType);
-        readonly GISharp.Runtime.GSignalManager<ActivateSignalHandler> activateSignalSignalManager = new GISharp.Runtime.GSignalManager<ActivateSignalHandler>("activate", _GType);
-
         /// <include file="Application.xmldoc" path="declaration/member[@name='ActivateSignalHandler']/*" />
         public delegate void ActivateSignalHandler(GISharp.Lib.Gio.Application application);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.ActivateSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
-        public event ActivateSignalHandler ActivateSignal { add => activateSignalSignalManager.Add(this, value); remove => activateSignalSignalManager.Remove(value); }
+        public event ActivateSignalHandler ActivateSignal { add => AddEventSignalHandler("activate", value); remove => RemoveEventSignalHandler("activate", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static void ManagedActivateSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
@@ -183,7 +175,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.CommandLineSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("command-line", When = GISharp.Runtime.EmissionStage.Last)]
-        public event CommandLineSignalHandler CommandLineSignal { add => commandLineSignalSignalManager.Add(this, value); remove => commandLineSignalSignalManager.Remove(value); }
+        public event CommandLineSignalHandler CommandLineSignal { add => AddEventSignalHandler("command-line", value); remove => RemoveEventSignalHandler("command-line", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static int ManagedCommandLineSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine_, System.IntPtr userData_)
@@ -212,7 +204,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.HandleLocalOptionsSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         [GISharp.Runtime.GSignalAttribute("handle-local-options", When = GISharp.Runtime.EmissionStage.Last)]
-        public event HandleLocalOptionsSignalHandler HandleLocalOptionsSignal { add => handleLocalOptionsSignalSignalManager.Add(this, value); remove => handleLocalOptionsSignalSignalManager.Remove(value); }
+        public event HandleLocalOptionsSignalHandler HandleLocalOptionsSignal { add => AddEventSignalHandler("handle-local-options", value); remove => RemoveEventSignalHandler("handle-local-options", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static int ManagedHandleLocalOptionsSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options_, System.IntPtr userData_)
@@ -241,7 +233,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.NameLostSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         [GISharp.Runtime.GSignalAttribute("name-lost", When = GISharp.Runtime.EmissionStage.Last)]
-        public event NameLostSignalHandler NameLostSignal { add => nameLostSignalSignalManager.Add(this, value); remove => nameLostSignalSignalManager.Remove(value); }
+        public event NameLostSignalHandler NameLostSignal { add => AddEventSignalHandler("name-lost", value); remove => RemoveEventSignalHandler("name-lost", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static GISharp.Runtime.Boolean ManagedNameLostSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
@@ -268,7 +260,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.OpenSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("open", When = GISharp.Runtime.EmissionStage.Last)]
-        public event OpenSignalHandler OpenSignal { add => openSignalSignalManager.Add(this, value); remove => openSignalSignalManager.Remove(value); }
+        public event OpenSignalHandler OpenSignal { add => AddEventSignalHandler("open", value); remove => RemoveEventSignalHandler("open", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static void ManagedOpenSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct** files_, int nFiles_, byte* hint_, System.IntPtr userData_)
@@ -293,7 +285,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.ShutdownSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("shutdown", When = GISharp.Runtime.EmissionStage.Last)]
-        public event ShutdownSignalHandler ShutdownSignal { add => shutdownSignalSignalManager.Add(this, value); remove => shutdownSignalSignalManager.Remove(value); }
+        public event ShutdownSignalHandler ShutdownSignal { add => AddEventSignalHandler("shutdown", value); remove => RemoveEventSignalHandler("shutdown", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static void ManagedShutdownSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
@@ -316,7 +308,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.StartupSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("startup", When = GISharp.Runtime.EmissionStage.First)]
-        public event StartupSignalHandler StartupSignal { add => startupSignalSignalManager.Add(this, value); remove => startupSignalSignalManager.Remove(value); }
+        public event StartupSignalHandler StartupSignal { add => AddEventSignalHandler("startup", value); remove => RemoveEventSignalHandler("startup", value); }
 
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
         private static void ManagedStartupSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
@@ -334,25 +326,17 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.IActionGroup.ActionAddedSignalHandler> actionAddedSignalSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.IActionGroup.ActionAddedSignalHandler>("action-added", _GType);
+        /// <inheritdoc />
+        public event GISharp.Lib.Gio.IActionGroup.ActionAddedSignalHandler ActionAddedSignal { add => AddEventSignalHandler("action-added", value); remove => RemoveEventSignalHandler("action-added", value); }
 
         /// <inheritdoc />
-        public event GISharp.Lib.Gio.IActionGroup.ActionAddedSignalHandler ActionAddedSignal { add => actionAddedSignalSignalManager.Add(this, value); remove => actionAddedSignalSignalManager.Remove(value); }
-
-        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.IActionGroup.ActionEnabledChangedSignalHandler> actionEnabledChangedSignalSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.IActionGroup.ActionEnabledChangedSignalHandler>("action-enabled-changed", _GType);
+        public event GISharp.Lib.Gio.IActionGroup.ActionEnabledChangedSignalHandler ActionEnabledChangedSignal { add => AddEventSignalHandler("action-enabled-changed", value); remove => RemoveEventSignalHandler("action-enabled-changed", value); }
 
         /// <inheritdoc />
-        public event GISharp.Lib.Gio.IActionGroup.ActionEnabledChangedSignalHandler ActionEnabledChangedSignal { add => actionEnabledChangedSignalSignalManager.Add(this, value); remove => actionEnabledChangedSignalSignalManager.Remove(value); }
-
-        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.IActionGroup.ActionRemovedSignalHandler> actionRemovedSignalSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.IActionGroup.ActionRemovedSignalHandler>("action-removed", _GType);
+        public event GISharp.Lib.Gio.IActionGroup.ActionRemovedSignalHandler ActionRemovedSignal { add => AddEventSignalHandler("action-removed", value); remove => RemoveEventSignalHandler("action-removed", value); }
 
         /// <inheritdoc />
-        public event GISharp.Lib.Gio.IActionGroup.ActionRemovedSignalHandler ActionRemovedSignal { add => actionRemovedSignalSignalManager.Add(this, value); remove => actionRemovedSignalSignalManager.Remove(value); }
-
-        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.IActionGroup.ActionStateChangedSignalHandler> actionStateChangedSignalSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.IActionGroup.ActionStateChangedSignalHandler>("action-state-changed", _GType);
-
-        /// <inheritdoc />
-        public event GISharp.Lib.Gio.IActionGroup.ActionStateChangedSignalHandler ActionStateChangedSignal { add => actionStateChangedSignalSignalManager.Add(this, value); remove => actionStateChangedSignalSignalManager.Remove(value); }
+        public event GISharp.Lib.Gio.IActionGroup.ActionStateChangedSignalHandler ActionStateChangedSignal { add => AddEventSignalHandler("action-state-changed", value); remove => RemoveEventSignalHandler("action-state-changed", value); }
 
         /// <summary>
         /// Returns the default #GApplication instance for this process.
