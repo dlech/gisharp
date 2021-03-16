@@ -1,0 +1,206 @@
+<declaration>
+
+<member name='Log.domain'>
+<summary>
+Defines the log domain. See [Log Domains](#log-domains).
+</summary>
+<remarks>
+Libraries should define this so that any messages
+which they log can be differentiated from messages from other
+libraries and application code. But be careful not to define
+it in any public header files.
+
+Log domains must be unique, and it is recommended that they are the
+application or library name, optionally followed by a hyphen and a sub-domain
+name. For example, `bloatpad` or `bloatpad-io`.
+
+If undefined, it defaults to the default <c>null</c> (or `""`) log domain; this is
+not advisable, as it cannot be filtered against using the `G_MESSAGES_DEBUG`
+environment variable.
+
+For example, GTK+ uses this in its `Makefile.am`:
+|[
+AM_CPPFLAGS = -DG_LOG_DOMAIN=\"Gtk\"
+]|
+
+Applications can choose to leave it as the default <c>null</c> (or `""`)
+domain. However, defining the domain offers the same advantages as
+above.
+</remarks>
+</member>
+
+<member name='Log.fatalMask'>
+<summary>
+GLib log levels that are considered fatal by default.
+</summary>
+<remarks>
+This is not used if structured logging is enabled; see
+[Using Structured Logging][using-structured-logging].
+</remarks>
+</member>
+
+<member name='Log.levelUserShift'>
+<summary>
+Log levels below 1&lt;&lt;G_LOG_LEVEL_USER_SHIFT are used by GLib.
+Higher bits can be used for user-defined log levels.
+</summary>
+</member>
+
+<member name='Log.RemoveHandler(GISharp.Lib.GLib.UnownedUtf8,uint)'>
+<summary>
+Removes the log handler.
+</summary>
+<remarks>
+This has no effect if structured logging is enabled; see
+[Using Structured Logging][using-structured-logging].
+</remarks>
+<param name="logDomain">
+the log domain
+</param>
+<param name="handlerId">
+the id of the handler, which was returned
+    in g_log_set_handler()
+</param>
+</member>
+
+<member name='Log.SetAlwaysFatal(GISharp.Lib.GLib.LogLevelFlags)'>
+<summary>
+Sets the message levels which are always fatal, in any log domain.
+When a message with any of these levels is logged the program terminates.
+You can only set the levels defined by GLib to be fatal.
+<see cref="LogLevelFlags.Error"/> is always fatal.
+</summary>
+<remarks>
+You can also make some message levels fatal at runtime by setting
+the `G_DEBUG` environment variable (see
+[Running GLib Applications](glib-running.html)).
+
+Libraries should not call this function, as it affects all messages logged
+by a process, including those from other libraries.
+
+Structured log messages (using g_log_structured() and
+<see cref="Log.Structured(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan{GISharp.Lib.GLib.LogField})"/>) are fatal only if the default log writer is used;
+otherwise it is up to the writer function to determine which log messages
+are fatal. See [Using Structured Logging][using-structured-logging].
+</remarks>
+<param name="fatalMask">
+the mask containing bits set for each level
+    of error which is to be fatal
+</param>
+<returns>
+the old fatal mask
+</returns>
+</member>
+
+<member name='Log.SetFatalMask(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.LogLevelFlags)'>
+<summary>
+Sets the log levels which are fatal in the given domain.
+<see cref="LogLevelFlags.Error"/> is always fatal.
+</summary>
+<remarks>
+This has no effect on structured log messages (using g_log_structured() or
+<see cref="Log.Structured(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan{GISharp.Lib.GLib.LogField})"/>). To change the fatal behaviour for specific log
+messages, programs must install a custom log writer function using
+<see cref="LogWriter.SetWriterFunc(GISharp.Lib.GLib.LogWriterFunc)"/>. See
+[Using Structured Logging][using-structured-logging].
+
+This function is mostly intended to be used with
+<see cref="LogLevelFlags.Critical"/>.  You should typically not set
+<see cref="LogLevelFlags.Warning"/>, <see cref="LogLevelFlags.Message"/>, <see cref="LogLevelFlags.Info"/> or
+<see cref="LogLevelFlags.Debug"/> as fatal except inside of test programs.
+</remarks>
+<param name="logDomain">
+the log domain
+</param>
+<param name="fatalMask">
+the new fatal mask
+</param>
+<returns>
+the old fatal mask for the log domain
+</returns>
+</member>
+
+<member name='Log.SetHandler(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.LogFunc)'>
+<summary>
+Like g_log_set_handler(), but takes a destroy notify for the <paramref name="userData"/>.
+</summary>
+<remarks>
+This has no effect if structured logging is enabled; see
+[Using Structured Logging][using-structured-logging].
+</remarks>
+<param name="logDomain">
+the log domain, or <c>null</c> for the default ""
+    application domain
+</param>
+<param name="logLevels">
+the log levels to apply the log handler for.
+    To handle fatal and recursive messages as well, combine
+    the log levels with the #G_LOG_FLAG_FATAL and
+    #G_LOG_FLAG_RECURSION bit flags.
+</param>
+<param name="logFunc">
+the log handler function
+</param>
+<returns>
+the id of the new handler
+</returns>
+</member>
+
+<member name='Log.Structured(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan&lt;GISharp.Lib.GLib.LogField&gt;)'>
+<summary>
+Log a message with structured data. The message will be passed through to the
+log writer set by the application using <see cref="LogWriter.SetWriterFunc(GISharp.Lib.GLib.LogWriterFunc)"/>. If the
+message is fatal (i.e. its log level is <see cref="LogLevelFlags.Error"/>), the program will
+be aborted at the end of this function.
+</summary>
+<remarks>
+See g_log_structured() for more documentation.
+
+This assumes that <paramref name="logLevel"/> is already present in <paramref name="fields"/> (typically as the
+`PRIORITY` field).
+</remarks>
+<param name="logLevel">
+log level, either from <see cref="LogLevelFlags"/>, or a user-defined
+   level
+</param>
+<param name="fields">
+key–value pairs of structured data to add
+   to the log message
+</param>
+</member>
+
+<member name='Log.Variant(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.Variant)'>
+<summary>
+Log a message with structured data, accepting the data within a <see cref="Variant"/>. This
+version is especially useful for use in other languages, via introspection.
+</summary>
+<remarks>
+The only mandatory item in the <paramref name="fields"/> dictionary is the "MESSAGE" which must
+contain the text shown to the user.
+
+The values in the <paramref name="fields"/> dictionary are likely to be of type String
+(#G_VARIANT_TYPE_STRING). Array of bytes (#G_VARIANT_TYPE_BYTESTRING) is also
+supported. In this case the message is handled as binary and will be forwarded
+to the log writer as such. The size of the array should not be higher than
+%G_MAXSSIZE. Otherwise it will be truncated to this size. For other types
+<see cref="Variant.Print(bool)"/> will be used to convert the value into a string.
+
+For more details on its usage and about the parameters, see g_log_structured().
+</remarks>
+<param name="logDomain">
+log domain, usually %G_LOG_DOMAIN
+</param>
+<param name="logLevel">
+log level, either from <see cref="LogLevelFlags"/>, or a user-defined
+   level
+</param>
+<param name="fields">
+a dictionary (<see cref="Variant"/> of the type %G_VARIANT_TYPE_VARDICT)
+containing the key-value pairs of message data.
+</param>
+</member>
+
+<member name='Log'>
+</member>
+
+</declaration>

@@ -1,58 +1,58 @@
 <declaration>
 
-<member name='LogLevelFlags.FlagRecursion'>
+<member name='LogLevelFlags.Recursion'>
 <summary>
 internal flag
 </summary>
 </member>
 
-<member name='LogLevelFlags.FlagFatal'>
+<member name='LogLevelFlags.Fatal'>
 <summary>
 internal flag
 </summary>
 </member>
 
-<member name='LogLevelFlags.LevelError'>
+<member name='LogLevelFlags.Error'>
 <summary>
-log level for errors, see g_error().
+log level for errors, see <see cref="Log.Error"/>.
     This level is also used for messages produced by g_assert().
 </summary>
 </member>
 
-<member name='LogLevelFlags.LevelCritical'>
+<member name='LogLevelFlags.Critical'>
 <summary>
 log level for critical warning messages, see
-    g_critical().
+    <see cref="Log.Criticial"/>.
     This level is also used for messages produced by g_return_if_fail()
     and g_return_val_if_fail().
 </summary>
 </member>
 
-<member name='LogLevelFlags.LevelWarning'>
+<member name='LogLevelFlags.Warning'>
 <summary>
-log level for warnings, see g_warning()
+log level for warnings, see <see cref="Log.Warning"/>
 </summary>
 </member>
 
-<member name='LogLevelFlags.LevelMessage'>
+<member name='LogLevelFlags.Message'>
 <summary>
-log level for messages, see g_message()
+log level for messages, see <see cref="Log.Message"/>
 </summary>
 </member>
 
-<member name='LogLevelFlags.LevelInfo'>
+<member name='LogLevelFlags.Info'>
 <summary>
-log level for informational messages, see g_info()
+log level for informational messages, see <see cref="Log.Info"/>
 </summary>
 </member>
 
-<member name='LogLevelFlags.LevelDebug'>
+<member name='LogLevelFlags.Debug'>
 <summary>
-log level for debug messages, see g_debug()
+log level for debug messages, see <see cref="Log.Debug"/>
 </summary>
 </member>
 
-<member name='LogLevelFlags.LevelMask'>
+<member name='LogLevelFlags.Mask'>
 <summary>
 a mask including all log levels
 </summary>
@@ -64,7 +64,7 @@ Flags specifying the level of log messages.
 </summary>
 <remarks>
 It is possible to change how GLib treats messages of the various
-levels using g_log_set_handler() and g_log_set_fatal_mask().
+levels using <see cref="Log.SetHandler"/> and <see cref="Log.SetFatalMask(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.LogLevelFlags)"/>.
 </remarks>
 </member>
 

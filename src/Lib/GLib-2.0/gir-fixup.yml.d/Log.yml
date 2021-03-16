@@ -1,0 +1,54 @@
+
+### Log ###
+
+# create static class
+- !add-element
+  xml: <gs:static-class name='Log' />
+  xpath: gi:repository/gi:namespace
+
+# move constants
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'LOG_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:constant
+- !change-attribute
+  name: name
+  regex: LOG_(\w+)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:constant
+
+# move functions
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'log_') and not(contains(@name,'writer'))]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']
+- !change-attribute
+  name: name
+  regex: log_(\w+)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function
+- !change-attribute
+  name: shadows
+  regex: log_(\w+)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[@shadows]
+
+# better name
+- !set-attribute
+  name: shadows
+  value: structured
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[@name='structured_array']
+
+# make introspectable
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[@name='set_default_handler']
+
+# require special handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[@name='default_handler' or @name='set_default_handler']

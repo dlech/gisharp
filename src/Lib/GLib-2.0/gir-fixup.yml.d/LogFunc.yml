@@ -1,0 +1,8 @@
+
+### LogFunc ###
+
+# make nullability match g_log_default_handler()
+- !set-attribute
+  name: nullable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='LogFunc']/gi:parameters/gi:parameter[@name='log_domain' or @name='message']

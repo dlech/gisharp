@@ -1,0 +1,8 @@
+
+### LogLevelFlags ###
+
+- !change-attribute
+  name: name
+  regex: (?:level|flag)_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='LogLevelFlags']/gi:member

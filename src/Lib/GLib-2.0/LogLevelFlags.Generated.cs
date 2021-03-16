@@ -7,23 +7,23 @@ namespace GISharp.Lib.GLib
     [System.FlagsAttribute]
     public enum LogLevelFlags : uint
     {
-        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.FlagRecursion']/*" />
-        FlagRecursion = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.FlagFatal']/*" />
-        FlagFatal = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.LevelError']/*" />
-        LevelError = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.LevelCritical']/*" />
-        LevelCritical = 0b0000_0000_0000_0000_0000_0000_0000_1000,
-        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.LevelWarning']/*" />
-        LevelWarning = 0b0000_0000_0000_0000_0000_0000_0001_0000,
-        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.LevelMessage']/*" />
-        LevelMessage = 0b0000_0000_0000_0000_0000_0000_0010_0000,
-        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.LevelInfo']/*" />
-        LevelInfo = 0b0000_0000_0000_0000_0000_0000_0100_0000,
-        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.LevelDebug']/*" />
-        LevelDebug = 0b0000_0000_0000_0000_0000_0000_1000_0000,
-        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.LevelMask']/*" />
-        LevelMask = 0b1111_1111_1111_1111_1111_1111_1111_111111111111111111111111111111111100
+        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.Recursion']/*" />
+        Recursion = 0b0000_0000_0000_0000_0000_0000_0000_0001,
+        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.Fatal']/*" />
+        Fatal = 0b0000_0000_0000_0000_0000_0000_0000_0010,
+        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.Error']/*" />
+        Error = 0b0000_0000_0000_0000_0000_0000_0000_0100,
+        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.Critical']/*" />
+        Critical = 0b0000_0000_0000_0000_0000_0000_0000_1000,
+        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.Warning']/*" />
+        Warning = 0b0000_0000_0000_0000_0000_0000_0001_0000,
+        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.Message']/*" />
+        Message = 0b0000_0000_0000_0000_0000_0000_0010_0000,
+        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.Info']/*" />
+        Info = 0b0000_0000_0000_0000_0000_0000_0100_0000,
+        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.Debug']/*" />
+        Debug = 0b0000_0000_0000_0000_0000_0000_1000_0000,
+        /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.Mask']/*" />
+        Mask = 0b1111_1111_1111_1111_1111_1111_1111_1100
     }
 }

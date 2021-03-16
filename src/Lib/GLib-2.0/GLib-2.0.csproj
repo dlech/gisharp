@@ -9,8 +9,6 @@
     <Compile Remove="Data.Generated.cs" />
     <Compile Remove="DestroyNotify.Generated.cs" />
     <Compile Remove="Error.Generated.cs" />
-    <Compile Remove="LogField.Generated.cs" />
-    <Compile Remove="LogLevelFlags.Generated.cs" />
     <Compile Remove="Mutex.Generated.cs" />
     <Compile Remove="Quark.Generated.cs" />
     <Compile Remove="SourceDummyMarshal.Generated.cs" />
