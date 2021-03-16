@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -13,15 +13,15 @@ namespace GISharp.Test.Gtk
         [Test]
         public void IconLookupFlagsGType()
         {
-            var gtype = GType.Of<IconLookupFlags>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkIconLookupFlags"));
+            var gtype = typeof(IconLookupFlags).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkIconLookupFlags"));
         }
 
         [Test]
         public void IconThemeErrorGType()
         {
-            var gtype = GType.Of<IconThemeError>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkIconThemeError"));
+            var gtype = typeof(IconThemeError).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkIconThemeError"));
         }
 
         [Test]

@@ -6,7 +6,7 @@
 <member name='UnmanagedStruct.GInstanceType'>
 </member>
 
-<member name='TypeInterface.AddPrerequisite(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)'>
+<member name='TypeInterface.AddPrerequisite(GISharp.Runtime.GType,GISharp.Runtime.GType)'>
 <summary>
 Adds <paramref name="prerequisiteType"/> to the list of prerequisites of <paramref name="interfaceType"/>.
 This means that any type implementing <paramref name="interfaceType"/> must also implement
@@ -22,7 +22,7 @@ at most one instantiatable prerequisite type.
 </param>
 </member>
 
-<member name='TypeInterface.GetPlugin(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)'>
+<member name='TypeInterface.GetPlugin(GISharp.Runtime.GType,GISharp.Runtime.GType)'>
 <summary>
 Returns the <see cref="ITypePlugin"/> structure for the dynamic interface
 <paramref name="interfaceType"/> which has been added to <paramref name="instanceType"/>, or <c>null</c>
@@ -41,7 +41,7 @@ the <see cref="ITypePlugin"/> for the dynamic
 </returns>
 </member>
 
-<member name='TypeInterface.Peek(GISharp.Lib.GObject.TypeClass,GISharp.Lib.GObject.GType)'>
+<member name='TypeInterface.Peek(GISharp.Lib.GObject.TypeClass,GISharp.Runtime.GType)'>
 <summary>
 Returns the <see cref="TypeInterface"/> structure of an interface to which the
 passed in class conforms.
@@ -59,7 +59,7 @@ the <see cref="TypeInterface"/>
 </returns>
 </member>
 
-<member name='TypeInterface.Prerequisites(GISharp.Lib.GObject.GType)'>
+<member name='TypeInterface.Prerequisites(GISharp.Runtime.GType)'>
 <summary>
 Returns the prerequisites of an interfaces type.
 </summary>

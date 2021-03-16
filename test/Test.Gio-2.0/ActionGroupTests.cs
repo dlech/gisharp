@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Linq;
@@ -15,6 +15,13 @@ namespace GISharp.Test.Gio
 {
     public class ActionGroupTests : Tests
     {
+        [Test]
+        public void TestGType()
+        {
+            var gtype = typeof(IActionGroup).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GActionGroup"));
+        }
+
         [Test]
         public void TestListActions()
         {

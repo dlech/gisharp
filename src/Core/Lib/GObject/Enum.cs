@@ -4,6 +4,7 @@
 using System;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
 {

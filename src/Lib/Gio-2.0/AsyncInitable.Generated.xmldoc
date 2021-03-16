@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='IAsyncInitable.NewAsync(GISharp.Lib.GObject.GType,uint,GISharp.Lib.GObject.Parameter,int,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IAsyncInitable.NewAsync(GISharp.Runtime.GType,uint,GISharp.Lib.GObject.Parameter,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Helper function for constructing <see cref="IAsyncInitable"/> object. This is
 similar to g_object_newv() but also initializes the object asynchronously.

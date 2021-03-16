@@ -7,7 +7,7 @@ namespace GISharp.Lib.GIRepository
     [GISharp.Runtime.GTypeAttribute("GIBaseInfo", IsProxyForUnmanagedType = true)]
     public abstract unsafe partial class BaseInfo : GISharp.Runtime.Boxed, System.IEquatable<BaseInfo>
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_base_info_gtype_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_base_info_gtype_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
@@ -72,9 +72,9 @@ namespace GISharp.Lib.GIRepository
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_base_info_gtype_get_type();
+        private static extern GISharp.Runtime.GType g_base_info_gtype_get_type();
 
         /// <summary>
         /// Compare two #GIBaseInfo.

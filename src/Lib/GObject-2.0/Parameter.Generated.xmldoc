@@ -15,7 +15,7 @@ the parameter value
 <member name='Parameter'>
 <summary>
 The GParameter struct is an auxiliary structure used
-to hand parameter name/value pairs to <see cref="Object.Object(GISharp.Lib.GObject.GType,System.ReadOnlySpan{GISharp.Lib.GObject.Parameter})"/>.
+to hand parameter name/value pairs to <see cref="Object.Object(GISharp.Runtime.GType,System.ReadOnlySpan{GISharp.Lib.GObject.Parameter})"/>.
 </summary>
 </member>
 

@@ -8,12 +8,12 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncResultIface))]
     public unsafe partial interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_async_result_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_async_result_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_async_result_get_type();
+        private static extern GISharp.Runtime.GType g_async_result_get_type();
 
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IAsyncResult.DoGetSourceObject()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedGetSourceObject))]

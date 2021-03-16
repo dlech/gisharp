@@ -282,7 +282,7 @@ namespace GISharp.Lib.GObject
 
                     ParamSpec pspec;
                     // TODO: Need to create special boxed type for non-GType objects
-                    var propertyGType = (GType)propInfo.PropertyType;
+                    var propertyGType = propInfo.PropertyType.ToGType();
                     var fundamentalGType = propertyGType.Fundamental;
                     if (fundamentalGType == GType.Boolean) {
                         pspec = new ParamSpecBoolean(name, nick, blurb, (bool)(defaultValue ?? default(bool)), flags);

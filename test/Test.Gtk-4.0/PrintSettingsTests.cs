@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,43 +12,43 @@ namespace GISharp.Test.Gtk
         [Test]
         public void PageOrientationGType()
         {
-            var gtype = GType.Of<PageOrientation>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPageOrientation"));
+            var gtype = typeof(PageOrientation).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPageOrientation"));
         }
 
         [Test]
         public void PrintDuplexGType()
         {
-            var gtype = GType.Of<PrintDuplex>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPrintDuplex"));
+            var gtype = typeof(PrintDuplex).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPrintDuplex"));
         }
 
         [Test]
         public void PrintQualityGType()
         {
-            var gtype = GType.Of<PrintQuality>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPrintQuality"));
+            var gtype = typeof(PrintQuality).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPrintQuality"));
         }
 
         [Test]
         public void NumberUpLayoutGType()
         {
-            var gtype = GType.Of<NumberUpLayout>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkNumberUpLayout"));
+            var gtype = typeof(NumberUpLayout).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkNumberUpLayout"));
         }
 
         [Test]
         public void PrintPagesGType()
         {
-            var gtype = GType.Of<PrintPages>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPrintPages"));
+            var gtype = typeof(PrintPages).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPrintPages"));
         }
 
         [Test]
         public void PageSetGType()
         {
-            var gtype = GType.Of<PageSet>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPageSet"));
+            var gtype = typeof(PageSet).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPageSet"));
         }
     }
 }

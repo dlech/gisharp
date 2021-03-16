@@ -8,7 +8,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionInterface))]
     public unsafe partial interface IAction : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_action_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_action_get_type();
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.Enabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -213,9 +213,9 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_action_get_type();
+        private static extern GISharp.Runtime.GType g_action_get_type();
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoActivate(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,15 +12,15 @@ namespace GISharp.Test.Gtk
         [Test]
         public void CellRendererStateGType()
         {
-            var gtype = GType.Of<CellRendererState>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkCellRendererState"));
+            var gtype = typeof(CellRendererState).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkCellRendererState"));
         }
 
         [Test]
         public void CellRendererModeGType()
         {
-            var gtype = GType.Of<CellRendererMode>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkCellRendererMode"));
+            var gtype = typeof(CellRendererMode).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkCellRendererMode"));
         }
     }
 }

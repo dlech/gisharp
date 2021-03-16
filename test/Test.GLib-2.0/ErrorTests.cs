@@ -13,9 +13,9 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestGType()
         {
-            var gtype = GType.Of<Error>();
+            var gtype = typeof(Error).ToGType();
             Assert.That(gtype, Is.Not.EqualTo(GType.Invalid));
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GError"));
+            Assert.That(gtype.Name, Is.EqualTo("GError"));
         }
 
         [Test]

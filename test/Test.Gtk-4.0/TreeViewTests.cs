@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,15 +12,15 @@ namespace GISharp.Test.Gtk
         [Test]
         public void TreeViewDropPositionGType()
         {
-            var gtype = GType.Of<TreeViewDropPosition>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkTreeViewDropPosition"));
+            var gtype = typeof(TreeViewDropPosition).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkTreeViewDropPosition"));
         }
 
         [Test]
         public void TreeViewGridLinesGType()
         {
-            var gtype = GType.Of<TreeViewGridLines>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkTreeViewGridLines"));
+            var gtype = typeof(TreeViewGridLines).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkTreeViewGridLines"));
         }
     }
 }

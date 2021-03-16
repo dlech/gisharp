@@ -56,20 +56,20 @@ namespace GISharp.Lib.GIRepository
         /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* info,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType implementorGtype,
+        GISharp.Runtime.GType implementorGtype,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        partial void CheckGetAddressArgs(GISharp.Lib.GObject.GType implementorGtype);
+        partial void CheckGetAddressArgs(GISharp.Runtime.GType implementorGtype);
 
-        /// <include file="VFuncInfo.xmldoc" path="declaration/member[@name='VFuncInfo.GetAddress(GISharp.Lib.GObject.GType)']/*" />
-        public System.IntPtr GetAddress(GISharp.Lib.GObject.GType implementorGtype)
+        /// <include file="VFuncInfo.xmldoc" path="declaration/member[@name='VFuncInfo.GetAddress(GISharp.Runtime.GType)']/*" />
+        public System.IntPtr GetAddress(GISharp.Runtime.GType implementorGtype)
         {
             CheckGetAddressArgs(implementorGtype);
             var info_ = (GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct*)UnsafeHandle;
-            var implementorGtype_ = (GISharp.Lib.GObject.GType)implementorGtype;
+            var implementorGtype_ = (GISharp.Runtime.GType)implementorGtype;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_vfunc_info_get_address(info_,implementorGtype_,&error_);
             if (error_ is not null)

@@ -32,17 +32,17 @@ namespace GISharp.Lib.GObject
 /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance,
-/* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+/* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
 /* transfer-ownership:none direction:in */
-GISharp.Lib.GObject.GType privateType);
-        partial void CheckGetPrivateArgs(GISharp.Lib.GObject.GType privateType);
+GISharp.Runtime.GType privateType);
+        partial void CheckGetPrivateArgs(GISharp.Runtime.GType privateType);
 
-        /// <include file="TypeInstance.xmldoc" path="declaration/member[@name='TypeInstance.GetPrivate(GISharp.Lib.GObject.GType)']/*" />
-        public System.IntPtr GetPrivate(GISharp.Lib.GObject.GType privateType)
+        /// <include file="TypeInstance.xmldoc" path="declaration/member[@name='TypeInstance.GetPrivate(GISharp.Runtime.GType)']/*" />
+        public System.IntPtr GetPrivate(GISharp.Runtime.GType privateType)
         {
             CheckGetPrivateArgs(privateType);
             var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)UnsafeHandle;
-            var privateType_ = (GISharp.Lib.GObject.GType)privateType;
+            var privateType_ = (GISharp.Runtime.GType)privateType;
             var ret_ = g_type_instance_get_private(instance_,privateType_);
             var ret = (System.IntPtr)ret_;
             return ret;

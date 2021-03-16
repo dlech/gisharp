@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib

@@ -15,7 +15,7 @@ Checks whether this instance has a [floating][floating-ref] reference.
 </summary>
 </member>
 
-<member name='Object.Object(GISharp.Lib.GObject.GType,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Parameter&gt;)'>
+<member name='Object.Object(GISharp.Runtime.GType,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Parameter&gt;)'>
 <summary>
 Creates a new instance of a <see cref="Object"/> subtype and sets its properties.
 </summary>

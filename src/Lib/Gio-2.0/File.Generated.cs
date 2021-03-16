@@ -8,7 +8,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileIface))]
     public unsafe partial interface IFile : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_file_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_file_get_type();
 
         /// <summary>
         /// Creates a #GFile with the given argument from the command line.
@@ -269,9 +269,9 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_file_get_type();
+        private static extern GISharp.Runtime.GType g_file_get_type();
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoAppendTo(GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedAppendTo))]

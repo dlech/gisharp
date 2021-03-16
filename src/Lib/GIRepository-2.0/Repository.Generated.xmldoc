@@ -105,7 +105,7 @@ enum type, or <c>null</c>
 </returns>
 </member>
 
-<member name='Repository.FindByGtype(GISharp.Lib.GObject.GType)'>
+<member name='Repository.FindByGtype(GISharp.Runtime.GType)'>
 <summary>
 Searches all loaded namespaces for a particular #GType.  Note that
 in order to locate the metadata, the namespace corresponding to
@@ -209,7 +209,7 @@ Zero-terminated string array of immediate versioned
 </returns>
 </member>
 
-<member name='Repository.GetObjectGTypeInterfaces(GISharp.Lib.GObject.GType,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GIRepository.InterfaceInfo&gt;)'>
+<member name='Repository.GetObjectGTypeInterfaces(GISharp.Runtime.GType,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GIRepository.InterfaceInfo&gt;)'>
 <summary>
 Look up the implemented interfaces for <paramref name="gtype"/>.  This function
 cannot fail per se; but for a totally "unknown" #GType, it may

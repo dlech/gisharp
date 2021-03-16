@@ -8,7 +8,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(IconIface))]
     public unsafe partial interface IIcon : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_icon_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_icon_get_type();
 
         /// <summary>
         /// Deserializes a #GIcon previously serialized using g_icon_serialize().
@@ -93,9 +93,9 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_icon_get_type();
+        private static extern GISharp.Runtime.GType g_icon_get_type();
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoEqual(GISharp.Lib.Gio.IIcon?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedEqual))]

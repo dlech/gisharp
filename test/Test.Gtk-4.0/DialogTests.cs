@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,15 +12,15 @@ namespace GISharp.Test.Gtk
         [Test]
         public void DialogFlagsGType()
         {
-            var gtype = GType.Of<DialogFlags>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkDialogFlags"));
+            var gtype = typeof(DialogFlags).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkDialogFlags"));
         }
 
         [Test]
         public void ResponseTypeGType()
         {
-            var gtype = GType.Of<ResponseType>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkResponseType"));
+            var gtype = typeof(ResponseType).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkResponseType"));
         }
     }
 }

@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 using clong = GISharp.Runtime.CLong;
@@ -648,7 +647,7 @@ namespace GISharp.Lib.GLib
     /// </summary>
     /// <seealso cref="UnownedUtf8"/>
     /// <seealso cref="NullableUnownedUtf8"/>
-    [GType(IsProxyForUnmanagedType = true)]
+    [GType("gchararray", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay("{Value}")]
     public sealed unsafe class Utf8 : Opaque, IComparable, IComparable<Utf8>, IComparable<string>, IConvertible, IEquatable<Utf8>, IEquatable<string>
     {
@@ -740,8 +739,6 @@ namespace GISharp.Lib.GLib
                 }
             }
         }
-
-        static readonly GType _GType = GType.String;
 
         /// <summary>
         /// Convenience property for <c>default(NullableUnownedUtf8)</c> or

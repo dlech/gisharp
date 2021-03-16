@@ -357,7 +357,7 @@ namespace GISharp.Lib.GObject
 
         private static IntPtr New<T>(params object[] parameters) where T : Object
         {
-            var gtype = GType.Of<T>();
+            var gtype = typeof(T).ToGType();
             var nParameters = parameters.Length / 2;
             var valueArray = stackalloc Value[nParameters];
             var paramArray = stackalloc Parameter[nParameters];

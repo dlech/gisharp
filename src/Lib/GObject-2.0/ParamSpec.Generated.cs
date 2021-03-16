@@ -8,7 +8,7 @@ namespace GISharp.Lib.GObject
     [GISharp.Runtime.GTypeStructAttribute(typeof(ParamSpecClass))]
     public abstract unsafe partial class ParamSpec : GISharp.Lib.GObject.TypeInstance
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = intern();
+        private static readonly GISharp.Runtime.GType _GType = intern();
 
         /// <summary>
         /// The unmanaged data structure.
@@ -26,10 +26,10 @@ namespace GISharp.Lib.GObject
             public readonly GISharp.Lib.GObject.ParamFlags Flags;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.ValueType']/*" />
-            public readonly GISharp.Lib.GObject.GType ValueType;
+            public readonly GISharp.Runtime.GType ValueType;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.OwnerType']/*" />
-            public readonly GISharp.Lib.GObject.GType OwnerType;
+            public readonly GISharp.Runtime.GType OwnerType;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.Nick']/*" />
             private readonly byte* Nick;

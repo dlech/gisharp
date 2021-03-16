@@ -82,7 +82,7 @@ type_b_class_init (TypeBClass *class)
 ]|
 Initialization of TypeBClass will first cause initialization of
 TypeAClass (derived classes reference their parent classes, see
-<see cref="TypeClass.Ref(GISharp.Lib.GObject.GType)"/> on this).
+<see cref="TypeClass.Ref(GISharp.Runtime.GType)"/> on this).
 </para>
 <para>
 Initialization of TypeAClass roughly involves zero-initializing its fields,

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Runtime.InteropServices;
@@ -40,6 +40,14 @@ namespace GISharp.Test.GObject
         }
 
         [Test]
+        public void TestGType()
+        {
+            var gtype = typeof(ParamSpec).ToGType();
+            Assert.That(gtype, Is.EqualTo(GType.Param));
+            Assert.That(gtype.Name, Is.EqualTo("GParam"));
+        }
+
+        [Test]
         public void TestParamSpecBoolean()
         {
             const bool defaultValue = true;
@@ -47,7 +55,7 @@ namespace GISharp.Test.GObject
             var param = TestParamSpec(GType.Boolean, (name, nick, blurb, flags) =>
                                       new ParamSpecBoolean(name, nick, blurb, defaultValue, flags));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamBoolean"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamBoolean"));
         }
 
         [Test]
@@ -62,7 +70,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamChar"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamChar"));
         }
 
         [Test]
@@ -77,7 +85,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamUChar"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamUChar"));
         }
 
         [Test]
@@ -92,7 +100,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamInt"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamInt"));
         }
 
         [Test]
@@ -107,7 +115,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamUInt"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamUInt"));
         }
 
         [Test]
@@ -122,7 +130,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamLong"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamLong"));
         }
 
         [Test]
@@ -137,7 +145,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamULong"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamULong"));
         }
 
         [Test]
@@ -152,7 +160,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamInt64"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamInt64"));
         }
 
         [Test]
@@ -167,7 +175,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamUInt64"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamUInt64"));
         }
 
         [Test]
@@ -183,7 +191,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
             Assert.That(param.Epsilon, Is.EqualTo(1e-30f));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamFloat"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamFloat"));
         }
 
         [Test]
@@ -199,7 +207,7 @@ namespace GISharp.Test.GObject
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
             Assert.That(param.Epsilon, Is.EqualTo(1e-90));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamDouble"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamDouble"));
         }
 
         [GType]
@@ -214,14 +222,14 @@ namespace GISharp.Test.GObject
         public void TestParamSpecEnum()
         {
             const TestEnum defaultValue = TestEnum.Two;
-            var gtype = GType.Of<TestEnum>();
+            var gtype = typeof(TestEnum).ToGType();
             Assume.That(gtype.IsA(GType.Enum));
 
             var param = TestParamSpec(gtype, (name, nick, blurb, flags) =>
                                       new ParamSpecEnum(name, nick, blurb, gtype, defaultValue, flags));
             Assert.That(param.EnumClass.GType, Is.EqualTo(gtype));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamEnum"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamEnum"));
         }
 
         [GType]
@@ -237,14 +245,14 @@ namespace GISharp.Test.GObject
         public void TestParamSpecFlags()
         {
             const TestFlags defaultValue = TestFlags.Two;
-            var gtype = GType.Of<TestFlags>();
+            var gtype = typeof(TestFlags).ToGType();
             Assume.That(gtype.IsA(GType.Flags));
 
             var param = TestParamSpec(gtype, (name, nick, blurb, flags) =>
                                       new ParamSpecFlags(name, nick, blurb, gtype, defaultValue, flags));
             Assert.That(param.FlagsClass.GType, Is.EqualTo(gtype));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamFlags"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamFlags"));
         }
 
         [Test]
@@ -260,29 +268,29 @@ namespace GISharp.Test.GObject
             Assert.That(param.Substitutor, Is.EqualTo((sbyte)'_'));
             Assert.That(param.NullFoldIfEmpty, Is.False);
             Assert.That(param.EnsureNonNull, Is.False);
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamString"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamString"));
         }
 
         [Test]
         public void TestParamSpecParam()
         {
-            var gtype = GType.Of<ParamSpecBoolean>();
+            var gtype = typeof(ParamSpecBoolean).ToGType();
             Assume.That(gtype.IsA(GType.Param));
 
             var param = TestParamSpec(gtype, (name, nick, blurb, flags) =>
                                       new ParamSpecParam(name, nick, blurb, gtype, flags));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamParam"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamParam"));
         }
 
         [Test]
         public void TestParamSpecBoxed()
         {
-            var gtype = GType.Of<Strv>();
+            var gtype = typeof(Strv).ToGType();
             Assume.That(gtype.IsA(GType.Boxed));
 
             var param = TestParamSpec(gtype, (name, nick, blurb, flags) =>
                                       new ParamSpecBoxed(name, nick, blurb, gtype, flags));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamBoxed"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamBoxed"));
         }
 
         [Test]
@@ -290,7 +298,7 @@ namespace GISharp.Test.GObject
         {
             var param = TestParamSpec(GType.Pointer, (name, nick, blurb, flags) =>
                                       new ParamSpecPointer(name, nick, blurb, flags));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamPointer"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamPointer"));
         }
 
         [Test]
@@ -298,7 +306,7 @@ namespace GISharp.Test.GObject
         {
             var param = TestParamSpec(GType.Object, (name, nick, blurb, flags) =>
                                       new ParamSpecObject(name, nick, blurb, GType.Object, flags));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamObject"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamObject"));
         }
 
         [Test]
@@ -309,7 +317,7 @@ namespace GISharp.Test.GObject
             var param = TestParamSpec(GType.UInt, (name, nick, blurb, flags) =>
                                       new ParamSpecUnichar(name, nick, blurb, defaultValue, flags));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamUnichar"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamUnichar"));
         }
 
         [Test]
@@ -320,7 +328,7 @@ namespace GISharp.Test.GObject
             var param = TestParamSpec(GType.Type, (name, nick, blurb, flags) =>
                                       new ParamSpecGType(name, nick, blurb, isAType, flags));
             Assert.That(param.IsAType, Is.EqualTo(isAType));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamGType"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamGType"));
         }
 
         [Test]
@@ -332,13 +340,13 @@ namespace GISharp.Test.GObject
                                       new ParamSpecVariant(name, nick, blurb, VariantType.Boolean, defaultValue, flags));
             Assert.That(param.VariantType, Is.EqualTo(VariantType.Boolean));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
-            Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamVariant"));
+            Assert.That(param.GetGType().Name, Is.EqualTo("GParamVariant"));
         }
 
         [Test]
         public void TestParamSpecOverride()
         {
-            Assert.That<string?>(GType.Of<ParamSpecOverride>().Name, Is.EqualTo("GParamOverride"));
+            Assert.That(typeof(ParamSpecOverride).ToGType().Name, Is.EqualTo("GParamOverride"));
         }
 
         static ParamSpec getItemAt(PtrArray<ParamSpec> array, int index)

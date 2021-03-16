@@ -9,7 +9,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncInitableIface))]
     public unsafe partial interface IAsyncInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_async_initable_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_async_initable_get_type();
 
         /// <summary>
         /// Helper function for constructing #GAsyncInitable object. This is
@@ -53,9 +53,9 @@ namespace GISharp.Lib.Gio
 * </type> */
         /* transfer-ownership:none direction:in */
         private static extern void g_async_initable_newv_async(
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType objectType,
+        GISharp.Runtime.GType objectType,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint nParameters,
@@ -74,16 +74,16 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        static partial void CheckNewAsyncArgs(GISharp.Lib.GObject.GType objectType, uint nParameters, GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        static partial void CheckNewAsyncArgs(GISharp.Runtime.GType objectType, uint nParameters, GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.NewAsync(GISharp.Lib.GObject.GType,uint,GISharp.Lib.GObject.Parameter,int,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.NewAsync(GISharp.Runtime.GType,uint,GISharp.Lib.GObject.Parameter,int,GISharp.Lib.Gio.Cancellable?)']/*" />
         [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_async_initable_init_async() instead. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public static System.Threading.Tasks.Task<GISharp.Lib.GObject.Object> NewAsync(GISharp.Lib.GObject.GType objectType, uint nParameters, GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public static System.Threading.Tasks.Task<GISharp.Lib.GObject.Object> NewAsync(GISharp.Runtime.GType objectType, uint nParameters, GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckNewAsyncArgs(objectType, nParameters, parameters, ioPriority, cancellable);
-            var objectType_ = (GISharp.Lib.GObject.GType)objectType;
+            var objectType_ = (GISharp.Runtime.GType)objectType;
             var nParameters_ = (uint)nParameters;
             var parameters_ = &parameters;
             var ioPriority_ = (int)ioPriority;
@@ -154,9 +154,9 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_async_initable_get_type();
+        private static extern GISharp.Runtime.GType g_async_initable_get_type();
 
         /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.DoInitAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]

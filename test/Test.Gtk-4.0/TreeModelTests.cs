@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,8 +12,8 @@ namespace GISharp.Test.Gtk
         [Test]
         public void TreeModelFlagsGType()
         {
-            var gtype = GType.Of<TreeModelFlags>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkTreeModelFlags"));
+            var gtype = typeof(TreeModelFlags).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkTreeModelFlags"));
         }
     }
 }

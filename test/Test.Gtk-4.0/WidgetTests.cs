@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,36 +12,36 @@ namespace GISharp.Test.Gtk
         [Test]
         public void TextDirectionGType()
         {
-            var gtype = GType.Of<TextDirection>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkTextDirection"));
+            var gtype = typeof(TextDirection).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkTextDirection"));
         }
 
         [Test]
         public void PickFlagsGType()
         {
-            var gtype = GType.Of<PickFlags>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPickFlags"));
+            var gtype = typeof(PickFlags).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPickFlags"));
         }
 
         [Test]
         public void OverflowGType()
         {
-            var gtype = GType.Of<Overflow>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkOverflow"));
+            var gtype = typeof(Overflow).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkOverflow"));
         }
 
         [Test]
         public void SizeRequestModeGType()
         {
-            var gtype = GType.Of<SizeRequestMode>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkSizeRequestMode"));
+            var gtype = typeof(SizeRequestMode).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkSizeRequestMode"));
         }
 
         [Test]
         public void AlignGType()
         {
-            var gtype = GType.Of<Align>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkAlign"));
+            var gtype = typeof(Align).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkAlign"));
         }
     }
 }

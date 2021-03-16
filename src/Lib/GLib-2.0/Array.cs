@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Collections;
 using GISharp.Runtime;
-using GISharp.Lib.GObject;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,15 +12,15 @@ namespace GISharp.Test.Gtk
         [Test]
         public void SorterOrderGType()
         {
-            var gtype = GType.Of<SorterOrder>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkSorterOrder"));
+            var gtype = typeof(SorterOrder).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkSorterOrder"));
         }
 
         [Test]
         public void SorterChangeGType()
         {
-            var gtype = GType.Of<SorterChange>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkSorterChange"));
+            var gtype = typeof(SorterChange).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkSorterChange"));
         }
     }
 }

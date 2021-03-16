@@ -33,7 +33,7 @@ accessible property.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_accessible_autocomplete_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -60,7 +60,7 @@ as %FALSE and %TRUE.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_accessible_invalid_state_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -177,7 +177,7 @@ as %FALSE and %TRUE.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_accessible_property_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -290,7 +290,7 @@ integers or strings.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_accessible_relation_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -557,7 +557,7 @@ developers must not use abstract roles in their code.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_accessible_role_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -581,7 +581,7 @@ accessible property.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_accessible_sort_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -650,7 +650,7 @@ accessible property.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_accessible_state_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -674,7 +674,7 @@ as %FALSE and %TRUE.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_accessible_tristate_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -719,7 +719,7 @@ a child or a container it is treated as %GTK_ALIGN_FILL.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_align_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -744,7 +744,7 @@ a child or a container it is treated as %GTK_ALIGN_FILL.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_application_inhibit_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -769,7 +769,7 @@ a child or a container it is treated as %GTK_ALIGN_FILL.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_arrow_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -814,7 +814,7 @@ See gtk_assistant_commit() for details.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_assistant_page_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -838,7 +838,7 @@ extra available space.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_baseline_position_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -878,7 +878,7 @@ extra available space.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_border_style_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -896,7 +896,7 @@ encounter one.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_builder_closure_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -977,7 +977,7 @@ encounter one.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_builder_error_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1011,7 +1011,7 @@ then call gtk_dialog_add_buttons().
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_buttons_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1030,7 +1030,7 @@ in the same way as they are in menus.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_cell_renderer_accel_mode_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1052,7 +1052,7 @@ in the same way as they are in menus.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_cell_renderer_mode_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1084,7 +1084,7 @@ in the same way as they are in menus.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_cell_renderer_state_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1139,7 +1139,7 @@ in the same way as they are in menus.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_constraint_attribute_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1158,7 +1158,7 @@ in the same way as they are in menus.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_constraint_relation_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1183,7 +1183,7 @@ integer; the values of this enumeration can be used for readability.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_constraint_strength_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1225,7 +1225,7 @@ integer; the values of this enumeration can be used for readability.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_constraint_vfl_parser_error_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1253,7 +1253,7 @@ bars are placed.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_corner_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1368,7 +1368,7 @@ to adjust their debug output based on GTK debug flags.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_debug_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1408,7 +1408,7 @@ to adjust their debug output based on GTK debug flags.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_delete_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1430,7 +1430,7 @@ to adjust their debug output based on GTK debug flags.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_dialog_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1458,7 +1458,7 @@ to adjust their debug output based on GTK debug flags.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_direction_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1476,7 +1476,7 @@ to adjust their debug output based on GTK debug flags.</doc>
       <member name="num_properties" value="8" c:identifier="GTK_EDITABLE_NUM_PROPERTIES" glib:nick="num-properties" gs:managed-name="NumProperties"></member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_editable_properties_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1492,7 +1492,7 @@ to adjust their debug output based on GTK debug flags.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_entry_icon_position_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1521,7 +1521,7 @@ to adjust their debug output based on GTK debug flags.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_event_controller_scroll_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1540,7 +1540,7 @@ to adjust their debug output based on GTK debug flags.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_event_sequence_state_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1565,7 +1565,7 @@ or to save to a possibly new file.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_file_chooser_action_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1608,7 +1608,7 @@ or to save to a possibly new file.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_file_chooser_error_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1637,7 +1637,7 @@ choice.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_filter_change_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1663,7 +1663,7 @@ even if a filter does match all or no items.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_filter_match_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1692,7 +1692,7 @@ ignore unknown values.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_font_chooser_level_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1714,7 +1714,7 @@ ignore unknown values.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_icon_lookup_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1740,7 +1740,7 @@ to be used with the -gtk-icon-size CSS property.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_icon_size_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1770,7 +1770,7 @@ to be used with the -gtk-icon-size CSS property.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_icon_theme_error_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1798,7 +1798,7 @@ to be used with the -gtk-icon-size CSS property.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_icon_view_drop_position_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1826,7 +1826,7 @@ return %NULL values.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_image_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1887,7 +1887,7 @@ ignore unknown values.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_input_hints_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1947,7 +1947,7 @@ interpret unknown values as “free form”.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_input_purpose_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1969,7 +1969,7 @@ interpret unknown values as “free form”.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_justification_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1987,7 +1987,7 @@ in the future.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_level_bar_mode_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2054,7 +2054,7 @@ This enumeration can be expanded at later date.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_license_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2079,7 +2079,7 @@ This enumeration can be expanded at later date.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_message_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2118,7 +2118,7 @@ This enumeration can be expanded at later date.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_movement_step_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2134,7 +2134,7 @@ This enumeration can be expanded at later date.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_notebook_tab_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2169,7 +2169,7 @@ multiple pages per sheet.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_number_up_layout_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2193,7 +2193,7 @@ gtk_ordering_from_cmpfunc().</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_ordering_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2211,7 +2211,7 @@ between horizontal and vertical orientation on the fly, like #GtkBox or
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_orientation_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2231,7 +2231,7 @@ property, but implements it only partially.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_overflow_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2248,7 +2248,7 @@ See #GtkWindowControls for example.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_pack_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2267,7 +2267,7 @@ See #GtkWindowControls for example.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_pad_action_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2289,7 +2289,7 @@ See #GtkWindowControls for example.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_page_orientation_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2308,7 +2308,7 @@ See #GtkWindowControls for example.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_page_set_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2330,7 +2330,7 @@ See #GtkWindowControls for example.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_pan_direction_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2349,7 +2349,7 @@ See #GtkWindowControls for example.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_pick_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2377,7 +2377,7 @@ visibility mode for the scrollbars.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_policy_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2393,7 +2393,7 @@ a menu model.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_popover_menu_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2416,7 +2416,7 @@ the tabs of a #GtkNotebook, or the label of a #GtkScale.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_position_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2435,7 +2435,7 @@ the tabs of a #GtkNotebook, or the label of a #GtkScale.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_print_duplex_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2477,7 +2477,7 @@ using the GTK printing support.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_print_error_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2502,7 +2502,7 @@ determines what action the print operation should perform.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_print_operation_action_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2526,7 +2526,7 @@ determines what action the print operation should perform.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_print_operation_result_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2548,7 +2548,7 @@ determines what action the print operation should perform.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_print_pages_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2570,7 +2570,7 @@ determines what action the print operation should perform.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_print_quality_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2614,7 +2614,7 @@ print operation.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_print_status_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2634,7 +2634,7 @@ targeting other widgets.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_propagation_limit_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2663,7 +2663,7 @@ targeting other widgets.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_propagation_phase_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2713,7 +2713,7 @@ targeting other widgets.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_recent_manager_error_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2759,7 +2759,7 @@ application-defined response ids.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_response_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2800,7 +2800,7 @@ when the child of a #GtkRevealer widget is shown or hidden.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_revealer_transition_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2827,7 +2827,7 @@ when the child of a #GtkRevealer widget is shown or hidden.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_scroll_step_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2885,7 +2885,7 @@ when the child of a #GtkRevealer widget is shown or hidden.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_scroll_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2902,7 +2902,7 @@ the scrolled window adjustments in a given orientation.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_scrollable_policy_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2932,7 +2932,7 @@ the scrolled window adjustments in a given orientation.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_selection_mode_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2953,7 +2953,7 @@ such as combo box buttons.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_sensitivity_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2969,7 +2969,7 @@ More flags may be added in the future.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_shortcut_action_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2992,7 +2992,7 @@ More flags may be added in the future.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_shortcut_scope_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3035,7 +3035,7 @@ More values may be added to this enumeration over time.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_shortcut_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3058,7 +3058,7 @@ group affects the requested sizes of its component widgets.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_size_group_mode_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3078,7 +3078,7 @@ width-for-height geometry management.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_size_request_mode_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3094,7 +3094,7 @@ width-for-height geometry management.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_sort_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3122,7 +3122,7 @@ to optimize resorting.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_sorter_change_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3144,7 +3144,7 @@ to optimize resorting.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_sorter_order_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3165,7 +3165,7 @@ See gtk_spin_button_set_update_policy().</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_spin_button_update_policy_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3197,7 +3197,7 @@ change to make in gtk_spin_button_spin().</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_spin_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3279,7 +3279,7 @@ New values may be added to this enumeration over time.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_stack_transition_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3339,7 +3339,7 @@ classes and sometimes uses different names.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_state_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3361,7 +3361,7 @@ classes and sometimes uses different names.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_string_filter_match_mode_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3387,7 +3387,7 @@ New values may be added to this enumeration.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_style_context_print_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3423,7 +3423,7 @@ More values may be added over time.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_system_setting_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3442,7 +3442,7 @@ More values may be added over time.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_text_direction_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3461,7 +3461,7 @@ More values may be added over time.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_text_extend_selection_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3487,7 +3487,7 @@ what case it is in.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_text_search_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3504,7 +3504,7 @@ drawing with the ::snapshot_layer vfunc.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_text_view_layer_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3532,7 +3532,7 @@ drawing with the ::snapshot_layer vfunc.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_text_window_type_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3555,7 +3555,7 @@ this section.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_tree_model_flags_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3576,7 +3576,7 @@ can make columns appear choppy.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_tree_view_column_sizing_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3598,7 +3598,7 @@ can make columns appear choppy.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_tree_view_drop_position_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3620,7 +3620,7 @@ can make columns appear choppy.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_tree_view_grid_lines_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3642,7 +3642,7 @@ can make columns appear choppy.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_unit_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -3667,7 +3667,7 @@ can make columns appear choppy.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gtk_wrap_mode_get_type" gs:access-modifiers="private" gs:dll-name="gtk-4.1" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />

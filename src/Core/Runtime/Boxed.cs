@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
-using GISharp.Lib.GObject;
 
 namespace GISharp.Runtime
 {
@@ -16,8 +15,6 @@ namespace GISharp.Runtime
     [GType("GBoxed", IsProxyForUnmanagedType = true)]
     public abstract unsafe class Boxed : Opaque
     {
-        static readonly GType _GType = GType.Boxed;
-
         /// <summary>
         /// For internal runtime use only.
         /// </summary>

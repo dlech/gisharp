@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using NUnit.Framework;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
+using GISharp.Runtime;
 
 namespace GISharp.Test.GLib
 {
@@ -295,9 +296,9 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestGType()
         {
-            var gtype = GType.Of<Array<int>>();
+            var gtype = typeof(Array<int>).ToGType();
             Assert.That(gtype, Is.Not.EqualTo(GType.Invalid));
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GArray"));
+            Assert.That(gtype.Name, Is.EqualTo("GArray"));
         }
     }
 

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,15 +12,15 @@ namespace GISharp.Test.Gtk
         [Test]
         public void SpinButtonUpdatePolicyGType()
         {
-            var gtype = GType.Of<SpinButtonUpdatePolicy>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkSpinButtonUpdatePolicy"));
+            var gtype = typeof(SpinButtonUpdatePolicy).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkSpinButtonUpdatePolicy"));
         }
 
         [Test]
         public void SpinTypeGType()
         {
-            var gtype = GType.Of<SpinType>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkSpinType"));
+            var gtype = typeof(SpinType).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkSpinType"));
         }
     }
 }

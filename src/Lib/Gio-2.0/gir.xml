@@ -633,7 +633,7 @@ action is stateless. This is immutable.</doc>
       </property>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_action_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1795,7 +1795,7 @@ is still visible and can be queried from the signal handler.</doc>
       </glib:signal>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_action_group_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2602,7 +2602,7 @@ If no action of this name is in the map then nothing happens.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_action_map_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -4736,7 +4736,7 @@ after registration. See g_application_register().</doc>
       </glib:signal>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_application_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -5862,7 +5862,7 @@ status of the local #GApplicationCommandLine is used.</doc>
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_application_command_line_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -6011,7 +6011,7 @@ contains private data only.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_application_flags_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -6136,7 +6136,7 @@ g_async_initable_init_async() instead. See #GParameter for more information.</do
         <parameters>
           <parameter name="object_type" transfer-ownership="none" gs:managed-name="objectType" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="12753">a #GType supporting #GAsyncInitable.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="n_parameters" transfer-ownership="none" gs:managed-name="nParameters" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="12754">the number of parameters in @parameters</doc>
@@ -6167,7 +6167,7 @@ g_async_initable_init_async() instead. See #GParameter for more information.</do
         <gs:managed-parameters>
           <parameter name="object_type" transfer-ownership="none" gs:managed-name="objectType" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="12753">a #GType supporting #GAsyncInitable.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="n_parameters" transfer-ownership="none" gs:managed-name="nParameters" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="12754">the number of parameters in @parameters</doc>
@@ -6439,7 +6439,7 @@ calls, returning the created object or %NULL on error.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_async_initable_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -6792,7 +6792,7 @@ pointer indicating the function @res was created by).</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_async_result_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -7364,7 +7364,7 @@ cancellable signal should not do something that can block.</doc>
       </glib:signal>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_cancellable_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -16229,7 +16229,7 @@ with g_file_unmount_mountable_with_operation().</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -16264,7 +16264,7 @@ with g_file_unmount_mountable_with_operation().</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_attribute_info_flags_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -16404,7 +16404,7 @@ falls to zero, the @list is deleted.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_attribute_info_list_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -16631,7 +16631,7 @@ the @matcher is automatically freed.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_attribute_matcher_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -16650,7 +16650,7 @@ the @matcher is automatically freed.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_attribute_status_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -16690,7 +16690,7 @@ the @matcher is automatically freed.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_attribute_type_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -16721,7 +16721,7 @@ the @matcher is automatically freed.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_copy_flags_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -16749,7 +16749,7 @@ the @matcher is automatically freed.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_create_flags_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -17209,7 +17209,7 @@ by g_file_io_stream_query_info_async().</doc>
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_io_stream_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -23721,7 +23721,7 @@ is set.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_info_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -24065,7 +24065,7 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be set</doc>
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_input_stream_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -24361,7 +24361,7 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be set</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_measure_flags_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -24468,7 +24468,7 @@ result.  Always check the async result to get the final value.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_monitor_flags_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -24922,7 +24922,7 @@ by g_file_output_stream_query_info_async().</doc>
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_output_stream_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -25315,7 +25315,7 @@ far along that operation is to the application.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_query_info_flags_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -25392,7 +25392,7 @@ which is why all Windows symlinks will continue to be reported as
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_file_type_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -25413,7 +25413,7 @@ previewed in a file manager. Returned as the value of the key
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_filesystem_preview_type_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -25640,7 +25640,7 @@ calls, you should save its value as soon as the call which sets it</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_io_error_enum_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -26217,7 +26217,7 @@ result of the operation.</doc>
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_io_stream_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -26506,7 +26506,7 @@ Do not free.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_io_stream_splice_flags_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -26762,7 +26762,7 @@ in the following two cases
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_icon_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -26966,7 +26966,7 @@ g_initable_init() instead. See #GParameter for more information.</doc-deprecated
         <parameters>
           <parameter name="object_type" transfer-ownership="none" gs:managed-name="objectType" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="26037">a #GType supporting #GInitable.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="n_parameters" transfer-ownership="none" gs:managed-name="nParameters" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="26038">the number of parameters in @parameters</doc>
@@ -26990,7 +26990,7 @@ g_initable_init() instead. See #GParameter for more information.</doc-deprecated
         <gs:managed-parameters>
           <parameter name="object_type" transfer-ownership="none" gs:managed-name="objectType" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="26037">a #GType supporting #GInitable.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="parameters" transfer-ownership="none" gs:managed-name="parameters" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="26039">the parameters to use to construct the object</doc>
@@ -27142,7 +27142,7 @@ instance.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_initable_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -28485,7 +28485,7 @@ However, if you override one, you must override all.</doc>
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_input_stream_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -31095,7 +31095,7 @@ until @callback is called.</doc>
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_output_stream_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -31873,7 +31873,7 @@ until @callback is called.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_output_stream_splice_flags_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -32237,7 +32237,7 @@ partial result will be returned, without an error.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_seekable_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -32715,7 +32715,7 @@ It could set it to any value at all, or take some other action.</doc>
       </glib:signal>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_simple_action_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -34292,7 +34292,7 @@ context as the task’s callback, immediately after that callback is invoked.</d
       </property>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_task_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -34567,7 +34567,7 @@ would become
       </property>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_themed_icon_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />

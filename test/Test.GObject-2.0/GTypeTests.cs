@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Linq;
@@ -20,133 +20,133 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestNone()
         {
-            Assert.That((Type)GType.None, Is.EqualTo(typeof(void)));
+            Assert.That(GType.None.ToType(), Is.EqualTo(typeof(void)));
         }
 
         [Test]
         public void TestInterface()
         {
-            Assert.That(() => (Type)GType.Interface, Is.EqualTo(typeof(GInterface<>)));
+            Assert.That(() => GType.Interface.ToType(), Is.EqualTo(typeof(GInterface<>)));
         }
 
         [Test]
         public void TestChar()
         {
-            Assert.That((Type)GType.Char, Is.EqualTo(typeof(sbyte)));
+            Assert.That(GType.Char.ToType(), Is.EqualTo(typeof(sbyte)));
         }
 
         [Test]
         public void TestUChar()
         {
-            Assert.That((Type)GType.UChar, Is.EqualTo(typeof(byte)));
+            Assert.That(GType.UChar.ToType(), Is.EqualTo(typeof(byte)));
         }
 
         [Test]
         public void TestBoolean()
         {
-            Assert.That((Type)GType.Boolean, Is.EqualTo(typeof(bool)));
+            Assert.That(GType.Boolean.ToType(), Is.EqualTo(typeof(bool)));
         }
 
         [Test]
         public void TestInt()
         {
-            Assert.That((Type)GType.Int, Is.EqualTo(typeof(int)));
+            Assert.That(GType.Int.ToType(), Is.EqualTo(typeof(int)));
         }
 
         [Test]
         public void TestUInt()
         {
-            Assert.That((Type)GType.UInt, Is.EqualTo(typeof(uint)));
+            Assert.That(GType.UInt.ToType(), Is.EqualTo(typeof(uint)));
         }
 
         [Test]
         public void TestLong()
         {
-            Assert.That(() => (Type)GType.Long, Is.EqualTo(typeof(clong)));
+            Assert.That(() => GType.Long.ToType(), Is.EqualTo(typeof(clong)));
         }
 
         [Test]
         public void TestULong()
         {
-            Assert.That(() => (Type)GType.ULong, Is.EqualTo(typeof(culong)));
+            Assert.That(() => GType.ULong.ToType(), Is.EqualTo(typeof(culong)));
         }
 
         [Test]
         public void TestInt64()
         {
-            Assert.That((Type)GType.Int64, Is.EqualTo(typeof(long)));
+            Assert.That(GType.Int64.ToType(), Is.EqualTo(typeof(long)));
         }
 
         [Test]
         public void TestUInt64()
         {
-            Assert.That((Type)GType.UInt64, Is.EqualTo(typeof(ulong)));
+            Assert.That(GType.UInt64.ToType(), Is.EqualTo(typeof(ulong)));
         }
 
         [Test]
         public void TestEnum()
         {
-            Assert.That((Type)GType.Enum, Is.EqualTo(typeof(System.Enum)));
+            Assert.That(GType.Enum.ToType(), Is.EqualTo(typeof(System.Enum)));
         }
 
         [Test]
         public void TestFlags()
         {
-            Assert.That(() => (Type)GType.Flags, Is.EqualTo(typeof(System.Enum)));
+            Assert.That(() => GType.Flags.ToType(), Is.EqualTo(typeof(System.Enum)));
         }
 
         [Test]
         public void TestFloat()
         {
-            Assert.That((Type)GType.Float, Is.EqualTo(typeof(float)));
+            Assert.That(GType.Float.ToType(), Is.EqualTo(typeof(float)));
         }
 
         [Test]
         public void TestDouble()
         {
-            Assert.That((Type)GType.Double, Is.EqualTo(typeof(double)));
+            Assert.That(GType.Double.ToType(), Is.EqualTo(typeof(double)));
         }
 
         [Test]
         public void TestString()
         {
-            Assert.That((Type)GType.String, Is.EqualTo(typeof(Utf8)));
+            Assert.That(GType.String.ToType(), Is.EqualTo(typeof(Utf8)));
         }
 
         [Test]
         public void TestPointer()
         {
-            Assert.That((Type)GType.Pointer, Is.EqualTo(typeof(IntPtr)));
+            Assert.That(GType.Pointer.ToType(), Is.EqualTo(typeof(IntPtr)));
         }
 
         [Test]
         public void TestBoxed()
         {
-            Assert.That((Type)GType.Boxed, Is.EqualTo(typeof(Boxed)));
+            Assert.That(GType.Boxed.ToType(), Is.EqualTo(typeof(Boxed)));
         }
 
         [Test]
         public void TestParam()
         {
-            Assert.That((Type)GType.Param, Is.EqualTo(typeof(ParamSpec)));
+            Assert.That(GType.Param.ToType(), Is.EqualTo(typeof(ParamSpec)));
         }
 
         [Test]
         public void TestObject()
         {
-            Assert.That((Type)GType.Object, Is.EqualTo(typeof(GISharp.Lib.GObject.Object)));
+            Assert.That(GType.Object.ToType(), Is.EqualTo(typeof(GISharp.Lib.GObject.Object)));
         }
 
         [Test]
         public void TestGType()
         {
-            Assert.That((Type)GType.Type, Is.EqualTo(typeof(GType)));
+            Assert.That(GType.Type.ToType(), Is.EqualTo(typeof(GType)));
         }
 
         [Test]
         public void TestVariant()
         {
-            Assert.That((Type)GType.Variant, Is.EqualTo(typeof(Variant)));
+            Assert.That(GType.Variant.ToType(), Is.EqualTo(typeof(Variant)));
         }
 
         [Test]
@@ -158,8 +158,8 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestName()
         {
-            Assert.That<string?>(GType.Invalid.Name, Is.Null);
-            Assert.That<string?>(GType.None.Name, Is.EqualTo("void"));
+            Assert.That(GType.Invalid.Name, Is.Null);
+            Assert.That(GType.None.Name, Is.EqualTo("void"));
         }
 
         [Test]

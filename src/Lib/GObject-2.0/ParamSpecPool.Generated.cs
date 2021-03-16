@@ -79,18 +79,18 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType ownerType);
-        partial void CheckInsertArgs(GISharp.Lib.GObject.ParamSpec pspec, GISharp.Lib.GObject.GType ownerType);
+        GISharp.Runtime.GType ownerType);
+        partial void CheckInsertArgs(GISharp.Lib.GObject.ParamSpec pspec, GISharp.Runtime.GType ownerType);
 
-        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.Insert(GISharp.Lib.GObject.ParamSpec,GISharp.Lib.GObject.GType)']/*" />
-        public void Insert(GISharp.Lib.GObject.ParamSpec pspec, GISharp.Lib.GObject.GType ownerType)
+        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.Insert(GISharp.Lib.GObject.ParamSpec,GISharp.Runtime.GType)']/*" />
+        public void Insert(GISharp.Lib.GObject.ParamSpec pspec, GISharp.Runtime.GType ownerType)
         {
             CheckInsertArgs(pspec, ownerType);
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
-            var ownerType_ = (GISharp.Lib.GObject.GType)ownerType;
+            var ownerType_ = (GISharp.Runtime.GType)ownerType;
             g_param_spec_pool_insert(pool_, pspec_, ownerType_);
         }
 
@@ -121,20 +121,20 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamSpecPool" type="GParamSpecPool*" managed-name="ParamSpecPool" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct* pool,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType ownerType,
+        GISharp.Runtime.GType ownerType,
         /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* nPspecsP);
-        partial void CheckListArgs(GISharp.Lib.GObject.GType ownerType);
+        partial void CheckListArgs(GISharp.Runtime.GType ownerType);
 
-        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.List(GISharp.Lib.GObject.GType)']/*" />
-        public GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec> List(GISharp.Lib.GObject.GType ownerType)
+        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.List(GISharp.Runtime.GType)']/*" />
+        public GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec> List(GISharp.Runtime.GType ownerType)
         {
             CheckListArgs(ownerType);
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;
-            var ownerType_ = (GISharp.Lib.GObject.GType)ownerType;
+            var ownerType_ = (GISharp.Runtime.GType)ownerType;
             uint nPspecsP_;
             var ret_ = g_param_spec_pool_list(pool_,ownerType_,&nPspecsP_);
             var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nPspecsP_, GISharp.Runtime.Transfer.Container);
@@ -165,17 +165,17 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamSpecPool" type="GParamSpecPool*" managed-name="ParamSpecPool" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct* pool,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType ownerType);
-        partial void CheckListOwnedArgs(GISharp.Lib.GObject.GType ownerType);
+        GISharp.Runtime.GType ownerType);
+        partial void CheckListOwnedArgs(GISharp.Runtime.GType ownerType);
 
-        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.ListOwned(GISharp.Lib.GObject.GType)']/*" />
-        public GISharp.Lib.GLib.WeakList<GISharp.Lib.GObject.ParamSpec> ListOwned(GISharp.Lib.GObject.GType ownerType)
+        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.ListOwned(GISharp.Runtime.GType)']/*" />
+        public GISharp.Lib.GLib.WeakList<GISharp.Lib.GObject.ParamSpec> ListOwned(GISharp.Runtime.GType ownerType)
         {
             CheckListOwnedArgs(ownerType);
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;
-            var ownerType_ = (GISharp.Lib.GObject.GType)ownerType;
+            var ownerType_ = (GISharp.Runtime.GType)ownerType;
             var ret_ = g_param_spec_pool_list_owned(pool_,ownerType_);
             var ret = GISharp.Lib.GLib.WeakList<GISharp.Lib.GObject.ParamSpec>.GetInstance<GISharp.Lib.GLib.WeakList<GISharp.Lib.GObject.ParamSpec>>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Container)!;
             return ret;
@@ -211,21 +211,21 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* paramName,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType ownerType,
+        GISharp.Runtime.GType ownerType,
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean walkAncestors);
-        partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 paramName, GISharp.Lib.GObject.GType ownerType, bool walkAncestors);
+        partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 paramName, GISharp.Runtime.GType ownerType, bool walkAncestors);
 
-        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.GType,bool)']/*" />
-        public GISharp.Lib.GObject.ParamSpec Lookup(GISharp.Lib.GLib.UnownedUtf8 paramName, GISharp.Lib.GObject.GType ownerType, bool walkAncestors)
+        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,bool)']/*" />
+        public GISharp.Lib.GObject.ParamSpec Lookup(GISharp.Lib.GLib.UnownedUtf8 paramName, GISharp.Runtime.GType ownerType, bool walkAncestors)
         {
             CheckLookupArgs(paramName, ownerType, walkAncestors);
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;
             var paramName_ = (byte*)paramName.UnsafeHandle;
-            var ownerType_ = (GISharp.Lib.GObject.GType)ownerType;
+            var ownerType_ = (GISharp.Runtime.GType)ownerType;
             var walkAncestors_ = GISharp.Runtime.BooleanExtensions.ToBoolean(walkAncestors);
             var ret_ = g_param_spec_pool_lookup(pool_,paramName_,ownerType_,walkAncestors_);
             var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;

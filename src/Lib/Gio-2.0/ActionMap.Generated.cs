@@ -9,12 +9,12 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionMapInterface))]
     public unsafe partial interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_action_map_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_action_map_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_action_map_get_type();
+        private static extern GISharp.Runtime.GType g_action_map_get_type();
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoAddAction(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]

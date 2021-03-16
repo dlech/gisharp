@@ -1300,7 +1300,7 @@ namespace GISharp.CodeGen
             case "gunichar":
                 return "GISharp.Lib.GLib.Unichar";
             case "GType":
-                return "GISharp.Lib.GObject.GType";
+                return "GISharp.Runtime.GType";
             case "filename":
                 return "GISharp.Lib.GLib.Filename";
             case "utf8":

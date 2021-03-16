@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2019-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
+using GISharp.Runtime;
 using NUnit.Framework;
 
 namespace GISharp.Test.GLib
@@ -12,9 +13,9 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestGType()
         {
-            var gtype = GType.Of<PollFD>();
+            var gtype = typeof(PollFD).ToGType();
             Assert.That(gtype, Is.Not.EqualTo(GType.Invalid));
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GPollFD"));
+            Assert.That(gtype.Name, Is.EqualTo("GPollFD"));
         }
     }
 }

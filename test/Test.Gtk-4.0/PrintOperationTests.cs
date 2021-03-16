@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -13,29 +13,29 @@ namespace GISharp.Test.Gtk
         [Test]
         public void PrintStatusGType()
         {
-            var gtype = GType.Of<PrintStatus>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPrintStatus"));
+            var gtype = typeof(PrintStatus).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPrintStatus"));
         }
 
         [Test]
         public void PrintOperationActionGType()
         {
-            var gtype = GType.Of<PrintOperationAction>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPrintOperationAction"));
+            var gtype = typeof(PrintOperationAction).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPrintOperationAction"));
         }
 
         [Test]
         public void PrintOperationResultGType()
         {
-            var gtype = GType.Of<PrintOperationResult>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPrintOperationResult"));
+            var gtype = typeof(PrintOperationResult).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPrintOperationResult"));
         }
 
         [Test]
         public void PrintErrorGType()
         {
-            var gtype = GType.Of<PrintError>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPrintError"));
+            var gtype = typeof(PrintError).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPrintError"));
         }
 
         [Test]

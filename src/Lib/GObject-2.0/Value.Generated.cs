@@ -7,10 +7,10 @@ namespace GISharp.Lib.GObject
     [GISharp.Runtime.GTypeAttribute("GValue", IsProxyForUnmanagedType = true)]
     public unsafe partial struct Value
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_value_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_value_get_type();
 #pragma warning disable CS0169, CS0649
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.GType']/*" />
-        public readonly GISharp.Lib.GObject.GType GType;
+        public readonly GISharp.Runtime.GType GType;
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Data']/*" />
         public fixed long Data[2];
@@ -40,7 +40,7 @@ namespace GISharp.Lib.GObject
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Gtype']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public GISharp.Lib.GObject.GType Gtype { get => GetGtype(); set => SetGtype(value); }
+        public GISharp.Runtime.GType Gtype { get => GetGtype(); set => SetGtype(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Int']/*" />
         public int Int { get => GetInt(); set => SetInt(value); }
@@ -112,20 +112,20 @@ namespace GISharp.Lib.GObject
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_value_type_compatible(
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType srcType,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        GISharp.Runtime.GType srcType,
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType destType);
-        static partial void CheckTypeCompatibleArgs(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType);
+        GISharp.Runtime.GType destType);
+        static partial void CheckTypeCompatibleArgs(GISharp.Runtime.GType srcType, GISharp.Runtime.GType destType);
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TypeCompatible(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)']/*" />
-        public static bool TypeCompatible(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType)
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TypeCompatible(GISharp.Runtime.GType,GISharp.Runtime.GType)']/*" />
+        public static bool TypeCompatible(GISharp.Runtime.GType srcType, GISharp.Runtime.GType destType)
         {
             CheckTypeCompatibleArgs(srcType, destType);
-            var srcType_ = (GISharp.Lib.GObject.GType)srcType;
-            var destType_ = (GISharp.Lib.GObject.GType)destType;
+            var srcType_ = (GISharp.Runtime.GType)srcType;
+            var destType_ = (GISharp.Runtime.GType)destType;
             var ret_ = g_value_type_compatible(srcType_,destType_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -150,29 +150,29 @@ namespace GISharp.Lib.GObject
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_value_type_transformable(
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType srcType,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        GISharp.Runtime.GType srcType,
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType destType);
-        static partial void CheckTypeTransformableArgs(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType);
+        GISharp.Runtime.GType destType);
+        static partial void CheckTypeTransformableArgs(GISharp.Runtime.GType srcType, GISharp.Runtime.GType destType);
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TypeTransformable(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)']/*" />
-        public static bool TypeTransformable(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType)
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TypeTransformable(GISharp.Runtime.GType,GISharp.Runtime.GType)']/*" />
+        public static bool TypeTransformable(GISharp.Runtime.GType srcType, GISharp.Runtime.GType destType)
         {
             CheckTypeTransformableArgs(srcType, destType);
-            var srcType_ = (GISharp.Lib.GObject.GType)srcType;
-            var destType_ = (GISharp.Lib.GObject.GType)destType;
+            var srcType_ = (GISharp.Runtime.GType)srcType;
+            var destType_ = (GISharp.Runtime.GType)destType;
             var ret_ = g_value_type_transformable(srcType_,destType_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_value_get_type();
+        private static extern GISharp.Runtime.GType g_value_get_type();
 
         /// <summary>
         /// Copies the value of @src_value into @dest_value.
@@ -570,23 +570,23 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GObject.GType g_value_get_gtype(
+        private static extern GISharp.Runtime.GType g_value_get_gtype(
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetGtypeArgs();
 
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private GISharp.Lib.GObject.GType GetGtype()
+        private GISharp.Runtime.GType GetGtype()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
                 CheckGetGtypeArgs();
                 var value_ = this_;
                 var ret_ = g_value_get_gtype(value_);
-                var ret = (GISharp.Lib.GObject.GType)ret_;
+                var ret = (GISharp.Runtime.GType)ret_;
                 return ret;
             }
         }
@@ -1004,19 +1004,19 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType gType);
-        partial void CheckInitArgs(GISharp.Lib.GObject.GType gType);
+        GISharp.Runtime.GType gType);
+        partial void CheckInitArgs(GISharp.Runtime.GType gType);
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Init(GISharp.Lib.GObject.GType)']/*" />
-        public ref readonly GISharp.Lib.GObject.Value Init(GISharp.Lib.GObject.GType gType)
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Init(GISharp.Runtime.GType)']/*" />
+        public ref readonly GISharp.Lib.GObject.Value Init(GISharp.Runtime.GType gType)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
                 CheckInitArgs(gType);
                 var value_ = this_;
-                var gType_ = (GISharp.Lib.GObject.GType)gType;
+                var gType_ = (GISharp.Runtime.GType)gType;
                 var ret_ = g_value_init(value_,gType_);
                 ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(ret_);
                 return ref ret;
@@ -1414,19 +1414,19 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType vGtype);
-        partial void CheckSetGtypeArgs(GISharp.Lib.GObject.GType vGtype);
+        GISharp.Runtime.GType vGtype);
+        partial void CheckSetGtypeArgs(GISharp.Runtime.GType vGtype);
 
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private void SetGtype(GISharp.Lib.GObject.GType vGtype)
+        private void SetGtype(GISharp.Runtime.GType vGtype)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
                 CheckSetGtypeArgs(vGtype);
                 var value_ = this_;
-                var vGtype_ = (GISharp.Lib.GObject.GType)vGtype;
+                var vGtype_ = (GISharp.Runtime.GType)vGtype;
                 g_value_set_gtype(value_, vGtype_);
             }
         }

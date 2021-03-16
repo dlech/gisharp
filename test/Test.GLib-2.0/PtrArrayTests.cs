@@ -164,9 +164,9 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestGType()
         {
-            var gtype = GType.Of<PtrArray<OpaqueInt>>();
+            var gtype = typeof(PtrArray<OpaqueInt>).ToGType();
             Assert.That(gtype, Is.Not.EqualTo(GType.Invalid));
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GPtrArray"));
+            Assert.That(gtype.Name, Is.EqualTo("GPtrArray"));
         }
 
         static OpaqueInt _(int value)

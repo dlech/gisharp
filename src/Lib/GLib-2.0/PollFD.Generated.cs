@@ -7,7 +7,7 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.GTypeAttribute("GPollFD", IsProxyForUnmanagedType = true)]
     public unsafe partial struct PollFD
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_pollfd_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_pollfd_get_type();
 #pragma warning disable CS0169, CS0649
         /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.Fd']/*" />
         public readonly int Fd;
@@ -19,8 +19,8 @@ namespace GISharp.Lib.GLib
         public readonly ushort Revents;
 #pragma warning restore CS0169, CS0649
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_pollfd_get_type();
+        private static extern GISharp.Runtime.GType g_pollfd_get_type();
     }
 }

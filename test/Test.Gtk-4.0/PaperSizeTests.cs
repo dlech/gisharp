@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,8 +12,8 @@ namespace GISharp.Test.Gtk
         [Test]
         public void UnitGType()
         {
-            var gtype = GType.Of<Unit>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkUnit"));
+            var gtype = typeof(Unit).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkUnit"));
         }
     }
 }

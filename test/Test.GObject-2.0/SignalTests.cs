@@ -4,6 +4,7 @@
 using System;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
+using GISharp.Runtime;
 using NUnit.Framework;
 
 using Object = GISharp.Lib.GObject.Object;
@@ -143,7 +144,7 @@ namespace GISharp.Test.GObject
             var hookId = Signal.AddEmissionHook(signalId, Quark.Zero,
                 (in SignalInvocationHint ihint, Span<Value> paramValues) => {
                     Assert.That(ihint.SignalId, Is.EqualTo(signalId));
-                    Assert.That(paramValues[0].ValueGType, Is.EqualTo(GType.Of<TestNetworkMonitor>()));
+                    Assert.That(paramValues[0].ValueGType, Is.EqualTo(typeof(TestNetworkMonitor).ToGType()));
                     Assert.That((bool)paramValues[1], Is.True);
                     callbackCount++;
                     return true;

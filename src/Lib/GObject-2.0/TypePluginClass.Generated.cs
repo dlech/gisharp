@@ -17,10 +17,10 @@ namespace GISharp.Lib.GObject
         public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, void> UnusePlugin;
 
         /// <include file="TypePluginClass.xmldoc" path="declaration/member[@name='TypePluginClass.CompleteTypeInfo']/*" />
-        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Lib.GObject.GType, GISharp.Lib.GObject.TypeInfo*, GISharp.Lib.GObject.TypeValueTable*, void> CompleteTypeInfo;
+        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Runtime.GType, GISharp.Lib.GObject.TypeInfo*, GISharp.Lib.GObject.TypeValueTable*, void> CompleteTypeInfo;
 
         /// <include file="TypePluginClass.xmldoc" path="declaration/member[@name='TypePluginClass.CompleteInterfaceInfo']/*" />
-        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Lib.GObject.GType, GISharp.Lib.GObject.GType, GISharp.Lib.GObject.InterfaceInfo*, void> CompleteInterfaceInfo;
+        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Runtime.GType, GISharp.Runtime.GType, GISharp.Lib.GObject.InterfaceInfo*, void> CompleteInterfaceInfo;
 #pragma warning restore CS0169, CS0649
     }
 }

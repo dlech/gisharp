@@ -8,7 +8,7 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.GTypeAttribute("GVariantDict", IsProxyForUnmanagedType = true)]
     public sealed unsafe partial class VariantDict : GISharp.Runtime.Boxed
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_variant_dict_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_variant_dict_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
@@ -78,9 +78,9 @@ namespace GISharp.Lib.GLib
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_variant_dict_get_type();
+        private static extern GISharp.Runtime.GType g_variant_dict_get_type();
 
         /// <summary>
         /// Checks if @key exists in @dict.

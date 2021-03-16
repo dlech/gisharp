@@ -34,7 +34,7 @@ this virtual function belongs.
 </summary>
 </member>
 
-<member name='VFuncInfo.GetAddress(GISharp.Lib.GObject.GType)'>
+<member name='VFuncInfo.GetAddress(GISharp.Runtime.GType)'>
 <summary>
 This method will look up where inside the type struct of <paramref name="implementorGtype"/>
 is the implementation for this instance.

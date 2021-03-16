@@ -20,7 +20,7 @@ a newly allocated <see cref="ParamSpecPool"/>.
 </returns>
 </member>
 
-<member name='ParamSpecPool.Insert(GISharp.Lib.GObject.ParamSpec,GISharp.Lib.GObject.GType)'>
+<member name='ParamSpecPool.Insert(GISharp.Lib.GObject.ParamSpec,GISharp.Runtime.GType)'>
 <summary>
 Inserts a <see cref="ParamSpec"/> in the pool.
 </summary>
@@ -32,7 +32,7 @@ a <see cref="Type"/> identifying the owner of <paramref name="pspec"/>
 </param>
 </member>
 
-<member name='ParamSpecPool.List(GISharp.Lib.GObject.GType)'>
+<member name='ParamSpecPool.List(GISharp.Runtime.GType)'>
 <summary>
 Gets an array of all #GParamSpecs owned by <paramref name="ownerType"/> in
 the pool.
@@ -47,7 +47,7 @@ a newly
 </returns>
 </member>
 
-<member name='ParamSpecPool.ListOwned(GISharp.Lib.GObject.GType)'>
+<member name='ParamSpecPool.ListOwned(GISharp.Runtime.GType)'>
 <summary>
 Gets an #GList of all #GParamSpecs owned by <paramref name="ownerType"/> in
 the pool.
@@ -62,7 +62,7 @@ a
 </returns>
 </member>
 
-<member name='ParamSpecPool.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.GType,bool)'>
+<member name='ParamSpecPool.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,bool)'>
 <summary>
 Looks up a <see cref="ParamSpec"/> in the pool.
 </summary>

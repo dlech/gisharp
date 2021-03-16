@@ -842,7 +842,7 @@ thread.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_array_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1287,7 +1287,7 @@ thread.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_byte_array_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1745,7 +1745,7 @@ data is copied.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_bytes_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -4011,7 +4011,7 @@ them to the same time zone.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_date_time_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -4195,7 +4195,7 @@ a certain case, your code will still work.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_error_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -5340,7 +5340,7 @@ This function is MT-safe and may be called from any thread.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_hash_table_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -5370,7 +5370,7 @@ event source.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_io_condition_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -7523,7 +7523,7 @@ entries representing links to documents.</doc>
       </constant>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_key_file_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -10051,7 +10051,7 @@ if the call was interrupted.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_main_context_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -10220,7 +10220,7 @@ the result is zero, free the loop and free all associated memory.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_main_loop_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -11500,7 +11500,7 @@ and all memory allocated by the @group is released.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_option_group_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -11566,7 +11566,7 @@ occurred.</doc>
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_pollfd_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -12706,7 +12706,7 @@ is thread-safe and may be called from any thread.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_ptr_array_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -15189,7 +15189,7 @@ the #GSource from the main loop.</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_source_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -16020,7 +16020,7 @@ west of GMT, positive numbers for east).</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_time_zone_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -20105,7 +20105,7 @@ things will happen.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_variant_builder_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -20499,7 +20499,7 @@ things will happen.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_variant_dict_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -21648,7 +21648,7 @@ see g_variant_type_string_is_valid().</doc>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_variant_type_get_gtype" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />

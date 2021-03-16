@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,15 +12,15 @@ namespace GISharp.Test.Gtk
         [Test]
         public void PropagationPhaseGType()
         {
-            var gtype = GType.Of<PropagationPhase>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPropagationPhase"));
+            var gtype = typeof(PropagationPhase).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPropagationPhase"));
         }
 
         [Test]
         public void PropagationLimitGType()
         {
-            var gtype = GType.Of<PropagationLimit>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkPropagationLimit"));
+            var gtype = typeof(PropagationLimit).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPropagationLimit"));
         }
     }
 }

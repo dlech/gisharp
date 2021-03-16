@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
+using GISharp.Runtime;
 using NUnit.Framework;
 
 namespace GISharp.Test.GLib
@@ -99,8 +100,9 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestGType()
         {
-            var gtype = GType.Of<Utf8>();
+            var gtype = typeof(Utf8).ToGType();
             Assert.That(gtype, Is.EqualTo(GType.String));
+            Assert.That(gtype.Name, Is.EqualTo("gchararray"));
         }
     }
 }

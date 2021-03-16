@@ -72,7 +72,7 @@ namespace GISharp.CodeGen
                 var x when x == "gsize" || x == "guintptr" => $"nuint{pointer}",
                 "gunichar" => $"GISharp.Lib.GLib.Unichar{pointer}",
                 "gunichar2" => $"char{pointer}",
-                "GType" => $"GISharp.Lib.GObject.GType{pointer}",
+                "GType" => $"GISharp.Runtime.GType{pointer}",
                 var x when x == "filename" || x == "utf8" => "byte*",
                 // TODO: remove name="GLib.Strv" from Fixup.cs
                 "GLib.Strv" => "byte**",
@@ -130,7 +130,7 @@ namespace GISharp.CodeGen
                 var x when x == "gsize" || x == "gssize" || x == "goffset" => "int",
                 "gunichar" => "GISharp.Lib.GLib.Unichar",
                 "gunichar2" => "char",
-                "GType" => "GISharp.Lib.GObject.GType",
+                "GType" => "GISharp.Runtime.GType",
                 "utf8" => "GISharp.Lib.GLib.Utf8",
                 "filename" => "GISharp.Lib.GLib.Filename",
                 "va_list" =>

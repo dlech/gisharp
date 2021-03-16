@@ -7,12 +7,12 @@ namespace GISharp.Lib.GObject
     [GISharp.Runtime.GTypeAttribute("GTypePlugin", IsProxyForUnmanagedType = true)]
     public unsafe partial interface ITypePlugin : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_type_plugin_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_type_plugin_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_type_plugin_get_type();
+        private static extern GISharp.Runtime.GType g_type_plugin_get_type();
     }
 
     /// <summary>
@@ -52,24 +52,24 @@ namespace GISharp.Lib.GObject
         /* <type name="TypePlugin" type="GTypePlugin*" managed-name="TypePlugin" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypePlugin.UnmanagedStruct* plugin,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType instanceType,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        GISharp.Runtime.GType instanceType,
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType interfaceType,
+        GISharp.Runtime.GType interfaceType,
         /* <type name="InterfaceInfo" type="GInterfaceInfo*" managed-name="InterfaceInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.InterfaceInfo* info);
-        static partial void CheckCompleteInterfaceInfoArgs(this GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType instanceType, GISharp.Lib.GObject.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info);
+        static partial void CheckCompleteInterfaceInfoArgs(this GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info);
 
-        /// <include file="TypePlugin.xmldoc" path="declaration/member[@name='TypePlugin.CompleteInterfaceInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.InterfaceInfo)']/*" />
-        public static void CompleteInterfaceInfo(this GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType instanceType, GISharp.Lib.GObject.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info)
+        /// <include file="TypePlugin.xmldoc" path="declaration/member[@name='TypePlugin.CompleteInterfaceInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Runtime.GType,GISharp.Lib.GObject.InterfaceInfo)']/*" />
+        public static void CompleteInterfaceInfo(this GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info)
         {
             CheckCompleteInterfaceInfoArgs(plugin, instanceType, interfaceType, info);
             var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
-            var instanceType_ = (GISharp.Lib.GObject.GType)instanceType;
-            var interfaceType_ = (GISharp.Lib.GObject.GType)interfaceType;
+            var instanceType_ = (GISharp.Runtime.GType)instanceType;
+            var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
             var info_ = &info;
             g_type_plugin_complete_interface_info(plugin_, instanceType_, interfaceType_, info_);
         }
@@ -98,23 +98,23 @@ namespace GISharp.Lib.GObject
         /* <type name="TypePlugin" type="GTypePlugin*" managed-name="TypePlugin" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypePlugin.UnmanagedStruct* plugin,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType gType,
+        GISharp.Runtime.GType gType,
         /* <type name="TypeInfo" type="GTypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeInfo* info,
         /* <type name="TypeValueTable" type="GTypeValueTable*" managed-name="TypeValueTable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeValueTable* valueTable);
-        static partial void CheckCompleteTypeInfoArgs(this GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable);
+        static partial void CheckCompleteTypeInfoArgs(this GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable);
 
-        /// <include file="TypePlugin.xmldoc" path="declaration/member[@name='TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)']/*" />
-        public static void CompleteTypeInfo(this GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable)
+        /// <include file="TypePlugin.xmldoc" path="declaration/member[@name='TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)']/*" />
+        public static void CompleteTypeInfo(this GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable)
         {
             CheckCompleteTypeInfoArgs(plugin, gType, info, valueTable);
             var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
-            var gType_ = (GISharp.Lib.GObject.GType)gType;
+            var gType_ = (GISharp.Runtime.GType)gType;
             var info_ = &info;
             var valueTable_ = &valueTable;
             g_type_plugin_complete_type_info(plugin_, gType_, info_, valueTable_);

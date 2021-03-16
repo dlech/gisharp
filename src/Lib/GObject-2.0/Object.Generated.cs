@@ -8,7 +8,7 @@ namespace GISharp.Lib.GObject
     [GISharp.Runtime.GTypeStructAttribute(typeof(ObjectClass))]
     public unsafe partial class Object : GISharp.Lib.GObject.TypeInstance
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_object_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_object_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
@@ -71,9 +71,9 @@ namespace GISharp.Lib.GObject
         /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_object_newv(
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType objectType,
+        GISharp.Runtime.GType objectType,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint nParameters,
@@ -82,16 +82,16 @@ namespace GISharp.Lib.GObject
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Parameter* parameters);
-        static partial void CheckNewvArgs(GISharp.Lib.GObject.GType objectType, System.ReadOnlySpan<GISharp.Lib.GObject.Parameter> parameters);
+        static partial void CheckNewvArgs(GISharp.Runtime.GType objectType, System.ReadOnlySpan<GISharp.Lib.GObject.Parameter> parameters);
 
         [System.ObsoleteAttribute("Use g_object_new_with_properties() instead.\ndeprecated. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
-        static GISharp.Lib.GObject.Object.UnmanagedStruct* Newv(GISharp.Lib.GObject.GType objectType, System.ReadOnlySpan<GISharp.Lib.GObject.Parameter> parameters)
+        static GISharp.Lib.GObject.Object.UnmanagedStruct* Newv(GISharp.Runtime.GType objectType, System.ReadOnlySpan<GISharp.Lib.GObject.Parameter> parameters)
         {
             fixed (GISharp.Lib.GObject.Parameter* parametersData_ = parameters)
             {
                 CheckNewvArgs(objectType, parameters);
-                var objectType_ = (GISharp.Lib.GObject.GType)objectType;
+                var objectType_ = (GISharp.Runtime.GType)objectType;
                 var parameters_ = (GISharp.Lib.GObject.Parameter*)parametersData_;
                 var nParameters_ = (uint)parameters.Length;
                 var ret_ = g_object_newv(objectType_,nParameters_,parameters_);
@@ -99,10 +99,10 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.Object(GISharp.Lib.GObject.GType,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Parameter&gt;)']/*" />
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.Object(GISharp.Runtime.GType,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Parameter&gt;)']/*" />
         [System.ObsoleteAttribute("Use g_object_new_with_properties() instead.\ndeprecated. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
-        public Object(GISharp.Lib.GObject.GType objectType, System.ReadOnlySpan<GISharp.Lib.GObject.Parameter> parameters) : this((System.IntPtr)Newv(objectType, parameters), GISharp.Runtime.Transfer.Full)
+        public Object(GISharp.Runtime.GType objectType, System.ReadOnlySpan<GISharp.Lib.GObject.Parameter> parameters) : this((System.IntPtr)Newv(objectType, parameters), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -298,9 +298,9 @@ System.IntPtr data);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_object_get_type();
+        private static extern GISharp.Runtime.GType g_object_get_type();
 
         /// <summary>
         /// Creates a binding between @source_property on @source and @target_property

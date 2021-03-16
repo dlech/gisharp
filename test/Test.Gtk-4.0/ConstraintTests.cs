@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,22 +12,22 @@ namespace GISharp.Test.Gtk
         [Test]
         public void ConstraintAttributeGType()
         {
-            var gtype = GType.Of<ConstraintAttribute>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkConstraintAttribute"));
+            var gtype = typeof(ConstraintAttribute).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkConstraintAttribute"));
         }
 
         [Test]
         public void ConstraintRelationGType()
         {
-            var gtype = GType.Of<ConstraintRelation>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkConstraintRelation"));
+            var gtype = typeof(ConstraintRelation).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkConstraintRelation"));
         }
 
         [Test]
         public void ConstraintStrengthGType()
         {
-            var gtype = GType.Of<ConstraintStrength>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkConstraintStrength"));
+            var gtype = typeof(ConstraintStrength).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkConstraintStrength"));
         }
     }
 }

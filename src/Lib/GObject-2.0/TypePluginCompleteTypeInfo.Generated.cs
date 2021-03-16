@@ -14,9 +14,9 @@ namespace GISharp.Lib.GObject
     /* <type name="TypePlugin" type="GTypePlugin*" managed-name="TypePlugin" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypePlugin.UnmanagedStruct* plugin,
-    /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+    /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
     /* transfer-ownership:none direction:in */
-    GISharp.Lib.GObject.GType gType,
+    GISharp.Runtime.GType gType,
     /* <type name="TypeInfo" type="GTypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypeInfo* info,
@@ -25,7 +25,7 @@ namespace GISharp.Lib.GObject
     GISharp.Lib.GObject.TypeValueTable* valueTable);
 
     /// <include file="TypePluginCompleteTypeInfo.xmldoc" path="declaration/member[@name='TypePluginCompleteTypeInfo']/*" />
-    public delegate void TypePluginCompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable);
+    public delegate void TypePluginCompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable);
 
     /// <summary>
     /// Class for marshalling <see cref="TypePluginCompleteTypeInfo"/> methods.
@@ -35,12 +35,12 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="TypePluginCompleteTypeInfo"/>.
         /// </summary>
-        public static GISharp.Lib.GObject.TypePluginCompleteTypeInfo FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Lib.GObject.GType, GISharp.Lib.GObject.TypeInfo*, GISharp.Lib.GObject.TypeValueTable*, void> callback_, System.IntPtr userData_)
+        public static GISharp.Lib.GObject.TypePluginCompleteTypeInfo FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Runtime.GType, GISharp.Lib.GObject.TypeInfo*, GISharp.Lib.GObject.TypeValueTable*, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable)
+            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable)
             {
                 var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
-                var gType_ = (GISharp.Lib.GObject.GType)gType;
+                var gType_ = (GISharp.Runtime.GType)gType;
                 var info_ = &info;
                 var valueTable_ = &valueTable;
                 callback_(plugin_, gType_, info_, valueTable_);

@@ -14,18 +14,18 @@ namespace GISharp.Lib.GObject
     /* <type name="TypePlugin" type="GTypePlugin*" managed-name="TypePlugin" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypePlugin.UnmanagedStruct* plugin,
-    /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+    /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
     /* transfer-ownership:none direction:in */
-    GISharp.Lib.GObject.GType instanceType,
-    /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+    GISharp.Runtime.GType instanceType,
+    /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
     /* transfer-ownership:none direction:in */
-    GISharp.Lib.GObject.GType interfaceType,
+    GISharp.Runtime.GType interfaceType,
     /* <type name="InterfaceInfo" type="GInterfaceInfo*" managed-name="InterfaceInfo" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.InterfaceInfo* info);
 
     /// <include file="TypePluginCompleteInterfaceInfo.xmldoc" path="declaration/member[@name='TypePluginCompleteInterfaceInfo']/*" />
-    public delegate void TypePluginCompleteInterfaceInfo(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType instanceType, GISharp.Lib.GObject.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info);
+    public delegate void TypePluginCompleteInterfaceInfo(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info);
 
     /// <summary>
     /// Class for marshalling <see cref="TypePluginCompleteInterfaceInfo"/> methods.
@@ -35,13 +35,13 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="TypePluginCompleteInterfaceInfo"/>.
         /// </summary>
-        public static GISharp.Lib.GObject.TypePluginCompleteInterfaceInfo FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Lib.GObject.GType, GISharp.Lib.GObject.GType, GISharp.Lib.GObject.InterfaceInfo*, void> callback_, System.IntPtr userData_)
+        public static GISharp.Lib.GObject.TypePluginCompleteInterfaceInfo FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Runtime.GType, GISharp.Runtime.GType, GISharp.Lib.GObject.InterfaceInfo*, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType instanceType, GISharp.Lib.GObject.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info)
+            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info)
             {
                 var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
-                var instanceType_ = (GISharp.Lib.GObject.GType)instanceType;
-                var interfaceType_ = (GISharp.Lib.GObject.GType)interfaceType;
+                var instanceType_ = (GISharp.Runtime.GType)instanceType;
+                var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
                 var info_ = &info;
                 callback_(plugin_, instanceType_, interfaceType_, info_);
             }

@@ -6,9 +6,9 @@
 <member name='TypeClass.AdjustPrivateOffset(System.IntPtr,int)'>
 </member>
 
-<member name='TypeClass.Peek(GISharp.Lib.GObject.GType)'>
+<member name='TypeClass.Peek(GISharp.Runtime.GType)'>
 <summary>
-This function is essentially the same as <see cref="TypeClass.Ref(GISharp.Lib.GObject.GType)"/>,
+This function is essentially the same as <see cref="TypeClass.Ref(GISharp.Runtime.GType)"/>,
 except that the classes reference count isn't incremented.
 As a consequence, this function may return <c>null</c> if the class
 of the type passed in does not currently exist (hasn't been
@@ -24,9 +24,9 @@ the <see cref="TypeClass"/>
 </returns>
 </member>
 
-<member name='TypeClass.PeekStatic(GISharp.Lib.GObject.GType)'>
+<member name='TypeClass.PeekStatic(GISharp.Runtime.GType)'>
 <summary>
-A more efficient version of <see cref="TypeClass.Peek(GISharp.Lib.GObject.GType)"/> which works only for
+A more efficient version of <see cref="TypeClass.Peek(GISharp.Runtime.GType)"/> which works only for
 static types.
 </summary>
 <param name="type">
@@ -39,7 +39,7 @@ the <see cref="TypeClass"/>
 </returns>
 </member>
 
-<member name='TypeClass.Ref(GISharp.Lib.GObject.GType)'>
+<member name='TypeClass.Ref(GISharp.Runtime.GType)'>
 <summary>
 Increments the reference count of the class structure belonging to
 <paramref name="type"/>. This function will demand-create the class if it doesn't
@@ -141,7 +141,7 @@ size of private structure
 </param>
 </member>
 
-<member name='TypeClass.GetPrivate(GISharp.Lib.GObject.GType)'>
+<member name='TypeClass.GetPrivate(GISharp.Runtime.GType)'>
 </member>
 
 <member name='TypeClass.PeekParent()'>

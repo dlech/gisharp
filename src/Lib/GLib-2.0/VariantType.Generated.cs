@@ -7,7 +7,7 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.GTypeAttribute("GVariantType", IsProxyForUnmanagedType = true)]
     public sealed unsafe partial class VariantType : GISharp.Runtime.Boxed, System.IEquatable<VariantType>
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_variant_type_get_gtype();
+        private static readonly GISharp.Runtime.GType _GType = g_variant_type_get_gtype();
 
         /// <summary>
         /// The unmanaged data structure.
@@ -408,9 +408,9 @@ byte* typeString);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_variant_type_get_gtype();
+        private static extern GISharp.Runtime.GType g_variant_type_get_gtype();
 
         /// <summary>
         /// Makes a copy of a #GVariantType.  It is appropriate to call

@@ -7,7 +7,7 @@ namespace GISharp.Lib.GObject
     [GISharp.Runtime.GTypeAttribute("GClosure", IsProxyForUnmanagedType = true)]
     public sealed unsafe partial class Closure : GISharp.Runtime.Boxed
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_closure_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_closure_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
@@ -195,9 +195,9 @@ namespace GISharp.Lib.GObject
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_closure_get_type();
+        private static extern GISharp.Runtime.GType g_closure_get_type();
 
         /// <summary>
         /// Sets a flag on the closure to indicate that its calling

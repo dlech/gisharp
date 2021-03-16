@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -13,15 +13,15 @@ namespace GISharp.Test.Gtk
         [Test]
         public void FileChooserActionGType()
         {
-            var gtype = GType.Of<FileChooserAction>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkFileChooserAction"));
+            var gtype = typeof(FileChooserAction).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkFileChooserAction"));
         }
 
         [Test]
         public void FileChooserErrorGType()
         {
-            var gtype = GType.Of<FileChooserError>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkFileChooserError"));
+            var gtype = typeof(FileChooserError).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkFileChooserError"));
         }
 
         [Test]

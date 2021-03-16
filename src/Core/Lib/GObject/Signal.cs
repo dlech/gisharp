@@ -815,7 +815,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static uint TryLookup<T>(UnownedUtf8 name)
         {
-            return TryLookup(name, GType.Of<T>());
+            return TryLookup(name, typeof(T).ToGType());
         }
 
         /// <summary>

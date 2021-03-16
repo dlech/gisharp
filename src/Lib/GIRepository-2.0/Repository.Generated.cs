@@ -8,7 +8,7 @@ namespace GISharp.Lib.GIRepository
     [GISharp.Runtime.GTypeStructAttribute(typeof(RepositoryClass))]
     public unsafe partial class Repository : GISharp.Lib.GObject.Object
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_irepository_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_irepository_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
@@ -187,9 +187,9 @@ byte* directory);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_irepository_get_type();
+        private static extern GISharp.Runtime.GType g_irepository_get_type();
 
         /// <summary>
         /// Obtain an unordered list of versions (either currently loaded or
@@ -297,17 +297,17 @@ byte* directory);
         /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType gtype);
-        partial void CheckFindByGtypeArgs(GISharp.Lib.GObject.GType gtype);
+        GISharp.Runtime.GType gtype);
+        partial void CheckFindByGtypeArgs(GISharp.Runtime.GType gtype);
 
-        /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.FindByGtype(GISharp.Lib.GObject.GType)']/*" />
-        public GISharp.Lib.GIRepository.BaseInfo FindByGtype(GISharp.Lib.GObject.GType gtype)
+        /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.FindByGtype(GISharp.Runtime.GType)']/*" />
+        public GISharp.Lib.GIRepository.BaseInfo FindByGtype(GISharp.Runtime.GType gtype)
         {
             CheckFindByGtypeArgs(gtype);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
-            var gtype_ = (GISharp.Lib.GObject.GType)gtype;
+            var gtype_ = (GISharp.Runtime.GType)gtype;
             var ret_ = g_irepository_find_by_gtype(repository_,gtype_);
             var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -655,9 +655,9 @@ byte* directory);
         /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType gtype,
+        GISharp.Runtime.GType gtype,
         /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* nInterfacesOut,
@@ -666,15 +666,15 @@ byte* directory);
 * </array> */
         /* direction:out caller-allocates:0 transfer-ownership:none */
         GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*** interfacesOut);
-        partial void CheckGetObjectGTypeInterfacesArgs(GISharp.Lib.GObject.GType gtype);
+        partial void CheckGetObjectGTypeInterfacesArgs(GISharp.Runtime.GType gtype);
 
-        /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.GetObjectGTypeInterfaces(GISharp.Lib.GObject.GType,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GIRepository.InterfaceInfo&gt;)']/*" />
+        /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.GetObjectGTypeInterfaces(GISharp.Runtime.GType,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GIRepository.InterfaceInfo&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("1.62")]
-        public void GetObjectGTypeInterfaces(GISharp.Lib.GObject.GType gtype, out GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GIRepository.InterfaceInfo> interfacesOut)
+        public void GetObjectGTypeInterfaces(GISharp.Runtime.GType gtype, out GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GIRepository.InterfaceInfo> interfacesOut)
         {
             CheckGetObjectGTypeInterfacesArgs(gtype);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
-            var gtype_ = (GISharp.Lib.GObject.GType)gtype;
+            var gtype_ = (GISharp.Runtime.GType)gtype;
             uint nInterfacesOut_;
             GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct** interfacesOut_;
             g_irepository_get_object_gtype_interfaces(repository_, gtype_, &nInterfacesOut_, &interfacesOut_);

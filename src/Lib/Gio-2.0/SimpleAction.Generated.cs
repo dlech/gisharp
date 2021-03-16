@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeAttribute("GSimpleAction", IsProxyForUnmanagedType = true)]
     public sealed unsafe partial class SimpleAction : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IAction
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_simple_action_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_simple_action_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
@@ -206,9 +206,9 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_simple_action_get_type();
+        private static extern GISharp.Runtime.GType g_simple_action_get_type();
 
         /// <summary>
         /// Sets the action as enabled or not.

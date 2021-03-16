@@ -3,7 +3,7 @@
 <member name='UnmanagedStruct.GClass'>
 </member>
 
-<member name='TypeInstance.GetPrivate(GISharp.Lib.GObject.GType)'>
+<member name='TypeInstance.GetPrivate(GISharp.Runtime.GType)'>
 </member>
 
 <member name='TypeInstance'>

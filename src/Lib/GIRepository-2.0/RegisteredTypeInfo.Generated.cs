@@ -14,7 +14,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <include file="RegisteredTypeInfo.xmldoc" path="declaration/member[@name='RegisteredTypeInfo.GType']/*" />
-        public GISharp.Lib.GObject.GType GType { get => GetGType(); }
+        public GISharp.Runtime.GType GType { get => GetGType(); }
 
         /// <include file="RegisteredTypeInfo.xmldoc" path="declaration/member[@name='RegisteredTypeInfo.TypeInit']/*" />
         public GISharp.Lib.GLib.UnownedUtf8 TypeInit { get => GetTypeInit(); }
@@ -43,20 +43,20 @@ namespace GISharp.Lib.GIRepository
         /// the #GType.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GObject.GType g_registered_type_info_get_g_type(
+        private static extern GISharp.Runtime.GType g_registered_type_info_get_g_type(
         /* <type name="RegisteredTypeInfo" type="GIRegisteredTypeInfo*" managed-name="RegisteredTypeInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct* info);
         partial void CheckGetGTypeArgs();
 
-        private GISharp.Lib.GObject.GType GetGType()
+        private GISharp.Runtime.GType GetGType()
         {
             CheckGetGTypeArgs();
             var info_ = (GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_registered_type_info_get_g_type(info_);
-            var ret = (GISharp.Lib.GObject.GType)ret_;
+            var ret = (GISharp.Runtime.GType)ret_;
             return ret;
         }
 

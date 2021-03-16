@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 
@@ -250,7 +250,7 @@ namespace GISharp.Test.GObject
             // Can't have enum without implementation
             Assert.That(() => new Value(GType.Enum), Throws.ArgumentException);
 
-            var gtype = GType.Of<ValueTestEnum>();
+            var gtype = typeof(ValueTestEnum).ToGType();
             Assume.That(gtype.Fundamental, Is.EqualTo(GType.Enum));
             var v = new Value(gtype);
             Assert.That(v.ValueGType, Is.EqualTo(gtype));
@@ -278,7 +278,7 @@ namespace GISharp.Test.GObject
             // Can't have flags without implementation
             Assert.That(() => new Value(GType.Flags), Throws.ArgumentException);
 
-            var gtype = GType.Of<ValueTestFlags>();
+            var gtype = typeof(ValueTestFlags).ToGType();
             Assume.That(gtype.Fundamental, Is.EqualTo(GType.Flags));
             var v = new Value(gtype);
             Assert.That(v.ValueGType, Is.EqualTo(gtype));
@@ -317,7 +317,7 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestParam()
         {
-            var v = new Value(GType.Of<ParamSpecBoolean>());
+            var v = new Value(typeof(ParamSpecBoolean).ToGType());
             Assert.That(v.ValueGType, Is.Not.EqualTo(GType.Param));
             Assert.That(v.ValueGType.Fundamental, Is.EqualTo(GType.Param));
             using var expected = new ParamSpecBoolean("test", "test", "test", false, default);
@@ -338,7 +338,7 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestBoxed()
         {
-            var v = new Value(GType.Of<Strv>());
+            var v = new Value(typeof(Strv).ToGType());
             Assert.That(v.ValueGType, Is.Not.EqualTo(GType.Boxed));
             Assert.That(v.ValueGType.Fundamental, Is.EqualTo(GType.Boxed));
             using var expected = new Strv();

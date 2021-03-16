@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -13,15 +13,15 @@ namespace GISharp.Test.Gtk
         [Test]
         public void BuilderClosureFlagsGType()
         {
-            var gtype = GType.Of<BuilderClosureFlags>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkBuilderClosureFlags"));
+            var gtype = typeof(BuilderClosureFlags).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkBuilderClosureFlags"));
         }
 
         [Test]
         public void BuilderErrorGType()
         {
-            var gtype = GType.Of<BuilderError>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkBuilderError"));
+            var gtype = typeof(BuilderError).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkBuilderError"));
         }
 
         [Test]

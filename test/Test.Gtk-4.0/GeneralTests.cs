@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,8 +12,8 @@ namespace GISharp.Test.Gtk
         [Test]
         public void DebugFlagsGType()
         {
-            var gtype = GType.Of<DebugFlags>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkDebugFlags"));
+            var gtype = typeof(DebugFlags).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkDebugFlags"));
         }
     }
 }

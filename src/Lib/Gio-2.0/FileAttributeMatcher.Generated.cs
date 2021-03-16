@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeAttribute("GFileAttributeMatcher", IsProxyForUnmanagedType = true)]
     public sealed unsafe partial class FileAttributeMatcher : GISharp.Runtime.Boxed
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_matcher_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_file_attribute_matcher_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
@@ -83,9 +83,9 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_file_attribute_matcher_get_type();
+        private static extern GISharp.Runtime.GType g_file_attribute_matcher_get_type();
 
         /// <summary>
         /// Checks if the matcher will match all of the keys in a given namespace.

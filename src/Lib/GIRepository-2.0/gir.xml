@@ -2871,7 +2871,7 @@ that the shared library which provides the type_init function for this
         <source-position filename="girepository/giregisteredtypeinfo.h" line="58" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="girepository/giregisteredtypeinfo.c" line="125">the #GType.</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters>
           <instance-parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
@@ -2889,7 +2889,7 @@ that the shared library which provides the type_init function for this
         <source-position filename="girepository/giregisteredtypeinfo.h" line="58" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="girepository/giregisteredtypeinfo.c" line="125">the #GType.</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters>
           <instance-parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
@@ -4078,7 +4078,7 @@ is the implementation for @info.</doc>
           </instance-parameter>
           <parameter name="implementor_gtype" transfer-ownership="none" gs:managed-name="implementorGtype" direction="in">
             <doc xml:space="preserve" filename="girepository/givfuncinfo.c" line="208">#GType implementing this virtual function</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error">
             <doc>return location for a #GError</doc>
@@ -4088,7 +4088,7 @@ is the implementation for @info.</doc>
         <gs:managed-parameters>
           <parameter name="implementor_gtype" transfer-ownership="none" gs:managed-name="implementorGtype" direction="in">
             <doc xml:space="preserve" filename="girepository/givfuncinfo.c" line="208">#GType implementing this virtual function</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -4793,7 +4793,7 @@ drops to 0, the info is freed.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_base_info_gtype_get_type" gs:access-modifiers="private" gs:dll-name="girepository-1.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -5157,13 +5157,13 @@ when you know the GType to originate from be from a loaded namespace.</doc>
           </instance-parameter>
           <parameter name="gtype" transfer-ownership="none" gs:managed-name="gtype" direction="in">
             <doc xml:space="preserve" filename="girepository/girepository.c" line="796">GType to search for</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="gtype" transfer-ownership="none" gs:managed-name="gtype" direction="in">
             <doc xml:space="preserve" filename="girepository/girepository.c" line="796">GType to search for</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -5427,7 +5427,7 @@ see at runtime, but not statically.</doc>
           </instance-parameter>
           <parameter name="gtype" transfer-ownership="none" gs:managed-name="gtype" direction="in">
             <doc xml:space="preserve" filename="girepository/girepository.c" line="984">a #GType whose fundamental type is G_TYPE_OBJECT</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="n_interfaces_out" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="nInterfacesOut">
             <doc xml:space="preserve" filename="girepository/girepository.c" line="985">Number of interfaces</doc>
@@ -5443,7 +5443,7 @@ see at runtime, but not statically.</doc>
         <gs:managed-parameters>
           <parameter name="gtype" transfer-ownership="none" gs:managed-name="gtype" direction="in">
             <doc xml:space="preserve" filename="girepository/girepository.c" line="984">a #GType whose fundamental type is G_TYPE_OBJECT</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="interfaces_out" direction="out" caller-allocates="0" transfer-ownership="none" gs:managed-name="interfacesOut">
             <doc xml:space="preserve" filename="girepository/girepository.c" line="986">Interfaces for @gtype</doc>
@@ -5730,7 +5730,7 @@ not specified, the latest will be used.</doc>
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_irepository_get_type" gs:access-modifiers="private" gs:dll-name="girepository-1.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />

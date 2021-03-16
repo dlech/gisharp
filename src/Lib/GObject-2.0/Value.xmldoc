@@ -129,7 +129,7 @@ Get the contents of a variant <see cref="Value"/>.
 </summary>
 </member>
 
-<member name='Value.TypeCompatible(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)'>
+<member name='Value.TypeCompatible(GISharp.Runtime.GType,GISharp.Runtime.GType)'>
 <summary>
 Returns whether a <see cref="Value"/> of type <paramref name="srcType"/> can be copied into
 a <see cref="Value"/> of type <paramref name="destType"/>.
@@ -145,7 +145,7 @@ destination type for copying.
 </returns>
 </member>
 
-<member name='Value.TypeTransformable(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)'>
+<member name='Value.TypeTransformable(GISharp.Runtime.GType,GISharp.Runtime.GType)'>
 <summary>
 Check whether <see cref="Value.Transform(GISharp.Lib.GObject.Value)"/> is able to transform values
 of type <paramref name="srcType"/> into values of type <paramref name="destType"/>. Note that for
@@ -214,7 +214,7 @@ This is an internal function introduced mainly for C marshallers.
 </returns>
 </member>
 
-<member name='Value.Init(GISharp.Lib.GObject.GType)'>
+<member name='Value.Init(GISharp.Runtime.GType)'>
 <summary>
 Initializes this instance with the default value of <c>type</c>.
 </summary>
@@ -236,7 +236,7 @@ value_table's collect_value() function.
 Note: The this instance will be initialised with the exact type of
 <paramref name="instance"/>.  If you wish to set the this instance's type to a different GType
 (such as a parent class GType), you need to manually call
-<see cref="Value.Init(GISharp.Lib.GObject.GType)"/> and <see cref="Value.SetInstance(System.IntPtr)"/>.
+<see cref="Value.Init(GISharp.Runtime.GType)"/> and <see cref="Value.SetInstance(System.IntPtr)"/>.
 </para>
 </remarks>
 <param name="instance">
@@ -413,7 +413,7 @@ to functions within a <see cref="TypeValueTable"/> structure, or implementations
 the g_value_*() API. That is, code portions which implement new fundamental
 types.
 <see cref="Value"/> users cannot make any assumptions about how data is stored
-within the 2 element <see cref="Data"/> union, and the <see cref="GType"/> member should
+within the 2 element <see cref="Data"/> union, and the <see cref="GISharp.Runtime.GType"/> member should
 only be accessed through the G_VALUE_TYPE() macro.
 </summary>
 </member>

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 
@@ -16,14 +16,14 @@ namespace GISharp.Test.GObject
         {
             // invalid because TestFlags1 does not have [GType] attribute so it
             // can't be registered
-            Assert.That(() => GType.Of<TestFlags1>(), Throws.ArgumentException);
+            Assert.That(() => typeof(TestFlags1).ToGType(), Throws.ArgumentException);
         }
 
         [Test]
         public void TestRegister2()
         {
             // invalid because underlying type is too big.
-            Assert.That(() => GType.Of<TestFlags2>(),
+            Assert.That(() => typeof(TestFlags2).ToGType(),
                 Throws.ArgumentException);
         }
 
@@ -32,7 +32,7 @@ namespace GISharp.Test.GObject
         {
             // invalid because IsProxyForUnmanagedType = true but there is not
             // a matching _GType property.
-            Assert.That(() => GType.Of<TestFlags3>(),
+            Assert.That(() => typeof(TestFlags3).ToGType(),
                 Throws.ArgumentException);
         }
 
@@ -40,19 +40,19 @@ namespace GISharp.Test.GObject
         public void TestRegister4()
         {
             // this should register successfully
-            var testFlags4GType = GType.Of<TestFlags4>();
+            var testFlags4GType = typeof(TestFlags4).ToGType();
             Assert.That(testFlags4GType, Is.Not.EqualTo(GType.Invalid),
                          "Failed to register flags");
 
             // make sure the type is not re-registed.
-            Assert.That(testFlags4GType, Is.EqualTo(GType.Of<TestFlags4>()));
+            Assert.That(testFlags4GType, Is.EqualTo(typeof(TestFlags4).ToGType()));
 
             // a couple more GType checks
-            Assert.That((Type)testFlags4GType, Is.EqualTo(typeof(TestFlags4)));
+            Assert.That(testFlags4GType.ToType(), Is.EqualTo(typeof(TestFlags4)));
             Assert.That(testFlags4GType.IsA(GType.Flags), Is.True);
 
             // make sure that we set the typename, value name and value nick
-            Assert.That<string?>(testFlags4GType.Name, Is.EqualTo("GISharp-Test-GObject-FlagsTests+TestFlags4"));
+            Assert.That(testFlags4GType.Name, Is.EqualTo("GISharp-Test-GObject-FlagsTests+TestFlags4"));
             using var flags4TypeClass = (FlagsClass)TypeClass.Get(testFlags4GType);
             var value = Flags.GetFirstValue(flags4TypeClass, 1);
             Assert.That(value.Value, Is.EqualTo((int)TestFlags4.One));
@@ -65,8 +65,8 @@ namespace GISharp.Test.GObject
         public void TestRegister5()
         {
             // make sure that we can override name and nick with attributes
-            var testFlags5GType = GType.Of<TestFlags5>();
-            Assert.That<string?>(testFlags5GType.Name, Is.EqualTo("TestFlags5GTypeName"));
+            var testFlags5GType = typeof(TestFlags5).ToGType();
+            Assert.That(testFlags5GType.Name, Is.EqualTo("TestFlags5GTypeName"));
             using var flags5TypeClass = (FlagsClass)TypeClass.Get(testFlags5GType);
             var value1 = Flags.GetFirstValue(flags5TypeClass, 1);
             Assert.That(value1.Value, Is.EqualTo((int)TestFlags5.One));

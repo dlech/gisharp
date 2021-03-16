@@ -383,9 +383,9 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestGType()
         {
-            var gtype = GType.Of<HashTable<OpaqueInt, OpaqueInt>>();
+            var gtype = typeof(HashTable<OpaqueInt, OpaqueInt>).ToGType();
             Assert.That(gtype, Is.Not.EqualTo(GType.Invalid));
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GHashTable"));
+            Assert.That(gtype.Name, Is.EqualTo("GHashTable"));
         }
     }
 }

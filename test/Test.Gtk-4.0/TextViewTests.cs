@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
@@ -12,29 +12,29 @@ namespace GISharp.Test.Gtk
         [Test]
         public void TextViewLayerGType()
         {
-            var gtype = GType.Of<TextViewLayer>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkTextViewLayer"));
+            var gtype = typeof(TextViewLayer).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkTextViewLayer"));
         }
 
         [Test]
         public void TextWindowTypeGType()
         {
-            var gtype = GType.Of<TextWindowType>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkTextWindowType"));
+            var gtype = typeof(TextWindowType).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkTextWindowType"));
         }
 
         [Test]
         public void TextExtendSelectionGType()
         {
-            var gtype = GType.Of<TextExtendSelection>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkTextExtendSelection"));
+            var gtype = typeof(TextExtendSelection).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkTextExtendSelection"));
         }
 
         [Test]
         public void WrapModeGType()
         {
-            var gtype = GType.Of<WrapMode>();
-            Assert.That<string?>(gtype.Name, Is.EqualTo("GtkWrapMode"));
+            var gtype = typeof(WrapMode).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkWrapMode"));
         }
     }
 }

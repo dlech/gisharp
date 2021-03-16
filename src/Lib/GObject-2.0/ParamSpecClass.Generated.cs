@@ -16,7 +16,7 @@ namespace GISharp.Lib.GObject
             public readonly GISharp.Lib.GObject.TypeClass.UnmanagedStruct GTypeClass;
 
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ValueType']/*" />
-            public readonly GISharp.Lib.GObject.GType ValueType;
+            public readonly GISharp.Runtime.GType ValueType;
 
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Finalize']/*" />
             public readonly System.IntPtr Finalize;

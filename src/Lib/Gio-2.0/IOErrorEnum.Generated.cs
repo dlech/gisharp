@@ -128,7 +128,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static unsafe partial class IOErrorEnumDomain
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_io_error_enum_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_io_error_enum_get_type();
 
         /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
@@ -191,8 +191,8 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_io_error_enum_get_type();
+        private static extern GISharp.Runtime.GType g_io_error_enum_get_type();
     }
 }

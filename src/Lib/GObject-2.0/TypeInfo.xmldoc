@@ -78,7 +78,7 @@ its instances.
 <para>
 The initialized structure is passed to the g_type_register_static() function
 (or is copied into the provided <see cref="TypeInfo"/> structure in the
-<see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/>). The type system will perform a deep
+<see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/>). The type system will perform a deep
 copy of this structure, so its memory does not need to be persistent
 across invocation of g_type_register_static().
 </para>

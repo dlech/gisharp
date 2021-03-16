@@ -29,11 +29,11 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static unsafe partial class FileMonitorFlagsExtensions
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_file_monitor_flags_get_type();
+        private static readonly GISharp.Runtime.GType _GType = g_file_monitor_flags_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GObject.GType g_file_monitor_flags_get_type();
+        private static extern GISharp.Runtime.GType g_file_monitor_flags_get_type();
     }
 }

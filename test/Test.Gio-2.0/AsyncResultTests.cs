@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 
 using System;
@@ -16,6 +16,13 @@ namespace GISharp.Test.Gio
 {
     public class AsyncResultTests : Tests
     {
+        [Test]
+        public void TestGType()
+        {
+            var gtype = typeof(IAsyncResult).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GAsyncResult"));
+        }
+
         [Test]
         public void TestGetSourceObject()
         {

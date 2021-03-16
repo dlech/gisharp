@@ -344,7 +344,7 @@ best performance.</doc>
       </property>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_binding_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -378,7 +378,7 @@ This enumeration can be extended at later date.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_binding_flags_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1100,7 +1100,7 @@ closure, then the closure will be destroyed and freed.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_closure_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -1280,7 +1280,7 @@ deprecated. See #GParameter for more information.</doc-deprecated>
         <parameters>
           <parameter name="object_type" transfer-ownership="none" gs:managed-name="objectType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3034">the type id of the #GObject subtype to instantiate</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="n_parameters" transfer-ownership="none" gs:managed-name="nParameters" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3035">the length of the @parameters array</doc>
@@ -1296,7 +1296,7 @@ deprecated. See #GParameter for more information.</doc-deprecated>
         <gs:managed-parameters>
           <parameter name="object_type" transfer-ownership="none" gs:managed-name="objectType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3034">the type id of the #GObject subtype to instantiate</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="parameters" transfer-ownership="none" gs:managed-name="parameters" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3036">an array of #GParameter</doc>
@@ -2400,7 +2400,7 @@ detail strings for the notify signal.</doc>
       </glib:signal>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_object_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -2451,7 +2451,7 @@ my_singleton_constructor (GType                  type,
           </return-value>
           <parameters>
             <parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
-              <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+              <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
             </parameter>
             <parameter name="n_construct_properties" transfer-ownership="none" gs:managed-name="nConstructProperties" direction="in">
               <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
@@ -2462,7 +2462,7 @@ my_singleton_constructor (GType                  type,
           </parameters>
           <gs:managed-parameters>
             <parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
-              <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+              <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
             </parameter>
             <parameter name="n_construct_properties" transfer-ownership="none" gs:managed-name="nConstructProperties" direction="in">
               <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
@@ -3392,11 +3392,11 @@ required to update user data pointers with a destroy notifier.</doc>
       </field>
       <field name="value_type" gs:managed-name="ValueType">
         <doc xml:space="preserve" filename="gparam.h" line="201">the #GValue type for this parameter</doc>
-        <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
       </field>
       <field name="owner_type" gs:managed-name="OwnerType">
         <doc xml:space="preserve" filename="gparam.h" line="202">#GType type that uses (introduces) this parameter</doc>
-        <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
       </field>
       <field name="_nick" readable="0" private="1" gs:managed-name="Nick">
         <type name="utf8" c:type="gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
@@ -3425,7 +3425,7 @@ g_param_type_register_static().</doc>
       </field>
       <field name="value_type" gs:managed-name="ValueType">
         <doc xml:space="preserve" filename="gparam.h" line="226">the #GValue type for this parameter</doc>
-        <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
       </field>
       <field name="finalize" gs:managed-name="Finalize">
         <type name="finalize" gs:dll-name="gobject-2.0" gs:managed-name="Finalize" />
@@ -3556,7 +3556,7 @@ types.</doc>
           </parameter>
           <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3903">a #GType identifying the owner of @pspec</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
@@ -3566,7 +3566,7 @@ types.</doc>
           </parameter>
           <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3903">a #GType identifying the owner of @pspec</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -3589,7 +3589,7 @@ the pool.</doc>
           </instance-parameter>
           <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3912">the owner to look for</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="n_pspecs_p" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="nPspecsP">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3913">return location for the length of the returned array</doc>
@@ -3599,7 +3599,7 @@ the pool.</doc>
         <gs:managed-parameters>
           <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3912">the owner to look for</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -3622,13 +3622,13 @@ the pool.</doc>
           </instance-parameter>
           <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3927">the owner to look for</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3927">the owner to look for</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -3651,7 +3651,7 @@ matching #GParamSpec was found.</doc>
           </parameter>
           <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3942">the owner to look for</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="walk_ancestors" transfer-ownership="none" gs:managed-name="walkAncestors" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3943">If %TRUE, also try to find a #GParamSpec with @param_name
@@ -3666,7 +3666,7 @@ matching #GParamSpec was found.</doc>
           </parameter>
           <parameter name="owner_type" transfer-ownership="none" gs:managed-name="ownerType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3942">the owner to look for</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="walk_ancestors" transfer-ownership="none" gs:managed-name="walkAncestors" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="3943">If %TRUE, also try to find a #GParamSpec with @param_name
@@ -3789,7 +3789,7 @@ stages of a signal emission.</doc>
       <doc xml:space="preserve" filename="gtype.h" line="403">An opaque structure used as the base of all classes.</doc>
       <source-position filename="gtype.h" line="412" />
       <field name="g_type" readable="0" private="1" gs:managed-name="GType">
-        <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
       </field>
       <method name="add_private" c:identifier="g_type_class_add_private" version="2.4" deprecated="1" deprecated-version="2.58" gs:dll-name="gobject-2.0" gs:managed-name="AddPrivate">
         <doc xml:space="preserve" filename="gobject-2.0.c" line="5235">Registers a private structure for an instantiatable type.
@@ -3888,12 +3888,12 @@ my_object_get_some_field (MyObject *my_object)
             <type name="TypeClass" c:type="GTypeClass*" gs:managed-name="TypeClass" gs:is-pointer="1" />
           </instance-parameter>
           <parameter name="private_type" transfer-ownership="none" gs:managed-name="privateType" direction="in">
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="private_type" transfer-ownership="none" gs:managed-name="privateType" direction="in">
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -3976,13 +3976,13 @@ referenced before).</doc>
         <parameters>
           <parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5330">type ID of a classed type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5330">type ID of a classed type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -3999,13 +3999,13 @@ static types.</doc>
         <parameters>
           <parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5365">type ID of a classed type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5365">type ID of a classed type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -4022,13 +4022,13 @@ exist already.</doc>
         <parameters>
           <parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5379">type ID of a classed type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5379">type ID of a classed type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -4109,12 +4109,12 @@ across invocation of g_type_register_static().</doc>
             <type name="TypeInstance" c:type="GTypeInstance*" gs:managed-name="TypeInstance" gs:is-pointer="1" />
           </instance-parameter>
           <parameter name="private_type" transfer-ownership="none" gs:managed-name="privateType" direction="in">
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="private_type" transfer-ownership="none" gs:managed-name="privateType" direction="in">
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -4123,10 +4123,10 @@ across invocation of g_type_register_static().</doc>
       <doc xml:space="preserve" filename="gtype.h" line="423">An opaque structure used as the base of all interface types.</doc>
       <source-position filename="gtype.h" line="433" />
       <field name="g_type" readable="0" private="1" gs:managed-name="GType">
-        <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
       </field>
       <field name="g_instance_type" readable="0" private="1" gs:managed-name="GInstanceType">
-        <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
       </field>
       <method name="peek_parent" c:identifier="g_type_interface_peek_parent" gs:dll-name="gobject-2.0" gs:managed-name="PeekParent">
         <doc xml:space="preserve" filename="gobject-2.0.c" line="5695">Returns the corresponding #GTypeInterface structure of the parent type
@@ -4162,21 +4162,21 @@ at most one instantiatable prerequisite type.</doc>
         <parameters>
           <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5655">#GType value of an interface type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="prerequisite_type" transfer-ownership="none" gs:managed-name="prerequisiteType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5656">#GType value of an interface or instantiatable type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5655">#GType value of an interface type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="prerequisite_type" transfer-ownership="none" gs:managed-name="prerequisiteType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5656">#GType value of an interface or instantiatable type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -4194,21 +4194,21 @@ not have a #GTypePlugin structure. See g_type_add_interface_dynamic().</doc>
         <parameters>
           <parameter name="instance_type" transfer-ownership="none" gs:managed-name="instanceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5668">#GType of an instantiatable type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5669">#GType of an interface type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="instance_type" transfer-ownership="none" gs:managed-name="instanceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5668">#GType of an instantiatable type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5669">#GType of an interface type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -4229,7 +4229,7 @@ passed in class conforms.</doc>
           </parameter>
           <parameter name="iface_type" transfer-ownership="none" gs:managed-name="ifaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5684">an interface ID which this class conforms to</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
@@ -4239,7 +4239,7 @@ passed in class conforms.</doc>
           </parameter>
           <parameter name="iface_type" transfer-ownership="none" gs:managed-name="ifaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5684">an interface ID which this class conforms to</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -4251,13 +4251,13 @@ passed in class conforms.</doc>
     newly-allocated zero-terminated array of #GType containing
     the prerequisites of @interface_type</doc>
           <array length="1" zero-terminated="0" c:type="GType*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </array>
         </return-value>
         <parameters>
           <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5713">an interface type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="n_prerequisites" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="nPrerequisites">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5714">location to return the number
@@ -4268,7 +4268,7 @@ passed in class conforms.</doc>
         <gs:managed-parameters>
           <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5713">an interface type</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -4337,11 +4337,11 @@ function outside of the GObject type system itself.</doc>
           <parameter name="instance_type" transfer-ownership="none" gs:managed-name="instanceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5930">the #GType of an instantiable type to which the interface
  is added</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5932">the #GType of the interface whose info is completed</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5933">the #GInterfaceInfo to fill in</doc>
@@ -4356,11 +4356,11 @@ function outside of the GObject type system itself.</doc>
           <parameter name="instance_type" transfer-ownership="none" gs:managed-name="instanceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5930">the #GType of an instantiable type to which the interface
  is added</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5932">the #GType of the interface whose info is completed</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5933">the #GInterfaceInfo to fill in</doc>
@@ -4383,7 +4383,7 @@ type system itself.</doc>
           </instance-parameter>
           <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5944">the #GType whose info is completed</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5945">the #GTypeInfo struct to fill in</doc>
@@ -4401,7 +4401,7 @@ type system itself.</doc>
           </instance-parameter>
           <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5944">the #GType whose info is completed</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="5945">the #GTypeInfo struct to fill in</doc>
@@ -4457,7 +4457,7 @@ the GObject type system itself.</doc>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_type_plugin_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -4505,11 +4505,11 @@ the lifecycle of dynamically loaded types.</doc>
         <parameter name="instance_type" transfer-ownership="none" gs:managed-name="instanceType" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="70">the #GType of an instantiable type to which the interface
  is added</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </parameter>
         <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="72">the #GType of the interface whose info is completed</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </parameter>
         <parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="73">the #GInterfaceInfo to fill in</doc>
@@ -4524,11 +4524,11 @@ the lifecycle of dynamically loaded types.</doc>
         <parameter name="instance_type" transfer-ownership="none" gs:managed-name="instanceType" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="70">the #GType of an instantiable type to which the interface
  is added</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </parameter>
         <parameter name="interface_type" transfer-ownership="none" gs:managed-name="interfaceType" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="72">the #GType of the interface whose info is completed</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </parameter>
         <parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="73">the #GInterfaceInfo to fill in</doc>
@@ -4549,7 +4549,7 @@ the lifecycle of dynamically loaded types.</doc>
         </parameter>
         <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="57">the #GType whose info is completed</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </parameter>
         <parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="58">the #GTypeInfo struct to fill in</doc>
@@ -4567,7 +4567,7 @@ the lifecycle of dynamically loaded types.</doc>
         </parameter>
         <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="57">the #GType whose info is completed</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </parameter>
         <parameter name="info" transfer-ownership="none" gs:managed-name="info" direction="in">
           <doc xml:space="preserve" filename="gtypeplugin.h" line="58">the #GTypeInfo struct to fill in</doc>
@@ -4811,7 +4811,7 @@ within the 2 element @data union, and the @g_type member should
 only be accessed through the G_VALUE_TYPE() macro.</doc>
       <source-position filename="gvalue.h" line="125" />
       <field name="g_type" readable="0" private="1" gs:managed-name="GType">
-        <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
       </field>
       <field name="data" writable="1" gs:managed-name="Data">
         <array zero-terminated="0" fixed-size="2" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
@@ -5130,7 +5130,7 @@ Get the contents of a %G_TYPE_CHAR #GValue.</doc>
         <source-position filename="gvaluetypes.h" line="275" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gobject-2.0.c" line="6416">the #GType stored in @value</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters>
           <instance-parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
@@ -5145,7 +5145,7 @@ Get the contents of a %G_TYPE_CHAR #GValue.</doc>
         <source-position filename="gvaluetypes.h" line="275" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gobject-2.0.c" line="6416">the #GType stored in @value</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters>
           <instance-parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
@@ -5559,13 +5559,13 @@ Get the contents of a %G_TYPE_CHAR #GValue.</doc>
           </instance-parameter>
           <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="6555">Type the #GValue should hold values of.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="6555">Type the #GValue should hold values of.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -5830,13 +5830,13 @@ This is an internal function introduced mainly for C marshallers.</doc>
           </instance-parameter>
           <parameter name="v_gtype" transfer-ownership="none" gs:managed-name="vGtype" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="6695">#GType to be set</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="v_gtype" transfer-ownership="none" gs:managed-name="vGtype" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="6695">#GType to be set</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -6417,21 +6417,21 @@ a #GValue of type @dest_type.</doc>
         <parameters>
           <parameter name="src_type" transfer-ownership="none" gs:managed-name="srcType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="7012">source type to be copied.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="dest_type" transfer-ownership="none" gs:managed-name="destType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="7013">destination type for copying.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="src_type" transfer-ownership="none" gs:managed-name="srcType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="7012">source type to be copied.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="dest_type" transfer-ownership="none" gs:managed-name="destType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="7013">destination type for copying.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -6448,27 +6448,27 @@ transformation function must be registered.</doc>
         <parameters>
           <parameter name="src_type" transfer-ownership="none" gs:managed-name="srcType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="7024">Source type.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="dest_type" transfer-ownership="none" gs:managed-name="destType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="7025">Target type.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="src_type" transfer-ownership="none" gs:managed-name="srcType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="7024">Source type.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
           <parameter name="dest_type" transfer-ownership="none" gs:managed-name="destType" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="7025">Target type.</doc>
-            <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+            <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
           </parameter>
         </gs:managed-parameters>
       </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_value_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />

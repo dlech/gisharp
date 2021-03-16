@@ -22,13 +22,13 @@ of dynamically loaded types. It goes as follows:
 </para>
 <para>
 2. The type's implementation is referenced, e.g. through
-   <see cref="TypeClass.Ref(GISharp.Lib.GObject.GType)"/> or through g_type_create_instance() (this is
+   <see cref="TypeClass.Ref(GISharp.Runtime.GType)"/> or through g_type_create_instance() (this is
    being called by g_object_new()) or through one of the above done on
    a type derived from <c>newTypeId</c>.
 </para>
 <para>
 3. This causes the type system to load the type's implementation by
-   calling <see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/>
+   calling <see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/>
    on <c>newTypePlugin</c>.
 </para>
 <para>
@@ -38,7 +38,7 @@ of dynamically loaded types. It goes as follows:
 </para>
 <para>
 5. This causes the type system to throw away the information retrieved
-   from <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> and then it calls
+   from <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> and then it calls
    <see cref="TypePlugin.Unuse(GISharp.Lib.GObject.ITypePlugin)"/> on <c>newTypePlugin</c>.
 </para>
 <para>
@@ -48,10 +48,10 @@ of dynamically loaded types. It goes as follows:
 So basically, you need to implement a <see cref="ITypePlugin"/> type that
 carries a use_count, once use_count goes from zero to one, you need
 to load the implementation to successfully handle the upcoming
-<see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> call. Later, maybe after
+<see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> call. Later, maybe after
 succeeding use/unuse calls, once use_count drops to zero, you can
 unload the implementation again. The type system makes sure to call
-<see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> again
+<see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> again
 when the type is needed again.
 </para>
 <para>
@@ -62,7 +62,7 @@ unloading. It even handles multiple registered types per module.
 </remarks>
 </member>
 
-<member name='TypePlugin.CompleteInterfaceInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.InterfaceInfo)'>
+<member name='TypePlugin.CompleteInterfaceInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Runtime.GType,GISharp.Lib.GObject.InterfaceInfo)'>
 <summary>
 Calls the <c>completeInterfaceInfo</c> function from the
 <see cref="TypePluginClass"/> of <paramref name="plugin"/>. There should be no need to use this
@@ -83,7 +83,7 @@ the <see cref="InterfaceInfo"/> to fill in
 </param>
 </member>
 
-<member name='TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)'>
+<member name='TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)'>
 <summary>
 Calls the <c>completeTypeInfo</c> function from the <see cref="TypePluginClass"/> of <paramref name="plugin"/>.
 There should be no need to use this function outside of the GObject
