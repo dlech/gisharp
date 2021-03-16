@@ -5,7 +5,7 @@ namespace GISharp.Lib.GIRepository
 {
     /// <include file="FieldInfoFlags.xmldoc" path="declaration/member[@name='FieldInfoFlags']/*" />
     [System.FlagsAttribute]
-    public enum FieldInfoFlags
+    public enum FieldInfoFlags : uint
     {
         /// <include file="FieldInfoFlags.xmldoc" path="declaration/member[@name='FieldInfoFlags.Readable']/*" />
         Readable = 0b0000_0000_0000_0000_0000_0000_0000_0001,

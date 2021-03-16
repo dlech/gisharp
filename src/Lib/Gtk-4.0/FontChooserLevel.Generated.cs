@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="FontChooserLevel.xmldoc" path="declaration/member[@name='FontChooserLevel']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkFontChooserLevel", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum FontChooserLevel
+    public enum FontChooserLevel : uint
     {
         /// <include file="FontChooserLevel.xmldoc" path="declaration/member[@name='FontChooserLevel.Family']/*" />
         Family = 0b0000_0000_0000_0000_0000_0000_0000_0000,

@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='FileAttributeInfoFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileAttributeInfoFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum FileAttributeInfoFlags
+    public enum FileAttributeInfoFlags : uint
     {
         /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='FileAttributeInfoFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="StyleContextPrintFlags.xmldoc" path="declaration/member[@name='StyleContextPrintFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkStyleContextPrintFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum StyleContextPrintFlags
+    public enum StyleContextPrintFlags : uint
     {
         /// <include file="StyleContextPrintFlags.xmldoc" path="declaration/member[@name='StyleContextPrintFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

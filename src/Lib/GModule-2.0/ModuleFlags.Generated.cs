@@ -5,7 +5,7 @@ namespace GISharp.Lib.GModule
 {
     /// <include file="ModuleFlags.xmldoc" path="declaration/member[@name='ModuleFlags']/*" />
     [System.FlagsAttribute]
-    public enum ModuleFlags
+    public enum ModuleFlags : uint
     {
         /// <include file="ModuleFlags.xmldoc" path="declaration/member[@name='ModuleFlags.Lazy']/*" />
         Lazy = 0b0000_0000_0000_0000_0000_0000_0000_0001,

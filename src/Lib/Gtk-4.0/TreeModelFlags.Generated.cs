@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="TreeModelFlags.xmldoc" path="declaration/member[@name='TreeModelFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkTreeModelFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum TreeModelFlags
+    public enum TreeModelFlags : uint
     {
         /// <include file="TreeModelFlags.xmldoc" path="declaration/member[@name='TreeModelFlags.ItersPersist']/*" />
         ItersPersist = 0b0000_0000_0000_0000_0000_0000_0000_0001,

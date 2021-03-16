@@ -5,7 +5,7 @@ namespace GISharp.Lib.GObject
 {
     /// <include file="SignalFlags.xmldoc" path="declaration/member[@name='SignalFlags']/*" />
     [System.FlagsAttribute]
-    public enum SignalFlags
+    public enum SignalFlags : uint
     {
         /// <include file="SignalFlags.xmldoc" path="declaration/member[@name='SignalFlags.RunFirst']/*" />
         RunFirst = 0b0000_0000_0000_0000_0000_0000_0000_0001,

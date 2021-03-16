@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags']/*" />
     [System.FlagsAttribute]
-    public enum OptionFlags
+    public enum OptionFlags : uint
     {
         /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags.None']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]

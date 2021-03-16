@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.28")]
     [GISharp.Runtime.GTypeAttribute("GIOStreamSpliceFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum IOStreamSpliceFlags
+    public enum IOStreamSpliceFlags : uint
     {
         /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='IOStreamSpliceFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

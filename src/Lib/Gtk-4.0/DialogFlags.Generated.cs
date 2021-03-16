@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="DialogFlags.xmldoc" path="declaration/member[@name='DialogFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkDialogFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum DialogFlags
+    public enum DialogFlags : uint
     {
         /// <include file="DialogFlags.xmldoc" path="declaration/member[@name='DialogFlags.Modal']/*" />
         Modal = 0b0000_0000_0000_0000_0000_0000_0000_0001,

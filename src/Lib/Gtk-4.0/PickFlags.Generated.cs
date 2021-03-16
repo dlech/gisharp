@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="PickFlags.xmldoc" path="declaration/member[@name='PickFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkPickFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum PickFlags
+    public enum PickFlags : uint
     {
         /// <include file="PickFlags.xmldoc" path="declaration/member[@name='PickFlags.Default']/*" />
         Default = 0b0000_0000_0000_0000_0000_0000_0000_0000,

@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="EventControllerScrollFlags.xmldoc" path="declaration/member[@name='EventControllerScrollFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkEventControllerScrollFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum EventControllerScrollFlags
+    public enum EventControllerScrollFlags : uint
     {
         /// <include file="EventControllerScrollFlags.xmldoc" path="declaration/member[@name='EventControllerScrollFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

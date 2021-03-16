@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.28")]
     [GISharp.Runtime.GTypeAttribute("GApplicationFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum ApplicationFlags
+    public enum ApplicationFlags : uint
     {
         /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.FlagsNone']/*" />
         FlagsNone = 0b0000_0000_0000_0000_0000_0000_0000_0000,

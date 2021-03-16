@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
     /// <include file="IOCondition.xmldoc" path="declaration/member[@name='IOCondition']/*" />
     [GISharp.Runtime.GTypeAttribute("GIOCondition", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum IOCondition
+    public enum IOCondition : uint
     {
         /// <include file="IOCondition.xmldoc" path="declaration/member[@name='IOCondition.In']/*" />
         In = 0b0000_0000_0000_0000_0000_0000_0000_0001,

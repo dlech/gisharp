@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.38")]
     [GISharp.Runtime.GTypeAttribute("GFileMeasureFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum FileMeasureFlags
+    public enum FileMeasureFlags : uint
     {
         /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='FileMeasureFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

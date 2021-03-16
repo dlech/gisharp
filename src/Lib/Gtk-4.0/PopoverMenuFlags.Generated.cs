@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="PopoverMenuFlags.xmldoc" path="declaration/member[@name='PopoverMenuFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkPopoverMenuFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum PopoverMenuFlags
+    public enum PopoverMenuFlags : uint
     {
         /// <include file="PopoverMenuFlags.xmldoc" path="declaration/member[@name='PopoverMenuFlags.Nested']/*" />
         Nested = 0b0000_0000_0000_0000_0000_0000_0000_0001

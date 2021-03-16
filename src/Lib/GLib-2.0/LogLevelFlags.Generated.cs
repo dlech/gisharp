@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags']/*" />
     [System.FlagsAttribute]
-    public enum LogLevelFlags
+    public enum LogLevelFlags : uint
     {
         /// <include file="LogLevelFlags.xmldoc" path="declaration/member[@name='LogLevelFlags.FlagRecursion']/*" />
         FlagRecursion = 0b0000_0000_0000_0000_0000_0000_0000_0001,

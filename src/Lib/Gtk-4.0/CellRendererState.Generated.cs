@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="CellRendererState.xmldoc" path="declaration/member[@name='CellRendererState']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkCellRendererState", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum CellRendererState
+    public enum CellRendererState : uint
     {
         /// <include file="CellRendererState.xmldoc" path="declaration/member[@name='CellRendererState.Selected']/*" />
         Selected = 0b0000_0000_0000_0000_0000_0000_0000_0001,

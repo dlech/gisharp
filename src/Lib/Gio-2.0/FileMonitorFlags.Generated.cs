@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='FileMonitorFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileMonitorFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum FileMonitorFlags
+    public enum FileMonitorFlags : uint
     {
         /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='FileMonitorFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

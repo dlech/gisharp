@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeyFileFlags']/*" />
     [System.FlagsAttribute]
-    public enum KeyFileFlags
+    public enum KeyFileFlags : uint
     {
         /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeyFileFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

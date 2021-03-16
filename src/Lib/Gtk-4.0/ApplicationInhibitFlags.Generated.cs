@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="ApplicationInhibitFlags.xmldoc" path="declaration/member[@name='ApplicationInhibitFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkApplicationInhibitFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum ApplicationInhibitFlags
+    public enum ApplicationInhibitFlags : uint
     {
         /// <include file="ApplicationInhibitFlags.xmldoc" path="declaration/member[@name='ApplicationInhibitFlags.Logout']/*" />
         Logout = 0b0000_0000_0000_0000_0000_0000_0000_0001,

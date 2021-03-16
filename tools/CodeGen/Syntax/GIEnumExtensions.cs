@@ -19,11 +19,17 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static EnumDeclarationSyntax GetEnumDeclaration(this GIEnum @enum)
         {
-            return EnumDeclaration(@enum.ManagedName)
+            var syntax = EnumDeclaration(@enum.ManagedName)
                 .AddModifiers(Token(PublicKeyword))
                 .WithAttributeLists(@enum.GetEnumAttributeLists())
                 .WithLeadingTrivia(@enum.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
+
+            if (@enum is Bitfield) {
+                syntax = syntax.AddBaseListTypes(SimpleBaseType(ParseTypeName("uint")));
+            }
+
+            return syntax;
         }
 
         static SyntaxList<AttributeListSyntax> GetEnumAttributeLists(this GIEnum @enum)

@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="IconLookupFlags.xmldoc" path="declaration/member[@name='IconLookupFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkIconLookupFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum IconLookupFlags
+    public enum IconLookupFlags : uint
     {
         /// <include file="IconLookupFlags.xmldoc" path="declaration/member[@name='IconLookupFlags.ForceRegular']/*" />
         ForceRegular = 0b0000_0000_0000_0000_0000_0000_0000_0001,

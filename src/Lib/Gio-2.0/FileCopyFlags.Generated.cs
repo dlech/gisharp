@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileCopyFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum FileCopyFlags
+    public enum FileCopyFlags : uint
     {
         /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

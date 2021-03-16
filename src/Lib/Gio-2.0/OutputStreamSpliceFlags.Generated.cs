@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='OutputStreamSpliceFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GOutputStreamSpliceFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum OutputStreamSpliceFlags
+    public enum OutputStreamSpliceFlags : uint
     {
         /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='OutputStreamSpliceFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

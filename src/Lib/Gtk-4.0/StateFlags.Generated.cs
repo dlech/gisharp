@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="StateFlags.xmldoc" path="declaration/member[@name='StateFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkStateFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum StateFlags
+    public enum StateFlags : uint
     {
         /// <include file="StateFlags.xmldoc" path="declaration/member[@name='StateFlags.Normal']/*" />
         Normal = 0b0000_0000_0000_0000_0000_0000_0000_0000,

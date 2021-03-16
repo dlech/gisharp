@@ -7,7 +7,7 @@ namespace GISharp.Lib.GObject
     [GISharp.Runtime.SinceAttribute("2.26")]
     [GISharp.Runtime.GTypeAttribute("GBindingFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum BindingFlags
+    public enum BindingFlags : uint
     {
         /// <include file="BindingFlags.xmldoc" path="declaration/member[@name='BindingFlags.Default']/*" />
         Default = 0b0000_0000_0000_0000_0000_0000_0000_0000,

@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="ShortcutActionFlags.xmldoc" path="declaration/member[@name='ShortcutActionFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkShortcutActionFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum ShortcutActionFlags
+    public enum ShortcutActionFlags : uint
     {
         /// <include file="ShortcutActionFlags.xmldoc" path="declaration/member[@name='ShortcutActionFlags.Exclusive']/*" />
         Exclusive = 0b0000_0000_0000_0000_0000_0000_0000_0001

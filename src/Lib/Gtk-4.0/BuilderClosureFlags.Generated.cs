@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="BuilderClosureFlags.xmldoc" path="declaration/member[@name='BuilderClosureFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkBuilderClosureFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum BuilderClosureFlags
+    public enum BuilderClosureFlags : uint
     {
         /// <include file="BuilderClosureFlags.xmldoc" path="declaration/member[@name='BuilderClosureFlags.Swapped']/*" />
         Swapped = 0b0000_0000_0000_0000_0000_0000_0000_0001

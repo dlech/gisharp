@@ -5,7 +5,7 @@ namespace GISharp.Lib.GIRepository
 {
     /// <include file="RepositoryLoadFlags.xmldoc" path="declaration/member[@name='RepositoryLoadFlags']/*" />
     [System.FlagsAttribute]
-    public enum RepositoryLoadFlags
+    public enum RepositoryLoadFlags : uint
     {
         /// <include file="RepositoryLoadFlags.xmldoc" path="declaration/member[@name='RepositoryLoadFlags.Lazy']/*" />
         Lazy = 0b0000_0000_0000_0000_0000_0000_0000_0001

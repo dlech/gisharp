@@ -5,7 +5,7 @@ namespace GISharp.Lib.GObject
 {
     /// <include file="ParamFlags.xmldoc" path="declaration/member[@name='ParamFlags']/*" />
     [System.FlagsAttribute]
-    public enum ParamFlags
+    public enum ParamFlags : uint
     {
         /// <include file="ParamFlags.xmldoc" path="declaration/member[@name='ParamFlags.Readable']/*" />
         Readable = 0b0000_0000_0000_0000_0000_0000_0000_0001,

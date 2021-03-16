@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="FileQueryInfoFlags.xmldoc" path="declaration/member[@name='FileQueryInfoFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileQueryInfoFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum FileQueryInfoFlags
+    public enum FileQueryInfoFlags : uint
     {
         /// <include file="FileQueryInfoFlags.xmldoc" path="declaration/member[@name='FileQueryInfoFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

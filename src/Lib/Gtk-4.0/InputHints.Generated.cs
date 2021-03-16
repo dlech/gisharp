@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="InputHints.xmldoc" path="declaration/member[@name='InputHints']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkInputHints", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum InputHints
+    public enum InputHints : uint
     {
         /// <include file="InputHints.xmldoc" path="declaration/member[@name='InputHints.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="DebugFlags.xmldoc" path="declaration/member[@name='DebugFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkDebugFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum DebugFlags
+    public enum DebugFlags : uint
     {
         /// <include file="DebugFlags.xmldoc" path="declaration/member[@name='DebugFlags.Text']/*" />
         Text = 0b0000_0000_0000_0000_0000_0000_0000_0001,

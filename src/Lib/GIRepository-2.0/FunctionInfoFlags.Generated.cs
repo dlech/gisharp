@@ -5,7 +5,7 @@ namespace GISharp.Lib.GIRepository
 {
     /// <include file="FunctionInfoFlags.xmldoc" path="declaration/member[@name='FunctionInfoFlags']/*" />
     [System.FlagsAttribute]
-    public enum FunctionInfoFlags
+    public enum FunctionInfoFlags : uint
     {
         /// <include file="FunctionInfoFlags.xmldoc" path="declaration/member[@name='FunctionInfoFlags.IsMethod']/*" />
         IsMethod = 0b0000_0000_0000_0000_0000_0000_0000_0001,

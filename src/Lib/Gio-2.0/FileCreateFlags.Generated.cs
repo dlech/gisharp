@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='FileCreateFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileCreateFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum FileCreateFlags
+    public enum FileCreateFlags : uint
     {
         /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='FileCreateFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,

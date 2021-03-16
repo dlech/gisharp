@@ -5,7 +5,7 @@ namespace GISharp.Lib.GIRepository
 {
     /// <include file="VFuncInfoFlags.xmldoc" path="declaration/member[@name='VFuncInfoFlags']/*" />
     [System.FlagsAttribute]
-    public enum VFuncInfoFlags
+    public enum VFuncInfoFlags : uint
     {
         /// <include file="VFuncInfoFlags.xmldoc" path="declaration/member[@name='VFuncInfoFlags.MustChainUp']/*" />
         MustChainUp = 0b0000_0000_0000_0000_0000_0000_0000_0001,

@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     /// <include file="TextSearchFlags.xmldoc" path="declaration/member[@name='TextSearchFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GtkTextSearchFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
-    public enum TextSearchFlags
+    public enum TextSearchFlags : uint
     {
         /// <include file="TextSearchFlags.xmldoc" path="declaration/member[@name='TextSearchFlags.VisibleOnly']/*" />
         VisibleOnly = 0b0000_0000_0000_0000_0000_0000_0000_0001,
