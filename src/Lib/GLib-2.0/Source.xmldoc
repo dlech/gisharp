@@ -417,13 +417,13 @@ context. It is safe to call this on sources which have already been
 removed from their context.
 </summary>
 <remarks>
-<p>
+<para>
 This does not dispose the <see cref="Source"/> object.
-</p>
-<p>
+</para>
+<para>
 This function is safe to call from any thread, regardless of which thread
 the <see cref="MainContext"/> is running in.
-</p>
+</para>
 </remarks>
 </member>
 
@@ -535,17 +535,17 @@ Sets the callback function for a source. The callback for a source is
 called from the source's dispatch function.
 </summary>
 <remarks>
-<p>
+<para>
 The exact type of <paramref name="func"/> depends on the type of source; ie.
 the source may not be compatible with <see cref="SourceFunc"/> in which case
 you must not call this function. Instead use functions specific
 to the type of source you are using, such as <see cref="Idle.Add(SourceFunc,int)"/> or <see cref="Timeout.Add"/>.
-</p>
-<p>
+</para>
+<para>
 It is safe to call this function multiple times on a source which has already
 been attached to a context. The changes will take effect for the next time
 the source is dispatched after this call returns.
-</p>
+</para>
 </remarks>
 <param name="func">
 a callback function
