@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 
 using GISharp.Lib.Gio;
@@ -12,11 +12,10 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestEverything()
         {
-            using (var expected = IIcon.NewForString("file"))
-            using (var serialized = expected.Serialize())
-            using (var actual = IIcon.Deserialize(serialized)) {
-                Assert.That(expected, Is.EqualTo(actual));
-            }
+            using var expected = IIcon.NewForString("file");
+            using var serialized = expected.Serialize();
+            using var actual = IIcon.Deserialize(serialized);
+            Assert.That(expected, Is.EqualTo(actual));
         }
     }
 }

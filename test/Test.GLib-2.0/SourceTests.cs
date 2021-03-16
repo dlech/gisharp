@@ -63,7 +63,7 @@ namespace GISharp.Test.GLib
             }
         }
 
-        static PollFD testPollFD = default;
+        static readonly PollFD testPollFD = default;
 
         [Test]
         public void TestPollFD()

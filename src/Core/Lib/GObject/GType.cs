@@ -1174,9 +1174,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public TypeQuery Query()
         {
-            TypeQuery query;
-            g_type_query(this, out query);
-
+            g_type_query(this, out TypeQuery query);
             return query;
         }
 

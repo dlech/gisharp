@@ -167,7 +167,7 @@ namespace GISharp.Lib.GObject
         {
             if (sizeofClosure < sizeOfStruct) {
                 const string message = "size must be at least as big as Closure.Struct";
-                throw new ArgumentOutOfRangeException(message, nameof(sizeofClosure));
+                throw new ArgumentOutOfRangeException(nameof(sizeofClosure), message);
             }
             var object_ = @object.UnsafeHandle;
             var ret = g_closure_new_object((uint)sizeofClosure, object_);
