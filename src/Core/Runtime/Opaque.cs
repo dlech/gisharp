@@ -8,7 +8,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GObject;
-using GISharp.Lib.GLib;
 
 using Object = GISharp.Lib.GObject.Object;
 

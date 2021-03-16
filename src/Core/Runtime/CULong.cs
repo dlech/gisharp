@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
-
 using System;
 
 namespace GISharp.Runtime

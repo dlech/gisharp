@@ -3,7 +3,6 @@
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.Gtk;
-using GISharp.Runtime;
 using NUnit.Framework;
 
 namespace GISharp.Test.Gtk

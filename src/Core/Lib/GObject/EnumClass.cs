@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2017-2020 David Lechner <david@lechnology.com>
 
-
 using System;
 using System.ComponentModel;
 using GISharp.Runtime;
 
-namespace GISharp.Lib.GObject {
+namespace GISharp.Lib.GObject
+{
 
     /// <summary>
     /// The class of an enumeration type holds information about its
@@ -20,7 +20,7 @@ namespace GISharp.Lib.GObject {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             /// <summary>
             /// the parent class
             /// </summary>
@@ -46,14 +46,14 @@ namespace GISharp.Lib.GObject {
             ///  individual values.
             /// </summary>
             public IntPtr Values;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public EnumClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public EnumClass(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
     }

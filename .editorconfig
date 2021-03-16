@@ -7,6 +7,9 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+dotnet_diagnostic.IDE0005.severity = suggestion # remove unused using
+dotnet_diagnostic.IDE0060.severity = silent # Remove unused parameter
+
 [*.yml]
 end_of_line = lf
 indent_size = 2

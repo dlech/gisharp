@@ -2,10 +2,8 @@
 // Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using GISharp.Runtime;
 
 namespace GISharp.CodeGen.Gir
 {

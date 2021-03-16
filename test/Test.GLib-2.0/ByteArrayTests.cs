@@ -2,10 +2,10 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
+using System.Runtime.InteropServices;
 
 using NUnit.Framework;
 using GISharp.Lib.GLib;
-using System.Runtime.InteropServices;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 

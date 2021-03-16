@@ -4,12 +4,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace GISharp.Lib.GLib
 {

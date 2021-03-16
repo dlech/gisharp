@@ -3,12 +3,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Collections;
 
 using GISharp.Runtime;
-using System.ComponentModel;
 
 namespace GISharp.Lib.GLib
 {

@@ -3,7 +3,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
@@ -18,7 +17,7 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public InitiallyUnownedClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public InitiallyUnownedClass(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
     }

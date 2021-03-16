@@ -1,16 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
 
-
-
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Linq;
-using GISharp.Lib.GObject;
-using GISharp.Runtime;
 using GISharp.Lib.GLib;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

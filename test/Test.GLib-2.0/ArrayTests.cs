@@ -7,7 +7,6 @@ using System.Runtime.InteropServices;
 using NUnit.Framework;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
-using GISharp.Runtime;
 
 namespace GISharp.Test.GLib
 {

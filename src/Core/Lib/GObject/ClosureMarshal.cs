@@ -2,9 +2,7 @@
 // Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
 
 using System;
-using System.Linq;
 using System.Runtime.InteropServices;
-using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject

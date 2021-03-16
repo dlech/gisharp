@@ -2,11 +2,7 @@
 // Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
-
-using static System.Reflection.BindingFlags;
 
 namespace GISharp.CodeGen.Gir
 {
