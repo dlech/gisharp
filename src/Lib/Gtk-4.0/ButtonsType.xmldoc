@@ -43,9 +43,11 @@ none of these choices are appropriate, simply use <see cref="ButtonsType.None"/>
 then call gtk_dialog_add_buttons().
 </summary>
 <remarks>
+<para>
 &gt; Please note that <see cref="ButtonsType.Ok"/>, <see cref="ButtonsType.YesNo"/>
 &gt; and <see cref="ButtonsType.OkCancel"/> are discouraged by the
 &gt; [GNOME Human Interface Guidelines](http://library.gnome.org/devel/hig-book/stable/).
+</para>
 </remarks>
 </member>
 

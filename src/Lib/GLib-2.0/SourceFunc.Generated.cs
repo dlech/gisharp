@@ -8,9 +8,11 @@ namespace GISharp.Lib.GLib
     /// g_timeout_add_full(), g_idle_add(), and g_idle_add_full().
     /// </summary>
     /// <remarks>
+    /// <para>
     /// When calling g_source_set_callback(), you may need to cast a function of a
     /// different type to this type. Use G_SOURCE_FUNC() to avoid warnings about
     /// incompatible function types.
+    /// </para>
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]

@@ -70,9 +70,11 @@ deprecated or not.
 Compare two <see cref="BaseInfo"/>.
 </summary>
 <remarks>
+<para>
 Using pointer comparison is not practical since many functions return
 different instances of <see cref="BaseInfo"/> that refers to the same part of the
 TypeLib; use this function instead to do <see cref="BaseInfo"/> comparisons.
+</para>
 </remarks>
 <param name="info2">
 a <see cref="BaseInfo"/>
@@ -112,6 +114,7 @@ GIBaseInfos are normally accessed by calling either
 <see cref="Repository.FindByName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Lib.GObject.GType)"/> or <see cref="Repository.GetInfo(GISharp.Lib.GLib.UnownedUtf8,int)"/>.
 </summary>
 <remarks>
+<para>
 &lt;example&gt;
 &lt;title&gt;Getting the Button of the Gtk typelib&lt;/title&gt;
 &lt;programlisting&gt;
@@ -120,7 +123,8 @@ GIBaseInfos are normally accessed by calling either
    g_base_info_unref(button_info);
 &lt;/programlisting&gt;
 &lt;/example&gt;
-
+</para>
+<para>
 &lt;refsect1 id="gi-gibaseinfo.struct-hierarchy" role="struct_hierarchy"&gt;
 &lt;title role="struct_hierarchy.title"&gt;Struct hierarchy&lt;/title&gt;
 &lt;synopsis&gt;
@@ -134,6 +138,7 @@ GIBaseInfos are normally accessed by calling either
    +----&lt;link linkend="gi-GITypeInfo"&gt;GITypeInfo&lt;/link&gt;
 &lt;/synopsis&gt;
 &lt;/refsect1&gt;
+</para>
 </remarks>
 </member>
 

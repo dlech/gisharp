@@ -24,18 +24,22 @@ Tests if the length of the stream can be adjusted with
 Seeks in the stream by the given <paramref name="offset"/>, modified by <paramref name="type"/>.
 </summary>
 <remarks>
+<para>
 Attempting to seek past the end of the stream will have different
 results depending on if the stream is fixed-sized or resizable.  If
 the stream is resizable then seeking past the end and then writing
 will result in zeros filling the empty space.  Seeking past the end
 of a resizable stream and reading will result in EOF.  Seeking past
 the end of a fixed-sized stream will fail.
-
+</para>
+<para>
 Any operation that would result in a negative offset will fail.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="offset">
 a #goffset.
@@ -72,11 +76,13 @@ larger than <paramref name="offset"/>, the extra data is discarded. If the strea
 previously shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
+</para>
 </remarks>
 <param name="offset">
 new length for this instance, in bytes.
@@ -100,17 +106,21 @@ On error
 <see cref="InputStream"/> or <see cref="OutputStream"/>) that support seeking.
 </summary>
 <remarks>
+<para>
 Seekable streams largely fall into two categories: resizable and
 fixed-size.
-
+</para>
+<para>
 <see cref="ISeekable"/> on fixed-sized streams is approximately the same as POSIX
 lseek() on a block device (for example: attempting to seek past the
 end of the device is an error).  Fixed streams typically cannot be
 truncated.
-
+</para>
+<para>
 <see cref="ISeekable"/> on resizable streams is approximately the same as POSIX
 lseek() on a normal file.  Seeking past the end and writing data will
 usually cause the stream to resize by introducing zero bytes.
+</para>
 </remarks>
 </member>
 
@@ -144,18 +154,22 @@ a <see cref="ISeekable"/>.
 Seeks in the stream by the given <paramref name="offset"/>, modified by <paramref name="type"/>.
 </summary>
 <remarks>
+<para>
 Attempting to seek past the end of the stream will have different
 results depending on if the stream is fixed-sized or resizable.  If
 the stream is resizable then seeking past the end and then writing
 will result in zeros filling the empty space.  Seeking past the end
 of a resizable stream and reading will result in EOF.  Seeking past
 the end of a fixed-sized stream will fail.
-
+</para>
+<para>
 Any operation that would result in a negative offset will fail.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="seekable">
 a <see cref="ISeekable"/>.
@@ -193,11 +207,13 @@ larger than <paramref name="offset"/>, the extra data is discarded. If the strea
 previously shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
+</para>
 </remarks>
 <param name="seekable">
 a <see cref="ISeekable"/>.

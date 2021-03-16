@@ -11,13 +11,17 @@
 Frees the resources allocated to a mutex with <see cref="Mutex.Init()"/>.
 </summary>
 <remarks>
+<para>
 This function should not be used with a <see cref="Mutex"/> that has been
 statically allocated.
-
+</para>
+<para>
 Calling <see cref="Mutex.Clear()"/> on a locked mutex leads to undefined
 behaviour.
-
+</para>
+<para>
 Sine: 2.32
+</para>
 </remarks>
 </member>
 
@@ -26,28 +30,35 @@ Sine: 2.32
 Initializes a <see cref="Mutex"/> so that it can be used.
 </summary>
 <remarks>
+<para>
 This function is useful to initialize a mutex that has been
 allocated on the stack, or as part of a larger structure.
 It is not necessary to initialize a mutex that has been
 statically allocated.
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
   typedef struct {
     GMutex m;
     ...
   } Blob;
-
+</para>
+<para>
 Blob *b;
-
+</para>
+<para>
 b = g_new (Blob, 1);
 g_mutex_init (&amp;b-&gt;m);
 ]|
-
+</para>
+<para>
 To undo the effect of <see cref="Mutex.Init()"/> when a mutex is no longer
 needed, use <see cref="Mutex.Clear()"/>.
-
+</para>
+<para>
 Calling <see cref="Mutex.Init()"/> on an already initialized <see cref="Mutex"/> leads
 to undefined behaviour.
+</para>
 </remarks>
 </member>
 
@@ -58,10 +69,12 @@ current thread will block until this instance is unlocked by the other
 thread.
 </summary>
 <remarks>
+<para>
 <see cref="Mutex"/> is neither guaranteed to be recursive nor to be
 non-recursive.  As such, calling <see cref="Mutex.Lock()"/> on a <see cref="Mutex"/> that has
 already been locked by the same thread results in undefined behaviour
 (including but not limited to deadlocks).
+</para>
 </remarks>
 </member>
 
@@ -72,10 +85,12 @@ it immediately returns <c>false</c>. Otherwise it locks this instance and return
 <c>true</c>.
 </summary>
 <remarks>
+<para>
 <see cref="Mutex"/> is neither guaranteed to be recursive nor to be
 non-recursive.  As such, calling <see cref="Mutex.Lock()"/> on a <see cref="Mutex"/> that has
 already been locked by the same thread results in undefined behaviour
 (including but not limited to deadlocks or arbitrary return values).
+</para>
 </remarks>
 <returns>
 <c>true</c> if this instance could be locked
@@ -88,8 +103,10 @@ Unlocks this instance. If another thread is blocked in a <see cref="Mutex.Lock()
 call for this instance, it will become unblocked and can lock this instance itself.
 </summary>
 <remarks>
+<para>
 Calling <see cref="Mutex.Unlock()"/> on a mutex that is not locked by the
 current thread leads to undefined behaviour.
+</para>
 </remarks>
 </member>
 
@@ -100,17 +117,20 @@ The <see cref="Mutex"/> struct is an opaque data structure to represent a mutex
 access.
 </summary>
 <remarks>
+<para>
 Take for example the following function:
 |[&lt;!-- language="C" --&gt;
   int
   give_me_next_number (void)
   {
     static int current_number = 0;
-
+</para>
+<para>
     // now do a very complicated calculation to calculate the new
     // number, this might for example be a random number generator
     current_number = calc_next_number (current_number);
-
+</para>
+<para>
     return current_number;
   }
 ]|
@@ -124,22 +144,27 @@ access. A <see cref="Mutex"/> can be used as a solution to this problem:
     static GMutex mutex;
     static int current_number = 0;
     int ret_val;
-
+</para>
+<para>
     g_mutex_lock (&amp;mutex);
     ret_val = current_number = calc_next_number (current_number);
     g_mutex_unlock (&amp;mutex);
-
+</para>
+<para>
     return ret_val;
   }
 ]|
 Notice that the <see cref="Mutex"/> is not initialised to any particular value.
 Its placement in static storage ensures that it will be initialised
 to all-zeros, which is appropriate.
-
+</para>
+<para>
 If a <see cref="Mutex"/> is placed in other contexts (eg: embedded in a struct)
 then it must be explicitly initialised using <see cref="Mutex.Init()"/>.
-
+</para>
+<para>
 A <see cref="Mutex"/> should only be accessed via g_mutex_ functions.
+</para>
 </remarks>
 </member>
 

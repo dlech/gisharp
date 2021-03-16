@@ -106,11 +106,14 @@ namespace GISharp.Lib.Gio
         /// Creates a new #GApplication instance.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If non-%NULL, the application id must be valid.  See
         /// g_application_id_is_valid().
-        /// 
+        /// </para>
+        /// <para>
         /// If no application ID is given then some features of #GApplication
         /// (most notably application uniqueness) will be disabled.
+        /// </para>
         /// </remarks>
         /// <param name="applicationId">
         /// the application id
@@ -342,11 +345,14 @@ namespace GISharp.Lib.Gio
         /// Returns the default #GApplication instance for this process.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Normally there is only one #GApplication per process and it becomes
         /// the default when it is created.  You can exercise more control over
         /// this by using g_application_set_default().
-        /// 
+        /// </para>
+        /// <para>
         /// If there is no default application then %NULL is returned.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// the default application for this process, or %NULL
@@ -371,28 +377,36 @@ namespace GISharp.Lib.Gio
         /// Checks if @application_id is a valid application identifier.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// A valid ID is required for calls to g_application_new() and
         /// g_application_set_application_id().
-        /// 
+        /// </para>
+        /// <para>
         /// Application identifiers follow the same format as
         /// [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
         /// For convenience, the restrictions on application identifiers are
         /// reproduced here:
-        /// 
+        /// </para>
+        /// <para>
         /// - Application identifiers are composed of 1 or more elements separated by a
         ///   period (`.`) character. All elements must contain at least one character.
-        /// 
+        /// </para>
+        /// <para>
         /// - Each element must only contain the ASCII characters `[A-Z][a-z][0-9]_-`,
         ///   with `-` discouraged in new application identifiers. Each element must not
         ///   begin with a digit.
-        /// 
+        /// </para>
+        /// <para>
         /// - Application identifiers must contain at least one `.` (period) character
         ///   (and thus at least two elements).
-        /// 
+        /// </para>
+        /// <para>
         /// - Application identifiers must not begin with a `.` (period) character.
-        /// 
+        /// </para>
+        /// <para>
         /// - Application identifiers must not exceed 255 characters.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that the hyphen (`-`) character is allowed in application identifiers,
         /// but is problematic or not allowed in various specifications and APIs that
         /// refer to D-Bus, such as
@@ -403,17 +417,20 @@ namespace GISharp.Lib.Gio
         /// resemble its application identifier and bus name. To avoid situations that
         /// require special-case handling, it is recommended that new application
         /// identifiers consistently replace hyphens with underscores.
-        /// 
+        /// </para>
+        /// <para>
         /// Like D-Bus interface names, application identifiers should start with the
         /// reversed DNS domain name of the author of the interface (in lower-case), and
         /// it is conventional for the rest of the application identifier to consist of
         /// words run together, with initial capital letters.
-        /// 
+        /// </para>
+        /// <para>
         /// As with D-Bus interface names, if the author's DNS domain name contains
         /// hyphen/minus characters they should be replaced by underscores, and if it
         /// contains leading digits they should be escaped by prepending an underscore.
         /// For example, if the owner of 7-zip.org used an application identifier for an
         /// archiving application, it might be named `org._7_zip.Archiver`.
+        /// </para>
         /// </remarks>
         /// <param name="applicationId">
         /// a potential application identifier
@@ -449,10 +466,13 @@ namespace GISharp.Lib.Gio
         /// Activates the application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In essence, this results in the #GApplication::activate signal being
         /// emitted in the primary instance.
-        /// 
+        /// </para>
+        /// <para>
         /// The application must be registered before calling this function.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -480,17 +500,21 @@ namespace GISharp.Lib.Gio
         /// Add an option to be handled by @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Calling this function is the equivalent of calling
         /// g_application_add_main_option_entries() with a single #GOptionEntry
         /// that has its arg_data member set to %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// The parsed arguments will be packed into a #GVariantDict which
         /// is passed to #GApplication::handle-local-options. If
         /// %G_APPLICATION_HANDLES_COMMAND_LINE is set, then it will also
         /// be sent to the primary instance. See
         /// g_application_add_main_option_entries() for more details.
-        /// 
+        /// </para>
+        /// <para>
         /// See #GOptionEntry for more documentation of the arguments.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// the #GApplication
@@ -561,13 +585,16 @@ namespace GISharp.Lib.Gio
         /// Adds main option entries to be handled by @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is comparable to g_option_context_add_main_entries().
-        /// 
+        /// </para>
+        /// <para>
         /// After the commandline arguments are parsed, the
         /// #GApplication::handle-local-options signal will be emitted.  At this
         /// point, the application can inspect the values pointed to by @arg_data
         /// in the given #GOptionEntrys.
-        /// 
+        /// </para>
+        /// <para>
         /// Unlike #GOptionContext, #GApplication supports giving a %NULL
         /// @arg_data for a non-callback #GOptionEntry.  This results in the
         /// argument in question being packed into a #GVariantDict which is also
@@ -579,14 +606,16 @@ namespace GISharp.Lib.Gio
         /// booleans for normal flags, strings for strings, bytestrings for
         /// filenames, etc.  The packing only occurs if the flag is given (ie: we
         /// do not pack a "false" #GVariant in the case that a flag is missing).
-        /// 
+        /// </para>
+        /// <para>
         /// In general, it is recommended that all commandline arguments are
         /// parsed locally.  The options dictionary should then be used to
         /// transmit the result of the parsing to the primary instance, where
         /// g_variant_dict_lookup() can be used.  For local options, it is
         /// possible to either use @arg_data in the usual way, or to consult (and
         /// potentially remove) the option from the options dictionary.
-        /// 
+        /// </para>
+        /// <para>
         /// This function is new in GLib 2.40.  Before then, the only real choice
         /// was to send all of the commandline arguments (options and all) to the
         /// primary instance for handling.  #GApplication ignored them completely
@@ -594,7 +623,8 @@ namespace GISharp.Lib.Gio
         /// behaviour, and in particular, means that unrecognised options will be
         /// treated as errors.  Unrecognised options have never been ignored when
         /// %G_APPLICATION_HANDLES_COMMAND_LINE is unset.
-        /// 
+        /// </para>
+        /// <para>
         /// If #GApplication::handle-local-options needs to see the list of
         /// filenames, then the use of %G_OPTION_REMAINING is recommended.  If
         /// @arg_data is %NULL then %G_OPTION_REMAINING can be used as a key into
@@ -602,7 +632,8 @@ namespace GISharp.Lib.Gio
         /// need to handle these arguments for yourself because once they are
         /// consumed, they will no longer be visible to the default handling
         /// (which treats them as filenames to be opened).
-        /// 
+        /// </para>
+        /// <para>
         /// It is important to use the proper GVariant format when retrieving
         /// the options with g_variant_dict_lookup():
         /// - for %G_OPTION_ARG_NONE, use `b`
@@ -613,6 +644,7 @@ namespace GISharp.Lib.Gio
         /// - for %G_OPTION_ARG_FILENAME, use `^&amp;ay`
         /// - for %G_OPTION_ARG_STRING_ARRAY, use `^a&amp;s`
         /// - for %G_OPTION_ARG_FILENAME_ARRAY, use `^a&amp;ay`
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -653,12 +685,15 @@ namespace GISharp.Lib.Gio
         /// Adds a #GOptionGroup to the commandline handling of @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is comparable to g_option_context_add_group().
-        /// 
+        /// </para>
+        /// <para>
         /// Unlike g_application_add_main_option_entries(), this function does
         /// not deal with %NULL @arg_data and never transmits options to the
         /// primary instance.
-        /// 
+        /// </para>
+        /// <para>
         /// The reason for that is because, by the time the options arrive at the
         /// primary instance, it is typically too late to do anything with them.
         /// Taking the GTK option group as an example: GTK will already have been
@@ -666,16 +701,19 @@ namespace GISharp.Lib.Gio
         /// In the case that this is not the first-running instance of the
         /// application, the existing instance may already have been running for
         /// a very long time.
-        /// 
+        /// </para>
+        /// <para>
         /// This means that the options from #GOptionGroup are only really usable
         /// in the case that the instance of the application being run is the
         /// first instance.  Passing options like `--display=` or `--gdk-debug=`
         /// on future runs will have no effect on the existing primary instance.
-        /// 
+        /// </para>
+        /// <para>
         /// Calling this function will cause the options in the supplied option
         /// group to be parsed, but it does not cause you to be "opted in" to the
         /// new functionality whereby unrecognised options are rejected even if
         /// %G_APPLICATION_HANDLES_COMMAND_LINE was given.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// the #GApplication
@@ -711,9 +749,11 @@ namespace GISharp.Lib.Gio
         /// @property on @object is %TRUE.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The binding holds a reference to @application while it is active, but
         /// not to @object. Instead, the binding is destroyed when @object is
         /// finalized.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -784,18 +824,22 @@ namespace GISharp.Lib.Gio
         /// Gets the D-Bus object path being used by the application, or %NULL.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If #GApplication is using its D-Bus backend then this function will
         /// return the D-Bus object path that #GApplication is using.  If the
         /// application is the primary instance then there is an object published
         /// at this path.  If the application is not the primary instance then
         /// the result of this function is undefined.
-        /// 
+        /// </para>
+        /// <para>
         /// If #GApplication is not using D-Bus then this function will return
         /// %NULL.  This includes the situation where the D-Bus backend would
         /// normally be in use but we were unable to connect to the bus.
-        /// 
+        /// </para>
+        /// <para>
         /// This function must not be called before the application has been
         /// registered.  See g_application_get_is_registered().
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -827,7 +871,9 @@ namespace GISharp.Lib.Gio
         /// Gets the flags for @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See #GApplicationFlags.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -859,8 +905,10 @@ namespace GISharp.Lib.Gio
         /// Gets the current inactivity timeout for the application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is the amount of time (in milliseconds) after the last call to
         /// g_application_release() before the application stops running.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -922,8 +970,10 @@ namespace GISharp.Lib.Gio
         /// Checks if @application is registered.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// An application is registered if g_application_register() has been
         /// successfully called.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -955,14 +1005,17 @@ namespace GISharp.Lib.Gio
         /// Checks if @application is remote.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @application is remote then it means that another instance of
         /// application already exists (the 'primary' instance).  Calls to
         /// perform actions on @application will result in the actions being
         /// performed by the primary instance.
-        /// 
+        /// </para>
+        /// <para>
         /// The value of this property cannot be accessed before
         /// g_application_register() has been called.  See
         /// g_application_get_is_registered().
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -994,7 +1047,9 @@ namespace GISharp.Lib.Gio
         /// Gets the resource base path of @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See g_application_set_resource_base_path() for more information.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1026,11 +1081,14 @@ namespace GISharp.Lib.Gio
         /// Increases the use count of @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Use this function to indicate that the application has a reason to
         /// continue to run.  For example, g_application_hold() is called by GTK+
         /// when a toplevel window is on the screen.
-        /// 
+        /// </para>
+        /// <para>
         /// To cancel the hold, call g_application_release().
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1056,14 +1114,18 @@ namespace GISharp.Lib.Gio
         /// Increases the busy count of @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Use this function to indicate that the application is busy, for instance
         /// while a long running operation is pending.
-        /// 
+        /// </para>
+        /// <para>
         /// The busy state will be exposed to other processes, so a session shell will
         /// use that information to indicate the state to the user (e.g. with a
         /// spinner).
-        /// 
+        /// </para>
+        /// <para>
         /// To cancel the busy indication, use g_application_unmark_busy().
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1091,18 +1153,23 @@ namespace GISharp.Lib.Gio
         /// Opens the given files.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In essence, this results in the #GApplication::open signal being emitted
         /// in the primary instance.
-        /// 
+        /// </para>
+        /// <para>
         /// @n_files must be greater than zero.
-        /// 
+        /// </para>
+        /// <para>
         /// @hint is simply passed through to the ::open signal.  It is
         /// intended to be used by applications that have multiple modes for
         /// opening files (eg: "view" vs "edit", etc).  Unless you have a need
         /// for this functionality, you should use "".
-        /// 
+        /// </para>
+        /// <para>
         /// The application must be registered before calling this function
         /// and it must have the %G_APPLICATION_HANDLES_OPEN flag set.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1156,17 +1223,21 @@ namespace GISharp.Lib.Gio
         /// Immediately quits the application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Upon return to the mainloop, g_application_run() will return,
         /// calling only the 'shutdown' function before doing so.
-        /// 
+        /// </para>
+        /// <para>
         /// The hold count is ignored.
         /// Take care if your code has called g_application_hold() on the application and
         /// is therefore still expecting it to exist.
         /// (Note that you may have called g_application_hold() indirectly, for example
         /// through gtk_application_add_window().)
-        /// 
+        /// </para>
+        /// <para>
         /// The result of calling g_application_run() again after it returns is
         /// unspecified.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1194,34 +1265,42 @@ namespace GISharp.Lib.Gio
         /// Attempts registration of the application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is the point at which the application discovers if it is the
         /// primary instance or merely acting as a remote for an already-existing
         /// primary instance.  This is implemented by attempting to acquire the
         /// application identifier as a unique bus name on the session bus using
         /// GDBus.
-        /// 
+        /// </para>
+        /// <para>
         /// If there is no application ID or if %G_APPLICATION_NON_UNIQUE was
         /// given, then this process will always become the primary instance.
-        /// 
+        /// </para>
+        /// <para>
         /// Due to the internal architecture of GDBus, method calls can be
         /// dispatched at any time (even if a main loop is not running).  For
         /// this reason, you must ensure that any object paths that you wish to
         /// register are registered before calling this function.
-        /// 
+        /// </para>
+        /// <para>
         /// If the application has already been registered then %TRUE is
         /// returned with no work performed.
-        /// 
+        /// </para>
+        /// <para>
         /// The #GApplication::startup signal is emitted if registration succeeds
         /// and @application is the primary instance (including the non-unique
         /// case).
-        /// 
+        /// </para>
+        /// <para>
         /// In the event of an error (such as @cancellable being cancelled, or a
         /// failure to connect to the session bus), %FALSE is returned and @error
         /// is set appropriately.
-        /// 
+        /// </para>
+        /// <para>
         /// Note: the return value of this function is not an indicator that this
         /// instance is or is not the primary instance of the application.  See
         /// g_application_get_is_remote() for that.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1271,10 +1350,13 @@ namespace GISharp.Lib.Gio
         /// Decrease the use count of @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When the use count reaches zero, the application will stop running.
-        /// 
+        /// </para>
+        /// <para>
         /// Never call this function except to cancel the effect of a previous
         /// call to g_application_hold().
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1300,6 +1382,7 @@ namespace GISharp.Lib.Gio
         /// Runs the application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is intended to be run from main() and its return value
         /// is intended to be returned by main(). Although you are expected to pass
         /// the @argc, @argv parameters from main() to this function, it is possible
@@ -1307,20 +1390,23 @@ namespace GISharp.Lib.Gio
         /// required.  Note that on Windows, @argc and @argv are ignored, and
         /// g_win32_get_command_line() is called internally (for proper support
         /// of Unicode commandline arguments).
-        /// 
+        /// </para>
+        /// <para>
         /// #GApplication will attempt to parse the commandline arguments.  You
         /// can add commandline flags to the list of recognised options by way of
         /// g_application_add_main_option_entries().  After this, the
         /// #GApplication::handle-local-options signal is emitted, from which the
         /// application can inspect the values of its #GOptionEntrys.
-        /// 
+        /// </para>
+        /// <para>
         /// #GApplication::handle-local-options is a good place to handle options
         /// such as `--version`, where an immediate reply from the local process is
         /// desired (instead of communicating with an already-running instance).
         /// A #GApplication::handle-local-options handler can stop further processing
         /// by returning a non-negative value, which then becomes the exit status of
         /// the process.
-        /// 
+        /// </para>
+        /// <para>
         /// What happens next depends on the flags: if
         /// %G_APPLICATION_HANDLES_COMMAND_LINE was specified then the remaining
         /// commandline arguments are sent to the primary instance, where a
@@ -1330,7 +1416,8 @@ namespace GISharp.Lib.Gio
         /// #GApplication::activate signal.  If there are one or more files, and
         /// %G_APPLICATION_HANDLES_OPEN was specified then the files are opened
         /// via the #GApplication::open signal.
-        /// 
+        /// </para>
+        /// <para>
         /// If you are interested in doing more complicated local handling of the
         /// commandline then you should implement your own #GApplication subclass
         /// and override local_command_line(). In this case, you most likely want
@@ -1338,25 +1425,30 @@ namespace GISharp.Lib.Gio
         /// suppress the default handling. See
         /// [gapplication-example-cmdline2.c][gapplication-example-cmdline2]
         /// for an example.
-        /// 
+        /// </para>
+        /// <para>
         /// If, after the above is done, the use count of the application is zero
         /// then the exit status is returned immediately.  If the use count is
         /// non-zero then the default main context is iterated until the use count
         /// falls to zero, at which point 0 is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If the %G_APPLICATION_IS_SERVICE flag is set, then the service will
         /// run for as much as 10 seconds with a use count of zero while waiting
         /// for the message that caused the activation to arrive.  After that,
         /// if the use count falls to zero the application will exit immediately,
         /// except in the case that g_application_set_inactivity_timeout() is in
         /// use.
-        /// 
+        /// </para>
+        /// <para>
         /// This function sets the prgname (g_set_prgname()), if not already set,
         /// to the basename of argv[0].
-        /// 
+        /// </para>
+        /// <para>
         /// Much like g_main_loop_run(), this function will acquire the main context
         /// for the duration that the application is running.
-        /// 
+        /// </para>
+        /// <para>
         /// Since 2.40, applications that are not explicitly flagged as services
         /// or launchers (ie: neither %G_APPLICATION_IS_SERVICE or
         /// %G_APPLICATION_IS_LAUNCHER are given as flags) will check (from the
@@ -1373,6 +1465,7 @@ namespace GISharp.Lib.Gio
         /// should not be used from applications like editors that need precise
         /// control over when processes invoked via the commandline will exit and
         /// what their exit status will be.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1462,11 +1555,14 @@ namespace GISharp.Lib.Gio
         /// Sets the unique identifier for @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The application id can only be modified if @application has not yet
         /// been registered.
-        /// 
+        /// </para>
+        /// <para>
         /// If non-%NULL, the application id must be valid.  See
         /// g_application_id_is_valid().
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1501,9 +1597,11 @@ namespace GISharp.Lib.Gio
         /// by g_application_get_default().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function does not take its own reference on @application.  If
         /// @application is destroyed then the default application will revert
         /// back to %NULL.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// the application to set as default, or %NULL
@@ -1531,10 +1629,13 @@ namespace GISharp.Lib.Gio
         /// Sets the flags for @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The flags can only be modified if @application has not yet been
         /// registered.
-        /// 
+        /// </para>
+        /// <para>
         /// See #GApplicationFlags.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1568,12 +1669,15 @@ namespace GISharp.Lib.Gio
         /// Sets the current inactivity timeout for the application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is the amount of time (in milliseconds) after the last call to
         /// g_application_release() before the application stops running.
-        /// 
+        /// </para>
+        /// <para>
         /// This call has no side effects of its own.  The value set here is only
         /// used for next time g_application_release() drops the use count to
         /// zero.  Any timeouts currently in progress are not impacted.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1607,7 +1711,9 @@ namespace GISharp.Lib.Gio
         /// Adds a description to the @application option context.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See g_option_context_set_description() for more information.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// the #GApplication
@@ -1643,10 +1749,13 @@ namespace GISharp.Lib.Gio
         /// Sets the parameter string to be used by the commandline handling of @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function registers the argument to be passed to g_option_context_new()
         /// when the internal #GOptionContext of @application is created.
-        /// 
+        /// </para>
+        /// <para>
         /// See g_option_context_new() for more information about @parameter_string.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// the #GApplication
@@ -1682,7 +1791,9 @@ namespace GISharp.Lib.Gio
         /// Adds a summary to the @application option context.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See g_option_context_set_summary() for more information.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// the #GApplication
@@ -1718,29 +1829,35 @@ namespace GISharp.Lib.Gio
         /// Sets (or unsets) the base resource path of @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The path is used to automatically load various [application
         /// resources][gresource] such as menu layouts and action descriptions.
         /// The various types of resources will be found at fixed names relative
         /// to the given base path.
-        /// 
+        /// </para>
+        /// <para>
         /// By default, the resource base path is determined from the application
         /// ID by prefixing '/' and replacing each '.' with '/'.  This is done at
         /// the time that the #GApplication object is constructed.  Changes to
         /// the application ID after that point will not have an impact on the
         /// resource base path.
-        /// 
+        /// </para>
+        /// <para>
         /// As an example, if the application has an ID of "org.example.app" then
         /// the default resource base path will be "/org/example/app".  If this
         /// is a #GtkApplication (and you have not manually changed the path)
         /// then Gtk will then search for the menus of the application at
         /// "/org/example/app/gtk/menus.ui".
-        /// 
+        /// </para>
+        /// <para>
         /// See #GResource for more information about adding resources to your
         /// application.
-        /// 
+        /// </para>
+        /// <para>
         /// You can disable automatic resource loading functionality by setting
         /// the path to %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// Changing the resource base path once the application is running is
         /// not recommended.  The point at which the resource path is consulted
         /// for forming paths for various purposes is unspecified.  When writing
@@ -1749,6 +1866,7 @@ namespace GISharp.Lib.Gio
         /// this function during the instance initialization. Alternatively, you
         /// can call this function in the #GApplicationClass.startup virtual function,
         /// before chaining up to the parent implementation.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1823,11 +1941,14 @@ namespace GISharp.Lib.Gio
         /// Decreases the busy count of @application.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When the busy count reaches zero, the new state will be propagated
         /// to other processes.
-        /// 
+        /// </para>
+        /// <para>
         /// This function must only be called to cancel the effect of a previous
         /// call to g_application_mark_busy().
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1856,16 +1977,20 @@ namespace GISharp.Lib.Gio
         /// g_application_send_notification().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does nothing if a notification with @id doesn't exist or
         /// the notification was never sent.
-        /// 
+        /// </para>
+        /// <para>
         /// This function works even for notifications sent in previous
         /// executions of this application, as long @id is the same as it was for
         /// the sent notification.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that notifications are dismissed when the user clicks on one
         /// of the buttons in a notification or triggers its default action, so
         /// there is no need to explicitly withdraw the notification in that case.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication

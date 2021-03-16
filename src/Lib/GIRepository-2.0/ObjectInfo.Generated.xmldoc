@@ -141,8 +141,10 @@ object this instance and any interfaces it implements.  <c>null</c> will be
 returned if there's no method available with that name.
 </summary>
 <remarks>
+<para>
 Note that this function does *not* search parent classes; you will have
 to chain up if that's desired.
+</para>
 </remarks>
 <param name="name">
 name of method to obtain
@@ -197,8 +199,10 @@ retrieved using <see cref="VFuncInfo.GetInvoker()"/>, otherwise <c>null</c> will
 returned.
 </summary>
 <remarks>
+<para>
 Note that this function does *not* search parent classes; you will have
 to chain up if that's desired.
+</para>
 </remarks>
 <param name="name">
 name of vfunc to obtain

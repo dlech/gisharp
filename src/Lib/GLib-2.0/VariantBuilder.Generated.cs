@@ -32,13 +32,16 @@ namespace GISharp.Lib.GLib
         /// Allocates and initialises a new #GVariantBuilder.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You should call g_variant_builder_unref() on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
-        /// 
+        /// </para>
+        /// <para>
         /// In most cases it is easier to place a #GVariantBuilder directly on
         /// the stack of the calling function and initialise it with
         /// g_variant_builder_init().
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a container type
@@ -80,14 +83,17 @@ namespace GISharp.Lib.GLib
         /// Adds @value to @builder.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function in any way that would create an
         /// inconsistent value to be constructed.  Some examples of this are
         /// putting different types of items into an array, putting the wrong
         /// types or number of items in a tuple, putting more than one value into
         /// a variant, etc.
-        /// 
+        /// </para>
+        /// <para>
         /// If @value is a floating reference (see g_variant_ref_sink()),
         /// the @builder instance takes ownership of @value.
+        /// </para>
         /// </remarks>
         /// <param name="builder">
         /// a #GVariantBuilder
@@ -123,9 +129,11 @@ namespace GISharp.Lib.GLib
         /// the most recent call to g_variant_builder_open().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function in any way that would create an
         /// inconsistent value to be constructed (ie: too few values added to the
         /// subcontainer).
+        /// </para>
         /// </remarks>
         /// <param name="builder">
         /// a #GVariantBuilder
@@ -153,6 +161,7 @@ namespace GISharp.Lib.GLib
         /// Ends the builder process and returns the constructed value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is not permissible to use @builder in any way after this call
         /// except for reference counting operations (in the case of a
         /// heap-allocated #GVariantBuilder) or by reinitialising it with
@@ -160,7 +169,8 @@ namespace GISharp.Lib.GLib
         /// means that for the stack-allocated builders there is no need to
         /// call g_variant_builder_clear() after the call to
         /// g_variant_builder_end().
-        /// 
+        /// </para>
+        /// <para>
         /// It is an error to call this function in any way that would create an
         /// inconsistent value to be constructed (ie: insufficient number of
         /// items added to a container with a specific number of children
@@ -168,6 +178,7 @@ namespace GISharp.Lib.GLib
         /// was created with an indefinite array or maybe type and no children
         /// have been added; in this case it is impossible to infer the type of
         /// the empty array.
+        /// </para>
         /// </remarks>
         /// <param name="builder">
         /// a #GVariantBuilder
@@ -203,10 +214,12 @@ namespace GISharp.Lib.GLib
         /// must include the tuple itself.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function in any way that would cause an
         /// inconsistent value to be constructed (ie: adding too many values or
         /// a value of an incorrect type).
-        /// 
+        /// </para>
+        /// <para>
         /// Example of building a nested variant:
         /// |[&lt;!-- language="C" --&gt;
         /// GVariantBuilder builder;
@@ -216,11 +229,13 @@ namespace GISharp.Lib.GLib
         /// const gchar *key;
         /// const GVariant *value;
         /// g_autoptr (GVariant) output = NULL;
-        /// 
+        /// </para>
+        /// <para>
         /// g_variant_builder_init (&amp;builder, G_VARIANT_TYPE ("(ua{sv})"));
         /// g_variant_builder_add (&amp;builder, "u", some_number);
         /// g_variant_builder_open (&amp;builder, G_VARIANT_TYPE ("a{sv}"));
-        /// 
+        /// </para>
+        /// <para>
         /// g_hash_table_iter_init (&amp;iter, some_dict);
         /// while (g_hash_table_iter_next (&amp;iter, (gpointer *) &amp;key, (gpointer *) &amp;value))
         ///   {
@@ -229,11 +244,14 @@ namespace GISharp.Lib.GLib
         ///     g_variant_builder_add (&amp;builder, "v", value);
         ///     g_variant_builder_close (&amp;builder);
         ///   }
-        /// 
+        /// </para>
+        /// <para>
         /// g_variant_builder_close (&amp;builder);
-        /// 
+        /// </para>
+        /// <para>
         /// output = g_variant_builder_end (&amp;builder);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="builder">
         /// a #GVariantBuilder
@@ -268,8 +286,10 @@ namespace GISharp.Lib.GLib
         /// Increases the reference count on @builder.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Don't call this on stack-allocated #GVariantBuilder instances or bad
         /// things will happen.
+        /// </para>
         /// </remarks>
         /// <param name="builder">
         /// a #GVariantBuilder allocated by g_variant_builder_new()
@@ -296,11 +316,14 @@ namespace GISharp.Lib.GLib
         /// Decreases the reference count on @builder.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In the event that there are no more references, releases all memory
         /// associated with the #GVariantBuilder.
-        /// 
+        /// </para>
+        /// <para>
         /// Don't call this on stack-allocated #GVariantBuilder instances or bad
         /// things will happen.
+        /// </para>
         /// </remarks>
         /// <param name="builder">
         /// a #GVariantBuilder allocated by g_variant_builder_new()

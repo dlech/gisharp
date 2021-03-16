@@ -31,7 +31,9 @@ Returns a pointer to the main group of this instance.
 Returns whether strict POSIX code is enabled.
 </summary>
 <remarks>
+<para>
 See <see cref="OptionContext.SetStrictPosix(bool)"/> for more information.
+</para>
 </remarks>
 </member>
 
@@ -80,13 +82,16 @@ user-visible strings, for `--help` output. If <paramref name="func"/> is <c>null
 strings are not translated.
 </summary>
 <remarks>
+<para>
 Note that option groups have their own translation functions,
 this function only affects the <c>parameterString</c> (see <see cref="OptionContext.OptionContext(GISharp.Lib.GLib.NullableUnownedUtf8)"/>),
 the summary (see <see cref="OptionContext.SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8)"/>) and the description
 (see <see cref="OptionContext.SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8)"/>).
-
+</para>
+<para>
 If you are using gettext(), you only need to set the translation
 domain, see <see cref="OptionContext.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
+</para>
 </remarks>
 <param name="func">
 the <see cref="TranslateFunc"/>, or <c>null</c>

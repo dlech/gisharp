@@ -133,19 +133,24 @@ namespace GISharp.Lib.GLib
         /// Creates a new #GVariant array from @children.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @child_type must be non-%NULL if @n_children is zero.  Otherwise, the
         /// child type is determined by inspecting the first element of the
         /// @children array.  If @child_type is non-%NULL then it must be a
         /// definite type.
-        /// 
+        /// </para>
+        /// <para>
         /// The items of the array are taken from the @children array.  No entry
         /// in the @children array may be %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// All items in the array must have the same type, which must be the
         /// same as @child_type, if given.
-        /// 
+        /// </para>
+        /// <para>
         /// If the @children are floating references (see g_variant_ref_sink()), the
         /// new instance takes ownership of them as if via g_variant_ref_sink().
+        /// </para>
         /// </remarks>
         /// <param name="childType">
         /// the element type of the new array
@@ -272,8 +277,10 @@ namespace GISharp.Lib.GLib
         /// string need not be valid UTF-8.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The nul terminator character at the end of the string is stored in
         /// the array.
+        /// </para>
         /// </remarks>
         /// <param name="string">
         /// a normal
@@ -317,7 +324,9 @@ namespace GISharp.Lib.GLib
         /// strings.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @length is -1 then @strv is %NULL-terminated.
+        /// </para>
         /// </remarks>
         /// <param name="strv">
         /// an array of strings
@@ -367,8 +376,10 @@ namespace GISharp.Lib.GLib
         /// non-%NULL. @key must be a value of a basic type (ie: not a container).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the @key or @value are floating references (see g_variant_ref_sink()),
         /// the new instance takes ownership of them as if via g_variant_ref_sink().
+        /// </para>
         /// </remarks>
         /// <param name="key">
         /// a basic #GVariant, the key
@@ -447,16 +458,20 @@ namespace GISharp.Lib.GLib
         /// of @element_type type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @elements must be an array with fixed-sized elements.  Numeric types are
         /// fixed-size as are tuples containing only other fixed-sized types.
-        /// 
+        /// </para>
+        /// <para>
         /// @element_size must be the size of a single element in the array.
         /// For example, if calling this function for an array of 32-bit integers,
         /// you might say sizeof(gint32). This value isn't used except for the purpose
         /// of a double-check that the form of the serialised data matches the caller's
         /// expectation.
-        /// 
+        /// </para>
+        /// <para>
         /// @n_elements must be the length of the @elements array.
+        /// </para>
         /// </remarks>
         /// <param name="elementType">
         /// the #GVariantType of each element
@@ -516,11 +531,14 @@ namespace GISharp.Lib.GLib
         /// called from various functions in gvariant.c.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// A reference is taken on @bytes.
-        /// 
+        /// </para>
+        /// <para>
         /// The data in @bytes must be aligned appropriately for the @type being loaded.
         /// Otherwise this function will internally create a copy of the memory (since
         /// GLib 2.60) or (in older versions) fail and exit the process.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -571,33 +589,40 @@ namespace GISharp.Lib.GLib
         /// Creates a new #GVariant instance from serialised data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @type is the type of #GVariant instance that will be constructed.
         /// The interpretation of @data depends on knowing the type.
-        /// 
+        /// </para>
+        /// <para>
         /// @data is not modified by this function and must remain valid with an
         /// unchanging value until such a time as @notify is called with
         /// @user_data.  If the contents of @data change before that time then
         /// the result is undefined.
-        /// 
+        /// </para>
+        /// <para>
         /// If @data is trusted to be serialised data in normal form then
         /// @trusted should be %TRUE.  This applies to serialised data created
         /// within this process or read from a trusted location on the disk (such
         /// as a file installed in /usr/lib alongside your application).  You
         /// should set trusted to %FALSE if @data is read from the network, a
         /// file in the user's home directory, etc.
-        /// 
+        /// </para>
+        /// <para>
         /// If @data was not stored in this machine's native endianness, any multi-byte
         /// numeric values in the returned variant will also be in non-native
         /// endianness. g_variant_byteswap() can be used to recover the original values.
-        /// 
+        /// </para>
+        /// <para>
         /// @notify will be called with @user_data when @data is no longer
         /// needed.  The exact time of this call is unspecified and might even be
         /// before this function returns.
-        /// 
+        /// </para>
+        /// <para>
         /// Note: @data must be backed by memory that is aligned appropriately for the
         /// @type being loaded. Otherwise this function will internally create a copy of
         /// the memory (since GLib 2.60) or (in older versions) fail and exit the
         /// process.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a definite #GVariantType
@@ -650,9 +675,11 @@ namespace GISharp.Lib.GLib
         /// Creates a new handle #GVariant instance.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// By convention, handles are indexes into an array of file descriptors
         /// that are sent alongside a D-Bus message.  If you're not interacting
         /// with D-Bus, you probably don't need them.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #gint32 value
@@ -792,13 +819,16 @@ namespace GISharp.Lib.GLib
         /// maybe container or creates a Nothing instance for the given @type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// At least one of @child_type and @child must be non-%NULL.
         /// If @child_type is non-%NULL then it must be a definite type.
         /// If they are both non-%NULL then @child_type must be the type
         /// of @child.
-        /// 
+        /// </para>
+        /// <para>
         /// If @child is a floating reference (see g_variant_ref_sink()), the new
         /// instance takes ownership of @child.
+        /// </para>
         /// </remarks>
         /// <param name="childType">
         /// the #GVariantType of the child, or %NULL
@@ -879,10 +909,13 @@ namespace GISharp.Lib.GLib
         /// strings.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Each string must be a valid #GVariant object path; see
         /// g_variant_is_object_path().
-        /// 
+        /// </para>
+        /// <para>
         /// If @length is -1 then @strv is %NULL-terminated.
+        /// </para>
         /// </remarks>
         /// <param name="strv">
         /// an array of strings
@@ -967,9 +1000,11 @@ namespace GISharp.Lib.GLib
         /// Creates a string #GVariant with the contents of @string.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @string must be valid UTF-8, and must not be %NULL. To encode
         /// potentially-%NULL strings, use g_variant_new() with `ms` as the
         /// [format string][gvariant-format-strings-maybe-types].
+        /// </para>
         /// </remarks>
         /// <param name="string">
         /// a normal UTF-8 nul-terminated string
@@ -1007,7 +1042,9 @@ namespace GISharp.Lib.GLib
         /// strings.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @length is -1 then @strv is %NULL-terminated.
+        /// </para>
         /// </remarks>
         /// <param name="strv">
         /// an array of strings
@@ -1058,10 +1095,13 @@ namespace GISharp.Lib.GLib
         /// @children array may be %NULL.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @n_children is 0 then the unit tuple is constructed.
-        /// 
+        /// </para>
+        /// <para>
         /// If the @children are floating references (see g_variant_ref_sink()), the
         /// new instance takes ownership of them as if via g_variant_ref_sink().
+        /// </para>
         /// </remarks>
         /// <param name="children">
         /// the items to make the tuple out of
@@ -1213,8 +1253,10 @@ namespace GISharp.Lib.GLib
         /// variant containing the original value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @child is a floating reference (see g_variant_ref_sink()), the new
         /// instance takes ownership of @child.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant instance
@@ -1251,23 +1293,28 @@ namespace GISharp.Lib.GLib
         /// Compares @one and @two.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The types of @one and @two are #gconstpointer only to allow use of
         /// this function with #GTree, #GPtrArray, etc.  They must each be a
         /// #GVariant.
-        /// 
+        /// </para>
+        /// <para>
         /// Comparison is only defined for basic types (ie: booleans, numbers,
         /// strings).  For booleans, %FALSE is less than %TRUE.  Numbers are
         /// ordered in the usual way.  Strings are in ASCII lexographical order.
-        /// 
+        /// </para>
+        /// <para>
         /// It is a programmer error to attempt to compare container values or
         /// two values that have types that are not exactly equal.  For example,
         /// you cannot compare a 32-bit signed integer with a 32-bit unsigned
         /// integer.  Also note that this function is not particularly
         /// well-behaved when it comes to comparison of doubles; in particular,
         /// the handling of incomparable values (ie: NaN) is undefined.
-        /// 
+        /// </para>
+        /// <para>
         /// If you only require an equality comparison, g_variant_equal() is more
         /// general.
+        /// </para>
         /// </remarks>
         /// <param name="one">
         /// a basic-typed #GVariant instance
@@ -1342,10 +1389,12 @@ namespace GISharp.Lib.GLib
         /// passing it to g_variant_new_object_path().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// A valid object path starts with `/` followed by zero or more
         /// sequences of characters separated by `/` characters.  Each sequence
         /// must contain only the characters `[A-Z][a-z][0-9]_`.  No sequence
         /// (including the one following the final `/` character) may be empty.
+        /// </para>
         /// </remarks>
         /// <param name="string">
         /// a normal C nul-terminated string
@@ -1380,8 +1429,10 @@ namespace GISharp.Lib.GLib
         /// passing it to g_variant_new_signature().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// D-Bus type signatures consist of zero or more definite #GVariantType
         /// strings in sequence.
+        /// </para>
         /// </remarks>
         /// <param name="string">
         /// a normal C nul-terminated string
@@ -1414,39 +1465,49 @@ namespace GISharp.Lib.GLib
         /// Parses a #GVariant from a text representation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// A single #GVariant is parsed from the content of @text.
-        /// 
+        /// </para>
+        /// <para>
         /// The format is described [here][gvariant-text].
-        /// 
+        /// </para>
+        /// <para>
         /// The memory at @limit will never be accessed and the parser behaves as
         /// if the character at @limit is the nul terminator.  This has the
         /// effect of bounding @text.
-        /// 
+        /// </para>
+        /// <para>
         /// If @endptr is non-%NULL then @text is permitted to contain data
         /// following the value that this function parses and @endptr will be
         /// updated to point to the first character past the end of the text
         /// parsed by this function.  If @endptr is %NULL and there is extra data
         /// then an error is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If @type is non-%NULL then the value will be parsed to have that
         /// type.  This may result in additional parse errors (in the case that
         /// the parsed value doesn't fit the type) but may also result in fewer
         /// errors (in the case that the type would have been ambiguous, such as
         /// with empty arrays).
-        /// 
+        /// </para>
+        /// <para>
         /// In the event that the parsing is successful, the resulting #GVariant
         /// is returned. It is never floating, and must be freed with
         /// g_variant_unref().
-        /// 
+        /// </para>
+        /// <para>
         /// In case of any error, %NULL will be returned.  If @error is non-%NULL
         /// then it will be set to reflect the error that occurred.
-        /// 
+        /// </para>
+        /// <para>
         /// Officially, the language understood by the parser is "any string
         /// produced by g_variant_print()".
-        /// 
+        /// </para>
+        /// <para>
         /// There may be implementation specific restrictions on deeply nested values,
         /// which would result in a %G_VARIANT_PARSE_ERROR_RECURSION error. #GVariant is
         /// guaranteed to handle nesting up to at least 64 levels.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType, or %NULL
@@ -1512,32 +1573,40 @@ namespace GISharp.Lib.GLib
         /// error within the string for which parsing was attempted.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The resulting string is suitable for output to the console or other
         /// monospace media where newlines are treated in the usual way.
-        /// 
+        /// </para>
+        /// <para>
         /// The message will typically look something like one of the following:
-        /// 
+        /// </para>
+        /// <para>
         /// |[
         /// unterminated string constant:
         ///   (1, 2, 3, 'abc
         ///             ^^^^
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// or
-        /// 
+        /// </para>
+        /// <para>
         /// |[
         /// unable to find a common type:
         ///   [1, 2, 3, 'str']
         ///    ^        ^^^^^
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// The format of the message may change in a future version.
-        /// 
+        /// </para>
+        /// <para>
         /// @error must have come from a failed attempt to g_variant_parse() and
         /// @source_str must be exactly the same string that caused the error.
         /// If @source_str was not nul-terminated when you passed it to
         /// g_variant_parse() then you must add nul termination before using this
         /// function.
+        /// </para>
         /// </remarks>
         /// <param name="error">
         /// a #GError from the #GVariantParseError domain
@@ -1616,11 +1685,14 @@ namespace GISharp.Lib.GLib
         /// values.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is an identity mapping on any value that does not
         /// contain multi-byte numeric data.  That include strings, booleans,
         /// bytes and containers containing only these things (recursively).
-        /// 
+        /// </para>
+        /// <para>
         /// The returned value is always in normal form and is marked as trusted.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant
@@ -1655,16 +1727,19 @@ namespace GISharp.Lib.GLib
         /// assumed to be a valid format string (from a syntactic standpoint).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @copy_only is %TRUE then this function additionally checks that it
         /// would be safe to call g_variant_unref() on @value immediately after
         /// the call to g_variant_get() without invalidating the result.  This is
         /// only possible if deep copies are made (ie: there are no pointers to
         /// the data inside of the soon-to-be-freed #GVariant instance).  If this
         /// check fails then a g_critical() is printed and %FALSE is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// This function is meant to be used by functions that wish to provide
         /// varargs accessors to #GVariant values of uncertain values (eg:
         /// g_variant_lookup() or g_menu_model_get_item_attribute()).
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant
@@ -1742,7 +1817,9 @@ namespace GISharp.Lib.GLib
         /// returning a constant string, the string is duplicated.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The return value must be freed using g_free().
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an array-of-bytes #GVariant instance
@@ -1788,12 +1865,15 @@ namespace GISharp.Lib.GLib
         /// g_strfreev().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @length is non-%NULL then the number of elements in the result is
         /// stored there.  In any case, the resulting array will be
         /// %NULL-terminated.
-        /// 
+        /// </para>
+        /// <para>
         /// For an empty array, @length will be set to 0 and a pointer to a
         /// %NULL pointer will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an array of array of bytes #GVariant ('aay')
@@ -1837,12 +1917,15 @@ namespace GISharp.Lib.GLib
         /// g_strfreev().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @length is non-%NULL then the number of elements in the result
         /// is stored there.  In any case, the resulting array will be
         /// %NULL-terminated.
-        /// 
+        /// </para>
+        /// <para>
         /// For an empty array, @length will be set to 0 and a pointer to a
         /// %NULL pointer will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an array of object paths #GVariant
@@ -1885,9 +1968,12 @@ namespace GISharp.Lib.GLib
         /// a constant string, the string is duplicated.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The string will always be UTF-8 encoded.
-        /// 
+        /// </para>
+        /// <para>
         /// The return value must be freed using g_free().
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a string #GVariant instance
@@ -1930,12 +2016,15 @@ namespace GISharp.Lib.GLib
         /// g_strfreev().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @length is non-%NULL then the number of elements in the result
         /// is stored there.  In any case, the resulting array will be
         /// %NULL-terminated.
-        /// 
+        /// </para>
+        /// <para>
         /// For an empty array, @length will be set to 0 and a pointer to a
         /// %NULL pointer will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an array of strings #GVariant
@@ -1977,8 +2066,10 @@ namespace GISharp.Lib.GLib
         /// Checks if @one and @two have the same type and value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The types of @one and @two are #gconstpointer only to allow use of
         /// this function with #GHashTable.  They must each be a #GVariant.
+        /// </para>
         /// </remarks>
         /// <param name="one">
         /// a #GVariant instance
@@ -2046,8 +2137,10 @@ namespace GISharp.Lib.GLib
         /// Returns the boolean value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than %G_VARIANT_TYPE_BOOLEAN.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a boolean #GVariant instance
@@ -2079,8 +2172,10 @@ namespace GISharp.Lib.GLib
         /// Returns the byte value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than %G_VARIANT_TYPE_BYTE.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a byte #GVariant instance
@@ -2113,21 +2208,27 @@ namespace GISharp.Lib.GLib
         /// array-of-bytes type.  The string has no particular encoding.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the array does not end with a nul terminator character, the empty
         /// string is returned.  For this reason, you can always trust that a
         /// non-%NULL nul-terminated string will be returned by this function.
-        /// 
+        /// </para>
+        /// <para>
         /// If the array contains a nul terminator character somewhere other than
         /// the last byte then the returned string is the string, up to the first
         /// such nul character.
-        /// 
+        /// </para>
+        /// <para>
         /// g_variant_get_fixed_array() should be used instead if the array contains
         /// arbitrary data that could not be nul-terminated or could contain nul bytes.
-        /// 
+        /// </para>
+        /// <para>
         /// It is an error to call this function with a @value that is not an
         /// array of bytes.
-        /// 
+        /// </para>
+        /// <para>
         /// The return value remains valid as long as @value exists.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an array-of-bytes #GVariant instance
@@ -2164,12 +2265,15 @@ namespace GISharp.Lib.GLib
         /// g_free(), but the individual strings must not be modified.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @length is non-%NULL then the number of elements in the result is
         /// stored there.  In any case, the resulting array will be
         /// %NULL-terminated.
-        /// 
+        /// </para>
+        /// <para>
         /// For an empty array, @length will be set to 0 and a pointer to a
         /// %NULL pointer will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an array of array of bytes #GVariant ('aay')
@@ -2213,24 +2317,30 @@ namespace GISharp.Lib.GLib
         /// #GVariant.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error if @index_ is greater than the number of child items
         /// in the container.  See g_variant_n_children().
-        /// 
+        /// </para>
+        /// <para>
         /// The returned value is never floating.  You should free it with
         /// g_variant_unref() when you're done with it.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that values borrowed from the returned child are not guaranteed to
         /// still be valid after the child is freed even if you still hold a reference
         /// to @value, if @value has not been serialised at the time this function is
         /// called. To avoid this, you can serialize @value by calling
         /// g_variant_get_data() and optionally ignoring the return value.
-        /// 
+        /// </para>
+        /// <para>
         /// There may be implementation specific restrictions on deeply nested values,
         /// which would result in the unit tuple being returned as the child value,
         /// instead of further nested children. #GVariant is guaranteed to handle
         /// nesting up to at least 64 levels.
-        /// 
+        /// </para>
+        /// <para>
         /// This function is O(1).
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a container #GVariant
@@ -2273,17 +2383,20 @@ namespace GISharp.Lib.GLib
         /// valid for as long as @value exists.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @value is a fixed-sized value that was deserialised from a
         /// corrupted serialised container then %NULL may be returned.  In this
         /// case, the proper thing to do is typically to use the appropriate
         /// number of nul bytes in place of @value.  If @value is not fixed-sized
         /// then %NULL is never returned.
-        /// 
+        /// </para>
+        /// <para>
         /// In the case that @value is already in serialised form, this function
         /// is O(1).  If the value is not already in serialised form,
         /// serialisation occurs implicitly and is approximately O(n) in the size
         /// of the result.
-        /// 
+        /// </para>
+        /// <para>
         /// To deserialise the data returned by this function, in addition to the
         /// serialised data, you must know the type of the #GVariant, and (if the
         /// machine might be different) the endianness of the machine that stored
@@ -2293,6 +2406,7 @@ namespace GISharp.Lib.GLib
         /// %G_VARIANT_TYPE_VARIANT and it is always in little-endian order") or
         /// explicitly (by storing the type and/or endianness in addition to the
         /// serialised data).
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant instance
@@ -2356,8 +2470,10 @@ namespace GISharp.Lib.GLib
         /// Returns the double precision floating point value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than %G_VARIANT_TYPE_DOUBLE.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a double #GVariant instance
@@ -2389,12 +2505,15 @@ namespace GISharp.Lib.GLib
         /// Returns the 32-bit signed integer value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type other
         /// than %G_VARIANT_TYPE_HANDLE.
-        /// 
+        /// </para>
+        /// <para>
         /// By convention, handles are indexes into an array of file descriptors
         /// that are sent alongside a D-Bus message.  If you're not interacting
         /// with D-Bus, you probably don't need them.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a handle #GVariant instance
@@ -2426,8 +2545,10 @@ namespace GISharp.Lib.GLib
         /// Returns the 16-bit signed integer value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than %G_VARIANT_TYPE_INT16.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an int16 #GVariant instance
@@ -2459,8 +2580,10 @@ namespace GISharp.Lib.GLib
         /// Returns the 32-bit signed integer value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than %G_VARIANT_TYPE_INT32.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an int32 #GVariant instance
@@ -2492,8 +2615,10 @@ namespace GISharp.Lib.GLib
         /// Returns the 64-bit signed integer value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than %G_VARIANT_TYPE_INT64.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an int64 #GVariant instance
@@ -2556,26 +2681,32 @@ namespace GISharp.Lib.GLib
         /// trusted to be in normal form.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @value is already trusted to be in normal form then a new
         /// reference to @value is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If @value is not already trusted, then it is scanned to check if it
         /// is in normal form.  If it is found to be in normal form then it is
         /// marked as trusted and a new reference to it is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If @value is found not to be in normal form then a new trusted
         /// #GVariant is created with the same value as @value.
-        /// 
+        /// </para>
+        /// <para>
         /// It makes sense to call this function if you've received #GVariant
         /// data from untrusted sources and you want to ensure your serialised
         /// output is definitely in normal form.
-        /// 
+        /// </para>
+        /// <para>
         /// If @value is already in normal form, a new reference will be returned
         /// (which will be floating if @value is floating). If it is not in normal form,
         /// the newly created #GVariant will be returned with a single non-floating
         /// reference. Typically, g_variant_take_ref() should be called on the return
         /// value from this function to guarantee ownership of a single non-floating
         /// reference to it.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant
@@ -2609,12 +2740,15 @@ namespace GISharp.Lib.GLib
         /// g_free(), but the individual strings must not be modified.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @length is non-%NULL then the number of elements in the result
         /// is stored there.  In any case, the resulting array will be
         /// %NULL-terminated.
-        /// 
+        /// </para>
+        /// <para>
         /// For an empty array, @length will be set to 0 and a pointer to a
         /// %NULL pointer will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an array of object paths #GVariant
@@ -2656,14 +2790,17 @@ namespace GISharp.Lib.GLib
         /// with g_variant_store().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @value has a fixed-sized type then this function always returned
         /// that fixed size.
-        /// 
+        /// </para>
+        /// <para>
         /// In the case that @value is already in serialised form or the size has
         /// already been calculated (ie: this function has been called before)
         /// then this function is O(1).  Otherwise, the size is calculated, an
         /// operation which is approximately O(n) in the number of values
         /// involved.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant instance
@@ -2697,20 +2834,25 @@ namespace GISharp.Lib.GLib
         /// %G_VARIANT_TYPE_OBJECT_PATH and %G_VARIANT_TYPE_SIGNATURE.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The string will always be UTF-8 encoded, will never be %NULL, and will never
         /// contain nul bytes.
-        /// 
+        /// </para>
+        /// <para>
         /// If @length is non-%NULL then the length of the string (in bytes) is
         /// returned there.  For trusted values, this information is already
         /// known.  Untrusted values will be validated and, if valid, a strlen() will be
         /// performed. If invalid, a default value will be returned — for
         /// %G_VARIANT_TYPE_OBJECT_PATH, this is `"/"`, and for other types it is the
         /// empty string.
-        /// 
+        /// </para>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than those three.
-        /// 
+        /// </para>
+        /// <para>
         /// The return value remains valid as long as @value exists.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a string #GVariant instance
@@ -2754,12 +2896,15 @@ namespace GISharp.Lib.GLib
         /// g_free(), but the individual strings must not be modified.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @length is non-%NULL then the number of elements in the result
         /// is stored there.  In any case, the resulting array will be
         /// %NULL-terminated.
-        /// 
+        /// </para>
+        /// <para>
         /// For an empty array, @length will be set to 0 and a pointer to a
         /// %NULL pointer will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// an array of strings #GVariant
@@ -2800,8 +2945,10 @@ namespace GISharp.Lib.GLib
         /// Determines the type of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The return value is valid for the lifetime of @value and must not
         /// be freed.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant
@@ -2864,8 +3011,10 @@ namespace GISharp.Lib.GLib
         /// Returns the 16-bit unsigned integer value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than %G_VARIANT_TYPE_UINT16.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a uint16 #GVariant instance
@@ -2897,8 +3046,10 @@ namespace GISharp.Lib.GLib
         /// Returns the 32-bit unsigned integer value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than %G_VARIANT_TYPE_UINT32.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a uint32 #GVariant instance
@@ -2930,8 +3081,10 @@ namespace GISharp.Lib.GLib
         /// Returns the 64-bit unsigned integer value of @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with a @value of any type
         /// other than %G_VARIANT_TYPE_UINT64.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a uint64 #GVariant instance
@@ -2993,13 +3146,16 @@ namespace GISharp.Lib.GLib
         /// Generates a hash value for a #GVariant instance.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The output of this function is guaranteed to be the same for a given
         /// value only per-process.  It may change between different processor
         /// architectures or even different versions of GLib.  Do not use this
         /// function as a basis for building protocols or file formats.
-        /// 
+        /// </para>
+        /// <para>
         /// The type of @value is #gconstpointer only to allow use of this
         /// function with #GHashTable.  @value must be a #GVariant.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a basic #GVariant value as a #gconstpointer
@@ -3061,13 +3217,16 @@ namespace GISharp.Lib.GLib
         /// Checks whether @value has a floating reference count.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function should only ever be used to assert that a given variant
         /// is or is not floating, or for debug purposes. To acquire a reference
         /// to a variant that might be floating, always use g_variant_ref_sink()
         /// or g_variant_take_ref().
-        /// 
+        /// </para>
+        /// <para>
         /// See g_variant_ref_sink() for more information about floating reference
         /// counts.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant
@@ -3099,17 +3258,21 @@ namespace GISharp.Lib.GLib
         /// Checks if @value is in normal form.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The main reason to do this is to detect if a given chunk of
         /// serialised data is in normal form: load the data into a #GVariant
         /// using g_variant_new_from_data() and then use this function to
         /// check.
-        /// 
+        /// </para>
+        /// <para>
         /// If @value is found to be in normal form then it will be marked as
         /// being trusted.  If the value was already marked as being trusted then
         /// this function will immediately return %TRUE.
-        /// 
+        /// </para>
+        /// <para>
         /// There may be implementation specific restrictions on deeply nested values.
         /// GVariant is guaranteed to handle nesting up to at least 64 levels.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant instance
@@ -3178,25 +3341,31 @@ namespace GISharp.Lib.GLib
         /// Looks up a value in a dictionary #GVariant.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function works with dictionaries of the type a{s*} (and equally
         /// well with type a{o*}, but we only further discuss the string case
         /// for sake of clarity).
-        /// 
+        /// </para>
+        /// <para>
         /// In the event that @dictionary has the type a{sv}, the @expected_type
         /// string specifies what type of value is expected to be inside of the
         /// variant. If the value inside the variant has a different type then
         /// %NULL is returned. In the event that @dictionary has a value type other
         /// than v then @expected_type must directly match the value type and it is
         /// used to unpack the value directly or an error occurs.
-        /// 
+        /// </para>
+        /// <para>
         /// In either case, if @key is not found in @dictionary, %NULL is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If the key is found and the value has the correct type, it is
         /// returned.  If @expected_type was specified then any non-%NULL return
         /// value will have this type.
-        /// 
+        /// </para>
+        /// <para>
         /// This function is currently implemented with a linear scan.  If you
         /// plan to do many lookups then #GVariantDict may be more efficient.
+        /// </para>
         /// </remarks>
         /// <param name="dictionary">
         /// a dictionary #GVariant
@@ -3246,12 +3415,15 @@ namespace GISharp.Lib.GLib
         /// #GVariant.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For variants, the return value is always 1.  For values with maybe
         /// types, it is always zero or one.  For arrays, it is the length of the
         /// array.  For tuples it is the number of tuple items (which depends
         /// only on the type).  For dictionary entries, it is always 2
-        /// 
+        /// </para>
+        /// <para>
         /// This function is O(1).
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a container #GVariant
@@ -3284,10 +3456,13 @@ namespace GISharp.Lib.GLib
         /// Pretty-prints @value in the format understood by g_variant_parse().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The format is described [here][gvariant-text].
-        /// 
+        /// </para>
+        /// <para>
         /// If @type_annotate is %TRUE, then type information is included in
         /// the output.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant
@@ -3354,16 +3529,19 @@ namespace GISharp.Lib.GLib
         /// references.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Calling g_variant_ref_sink() on a #GVariant with a floating reference
         /// will convert the floating reference into a full reference.  Calling
         /// g_variant_ref_sink() on a non-floating #GVariant results in an
         /// additional normal reference being added.
-        /// 
+        /// </para>
+        /// <para>
         /// In other words, if the @value is floating, then this call "assumes
         /// ownership" of the floating reference, converting it to a normal
         /// reference.  If the @value is not floating, then this call adds a
         /// new normal reference increasing the reference count by one.
-        /// 
+        /// </para>
+        /// <para>
         /// All calls that result in a #GVariant instance being inserted into a
         /// container will call g_variant_ref_sink() on the instance.  This means
         /// that if the value was just created (and has only its floating
@@ -3372,6 +3550,7 @@ namespace GISharp.Lib.GLib
         /// makes certain common styles of programming much easier while still
         /// maintaining normal refcounting semantics in situations where values
         /// are not floating.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant
@@ -3405,15 +3584,19 @@ namespace GISharp.Lib.GLib
         /// large enough.  See g_variant_get_size().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The stored data is in machine native byte order but may not be in
         /// fully-normalised form if read from an untrusted source.  See
         /// g_variant_get_normal_form() for a solution.
-        /// 
+        /// </para>
+        /// <para>
         /// As with g_variant_get_data(), to be able to deserialise the
         /// serialised variant successfully, its type and (if the destination
         /// machine might be different) its endianness must also be available.
-        /// 
+        /// </para>
+        /// <para>
         /// This function is approximately O(n) in the size of @data.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// the #GVariant to store
@@ -3448,28 +3631,33 @@ namespace GISharp.Lib.GLib
         /// If @value is floating, sink it.  Otherwise, do nothing.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Typically you want to use g_variant_ref_sink() in order to
         /// automatically do the correct thing with respect to floating or
         /// non-floating references, but there is one specific scenario where
         /// this function is helpful.
-        /// 
+        /// </para>
+        /// <para>
         /// The situation where this function is helpful is when creating an API
         /// that allows the user to provide a callback function that returns a
         /// #GVariant.  We certainly want to allow the user the flexibility to
         /// return a non-floating reference from this callback (for the case
         /// where the value that is being returned already exists).
-        /// 
+        /// </para>
+        /// <para>
         /// At the same time, the style of the #GVariant API makes it likely that
         /// for newly-created #GVariant instances, the user can be saved some
         /// typing if they are allowed to return a #GVariant with a floating
         /// reference.
-        /// 
+        /// </para>
+        /// <para>
         /// Using this function on the return value of the user's callback allows
         /// the user to do whichever is more convenient for them.  The caller
         /// will always receives exactly one full reference to the value: either
         /// the one that was returned in the first place, or a floating reference
         /// that has been converted to a full reference.
-        /// 
+        /// </para>
+        /// <para>
         /// This function has an odd interaction when combined with
         /// g_variant_ref_sink() running at the same time in another thread on
         /// the same #GVariant instance.  If g_variant_ref_sink() runs first then
@@ -3478,6 +3666,7 @@ namespace GISharp.Lib.GLib
         /// be that the floating reference is converted to a hard reference and
         /// an additional reference on top of that one is added.  It is best to
         /// avoid this situation.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant

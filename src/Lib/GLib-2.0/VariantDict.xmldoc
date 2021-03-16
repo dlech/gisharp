@@ -28,10 +28,12 @@ Returns the current value of this instance as a <see cref="GLib.Variant"/> of ty
 %G_VARIANT_TYPE_VARDICT, clearing it in the process.
 </summary>
 <remarks>
+<para>
 It is not permissible to use this instance in any way after this call except
 for reference counting operations (in the case of a heap-allocated
 <see cref="VariantDict"/>) or by reinitialising it with g_variant_dict_init() (in
 the case of stack-allocated).
+</para>
 </remarks>
 <returns>
 a new, floating, <see cref="GLib.Variant"/>
@@ -43,7 +45,9 @@ a new, floating, <see cref="GLib.Variant"/>
 Inserts (or replaces) a key in a <see cref="VariantDict"/>.
 </summary>
 <remarks>
+<para>
 <paramref name="value"/> is consumed if it is floating.
+</para>
 </remarks>
 <param name="key">
 the key to insert a value for
@@ -58,15 +62,19 @@ the value to insert
 Looks up a value in a <see cref="VariantDict"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="key"/> is not found in this instance, <c>null</c> is returned.
-
+</para>
+<para>
 The <paramref name="expectedType"/> string specifies what type of value is expected.
 If the value associated with <paramref name="key"/> has a different type then <c>null</c> is
 returned.
-
+</para>
+<para>
 If the key is found and the value has the correct type, it is
 returned.  If <paramref name="expectedType"/> was specified then any non-<c>null</c> return
 value will have this type.
+</para>
 </remarks>
 <param name="key">
 the key to look up in the dictionary
@@ -96,30 +104,37 @@ the key to remove
 <see cref="VariantDict"/> is a mutable interface to <see cref="GLib.Variant"/> dictionaries.
 </summary>
 <remarks>
+<para>
 It can be used for doing a sequence of dictionary lookups in an
 efficient way on an existing <see cref="GLib.Variant"/> dictionary or it can be used
 to construct new dictionaries with a hashtable-like interface.  It
 can also be used for taking existing dictionaries and modifying them
 in order to create new ones.
-
+</para>
+<para>
 <see cref="VariantDict"/> can only be used with <see cref="VariantType.VariantDictionary"/>
 dictionaries.
-
+</para>
+<para>
 <see cref="VariantDict.End()"/> is used to convert the <see cref="VariantDict"/> back into a
 dictionary-type <see cref="GLib.Variant"/>.
-
+</para>
+<para>
 You will typically want to use a heap-allocated <see cref="VariantDict"/> when
 you expose it as part of an API.  For most other uses, the
 stack-allocated form will be more convenient.
-
+</para>
+<para>
 Consider the following two examples that do the same thing in each
 style: take an existing dictionary and look up the "count" uint32
 key, adding 1 to it if it is found, or returning an error if the
 key is not found.  Each returns the new dictionary as a floating
 <see cref="GLib.Variant"/>.
-
+</para>
+<para>
 ## Using a stack-allocated GVariantDict
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
   GVariant *
   add_to_count (GVariant  *orig,
@@ -127,7 +142,8 @@ key is not found.  Each returns the new dictionary as a floating
   {
     GVariantDict dict;
     guint32 count;
-
+</para>
+<para>
     g_variant_dict_init (&amp;dict, orig);
     if (!g_variant_dict_lookup (&amp;dict, "count", "u", &amp;count))
       {
@@ -135,15 +151,19 @@ key is not found.  Each returns the new dictionary as a floating
         g_variant_dict_clear (&amp;dict);
         return NULL;
       }
-
+</para>
+<para>
     g_variant_dict_insert (&amp;dict, "count", "u", count + 1);
-
+</para>
+<para>
     return g_variant_dict_end (&amp;dict);
   }
 ]|
-
+</para>
+<para>
 ## Using heap-allocated GVariantDict
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
   GVariant *
   add_to_count (GVariant  *orig,
@@ -152,9 +172,11 @@ key is not found.  Each returns the new dictionary as a floating
     GVariantDict *dict;
     GVariant *result;
     guint32 count;
-
+</para>
+<para>
     dict = g_variant_dict_new (orig);
-
+</para>
+<para>
     if (g_variant_dict_lookup (dict, "count", "u", &amp;count))
       {
         g_variant_dict_insert (dict, "count", "u", count + 1);
@@ -165,12 +187,15 @@ key is not found.  Each returns the new dictionary as a floating
         g_set_error (...);
         result = NULL;
       }
-
+</para>
+<para>
     g_variant_dict_unref (dict);
-
+</para>
+<para>
     return result;
   }
 ]|
+</para>
 </remarks>
 </member>
 

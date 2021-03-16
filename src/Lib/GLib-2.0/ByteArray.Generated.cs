@@ -244,12 +244,15 @@ namespace GISharp.Lib.GLib
         /// Transfers the data from the #GByteArray into a new immutable #GBytes.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The #GByteArray is freed unless the reference count of @array is greater
         /// than one, the #GByteArray wrapper is preserved but the size of @array
         /// will be set to zero.
-        /// 
+        /// </para>
+        /// <para>
         /// This is identical to using g_bytes_new_take() and g_byte_array_free()
         /// together.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GByteArray
@@ -529,11 +532,13 @@ namespace GISharp.Lib.GLib
         /// first arg is greater than second arg).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If two array elements compare equal, their order in the sorted array
         /// is undefined. If you want equal elements to keep their order (i.e.
         /// you want a stable sort) you can write a comparison function that,
         /// if two elements would otherwise compare equal, compares them by
         /// their addresses.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GByteArray

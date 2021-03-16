@@ -46,13 +46,15 @@ namespace GISharp.Lib.Gtk
         /// against.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Compatibility is defined by two things: first the version
         /// of the running library is newer than the version
         /// @required_major.required_minor.@required_micro. Second
         /// the running library must be binary compatible with the
         /// version @required_major.required_minor.@required_micro
         /// (same major version.)
-        /// 
+        /// </para>
+        /// <para>
         /// This function is primarily for GTK modules; the module
         /// can call this function to check that it wasn’t loaded
         /// into an incompatible version of GTK. However, such a
@@ -60,6 +62,7 @@ namespace GISharp.Lib.Gtk
         /// linked against an old version of GTK and calling the
         /// old version of gtk_check_version(), but still get loaded
         /// into an application using a newer version of GTK.
+        /// </para>
         /// </remarks>
         /// <param name="requiredMajor">
         /// the required major version
@@ -154,10 +157,12 @@ namespace GISharp.Lib.Gtk
         /// (e.g. in GTK version 3.1.5 this is 3.)
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is in the library, so it represents the GTK library
         /// your code is running against. Contrast with the %GTK_MAJOR_VERSION
         /// macro, which represents the major version of the GTK headers you
         /// have included when compiling your code.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// the major version number of the GTK library
@@ -181,10 +186,12 @@ namespace GISharp.Lib.Gtk
         /// (e.g. in GTK version 3.1.5 this is 5.)
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is in the library, so it represents the GTK library
         /// your code is are running against. Contrast with the
         /// %GTK_MICRO_VERSION macro, which represents the micro version of the
         /// GTK headers you have included when compiling your code.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// the micro version number of the GTK library
@@ -208,10 +215,12 @@ namespace GISharp.Lib.Gtk
         /// (e.g. in GTK version 3.1.5 this is 1.)
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is in the library, so it represents the GTK library
         /// your code is are running against. Contrast with the
         /// %GTK_MINOR_VERSION macro, which represents the minor version of the
         /// GTK headers you have included when compiling your code.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// the minor version number of the GTK library

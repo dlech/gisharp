@@ -13,12 +13,14 @@ namespace GISharp.Lib.GLib
         /// g_utf8_casefold() on other strings.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that calling g_utf8_casefold() followed by g_utf8_collate() is
         /// only an approximation to the correct linguistic case insensitive
         /// ordering, though it is a fairly good one. Getting this exactly
         /// right would require a more sophisticated collation function that
         /// takes case sensitivity into account. GLib does not currently
         /// provide such a function.
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// a UTF-8 encoded string
@@ -76,11 +78,14 @@ namespace GISharp.Lib.GLib
         /// strcmp().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The results of comparing the collation keys of two strings
         /// with strcmp() will always be the same as comparing the two
         /// original keys with g_utf8_collate().
-        /// 
+        /// </para>
+        /// <para>
         /// Note that this function depends on the [current locale][setlocale].
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// a UTF-8 encoded string.
@@ -108,14 +113,17 @@ namespace GISharp.Lib.GLib
         /// with other collation keys produced by the same function using strcmp().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In order to sort filenames correctly, this function treats the dot '.'
         /// as a special case. Most dictionary orderings seem to consider it
         /// insignificant, thus producing the ordering "event.c" "eventgenerator.c"
         /// "event.h" instead of "event.c" "event.h" "eventgenerator.c". Also, we
         /// would like to treat numbers intelligently so that "file1" "file10" "file5"
         /// is sorted as "file1" "file5" "file10".
-        /// 
+        /// </para>
+        /// <para>
         /// Note that this function depends on the [current locale][setlocale].
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// a UTF-8 encoded string.
@@ -143,14 +151,17 @@ namespace GISharp.Lib.GLib
         /// Finds the start of the next UTF-8 character in the string after @p.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @p does not have to be at the beginning of a UTF-8 character. No check
         /// is made to see if the character found is actually valid other than
         /// it starts with an appropriate byte.
-        /// 
+        /// </para>
+        /// <para>
         /// If @end is %NULL, the return value will never be %NULL: if the end of the
         /// string is reached, a pointer to the terminating nul byte is returned. If
         /// @end is non-%NULL, the return value will be %NULL if the end of the string
         /// is reached.
+        /// </para>
         /// </remarks>
         /// <param name="p">
         /// a pointer to a position within a UTF-8 encoded string
@@ -180,9 +191,11 @@ namespace GISharp.Lib.GLib
         /// UTF-8 characters are present in @str before @p.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @p does not have to be at the beginning of a UTF-8 character. No check
         /// is made to see if the character found is actually valid other than
         /// it starts with an appropriate byte.
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// pointer to the beginning of a UTF-8 encoded string
@@ -208,10 +221,12 @@ namespace GISharp.Lib.GLib
         /// Converts a sequence of bytes encoded as UTF-8 to a Unicode character.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @p does not point to a valid UTF-8 encoded character, results
         /// are undefined. If you are not sure that the bytes are complete
         /// valid Unicode characters, you should use g_utf8_get_char_validated()
         /// instead.
+        /// </para>
         /// </remarks>
         /// <param name="p">
         /// a pointer to Unicode character encoded as UTF-8
@@ -234,9 +249,11 @@ namespace GISharp.Lib.GLib
         /// overlong encodings of valid characters.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that g_utf8_get_char_validated() returns (gunichar)-2 if
         /// @max_len is positive and any of the bytes in the first UTF-8 character
         /// sequence are nul.
+        /// </para>
         /// </remarks>
         /// <param name="p">
         /// a pointer to Unicode character encoded as UTF-8
@@ -268,11 +285,13 @@ namespace GISharp.Lib.GLib
         /// are replaced with the Unicode replacement character (U+FFFD).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For example, this is an appropriate function to use if you have received
         /// a string that was incorrectly declared to be UTF-8, and you need a valid
         /// UTF-8 version of it that can be logged or displayed to the user, with the
         /// assumption that it is close enough to ASCII or UTF-8 to be mostly
         /// readable as-is.
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// string to coerce into UTF-8
@@ -306,6 +325,7 @@ namespace GISharp.Lib.GLib
         /// before comparing two Unicode strings.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The normalization mode %G_NORMALIZE_DEFAULT only
         /// standardizes differences that do not affect the
         /// text content, such as the above-mentioned accent
@@ -315,7 +335,8 @@ namespace GISharp.Lib.GLib
         /// (in this case DIGIT THREE). Formatting information
         /// may be lost but for most text operations such
         /// characters should be considered the same.
-        /// 
+        /// </para>
+        /// <para>
         /// %G_NORMALIZE_DEFAULT_COMPOSE and %G_NORMALIZE_ALL_COMPOSE
         /// are like %G_NORMALIZE_DEFAULT and %G_NORMALIZE_ALL,
         /// but returned a result with composed forms rather
@@ -323,6 +344,7 @@ namespace GISharp.Lib.GLib
         /// useful if you intend to convert the string to
         /// a legacy encoding or pass it to a system with
         /// less capable Unicode handling.
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// a UTF-8 encoded string.
@@ -357,16 +379,19 @@ namespace GISharp.Lib.GLib
         /// within the string.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Since 2.10, this function allows to pass a negative @offset to
         /// step backwards. It is usually worth stepping backwards from the end
         /// instead of forwards if @offset is in the last fourth of the string,
         /// since moving forward is about 3 times faster than moving backward.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that this function doesn't abort when reaching the end of @str.
         /// Therefore you should be sure that @offset is within string boundaries
         /// before calling that function. Call g_utf8_strlen() when unsure.
         /// This limitation exists as this function is called frequently during
         /// text rendering and therefore has to be as fast as possible.
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// a UTF-8 encoded string
@@ -393,8 +418,10 @@ namespace GISharp.Lib.GLib
         /// character offset.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Since 2.10, this function allows @pos to be before @str, and returns
         /// a negative offset in this case.
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// a UTF-8 encoded string
@@ -420,10 +447,12 @@ namespace GISharp.Lib.GLib
         /// Finds the previous UTF-8 character in the string before @p.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @p does not have to be at the beginning of a UTF-8 character. No check
         /// is made to see if the character found is actually valid other than
         /// it starts with an appropriate byte. If @p might be the first
         /// character of the string, you must use g_utf8_find_prev_char() instead.
+        /// </para>
         /// </remarks>
         /// <param name="p">
         /// a pointer to a position within a UTF-8 encoded string
@@ -535,8 +564,10 @@ namespace GISharp.Lib.GLib
         /// text before trying to use UTF-8 utility functions with it.)
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note you must ensure @dest is at least 4 * @n to fit the
         /// largest possible UTF-8 characters
+        /// </para>
         /// </remarks>
         /// <param name="dest">
         /// buffer to fill with characters from @src
@@ -603,15 +634,18 @@ namespace GISharp.Lib.GLib
         /// utility functions with it.)
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is intended for programmatic uses of reversed strings.
         /// It pays no attention to decomposed characters, combining marks, byte
         /// order marks, directional indicators (LRM, LRO, etc) and similar
         /// characters which might need special handling when reversing a string
         /// for display purposes.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that unlike g_strreverse(), this function returns
         /// newly-allocated memory, which should be freed with g_free() when
         /// no longer needed.
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// a UTF-8 encoded string
@@ -858,13 +892,16 @@ namespace GISharp.Lib.GLib
         /// being validated otherwise).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that g_utf8_validate() returns %FALSE if @max_len is
         /// positive and any of the @max_len bytes are nul.
-        /// 
+        /// </para>
+        /// <para>
         /// Returns %TRUE if all of @str was valid. Many GLib and GTK+
         /// routines require valid UTF-8 as input; so data read from a file
         /// or the network should be checked with g_utf8_validate() before
         /// doing anything else with it.
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// a pointer to character data
@@ -898,8 +935,10 @@ namespace GISharp.Lib.GLib
         /// Validates UTF-8 encoded text.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// As with g_utf8_validate(), but @max_len must be set, and hence this function
         /// will always return %FALSE if any of the bytes of @str are nul.
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// a pointer to character data

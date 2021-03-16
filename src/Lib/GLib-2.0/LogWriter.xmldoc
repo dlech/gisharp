@@ -9,9 +9,11 @@ documentation for g_log_structured()). It does not include values from
 unknown fields.
 </summary>
 <remarks>
+<para>
 The returned string does **not** have a trailing new-line character. It is
 encoded in the character set of the current locale, which is not necessarily
 UTF-8.
+</para>
 </remarks>
 <param name="logLevel">
 log level, either from <see cref="LogLevelFlags"/>, or a user-defined
@@ -38,11 +40,13 @@ systemd journal, or something else (like a log file or `stdout` or
 `stderr`).
 </summary>
 <remarks>
+<para>
 Invalid file descriptors are accepted and return <c>false</c>, which allows for
 the following construct without needing any additional error handling:
 |[&lt;!-- language="C" --&gt;
   is_journald = g_log_writer_is_journald (fileno (stderr));
 ]|
+</para>
 </remarks>
 <param name="outputFd">
 output file descriptor to check

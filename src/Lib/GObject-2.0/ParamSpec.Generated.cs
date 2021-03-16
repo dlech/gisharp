@@ -83,8 +83,10 @@ namespace GISharp.Lib.GObject
         /// before actually trying to create them.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See [canonical parameter names][canonical-parameter-names] for details of
         /// the rules for valid names.
+        /// </para>
         /// </remarks>
         /// <param name="name">
         /// the canonical name of the property
@@ -144,7 +146,9 @@ namespace GISharp.Lib.GObject
         /// Gets the default value of @pspec as a pointer to a #GValue.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The #GValue will remain valid for the life of @pspec.
+        /// </para>
         /// </remarks>
         /// <param name="pspec">
         /// a #GParamSpec
@@ -176,8 +180,10 @@ namespace GISharp.Lib.GObject
         /// Get the name of a #GParamSpec.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The name is always an "interned" string (as per g_intern_string()).
         /// This allows for pointer-value comparisons.
+        /// </para>
         /// </remarks>
         /// <param name="pspec">
         /// a valid #GParamSpec

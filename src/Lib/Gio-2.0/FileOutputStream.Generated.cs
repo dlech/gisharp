@@ -78,16 +78,19 @@ namespace GISharp.Lib.Gio
         /// %G_IO_ERROR_PENDING.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Can fail if the stream was already closed (with @error being set to
         /// %G_IO_ERROR_CLOSED), the stream has pending operations (with @error being
         /// set to %G_IO_ERROR_PENDING), or if querying info is not supported for
         /// the stream's interface (with @error being set to %G_IO_ERROR_NOT_SUPPORTED). In
         /// all cases of failure, %NULL will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be set, and %NULL will
         /// be returned.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GFileOutputStream.
@@ -147,8 +150,10 @@ namespace GISharp.Lib.Gio
         /// finish the operation with g_file_output_stream_query_info_finish().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For the synchronous version of this function, see
         /// g_file_output_stream_query_info().
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GFileOutputStream.

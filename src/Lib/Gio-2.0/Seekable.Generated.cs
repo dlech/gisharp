@@ -109,18 +109,22 @@ namespace GISharp.Lib.Gio
         /// Seeks in the stream by the given @offset, modified by @type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Attempting to seek past the end of the stream will have different
         /// results depending on if the stream is fixed-sized or resizable.  If
         /// the stream is resizable then seeking past the end and then writing
         /// will result in zeros filling the empty space.  Seeking past the end
         /// of a resizable stream and reading will result in EOF.  Seeking past
         /// the end of a fixed-sized stream will fail.
-        /// 
+        /// </para>
+        /// <para>
         /// Any operation that would result in a negative offset will fail.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="seekable">
         /// a #GSeekable.
@@ -214,11 +218,13 @@ namespace GISharp.Lib.Gio
         /// previously shorter than @offset, it is extended with NUL ('\0') bytes.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
         /// operation was partially finished when the operation was cancelled the
         /// partial result will be returned, without an error.
+        /// </para>
         /// </remarks>
         /// <param name="seekable">
         /// a #GSeekable.

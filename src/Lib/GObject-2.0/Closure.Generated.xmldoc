@@ -71,6 +71,7 @@ part as a <see cref="Closure"/>. This function is mainly useful when
 implementing new types of closures.
 </summary>
 <remarks>
+<para>
 |[&lt;!-- language="C" --&gt;
 typedef struct _MyClosure MyClosure;
 struct _MyClosure
@@ -78,31 +79,38 @@ struct _MyClosure
   GClosure closure;
   // extra data goes here
 };
-
+</para>
+<para>
 static void
 my_closure_finalize (gpointer  notify_data,
                      GClosure *closure)
 {
   MyClosure *my_closure = (MyClosure *)closure;
-
+</para>
+<para>
   // free extra data here
 }
-
+</para>
+<para>
 MyClosure *my_closure_new (gpointer data)
 {
   GClosure *closure;
   MyClosure *my_closure;
-
+</para>
+<para>
   closure = g_closure_new_simple (sizeof (MyClosure), data);
   my_closure = (MyClosure *) closure;
-
+</para>
+<para>
   // initialize extra data here
-
+</para>
+<para>
   g_closure_add_finalize_notifier (closure, notify_data,
                                    my_closure_finalize);
   return my_closure;
 }
 ]|
+</para>
 </remarks>
 <param name="sizeofClosure">
 the size of the structure to allocate, must be at least
@@ -126,9 +134,11 @@ access the closure after calling <see cref="Closure.Invalidate()"/>, make sure
 that you've previously called <see cref="Closure.Ref()"/>.
 </summary>
 <remarks>
+<para>
 Note that <see cref="Closure.Invalidate()"/> will also be called when the
 reference count of a closure drops to zero (unless it has already
 been invalidated before).
+</para>
 </remarks>
 </member>
 
@@ -173,6 +183,7 @@ g_source_set_closure (source, g_cclosure_new (cb_func, cb_data));
 ]|
 </summary>
 <remarks>
+<para>
 Generally, this function is used together with <see cref="Closure.Ref()"/>. An example
 of storing a closure for later notification looks like:
 |[&lt;!-- language="C" --&gt;
@@ -190,10 +201,12 @@ foo_notify_set_closure (GClosure *closure)
     }
 }
 ]|
-
+</para>
+<para>
 Because <see cref="Closure.Sink()"/> may decrement the reference count of a closure
 (if it hasn't been called on this instance yet) just like <see cref="Closure.Unref()"/>,
 <see cref="Closure.Ref()"/> should be called prior to this function.
+</para>
 </remarks>
 </member>
 
@@ -207,6 +220,7 @@ a suitable form, perform the callback on the converted arguments,
 and transform the return value back into a <see cref="Value"/>.
 </summary>
 <remarks>
+<para>
 In the case of C programs, a closure usually just holds a pointer
 to a function and maybe a data argument, and the marshaller
 converts between <see cref="Value"/> and native C types. The GObject
@@ -216,7 +230,8 @@ and suitable representations in the runtime of the language in
 order to use functions written in that language as callbacks. Use
 g_closure_set_marshal() to set the marshaller on such a custom
 closure implementation.
-
+</para>
+<para>
 Within GObject, closures play an important role in the
 implementation of signals. When a signal is registered, the
 <c>cMarshaller</c> argument to g_signal_new() specifies the default C
@@ -229,20 +244,25 @@ g_signal_connect_closure(), but it usually more convenient to let
 GObject create a closure automatically by using one of the
 g_signal_connect_*() functions which take a callback function/user
 data pair.
-
+</para>
+<para>
 Using closures has a number of important advantages over a simple
 callback function/data pointer combination:
-
+</para>
+<para>
 - Closures allow the callee to get the types of the callback parameters,
   which means that language bindings don't have to write individual glue
   for each callback type.
-
+</para>
+<para>
 - The reference counting of <see cref="Closure"/> makes it easy to handle reentrancy
   right; if a callback is removed while it is being invoked, the closure
   and its parameters won't be freed until the invocation finishes.
-
+</para>
+<para>
 - <see cref="Closure.Invalidate()"/> and invalidation notifiers allow callbacks to be
   automatically removed when the objects they point to go away.
+</para>
 </remarks>
 </member>
 

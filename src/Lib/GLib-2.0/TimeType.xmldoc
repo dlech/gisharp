@@ -23,12 +23,15 @@ the time is in UTC
 Disambiguates a given time in two ways.
 </summary>
 <remarks>
+<para>
 First, specifies if the given time is in universal or local time.
-
+</para>
+<para>
 Second, if the time is in local time, specifies if it is local
 standard time or local daylight time.  This is important for the case
 where the same local time occurs twice (during daylight savings time
 transitions, for example).
+</para>
 </remarks>
 </member>
 

@@ -9,6 +9,7 @@ This operation never fails, but the returned object might not
 support any I/O operation if <paramref name="arg"/> points to a malformed path.
 </summary>
 <remarks>
+<para>
 Note that on Windows, this function expects its argument to be in
 UTF-8 -- not the system code page.  This means that you
 should not use this function with string from argv as it is passed
@@ -17,6 +18,7 @@ the commandline.  <see cref="Application"/> also uses UTF-8 but
 <see cref="ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)"/> may be more useful
 for you there.  It is also always possible to use this function with
 #GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
+</para>
 </remarks>
 <param name="arg">
 a command line string
@@ -32,15 +34,19 @@ a new <see cref="IFile"/>.
 Creates a <see cref="IFile"/> with the given argument from the command line.
 </summary>
 <remarks>
+<para>
 This function is similar to <see cref="IFile.NewForCommandlineArg(GISharp.Lib.GLib.Filename)"/> except
 that it allows for passing the current working directory as an
 argument instead of using the current working directory of the
 process.
-
+</para>
+<para>
 This is useful if the commandline argument was given in a context
 other than the invocation of the current process.
-
+</para>
+<para>
 See also <see cref="ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)"/>.
+</para>
 </remarks>
 <param name="arg">
 a command line string
@@ -92,12 +98,15 @@ returned by g_get_tmp_dir()) and returns a <see cref="IFile"/> and
 <see cref="FileIOStream"/> pointing to it.
 </summary>
 <remarks>
+<para>
 <paramref name="tmpl"/> should be a string in the GLib file name encoding
 containing a sequence of six 'X' characters, and containing no
 directory components. If it is <c>null</c>, a default template is used.
-
+</para>
+<para>
 Unlike the other <see cref="IFile"/> constructors, this will return <c>null</c> if
 a temporary file could not be created.
+</para>
 </remarks>
 <param name="tmpl">
 Template for the file
@@ -136,20 +145,24 @@ Gets an output stream for appending data to the file.
 If the file doesn't already exist it is created.
 </summary>
 <remarks>
+<para>
 By default files created are generally readable by everyone,
 but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level that
 is supported on the target filesystem.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 Some file systems don't allow all file names, and may return an
 <see cref="IOErrorEnum.InvalidFilename"/> error. If the file is a directory the
 <see cref="IOErrorEnum.IsDirectory"/> error will be returned. Other errors are
 possible too, and depend on what kind of filesystem the file is on.
+</para>
 </remarks>
 <param name="flags">
 a set of <see cref="FileCreateFlags"/>
@@ -172,8 +185,10 @@ On error
 Asynchronously opens this instance for appending.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.AppendTo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="flags">
 a set of <see cref="FileCreateFlags"/>
@@ -215,43 +230,54 @@ Copies the file this instance to the location specified by <paramref name="desti
 Can not handle recursive copies of directories.
 </summary>
 <remarks>
+<para>
 If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
-
+</para>
+<para>
 If the flag <see cref="FileCopyFlags.NoFollowSymlinks"/> is specified then symlinks
 will be copied as symlinks, otherwise the target of the
 this instance symlink will be copied.
-
+</para>
+<para>
 If the flag <see cref="FileCopyFlags.AllMetadata"/> is specified then all the metadata
 that is possible to copy is copied, not just the default subset (which,
 for instance, does not include the owner, see <see cref="FileInfo"/>).
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
+</para>
+<para>
 If <paramref name="progressCallback"/> is not <c>null</c>, then the operation can be monitored
 by setting this to a <see cref="FileProgressCallback"/> function.
 It is guaranteed
 that this callback will be called after all data has been transferred with
 the total number of bytes copied during the operation.
-
+</para>
+<para>
 If the this instance file does not exist, then the <see cref="IOErrorEnum.NotFound"/> error
 is returned, independent on the status of the <paramref name="destination"/>.
-
+</para>
+<para>
 If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists, then
 the error <see cref="IOErrorEnum.Exists"/> is returned.
-
+</para>
+<para>
 If trying to overwrite a file over a directory, the <see cref="IOErrorEnum.IsDirectory"/>
 error is returned. If trying to overwrite a directory with a directory the
 <see cref="IOErrorEnum.WouldMerge"/> error is returned.
-
+</para>
+<para>
 If the source is a directory and the target does not exist, or
 <see cref="FileCopyFlags.Overwrite"/> is specified and the target is a file, then the
 <see cref="IOErrorEnum.WouldRecurse"/> error is returned.
-
+</para>
+<para>
 If you are interested in copying the <see cref="IFile"/> object itself (not the on-disk
 file), see <see cref="File.Dup(GISharp.Lib.Gio.IFile)"/>.
+</para>
 </remarks>
 <param name="destination">
 destination <see cref="IFile"/>
@@ -281,9 +307,11 @@ Copies the file this instance to the location specified by <paramref name="desti
 asynchronously. For details of the behaviour, see <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
 just like in <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>. The callback will run in the default main context
 of the thread calling <see cref="File.CopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,int,GISharp.Lib.Gio.Cancellable,GISharp.Lib.Gio.FileProgressCallback)"/>.
+</para>
 </remarks>
 <param name="destination">
 destination <see cref="IFile"/>
@@ -328,22 +356,26 @@ Creates a new file and returns an output stream for writing to it.
 The file must not already exist.
 </summary>
 <remarks>
+<para>
 By default files created are generally readable by everyone,
 but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level
 that is supported on the target filesystem.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If a file or directory with this name already exists the
 <see cref="IOErrorEnum.Exists"/> error will be returned. Some file systems don't
 allow all file names, and may return an <see cref="IOErrorEnum.InvalidFilename"/>
 error, and if the name is to long <see cref="IOErrorEnum.FilenameTooLong"/> will
 be returned. Other errors are possible too, and depend on what kind
 of filesystem the file is on.
+</para>
 </remarks>
 <param name="flags">
 a set of <see cref="FileCreateFlags"/>
@@ -368,8 +400,10 @@ Asynchronously creates a new file and returns an output stream
 for writing to it. The file must not already exist.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.Create(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="flags">
 a set of <see cref="FileCreateFlags"/>
@@ -410,26 +444,31 @@ Creates a new file and returns a stream for reading and
 writing to it. The file must not already exist.
 </summary>
 <remarks>
+<para>
 By default files created are generally readable by everyone,
 but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level
 that is supported on the target filesystem.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If a file or directory with this name already exists, the
 <see cref="IOErrorEnum.Exists"/> error will be returned. Some file systems don't
 allow all file names, and may return an <see cref="IOErrorEnum.InvalidFilename"/>
 error, and if the name is too long, <see cref="IOErrorEnum.FilenameTooLong"/>
 will be returned. Other errors are possible too, and depend on what
 kind of filesystem the file is on.
-
+</para>
+<para>
 Note that in many non-local file cases read and write streams are
 not supported, so make sure you really need to do read and write
 streaming, rather than just opening for reading or writing.
+</para>
 </remarks>
 <param name="flags">
 a set of <see cref="FileCreateFlags"/>
@@ -454,8 +493,10 @@ Asynchronously creates a new file and returns a stream
 for reading and writing to it. The file must not already exist.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.CreateReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="flags">
 a set of <see cref="FileCreateFlags"/>
@@ -496,6 +537,7 @@ Deletes a file. If the this instance is a directory, it will only be
 deleted if it is empty. This has the same semantics as g_unlink().
 </summary>
 <remarks>
+<para>
 If this instance doesn’t exist, <see cref="IOErrorEnum.NotFound"/> will be returned. This allows
 for deletion to be implemented avoiding
 [time-of-check to time-of-use races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use):
@@ -510,10 +552,12 @@ if (!g_file_delete (my_file, my_cancellable, &amp;local_error) &amp;&amp;
                g_file_peek_path (my_file), local_error-&gt;message);
   }
 ]|
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
@@ -568,12 +612,15 @@ the actual file or directory represented by the <see cref="IFile"/>; see
 <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/> if attempting to copy a file.
 </summary>
 <remarks>
+<para>
 <see cref="File.Dup(GISharp.Lib.Gio.IFile)"/> is useful when a second handle is needed to the same underlying
 file, for use in a separate thread (<see cref="IFile"/> is not thread-safe). For use
 within the same thread, use g_object_ref() to increment the existing object’s
 reference count.
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <returns>
 a new <see cref="IFile"/> that is a duplicate
@@ -622,8 +669,10 @@ in a directory. The result is a #GFileEnumerator object that will
 give out <see cref="FileInfo"/> objects for all the files in the directory.
 </summary>
 <remarks>
+<para>
 For more details, see g_file_enumerate_children() which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="attributes">
 an attribute query string
@@ -649,11 +698,14 @@ optional <see cref="Cancellable"/> object,
 Checks if the two given #GFiles refer to the same file.
 </summary>
 <remarks>
+<para>
 Note that two #GFiles that differ can still refer to the same
 file on the filesystem due to various forms of filename
 aliasing.
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file2">
 the second <see cref="IFile"/>
@@ -676,7 +728,9 @@ user interface, for instance when you select a directory and
 type a filename in the file selector.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="displayName">
 string to a possible child
@@ -698,7 +752,9 @@ If the this instance represents the root directory of the
 file system, then <c>null</c> will be returned.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <returns>
 a <see cref="IFile"/> structure to the
@@ -715,15 +771,19 @@ file such that one can get the <see cref="IFile"/> back using
 <see cref="IFile.ParseName(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
+<para>
 This is generally used to show the <see cref="IFile"/> as a nice
 full-pathname kind of string in a user interface,
 like in a location entry.
-
+</para>
+<para>
 For local files with names that can safely be converted
 to UTF-8 the pathname is used, otherwise the IRI is used
 (a form of URI that allows UTF-8 characters unescaped).
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <returns>
 a string containing the <see cref="IFile"/>'s parse name.
@@ -743,7 +803,9 @@ a string containing the <see cref="IFile"/>'s parse name.
 Gets the URI for the this instance.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <returns>
 a string containing the <see cref="IFile"/>'s URI.
@@ -762,7 +824,9 @@ URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
 Common schemes include "file", "http", "ftp", etc.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <returns>
 a string containing the URI scheme for the given
@@ -776,7 +840,9 @@ a string containing the URI scheme for the given
 Checks to see if a <see cref="IFile"/> has a given URI scheme.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="uriScheme">
 a string containing a URI scheme
@@ -793,7 +859,9 @@ a string containing a URI scheme
 Creates a hash value for a <see cref="IFile"/>.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <returns>
 0 if this instance is not a valid <see cref="IFile"/>, otherwise an
@@ -808,15 +876,19 @@ This call does no blocking I/O.
 Checks to see if a file is native to the platform.
 </summary>
 <remarks>
+<para>
 A native file is one expressed in the platform-native filename format,
 e.g. "C:\Windows" or "/usr/bin/". This does not mean the file is local,
 as it might be on a locally mounted remote filesystem.
-
+</para>
+<para>
 On some systems non-native files may be available using the native
 filesystem via a userspace filesystem (FUSE), in these cases this call
 will return <c>false</c>, but <see cref="File.GetPath(GISharp.Lib.Gio.IFile)"/> will still return a native path.
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <returns>
 <c>true</c> if this instance is native
@@ -834,12 +906,15 @@ creating directories, this function will fail, setting <see cref="GISharp.Runtim
 <see cref="IOErrorEnum.NotSupported"/>.
 </summary>
 <remarks>
+<para>
 For a local <see cref="IFile"/> the newly created directory will have the default
 (current) ownership and permissions of the current process.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
@@ -892,9 +967,11 @@ Creates a symbolic link named this instance which contains the string
 <paramref name="symlinkValue"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="symlinkValue">
 a string with the path for the target
@@ -961,8 +1038,10 @@ On error
 Finishes a mount operation. See g_file_mount_mountable() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous mount operation that was started
 with g_file_mount_mountable().
+</para>
 </remarks>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -985,33 +1064,41 @@ implementation may support moving directories (for instance on moves
 inside the same filesystem), but the fallback code does not.
 </summary>
 <remarks>
+<para>
 If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
+</para>
+<para>
 If <paramref name="progressCallback"/> is not <c>null</c>, then the operation can be monitored
 by setting this to a <see cref="FileProgressCallback"/> function.
 It is
 guaranteed that this callback will be called after all data has been
 transferred with the total number of bytes copied during the operation.
-
+</para>
+<para>
 If the this instance file does not exist, then the <see cref="IOErrorEnum.NotFound"/>
 error is returned, independent on the status of the <paramref name="destination"/>.
-
+</para>
+<para>
 If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists,
 then the error <see cref="IOErrorEnum.Exists"/> is returned.
-
+</para>
+<para>
 If trying to overwrite a file over a directory, the <see cref="IOErrorEnum.IsDirectory"/>
 error is returned. If trying to overwrite a directory with a directory the
 <see cref="IOErrorEnum.WouldMerge"/> error is returned.
-
+</para>
+<para>
 If the source is a directory and the target does not exist, or
 <see cref="FileCopyFlags.Overwrite"/> is specified and the target is a file, then
 the <see cref="IOErrorEnum.WouldRecurse"/> error may be returned (if the native
 move operation isn't available).
+</para>
 </remarks>
 <param name="destination">
 <see cref="IFile"/> pointing to the destination location
@@ -1042,11 +1129,13 @@ a <see cref="FileIOStream"/> that can be used to read and write the contents
 of the file.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
 be returned. If the file is a directory, the <see cref="IOErrorEnum.IsDirectory"/>
 error will be returned. Other errors are possible too, and depend on
@@ -1054,6 +1143,7 @@ what kind of filesystem the file is on. Note that in many non-local
 file cases read and write streams are not supported, so make sure you
 really need to do read and write streaming, rather than just opening
 for reading or writing.
+</para>
 </remarks>
 <param name="cancellable">
 a <see cref="Cancellable"/>
@@ -1072,8 +1162,10 @@ On error
 Asynchronously opens this instance for reading and writing.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.OpenReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="ioPriority">
 the [I/O priority][io-priority] of the request
@@ -1110,9 +1202,11 @@ On error
 Polls a file of type <see cref="FileType.Mountable"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
@@ -1128,8 +1222,10 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 Finishes a poll operation. See <see cref="File.PollMountable(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/> for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous poll operation that was polled
 with <see cref="File.PollMountable(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/>.
+</para>
 </remarks>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -1148,18 +1244,22 @@ On error
 Checks whether <paramref name="file"/> has the prefix specified by this instance.
 </summary>
 <remarks>
+<para>
 In other words, if the names of initial elements of <paramref name="file"/>'s
 pathname match this instance. Only full pathname elements are matched,
 so a path like /foo is not considered a prefix of /foobar, only
 of /foo/bar.
-
+</para>
+<para>
 A <see cref="IFile"/> is not a prefix of itself. If you want to check for
 equality, use <see cref="File.Equals(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)"/>.
-
+</para>
+<para>
 This call does no I/O, as it works purely on names. As such it can
 sometimes return <c>false</c> even if <paramref name="file"/> is inside a this instance (from a
 filesystem point of view), because the prefix of <paramref name="file"/> is an alias
 of this instance.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -1178,6 +1278,7 @@ For instance the amount of space available and the type of
 the filesystem.
 </summary>
 <remarks>
+<para>
 The <paramref name="attributes"/> value is a string that specifies the attributes
 that should be gathered. It is not an error if it's not possible
 to read a particular requested attribute from a file - it just
@@ -1189,15 +1290,18 @@ attributes is "filesystem". Common attributes of interest are
 <see cref="FileAttribute.FilesystemSize"/> (the total size of the filesystem
 in bytes), <see cref="FileAttribute.FilesystemFree"/> (number of bytes available),
 and <see cref="FileAttribute.FilesystemType"/> (type of the filesystem).
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
 be returned. Other errors are possible too, and depend on what
 kind of filesystem the file is on.
+</para>
 </remarks>
 <param name="attributes">
 an attribute query string
@@ -1223,8 +1327,10 @@ that contains key-value attributes (such as type or size for the
 file).
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> which is the
 synchronous version of this call.
+</para>
 </remarks>
 <param name="attributes">
 an attribute query string
@@ -1267,6 +1373,7 @@ The result is a <see cref="FileInfo"/> object that contains key-value
 attributes (such as the type or size of the file).
 </summary>
 <remarks>
+<para>
 The <paramref name="attributes"/> value is a string that specifies the file
 attributes that should be gathered. It is not an error if
 it's not possible to read a particular requested attribute
@@ -1277,22 +1384,26 @@ The wildcard "*" means all attributes, and a wildcard like
 An example attribute query be "standard::*,owner::user".
 The standard attributes are available as defines, like
 <see cref="FileAttribute.StandardName"/>.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 For symlinks, normally the information about the target of the
 symlink is returned, rather than information about the symlink
 itself. However if you pass <see cref="FileQueryInfoFlags.NoFollowSymlinks"/>
 in <paramref name="flags"/> the information about the symlink itself will be returned.
 Also, for symlinks that point to non-existing files the information
 about the symlink itself will be returned.
-
+</para>
+<para>
 If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
 returned. Other errors are possible too, and depend on what kind of
 filesystem the file is on.
+</para>
 </remarks>
 <param name="attributes">
 an attribute query string
@@ -1320,8 +1431,10 @@ The result is a <see cref="FileInfo"/> object that contains key-value attributes
 (such as type or size for the file).
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> which is the synchronous
 version of this call.
+</para>
 </remarks>
 <param name="attributes">
 an attribute query string
@@ -1365,14 +1478,17 @@ On error
 Obtain the list of settable attributes for the file.
 </summary>
 <remarks>
+<para>
 Returns the type and full attribute name of all the attributes
 that can be set on this file. This doesn't mean setting it will
 always succeed though, you might get an access failure, or some
 specific file may not support a specific attribute.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
@@ -1393,9 +1509,11 @@ can be created by a user. An example of this is extended
 attributes (in the "xattr" namespace).
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
@@ -1414,8 +1532,10 @@ On error
 Asynchronously opens this instance for reading.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.Read(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="ioPriority">
 the [I/O priority][io-priority] of the request
@@ -1453,14 +1573,17 @@ Opens a file for reading. The result is a <see cref="FileInputStream"/> that
 can be used to read the contents of the file.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
+</para>
+<para>
 If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
 returned. If the file is a directory, the <see cref="IOErrorEnum.IsDirectory"/>
 error will be returned. Other errors are possible too, and depend
 on what kind of filesystem the file is on.
+</para>
 </remarks>
 <param name="cancellable">
 a <see cref="Cancellable"/>
@@ -1481,22 +1604,26 @@ creating a backup copy of the file first. If the file doesn't exist,
 it will be created.
 </summary>
 <remarks>
+<para>
 This will try to replace the file in the safest way possible so
 that any errors during the writing will not affect an already
 existing copy of the file. For instance, for local files it
 may write to a temporary file and then atomically rename over
 the destination when the stream is closed.
-
+</para>
+<para>
 By default files created are generally readable by everyone,
 but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level that
 is supported on the target filesystem.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If you pass in a non-<c>null</c> <paramref name="etag"/> value and this instance already exists, then
 this value is compared to the current entity tag of the file, and if
 they differ an <see cref="IOErrorEnum.WrongEtag"/> error is returned. This
@@ -1505,12 +1632,14 @@ it. You can get the new etag from <see cref="FileOutputStream.GetEtag()"/>
 after you've finished writing and closed the <see cref="FileOutputStream"/>. When
 you load a new file you can use <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> to
 get the etag of the file.
-
+</para>
+<para>
 If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a
 backup of the current file before overwriting it. If this fails
 a <see cref="IOErrorEnum.CantCreateBackup"/> error will be returned. If you
 want to replace anyway, try again with <paramref name="makeBackup"/> set to <c>false</c>.
-
+</para>
+<para>
 If the file is a directory the <see cref="IOErrorEnum.IsDirectory"/> error will
 be returned, and if the file is some other form of non-regular file
 then a <see cref="IOErrorEnum.NotRegularFile"/> error will be returned. Some
@@ -1518,6 +1647,7 @@ file systems don't allow all file names, and may return an
 <see cref="IOErrorEnum.InvalidFilename"/> error, and if the name is to long
 <see cref="IOErrorEnum.FilenameTooLong"/> will be returned. Other errors are
 possible too, and depend on what kind of filesystem the file is on.
+</para>
 </remarks>
 <param name="etag">
 an optional [entity tag][gfile-etag]
@@ -1548,8 +1678,10 @@ Asynchronously overwrites the file, replacing the contents,
 possibly creating a backup copy of the file first.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="etag">
 an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
@@ -1598,12 +1730,15 @@ possibly creating a backup copy of the file first. If the file doesn't
 exist, it will be created.
 </summary>
 <remarks>
+<para>
 For details about the behaviour, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which does the
 same thing but returns an output stream only.
-
+</para>
+<para>
 Note that in many non-local file cases read and write streams are not
 supported, so make sure you really need to do read and write streaming,
 rather than just opening for reading or writing.
+</para>
 </remarks>
 <param name="etag">
 an optional [entity tag][gfile-etag]
@@ -1635,8 +1770,10 @@ replacing the contents, possibly creating a backup copy
 of the file first.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="etag">
 an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
@@ -1683,7 +1820,9 @@ On error
 Resolves a relative path for this instance to an absolute path.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="relativePath">
 a given relative path string
@@ -1700,12 +1839,15 @@ a given relative path string
 Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="valueP"/>.
 </summary>
 <remarks>
+<para>
 Some attributes can be unset by setting <paramref name="type"/> to
 <see cref="FileAttributeType.Invalid"/> and <paramref name="valueP"/> to <c>null</c>.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="attribute">
 a string containing the attribute's name
@@ -1737,8 +1879,10 @@ On error
 Asynchronously sets the attributes of this instance with <paramref name="info"/>.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>,
 which is the synchronous version of this call.
+</para>
 </remarks>
 <param name="info">
 a <see cref="FileInfo"/>
@@ -1782,15 +1926,18 @@ Tries to set all attributes in the <see cref="FileInfo"/> on the target
 values, not stopping on the first error.
 </summary>
 <remarks>
+<para>
 If there is any error during this operation then <see cref="GISharp.Runtime.GErrorException"/> will
 be set to the first error. Error on particular fields are flagged
 by setting the "status" field in the attribute value to
 <see cref="FileAttributeStatus.ErrorSetting"/>, which means you can
 also detect further errors.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="info">
 a <see cref="FileInfo"/>
@@ -1815,19 +1962,24 @@ On error
 Renames this instance to the specified display name.
 </summary>
 <remarks>
+<para>
 The display name is converted from UTF-8 to the correct encoding
 for the target filesystem if possible and the this instance is renamed to this.
-
+</para>
+<para>
 If you want to implement a rename operation in the user interface the
 edit name (<see cref="FileAttribute.StandardEditName"/>) should be used as the
 initial value in the rename widget, and then the result after editing
 should be passed to <see cref="File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 On success the resulting converted filename is returned.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="displayName">
 a string
@@ -1851,8 +2003,10 @@ On error
 Asynchronously sets the display name for a given <see cref="IFile"/>.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="displayName">
 a string
@@ -1892,8 +2046,10 @@ On error
 Finishes a start operation. See g_file_start_mountable() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous start operation that was started
 with g_file_start_mountable().
+</para>
 </remarks>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -1912,8 +2068,10 @@ On error
 Finishes a stop operation, see g_file_stop_mountable() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous stop operation that was started
 with g_file_stop_mountable().
+</para>
 </remarks>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -1937,9 +2095,11 @@ mount option can be used to disable <see cref="File.Trash(GISharp.Lib.Gio.IFile,
 mounts, the <see cref="IOErrorEnum.NotSupported"/> error will be returned in that case.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
@@ -1991,8 +2151,10 @@ On error
 Finishes an unmount operation, see g_file_unmount_mountable() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous unmount operation that was started
 with g_file_unmount_mountable().
+</para>
 </remarks>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -2012,8 +2174,10 @@ Finishes an unmount operation,
 see g_file_unmount_mountable_with_operation() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous unmount operation that was started
 with g_file_unmount_mountable_with_operation().
+</para>
 </remarks>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -2037,6 +2201,7 @@ file. All file content I/O is implemented as streaming operations
 (see <see cref="InputStream"/> and <see cref="OutputStream"/>).
 </summary>
 <remarks>
+<para>
 To construct a <see cref="IFile"/>, you can use:
 - <see cref="IFile.NewForPath(GISharp.Lib.GLib.Filename)"/> if you have a path.
 - <see cref="IFile.NewForUri(GISharp.Lib.GLib.UnownedUtf8)"/> if you have a URI.
@@ -2044,12 +2209,14 @@ To construct a <see cref="IFile"/>, you can use:
 - <see cref="IFile.NewTmp(GISharp.Lib.GLib.Filename,out GISharp.Lib.Gio.FileIOStream)"/> to create a temporary file from a template.
 - <see cref="IFile.ParseName(GISharp.Lib.GLib.UnownedUtf8)"/> from a UTF-8 string gotten from <see cref="File.GetParseName(GISharp.Lib.Gio.IFile)"/>.
 - g_file_new_build_filename() to create a file from path elements.
-
+</para>
+<para>
 One way to think of a <see cref="IFile"/> is as an abstraction of a pathname. For
 normal files the system pathname is what is stored internally, but as
 <see cref="IFile"/>s are extensible it could also be something else that corresponds
 to a pathname in a userspace implementation of a filesystem.
-
+</para>
+<para>
 <see cref="IFile"/>s make up hierarchies of directories and files that correspond to
 the files on a filesystem. You can move through the file system with
 <see cref="IFile"/> using <see cref="File.GetParent(GISharp.Lib.Gio.IFile)"/> to get an identifier for the parent
@@ -2058,7 +2225,8 @@ directory, <see cref="File.GetChild(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filen
 <see cref="IFile"/>s. There can be multiple hierarchies, so you may not end up at
 the same root if you repeatedly call <see cref="File.GetParent(GISharp.Lib.Gio.IFile)"/> on two different
 files.
-
+</para>
+<para>
 All <see cref="IFile"/>s have a basename (get with <see cref="File.GetBasename(GISharp.Lib.Gio.IFile)"/>). These names
 are byte strings that are used to identify the file on the filesystem
 (relative to its parent directory) and there is no guarantees that they
@@ -2071,7 +2239,8 @@ This is guaranteed to be in UTF-8 and can be used in a user interface.
 But always store the real basename or the <see cref="IFile"/> to use to actually
 access the file, because there is no way to go from a display name to
 the actual name.
-
+</para>
+<para>
 Using <see cref="IFile"/> as an identifier has the same weaknesses as using a path
 in that there may be multiple aliases for the same file. For instance,
 hard or soft links may cause two different <see cref="IFile"/>s to refer to the same
@@ -2082,29 +2251,34 @@ check if two <see cref="IFile"/>s point to the same file you can query for the
 canonicalization of pathnames passed in, so that trivial differences in
 the path string used at creation (duplicated slashes, slash at end of
 path, "." or ".." path segments, etc) does not create different <see cref="IFile"/>s.
-
+</para>
+<para>
 Many <see cref="IFile"/> operations have both synchronous and asynchronous versions
 to suit your application. Asynchronous versions of synchronous functions
 simply have _async() appended to their function names. The asynchronous
 I/O functions call a <see cref="AsyncReadyCallback"/> which is then used to finalize
 the operation, producing a GAsyncResult which is then passed to the
 function's matching _finish() operation.
-
+</para>
+<para>
 It is highly recommended to use asynchronous calls when running within a
 shared main loop, such as in the main thread of an application. This avoids
 I/O operations blocking other sources on the main loop from being dispatched.
 Synchronous I/O operations should be performed from worker threads. See the
 [introduction to asynchronous programming section][async-programming] for
 more.
-
+</para>
+<para>
 Some <see cref="IFile"/> operations almost always take a noticeable amount of time, and
 so do not have synchronous analogs. Notable cases include:
 - g_file_mount_mountable() to mount a mountable file.
 - g_file_unmount_mountable_with_operation() to unmount a mountable file.
 - g_file_eject_mountable_with_operation() to eject a mountable file.
-
+</para>
+<para>
 ## Entity Tags # {#gfile-etag}
-
+</para>
+<para>
 One notable feature of <see cref="IFile"/>s are entity tags, or "etags" for
 short. Entity tags are somewhat like a more abstract version of the
 traditional mtime, and can be used to quickly determine if the file
@@ -2112,6 +2286,7 @@ has been modified from the version on the file system. See the
 HTTP 1.1
 [specification](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)
 for HTTP Etag headers, which are a very similar concept.
+</para>
 </remarks>
 </member>
 
@@ -2121,20 +2296,24 @@ Gets an output stream for appending data to the file.
 If the file doesn't already exist it is created.
 </summary>
 <remarks>
+<para>
 By default files created are generally readable by everyone,
 but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level that
 is supported on the target filesystem.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 Some file systems don't allow all file names, and may return an
 <see cref="IOErrorEnum.InvalidFilename"/> error. If the file is a directory the
 <see cref="IOErrorEnum.IsDirectory"/> error will be returned. Other errors are
 possible too, and depend on what kind of filesystem the file is on.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2160,8 +2339,10 @@ On error
 Asynchronously opens <paramref name="file"/> for appending.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.AppendTo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2184,43 +2365,54 @@ Copies the file <paramref name="source"/> to the location specified by <paramref
 Can not handle recursive copies of directories.
 </summary>
 <remarks>
+<para>
 If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
-
+</para>
+<para>
 If the flag <see cref="FileCopyFlags.NoFollowSymlinks"/> is specified then symlinks
 will be copied as symlinks, otherwise the target of the
 <paramref name="source"/> symlink will be copied.
-
+</para>
+<para>
 If the flag <see cref="FileCopyFlags.AllMetadata"/> is specified then all the metadata
 that is possible to copy is copied, not just the default subset (which,
 for instance, does not include the owner, see <see cref="FileInfo"/>).
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
+</para>
+<para>
 If <paramref name="progressCallback"/> is not <c>null</c>, then the operation can be monitored
 by setting this to a <see cref="FileProgressCallback"/> function.
 It is guaranteed
 that this callback will be called after all data has been transferred with
 the total number of bytes copied during the operation.
-
+</para>
+<para>
 If the <paramref name="source"/> file does not exist, then the <see cref="IOErrorEnum.NotFound"/> error
 is returned, independent on the status of the <paramref name="destination"/>.
-
+</para>
+<para>
 If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists, then
 the error <see cref="IOErrorEnum.Exists"/> is returned.
-
+</para>
+<para>
 If trying to overwrite a file over a directory, the <see cref="IOErrorEnum.IsDirectory"/>
 error is returned. If trying to overwrite a directory with a directory the
 <see cref="IOErrorEnum.WouldMerge"/> error is returned.
-
+</para>
+<para>
 If the source is a directory and the target does not exist, or
 <see cref="FileCopyFlags.Overwrite"/> is specified and the target is a file, then the
 <see cref="IOErrorEnum.WouldRecurse"/> error is returned.
-
+</para>
+<para>
 If you are interested in copying the <see cref="IFile"/> object itself (not the on-disk
 file), see <see cref="File.Dup(GISharp.Lib.Gio.IFile)"/>.
+</para>
 </remarks>
 <param name="source">
 input <see cref="IFile"/>
@@ -2250,9 +2442,11 @@ Copies the file <paramref name="source"/> to the location specified by <paramref
 asynchronously. For details of the behaviour, see <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
 just like in <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>. The callback will run in the default main context
 of the thread calling <see cref="File.CopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,int,GISharp.Lib.Gio.Cancellable,GISharp.Lib.Gio.FileProgressCallback)"/>.
+</para>
 </remarks>
 <param name="source">
 input <see cref="IFile"/>
@@ -2281,12 +2475,14 @@ function to callback with progress
 Copies the file attributes from <paramref name="source"/> to <paramref name="destination"/>.
 </summary>
 <remarks>
+<para>
 Normally only a subset of the file attributes are copied,
 those that are copies in a normal file copy operation
 (which for instance does not include e.g. owner). However
 if <see cref="FileCopyFlags.AllMetadata"/> is specified in <paramref name="flags"/>, then
 all the metadata that is possible to copy is copied. This
 is useful when implementing move by copy + delete source.
+</para>
 </remarks>
 <param name="source">
 a <see cref="IFile"/> with attributes
@@ -2312,22 +2508,26 @@ Creates a new file and returns an output stream for writing to it.
 The file must not already exist.
 </summary>
 <remarks>
+<para>
 By default files created are generally readable by everyone,
 but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level
 that is supported on the target filesystem.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If a file or directory with this name already exists the
 <see cref="IOErrorEnum.Exists"/> error will be returned. Some file systems don't
 allow all file names, and may return an <see cref="IOErrorEnum.InvalidFilename"/>
 error, and if the name is to long <see cref="IOErrorEnum.FilenameTooLong"/> will
 be returned. Other errors are possible too, and depend on what kind
 of filesystem the file is on.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2355,8 +2555,10 @@ Asynchronously creates a new file and returns an output stream
 for writing to it. The file must not already exist.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.Create(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2379,26 +2581,31 @@ Creates a new file and returns a stream for reading and
 writing to it. The file must not already exist.
 </summary>
 <remarks>
+<para>
 By default files created are generally readable by everyone,
 but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level
 that is supported on the target filesystem.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If a file or directory with this name already exists, the
 <see cref="IOErrorEnum.Exists"/> error will be returned. Some file systems don't
 allow all file names, and may return an <see cref="IOErrorEnum.InvalidFilename"/>
 error, and if the name is too long, <see cref="IOErrorEnum.FilenameTooLong"/>
 will be returned. Other errors are possible too, and depend on what
 kind of filesystem the file is on.
-
+</para>
+<para>
 Note that in many non-local file cases read and write streams are
 not supported, so make sure you really need to do read and write
 streaming, rather than just opening for reading or writing.
+</para>
 </remarks>
 <param name="file">
 a <see cref="IFile"/>
@@ -2426,8 +2633,10 @@ Asynchronously creates a new file and returns a stream
 for reading and writing to it. The file must not already exist.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.CreateReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2450,6 +2659,7 @@ Deletes a file. If the <paramref name="file"/> is a directory, it will only be
 deleted if it is empty. This has the same semantics as g_unlink().
 </summary>
 <remarks>
+<para>
 If <paramref name="file"/> doesn’t exist, <see cref="IOErrorEnum.NotFound"/> will be returned. This allows
 for deletion to be implemented avoiding
 [time-of-check to time-of-use races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use):
@@ -2464,10 +2674,12 @@ if (!g_file_delete (my_file, my_cancellable, &amp;local_error) &amp;&amp;
                g_file_peek_path (my_file), local_error-&gt;message);
   }
 ]|
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2506,12 +2718,15 @@ the actual file or directory represented by the <see cref="IFile"/>; see
 <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/> if attempting to copy a file.
 </summary>
 <remarks>
+<para>
 <see cref="File.Dup(GISharp.Lib.Gio.IFile)"/> is useful when a second handle is needed to the same underlying
 file, for use in a separate thread (<see cref="IFile"/> is not thread-safe). For use
 within the same thread, use g_object_ref() to increment the existing object’s
 reference count.
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2559,11 +2774,14 @@ On error
 Checks if the two given #GFiles refer to the same file.
 </summary>
 <remarks>
+<para>
 Note that two #GFiles that differ can still refer to the same
 file on the filesystem due to various forms of filename
 aliasing.
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file1">
 the first <see cref="IFile"/>
@@ -2581,17 +2799,21 @@ the second <see cref="IFile"/>
 Gets the base name (the last component of the path) for a given <see cref="IFile"/>.
 </summary>
 <remarks>
+<para>
 If called for the top level of a system (such as the filesystem root
 or a uri like sftp://host/) it will return a single directory separator
 (and on Windows, possibly a drive letter).
-
+</para>
+<para>
 The base name is a byte string (not UTF-8). It has no defined encoding
 or rules other than it may not contain zero bytes.  If you want to use
 filenames in a user interface you should use the display name that you
 can get by requesting the <see cref="FileAttribute.StandardDisplayName"/>
 attribute with <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2608,11 +2830,14 @@ string containing the <see cref="IFile"/>'s
 Gets a child of <paramref name="file"/> with basename equal to <paramref name="name"/>.
 </summary>
 <remarks>
+<para>
 Note that the file with that specific name might not exist, but
 you can still have a <see cref="IFile"/> that points to it. You can use this
 for instance to create that file.
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2636,7 +2861,9 @@ user interface, for instance when you select a directory and
 type a filename in the file selector.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2661,7 +2888,9 @@ If the <paramref name="file"/> represents the root directory of the
 file system, then <c>null</c> will be returned.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2681,15 +2910,19 @@ file such that one can get the <see cref="IFile"/> back using
 <see cref="IFile.ParseName(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
+<para>
 This is generally used to show the <see cref="IFile"/> as a nice
 full-pathname kind of string in a user interface,
 like in a location entry.
-
+</para>
+<para>
 For local files with names that can safely be converted
 to UTF-8 the pathname is used, otherwise the IRI is used
 (a form of URI that allows UTF-8 characters unescaped).
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2707,7 +2940,9 @@ Gets the local pathname for <see cref="IFile"/>, if one exists. If non-<c>null</
 guaranteed to be an absolute, canonical path. It might contain symlinks.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2724,7 +2959,9 @@ string containing the <see cref="IFile"/>'s path,
 Gets the path for <paramref name="descendant"/> relative to <paramref name="parent"/>.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="parent">
 input <see cref="IFile"/>
@@ -2745,7 +2982,9 @@ string with the relative path from
 Gets the URI for the <paramref name="file"/>.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2767,7 +3006,9 @@ URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
 Common schemes include "file", "http", "ftp", etc.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2784,9 +3025,11 @@ a string containing the URI scheme for the given
 Checks if <paramref name="file"/> has a parent, and optionally, if it is <paramref name="parent"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="parent"/> is <c>null</c> then this function returns <c>true</c> if <paramref name="file"/> has any
 parent at all.  If <paramref name="parent"/> is non-<c>null</c> then <c>true</c> is only returned
 if <paramref name="file"/> is an immediate child of <paramref name="parent"/>.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2805,18 +3048,22 @@ the parent to check for, or <c>null</c>
 Checks whether <paramref name="file"/> has the prefix specified by <paramref name="prefix"/>.
 </summary>
 <remarks>
+<para>
 In other words, if the names of initial elements of <paramref name="file"/>'s
 pathname match <paramref name="prefix"/>. Only full pathname elements are matched,
 so a path like /foo is not considered a prefix of /foobar, only
 of /foo/bar.
-
+</para>
+<para>
 A <see cref="IFile"/> is not a prefix of itself. If you want to check for
 equality, use <see cref="File.Equals(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)"/>.
-
+</para>
+<para>
 This call does no I/O, as it works purely on names. As such it can
 sometimes return <c>false</c> even if <paramref name="file"/> is inside a <paramref name="prefix"/> (from a
 filesystem point of view), because the prefix of <paramref name="file"/> is an alias
 of <paramref name="prefix"/>.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2835,7 +3082,9 @@ input <see cref="IFile"/>
 Checks to see if a <see cref="IFile"/> has a given URI scheme.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2855,7 +3104,9 @@ a string containing a URI scheme
 Creates a hash value for a <see cref="IFile"/>.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 #gconstpointer to a <see cref="IFile"/>
@@ -2873,15 +3124,19 @@ This call does no blocking I/O.
 Checks to see if a file is native to the platform.
 </summary>
 <remarks>
+<para>
 A native file is one expressed in the platform-native filename format,
 e.g. "C:\Windows" or "/usr/bin/". This does not mean the file is local,
 as it might be on a locally mounted remote filesystem.
-
+</para>
+<para>
 On some systems non-native files may be available using the native
 filesystem via a userspace filesystem (FUSE), in these cases this call
 will return <c>false</c>, but <see cref="File.GetPath(GISharp.Lib.Gio.IFile)"/> will still return a native path.
-
+</para>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2896,15 +3151,19 @@ input <see cref="IFile"/>
 Loads the contents of <paramref name="file"/> and returns it as <see cref="GLib.Bytes"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="file"/> is a resource:// based URI, the resulting bytes will reference the
 embedded resource instead of a copy. Otherwise, this is equivalent to calling
 <see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> and g_bytes_new_take().
-
+</para>
+<para>
 For resources, <paramref name="etagOut"/> will be set to <c>null</c>.
-
+</para>
+<para>
 The data contained in the resulting <see cref="GLib.Bytes"/> is always zero-terminated, but
 this is not included in the <see cref="GLib.Bytes"/> length. The resulting <see cref="GLib.Bytes"/> should be
 freed with g_bytes_unref() when no longer in use.
+</para>
 </remarks>
 <param name="file">
 a <see cref="IFile"/>
@@ -2929,11 +3188,14 @@ On error
 Asynchronously loads the contents of <paramref name="file"/> as <see cref="GLib.Bytes"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="file"/> is a resource:// based URI, the resulting bytes will reference the
 embedded resource instead of a copy. Otherwise, this is equivalent to calling
 <see cref="File.LoadContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> and g_bytes_new_take().
-
+</para>
+<para>
 See <see cref="File.LoadBytes(GISharp.Lib.Gio.IFile,out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> for more information.
+</para>
 </remarks>
 <param name="file">
 a <see cref="IFile"/>
@@ -2949,9 +3211,11 @@ Loads the content of the file into memory. The data is always
 zero-terminated, but this is not included in the resultant length.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2976,12 +3240,15 @@ On error
 Starts an asynchronous load of the <paramref name="file"/>'s contents.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3026,12 +3293,15 @@ creating directories, this function will fail, setting <see cref="GISharp.Runtim
 <see cref="IOErrorEnum.NotSupported"/>.
 </summary>
 <remarks>
+<para>
 For a local <see cref="IFile"/> the newly created directory will have the default
 (current) ownership and permissions of the current process.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3071,12 +3341,15 @@ this function will fail setting <see cref="GISharp.Runtime.GErrorException"/> to
 the similar g_mkdir_with_parents().
 </summary>
 <remarks>
+<para>
 For a local <see cref="IFile"/> the newly created directories will have the default
 (current) ownership and permissions of the current process.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3096,9 +3369,11 @@ Creates a symbolic link named <paramref name="file"/> which contains the string
 <paramref name="symlinkValue"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 a <see cref="IFile"/> with the name of the symlink to create
@@ -3162,8 +3437,10 @@ On error
 Finishes a mount operation. See g_file_mount_mountable() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous mount operation that was started
 with g_file_mount_mountable().
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3189,33 +3466,41 @@ implementation may support moving directories (for instance on moves
 inside the same filesystem), but the fallback code does not.
 </summary>
 <remarks>
+<para>
 If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
+</para>
+<para>
 If <paramref name="progressCallback"/> is not <c>null</c>, then the operation can be monitored
 by setting this to a <see cref="FileProgressCallback"/> function.
 It is
 guaranteed that this callback will be called after all data has been
 transferred with the total number of bytes copied during the operation.
-
+</para>
+<para>
 If the <paramref name="source"/> file does not exist, then the <see cref="IOErrorEnum.NotFound"/>
 error is returned, independent on the status of the <paramref name="destination"/>.
-
+</para>
+<para>
 If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists,
 then the error <see cref="IOErrorEnum.Exists"/> is returned.
-
+</para>
+<para>
 If trying to overwrite a file over a directory, the <see cref="IOErrorEnum.IsDirectory"/>
 error is returned. If trying to overwrite a directory with a directory the
 <see cref="IOErrorEnum.WouldMerge"/> error is returned.
-
+</para>
+<para>
 If the source is a directory and the target does not exist, or
 <see cref="FileCopyFlags.Overwrite"/> is specified and the target is a file, then
 the <see cref="IOErrorEnum.WouldRecurse"/> error may be returned (if the native
 move operation isn't available).
+</para>
 </remarks>
 <param name="source">
 <see cref="IFile"/> pointing to the source location
@@ -3246,11 +3531,13 @@ a <see cref="FileIOStream"/> that can be used to read and write the contents
 of the file.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
 be returned. If the file is a directory, the <see cref="IOErrorEnum.IsDirectory"/>
 error will be returned. Other errors are possible too, and depend on
@@ -3258,6 +3545,7 @@ what kind of filesystem the file is on. Note that in many non-local
 file cases read and write streams are not supported, so make sure you
 really need to do read and write streaming, rather than just opening
 for reading or writing.
+</para>
 </remarks>
 <param name="file">
 <see cref="IFile"/> to open
@@ -3279,8 +3567,10 @@ On error
 Asynchronously opens <paramref name="file"/> for reading and writing.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.OpenReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3303,7 +3593,9 @@ also avoids an extra duplicated string when possible, so will be
 generally more efficient.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3319,9 +3611,11 @@ string containing the <see cref="IFile"/>'s path,
 Polls a file of type <see cref="FileType.Mountable"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3340,8 +3634,10 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 Finishes a poll operation. See <see cref="File.PollMountable(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/> for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous poll operation that was polled
 with <see cref="File.PollMountable(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/>.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3360,12 +3656,14 @@ Utility function to check if a particular file exists. This is
 implemented using <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> and as such does blocking I/O.
 </summary>
 <remarks>
+<para>
 Note that in many cases it is [racy to first check for file existence](https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use)
 and then execute something based on the outcome of that, because the
 file might have been created or removed in between the operations. The
 general approach to handling that is to not check, but just do the
 operation and handle the errors as they come.
-
+</para>
+<para>
 As an example of race-free checking, take the case of reading a file,
 and if it doesn't exist, creating it. There are two racy versions: read
 it, and on error create it; and: check if it exists, if not create it.
@@ -3373,12 +3671,14 @@ These can both result in two processes creating the file (with perhaps
 a partially written file as the result). The correct approach is to
 always try to create the file with <see cref="File.Create(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which will either
 atomically create the file or fail with a <see cref="IOErrorEnum.Exists"/> error.
-
+</para>
+<para>
 However, in many cases an existence check is useful in a user interface,
 for instance to make a menu item sensitive/insensitive, so that you don't
 have to fool users that something is possible and then just show an error
 dialog. If you do this, you should make sure to also handle the errors
 that can happen due to races when you execute the operation.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3399,8 +3699,10 @@ Utility function to inspect the <see cref="FileType"/> of a file. This is
 implemented using <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> and as such does blocking I/O.
 </summary>
 <remarks>
+<para>
 The primary use case of this method is to check if a file is
 a regular file, directory, or symlink.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3426,6 +3728,7 @@ For instance the amount of space available and the type of
 the filesystem.
 </summary>
 <remarks>
+<para>
 The <paramref name="attributes"/> value is a string that specifies the attributes
 that should be gathered. It is not an error if it's not possible
 to read a particular requested attribute from a file - it just
@@ -3437,15 +3740,18 @@ attributes is "filesystem". Common attributes of interest are
 <see cref="FileAttribute.FilesystemSize"/> (the total size of the filesystem
 in bytes), <see cref="FileAttribute.FilesystemFree"/> (number of bytes available),
 and <see cref="FileAttribute.FilesystemType"/> (type of the filesystem).
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
 be returned. Other errors are possible too, and depend on what
 kind of filesystem the file is on.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3474,8 +3780,10 @@ that contains key-value attributes (such as type or size for the
 file).
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> which is the
 synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3499,6 +3807,7 @@ The result is a <see cref="FileInfo"/> object that contains key-value
 attributes (such as the type or size of the file).
 </summary>
 <remarks>
+<para>
 The <paramref name="attributes"/> value is a string that specifies the file
 attributes that should be gathered. It is not an error if
 it's not possible to read a particular requested attribute
@@ -3509,22 +3818,26 @@ The wildcard "*" means all attributes, and a wildcard like
 An example attribute query be "standard::*,owner::user".
 The standard attributes are available as defines, like
 <see cref="FileAttribute.StandardName"/>.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 For symlinks, normally the information about the target of the
 symlink is returned, rather than information about the symlink
 itself. However if you pass <see cref="FileQueryInfoFlags.NoFollowSymlinks"/>
 in <paramref name="flags"/> the information about the symlink itself will be returned.
 Also, for symlinks that point to non-existing files the information
 about the symlink itself will be returned.
-
+</para>
+<para>
 If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
 returned. Other errors are possible too, and depend on what kind of
 filesystem the file is on.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3555,8 +3868,10 @@ The result is a <see cref="FileInfo"/> object that contains key-value attributes
 (such as type or size for the file).
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> which is the synchronous
 version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3581,14 +3896,17 @@ optional <see cref="Cancellable"/> object,
 Obtain the list of settable attributes for the file.
 </summary>
 <remarks>
+<para>
 Returns the type and full attribute name of all the attributes
 that can be set on this file. This doesn't mean setting it will
 always succeed though, you might get an access failure, or some
 specific file may not support a specific attribute.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3612,9 +3930,11 @@ can be created by a user. An example of this is extended
 attributes (in the "xattr" namespace).
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3637,14 +3957,17 @@ Opens a file for reading. The result is a <see cref="FileInputStream"/> that
 can be used to read the contents of the file.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
+</para>
+<para>
 If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
 returned. If the file is a directory, the <see cref="IOErrorEnum.IsDirectory"/>
 error will be returned. Other errors are possible too, and depend
 on what kind of filesystem the file is on.
+</para>
 </remarks>
 <param name="file">
 <see cref="IFile"/> to read
@@ -3666,8 +3989,10 @@ On error
 Asynchronously opens <paramref name="file"/> for reading.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.Read(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3688,22 +4013,26 @@ creating a backup copy of the file first. If the file doesn't exist,
 it will be created.
 </summary>
 <remarks>
+<para>
 This will try to replace the file in the safest way possible so
 that any errors during the writing will not affect an already
 existing copy of the file. For instance, for local files it
 may write to a temporary file and then atomically rename over
 the destination when the stream is closed.
-
+</para>
+<para>
 By default files created are generally readable by everyone,
 but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level that
 is supported on the target filesystem.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
 by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
-
+</para>
+<para>
 If you pass in a non-<c>null</c> <paramref name="etag"/> value and <paramref name="file"/> already exists, then
 this value is compared to the current entity tag of the file, and if
 they differ an <see cref="IOErrorEnum.WrongEtag"/> error is returned. This
@@ -3712,12 +4041,14 @@ it. You can get the new etag from <see cref="FileOutputStream.GetEtag()"/>
 after you've finished writing and closed the <see cref="FileOutputStream"/>. When
 you load a new file you can use <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> to
 get the etag of the file.
-
+</para>
+<para>
 If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a
 backup of the current file before overwriting it. If this fails
 a <see cref="IOErrorEnum.CantCreateBackup"/> error will be returned. If you
 want to replace anyway, try again with <paramref name="makeBackup"/> set to <c>false</c>.
-
+</para>
+<para>
 If the file is a directory the <see cref="IOErrorEnum.IsDirectory"/> error will
 be returned, and if the file is some other form of non-regular file
 then a <see cref="IOErrorEnum.NotRegularFile"/> error will be returned. Some
@@ -3725,6 +4056,7 @@ file systems don't allow all file names, and may return an
 <see cref="IOErrorEnum.InvalidFilename"/> error, and if the name is to long
 <see cref="IOErrorEnum.FilenameTooLong"/> will be returned. Other errors are
 possible too, and depend on what kind of filesystem the file is on.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3758,8 +4090,10 @@ Asynchronously overwrites the file, replacing the contents,
 possibly creating a backup copy of the file first.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3788,20 +4122,25 @@ optional <see cref="Cancellable"/> object,
 Replaces the contents of <paramref name="file"/> with <paramref name="contents"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="etag"/> is specified (not <c>null</c>), any existing file must have that etag,
 or the error <see cref="IOErrorEnum.WrongEtag"/> will be returned.
-
+</para>
+<para>
 If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a backup
 of <paramref name="file"/>. Internally, it uses <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>, so will try to replace the
 file contents in the safest way possible. For example, atomic renames are
 used when replacing local files’ contents.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
+</para>
+<para>
 The returned <paramref name="newEtag"/> can be used to verify that the file hasn't
 changed the next time it is saved over.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3839,17 +4178,21 @@ Starts an asynchronous replacement of <paramref name="file"/> with the given
 current entity tag.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
+</para>
+<para>
 If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to
 make a backup of <paramref name="file"/>.
-
+</para>
+<para>
 Note that no copy of <paramref name="contents"/> will be made, so it must stay valid
 until the async task is completed. See <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>
 for a <see cref="GLib.Bytes"/> version that will automatically hold a reference to the
 contents (without copying) for the duration of the call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3905,12 +4248,15 @@ possibly creating a backup copy of the file first. If the file doesn't
 exist, it will be created.
 </summary>
 <remarks>
+<para>
 For details about the behaviour, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which does the
 same thing but returns an output stream only.
-
+</para>
+<para>
 Note that in many non-local file cases read and write streams are not
 supported, so make sure you really need to do read and write streaming,
 rather than just opening for reading or writing.
+</para>
 </remarks>
 <param name="file">
 a <see cref="IFile"/>
@@ -3945,8 +4291,10 @@ replacing the contents, possibly creating a backup copy
 of the file first.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3975,7 +4323,9 @@ optional <see cref="Cancellable"/> object,
 Resolves a relative path for <paramref name="file"/> to an absolute path.
 </summary>
 <remarks>
+<para>
 This call does no blocking I/O.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -3995,12 +4345,15 @@ a given relative path string
 Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="valueP"/>.
 </summary>
 <remarks>
+<para>
 Some attributes can be unset by setting <paramref name="type"/> to
 <see cref="FileAttributeType.Invalid"/> and <paramref name="valueP"/> to <c>null</c>.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4034,9 +4387,11 @@ If <paramref name="attribute"/> is of a different type, this operation will fail
 returning <c>false</c>.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4065,9 +4420,11 @@ Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int32"/> 
 If <paramref name="attribute"/> is of a different type, this operation will fail.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4096,9 +4453,11 @@ Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int64"/> 
 If <paramref name="attribute"/> is of a different type, this operation will fail.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4127,9 +4486,11 @@ Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.String"/>
 If <paramref name="attribute"/> is of a different type, this operation will fail.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4158,9 +4519,11 @@ Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint32"/>
 If <paramref name="attribute"/> is of a different type, this operation will fail.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4189,9 +4552,11 @@ Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint64"/>
 If <paramref name="attribute"/> is of a different type, this operation will fail.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4219,8 +4584,10 @@ On error
 Asynchronously sets the attributes of <paramref name="file"/> with <paramref name="info"/>.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>,
 which is the synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4246,15 +4613,18 @@ Tries to set all attributes in the <see cref="FileInfo"/> on the target
 values, not stopping on the first error.
 </summary>
 <remarks>
+<para>
 If there is any error during this operation then <see cref="GISharp.Runtime.GErrorException"/> will
 be set to the first error. Error on particular fields are flagged
 by setting the "status" field in the attribute value to
 <see cref="FileAttributeStatus.ErrorSetting"/>, which means you can
 also detect further errors.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4279,19 +4649,24 @@ On error
 Renames <paramref name="file"/> to the specified display name.
 </summary>
 <remarks>
+<para>
 The display name is converted from UTF-8 to the correct encoding
 for the target filesystem if possible and the <paramref name="file"/> is renamed to this.
-
+</para>
+<para>
 If you want to implement a rename operation in the user interface the
 edit name (<see cref="FileAttribute.StandardEditName"/>) should be used as the
 initial value in the rename widget, and then the result after editing
 should be passed to <see cref="File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 On success the resulting converted filename is returned.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4318,8 +4693,10 @@ On error
 Asynchronously sets the display name for a given <see cref="IFile"/>.
 </summary>
 <remarks>
+<para>
 For more details, see <see cref="File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4341,8 +4718,10 @@ optional <see cref="Cancellable"/> object,
 Finishes a start operation. See g_file_start_mountable() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous start operation that was started
 with g_file_start_mountable().
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4360,8 +4739,10 @@ On error
 Finishes a stop operation, see g_file_stop_mountable() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous stop operation that was started
 with g_file_stop_mountable().
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4399,9 +4780,11 @@ mount option can be used to disable <see cref="File.Trash(GISharp.Lib.Gio.IFile,
 mounts, the <see cref="IOErrorEnum.NotSupported"/> error will be returned in that case.
 </summary>
 <remarks>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
+</para>
 </remarks>
 <param name="file">
 <see cref="IFile"/> to send to trash
@@ -4436,8 +4819,10 @@ optional <see cref="Cancellable"/> object,
 Finishes an unmount operation, see g_file_unmount_mountable() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous unmount operation that was started
 with g_file_unmount_mountable().
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4456,8 +4841,10 @@ Finishes an unmount operation,
 see g_file_unmount_mountable_with_operation() for details.
 </summary>
 <remarks>
+<para>
 Finish an asynchronous unmount operation that was started
 with g_file_unmount_mountable_with_operation().
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>

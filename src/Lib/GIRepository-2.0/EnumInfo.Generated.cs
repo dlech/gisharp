@@ -164,9 +164,11 @@ namespace GISharp.Lib.GIRepository
         /// will be a signed or unsigned integral type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that in the current implementation the width of the type is
         /// computed correctly, but the signed or unsigned nature of the type
         /// may not match the sign of the type used by the C compiler.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GIEnumInfo

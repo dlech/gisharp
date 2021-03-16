@@ -144,7 +144,9 @@ These enumeration values describe the possible transitions
 between pages in a #GtkStack widget.
 </summary>
 <remarks>
+<para>
 New values may be added to this enumeration over time.
+</para>
 </remarks>
 </member>
 

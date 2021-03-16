@@ -18,9 +18,11 @@ Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This functi
 <paramref name="str"/> is not valid - see <see cref="Icon.ToString(GISharp.Lib.Gio.IIcon)"/> for discussion.
 </summary>
 <remarks>
+<para>
 If your application or library provides one or more <see cref="IIcon"/>
 implementations you need to ensure that each #GType is registered
 with the type system prior to calling <see cref="IIcon.NewForString(GISharp.Lib.GLib.UnownedUtf8)"/>.
+</para>
 </remarks>
 <param name="str">
 A string obtained via <see cref="Icon.ToString(GISharp.Lib.Gio.IIcon)"/>.
@@ -75,30 +77,37 @@ for checking the equality of two icons, hashing of icons and
 serializing an icon to and from strings.
 </summary>
 <remarks>
+<para>
 <see cref="IIcon"/> does not provide the actual pixmap for the icon as this is out
 of GIO's scope, however implementations of <see cref="IIcon"/> may contain the name
 of an icon (see <see cref="ThemedIcon"/>), or the path to an icon (see #GLoadableIcon).
-
+</para>
+<para>
 To obtain a hash of a <see cref="IIcon"/>, see <see cref="Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
-
+</para>
+<para>
 To check if two <see cref="IIcon"/>s are equal, see <see cref="Icon.Equals(GISharp.Lib.Gio.IIcon,GISharp.Lib.Gio.IIcon)"/>.
-
+</para>
+<para>
 For serializing a <see cref="IIcon"/>, use <see cref="Icon.Serialize(GISharp.Lib.Gio.IIcon)"/> and
 <see cref="IIcon.Deserialize(GISharp.Lib.GLib.Variant)"/>.
-
+</para>
+<para>
 If you want to consume <see cref="IIcon"/> (for example, in a toolkit) you must
 be prepared to handle at least the three following cases:
 #GLoadableIcon, <see cref="ThemedIcon"/> and #GEmblemedIcon.  It may also make
 sense to have fast-paths for other cases (like handling #GdkPixbuf
 directly, for example) but all compliant <see cref="IIcon"/> implementations
 outside of GIO must implement #GLoadableIcon.
-
+</para>
+<para>
 If your application or library provides one or more <see cref="IIcon"/>
 implementations you need to ensure that your new implementation also
 implements #GLoadableIcon.  Additionally, you must provide an
 implementation of <see cref="Icon.Serialize(GISharp.Lib.Gio.IIcon)"/> that gives a result that is
 understood by <see cref="IIcon.Deserialize(GISharp.Lib.GLib.Variant)"/>, yielding one of the built-in icon
 types.
+</para>
 </remarks>
 </member>
 
@@ -154,17 +163,21 @@ saving it to persistent storage. Use <see cref="IIcon.NewForString(GISharp.Lib.G
 get <paramref name="icon"/> back from the returned string.
 </summary>
 <remarks>
+<para>
 The encoding of the returned string is proprietary to <see cref="IIcon"/> except
 in the following two cases
-
+</para>
+<para>
 - If <paramref name="icon"/> is a <see cref="IFile"/>Icon, the returned string is a native path
   (such as `/path/to/my icon.png`) without escaping
   if the <see cref="IFile"/> for <paramref name="icon"/> is a native file.  If the file is not
   native, the returned string is the result of <see cref="File.GetUri(GISharp.Lib.Gio.IFile)"/>
   (such as `sftp://path/to/my%20icon.png`).
-
+</para>
+<para>
 - If <paramref name="icon"/> is a <see cref="ThemedIcon"/> with exactly one name and no fallbacks,
   the encoding is simply the name (such as `network-server`).
+</para>
 </remarks>
 <param name="icon">
 a <see cref="IIcon"/>.

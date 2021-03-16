@@ -76,11 +76,13 @@ namespace GISharp.Lib.Gio
         /// [thread-default main context][g-main-context-push-thread-default].
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Call this in the "start" method of your asynchronous method, and
         /// pass the #GTask around throughout the asynchronous operation. You
         /// can use g_task_set_task_data() to attach task-specific data to the
         /// object, which you can retrieve later via g_task_get_task_data().
-        /// 
+        /// </para>
+        /// <para>
         /// By default, if @cancellable is cancelled, then the return value of
         /// the task will always be %G_IO_ERROR_CANCELLED, even if the task had
         /// already completed before the cancellation. This allows for
@@ -88,6 +90,7 @@ namespace GISharp.Lib.Gio
         /// other objects that the task depends on have been destroyed. If you
         /// do not want this behavior, you can use
         /// g_task_set_check_cancellable() to change it.
+        /// </para>
         /// </remarks>
         /// <param name="sourceObject">
         /// the #GObject that owns
@@ -193,7 +196,9 @@ namespace GISharp.Lib.Gio
         /// wrapper method, and deal with it appropriately if so.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See also g_task_report_new_error().
+        /// </para>
         /// </remarks>
         /// <param name="sourceObject">
         /// the #GObject that owns
@@ -346,8 +351,10 @@ namespace GISharp.Lib.Gio
         /// at the point when @task was created).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This will always return a non-%NULL value, even if the task's
         /// context is the default #GMainContext.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask
@@ -582,11 +589,14 @@ namespace GISharp.Lib.Gio
         /// Gets the result of @task as a #gboolean.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the task resulted in an error, or was cancelled, then this will
         /// instead return %FALSE and set @error.
-        /// 
+        /// </para>
+        /// <para>
         /// Since this method transfers ownership of the return value (or
         /// error) to the caller, you may only call it once.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask.
@@ -629,11 +639,14 @@ namespace GISharp.Lib.Gio
         /// Gets the result of @task as an integer (#gssize).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the task resulted in an error, or was cancelled, then this will
         /// instead return -1 and set @error.
-        /// 
+        /// </para>
+        /// <para>
         /// Since this method transfers ownership of the return value (or
         /// error) to the caller, you may only call it once.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask.
@@ -680,11 +693,14 @@ namespace GISharp.Lib.Gio
         /// of that value to the caller.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the task resulted in an error, or was cancelled, then this will
         /// instead return %NULL and set @error.
-        /// 
+        /// </para>
+        /// <para>
         /// Since this method transfers ownership of the return value (or
         /// error) to the caller, you may only call it once.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask
@@ -733,11 +749,14 @@ namespace GISharp.Lib.Gio
         /// will usually be more useful for C code.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the task resulted in an error, or was cancelled, then this will
         /// instead set @error and return %FALSE.
-        /// 
+        /// </para>
+        /// <para>
         /// Since this method transfers ownership of the return value (or
         /// error) to the caller, you may only call it once.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask
@@ -825,13 +844,16 @@ namespace GISharp.Lib.Gio
         /// discussion of exactly what this means).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that since the task takes ownership of @error, and since the
         /// task may be completed before returning from g_task_return_error(),
         /// you cannot assume that @error is still valid after calling this.
         /// Call g_error_copy() on the error if you need to keep a local copy
         /// as well.
-        /// 
+        /// </para>
+        /// <para>
         /// See also g_task_return_new_error().
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask.
@@ -936,6 +958,7 @@ namespace GISharp.Lib.Gio
         /// g_task_propagate_pointer().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// "Completes the task" means that for an ordinary asynchronous task
         /// it will either invoke the task's callback, or else queue that
         /// callback to be invoked in the proper #GMainContext, or in the next
@@ -944,11 +967,13 @@ namespace GISharp.Lib.Gio
         /// method will save @result to be returned to the caller later, but
         /// the task will not actually be completed until the #GTaskThreadFunc
         /// exits.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that since the task may be completed before returning from
         /// g_task_return_pointer(), you cannot assume that @result is still
         /// valid after calling this, unless you are still holding another
         /// reference on it.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask
@@ -979,12 +1004,15 @@ namespace GISharp.Lib.Gio
         /// Sets @task's result to @result (by copying it) and completes the task.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @result is %NULL then a #GValue of type #G_TYPE_POINTER
         /// with a value of %NULL will be used for the result.
-        /// 
+        /// </para>
+        /// <para>
         /// This is a very generic low-level method intended primarily for use
         /// by language bindings; for C code, g_task_return_pointer() and the
         /// like will normally be much easier to use.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask
@@ -1021,15 +1049,19 @@ namespace GISharp.Lib.Gio
         /// #GAsyncReadyCallback will be invoked in @task's #GMainContext.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This takes a ref on @task until the task completes.
-        /// 
+        /// </para>
+        /// <para>
         /// See #GTaskThreadFunc for more details about how @task_func is handled.
-        /// 
+        /// </para>
+        /// <para>
         /// Although GLib currently rate-limits the tasks queued via
         /// g_task_run_in_thread(), you should not assume that it will always
         /// do this. If you have a very large number of tasks to run, but don't
         /// want them to all run at once, you should only queue a limited
         /// number of them at a time.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask
@@ -1055,18 +1087,22 @@ namespace GISharp.Lib.Gio
         /// to get the result of @task_func.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See #GTaskThreadFunc for more details about how @task_func is handled.
-        /// 
+        /// </para>
+        /// <para>
         /// Normally this is used with tasks created with a %NULL
         /// `callback`, but note that even if the task does
         /// have a callback, it will not be invoked when @task_func returns.
         /// #GTask:completed will be set to %TRUE just before this function returns.
-        /// 
+        /// </para>
+        /// <para>
         /// Although GLib currently rate-limits the tasks queued via
         /// g_task_run_in_thread_sync(), you should not assume that it will
         /// always do this. If you have a very large number of tasks to run,
         /// but don't want them to all run at once, you should only queue a
         /// limited number of them at a time.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask
@@ -1096,12 +1132,15 @@ namespace GISharp.Lib.Gio
         /// value the task may have had.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @check_cancellable is %FALSE, then the #GTask will not check the
         /// cancellable itself, and it is up to @task's owner to do this (eg,
         /// via g_task_return_error_if_cancelled()).
-        /// 
+        /// </para>
+        /// <para>
         /// If you are using g_task_set_return_on_cancel() as well, then
         /// you must leave check-cancellable set %TRUE.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// the #GTask
@@ -1137,12 +1176,15 @@ namespace GISharp.Lib.Gio
         /// %NULL.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The task name should describe in a human readable way what the task does.
         /// For example, ‘Open file’ or ‘Connect to network host’. It is used to set the
         /// name of the #GSource used for idle completion of the task.
-        /// 
+        /// </para>
+        /// <para>
         /// This function may only be called before the @task is first used in a thread
         /// other than the one it was constructed in.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// a #GTask
@@ -1177,10 +1219,12 @@ namespace GISharp.Lib.Gio
         /// %G_PRIORITY_DEFAULT.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This will affect the priority of #GSources created with
         /// g_task_attach_source() and the scheduling of tasks run in threads,
         /// and can also be explicitly retrieved later via
         /// g_task_get_priority().
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// the #GTask
@@ -1216,11 +1260,13 @@ namespace GISharp.Lib.Gio
         /// g_task_run_in_thread_sync().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @return_on_cancel is %TRUE, then cancelling @task's
         /// #GCancellable will immediately cause it to return, as though the
         /// task's #GTaskThreadFunc had called
         /// g_task_return_error_if_cancelled() and then returned.
-        /// 
+        /// </para>
+        /// <para>
         /// This allows you to create a cancellable wrapper around an
         /// uninterruptible function. The #GTaskThreadFunc just needs to be
         /// careful that it does not modify any externally-visible state after
@@ -1230,16 +1276,19 @@ namespace GISharp.Lib.Gio
         /// if the task gets cancelled before the return-on-cancel flag could
         /// be changed, g_task_set_return_on_cancel() will indicate this by
         /// returning %FALSE.
-        /// 
+        /// </para>
+        /// <para>
         /// You can disable and re-enable this flag multiple times if you wish.
         /// If the task's #GCancellable is cancelled while return-on-cancel is
         /// %FALSE, then calling g_task_set_return_on_cancel() to set it %TRUE
         /// again will cause the task to be cancelled at that point.
-        /// 
+        /// </para>
+        /// <para>
         /// If the task's #GCancellable is already cancelled before you call
         /// g_task_run_in_thread()/g_task_run_in_thread_sync(), then the
         /// #GTaskThreadFunc will still be run (for consistency), but the task
         /// will also be completed right away.
+        /// </para>
         /// </remarks>
         /// <param name="task">
         /// the #GTask

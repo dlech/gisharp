@@ -49,6 +49,7 @@ namespace GISharp.Lib.GLib
         /// Creates a new option context.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The @parameter_string can serve multiple purposes. It can be used
         /// to add descriptions for "rest" arguments, which are not parsed by
         /// the #GOptionContext, typically something like "FILES" or
@@ -56,16 +57,19 @@ namespace GISharp.Lib.GLib
         /// collecting "rest" arguments, GLib handles this automatically by
         /// using the @arg_description of the corresponding #GOptionEntry in
         /// the usage summary.
-        /// 
+        /// </para>
+        /// <para>
         /// Another usage is to give a short summary of the program
         /// functionality, like " - frob the strings", which will be displayed
         /// in the same line as the usage. For a longer description of the
         /// program functionality that should be displayed as a paragraph
         /// below the usage line, use g_option_context_set_summary().
-        /// 
+        /// </para>
+        /// <para>
         /// Note that the @parameter_string is translated using the
         /// function set with g_option_context_set_translate_func(), so
         /// it should normally be passed untranslated.
+        /// </para>
         /// </remarks>
         /// <param name="parameterString">
         /// a string which is displayed in
@@ -134,8 +138,10 @@ namespace GISharp.Lib.GLib
         /// added to it.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Please note that parsed arguments need to be freed separately (see
         /// #GOptionEntry).
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GOptionContext
@@ -334,7 +340,9 @@ namespace GISharp.Lib.GLib
         /// Returns whether strict POSIX code is enabled.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See g_option_context_set_strict_posix() for more information.
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GOptionContext
@@ -396,8 +404,10 @@ namespace GISharp.Lib.GLib
         /// of options. This text often includes a bug reporting address.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the summary is translated (see
         /// g_option_context_set_translate_func()).
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GOptionContext
@@ -468,9 +478,11 @@ namespace GISharp.Lib.GLib
         /// g_option_context_parse() treats unknown options as error.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This setting does not affect non-option arguments (i.e. arguments
         /// which don't start with a dash). But note that GOption cannot reliably
         /// determine whether a non-option belongs to a preceding unknown option.
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GOptionContext
@@ -539,19 +551,24 @@ namespace GISharp.Lib.GLib
         /// Sets strict POSIX mode.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// By default, this mode is disabled.
-        /// 
+        /// </para>
+        /// <para>
         /// In strict POSIX mode, the first non-argument parameter encountered
         /// (eg: filename) terminates argument processing.  Remaining arguments
         /// are treated as non-options and are not attempted to be parsed.
-        /// 
+        /// </para>
+        /// <para>
         /// If strict POSIX mode is disabled then parsing is done in the GNU way
         /// where option arguments can be freely mixed with non-options.
-        /// 
+        /// </para>
+        /// <para>
         /// As an example, consider "ls foo -l".  With GNU style parsing, this
         /// will list "foo" in long mode.  In strict POSIX style, this will list
         /// the files named "foo" and "-l".
-        /// 
+        /// </para>
+        /// <para>
         /// It may be useful to force strict POSIX mode when creating "verb
         /// style" command line tools.  For example, the "gsettings" command line
         /// tool supports the global option "--schemadir" as well as many
@@ -561,6 +578,7 @@ namespace GISharp.Lib.GLib
         /// parsed by the relevant subcommand (which can be determined by
         /// examining the verb name, which should be present in argv[1] after
         /// parsing).
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GOptionContext
@@ -595,9 +613,11 @@ namespace GISharp.Lib.GLib
         /// of options. This is typically a summary of the program functionality.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the summary is translated (see
         /// g_option_context_set_translate_func() and
         /// g_option_context_set_translation_domain()).
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GOptionContext
@@ -634,13 +654,16 @@ namespace GISharp.Lib.GLib
         /// strings are not translated.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that option groups have their own translation functions,
         /// this function only affects the @parameter_string (see g_option_context_new()),
         /// the summary (see g_option_context_set_summary()) and the description
         /// (see g_option_context_set_description()).
-        /// 
+        /// </para>
+        /// <para>
         /// If you are using gettext(), you only need to set the translation
         /// domain, see g_option_context_set_translation_domain().
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GOptionContext

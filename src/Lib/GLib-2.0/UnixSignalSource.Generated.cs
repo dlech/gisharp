@@ -13,10 +13,12 @@ namespace GISharp.Lib.GLib
         /// were added. In GLib 2.54, `SIGWINCH` was added.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that unlike the UNIX default, all sources which have created a
         /// watch will be dispatched, regardless of which underlying thread
         /// invoked g_unix_signal_source_new().
-        /// 
+        /// </para>
+        /// <para>
         /// For example, an effective use of this function is to handle `SIGTERM`
         /// cleanly; flushing any outstanding files, and then calling
         /// g_main_loop_quit ().  It is not safe to do any of this a regular
@@ -24,13 +26,16 @@ namespace GISharp.Lib.GLib
         /// another library function is running, causing reentrancy if you
         /// attempt to use it from the handler.  None of the GLib/GObject API
         /// is safe against this kind of reentrancy.
-        /// 
+        /// </para>
+        /// <para>
         /// The interaction of this source when combined with native UNIX
         /// functions like sigprocmask() is not defined.
-        /// 
+        /// </para>
+        /// <para>
         /// The source will not initially be associated with any #GMainContext
         /// and must be added to one with g_source_attach() before it will be
         /// executed.
+        /// </para>
         /// </remarks>
         /// <param name="signum">
         /// A signal number

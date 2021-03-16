@@ -9,8 +9,10 @@ namespace GISharp.Lib.GObject
     /// allocate any resources required by the interface.
     /// </summary>
     /// <remarks>
+    /// <para>
     /// The members of @iface_data are guaranteed to have been filled with
     /// zeros before this function is called.
+    /// </para>
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]

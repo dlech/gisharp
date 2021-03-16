@@ -72,12 +72,15 @@ the element data if <paramref name="freeSegment"/> is <c>false</c>, otherwise
 Transfers the data from the <see cref="ByteArray"/> into a new immutable <see cref="Bytes"/>.
 </summary>
 <remarks>
+<para>
 The <see cref="ByteArray"/> is freed unless the reference count of this instance is greater
 than one, the <see cref="ByteArray"/> wrapper is preserved but the size of this instance
 will be set to zero.
-
+</para>
+<para>
 This is identical to using <see cref="Bytes.Bytes(GISharp.Runtime.CArray{byte})"/> and <see cref="ByteArray.Free(bool)"/>
 together.
+</para>
 </remarks>
 <returns>
 a new immutable <see cref="Bytes"/> representing same

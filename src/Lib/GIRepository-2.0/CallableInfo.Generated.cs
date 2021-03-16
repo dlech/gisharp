@@ -339,10 +339,12 @@ namespace GISharp.Lib.GIRepository
         /// flag on the #GIFunctionInfo.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Concretely, this function returns whether g_callable_info_get_n_args()
         /// matches the number of arguments in the raw C method. For methods, there
         /// is one more C argument than is exposed by introspection: the "self"
         /// or "this" object.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GICallableInfo
@@ -376,11 +378,14 @@ namespace GISharp.Lib.GIRepository
         /// first member initialized to %NULL.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Both the @name and @value should be treated as constants
         /// and must not be freed.
-        /// 
+        /// </para>
+        /// <para>
         /// See g_base_info_iterate_attributes() for an example of how to use a
         /// similar API.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GICallableInfo
@@ -436,7 +441,9 @@ namespace GISharp.Lib.GIRepository
         /// allocation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The initialized @arg must not be referenced after @info is deallocated.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GICallableInfo
@@ -467,7 +474,9 @@ namespace GISharp.Lib.GIRepository
         /// allocation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The initialized @type must not be referenced after @info is deallocated.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GICallableInfo

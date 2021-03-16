@@ -34,17 +34,21 @@ namespace GISharp.Lib.GLib
         /// key and the value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In particular, this means that if @key already exists in the hash table, then
         /// the old copy of @key in the hash table is freed and @key replaces it in the
         /// table.
-        /// 
+        /// </para>
+        /// <para>
         /// When a hash table only ever contains keys that have themselves as the
         /// corresponding value it is able to be stored more efficiently.  See
         /// the discussion in the section description.
-        /// 
+        /// </para>
+        /// <para>
         /// Starting from GLib 2.40, this function returns a boolean value to
         /// indicate whether the newly added value was already in the hash table
         /// or not.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -127,6 +131,7 @@ namespace GISharp.Lib.GLib
         /// add/remove items).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note, that hash tables are really only optimized for forward
         /// lookups, i.e. g_hash_table_lookup(). So code that frequently issues
         /// g_hash_table_find() or g_hash_table_foreach() (e.g. in the order of
@@ -134,6 +139,7 @@ namespace GISharp.Lib.GLib
         /// to use additional or different data structures for reverse lookups
         /// (keep in mind that an O(n) find/foreach operation issued for all n
         /// values in a hash table ends up needing O(n*n) operations).
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -176,11 +182,14 @@ namespace GISharp.Lib.GLib
         /// g_hash_table_foreach_remove().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The order in which g_hash_table_foreach() iterates over the keys/values in
         /// the hash table is not defined.
-        /// 
+        /// </para>
+        /// <para>
         /// See g_hash_table_find() for performance caveats for linear
         /// order searches in contrast to g_hash_table_lookup().
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -216,8 +225,10 @@ namespace GISharp.Lib.GLib
         /// used to free the memory allocated for the removed keys and values.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See #GHashTableIter for an alternative way to loop over the
         /// key/value pairs in the hash table.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -255,8 +266,10 @@ namespace GISharp.Lib.GLib
         /// destroy functions are called.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See #GHashTableIter for an alternative way to loop over the
         /// key/value pairs in the hash table.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -292,9 +305,11 @@ namespace GISharp.Lib.GLib
         /// until changes to the hash release those keys.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This iterates over every entry in the hash table to build its return value.
         /// To iterate over the entries in a #GHashTable more efficiently, use a
         /// #GHashTableIter.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -323,21 +338,26 @@ namespace GISharp.Lib.GLib
         /// Retrieves every key inside @hash_table, as an array.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The returned array is %NULL-terminated but may contain %NULL as a
         /// key.  Use @length to determine the true length if it's possible that
         /// %NULL was used as the value for a key.
-        /// 
+        /// </para>
+        /// <para>
         /// Note: in the common case of a string-keyed #GHashTable, the return
         /// value of this function can be conveniently cast to (const gchar **).
-        /// 
+        /// </para>
+        /// <para>
         /// This iterates over every entry in the hash table to build its return value.
         /// To iterate over the entries in a #GHashTable more efficiently, use a
         /// #GHashTableIter.
-        /// 
+        /// </para>
+        /// <para>
         /// You should always free the return result with g_free().  In the
         /// above-mentioned case of a string-keyed hash table, it may be
         /// appropriate to use g_strfreev() if you call g_hash_table_steal_all()
         /// first to transfer ownership of the keys.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -371,9 +391,11 @@ namespace GISharp.Lib.GLib
         /// is valid until @hash_table is modified.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This iterates over every entry in the hash table to build its return value.
         /// To iterate over the entries in a #GHashTable more efficiently, use a
         /// #GHashTableIter.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -402,16 +424,19 @@ namespace GISharp.Lib.GLib
         /// Inserts a new key and value into a #GHashTable.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the key already exists in the #GHashTable its current
         /// value is replaced with the new value. If you supplied a
         /// @value_destroy_func when creating the #GHashTable, the old
         /// value is freed using that function. If you supplied a
         /// @key_destroy_func when creating the #GHashTable, the passed
         /// key is freed using that function.
-        /// 
+        /// </para>
+        /// <para>
         /// Starting from GLib 2.40, this function returns a boolean value to
         /// indicate whether the newly added value was already in the hash table
         /// or not.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -478,9 +503,11 @@ namespace GISharp.Lib.GLib
         /// for example before calling g_hash_table_remove().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You can actually pass %NULL for @lookup_key to test
         /// whether the %NULL key exists, provided the hash and equal functions
         /// of @hash_table are %NULL-safe.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -522,12 +549,14 @@ namespace GISharp.Lib.GLib
         /// Creates a new #GHashTable with a reference count of 1.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Hash values returned by @hash_func are used to determine where keys
         /// are stored within the #GHashTable data structure. The g_direct_hash(),
         /// g_int_hash(), g_int64_hash(), g_double_hash() and g_str_hash()
         /// functions are provided for some common types of keys.
         /// If @hash_func is %NULL, g_direct_hash() is used.
-        /// 
+        /// </para>
+        /// <para>
         /// @key_equal_func is used when looking up keys in the #GHashTable.
         /// The g_direct_equal(), g_int_equal(), g_int64_equal(), g_double_equal()
         /// and g_str_equal() functions are provided for the most common types
@@ -536,6 +565,7 @@ namespace GISharp.Lib.GLib
         /// a function call. @key_equal_func is called with the key from the hash table
         /// as its first parameter, and the user-provided key to check against as
         /// its second.
+        /// </para>
         /// </remarks>
         /// <param name="hashFunc">
         /// a function to create a hash value from a key
@@ -567,12 +597,14 @@ namespace GISharp.Lib.GLib
         /// entry from the #GHashTable.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Since version 2.42 it is permissible for destroy notify functions to
         /// recursively remove further items from the hash table. This is only
         /// permissible if the application still holds a reference to the hash table.
         /// This means that you may need to ensure that the hash table is empty by
         /// calling g_hash_table_remove_all() before releasing the last reference using
         /// g_hash_table_unref().
+        /// </para>
         /// </remarks>
         /// <param name="hashFunc">
         /// a function to create a hash value from a key
@@ -617,10 +649,12 @@ namespace GISharp.Lib.GLib
         /// Removes a key and its associated value from a #GHashTable.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the #GHashTable was created using g_hash_table_new_full(), the
         /// key and value are freed using the supplied destroy functions, otherwise
         /// you have to make sure that any dynamically allocated values are freed
         /// yourself.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -649,10 +683,12 @@ namespace GISharp.Lib.GLib
         /// Removes all keys and their associated values from a #GHashTable.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the #GHashTable was created using g_hash_table_new_full(),
         /// the keys and values are freed using the supplied destroy functions,
         /// otherwise you have to make sure that any dynamically allocated
         /// values are freed yourself.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -679,9 +715,11 @@ namespace GISharp.Lib.GLib
         /// #GHashTable, the old key is freed using that function.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Starting from GLib 2.40, this function returns a boolean value to
         /// indicate whether the newly added value was already in the hash table
         /// or not.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable
@@ -784,12 +822,15 @@ namespace GISharp.Lib.GLib
         /// not found, %FALSE is returned.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If found, the stolen key and value are removed from the hash table without
         /// calling the key and value destroy functions, and ownership is transferred to
         /// the caller of this method; as with g_hash_table_steal().
-        /// 
+        /// </para>
+        /// <para>
         /// You can pass %NULL for @lookup_key, provided the hash and equal functions
         /// of @hash_table are %NULL-safe.
+        /// </para>
         /// </remarks>
         /// <param name="hashTable">
         /// a #GHashTable

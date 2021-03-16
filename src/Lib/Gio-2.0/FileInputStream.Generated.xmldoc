@@ -36,12 +36,15 @@ You can then call <see cref="FileInputStream.QueryInfoFinish(GISharp.Lib.Gio.IAs
 to get the result of the operation.
 </summary>
 <remarks>
+<para>
 For the synchronous version of this function,
 see <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set
+</para>
 </remarks>
 <param name="attributes">
 a file attribute query string.
@@ -87,12 +90,15 @@ You can then call <see cref="FileInputStream.QueryInfoFinish(GISharp.Lib.Gio.IAs
 to get the result of the operation.
 </summary>
 <remarks>
+<para>
 For the synchronous version of this function,
 see <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set
+</para>
 </remarks>
 <param name="attributes">
 a file attribute query string.
@@ -138,12 +144,14 @@ GFileInputStream provides input streams that take their
 content from a file.
 </summary>
 <remarks>
+<para>
 GFileInputStream implements <see cref="ISeekable"/>, which allows the input
 stream to jump to arbitrary positions in the file, provided the
 filesystem of the file allows it. To find the position of a file
 input stream, use <see cref="Seekable.Tell(GISharp.Lib.Gio.ISeekable)"/>. To find out if a file input
 stream supports seeking, use <see cref="Seekable.CanSeek(GISharp.Lib.Gio.ISeekable)"/>.
 To position a file input stream, use <see cref="Seekable.Seek(GISharp.Lib.Gio.ISeekable,long,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable)"/>.
+</para>
 </remarks>
 </member>
 

@@ -17,7 +17,9 @@ your program to something other than the user’s locale, or if
 you wanted to set different values for different locale categories.
 </summary>
 <remarks>
+<para>
 Most programs should not need to call this function.
+</para>
 </remarks>
 </member>
 
@@ -28,21 +30,25 @@ applications.  It will initialize everything needed to operate the
 toolkit and parses some standard command line options.
 </summary>
 <remarks>
+<para>
 If you are using #GtkApplication, you don't have to call <see cref="Initialize.Init()"/>
 or <see cref="Initialize.TryInit()"/>; the #GApplication::startup handler
 does it for you.
-
+</para>
+<para>
 This function will terminate your program if it was unable to
 initialize the windowing system for some reason. If you want
 your program to fall back to a textual interface you want to
 call <see cref="Initialize.TryInit()"/> instead.
-
+</para>
+<para>
 GTK calls `signal (SIGPIPE, SIG_IGN)`
 during initialization, to ignore SIGPIPE signals, since these are
 almost never wanted in graphical applications. If you do need to
 handle SIGPIPE for some reason, reset the handler after <see cref="Initialize.Init()"/>,
 but notice that other libraries (e.g. libdbus or gvfs) might do
 similar things.
+</para>
 </remarks>
 </member>
 
@@ -53,9 +59,11 @@ change: It does not terminate the program if the windowing system
 can’t be initialized. Instead it returns <c>false</c> on failure.
 </summary>
 <remarks>
+<para>
 This way the application can fall back to some other means of
 communication with the user - for example a curses or command line
 interface.
+</para>
 </remarks>
 <returns>
 <c>true</c> if the windowing system has been successfully

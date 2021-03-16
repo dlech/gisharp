@@ -61,8 +61,10 @@ namespace GISharp.Lib.GLib
         /// the return value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is a programmer error to call this function with an invalid type
         /// string.  Use g_variant_type_string_is_valid() if you are unsure.
+        /// </para>
         /// </remarks>
         /// <param name="typeString">
         /// a valid GVariant type string
@@ -100,7 +102,9 @@ namespace GISharp.Lib.GLib
         /// type @type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is appropriate to call g_variant_type_free() on the return value.
+        /// </para>
         /// </remarks>
         /// <param name="element">
         /// a #GVariantType
@@ -137,7 +141,9 @@ namespace GISharp.Lib.GLib
         /// of type @key and a value of type @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is appropriate to call g_variant_type_free() on the return value.
+        /// </para>
         /// </remarks>
         /// <param name="key">
         /// a basic #GVariantType
@@ -181,7 +187,9 @@ namespace GISharp.Lib.GLib
         /// type @type or Nothing.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is appropriate to call g_variant_type_free() on the return value.
+        /// </para>
         /// </remarks>
         /// <param name="element">
         /// a #GVariantType
@@ -217,10 +225,13 @@ namespace GISharp.Lib.GLib
         /// Constructs a new tuple type, from @items.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @length is the number of items in @items, or -1 to indicate that
         /// @items is %NULL-terminated.
-        /// 
+        /// </para>
+        /// <para>
         /// It is appropriate to call g_variant_type_free() on the return value.
+        /// </para>
         /// </remarks>
         /// <param name="items">
         /// an array of #GVariantTypes, one for each item
@@ -340,15 +351,19 @@ byte* typeString);
         /// accessed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If a valid type string is found, @endptr is updated to point to the
         /// first character past the end of the string that was found and %TRUE
         /// is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If there is no valid type string starting at @string, or if the type
         /// string does not end before @limit then %FALSE is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// For the simple case of checking if a string is a valid type string,
         /// see g_variant_type_string_is_valid().
+        /// </para>
         /// </remarks>
         /// <param name="string">
         /// a pointer to any string
@@ -453,7 +468,9 @@ byte* typeString);
         /// Determines the element type of an array or maybe type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function may only be used with array or maybe types.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// an array or maybe #GVariantType
@@ -486,14 +503,17 @@ byte* typeString);
         /// Compares @type1 and @type2 for equality.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Only returns %TRUE if the types are exactly equal.  Even if one type
         /// is an indefinite type and the other is a subtype of it, %FALSE will
         /// be returned if they are not exactly equal.  If you want to check for
         /// subtypes, use g_variant_type_is_subtype_of().
-        /// 
+        /// </para>
+        /// <para>
         /// The argument types of @type1 and @type2 are only #gconstpointer to
         /// allow use with #GHashTable without function pointer casting.  For
         /// both arguments, a valid #GVariantType must be provided.
+        /// </para>
         /// </remarks>
         /// <param name="type1">
         /// a #GVariantType
@@ -562,17 +582,22 @@ byte* typeString);
         /// type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function may only be used with tuple or dictionary entry types,
         /// but must not be used with the generic tuple type
         /// %G_VARIANT_TYPE_TUPLE.
-        /// 
+        /// </para>
+        /// <para>
         /// In the case of a dictionary entry type, this returns the type of
         /// the key.
-        /// 
+        /// </para>
+        /// <para>
         /// %NULL is returned in case of @type being %G_VARIANT_TYPE_UNIT.
-        /// 
+        /// </para>
+        /// <para>
         /// This call, together with g_variant_type_next() provides an iterator
         /// interface over tuple and dictionary entry types.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a tuple or dictionary entry #GVariantType
@@ -607,9 +632,12 @@ byte* typeString);
         /// type constructor functions.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In the case that @type is %NULL, this function does nothing.
-        /// 
+        /// </para>
+        /// <para>
         /// Since 2.24
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType, or %NULL
@@ -668,9 +696,11 @@ byte* typeString);
         /// Hashes @type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The argument type of @type is only #gconstpointer to allow use with
         /// #GHashTable without function pointer casting.  A valid
         /// #GVariantType must be provided.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -704,9 +734,11 @@ byte* typeString);
         /// type string for @type starts with an 'a'.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function returns %TRUE for any indefinite type for which every
         /// definite subtype is an array type -- %G_VARIANT_TYPE_ARRAY, for
         /// example.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -738,13 +770,17 @@ byte* typeString);
         /// Determines if the given @type is a basic type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Basic types are booleans, bytes, integers, doubles, strings, object
         /// paths and signatures.
-        /// 
+        /// </para>
+        /// <para>
         /// Only a basic type may be used as the key of a dictionary entry.
-        /// 
+        /// </para>
+        /// <para>
         /// This function returns %FALSE for all indefinite types except
         /// %G_VARIANT_TYPE_BASIC.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -776,12 +812,15 @@ byte* typeString);
         /// Determines if the given @type is a container type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Container types are any array, maybe, tuple, or dictionary
         /// entry types plus the variant type.
-        /// 
+        /// </para>
+        /// <para>
         /// This function returns %TRUE for any indefinite type for which every
         /// definite subtype is a container -- %G_VARIANT_TYPE_ARRAY, for
         /// example.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -813,14 +852,17 @@ byte* typeString);
         /// Determines if the given @type is definite (ie: not indefinite).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// A type is definite if its type string does not contain any indefinite
         /// type characters ('*', '?', or 'r').
-        /// 
+        /// </para>
+        /// <para>
         /// A #GVariant instance may not have an indefinite type, so calling
         /// this function on the result of g_variant_get_type() will always
         /// result in %TRUE being returned.  Calling this function on an
         /// indefinite type like %G_VARIANT_TYPE_ARRAY, however, will result in
         /// %FALSE being returned.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -853,9 +895,11 @@ byte* typeString);
         /// true if the type string for @type starts with a '{'.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function returns %TRUE for any indefinite type for which every
         /// definite subtype is a dictionary entry type --
         /// %G_VARIANT_TYPE_DICT_ENTRY, for example.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -888,9 +932,11 @@ byte* typeString);
         /// type string for @type starts with an 'm'.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function returns %TRUE for any indefinite type for which every
         /// definite subtype is a maybe type -- %G_VARIANT_TYPE_MAYBE, for
         /// example.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -922,9 +968,11 @@ byte* typeString);
         /// Checks if @type is a subtype of @supertype.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function returns %TRUE if @type is a subtype of @supertype.  All
         /// types are considered to be subtypes of themselves.  Aside from that,
         /// only indefinite types can have subtypes.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -966,9 +1014,11 @@ byte* typeString);
         /// %G_VARIANT_TYPE_TUPLE.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function returns %TRUE for any indefinite type for which every
         /// definite subtype is a tuple type -- %G_VARIANT_TYPE_TUPLE, for
         /// example.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType
@@ -1029,9 +1079,11 @@ byte* typeString);
         /// Determines the key type of a dictionary entry type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function may only be used with a dictionary entry type.  Other
         /// than the additional restriction, this call is equivalent to
         /// g_variant_type_first().
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a dictionary entry #GVariantType
@@ -1065,12 +1117,15 @@ byte* typeString);
         /// dictionary entry type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function may only be used with tuple or dictionary entry types,
         /// but must not be used with the generic tuple type
         /// %G_VARIANT_TYPE_TUPLE.
-        /// 
+        /// </para>
+        /// <para>
         /// In the case of a dictionary entry type, this function will always
         /// return 2.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a tuple or dictionary entry #GVariantType
@@ -1104,14 +1159,18 @@ byte* typeString);
         /// type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @type must be the result of a previous call to
         /// g_variant_type_first() or g_variant_type_next().
-        /// 
+        /// </para>
+        /// <para>
         /// If called on the key type of a dictionary entry then this call
         /// returns the value type.  If called on the value type of a dictionary
         /// entry then this call returns %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// For tuples, %NULL is returned when @type is the last item in a tuple.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a #GVariantType from a previous call
@@ -1144,7 +1203,9 @@ byte* typeString);
         /// Determines the value type of a dictionary entry type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function may only be used with a dictionary entry type.
+        /// </para>
         /// </remarks>
         /// <param name="type">
         /// a dictionary entry #GVariantType

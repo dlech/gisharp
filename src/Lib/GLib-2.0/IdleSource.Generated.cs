@@ -10,11 +10,13 @@ namespace GISharp.Lib.GLib
         /// Creates a new idle source.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The source will not initially be associated with any #GMainContext
         /// and must be added to one with g_source_attach() before it will be
         /// executed. Note that the default priority for idle sources is
         /// %G_PRIORITY_DEFAULT_IDLE, as compared to other sources which
         /// have a default priority of %G_PRIORITY_DEFAULT.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// the newly-created idle source

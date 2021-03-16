@@ -62,17 +62,21 @@ namespace GISharp.Lib.GLib
         /// Makes a full (deep) copy of a #GPtrArray.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @func, as a #GCopyFunc, takes two arguments, the data to be copied
         /// and a @user_data pointer. On common processor architectures, it's safe to
         /// pass %NULL as @user_data if the copy function takes only one argument. You
         /// may get compiler warnings from this though if compiling with GCC’s
         /// `-Wcast-function-type` warning.
-        /// 
+        /// </para>
+        /// <para>
         /// If @func is %NULL, then only the pointers (and not what they are
         /// pointing to) are copied to the new #GPtrArray.
-        /// 
+        /// </para>
+        /// <para>
         /// The copy of @array will have the same #GDestroyNotify for its elements as
         /// @array.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// #GPtrArray to duplicate
@@ -111,14 +115,17 @@ namespace GISharp.Lib.GLib
         /// modified in-place.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @func, as a #GCopyFunc, takes two arguments, the data to be copied
         /// and a @user_data pointer. On common processor architectures, it's safe to
         /// pass %NULL as @user_data if the copy function takes only one argument. You
         /// may get compiler warnings from this though if compiling with GCC’s
         /// `-Wcast-function-type` warning.
-        /// 
+        /// </para>
+        /// <para>
         /// If @func is %NULL, then only the pointers (and not what they are
         /// pointing to) are copied to the new #GPtrArray.
+        /// </para>
         /// </remarks>
         /// <param name="arrayToExtend">
         /// a #GPtrArray.
@@ -160,9 +167,11 @@ namespace GISharp.Lib.GLib
         /// @array_to_extend in-place. @array is then freed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// As with g_ptr_array_free(), @array will be destroyed if its reference count
         /// is 1. If its reference count is higher, it will be decremented and the
         /// length of @array set to zero.
+        /// </para>
         /// </remarks>
         /// <param name="arrayToExtend">
         /// a #GPtrArray.
@@ -194,8 +203,10 @@ namespace GISharp.Lib.GLib
         /// multiple times in @haystack, the index of the first instance is returned.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This does pointer comparisons only. If you want to use more complex equality
         /// checks, such as string comparisons, use g_ptr_array_find_with_equal_func().
+        /// </para>
         /// </remarks>
         /// <param name="haystack">
         /// pointer array to be searched
@@ -235,9 +246,11 @@ namespace GISharp.Lib.GLib
         /// the first instance is returned.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @equal_func is called with the element from the array as its first parameter,
         /// and @needle as its second parameter. If @equal_func is %NULL, pointer
         /// equality is used.
+        /// </para>
         /// </remarks>
         /// <param name="haystack">
         /// pointer array to be searched
@@ -316,13 +329,16 @@ namespace GISharp.Lib.GLib
         /// size of @array will be set to zero.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If array contents point to dynamically-allocated memory, they should
         /// be freed separately if @free_seg is %TRUE and no #GDestroyNotify
         /// function has been set for @array.
-        /// 
+        /// </para>
+        /// <para>
         /// This function is not thread-safe. If using a #GPtrArray from multiple
         /// threads, use only the atomic g_ptr_array_ref() and g_ptr_array_unref()
         /// functions.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GPtrArray
@@ -454,8 +470,10 @@ namespace GISharp.Lib.GLib
         /// removed element.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It returns %TRUE if the pointer was removed, or %FALSE if the
         /// pointer was not found.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GPtrArray
@@ -488,8 +506,10 @@ namespace GISharp.Lib.GLib
         /// #GDestroyNotify function it is called for the removed element.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It returns %TRUE if the pointer was removed, or %FALSE if the
         /// pointer was not found.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GPtrArray
@@ -690,36 +710,44 @@ namespace GISharp.Lib.GLib
         /// greater than second arg).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the comparison function for g_ptr_array_sort() doesn't
         /// take the pointers from the array as arguments, it takes pointers to
         /// the pointers in the array. Here is a full example of usage:
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// typedef struct
         /// {
         ///   gchar *name;
         ///   gint size;
         /// } FileListEntry;
-        /// 
+        /// </para>
+        /// <para>
         /// static gint
         /// sort_filelist (gconstpointer a, gconstpointer b)
         /// {
         ///   const FileListEntry *entry1 = *((FileListEntry **) a);
         ///   const FileListEntry *entry2 = *((FileListEntry **) b);
-        /// 
+        /// </para>
+        /// <para>
         ///   return g_ascii_strcasecmp (entry1-&gt;name, entry2-&gt;name);
         /// }
-        /// 
+        /// </para>
+        /// <para>
         /// …
         /// g_autoptr (GPtrArray) file_list = NULL;
-        /// 
+        /// </para>
+        /// <para>
         /// // initialize file_list array and load with many FileListEntry entries
         /// ...
         /// // now sort it with
         /// g_ptr_array_sort (file_list, sort_filelist);
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// This is guaranteed to be a stable sort since version 2.32.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GPtrArray
@@ -745,19 +773,23 @@ namespace GISharp.Lib.GLib
         /// user data argument.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the comparison function for g_ptr_array_sort_with_data()
         /// doesn't take the pointers from the array as arguments, it takes
         /// pointers to the pointers in the array. Here is a full example of use:
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// typedef enum { SORT_NAME, SORT_SIZE } SortMode;
-        /// 
+        /// </para>
+        /// <para>
         /// typedef struct
         /// {
         ///   gchar *name;
         ///   gint size;
         /// } FileListEntry;
-        /// 
+        /// </para>
+        /// <para>
         /// static gint
         /// sort_filelist (gconstpointer a, gconstpointer b, gpointer user_data)
         /// {
@@ -765,7 +797,8 @@ namespace GISharp.Lib.GLib
         ///   const SortMode sort_mode = GPOINTER_TO_INT (user_data);
         ///   const FileListEntry *entry1 = *((FileListEntry **) a);
         ///   const FileListEntry *entry2 = *((FileListEntry **) b);
-        /// 
+        /// </para>
+        /// <para>
         ///   switch (sort_mode)
         ///     {
         ///     case SORT_NAME:
@@ -780,11 +813,13 @@ namespace GISharp.Lib.GLib
         ///     }
         ///   return order;
         /// }
-        /// 
+        /// </para>
+        /// <para>
         /// ...
         /// g_autoptr (GPtrArray) file_list = NULL;
         /// SortMode sort_mode;
-        /// 
+        /// </para>
+        /// <para>
         /// // initialize file_list array and load with many FileListEntry entries
         /// ...
         /// // now sort it with
@@ -793,8 +828,10 @@ namespace GISharp.Lib.GLib
         ///                             sort_filelist,
         ///                             GINT_TO_POINTER (sort_mode));
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// This is guaranteed to be a stable sort since version 2.32.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GPtrArray
@@ -827,25 +864,31 @@ namespace GISharp.Lib.GLib
         /// to the caller.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Even if set, the #GDestroyNotify function will never be called
         /// on the current contents of the array and the caller is
         /// responsible for freeing the array elements.
-        /// 
+        /// </para>
+        /// <para>
         /// An example of use:
         /// |[&lt;!-- language="C" --&gt;
         /// g_autoptr(GPtrArray) chunk_buffer = g_ptr_array_new_with_free_func (g_bytes_unref);
-        /// 
+        /// </para>
+        /// <para>
         /// // Some part of your application appends a number of chunks to the pointer array.
         /// g_ptr_array_add (chunk_buffer, g_bytes_new_static ("hello", 5));
         /// g_ptr_array_add (chunk_buffer, g_bytes_new_static ("world", 5));
-        /// 
+        /// </para>
+        /// <para>
         /// …
-        /// 
+        /// </para>
+        /// <para>
         /// // Periodically, the chunks need to be sent as an array-and-length to some
         /// // other part of the program.
         /// GBytes **chunks;
         /// gsize n_chunks;
-        /// 
+        /// </para>
+        /// <para>
         /// chunks = g_ptr_array_steal (chunk_buffer, &amp;n_chunks);
         /// for (gsize i = 0; i &lt; n_chunks; i++)
         ///   {
@@ -853,16 +896,20 @@ namespace GISharp.Lib.GLib
         ///     // g_ptr_array_steal() transfers ownership of all the elements and the
         ///     // array to the caller.
         ///     …
-        /// 
+        /// </para>
+        /// <para>
         ///     g_bytes_unref (chunks[i]);
         ///   }
-        /// 
+        /// </para>
+        /// <para>
         /// g_free (chunks);
-        /// 
+        /// </para>
+        /// <para>
         /// // After calling g_ptr_array_steal(), the pointer array can be reused for the
         /// // next set of chunks.
         /// g_assert (chunk_buffer-&gt;len == 0);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GPtrArray.

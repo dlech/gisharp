@@ -115,8 +115,10 @@ namespace GISharp.Lib.GIRepository
         /// returned if there's no method available with that name.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that this function does *not* search parent classes; you will have
         /// to chain up if that's desired.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GIObjectInfo
@@ -245,8 +247,10 @@ namespace GISharp.Lib.GIRepository
         /// returned.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that this function does *not* search parent classes; you will have
         /// to chain up if that's desired.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GIObjectInfo

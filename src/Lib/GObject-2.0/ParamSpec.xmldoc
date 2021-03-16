@@ -56,7 +56,9 @@ Get the short description of a <see cref="ParamSpec"/>.
 Gets the default value of this instance as a pointer to a <see cref="Value"/>.
 </summary>
 <remarks>
+<para>
 The <see cref="Value"/> will remain valid for the life of this instance.
+</para>
 </remarks>
 </member>
 
@@ -65,8 +67,10 @@ The <see cref="Value"/> will remain valid for the life of this instance.
 Get the name of a <see cref="ParamSpec"/>.
 </summary>
 <remarks>
+<para>
 The name is always an "interned" string (as per g_intern_string()).
 This allows for pointer-value comparisons.
+</para>
 </remarks>
 </member>
 
@@ -101,8 +105,10 @@ dynamically-generated properties which need to be validated at run-time
 before actually trying to create them.
 </summary>
 <remarks>
+<para>
 See [canonical parameter names][canonical-parameter-names] for details of
 the rules for valid names.
+</para>
 </remarks>
 <param name="name">
 the canonical name of the property
@@ -186,16 +192,20 @@ the user data pointer set, or <c>null</c>
 required to specify parameters, such as e.g. <see cref="Object"/> properties.
 </summary>
 <remarks>
+<para>
 ## Parameter names # {#canonical-parameter-names}
-
+</para>
+<para>
 A property name consists of one or more segments consisting of ASCII letters
 and digits, separated by either the `-` or `_` character. The first
 character of a property name must be a letter. These are the same rules as
 for signal naming (see g_signal_new()).
-
+</para>
+<para>
 When creating and looking up a <see cref="ParamSpec"/>, either separator can be
 used, but they cannot be mixed. Using `-` is considerably more
 efficient, and is the ‘canonical form’. Using `_` is discouraged.
+</para>
 </remarks>
 </member>
 

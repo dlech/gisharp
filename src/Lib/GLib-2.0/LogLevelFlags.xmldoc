@@ -22,7 +22,7 @@ log level for errors, see <see cref="Log.Error"/>.
 <member name='LogLevelFlags.Critical'>
 <summary>
 log level for critical warning messages, see
-    <see cref="Log.Criticial"/>.
+    <see cref="Log.Critical"/>.
     This level is also used for messages produced by g_return_if_fail()
     and g_return_val_if_fail().
 </summary>
@@ -63,8 +63,10 @@ a mask including all log levels
 Flags specifying the level of log messages.
 </summary>
 <remarks>
+<para>
 It is possible to change how GLib treats messages of the various
 levels using <see cref="Log.SetHandler"/> and <see cref="Log.SetFatalMask(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.LogLevelFlags)"/>.
+</para>
 </remarks>
 </member>
 

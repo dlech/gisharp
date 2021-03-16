@@ -42,26 +42,32 @@ namespace GISharp.Lib.GLib
         /// Adds a new element on to the end of the list.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the return value is the new start of the list,
         /// if @list was empty; make sure you store the new value.
-        /// 
+        /// </para>
+        /// <para>
         /// g_list_append() has to traverse the entire list to find the end,
         /// which is inefficient when adding multiple elements. A common idiom
         /// to avoid the inefficiency is to use g_list_prepend() and reverse
         /// the list with g_list_reverse() when all elements have been added.
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// // Notice that these are initialized to the empty list.
         /// GList *string_list = NULL, *number_list = NULL;
-        /// 
+        /// </para>
+        /// <para>
         /// // This is a list of strings.
         /// string_list = g_list_append (string_list, "first");
         /// string_list = g_list_append (string_list, "second");
-        /// 
+        /// </para>
+        /// <para>
         /// // This is a list of integers.
         /// number_list = g_list_append (number_list, GINT_TO_POINTER (27));
         /// number_list = g_list_append (number_list, GINT_TO_POINTER (14));
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a pointer to a #GList
@@ -93,12 +99,14 @@ namespace GISharp.Lib.GLib
         /// They are used directly.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is for example used to move an element in the list.
         /// The following example moves an element to the top of the list:
         /// |[&lt;!-- language="C" --&gt;
         /// list = g_list_remove_link (list, llink);
         /// list = g_list_concat (llink, list);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list1">
         /// a #GList, this must point to the top of the list
@@ -131,10 +139,12 @@ namespace GISharp.Lib.GLib
         /// Copies a #GList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that this is a "shallow" copy. If the list elements
         /// consist of pointers to data, the pointers are copied but
         /// the actual data is not. See g_list_copy_deep() if you need
         /// to copy the data as well.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GList, this must point to the top of the list
@@ -158,25 +168,30 @@ namespace GISharp.Lib.GLib
         /// Makes a full (deep) copy of a #GList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In contrast with g_list_copy(), this function uses @func to make
         /// a copy of each list element, in addition to copying the list
         /// container itself.
-        /// 
+        /// </para>
+        /// <para>
         /// @func, as a #GCopyFunc, takes two arguments, the data to be copied
         /// and a @user_data pointer. On common processor architectures, it's safe to
         /// pass %NULL as @user_data if the copy function takes only one argument. You
         /// may get compiler warnings from this though if compiling with GCC’s
         /// `-Wcast-function-type` warning.
-        /// 
+        /// </para>
+        /// <para>
         /// For instance, if @list holds a list of GObjects, you can do:
         /// |[&lt;!-- language="C" --&gt;
         /// another_list = g_list_copy_deep (list, (GCopyFunc) g_object_ref, NULL);
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// And, to entirely free the new list, you could do:
         /// |[&lt;!-- language="C" --&gt;
         /// g_list_free_full (another_list, g_object_unref);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GList, this must point to the top of the list
@@ -333,8 +348,10 @@ namespace GISharp.Lib.GLib
         /// Calls a function for each element of a #GList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is safe for @func to remove the element from @list, but it must
         /// not modify any part of the list after that element.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GList, this must point to the top of the list
@@ -366,15 +383,18 @@ namespace GISharp.Lib.GLib
         /// The freed elements are returned to the slice allocator.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If list elements contain dynamically-allocated memory, you should
         /// either use g_list_free_full() or free them manually first.
-        /// 
+        /// </para>
+        /// <para>
         /// It can be combined with g_steal_pointer() to ensure the list head pointer
         /// is not left dangling:
         /// |[&lt;!-- language="C" --&gt;
         /// GList *list_of_borrowed_things = …;  /&lt;!-- --&gt;* (transfer container) *&lt;!-- --&gt;/
         /// g_list_free (g_steal_pointer (&amp;list_of_borrowed_things));
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// the first link of a #GList
@@ -395,7 +415,9 @@ namespace GISharp.Lib.GLib
         /// element that is currently part of a list.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is usually used after g_list_remove_link().
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GList element
@@ -415,9 +437,11 @@ namespace GISharp.Lib.GLib
         /// and calls @free_func on every element's data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @free_func must not modify the list (eg, by removing the freed
         /// element from it).
-        /// 
+        /// </para>
+        /// <para>
         /// It can be combined with g_steal_pointer() to ensure the list head pointer
         /// is not left dangling ­— this also has the nice property that the head pointer
         /// is cleared before any of the list elements are freed, to prevent double frees
@@ -426,6 +450,7 @@ namespace GISharp.Lib.GLib
         /// GList *list_of_owned_things = …;  /&lt;!-- --&gt;* (transfer full) (element-type GObject) *&lt;!-- --&gt;/
         /// g_list_free_full (g_steal_pointer (&amp;list_of_owned_things), g_object_unref);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// the first link of a #GList
@@ -590,10 +615,12 @@ namespace GISharp.Lib.GLib
         /// function to determine its position.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If you are adding many new elements to a list, and the number of
         /// new elements is much larger than the length of the list, use
         /// g_list_prepend() to add the new items and sort the list afterwards
         /// with g_list_sort().
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a pointer to a #GList, this must point to the top of the
@@ -633,10 +660,12 @@ namespace GISharp.Lib.GLib
         /// function to determine its position.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If you are adding many new elements to a list, and the number of
         /// new elements is much larger than the length of the list, use
         /// g_list_prepend() to add the new items and sort the list afterwards
         /// with g_list_sort().
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a pointer to a #GList, this must point to the top of the
@@ -704,10 +733,12 @@ namespace GISharp.Lib.GLib
         /// Gets the number of elements in a #GList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function iterates over the whole list to count its elements.
         /// Use a #GQueue instead of a GList if you regularly need the number
         /// of items. To check whether the list is non-empty, it is faster to check
         /// @list against %NULL.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GList, this must point to the top of the list
@@ -729,9 +760,11 @@ namespace GISharp.Lib.GLib
         /// Gets the element at the given position in a #GList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This iterates over the list until it reaches the @n-th position. If you
         /// intend to iterate over every element, it is better to use a for-loop as
         /// described in the #GList introduction.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GList, this must point to the top of the list
@@ -762,9 +795,11 @@ namespace GISharp.Lib.GLib
         /// Gets the data of the element at the given position.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This iterates over the list until it reaches the @n-th position. If you
         /// intend to iterate over every element, it is better to use a for-loop as
         /// described in the #GList introduction.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GList, this must point to the top of the list
@@ -850,19 +885,24 @@ namespace GISharp.Lib.GLib
         /// Prepends a new element on to the start of the list.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the return value is the new start of the list,
         /// which will have changed, so make sure you store the new value.
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// // Notice that it is initialized to the empty list.
         /// GList *list = NULL;
-        /// 
+        /// </para>
+        /// <para>
         /// list = g_list_prepend (list, "last");
         /// list = g_list_prepend (list, "first");
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// Do not use this function to prepend a new element to a different
         /// element than the start of the list. Use g_list_insert_before() instead.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a pointer to a #GList, this must point to the top of the list
@@ -954,6 +994,7 @@ namespace GISharp.Lib.GLib
         /// that it becomes a self-contained list with one element.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is for example used to move an element in the list
         /// (see the example for g_list_concat()) or to remove an element in
         /// the list before freeing its data:
@@ -962,6 +1003,7 @@ namespace GISharp.Lib.GLib
         /// free_some_data_that_may_access_the_list_again (llink-&gt;data);
         /// g_list_free (llink);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GList, this must point to the top of the list

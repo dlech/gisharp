@@ -80,9 +80,11 @@ namespace GISharp.Lib.GIRepository
         /// Compare two #GIBaseInfo.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Using pointer comparison is not practical since many functions return
         /// different instances of #GIBaseInfo that refers to the same part of the
         /// TypeLib; use this function instead to do #GIBaseInfo comparisons.
+        /// </para>
         /// </remarks>
         /// <param name="info1">
         /// a #GIBaseInfo
@@ -355,9 +357,11 @@ namespace GISharp.Lib.GIRepository
         /// normal GIR annotations.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Both the @name and @value should be treated as constants
         /// and must not be freed.
-        /// 
+        /// </para>
+        /// <para>
         /// &lt;example&gt;
         /// &lt;title&gt;Iterating over attributes&lt;/title&gt;
         /// &lt;programlisting&gt;
@@ -374,6 +378,7 @@ namespace GISharp.Lib.GIRepository
         /// }
         /// &lt;/programlisting&gt;
         /// &lt;/example&gt;
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GIBaseInfo

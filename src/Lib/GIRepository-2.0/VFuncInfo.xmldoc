@@ -13,7 +13,9 @@ If this virtual function has an associated invoker method, this
 method will return it.  An invoker method is a C entry point.
 </summary>
 <remarks>
+<para>
 Not all virtuals will have invokers.
+</para>
 </remarks>
 </member>
 

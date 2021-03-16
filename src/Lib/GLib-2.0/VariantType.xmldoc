@@ -14,9 +14,11 @@ Determines if the given this instance is an array type.  This is true if the
 type string for this instance starts with an 'a'.
 </summary>
 <remarks>
+<para>
 This function returns <c>true</c> for any indefinite type for which every
 definite subtype is an array type -- %G_VARIANT_TYPE_ARRAY, for
 example.
+</para>
 </remarks>
 </member>
 
@@ -25,13 +27,17 @@ example.
 Determines if the given this instance is a basic type.
 </summary>
 <remarks>
+<para>
 Basic types are booleans, bytes, integers, doubles, strings, object
 paths and signatures.
-
+</para>
+<para>
 Only a basic type may be used as the key of a dictionary entry.
-
+</para>
+<para>
 This function returns <c>false</c> for all indefinite types except
 %G_VARIANT_TYPE_BASIC.
+</para>
 </remarks>
 </member>
 
@@ -40,12 +46,15 @@ This function returns <c>false</c> for all indefinite types except
 Determines if the given this instance is a container type.
 </summary>
 <remarks>
+<para>
 Container types are any array, maybe, tuple, or dictionary
 entry types plus the variant type.
-
+</para>
+<para>
 This function returns <c>true</c> for any indefinite type for which every
 definite subtype is a container -- %G_VARIANT_TYPE_ARRAY, for
 example.
+</para>
 </remarks>
 </member>
 
@@ -54,14 +63,17 @@ example.
 Determines if the given this instance is definite (ie: not indefinite).
 </summary>
 <remarks>
+<para>
 A type is definite if its type string does not contain any indefinite
 type characters ('*', '?', or 'r').
-
+</para>
+<para>
 A <see cref="Variant"/> instance may not have an indefinite type, so calling
 this function on the result of <see cref="Variant.GetType_()"/> will always
 result in <c>true</c> being returned.  Calling this function on an
 indefinite type like %G_VARIANT_TYPE_ARRAY, however, will result in
 <c>false</c> being returned.
+</para>
 </remarks>
 </member>
 
@@ -71,9 +83,11 @@ Determines if the given this instance is a dictionary entry type.  This is
 true if the type string for this instance starts with a '{'.
 </summary>
 <remarks>
+<para>
 This function returns <c>true</c> for any indefinite type for which every
 definite subtype is a dictionary entry type --
 %G_VARIANT_TYPE_DICT_ENTRY, for example.
+</para>
 </remarks>
 </member>
 
@@ -83,9 +97,11 @@ Determines if the given this instance is a maybe type.  This is true if the
 type string for this instance starts with an 'm'.
 </summary>
 <remarks>
+<para>
 This function returns <c>true</c> for any indefinite type for which every
 definite subtype is a maybe type -- %G_VARIANT_TYPE_MAYBE, for
 example.
+</para>
 </remarks>
 </member>
 
@@ -96,9 +112,11 @@ type string for this instance starts with a '(' or if this instance is
 %G_VARIANT_TYPE_TUPLE.
 </summary>
 <remarks>
+<para>
 This function returns <c>true</c> for any indefinite type for which every
 definite subtype is a tuple type -- %G_VARIANT_TYPE_TUPLE, for
 example.
+</para>
 </remarks>
 </member>
 
@@ -115,8 +133,10 @@ by <paramref name="typeString"/>.  It is appropriate to call <see cref="VariantT
 the return value.
 </summary>
 <remarks>
+<para>
 It is a programmer error to call this function with an invalid type
 string.  Use <see cref="VariantType.StringIsValid(GISharp.Lib.GLib.UnownedUtf8)"/> if you are unsure.
+</para>
 </remarks>
 <param name="typeString">
 a valid GVariant type string
@@ -129,7 +149,9 @@ Constructs the type corresponding to an array of elements of the
 type <c>type</c>.
 </summary>
 <remarks>
+<para>
 It is appropriate to call <see cref="VariantType.Free()"/> on the return value.
+</para>
 </remarks>
 <param name="element">
 a <see cref="VariantType"/>
@@ -142,7 +164,9 @@ Constructs the type corresponding to a dictionary entry with a key
 of type <paramref name="key"/> and a value of type <paramref name="value"/>.
 </summary>
 <remarks>
+<para>
 It is appropriate to call <see cref="VariantType.Free()"/> on the return value.
+</para>
 </remarks>
 <param name="key">
 a basic <see cref="VariantType"/>
@@ -158,7 +182,9 @@ Constructs the type corresponding to a maybe instance containing
 type <c>type</c> or Nothing.
 </summary>
 <remarks>
+<para>
 It is appropriate to call <see cref="VariantType.Free()"/> on the return value.
+</para>
 </remarks>
 <param name="element">
 a <see cref="VariantType"/>
@@ -170,10 +196,13 @@ a <see cref="VariantType"/>
 Constructs a new tuple type, from <paramref name="items"/>.
 </summary>
 <remarks>
+<para>
 the length of <paramref name="items"/> is the number of items in <paramref name="items"/>, or -1 to indicate that
 <paramref name="items"/> is <c>null</c>-terminated.
-
+</para>
+<para>
 It is appropriate to call <see cref="VariantType.Free()"/> on the return value.
+</para>
 </remarks>
 <param name="items">
 an array of #GVariantTypes, one for each item
@@ -209,15 +238,19 @@ The memory pointed to by <paramref name="limit"/> (or bytes beyond it) is never
 accessed.
 </summary>
 <remarks>
+<para>
 If a valid type string is found, <paramref name="endptr"/> is updated to point to the
 first character past the end of the string that was found and <c>true</c>
 is returned.
-
+</para>
+<para>
 If there is no valid type string starting at <paramref name="string"/>, or if the type
 string does not end before <paramref name="limit"/> then <c>false</c> is returned.
-
+</para>
+<para>
 For the simple case of checking if a string is a valid type string,
 see <see cref="VariantType.StringIsValid(GISharp.Lib.GLib.UnownedUtf8)"/>.
+</para>
 </remarks>
 <param name="string">
 a pointer to any string
@@ -251,7 +284,9 @@ Since 2.24
 Determines the element type of an array or maybe type.
 </summary>
 <remarks>
+<para>
 This function may only be used with array or maybe types.
+</para>
 </remarks>
 <returns>
 the element type of this instance
@@ -265,14 +300,17 @@ Since 2.24
 Compares this instance and <paramref name="type2"/> for equality.
 </summary>
 <remarks>
+<para>
 Only returns <c>true</c> if the types are exactly equal.  Even if one type
 is an indefinite type and the other is a subtype of it, <c>false</c> will
 be returned if they are not exactly equal.  If you want to check for
 subtypes, use <see cref="VariantType.IsSubtypeOf(GISharp.Lib.GLib.VariantType)"/>.
-
+</para>
+<para>
 The argument types of this instance and <paramref name="type2"/> are only #gconstpointer to
 allow use with <see cref="HashTable"/> without function pointer casting.  For
 both arguments, a valid <see cref="VariantType"/> must be provided.
+</para>
 </remarks>
 <param name="type2">
 a <see cref="VariantType"/>
@@ -290,17 +328,22 @@ Determines the first item type of a tuple or dictionary entry
 type.
 </summary>
 <remarks>
+<para>
 This function may only be used with tuple or dictionary entry types,
 but must not be used with the generic tuple type
 %G_VARIANT_TYPE_TUPLE.
-
+</para>
+<para>
 In the case of a dictionary entry type, this returns the type of
 the key.
-
+</para>
+<para>
 <c>null</c> is returned in case of this instance being %G_VARIANT_TYPE_UNIT.
-
+</para>
+<para>
 This call, together with <see cref="VariantType.Next()"/> provides an iterator
 interface over tuple and dictionary entry types.
+</para>
 </remarks>
 <returns>
 the first item type of this instance, or <c>null</c>
@@ -314,9 +357,11 @@ Since 2.24
 Hashes this instance.
 </summary>
 <remarks>
+<para>
 The argument type of this instance is only #gconstpointer to allow use with
 <see cref="HashTable"/> without function pointer casting.  A valid
 <see cref="VariantType"/> must be provided.
+</para>
 </remarks>
 <returns>
 the hash value
@@ -330,9 +375,11 @@ Since 2.24
 Checks if this instance is a subtype of <paramref name="supertype"/>.
 </summary>
 <remarks>
+<para>
 This function returns <c>true</c> if this instance is a subtype of <paramref name="supertype"/>.  All
 types are considered to be subtypes of themselves.  Aside from that,
 only indefinite types can have subtypes.
+</para>
 </remarks>
 <param name="supertype">
 a <see cref="VariantType"/>
@@ -349,9 +396,11 @@ Since 2.24
 Determines the key type of a dictionary entry type.
 </summary>
 <remarks>
+<para>
 This function may only be used with a dictionary entry type.  Other
 than the additional restriction, this call is equivalent to
 <see cref="VariantType.First()"/>.
+</para>
 </remarks>
 <returns>
 the key type of the dictionary entry
@@ -366,12 +415,15 @@ Determines the number of items contained in a tuple or
 dictionary entry type.
 </summary>
 <remarks>
+<para>
 This function may only be used with tuple or dictionary entry types,
 but must not be used with the generic tuple type
 %G_VARIANT_TYPE_TUPLE.
-
+</para>
+<para>
 In the case of a dictionary entry type, this function will always
 return 2.
+</para>
 </remarks>
 <returns>
 the number of items in this instance
@@ -386,14 +438,18 @@ Determines the next item type of a tuple or dictionary entry
 type.
 </summary>
 <remarks>
+<para>
 this instance must be the result of a previous call to
 <see cref="VariantType.First()"/> or <see cref="VariantType.Next()"/>.
-
+</para>
+<para>
 If called on the key type of a dictionary entry then this call
 returns the value type.  If called on the value type of a dictionary
 entry then this call returns <c>null</c>.
-
+</para>
+<para>
 For tuples, <c>null</c> is returned when this instance is the last item in a tuple.
+</para>
 </remarks>
 <returns>
 the next <see cref="VariantType"/> after this instance, or <c>null</c>
@@ -407,7 +463,9 @@ Since 2.24
 Determines the value type of a dictionary entry type.
 </summary>
 <remarks>
+<para>
 This function may only be used with a dictionary entry type.
+</para>
 </remarks>
 <returns>
 the value type of the dictionary entry
@@ -426,12 +484,14 @@ therefore, provides a significant amount of
 information that is useful when working with GVariant.
 </summary>
 <remarks>
+<para>
 The first major change with respect to the D-Bus type system is the
 introduction of maybe (or "nullable") types.  Any type in GVariant can be
 converted to a maybe type, in which case, "nothing" (or "null") becomes a
 valid value.  Maybe types have been added by introducing the
 character "m" to type strings.
-
+</para>
+<para>
 The second major change is that the GVariant type system supports the
 concept of "indefinite types" -- types that are less specific than
 the normal types found in D-Bus.  For example, it is possible to speak
@@ -439,11 +499,13 @@ of "an array of any type" in GVariant, where the D-Bus type system
 would require you to speak of "an array of integers" or "an array of
 strings".  Indefinite types have been added by introducing the
 characters "*", "?" and "r" to type strings.
-
+</para>
+<para>
 Finally, all arbitrary restrictions relating to the complexity of
 types are lifted along with the restriction that dictionary entries
 may only appear nested inside of arrays.
-
+</para>
+<para>
 Just as in D-Bus, GVariant types are described with strings ("type
 strings").  Subject to the differences mentioned above, these strings
 are of the same form as those found in DBus.  Note, however: D-Bus
@@ -455,7 +517,8 @@ strings always describe the type of exactly one value.  This means
 that a D-Bus signature string is generally not a valid GVariant type
 string -- except in the case that it is the signature of a message
 containing exactly one argument.
-
+</para>
+<para>
 An indefinite type is similar in spirit to what may be called an
 abstract type in other type systems.  No value can exist that has an
 indefinite type as its type, but values can exist that have types
@@ -467,7 +530,8 @@ array of no particular type", but you can have an "array of integers"
 which certainly matches the type of "an array of no particular type",
 since "array of integers" is a subtype of "array of no particular
 type".
-
+</para>
+<para>
 This is similar to how instances of abstract classes may not
 directly exist in other type systems, but instances of their
 non-abstract subtypes may.  For example, in GTK, no object that has
@@ -475,35 +539,45 @@ the type of #GtkBin can exist (since #GtkBin is an abstract class),
 but a #GtkWindow can certainly be instantiated, and you would say
 that the #GtkWindow is a #GtkBin (since #GtkWindow is a subclass of
 #GtkBin).
-
+</para>
+<para>
 ## GVariant Type Strings
-
+</para>
+<para>
 A GVariant type string can be any of the following:
-
+</para>
+<para>
 - any basic type string (listed below)
-
+</para>
+<para>
 - "v", "r" or "*"
-
+</para>
+<para>
 - one of the characters 'a' or 'm', followed by another type string
-
+</para>
+<para>
 - the character '(', followed by a concatenation of zero or more other
   type strings, followed by the character ')'
-
+</para>
+<para>
 - the character '{', followed by a basic type string (see below),
   followed by another type string, followed by the character '}'
-
+</para>
+<para>
 A basic type string describes a basic type (as per
 <see cref="VariantType.GetIsBasic()"/>) and is always a single character in length.
 The valid basic type strings are "b", "y", "n", "q", "i", "u", "x", "t",
 "h", "d", "s", "o", "g" and "?".
-
+</para>
+<para>
 The above definition is recursive to arbitrary depth. "aaaaai" and
 "(ui(nq((y)))s)" are both valid type strings, as is
 "a(aa(ui)(qna{ya(yd)}))". In order to not hit memory limits, <see cref="Variant"/>
 imposes a limit on recursion depth of 65 nested containers. This is the
 limit in the D-Bus specification (64) plus one to allow a #GDBusMessage to
 be nested in a top-level tuple.
-
+</para>
+<para>
 The meaning of each of the characters is as follows:
 - `b`: the type string of %G_VARIANT_TYPE_BOOLEAN; a boolean value.
 - `y`: the type string of %G_VARIANT_TYPE_BYTE; a byte.
@@ -544,7 +618,8 @@ The meaning of each of the characters is as follows:
   an array to form a dictionary; the type string "a{sd}", for example, is
   the type of a dictionary that maps strings to double precision floating
   point values.
-
+</para>
+<para>
   The first type (the basic type) is the key type and the second type is
   the value type. The reason that the first type is restricted to being a
   basic type is so that it can easily be hashed.
@@ -552,20 +627,23 @@ The meaning of each of the characters is as follows:
   a supertype of all types.  Note that, as with all type strings, this
   character represents exactly one type. It cannot be used inside of tuples
   to mean "any number of items".
-
+</para>
+<para>
 Any type string of a container that contains an indefinite type is,
 itself, an indefinite type. For example, the type string "a*"
 (corresponding to %G_VARIANT_TYPE_ARRAY) is an indefinite type
 that is a supertype of every array type. "(*s)" is a supertype
 of all tuples that contain exactly two items where the second
 item is a string.
-
+</para>
+<para>
 "a{?*}" is an indefinite type that is a supertype of all arrays
 containing dictionary entries where the key is any basic type and
 the value is any type at all.  This is, by definition, a dictionary,
 so this type string corresponds to %G_VARIANT_TYPE_DICTIONARY. Note
 that, due to the restriction that the key of a dictionary entry must
 be a basic type, "{**}" is not a valid type string.
+</para>
 </remarks>
 </member>
 

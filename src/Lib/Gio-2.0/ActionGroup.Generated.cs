@@ -199,7 +199,9 @@ namespace GISharp.Lib.Gio
         /// Emits the #GActionGroup::action-added signal on @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function should only be called by #GActionGroup implementations.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -234,7 +236,9 @@ namespace GISharp.Lib.Gio
         /// Emits the #GActionGroup::action-enabled-changed signal on @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function should only be called by #GActionGroup implementations.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -276,7 +280,9 @@ namespace GISharp.Lib.Gio
         /// Emits the #GActionGroup::action-removed signal on @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function should only be called by #GActionGroup implementations.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -311,7 +317,9 @@ namespace GISharp.Lib.Gio
         /// Emits the #GActionGroup::action-state-changed signal on @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function should only be called by #GActionGroup implementations.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -353,10 +361,12 @@ namespace GISharp.Lib.Gio
         /// Activate the named action within @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the action is expecting a parameter, then the correct type of
         /// parameter must be given as @parameter.  If the action is expecting no
         /// parameters then @parameter must be %NULL.  See
         /// g_action_group_get_action_parameter_type().
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -399,14 +409,18 @@ namespace GISharp.Lib.Gio
         /// changed to @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The action must be stateful and @value must be of the correct type.
         /// See g_action_group_get_action_state_type().
-        /// 
+        /// </para>
+        /// <para>
         /// This call merely requests a change.  The action may refuse to change
         /// its state or may change its state to something other than @value.
         /// See g_action_group_get_action_state_hint().
-        /// 
+        /// </para>
+        /// <para>
         /// If the @value GVariant is floating, it is consumed.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -448,8 +462,10 @@ namespace GISharp.Lib.Gio
         /// Checks if the named action within @action_group is currently enabled.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// An action must be enabled in order to be activated or in order to
         /// have its state changed from outside callers.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -490,16 +506,20 @@ namespace GISharp.Lib.Gio
         /// the named action within @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When activating the action using g_action_group_activate_action(),
         /// the #GVariant given to that function must be of the type returned
         /// by this function.
-        /// 
+        /// </para>
+        /// <para>
         /// In the case that this function returns %NULL, you must not give any
         /// #GVariant, but %NULL instead.
-        /// 
+        /// </para>
+        /// <para>
         /// The parameter type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
         /// with the same name but a different parameter type.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -539,12 +559,15 @@ namespace GISharp.Lib.Gio
         /// Queries the current state of the named action within @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the action is not stateful then %NULL will be returned.  If the
         /// action is stateful then the type of the return value is the type
         /// given by g_action_group_get_action_state_type().
-        /// 
+        /// </para>
+        /// <para>
         /// The return value (if non-%NULL) should be freed with
         /// g_variant_unref() when it is no longer required.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -585,21 +608,26 @@ namespace GISharp.Lib.Gio
         /// named action within @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If %NULL is returned it either means that the action is not stateful
         /// or that there is no hint about the valid range of values for the
         /// state of the action.
-        /// 
+        /// </para>
+        /// <para>
         /// If a #GVariant array is returned then each item in the array is a
         /// possible value for the state.  If a #GVariant pair (ie: two-tuple) is
         /// returned then the tuple specifies the inclusive lower and upper bound
         /// of valid values for the state.
-        /// 
+        /// </para>
+        /// <para>
         /// In any case, the information is merely a hint.  It may be possible to
         /// have a state value outside of the hinted range and setting a value
         /// within the range may fail.
-        /// 
+        /// </para>
+        /// <para>
         /// The return value (if non-%NULL) should be freed with
         /// g_variant_unref() when it is no longer required.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -640,19 +668,23 @@ namespace GISharp.Lib.Gio
         /// @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the action is stateful then this function returns the
         /// #GVariantType of the state.  All calls to
         /// g_action_group_change_action_state() must give a #GVariant of this
         /// type and g_action_group_get_action_state() will return a #GVariant
         /// of the same type.
-        /// 
+        /// </para>
+        /// <para>
         /// If the action is not stateful then this function will return %NULL.
         /// In that case, g_action_group_get_action_state() will return %NULL
         /// and you must not call g_action_group_change_action_state().
-        /// 
+        /// </para>
+        /// <para>
         /// The state type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
         /// with the same name but a different state type.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -729,8 +761,10 @@ namespace GISharp.Lib.Gio
         /// Lists the actions contained within @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The caller is responsible for freeing the list with g_strfreev() when
         /// it is no longer required.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup
@@ -766,31 +800,37 @@ namespace GISharp.Lib.Gio
         /// Queries all aspects of the named action within an @action_group.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function acquires the information available from
         /// g_action_group_has_action(), g_action_group_get_action_enabled(),
         /// g_action_group_get_action_parameter_type(),
         /// g_action_group_get_action_state_type(),
         /// g_action_group_get_action_state_hint() and
         /// g_action_group_get_action_state() with a single function call.
-        /// 
+        /// </para>
+        /// <para>
         /// This provides two main benefits.
-        /// 
+        /// </para>
+        /// <para>
         /// The first is the improvement in efficiency that comes with not having
         /// to perform repeated lookups of the action in order to discover
         /// different things about it.  The second is that implementing
         /// #GActionGroup can now be done by only overriding this one virtual
         /// function.
-        /// 
+        /// </para>
+        /// <para>
         /// The interface provides a default implementation of this function that
         /// calls the individual functions, as required, to fetch the
         /// information.  The interface also provides default implementations of
         /// those functions that call this function.  All implementations,
         /// therefore, must override either this function or all of the others.
-        /// 
+        /// </para>
+        /// <para>
         /// If the action exists, %TRUE is returned and any of the requested
         /// fields (as indicated by having a non-%NULL reference passed in) are
         /// filled.  If the action doesn't exist, %FALSE is returned and the
         /// fields may or may not have been modified.
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup

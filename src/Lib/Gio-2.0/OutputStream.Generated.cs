@@ -71,26 +71,32 @@ namespace GISharp.Lib.Gio
         /// Closes the stream, releasing resources related to it.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Once the stream is closed, all other operations will return %G_IO_ERROR_CLOSED.
         /// Closing a stream multiple times will not return an error.
-        /// 
+        /// </para>
+        /// <para>
         /// Closing a stream will automatically flush any outstanding buffers in the
         /// stream.
-        /// 
+        /// </para>
+        /// <para>
         /// Streams will be automatically closed when the last reference
         /// is dropped, but you might want to call this function to make sure
         /// resources are released as early as possible.
-        /// 
+        /// </para>
+        /// <para>
         /// Some streams might keep the backing store of the stream (e.g. a file descriptor)
         /// open after the stream is closed. See the documentation for the individual
         /// stream for details.
-        /// 
+        /// </para>
+        /// <para>
         /// On failure the first error that happened will be reported, but the close
         /// operation will finish as much as possible. A stream that failed to
         /// close will still return %G_IO_ERROR_CLOSED for all operations. Still, it
         /// is important to check and report the error to the user, otherwise
         /// there might be a loss of data as all data might not be written.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
@@ -98,6 +104,7 @@ namespace GISharp.Lib.Gio
         /// can use a faster close that doesn't block to e.g. check errors. On
         /// cancellation (as with any error) there is no guarantee that all written
         /// data will reach the target.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// A #GOutputStream.
@@ -148,11 +155,14 @@ namespace GISharp.Lib.Gio
         /// the result of the operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For behaviour details see g_output_stream_close().
-        /// 
+        /// </para>
+        /// <para>
         /// The asynchronous methods have a default fallback that uses threads
         /// to implement asynchronicity, so they are optional for inheriting
         /// classes. However, if you override one you must override all.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// A #GOutputStream.
@@ -264,11 +274,14 @@ namespace GISharp.Lib.Gio
         /// implicitly cause a flush.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is optional for inherited classes.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream.
@@ -318,9 +331,11 @@ namespace GISharp.Lib.Gio
         /// For behaviour details see g_output_stream_flush().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When the operation is finished @callback will be
         /// called. You can then call g_output_stream_flush_finish() to get the
         /// result of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream.
@@ -626,8 +641,10 @@ namespace GISharp.Lib.Gio
         /// result of the operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For the synchronous, blocking version of this function, see
         /// g_output_stream_splice().
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream.
@@ -758,23 +775,28 @@ namespace GISharp.Lib.Gio
         /// during the operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If count is 0, returns 0 and does nothing. A value of @count
         /// larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
-        /// 
+        /// </para>
+        /// <para>
         /// On success, the number of bytes written to the stream is returned.
         /// It is not an error if this is not the same as the requested size, as it
         /// can happen e.g. on a partial I/O error, or if there is not enough
         /// storage in the stream. All writes block until at least one byte
         /// is written or an error occurs; 0 is never returned (unless
         /// @count is 0).
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
         /// operation was partially finished when the operation was cancelled the
         /// partial result will be returned, without an error.
-        /// 
+        /// </para>
+        /// <para>
         /// On error -1 is returned and @error is set accordingly.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream.
@@ -845,15 +867,19 @@ namespace GISharp.Lib.Gio
         /// during the operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is similar to g_output_stream_write(), except it tries to
         /// write as many bytes as requested, only stopping on an error.
-        /// 
+        /// </para>
+        /// <para>
         /// On a successful write of @count bytes, %TRUE is returned, and @bytes_written
         /// is set to @count.
-        /// 
+        /// </para>
+        /// <para>
         /// If there is an error during the operation %FALSE is returned and @error
         /// is set to indicate the error status.
-        /// 
+        /// </para>
+        /// <para>
         /// As a special exception to the normal conventions for functions that
         /// use #GError, if this function returns %FALSE (and sets @error) then
         /// @bytes_written will be set to the number of bytes that were
@@ -861,6 +887,7 @@ namespace GISharp.Lib.Gio
         /// functionality is only available from C.  If you need it from another
         /// language then you must write your own loop around
         /// g_output_stream_write().
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream.
@@ -940,16 +967,21 @@ namespace GISharp.Lib.Gio
         /// operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is the asynchronous version of g_output_stream_write_all().
-        /// 
+        /// </para>
+        /// <para>
         /// Call g_output_stream_write_all_finish() to collect the result.
-        /// 
+        /// </para>
+        /// <para>
         /// Any outstanding I/O request with higher priority (lower numerical
         /// value) will be executed before an outstanding request with lower
         /// priority. Default priority is %G_PRIORITY_DEFAULT.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that no copy of @buffer will be made, so it must stay valid
         /// until @callback is called.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// A #GOutputStream
@@ -1026,6 +1058,7 @@ namespace GISharp.Lib.Gio
         /// g_output_stream_write_all_async().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// As a special exception to the normal conventions for functions that
         /// use #GError, if this function returns %FALSE (and sets @error) then
         /// @bytes_written will be set to the number of bytes that were
@@ -1033,6 +1066,7 @@ namespace GISharp.Lib.Gio
         /// functionality is only available from C.  If you need it from another
         /// language then you must write your own loop around
         /// g_output_stream_write_async().
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream
@@ -1101,36 +1135,45 @@ namespace GISharp.Lib.Gio
         /// operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// During an async request no other sync and async calls are allowed,
         /// and will result in %G_IO_ERROR_PENDING errors.
-        /// 
+        /// </para>
+        /// <para>
         /// A value of @count larger than %G_MAXSSIZE will cause a
         /// %G_IO_ERROR_INVALID_ARGUMENT error.
-        /// 
+        /// </para>
+        /// <para>
         /// On success, the number of bytes written will be passed to the
         /// @callback. It is not an error if this is not the same as the
         /// requested size, as it can happen e.g. on a partial I/O error,
         /// but generally we try to write as many bytes as requested.
-        /// 
+        /// </para>
+        /// <para>
         /// You are guaranteed that this method will never fail with
         /// %G_IO_ERROR_WOULD_BLOCK - if @stream can't accept more data, the
         /// method will just wait until this changes.
-        /// 
+        /// </para>
+        /// <para>
         /// Any outstanding I/O request with higher priority (lower numerical
         /// value) will be executed before an outstanding request with lower
         /// priority. Default priority is %G_PRIORITY_DEFAULT.
-        /// 
+        /// </para>
+        /// <para>
         /// The asynchronous methods have a default fallback that uses threads
         /// to implement asynchronicity, so they are optional for inheriting
         /// classes. However, if you override one you must override all.
-        /// 
+        /// </para>
+        /// <para>
         /// For the synchronous, blocking version of this function, see
         /// g_output_stream_write().
-        /// 
+        /// </para>
+        /// <para>
         /// Note that no copy of @buffer will be made, so it must stay valid
         /// until @callback is called. See g_output_stream_write_bytes_async()
         /// for a #GBytes version that will automatically hold a reference to
         /// the contents (without copying) for the duration of the call.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// A #GOutputStream.
@@ -1207,12 +1250,14 @@ namespace GISharp.Lib.Gio
         /// is helpful over a bare pointer interface.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// However, note that this function may still perform partial writes,
         /// just like g_output_stream_write().  If that occurs, to continue
         /// writing, you will need to create a new #GBytes containing just the
         /// remaining bytes, using g_bytes_new_from_bytes(). Passing the same
         /// #GBytes instance multiple times potentially can result in duplicated
         /// data in the output stream.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream.
@@ -1272,15 +1317,18 @@ namespace GISharp.Lib.Gio
         /// this allows the stream to avoid taking a copy of the data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// However, note that this function may still perform partial writes,
         /// just like g_output_stream_write_async(). If that occurs, to continue
         /// writing, you will need to create a new #GBytes containing just the
         /// remaining bytes, using g_bytes_new_from_bytes(). Passing the same
         /// #GBytes instance multiple times potentially can result in duplicated
         /// data in the output stream.
-        /// 
+        /// </para>
+        /// <para>
         /// For the synchronous, blocking version of this function, see
         /// g_output_stream_write_bytes().
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// A #GOutputStream.
@@ -1456,26 +1504,31 @@ namespace GISharp.Lib.Gio
         /// stream. Will block during the operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @n_vectors is 0 or the sum of all bytes in @vectors is 0, returns 0 and
         /// does nothing.
-        /// 
+        /// </para>
+        /// <para>
         /// On success, the number of bytes written to the stream is returned.
         /// It is not an error if this is not the same as the requested size, as it
         /// can happen e.g. on a partial I/O error, or if there is not enough
         /// storage in the stream. All writes block until at least one byte
         /// is written or an error occurs; 0 is never returned (unless
         /// @n_vectors is 0 or the sum of all bytes in @vectors is 0).
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
         /// operation was partially finished when the operation was cancelled the
         /// partial result will be returned, without an error.
-        /// 
+        /// </para>
+        /// <para>
         /// Some implementations of g_output_stream_writev() may have limitations on the
         /// aggregate buffer size, and will return %G_IO_ERROR_INVALID_ARGUMENT if these
         /// are exceeded. For example, when writing to a local file on UNIX platforms,
         /// the aggregate buffer size must not exceed %G_MAXSSIZE bytes.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream.
@@ -1555,15 +1608,19 @@ namespace GISharp.Lib.Gio
         /// stream. Will block during the operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is similar to g_output_stream_writev(), except it tries to
         /// write as many bytes as requested, only stopping on an error.
-        /// 
+        /// </para>
+        /// <para>
         /// On a successful write of all @n_vectors vectors, %TRUE is returned, and
         /// @bytes_written is set to the sum of all the sizes of @vectors.
-        /// 
+        /// </para>
+        /// <para>
         /// If there is an error during the operation %FALSE is returned and @error
         /// is set to indicate the error status.
-        /// 
+        /// </para>
+        /// <para>
         /// As a special exception to the normal conventions for functions that
         /// use #GError, if this function returns %FALSE (and sets @error) then
         /// @bytes_written will be set to the number of bytes that were
@@ -1571,9 +1628,11 @@ namespace GISharp.Lib.Gio
         /// functionality is only available from C. If you need it from another
         /// language then you must write your own loop around
         /// g_output_stream_write().
-        /// 
+        /// </para>
+        /// <para>
         /// The content of the individual elements of @vectors might be changed by this
         /// function.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream.
@@ -1655,17 +1714,22 @@ namespace GISharp.Lib.Gio
         /// operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is the asynchronous version of g_output_stream_writev_all().
-        /// 
+        /// </para>
+        /// <para>
         /// Call g_output_stream_writev_all_finish() to collect the result.
-        /// 
+        /// </para>
+        /// <para>
         /// Any outstanding I/O request with higher priority (lower numerical
         /// value) will be executed before an outstanding request with lower
         /// priority. Default priority is %G_PRIORITY_DEFAULT.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that no copy of @vectors will be made, so it must stay valid
         /// until @callback is called. The content of the individual elements
         /// of @vectors might be changed by this function.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// A #GOutputStream
@@ -1742,6 +1806,7 @@ namespace GISharp.Lib.Gio
         /// g_output_stream_writev_all_async().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// As a special exception to the normal conventions for functions that
         /// use #GError, if this function returns %FALSE (and sets @error) then
         /// @bytes_written will be set to the number of bytes that were
@@ -1749,6 +1814,7 @@ namespace GISharp.Lib.Gio
         /// functionality is only available from C.  If you need it from another
         /// language then you must write your own loop around
         /// g_output_stream_writev_async().
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GOutputStream
@@ -1817,31 +1883,39 @@ namespace GISharp.Lib.Gio
         /// operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// During an async request no other sync and async calls are allowed,
         /// and will result in %G_IO_ERROR_PENDING errors.
-        /// 
+        /// </para>
+        /// <para>
         /// On success, the number of bytes written will be passed to the
         /// @callback. It is not an error if this is not the same as the
         /// requested size, as it can happen e.g. on a partial I/O error,
         /// but generally we try to write as many bytes as requested.
-        /// 
+        /// </para>
+        /// <para>
         /// You are guaranteed that this method will never fail with
         /// %G_IO_ERROR_WOULD_BLOCK — if @stream can't accept more data, the
         /// method will just wait until this changes.
-        /// 
+        /// </para>
+        /// <para>
         /// Any outstanding I/O request with higher priority (lower numerical
         /// value) will be executed before an outstanding request with lower
         /// priority. Default priority is %G_PRIORITY_DEFAULT.
-        /// 
+        /// </para>
+        /// <para>
         /// The asynchronous methods have a default fallback that uses threads
         /// to implement asynchronicity, so they are optional for inheriting
         /// classes. However, if you override one you must override all.
-        /// 
+        /// </para>
+        /// <para>
         /// For the synchronous, blocking version of this function, see
         /// g_output_stream_writev().
-        /// 
+        /// </para>
+        /// <para>
         /// Note that no copy of @vectors will be made, so it must stay valid
         /// until @callback is called.
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// A #GOutputStream.

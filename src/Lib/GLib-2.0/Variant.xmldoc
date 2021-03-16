@@ -5,8 +5,10 @@
 Returns the boolean value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type
 other than %G_VARIANT_TYPE_BOOLEAN.
+</para>
 </remarks>
 </member>
 
@@ -15,8 +17,10 @@ other than %G_VARIANT_TYPE_BOOLEAN.
 Returns the byte value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type
 other than %G_VARIANT_TYPE_BYTE.
+</para>
 </remarks>
 </member>
 
@@ -26,21 +30,27 @@ Returns the string value of a <see cref="Variant"/> instance with an
 array-of-bytes type.  The string has no particular encoding.
 </summary>
 <remarks>
+<para>
 If the array does not end with a nul terminator character, the empty
 string is returned.  For this reason, you can always trust that a
 non-<c>null</c> nul-terminated string will be returned by this function.
-
+</para>
+<para>
 If the array contains a nul terminator character somewhere other than
 the last byte then the returned string is the string, up to the first
 such nul character.
-
+</para>
+<para>
 g_variant_get_fixed_array() should be used instead if the array contains
 arbitrary data that could not be nul-terminated or could contain nul bytes.
-
+</para>
+<para>
 It is an error to call this function with a this instance that is not an
 array of bytes.
-
+</para>
+<para>
 The return value remains valid as long as this instance exists.
+</para>
 </remarks>
 </member>
 
@@ -51,12 +61,15 @@ makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
 </summary>
 <remarks>
+<para>
 If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result is
 stored there.  In any case, the resulting array will be
 <c>null</c>-terminated.
-
+</para>
+<para>
 For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
 <c>null</c> pointer will be returned.
+</para>
 </remarks>
 </member>
 
@@ -68,17 +81,20 @@ untrusted source.  The returned data must not be freed; it remains
 valid for as long as this instance exists.
 </summary>
 <remarks>
+<para>
 If this instance is a fixed-sized value that was deserialised from a
 corrupted serialised container then <c>null</c> may be returned.  In this
 case, the proper thing to do is typically to use the appropriate
 number of nul bytes in place of this instance.  If this instance is not fixed-sized
 then <c>null</c> is never returned.
-
+</para>
+<para>
 In the case that this instance is already in serialised form, this function
 is O(1).  If the value is not already in serialised form,
 serialisation occurs implicitly and is approximately O(n) in the size
 of the result.
-
+</para>
+<para>
 To deserialise the data returned by this function, in addition to the
 serialised data, you must know the type of the <see cref="Variant"/>, and (if the
 machine might be different) the endianness of the machine that stored
@@ -88,6 +104,7 @@ implicitly (for instance "the file always contains a
 %G_VARIANT_TYPE_VARIANT and it is always in little-endian order") or
 explicitly (by storing the type and/or endianness in addition to the
 serialised data).
+</para>
 </remarks>
 </member>
 
@@ -105,8 +122,10 @@ a reference to the variant data.
 Returns the double precision floating point value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type
 other than %G_VARIANT_TYPE_DOUBLE.
+</para>
 </remarks>
 </member>
 
@@ -115,12 +134,15 @@ other than %G_VARIANT_TYPE_DOUBLE.
 Returns the 32-bit signed integer value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type other
 than %G_VARIANT_TYPE_HANDLE.
-
+</para>
+<para>
 By convention, handles are indexes into an array of file descriptors
 that are sent alongside a D-Bus message.  If you're not interacting
 with D-Bus, you probably don't need them.
+</para>
 </remarks>
 </member>
 
@@ -129,8 +151,10 @@ with D-Bus, you probably don't need them.
 Returns the 16-bit signed integer value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type
 other than %G_VARIANT_TYPE_INT16.
+</para>
 </remarks>
 </member>
 
@@ -139,8 +163,10 @@ other than %G_VARIANT_TYPE_INT16.
 Returns the 32-bit signed integer value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type
 other than %G_VARIANT_TYPE_INT32.
+</para>
 </remarks>
 </member>
 
@@ -149,8 +175,10 @@ other than %G_VARIANT_TYPE_INT32.
 Returns the 64-bit signed integer value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type
 other than %G_VARIANT_TYPE_INT64.
+</para>
 </remarks>
 </member>
 
@@ -167,26 +195,32 @@ Gets a <see cref="Variant"/> instance that has the same value as this instance a
 trusted to be in normal form.
 </summary>
 <remarks>
+<para>
 If this instance is already trusted to be in normal form then a new
 reference to this instance is returned.
-
+</para>
+<para>
 If this instance is not already trusted, then it is scanned to check if it
 is in normal form.  If it is found to be in normal form then it is
 marked as trusted and a new reference to it is returned.
-
+</para>
+<para>
 If this instance is found not to be in normal form then a new trusted
 <see cref="Variant"/> is created with the same value as this instance.
-
+</para>
+<para>
 It makes sense to call this function if you've received <see cref="Variant"/>
 data from untrusted sources and you want to ensure your serialised
 output is definitely in normal form.
-
+</para>
+<para>
 If this instance is already in normal form, a new reference will be returned
 (which will be floating if this instance is floating). If it is not in normal form,
 the newly created <see cref="Variant"/> will be returned with a single non-floating
 reference. Typically, <see cref="Variant.TakeRef()"/> should be called on the return
 value from this function to guarantee ownership of a single non-floating
 reference to it.
+</para>
 </remarks>
 </member>
 
@@ -197,12 +231,15 @@ makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
 </summary>
 <remarks>
+<para>
 If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result
 is stored there.  In any case, the resulting array will be
 <c>null</c>-terminated.
-
+</para>
+<para>
 For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
 <c>null</c> pointer will be returned.
+</para>
 </remarks>
 </member>
 
@@ -212,14 +249,17 @@ Determines the number of bytes that would be required to store this instance
 with <see cref="Variant.Store(System.IntPtr)"/>.
 </summary>
 <remarks>
+<para>
 If this instance has a fixed-sized type then this function always returned
 that fixed size.
-
+</para>
+<para>
 In the case that this instance is already in serialised form or the size has
 already been calculated (ie: this function has been called before)
 then this function is O(1).  Otherwise, the size is calculated, an
 operation which is approximately O(n) in the number of values
 involved.
+</para>
 </remarks>
 </member>
 
@@ -230,12 +270,15 @@ makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
 </summary>
 <remarks>
+<para>
 If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result
 is stored there.  In any case, the resulting array will be
 <c>null</c>-terminated.
-
+</para>
+<para>
 For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
 <c>null</c> pointer will be returned.
+</para>
 </remarks>
 </member>
 
@@ -244,8 +287,10 @@ For an empty array, <paramref name="length"/> will be set to 0 and a pointer to 
 Determines the type of this instance.
 </summary>
 <remarks>
+<para>
 The return value is valid for the lifetime of this instance and must not
 be freed.
+</para>
 </remarks>
 </member>
 
@@ -262,8 +307,10 @@ string belongs to <see cref="Variant"/> and must not be freed.
 Returns the 16-bit unsigned integer value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type
 other than %G_VARIANT_TYPE_UINT16.
+</para>
 </remarks>
 </member>
 
@@ -272,8 +319,10 @@ other than %G_VARIANT_TYPE_UINT16.
 Returns the 32-bit unsigned integer value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type
 other than %G_VARIANT_TYPE_UINT32.
+</para>
 </remarks>
 </member>
 
@@ -282,8 +331,10 @@ other than %G_VARIANT_TYPE_UINT32.
 Returns the 64-bit unsigned integer value of this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with a this instance of any type
 other than %G_VARIANT_TYPE_UINT64.
+</para>
 </remarks>
 </member>
 
@@ -305,13 +356,16 @@ Checks if this instance is a container.
 Checks whether this instance has a floating reference count.
 </summary>
 <remarks>
+<para>
 This function should only ever be used to assert that a given variant
 is or is not floating, or for debug purposes. To acquire a reference
 to a variant that might be floating, always use <see cref="Variant.RefSink()"/>
 or <see cref="Variant.TakeRef()"/>.
-
+</para>
+<para>
 See <see cref="Variant.RefSink()"/> for more information about floating reference
 counts.
+</para>
 </remarks>
 </member>
 
@@ -320,17 +374,21 @@ counts.
 Checks if this instance is in normal form.
 </summary>
 <remarks>
+<para>
 The main reason to do this is to detect if a given chunk of
 serialised data is in normal form: load the data into a <see cref="Variant"/>
 using <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},bool,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> and then use this function to
 check.
-
+</para>
+<para>
 If this instance is found to be in normal form then it will be marked as
 being trusted.  If the value was already marked as being trusted then
 this function will immediately return <c>true</c>.
-
+</para>
+<para>
 There may be implementation specific restrictions on deeply nested values.
 GVariant is guaranteed to handle nesting up to at least 64 levels.
+</para>
 </remarks>
 </member>
 
@@ -339,19 +397,24 @@ GVariant is guaranteed to handle nesting up to at least 64 levels.
 Creates a new <see cref="Variant"/> array from <paramref name="children"/>.
 </summary>
 <remarks>
+<para>
 <paramref name="childType"/> must be non-<c>null</c> if the length of <paramref name="children"/> is zero.  Otherwise, the
 child type is determined by inspecting the first element of the
 <paramref name="children"/> array.  If <paramref name="childType"/> is non-<c>null</c> then it must be a
 definite type.
-
+</para>
+<para>
 The items of the array are taken from the <paramref name="children"/> array.  No entry
 in the <paramref name="children"/> array may be <c>null</c>.
-
+</para>
+<para>
 All items in the array must have the same type, which must be the
 same as <paramref name="childType"/>, if given.
-
+</para>
+<para>
 If the <paramref name="children"/> are floating references (see <see cref="Variant.RefSink()"/>), the
 new instance takes ownership of them as if via <see cref="Variant.RefSink()"/>.
+</para>
 </remarks>
 <param name="childType">
 the element type of the new array
@@ -387,8 +450,10 @@ This function is just like <see cref="Variant.Variant(GISharp.Lib.GLib.UnownedUt
 string need not be valid UTF-8.
 </summary>
 <remarks>
+<para>
 The nul terminator character at the end of the string is stored in
 the array.
+</para>
 </remarks>
 <param name="string">
 a normal
@@ -402,7 +467,9 @@ Constructs an array of bytestring <see cref="Variant"/> from the given array of
 strings.
 </summary>
 <remarks>
+<para>
 If the length of <paramref name="strv"/> is -1 then <paramref name="strv"/> is <c>null</c>-terminated.
+</para>
 </remarks>
 <param name="strv">
 an array of strings
@@ -415,8 +482,10 @@ Creates a new dictionary entry <see cref="Variant"/>. <paramref name="key"/> and
 non-<c>null</c>. <paramref name="key"/> must be a value of a basic type (ie: not a container).
 </summary>
 <remarks>
+<para>
 If the <paramref name="key"/> or <paramref name="value"/> are floating references (see <see cref="Variant.RefSink()"/>),
 the new instance takes ownership of them as if via <see cref="Variant.RefSink()"/>.
+</para>
 </remarks>
 <param name="key">
 a basic <see cref="Variant"/>, the key
@@ -441,16 +510,20 @@ Constructs a new array <see cref="Variant"/> instance, where the elements are
 of <paramref name="elementType"/> type.
 </summary>
 <remarks>
+<para>
 <paramref name="elements"/> must be an array with fixed-sized elements.  Numeric types are
 fixed-size as are tuples containing only other fixed-sized types.
-
+</para>
+<para>
 <paramref name="elementSize"/> must be the size of a single element in the array.
 For example, if calling this function for an array of 32-bit integers,
 you might say sizeof(gint32). This value isn't used except for the purpose
 of a double-check that the form of the serialised data matches the caller's
 expectation.
-
+</para>
+<para>
 <paramref name="nElements"/> must be the length of the <paramref name="elements"/> array.
+</para>
 </remarks>
 <param name="elementType">
 the <see cref="VariantType"/> of each element
@@ -473,11 +546,14 @@ inner interface for creation of new serialised values that gets
 called from various functions in gvariant.c.
 </summary>
 <remarks>
+<para>
 A reference is taken on <paramref name="bytes"/>.
-
+</para>
+<para>
 The data in <paramref name="bytes"/> must be aligned appropriately for the <paramref name="type"/> being loaded.
 Otherwise this function will internally create a copy of the memory (since
 GLib 2.60) or (in older versions) fail and exit the process.
+</para>
 </remarks>
 <param name="type">
 a <see cref="VariantType"/>
@@ -495,9 +571,11 @@ if the contents of <paramref name="bytes"/> are trusted
 Creates a new handle <see cref="Variant"/> instance.
 </summary>
 <remarks>
+<para>
 By convention, handles are indexes into an array of file descriptors
 that are sent alongside a D-Bus message.  If you're not interacting
 with D-Bus, you probably don't need them.
+</para>
 </remarks>
 <param name="value">
 a #gint32 value
@@ -537,13 +615,16 @@ Depending on if <paramref name="child"/> is <c>null</c>, either wraps <paramref 
 maybe container or creates a Nothing instance for the given <c>type</c>.
 </summary>
 <remarks>
+<para>
 At least one of <paramref name="childType"/> and <paramref name="child"/> must be non-<c>null</c>.
 If <paramref name="childType"/> is non-<c>null</c> then it must be a definite type.
 If they are both non-<c>null</c> then <paramref name="childType"/> must be the type
 of <paramref name="child"/>.
-
+</para>
+<para>
 If <paramref name="child"/> is a floating reference (see <see cref="Variant.RefSink()"/>), the new
 instance takes ownership of <paramref name="child"/>.
+</para>
 </remarks>
 <param name="childType">
 the <see cref="VariantType"/> of the child, or <c>null</c>
@@ -570,10 +651,13 @@ Constructs an array of object paths <see cref="Variant"/> from the given array o
 strings.
 </summary>
 <remarks>
+<para>
 Each string must be a valid <see cref="Variant"/> object path; see
 <see cref="Variant.IsObjectPath(GISharp.Lib.GLib.UnownedUtf8)"/>.
-
+</para>
+<para>
 If the length of <paramref name="strv"/> is -1 then <paramref name="strv"/> is <c>null</c>-terminated.
+</para>
 </remarks>
 <param name="strv">
 an array of strings
@@ -596,9 +680,11 @@ a normal C nul-terminated string
 Creates a string <see cref="Variant"/> with the contents of <paramref name="string"/>.
 </summary>
 <remarks>
+<para>
 <paramref name="string"/> must be valid UTF-8, and must not be <c>null</c>. To encode
 potentially-<c>null</c> strings, use g_variant_new() with `ms` as the
 [format string][gvariant-format-strings-maybe-types].
+</para>
 </remarks>
 <param name="string">
 a normal UTF-8 nul-terminated string
@@ -611,7 +697,9 @@ Constructs an array of strings <see cref="Variant"/> from the given array of
 strings.
 </summary>
 <remarks>
+<para>
 If the length of <paramref name="strv"/> is -1 then <paramref name="strv"/> is <c>null</c>-terminated.
+</para>
 </remarks>
 <param name="strv">
 an array of strings
@@ -625,10 +713,13 @@ type is determined from the types of <paramref name="children"/>.  No entry in t
 <paramref name="children"/> array may be <c>null</c>.
 </summary>
 <remarks>
+<para>
 If the length of <paramref name="children"/> is 0 then the unit tuple is constructed.
-
+</para>
+<para>
 If the <paramref name="children"/> are floating references (see <see cref="Variant.RefSink()"/>), the
 new instance takes ownership of them as if via <see cref="Variant.RefSink()"/>.
+</para>
 </remarks>
 <param name="children">
 the items to make the tuple out of
@@ -668,8 +759,10 @@ Boxes <paramref name="value"/>.  The result is a <see cref="Variant"/> instance 
 variant containing the original value.
 </summary>
 <remarks>
+<para>
 If <c>child</c> is a floating reference (see <see cref="Variant.RefSink()"/>), the new
 instance takes ownership of <c>child</c>.
+</para>
 </remarks>
 <param name="value">
 a <see cref="Variant"/> instance
@@ -681,23 +774,28 @@ a <see cref="Variant"/> instance
 Compares <paramref name="one"/> and <paramref name="two"/>.
 </summary>
 <remarks>
+<para>
 The types of <paramref name="one"/> and <paramref name="two"/> are #gconstpointer only to allow use of
 this function with #GTree, <see cref="PtrArray"/>, etc.  They must each be a
 <see cref="Variant"/>.
-
+</para>
+<para>
 Comparison is only defined for basic types (ie: booleans, numbers,
 strings).  For booleans, <c>false</c> is less than <c>true</c>.  Numbers are
 ordered in the usual way.  Strings are in ASCII lexographical order.
-
+</para>
+<para>
 It is a programmer error to attempt to compare container values or
 two values that have types that are not exactly equal.  For example,
 you cannot compare a 32-bit signed integer with a 32-bit unsigned
 integer.  Also note that this function is not particularly
 well-behaved when it comes to comparison of doubles; in particular,
 the handling of incomparable values (ie: NaN) is undefined.
-
+</para>
+<para>
 If you only require an equality comparison, <see cref="Variant.Equals(GISharp.Lib.GLib.Variant)"/> is more
 general.
+</para>
 </remarks>
 <param name="one">
 a basic-typed <see cref="Variant"/> instance
@@ -719,10 +817,12 @@ should ensure that a string is a valid D-Bus object path before
 passing it to <see cref="Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
+<para>
 A valid object path starts with `/` followed by zero or more
 sequences of characters separated by `/` characters.  Each sequence
 must contain only the characters `[A-Z][a-z][0-9]_`.  No sequence
 (including the one following the final `/` character) may be empty.
+</para>
 </remarks>
 <param name="string">
 a normal C nul-terminated string
@@ -739,8 +839,10 @@ should ensure that a string is a valid D-Bus type signature before
 passing it to <see cref="Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
+<para>
 D-Bus type signatures consist of zero or more definite <see cref="VariantType"/>
 strings in sequence.
+</para>
 </remarks>
 <param name="string">
 a normal C nul-terminated string
@@ -755,39 +857,49 @@ a normal C nul-terminated string
 Parses a <see cref="Variant"/> from a text representation.
 </summary>
 <remarks>
+<para>
 A single <see cref="Variant"/> is parsed from the content of <paramref name="text"/>.
-
+</para>
+<para>
 The format is described [here][gvariant-text].
-
+</para>
+<para>
 The memory at <paramref name="limit"/> will never be accessed and the parser behaves as
 if the character at <paramref name="limit"/> is the nul terminator.  This has the
 effect of bounding <paramref name="text"/>.
-
+</para>
+<para>
 If <paramref name="endptr"/> is non-<c>null</c> then <paramref name="text"/> is permitted to contain data
 following the value that this function parses and <paramref name="endptr"/> will be
 updated to point to the first character past the end of the text
 parsed by this function.  If <paramref name="endptr"/> is <c>null</c> and there is extra data
 then an error is returned.
-
+</para>
+<para>
 If <paramref name="type"/> is non-<c>null</c> then the value will be parsed to have that
 type.  This may result in additional parse errors (in the case that
 the parsed value doesn't fit the type) but may also result in fewer
 errors (in the case that the type would have been ambiguous, such as
 with empty arrays).
-
+</para>
+<para>
 In the event that the parsing is successful, the resulting <see cref="Variant"/>
 is returned. It is never floating, and must be freed with
 <see cref="Variant.Unref()"/>.
-
+</para>
+<para>
 In case of any error, <c>null</c> will be returned.  If <see cref="GISharp.Runtime.GErrorException"/> is non-<c>null</c>
 then it will be set to reflect the error that occurred.
-
+</para>
+<para>
 Officially, the language understood by the parser is "any string
 produced by <see cref="Variant.Print(bool)"/>".
-
+</para>
+<para>
 There may be implementation specific restrictions on deeply nested values,
 which would result in a <see cref="VariantParseError.Recursion"/> error. <see cref="Variant"/> is
 guaranteed to handle nesting up to at least 64 levels.
+</para>
 </remarks>
 <param name="type">
 a <see cref="VariantType"/>, or <c>null</c>
@@ -815,32 +927,40 @@ Pretty-prints a message showing the context of a <see cref="Variant"/> parse
 error within the string for which parsing was attempted.
 </summary>
 <remarks>
+<para>
 The resulting string is suitable for output to the console or other
 monospace media where newlines are treated in the usual way.
-
+</para>
+<para>
 The message will typically look something like one of the following:
-
+</para>
+<para>
 |[
 unterminated string constant:
   (1, 2, 3, 'abc
             ^^^^
 ]|
-
+</para>
+<para>
 or
-
+</para>
+<para>
 |[
 unable to find a common type:
   [1, 2, 3, 'str']
    ^        ^^^^^
 ]|
-
+</para>
+<para>
 The format of the message may change in a future version.
-
+</para>
+<para>
 <paramref name="error"/> must have come from a failed attempt to <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> and
 <paramref name="sourceStr"/> must be exactly the same string that caused the error.
 If <paramref name="sourceStr"/> was not nul-terminated when you passed it to
 <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> then you must add nul termination before using this
 function.
+</para>
 </remarks>
 <param name="error">
 a <see cref="Error"/> from the <see cref="VariantParseError"/> domain
@@ -871,11 +991,14 @@ integers as well as file handles and double precision floating point
 values.
 </summary>
 <remarks>
+<para>
 This function is an identity mapping on any value that does not
 contain multi-byte numeric data.  That include strings, booleans,
 bytes and containers containing only these things (recursively).
-
+</para>
+<para>
 The returned value is always in normal form and is marked as trusted.
+</para>
 </remarks>
 <returns>
 the byteswapped form of this instance
@@ -889,16 +1012,19 @@ be valid from a type-compatibility standpoint.  <paramref name="formatString"/> 
 assumed to be a valid format string (from a syntactic standpoint).
 </summary>
 <remarks>
+<para>
 If <paramref name="copyOnly"/> is <c>true</c> then this function additionally checks that it
 would be safe to call <see cref="Variant.Unref()"/> on this instance immediately after
 the call to g_variant_get() without invalidating the result.  This is
 only possible if deep copies are made (ie: there are no pointers to
 the data inside of the soon-to-be-freed <see cref="Variant"/> instance).  If this
 check fails then a g_critical() is printed and <c>false</c> is returned.
-
+</para>
+<para>
 This function is meant to be used by functions that wish to provide
 varargs accessors to <see cref="Variant"/> values of uncertain values (eg:
 g_variant_lookup() or g_menu_model_get_item_attribute()).
+</para>
 </remarks>
 <param name="formatString">
 a valid <see cref="Variant"/> format string
@@ -926,7 +1052,9 @@ Similar to <see cref="Variant.GetBytestring()"/> except that instead of
 returning a constant string, the string is duplicated.
 </summary>
 <remarks>
+<para>
 The return value must be freed using g_free().
+</para>
 </remarks>
 <returns>
 
@@ -941,12 +1069,15 @@ makes a deep copy; the return result should be released with
 g_strfreev().
 </summary>
 <remarks>
+<para>
 If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result is
 stored there.  In any case, the resulting array will be
 <c>null</c>-terminated.
-
+</para>
+<para>
 For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
 <c>null</c> pointer will be returned.
+</para>
 </remarks>
 <returns>
 an array of strings
@@ -960,12 +1091,15 @@ makes a deep copy; the return result should be released with
 g_strfreev().
 </summary>
 <remarks>
+<para>
 If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result
 is stored there.  In any case, the resulting array will be
 <c>null</c>-terminated.
-
+</para>
+<para>
 For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
 <c>null</c> pointer will be returned.
+</para>
 </remarks>
 <returns>
 an array of strings
@@ -978,9 +1112,12 @@ Similar to <see cref="Variant.GetString(out int)"/> except that instead of retur
 a constant string, the string is duplicated.
 </summary>
 <remarks>
+<para>
 The string will always be UTF-8 encoded.
-
+</para>
+<para>
 The return value must be freed using g_free().
+</para>
 </remarks>
 <param name="length">
 a pointer to a #gsize, to store the length
@@ -997,12 +1134,15 @@ makes a deep copy; the return result should be released with
 g_strfreev().
 </summary>
 <remarks>
+<para>
 If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result
 is stored there.  In any case, the resulting array will be
 <c>null</c>-terminated.
-
+</para>
+<para>
 For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
 <c>null</c> pointer will be returned.
+</para>
 </remarks>
 <returns>
 an array of strings
@@ -1014,8 +1154,10 @@ an array of strings
 Checks if this instance and <paramref name="two"/> have the same type and value.
 </summary>
 <remarks>
+<para>
 The types of this instance and <paramref name="two"/> are #gconstpointer only to allow use of
 this function with <see cref="HashTable"/>.  They must each be a <see cref="Variant"/>.
+</para>
 </remarks>
 <param name="two">
 a <see cref="Variant"/> instance
@@ -1033,24 +1175,30 @@ entries.  It is an error to call this function on any other type of
 <see cref="Variant"/>.
 </summary>
 <remarks>
+<para>
 It is an error if <paramref name="index"/> is greater than the number of child items
 in the container.  See <see cref="Variant.NChildren()"/>.
-
+</para>
+<para>
 The returned value is never floating.  You should free it with
 <see cref="Variant.Unref()"/> when you're done with it.
-
+</para>
+<para>
 Note that values borrowed from the returned child are not guaranteed to
 still be valid after the child is freed even if you still hold a reference
 to this instance, if this instance has not been serialised at the time this function is
 called. To avoid this, you can serialize this instance by calling
 <see cref="Variant.GetData()"/> and optionally ignoring the return value.
-
+</para>
+<para>
 There may be implementation specific restrictions on deeply nested values,
 which would result in the unit tuple being returned as the child value,
 instead of further nested children. <see cref="Variant"/> is guaranteed to handle
 nesting up to at least 64 levels.
-
+</para>
+<para>
 This function is O(1).
+</para>
 </remarks>
 <param name="index">
 the index of the child to fetch
@@ -1067,20 +1215,25 @@ type.  This includes the types %G_VARIANT_TYPE_STRING,
 %G_VARIANT_TYPE_OBJECT_PATH and %G_VARIANT_TYPE_SIGNATURE.
 </summary>
 <remarks>
+<para>
 The string will always be UTF-8 encoded, will never be <c>null</c>, and will never
 contain nul bytes.
-
+</para>
+<para>
 If <paramref name="length"/> is non-<c>null</c> then the length of the string (in bytes) is
 returned there.  For trusted values, this information is already
 known.  Untrusted values will be validated and, if valid, a strlen() will be
 performed. If invalid, a default value will be returned — for
 %G_VARIANT_TYPE_OBJECT_PATH, this is `"/"`, and for other types it is the
 empty string.
-
+</para>
+<para>
 It is an error to call this function with a this instance of any type
 other than those three.
-
+</para>
+<para>
 The return value remains valid as long as this instance exists.
+</para>
 </remarks>
 <param name="length">
 a pointer to a #gsize,
@@ -1096,13 +1249,16 @@ the constant string, UTF-8 encoded
 Generates a hash value for a <see cref="Variant"/> instance.
 </summary>
 <remarks>
+<para>
 The output of this function is guaranteed to be the same for a given
 value only per-process.  It may change between different processor
 architectures or even different versions of GLib.  Do not use this
 function as a basis for building protocols or file formats.
-
+</para>
+<para>
 The type of this instance is #gconstpointer only to allow use of this
 function with <see cref="HashTable"/>.  this instance must be a <see cref="Variant"/>.
+</para>
 </remarks>
 <returns>
 a hash value corresponding to this instance
@@ -1126,25 +1282,31 @@ a <see cref="VariantType"/>
 Looks up a value in a dictionary <see cref="Variant"/>.
 </summary>
 <remarks>
+<para>
 This function works with dictionaries of the type a{s*} (and equally
 well with type a{o*}, but we only further discuss the string case
 for sake of clarity).
-
+</para>
+<para>
 In the event that this instance has the type a{sv}, the <paramref name="expectedType"/>
 string specifies what type of value is expected to be inside of the
 variant. If the value inside the variant has a different type then
 <c>null</c> is returned. In the event that this instance has a value type other
 than v then <paramref name="expectedType"/> must directly match the value type and it is
 used to unpack the value directly or an error occurs.
-
+</para>
+<para>
 In either case, if <paramref name="key"/> is not found in this instance, <c>null</c> is returned.
-
+</para>
+<para>
 If the key is found and the value has the correct type, it is
 returned.  If <paramref name="expectedType"/> was specified then any non-<c>null</c> return
 value will have this type.
-
+</para>
+<para>
 This function is currently implemented with a linear scan.  If you
 plan to do many lookups then <see cref="VariantDict"/> may be more efficient.
+</para>
 </remarks>
 <param name="key">
 the key to look up in the dictionary
@@ -1165,12 +1327,15 @@ entries.  It is an error to call this function on any other type of
 <see cref="Variant"/>.
 </summary>
 <remarks>
+<para>
 For variants, the return value is always 1.  For values with maybe
 types, it is always zero or one.  For arrays, it is the length of the
 array.  For tuples it is the number of tuple items (which depends
 only on the type).  For dictionary entries, it is always 2
-
+</para>
+<para>
 This function is O(1).
+</para>
 </remarks>
 <returns>
 the number of children in the container
@@ -1182,10 +1347,13 @@ the number of children in the container
 Pretty-prints this instance in the format understood by <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
 </summary>
 <remarks>
+<para>
 The format is described [here][gvariant-text].
-
+</para>
+<para>
 If <paramref name="typeAnnotate"/> is <c>true</c>, then type information is included in
 the output.
+</para>
 </remarks>
 <param name="typeAnnotate">
 <c>true</c> if type information should be included in
@@ -1203,16 +1371,19 @@ names starting with `g_variant_new_` return floating
 references.
 </summary>
 <remarks>
+<para>
 Calling <see cref="Variant.RefSink()"/> on a <see cref="Variant"/> with a floating reference
 will convert the floating reference into a full reference.  Calling
 <see cref="Variant.RefSink()"/> on a non-floating <see cref="Variant"/> results in an
 additional normal reference being added.
-
+</para>
+<para>
 In other words, if the this instance is floating, then this call "assumes
 ownership" of the floating reference, converting it to a normal
 reference.  If the this instance is not floating, then this call adds a
 new normal reference increasing the reference count by one.
-
+</para>
+<para>
 All calls that result in a <see cref="Variant"/> instance being inserted into a
 container will call <see cref="Variant.RefSink()"/> on the instance.  This means
 that if the value was just created (and has only its floating
@@ -1221,6 +1392,7 @@ at that point and the caller will not need to unreference it.  This
 makes certain common styles of programming much easier while still
 maintaining normal refcounting semantics in situations where values
 are not floating.
+</para>
 </remarks>
 <returns>
 the same this instance
@@ -1233,15 +1405,19 @@ Stores the serialised form of this instance at <paramref name="data"/>.  <paramr
 large enough.  See <see cref="Variant.GetSize()"/>.
 </summary>
 <remarks>
+<para>
 The stored data is in machine native byte order but may not be in
 fully-normalised form if read from an untrusted source.  See
 <see cref="Variant.GetNormalForm()"/> for a solution.
-
+</para>
+<para>
 As with <see cref="Variant.GetData()"/>, to be able to deserialise the
 serialised variant successfully, its type and (if the destination
 machine might be different) its endianness must also be available.
-
+</para>
+<para>
 This function is approximately O(n) in the size of <paramref name="data"/>.
+</para>
 </remarks>
 <param name="data">
 the location to store the serialised data at
@@ -1253,28 +1429,33 @@ the location to store the serialised data at
 If this instance is floating, sink it.  Otherwise, do nothing.
 </summary>
 <remarks>
+<para>
 Typically you want to use <see cref="Variant.RefSink()"/> in order to
 automatically do the correct thing with respect to floating or
 non-floating references, but there is one specific scenario where
 this function is helpful.
-
+</para>
+<para>
 The situation where this function is helpful is when creating an API
 that allows the user to provide a callback function that returns a
 <see cref="Variant"/>.  We certainly want to allow the user the flexibility to
 return a non-floating reference from this callback (for the case
 where the value that is being returned already exists).
-
+</para>
+<para>
 At the same time, the style of the <see cref="Variant"/> API makes it likely that
 for newly-created <see cref="Variant"/> instances, the user can be saved some
 typing if they are allowed to return a <see cref="Variant"/> with a floating
 reference.
-
+</para>
+<para>
 Using this function on the return value of the user's callback allows
 the user to do whichever is more convenient for them.  The caller
 will always receives exactly one full reference to the value: either
 the one that was returned in the first place, or a floating reference
 that has been converted to a full reference.
-
+</para>
+<para>
 This function has an odd interaction when combined with
 <see cref="Variant.RefSink()"/> running at the same time in another thread on
 the same <see cref="Variant"/> instance.  If <see cref="Variant.RefSink()"/> runs first then
@@ -1283,6 +1464,7 @@ reference.  If <see cref="Variant.TakeRef()"/> runs first then the result will
 be that the floating reference is converted to a hard reference and
 an additional reference on top of that one is added.  It is best to
 avoid this situation.
+</para>
 </remarks>
 <returns>
 the same this instance
@@ -1295,59 +1477,74 @@ the same this instance
 along with information about the type of the values.
 </summary>
 <remarks>
+<para>
 A <see cref="Variant"/> may contain simple types, like an integer, or a boolean value;
 or complex types, like an array of two strings, or a dictionary of key
 value pairs. A <see cref="Variant"/> is also immutable: once it's been created neither
 its type nor its content can be modified further.
-
+</para>
+<para>
 GVariant is useful whenever data needs to be serialized, for example when
 sending method parameters in DBus, or when saving settings using GSettings.
-
+</para>
+<para>
 When creating a new <see cref="Variant"/>, you pass the data you want to store in it
 along with a string representing the type of data you wish to pass to it.
-
+</para>
+<para>
 For instance, if you want to create a <see cref="Variant"/> holding an integer value you
 can use:
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
   GVariant *v = g_variant_new ("u", 40);
 ]|
-
+</para>
+<para>
 The string "u" in the first argument tells <see cref="Variant"/> that the data passed to
 the constructor (40) is going to be an unsigned integer.
-
+</para>
+<para>
 More advanced examples of <see cref="Variant"/> in use can be found in documentation for
 [GVariant format strings][gvariant-format-strings-pointers].
-
+</para>
+<para>
 The range of possible values is determined by the type.
-
+</para>
+<para>
 The type system used by <see cref="Variant"/> is <see cref="VariantType"/>.
-
+</para>
+<para>
 <see cref="Variant"/> instances always have a type and a value (which are given
 at construction time).  The type and value of a <see cref="Variant"/> instance
 can never change other than by the <see cref="Variant"/> itself being
 destroyed.  A <see cref="Variant"/> cannot contain a pointer.
-
+</para>
+<para>
 <see cref="Variant"/> is reference counted using <see cref="Variant.Ref()"/> and
 <see cref="Variant.Unref()"/>.  <see cref="Variant"/> also has floating reference counts --
 see <see cref="Variant.RefSink()"/>.
-
+</para>
+<para>
 <see cref="Variant"/> is completely threadsafe.  A <see cref="Variant"/> instance can be
 concurrently accessed in any way from any number of threads without
 problems.
-
+</para>
+<para>
 <see cref="Variant"/> is heavily optimised for dealing with data in serialised
 form.  It works particularly well with data located in memory-mapped
 files.  It can perform nearly all deserialisation operations in a
 small constant time, usually touching only a single memory page.
 Serialised <see cref="Variant"/> data can also be sent over the network.
-
+</para>
+<para>
 <see cref="Variant"/> is largely compatible with D-Bus.  Almost all types of
 <see cref="Variant"/> instances can be sent over D-Bus.  See <see cref="VariantType"/> for
 exceptions.  (However, <see cref="Variant"/>'s serialisation format is not the same
 as the serialisation format of a D-Bus message body: use #GDBusMessage,
 in the gio library, for those.)
-
+</para>
+<para>
 For space-efficiency, the <see cref="Variant"/> serialisation format does not
 automatically include the variant's length, type or endianness,
 which must either be implied from context (such as knowledge that a
@@ -1356,49 +1553,60 @@ particular file format always contains a little-endian
 or supplied out-of-band (for instance, a length, type and/or endianness
 indicator could be placed at the beginning of a file, network message
 or network stream).
-
+</para>
+<para>
 A <see cref="Variant"/>'s size is limited mainly by any lower level operating
 system constraints, such as the number of bits in #gsize.  For
 example, it is reasonable to have a 2GB file mapped into memory
 with #GMappedFile, and call <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},bool,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> on it.
-
+</para>
+<para>
 For convenience to C programmers, <see cref="Variant"/> features powerful
 varargs-based value construction and destruction.  This feature is
 designed to be embedded in other libraries.
-
+</para>
+<para>
 There is a Python-inspired text language for describing <see cref="Variant"/>
 values.  <see cref="Variant"/> includes a printer for this language and a parser
 with type inferencing.
-
+</para>
+<para>
 ## Memory Use
-
+</para>
+<para>
 <see cref="Variant"/> tries to be quite efficient with respect to memory use.
 This section gives a rough idea of how much memory is used by the
 current implementation.  The information here is subject to change
 in the future.
-
+</para>
+<para>
 The memory allocated by <see cref="Variant"/> can be grouped into 4 broad
 purposes: memory for serialised data, memory for the type
 information cache, buffer management memory and memory for the
 <see cref="Variant"/> structure itself.
-
+</para>
+<para>
 ## Serialised Data Memory
-
+</para>
+<para>
 This is the memory that is used for storing GVariant data in
 serialised form.  This is what would be sent over the network or
 what would end up on disk, not counting any indicator of the
 endianness, or of the length or type of the top-level variant.
-
+</para>
+<para>
 The amount of memory required to store a boolean is 1 byte. 16,
 32 and 64 bit integers and double precision floating point numbers
 use their "natural" size.  Strings (including object path and
 signature strings) are stored with a nul terminator, and as such
 use the length of the string plus 1 byte.
-
+</para>
+<para>
 Maybe types use no space at all to represent the null value and
 use the same amount of space (sometimes plus one byte) as the
 equivalent non-maybe-typed value to represent the non-null case.
-
+</para>
+<para>
 Arrays use the amount of space required to store each of their
 members, concatenated.  Additionally, if the items stored in an
 array are not of a fixed-size (ie: strings, other arrays, etc)
@@ -1406,21 +1614,25 @@ then an additional framing offset is stored for each item.  The
 size of this offset is either 1, 2 or 4 bytes depending on the
 overall size of the container.  Additionally, extra padding bytes
 are added as required for alignment of child values.
-
+</para>
+<para>
 Tuples (including dictionary entries) use the amount of space
 required to store each of their members, concatenated, plus one
 framing offset (as per arrays) for each non-fixed-sized item in
 the tuple, except for the last one.  Additionally, extra padding
 bytes are added as required for alignment of child values.
-
+</para>
+<para>
 Variants use the same amount of space as the item inside of the
 variant, plus 1 byte, plus the length of the type string for the
 item inside the variant.
-
+</para>
+<para>
 As an example, consider a dictionary mapping strings to variants.
 In the case that the dictionary is empty, 0 bytes are required for
 the serialisation.
-
+</para>
+<para>
 If we add an item "width" that maps to the int32 value of 500 then
 we will use 4 byte to store the int32 (so 6 for the variant
 containing it) and 6 bytes for the string.  The variant must be
@@ -1428,25 +1640,30 @@ aligned to 8 after the 6 bytes of the string, so that's 2 extra
 bytes.  6 (string) + 2 (padding) + 6 (variant) is 14 bytes used
 for the dictionary entry.  An additional 1 byte is added to the
 array as a framing offset making a total of 15 bytes.
-
+</para>
+<para>
 If we add another entry, "title" that maps to a nullable string
 that happens to have a value of null, then we use 0 bytes for the
 null value (and 3 bytes for the variant to contain it along with
 its type string) plus 6 bytes for the string.  Again, we need 2
 padding bytes.  That makes a total of 6 + 2 + 3 = 11 bytes.
-
+</para>
+<para>
 We now require extra padding between the two items in the array.
 After the 14 bytes of the first item, that's 2 bytes required.
 We now require 2 framing offsets for an extra two
 bytes. 14 + 2 + 11 + 2 = 29 bytes to encode the entire two-item
 dictionary.
-
+</para>
+<para>
 ## Type Information Cache
-
+</para>
+<para>
 For each GVariant type that currently exists in the program a type
 information structure is kept in the type information cache.  The
 type information structure is required for rapid deserialisation.
-
+</para>
+<para>
 Continuing with the above example, if a <see cref="Variant"/> exists with the
 type "a{sv}" then a type information struct will exist for
 "a{sv}", "{sv}", "s", and "v".  Multiple uses of the same type
@@ -1454,18 +1671,21 @@ will share the same type information.  Additionally, all
 single-digit types are stored in read-only static memory and do
 not contribute to the writable memory footprint of a program using
 <see cref="Variant"/>.
-
+</para>
+<para>
 Aside from the type information structures stored in read-only
 memory, there are two forms of type information.  One is used for
 container types where there is a single element type: arrays and
 maybe types.  The other is used for container types where there
 are multiple element types: tuples and dictionary entries.
-
+</para>
+<para>
 Array type info structures are 6 * sizeof (void *), plus the
 memory required to store the type string itself.  This means that
 on 32-bit systems, the cache entry for "a{sv}" would require 30
 bytes of memory (plus malloc overhead).
-
+</para>
+<para>
 Tuple type info structures are 6 * sizeof (void *), plus 4 *
 sizeof (void *) for each item in the tuple, plus the memory
 required to store the type string itself.  A 2-item tuple, for
@@ -1473,38 +1693,47 @@ example, would have a type information structure that consumed
 writable memory in the size of 14 * sizeof (void *) (plus type
 string)  This means that on 32-bit systems, the cache entry for
 "{sv}" would require 61 bytes of memory (plus malloc overhead).
-
+</para>
+<para>
 This means that in total, for our "a{sv}" example, 91 bytes of
 type information would be allocated.
-
+</para>
+<para>
 The type information cache, additionally, uses a <see cref="HashTable"/> to
 store and look up the cached items and stores a pointer to this
 hash table in static storage.  The hash table is freed when there
 are zero items in the type cache.
-
+</para>
+<para>
 Although these sizes may seem large it is important to remember
 that a program will probably only have a very small number of
 different types of values in it and that only one type information
 structure is required for many different values of the same type.
-
+</para>
+<para>
 ## Buffer Management Memory
-
+</para>
+<para>
 <see cref="Variant"/> uses an internal buffer management structure to deal
 with the various different possible sources of serialised data
 that it uses.  The buffer is responsible for ensuring that the
 correct call is made when the data is no longer in use by
 <see cref="Variant"/>.  This may involve a g_free() or a g_slice_free() or
 even g_mapped_file_unref().
-
+</para>
+<para>
 One buffer management structure is used for each chunk of
 serialised data.  The size of the buffer management structure
 is 4 * (void *).  On 32-bit systems, that's 16 bytes.
-
+</para>
+<para>
 ## GVariant structure
-
+</para>
+<para>
 The size of a <see cref="Variant"/> structure is 6 * (void *).  On 32-bit
 systems, that's 24 bytes.
-
+</para>
+<para>
 <see cref="Variant"/> structures only exist if they are explicitly created
 with API calls.  For example, if a <see cref="Variant"/> is constructed out of
 serialised data for the example given above (with the dictionary)
@@ -1513,16 +1742,19 @@ entire dictionary (two keys, two values, two variants containing
 the values, two dictionary entries, plus the dictionary itself),
 only 1 <see cref="Variant"/> instance exists -- the one referring to the
 dictionary.
-
+</para>
+<para>
 If calls are made to start accessing the other values then
 <see cref="Variant"/> instances will exist for those values only for as long
 as they are in use (ie: until you call <see cref="Variant.Unref()"/>).  The
 type information is shared.  The serialised data and the buffer
 management structure for that serialised data is shared by the
 child.
-
+</para>
+<para>
 ## Summary
-
+</para>
+<para>
 To put the entire example together, for our dictionary mapping
 strings to variants (with two entries, as given above), we are
 using 91 bytes of memory for type information, 29 bytes of memory
@@ -1534,6 +1766,7 @@ bytes.  If we were to have other dictionaries of the same type, we
 would use more memory for the serialised data and buffer
 management for those dictionaries, but the type information would
 be shared.
+</para>
 </remarks>
 </member>
 

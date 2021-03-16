@@ -26,8 +26,10 @@ A feature is not
 Warnings that can occur while parsing CSS.
 </summary>
 <remarks>
+<para>
 Unlike #GtkCssParserErrors, warnings do not cause the parser to
 skip any input, but they indicate issues that should be fixed.
+</para>
 </remarks>
 </member>
 

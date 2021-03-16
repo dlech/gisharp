@@ -40,10 +40,12 @@ this is always true. Otherwise, this looks at the <see cref="FunctionInfoFlags.I
 flag on the <see cref="FunctionInfo"/>.
 </summary>
 <remarks>
+<para>
 Concretely, this function returns whether <see cref="CallableInfo.GetNArgs()"/>
 matches the number of arguments in the raw C method. For methods, there
 is one more C argument than is exposed by introspection: the "self"
 or "this" object.
+</para>
 </remarks>
 </member>
 

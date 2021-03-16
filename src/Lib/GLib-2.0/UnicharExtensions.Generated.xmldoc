@@ -6,7 +6,9 @@ The maximum length (in codepoints) of a compatibility or canonical
 decomposition of a single Unicode character.
 </summary>
 <remarks>
+<para>
 This is as defined by Unicode 6.1.
+</para>
 </remarks>
 </member>
 
@@ -45,6 +47,7 @@ Performs a single composition step of the
 Unicode canonical composition algorithm.
 </summary>
 <remarks>
+<para>
 This function includes algorithmic Hangul Jamo composition,
 but it is not exactly the inverse of <see cref="UnicharExtensions.TryDecompose(GISharp.Lib.GLib.Unichar,out GISharp.Lib.GLib.Unichar,out GISharp.Lib.GLib.Unichar)"/>.
 No composition can have either of <paramref name="a"/> or <paramref name="b"/> equal to zero.
@@ -52,12 +55,15 @@ To be precise, this function composes if and only if
 there exists a Primary Composite P which is canonically
 equivalent to the sequence &lt;<paramref name="a"/>,<paramref name="b"/>&gt;.  See the Unicode
 Standard for the definition of Primary Composite.
-
+</para>
+<para>
 If <paramref name="a"/> and <paramref name="b"/> do not compose a new character, <paramref name="ch"/> is set to zero.
-
+</para>
+<para>
 See
 [UAX#15](http://unicode.org/reports/tr15/)
 for details.
+</para>
 </remarks>
 <param name="a">
 a Unicode character
@@ -79,26 +85,31 @@ Performs a single decomposition step of the
 Unicode canonical decomposition algorithm.
 </summary>
 <remarks>
+<para>
 This function does not include compatibility
 decompositions. It does, however, include algorithmic
 Hangul Jamo decomposition, as well as 'singleton'
 decompositions which replace a character by a single
 other character. In the case of singletons *<paramref name="b"/> will
 be set to zero.
-
+</para>
+<para>
 If <paramref name="ch"/> is not decomposable, *<paramref name="a"/> is set to <paramref name="ch"/> and *<paramref name="b"/>
 is set to zero.
-
+</para>
+<para>
 Note that the way Unicode decomposition pairs are
 defined, it is guaranteed that <paramref name="b"/> would not decompose
 further, but <paramref name="a"/> may itself decompose.  To get the full
 canonical decomposition for <paramref name="ch"/>, one would need to
 recursively call this function on <paramref name="a"/>.  Or use
 <see cref="UnicharExtensions.FullyDecompose(GISharp.Lib.GLib.Unichar,bool,System.Span{GISharp.Lib.GLib.Unichar})"/>.
-
+</para>
+<para>
 See
 [UAX#15](http://unicode.org/reports/tr15/)
 for details.
+</para>
 </remarks>
 <param name="ch">
 a Unicode character
@@ -136,10 +147,12 @@ to left. For instance, "(" would become its mirror image, ")", in
 right-to-left text.
 </summary>
 <remarks>
+<para>
 If <paramref name="ch"/> has the Unicode mirrored property and there is another unicode
 character that typically has a glyph that is the mirror image of <paramref name="ch"/>'s
 glyph and <paramref name="mirroredCh"/> is set, it puts that character in the address
 pointed to by <paramref name="mirroredCh"/>.  Otherwise the original character is put.
+</para>
 </remarks>
 <param name="ch">
 a Unicode character
@@ -160,8 +173,10 @@ valid Unicode character; if you pass in invalid character, the
 result is undefined.
 </summary>
 <remarks>
+<para>
 This function is equivalent to pango_script_for_unichar() and the
 two are interchangeable.
+</para>
 </remarks>
 <param name="ch">
 a Unicode character
@@ -278,10 +293,12 @@ Given some UTF-8 text, obtain a character value
 with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
+<para>
 Note: in most cases where isalpha characters are allowed,
 ismark characters should be allowed to as they are essential
 for writing most European languages as well as many non-Latin
 scripts.
+</para>
 </remarks>
 <param name="c">
 a Unicode character
@@ -327,9 +344,11 @@ Determines whether a character is a space, tab, or line separator
 character value with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
+<para>
 (Note: don't use this to do word breaking; you have to use
 Pango or equivalent to get word breaking right, the algorithm
 is fairly complex.)
+</para>
 </remarks>
 <param name="c">
 a Unicode character
@@ -391,9 +410,11 @@ the converse is not necessarily true. See the
 for details.
 </summary>
 <remarks>
+<para>
 If a character passes the <see cref="UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)"/> test then it will also pass
 this test, but not the other way around.  Note that some characters may
 pass both this test and <see cref="UnicharExtensions.IsZeroWidth(GISharp.Lib.GLib.Unichar)"/>.
+</para>
 </remarks>
 <param name="c">
 a Unicode character
@@ -423,10 +444,12 @@ The return value is <c>true</c> for all non-spacing and enclosing marks
 space, but not U+00AD SOFT HYPHEN.
 </summary>
 <remarks>
+<para>
 A typical use of this function is with one of <see cref="UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)"/> or
 <see cref="UnicharExtensions.IsWideCjk(GISharp.Lib.GLib.Unichar)"/> to determine the number of cells a string occupies
 when displayed on a grid display (terminals).  However, note that not all
 terminals support zero-width rendering of zero-width marks.
+</para>
 </remarks>
 <param name="c">
 a Unicode character

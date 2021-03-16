@@ -493,8 +493,10 @@ An application window.
 The accessible role for a #GtkAccessible implementation.
 </summary>
 <remarks>
+<para>
 Abstract roles are only used as part of the ontology; application
 developers must not use abstract roles in their code.
+</para>
 </remarks>
 </member>
 

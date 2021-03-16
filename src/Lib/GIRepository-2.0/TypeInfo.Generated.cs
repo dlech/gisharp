@@ -54,11 +54,14 @@ namespace GISharp.Lib.GIRepository
         /// such as %GPOINTER_TO_INT.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Use this function to ensure that all values are correctly extracted from
         /// stuffed pointers, regardless of the machine's architecture or endianness.
-        /// 
+        /// </para>
+        /// <para>
         /// This function fills in the appropriate field of @arg with the value extracted
         /// from @hash_pointer, depending on the storage type of @info.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GITypeInfo
@@ -314,11 +317,14 @@ namespace GISharp.Lib.GIRepository
         /// such as %GPOINTER_TO_INT.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Use this function to ensure that all values are correctly stuffed into
         /// pointers, regardless of the machine's architecture or endianness.
-        /// 
+        /// </para>
+        /// <para>
         /// This function returns a pointer stuffed with the appropriate field of @arg,
         /// depending on the storage type of @info.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GITypeInfo
@@ -358,10 +364,12 @@ namespace GISharp.Lib.GIRepository
         /// Obtain if the type is passed as a reference.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the types of %GI_DIRECTION_OUT and %GI_DIRECTION_INOUT parameters
         /// will only be pointers if the underlying type being transferred is a pointer
         /// (i.e. only if the type of the C function’s formal parameter is a pointer to a
         /// pointer).
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GITypeInfo

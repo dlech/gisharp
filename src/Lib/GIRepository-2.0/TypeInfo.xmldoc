@@ -51,10 +51,12 @@ of type tags.
 Obtain if the type is passed as a reference.
 </summary>
 <remarks>
+<para>
 Note that the types of <see cref="Direction.Out"/> and <see cref="Direction.InOut"/> parameters
 will only be pointers if the underlying type being transferred is a pointer
 (i.e. only if the type of the C function’s formal parameter is a pointer to a
 pointer).
+</para>
 </remarks>
 </member>
 
@@ -74,11 +76,14 @@ structs, these data pointers may have values stuffed into them via macros
 such as %GPOINTER_TO_INT.
 </summary>
 <remarks>
+<para>
 Use this function to ensure that all values are correctly extracted from
 stuffed pointers, regardless of the machine's architecture or endianness.
-
+</para>
+<para>
 This function fills in the appropriate field of <paramref name="arg"/> with the value extracted
 from <paramref name="hashPointer"/>, depending on the storage type of this instance.
+</para>
 </remarks>
 <param name="hashPointer">
 A pointer, such as a #GHashTable data pointer
@@ -109,11 +114,14 @@ structs, these data pointers may have values stuffed into them via macros
 such as %GPOINTER_TO_INT.
 </summary>
 <remarks>
+<para>
 Use this function to ensure that all values are correctly stuffed into
 pointers, regardless of the machine's architecture or endianness.
-
+</para>
+<para>
 This function returns a pointer stuffed with the appropriate field of <paramref name="arg"/>,
 depending on the storage type of this instance.
+</para>
 </remarks>
 <param name="arg">
 A <see cref="Argument"/> with the value to stuff into a pointer

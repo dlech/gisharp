@@ -5,10 +5,13 @@
 Adds an action to the this instance.
 </summary>
 <remarks>
+<para>
 If the action map already contains an action with the same name
 as <paramref name="action"/> then the old action is dropped from the action map.
-
+</para>
+<para>
 The action map takes its own reference on <paramref name="action"/>.
+</para>
 </remarks>
 <param name="action">
 a <see cref="IAction"/>
@@ -20,7 +23,9 @@ a <see cref="IAction"/>
 Looks up the action with the name <paramref name="actionName"/> in this instance.
 </summary>
 <remarks>
+<para>
 If no such action exists, returns <c>null</c>.
+</para>
 </remarks>
 <param name="actionName">
 the name of an action
@@ -35,7 +40,9 @@ a <see cref="IAction"/>, or <c>null</c>
 Removes the named action from the action map.
 </summary>
 <remarks>
+<para>
 If no action of this name is in the map then nothing happens.
+</para>
 </remarks>
 <param name="actionName">
 the name of the action
@@ -49,11 +56,13 @@ implementations that operate by containing a number of
 named <see cref="IAction"/> instances, such as #GSimpleActionGroup.
 </summary>
 <remarks>
+<para>
 One useful application of this interface is to map the
 names of actions from various action groups to unique,
 prefixed names (e.g. by prepending "app." or "win.").
 This is the motivation for the 'Map' part of the interface
 name.
+</para>
 </remarks>
 </member>
 
@@ -62,10 +71,13 @@ name.
 Adds an action to the <paramref name="actionMap"/>.
 </summary>
 <remarks>
+<para>
 If the action map already contains an action with the same name
 as <paramref name="action"/> then the old action is dropped from the action map.
-
+</para>
+<para>
 The action map takes its own reference on <paramref name="action"/>.
+</para>
 </remarks>
 <param name="actionMap">
 a <see cref="IActionMap"/>
@@ -80,7 +92,9 @@ a <see cref="IAction"/>
 Looks up the action with the name <paramref name="actionName"/> in <paramref name="actionMap"/>.
 </summary>
 <remarks>
+<para>
 If no such action exists, returns <c>null</c>.
+</para>
 </remarks>
 <param name="actionMap">
 a <see cref="IActionMap"/>
@@ -98,7 +112,9 @@ a <see cref="IAction"/>, or <c>null</c>
 Removes the named action from the action map.
 </summary>
 <remarks>
+<para>
 If no action of this name is in the map then nothing happens.
+</para>
 </remarks>
 <param name="actionMap">
 a <see cref="IActionMap"/>

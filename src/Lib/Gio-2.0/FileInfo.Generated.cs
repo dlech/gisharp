@@ -978,9 +978,11 @@ namespace GISharp.Lib.Gio
         /// #GDateTime.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This requires the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute. If
         /// %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is provided, the resulting #GDateTime
         /// will have microsecond precision.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
@@ -1599,8 +1601,10 @@ namespace GISharp.Lib.Gio
         /// or similar functions.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The attribute must exist in @info for this to work. Otherwise %FALSE
         /// is returned and @info is unchanged.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GFileInfo
@@ -1686,7 +1690,9 @@ namespace GISharp.Lib.Gio
         /// if possible.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Sinze: 2.22
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.

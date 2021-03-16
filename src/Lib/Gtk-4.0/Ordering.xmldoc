@@ -23,10 +23,12 @@ the first value is larger than the second
 Describes the way two values can be compared.
 </summary>
 <remarks>
+<para>
 These values can be used with a #GCompareFunc. However, a
 #GCompareFunc is allowed to return any integer values.
 For converting such a value to a <see cref="Ordering"/>, use
 gtk_ordering_from_cmpfunc().
+</para>
 </remarks>
 </member>
 

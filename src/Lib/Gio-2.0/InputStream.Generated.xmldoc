@@ -23,27 +23,33 @@ Clears the pending flag on this instance.
 Closes the stream, releasing resources related to it.
 </summary>
 <remarks>
+<para>
 Once the stream is closed, all other operations will return <see cref="IOErrorEnum.Closed"/>.
 Closing a stream multiple times will not return an error.
-
+</para>
+<para>
 Streams will be automatically closed when the last reference
 is dropped, but you might want to call this function to make sure
 resources are released as early as possible.
-
+</para>
+<para>
 Some streams might keep the backing store of the stream (e.g. a file descriptor)
 open after the stream is closed. See the documentation for the individual
 stream for details.
-
+</para>
+<para>
 On failure the first error that happened will be reported, but the close
 operation will finish as much as possible. A stream that failed to
 close will still return <see cref="IOErrorEnum.Closed"/> for all operations. Still, it
 is important to check and report the error to the user.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 Cancelling a close will still leave the stream closed, but some streams
 can use a faster close that doesn't block to e.g. check errors.
+</para>
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
@@ -61,11 +67,14 @@ You can then call <see cref="InputStream.CloseFinish(GISharp.Lib.Gio.IAsyncResul
 operation.
 </summary>
 <remarks>
+<para>
 For behaviour details see <see cref="InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 The asynchronous methods have a default fallback that uses threads to implement
 asynchronicity, so they are optional for inheriting classes. However, if you
 override one you must override all.
+</para>
 </remarks>
 <param name="ioPriority">
 the [I/O priority][io-priority] of the request
@@ -90,24 +99,30 @@ Tries to read the length of <paramref name="buffer"/> bytes from the stream into
 <paramref name="buffer"/>. Will block during this read.
 </summary>
 <remarks>
+<para>
 If count is zero returns zero and does nothing. A value of the length of <paramref name="buffer"/>
 larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
-
+</para>
+<para>
 On success, the number of bytes read into the buffer is returned.
 It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file. Zero is returned on end of file
 (or if the length of <paramref name="buffer"/> is zero),  but never otherwise.
-
+</para>
+<para>
 The returned <paramref name="buffer"/> is not a nul-terminated string, it can contain nul bytes
 at any position, and this function doesn't nul-terminate the <paramref name="buffer"/>.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
-
+</para>
+<para>
 On error -1 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set accordingly.
+</para>
 </remarks>
 <param name="buffer">
 
@@ -130,22 +145,27 @@ Tries to read the length of <paramref name="buffer"/> bytes from the stream into
 <paramref name="buffer"/>. Will block during this read.
 </summary>
 <remarks>
+<para>
 This function is similar to <see cref="InputStream.Read(System.Span{byte},GISharp.Lib.Gio.Cancellable)"/>, except it tries to
 read as many bytes as requested, only stopping on an error or end of stream.
-
+</para>
+<para>
 On a successful read of the length of <paramref name="buffer"/> bytes, or if we reached the end of the
 stream,  <c>true</c> is returned, and <paramref name="bytesRead"/> is set to the number of bytes
 read into <paramref name="buffer"/>.
-
+</para>
+<para>
 If there is an error during the operation <c>false</c> is returned and <see cref="GISharp.Runtime.GErrorException"/>
 is set to indicate the error status.
-
+</para>
+<para>
 As a special exception to the normal conventions for functions that
 use #GError, if this function returns <c>false</c> (and sets <see cref="GISharp.Runtime.GErrorException"/>) then
 <paramref name="bytesRead"/> will be set to the number of bytes that were successfully
 read before the error was encountered.  This functionality is only
 available from C.  If you need it from another language then you must
 write your own loop around <see cref="InputStream.Read(System.Span{byte},GISharp.Lib.Gio.Cancellable)"/>.
+</para>
 </remarks>
 <param name="buffer">
 
@@ -168,13 +188,17 @@ Request an asynchronous read of the length of <paramref name="buffer"/> bytes fr
 buffer starting at <paramref name="buffer"/>.
 </summary>
 <remarks>
+<para>
 This is the asynchronous equivalent of <see cref="InputStream.ReadAll(System.Span{byte},out int,GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 Call <see cref="InputStream.ReadAllFinish(GISharp.Lib.Gio.IAsyncResult,out int)"/> to collect the result.
-
+</para>
+<para>
 Any outstanding I/O request with higher priority (lower numerical
 value) will be executed before an outstanding request with lower
 priority. Default priority is %G_PRIORITY_DEFAULT.
+</para>
 </remarks>
 <param name="buffer">
 
@@ -196,24 +220,30 @@ You can then call <see cref="InputStream.ReadFinish(GISharp.Lib.Gio.IAsyncResult
 operation.
 </summary>
 <remarks>
+<para>
 During an async request no other sync and async calls are allowed on this instance, and will
 result in <see cref="IOErrorEnum.Pending"/> errors.
-
+</para>
+<para>
 A value of the length of <paramref name="buffer"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
-
+</para>
+<para>
 On success, the number of bytes read into the buffer will be passed to the
 callback. It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file, but generally we try to read
 as many bytes as requested. Zero is returned on end of file
 (or if the length of <paramref name="buffer"/> is zero),  but never otherwise.
-
+</para>
+<para>
 Any outstanding i/o request with higher priority (lower numerical value) will
 be executed before an outstanding request with lower priority. Default
 priority is %G_PRIORITY_DEFAULT.
-
+</para>
+<para>
 The asynchronous methods have a default fallback that uses threads to implement
 asynchronicity, so they are optional for inheriting classes. However, if you
 override one you must override all.
+</para>
 </remarks>
 <param name="buffer">
 
@@ -237,23 +267,28 @@ the data that was read. This may be easier to use from language
 bindings.
 </summary>
 <remarks>
+<para>
 If count is zero, returns a zero-length #GBytes and does nothing. A
 value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a
 <see cref="IOErrorEnum.InvalidArgument"/> error.
-
+</para>
+<para>
 On success, a new #GBytes is returned. It is not an error if the
 size of this object is not the same as the requested size, as it
 can happen e.g. near the end of a file. A zero-length #GBytes is
 returned on end of file (or if <paramref name="count"/> is zero), but never
 otherwise.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
-
+</para>
+<para>
 On error <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set accordingly.
+</para>
 </remarks>
 <param name="count">
 maximum number of bytes that will be read from the stream. Common
@@ -278,21 +313,26 @@ called. You can then call <see cref="InputStream.ReadBytesFinish(GISharp.Lib.Gio
 result of the operation.
 </summary>
 <remarks>
+<para>
 During an async request no other sync and async calls are allowed
 on this instance, and will result in <see cref="IOErrorEnum.Pending"/> errors.
-
+</para>
+<para>
 A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a
 <see cref="IOErrorEnum.InvalidArgument"/> error.
-
+</para>
+<para>
 On success, the new #GBytes will be passed to the callback. It is
 not an error if this is smaller than the requested size, as it can
 happen e.g. near the end of a file, but generally we try to read as
 many bytes as requested. Zero is returned on end of file (or if
 <paramref name="count"/> is zero), but never otherwise.
-
+</para>
+<para>
 Any outstanding I/O request with higher priority (lower numerical
 value) will be executed before an outstanding request with lower
 priority. Default priority is %G_PRIORITY_DEFAULT.
+</para>
 </remarks>
 <param name="count">
 the number of bytes that will be read from the stream
@@ -321,18 +361,22 @@ On error
 Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
 </summary>
 <remarks>
+<para>
 This is identical to <see cref="InputStream.Read(System.Span{byte},GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
 but the bytes that are skipped are not returned to the user. Some
 streams have an implementation that is more efficient than reading the data.
-
+</para>
+<para>
 This function is optional for inherited classes, as the default implementation
 emulates it using read.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
+</para>
 </remarks>
 <param name="count">
 the number of bytes that will be skipped from the stream
@@ -356,24 +400,30 @@ You can then call <see cref="InputStream.SkipFinish(GISharp.Lib.Gio.IAsyncResult
 of the operation.
 </summary>
 <remarks>
+<para>
 During an async request no other sync and async calls are allowed,
 and will result in <see cref="IOErrorEnum.Pending"/> errors.
-
+</para>
+<para>
 A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
-
+</para>
+<para>
 On success, the number of bytes skipped will be passed to the callback.
 It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file, but generally we try to skip
 as many bytes as requested. Zero is returned on end of file
 (or if <paramref name="count"/> is zero), but never otherwise.
-
+</para>
+<para>
 Any outstanding i/o request with higher priority (lower numerical value)
 will be executed before an outstanding request with lower priority.
 Default priority is %G_PRIORITY_DEFAULT.
-
+</para>
+<para>
 The asynchronous methods have a default fallback that uses threads to
 implement asynchronicity, so they are optional for inheriting classes.
 However, if you override one, you must override all.
+</para>
 </remarks>
 <param name="count">
 the number of bytes that will be skipped from the stream
@@ -394,11 +444,14 @@ You can then call <see cref="InputStream.CloseFinish(GISharp.Lib.Gio.IAsyncResul
 operation.
 </summary>
 <remarks>
+<para>
 For behaviour details see <see cref="InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 The asynchronous methods have a default fallback that uses threads to implement
 asynchronicity, so they are optional for inheriting classes. However, if you
 override one you must override all.
+</para>
 </remarks>
 <param name="ioPriority">
 the [I/O priority][io-priority] of the request
@@ -440,24 +493,30 @@ You can then call <see cref="InputStream.ReadFinish(GISharp.Lib.Gio.IAsyncResult
 operation.
 </summary>
 <remarks>
+<para>
 During an async request no other sync and async calls are allowed on this instance, and will
 result in <see cref="IOErrorEnum.Pending"/> errors.
-
+</para>
+<para>
 A value of the length of <paramref name="buffer"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
-
+</para>
+<para>
 On success, the number of bytes read into the buffer will be passed to the
 callback. It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file, but generally we try to read
 as many bytes as requested. Zero is returned on end of file
 (or if the length of <paramref name="buffer"/> is zero),  but never otherwise.
-
+</para>
+<para>
 Any outstanding i/o request with higher priority (lower numerical value) will
 be executed before an outstanding request with lower priority. Default
 priority is %G_PRIORITY_DEFAULT.
-
+</para>
+<para>
 The asynchronous methods have a default fallback that uses threads to implement
 asynchronicity, so they are optional for inheriting classes. However, if you
 override one you must override all.
+</para>
 </remarks>
 <param name="buffer">
 
@@ -501,18 +560,22 @@ On error
 Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
 </summary>
 <remarks>
+<para>
 This is identical to <see cref="InputStream.Read(System.Span{byte},GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
 but the bytes that are skipped are not returned to the user. Some
 streams have an implementation that is more efficient than reading the data.
-
+</para>
+<para>
 This function is optional for inherited classes, as the default implementation
 emulates it using read.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
+</para>
 </remarks>
 <param name="count">
 the number of bytes that will be skipped from the stream
@@ -536,24 +599,30 @@ You can then call <see cref="InputStream.SkipFinish(GISharp.Lib.Gio.IAsyncResult
 of the operation.
 </summary>
 <remarks>
+<para>
 During an async request no other sync and async calls are allowed,
 and will result in <see cref="IOErrorEnum.Pending"/> errors.
-
+</para>
+<para>
 A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
-
+</para>
+<para>
 On success, the number of bytes skipped will be passed to the callback.
 It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file, but generally we try to skip
 as many bytes as requested. Zero is returned on end of file
 (or if <paramref name="count"/> is zero), but never otherwise.
-
+</para>
+<para>
 Any outstanding i/o request with higher priority (lower numerical value)
 will be executed before an outstanding request with lower priority.
 Default priority is %G_PRIORITY_DEFAULT.
-
+</para>
+<para>
 The asynchronous methods have a default fallback that uses threads to
 implement asynchronicity, so they are optional for inheriting classes.
 However, if you override one, you must override all.
+</para>
 </remarks>
 <param name="count">
 the number of bytes that will be skipped from the stream
@@ -591,13 +660,17 @@ to close a stream (<see cref="InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>)
 (<see cref="InputStream.Skip(int,GISharp.Lib.Gio.Cancellable)"/>).
 </summary>
 <remarks>
+<para>
 To copy the content of an input stream to an output stream without
 manually handling the reads and writes, use <see cref="OutputStream.Splice(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 See the documentation for <see cref="IOStream"/> for details of thread safety of
 streaming APIs.
-
+</para>
+<para>
 All of these functions have async variants too.
+</para>
 </remarks>
 </member>
 

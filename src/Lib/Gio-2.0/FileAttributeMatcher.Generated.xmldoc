@@ -9,19 +9,23 @@ the number of references falls to 0, the <see cref="FileAttributeMatcher"/> is
 automatically destroyed.
 </summary>
 <remarks>
+<para>
 The <paramref name="attributes"/> string should be formatted with specific keys separated
 from namespaces with a double colon. Several "namespace::key" strings may be
 concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
 The wildcard "*" may be used to match all keys and namespaces, or
 "namespace::*" will match all keys in a given namespace.
-
+</para>
+<para>
 ## Examples of file attribute matcher strings and results
-
+</para>
+<para>
 - `"*"`: matches all attributes.
 - `"standard::is-hidden"`: matches only the key is-hidden in the
   standard namespace.
 - `"standard::type,unix::*"`: matches the type key in the standard
   namespace and all keys in the unix namespace.
+</para>
 </remarks>
 <param name="attributes">
 an attribute string to match.
@@ -36,7 +40,9 @@ matcher was created with "standard::*" and <paramref name="ns"/> is "standard", 
 using "*" and namespace is anything.)
 </summary>
 <remarks>
+<para>
 TODO: this is awkwardly worded.
+</para>
 </remarks>
 <param name="ns">
 a string containing a file attribute namespace.
@@ -90,11 +96,13 @@ Subtracts all attributes of <paramref name="subtract"/> from this instance and r
 a matcher that supports those attributes.
 </summary>
 <remarks>
+<para>
 Note that currently it is not possible to remove a single
 attribute when the this instance matches the whole namespace - or remove
 a namespace or attribute when the matcher matches everything. This
 is a limitation of the current implementation, but may be fixed
 in the future.
+</para>
 </remarks>
 <param name="subtract">
 The matcher to subtract

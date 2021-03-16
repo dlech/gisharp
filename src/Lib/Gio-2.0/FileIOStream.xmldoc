@@ -24,16 +24,19 @@ internally, and any other operations on the stream will fail with
 <see cref="IOErrorEnum.Pending"/>.
 </summary>
 <remarks>
+<para>
 Can fail if the stream was already closed (with <see cref="GISharp.Runtime.GErrorException"/> being set to
 <see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <see cref="GISharp.Runtime.GErrorException"/> being
 set to <see cref="IOErrorEnum.Pending"/>), or if querying info is not supported for
 the stream's interface (with <see cref="GISharp.Runtime.GErrorException"/> being set to <see cref="IOErrorEnum.NotSupported"/>). I
 all cases of failure, <c>null</c> will be returned.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set, and <c>null</c> will
 be returned.
+</para>
 </remarks>
 <param name="attributes">
 a file attribute query string.
@@ -54,8 +57,10 @@ On error
 Asynchronously queries the this instance for a <see cref="FileInfo"/>.
 </summary>
 <remarks>
+<para>
 For the synchronous version of this function, see
 <see cref="FileIOStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
+</para>
 </remarks>
 <param name="attributes">
 a file attribute query string.
@@ -95,16 +100,19 @@ internally, and any other operations on the stream will fail with
 <see cref="IOErrorEnum.Pending"/>.
 </summary>
 <remarks>
+<para>
 Can fail if the stream was already closed (with <see cref="GISharp.Runtime.GErrorException"/> being set to
 <see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <see cref="GISharp.Runtime.GErrorException"/> being
 set to <see cref="IOErrorEnum.Pending"/>), or if querying info is not supported for
 the stream's interface (with <see cref="GISharp.Runtime.GErrorException"/> being set to <see cref="IOErrorEnum.NotSupported"/>). I
 all cases of failure, <c>null</c> will be returned.
-
+</para>
+<para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set, and <c>null</c> will
 be returned.
+</para>
 </remarks>
 <param name="attributes">
 a file attribute query string.
@@ -127,8 +135,10 @@ Asynchronously queries the this instance for a <see cref="FileInfo"/>. When comp
 finish the operation with <see cref="FileIOStream.DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)"/>.
 </summary>
 <remarks>
+<para>
 For the synchronous version of this function, see
 <see cref="FileIOStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
+</para>
 </remarks>
 <param name="attributes">
 a file attribute query string.
@@ -181,23 +191,28 @@ GFileIOStream provides io streams that both read and write to the same
 file handle.
 </summary>
 <remarks>
+<para>
 GFileIOStream implements <see cref="ISeekable"/>, which allows the io
 stream to jump to arbitrary positions in the file and to truncate
 the file, provided the filesystem of the file supports these
 operations.
-
+</para>
+<para>
 To find the position of a file io stream, use
 <see cref="Seekable.Tell(GISharp.Lib.Gio.ISeekable)"/>.
-
+</para>
+<para>
 To find out if a file io stream supports seeking, use <see cref="Seekable.CanSeek(GISharp.Lib.Gio.ISeekable)"/>.
 To position a file io stream, use <see cref="Seekable.Seek(GISharp.Lib.Gio.ISeekable,long,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable)"/>.
 To find out if a file io stream supports truncating, use
 <see cref="Seekable.CanTruncate(GISharp.Lib.Gio.ISeekable)"/>. To truncate a file io
 stream, use <see cref="Seekable.Truncate(GISharp.Lib.Gio.ISeekable,long,GISharp.Lib.Gio.Cancellable)"/>.
-
+</para>
+<para>
 The default implementation of all the <see cref="FileIOStream"/> operations
 and the implementation of <see cref="ISeekable"/> just call into the same operations
 on the output stream.
+</para>
 </remarks>
 </member>
 

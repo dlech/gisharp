@@ -16,9 +16,11 @@ namespace GISharp.Lib.Gio
         /// similar to g_object_newv() but also initializes the object asynchronously.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When the initialization is finished, @callback will be called. You can
         /// then call g_async_initable_new_finish() to get the new object and check
         /// for any errors.
+        /// </para>
         /// </remarks>
         /// <param name="objectType">
         /// a #GType supporting #GAsyncInitable.
@@ -186,37 +188,44 @@ namespace GISharp.Lib.Gio
         /// optionally call g_initable_init() instead.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This method is intended for language bindings. If writing in C,
         /// g_async_initable_new_async() should typically be used instead.
-        /// 
+        /// </para>
+        /// <para>
         /// When the initialization is finished, @callback will be called. You can
         /// then call g_async_initable_init_finish() to get the result of the
         /// initialization.
-        /// 
+        /// </para>
+        /// <para>
         /// Implementations may also support cancellation. If @cancellable is not
         /// %NULL, then initialization can be cancelled by triggering the cancellable
         /// object from another thread. If the operation was cancelled, the error
         /// %G_IO_ERROR_CANCELLED will be returned. If @cancellable is not %NULL, and
         /// the object doesn't support cancellable initialization, the error
         /// %G_IO_ERROR_NOT_SUPPORTED will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// As with #GInitable, if the object is not initialized, or initialization
         /// returns with an error, then all operations on the object except
         /// g_object_ref() and g_object_unref() are considered to be invalid, and
         /// have undefined behaviour. They will often fail with g_critical() or
         /// g_warning(), but this must not be relied on.
-        /// 
+        /// </para>
+        /// <para>
         /// Callers should not assume that a class which implements #GAsyncInitable can
         /// be initialized multiple times; for more information, see g_initable_init().
         /// If a class explicitly supports being initialized multiple times,
         /// implementation requires yielding all subsequent calls to init_async() on the
         /// results of the first call.
-        /// 
+        /// </para>
+        /// <para>
         /// For classes that also support the #GInitable interface, the default
         /// implementation of this method will run the g_initable_init() function
         /// in a thread, so if you want to support asynchronous initialization via
         /// threads, just implement the #GAsyncInitable interface without overriding
         /// any interface methods.
+        /// </para>
         /// </remarks>
         /// <param name="initable">
         /// a #GAsyncInitable.

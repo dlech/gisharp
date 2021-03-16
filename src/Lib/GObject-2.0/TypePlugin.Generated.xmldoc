@@ -7,6 +7,7 @@ The <see cref="ITypePlugin"/> interface is used to handle the lifecycle
 of dynamically loaded types. It goes as follows:
 </summary>
 <remarks>
+<para>
 1. The type is initially introduced (usually upon loading the module
    the first time, or by your main application that knows what modules
    introduces what types), like this:
@@ -18,26 +19,32 @@ of dynamically loaded types. It goes as follows:
    ]|
    where <c>newTypePlugin</c> is an implementation of the
    <see cref="ITypePlugin"/> interface.
-
+</para>
+<para>
 2. The type's implementation is referenced, e.g. through
    <see cref="TypeClass.Ref(GISharp.Lib.GObject.GType)"/> or through g_type_create_instance() (this is
    being called by g_object_new()) or through one of the above done on
    a type derived from <c>newTypeId</c>.
-
+</para>
+<para>
 3. This causes the type system to load the type's implementation by
    calling <see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/>
    on <c>newTypePlugin</c>.
-
+</para>
+<para>
 4. At some point the type's implementation isn't required anymore,
    e.g. after <see cref="TypeClass.Unref()"/> or g_type_free_instance() (called
    when the reference count of an instance drops to zero).
-
+</para>
+<para>
 5. This causes the type system to throw away the information retrieved
    from <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> and then it calls
    <see cref="TypePlugin.Unuse(GISharp.Lib.GObject.ITypePlugin)"/> on <c>newTypePlugin</c>.
-
+</para>
+<para>
 6. Things may repeat from the second step.
-
+</para>
+<para>
 So basically, you need to implement a <see cref="ITypePlugin"/> type that
 carries a use_count, once use_count goes from zero to one, you need
 to load the implementation to successfully handle the upcoming
@@ -46,10 +53,12 @@ succeeding use/unuse calls, once use_count drops to zero, you can
 unload the implementation again. The type system makes sure to call
 <see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Lib.GObject.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> again
 when the type is needed again.
-
+</para>
+<para>
 #GTypeModule is an implementation of <see cref="ITypePlugin"/> that already
 implements most of this except for the actual module loading and
 unloading. It even handles multiple registered types per module.
+</para>
 </remarks>
 </member>
 

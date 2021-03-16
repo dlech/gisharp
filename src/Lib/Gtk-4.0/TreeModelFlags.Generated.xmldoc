@@ -19,10 +19,12 @@ the model is a list only, and never
 These flags indicate various properties of a #GtkTreeModel.
 </summary>
 <remarks>
+<para>
 They are returned by gtk_tree_model_get_flags(), and must be
 static for the lifetime of the object. A more complete description
 of #GTK_TREE_MODEL_ITERS_PERSIST can be found in the overview of
 this section.
+</para>
 </remarks>
 </member>
 

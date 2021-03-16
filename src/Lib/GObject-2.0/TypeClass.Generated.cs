@@ -148,45 +148,56 @@ int* privateSizeOrOffset);
         /// Registers a private structure for an instantiatable type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When an object is allocated, the private structures for
         /// the type and all of its parent types are allocated
         /// sequentially in the same memory block as the public
         /// structures, and are zero-filled.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that the accumulated size of the private structures of
         /// a type and all its parent types cannot exceed 64 KiB.
-        /// 
+        /// </para>
+        /// <para>
         /// This function should be called in the type's class_init() function.
         /// The private structure can be retrieved using the
         /// G_TYPE_INSTANCE_GET_PRIVATE() macro.
-        /// 
+        /// </para>
+        /// <para>
         /// The following example shows attaching a private structure
         /// MyObjectPrivate to an object MyObject defined in the standard
         /// GObject fashion in the type's class_init() function.
-        /// 
+        /// </para>
+        /// <para>
         /// Note the use of a structure member "priv" to avoid the overhead
         /// of repeatedly calling MY_OBJECT_GET_PRIVATE().
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// typedef struct _MyObject        MyObject;
         /// typedef struct _MyObjectPrivate MyObjectPrivate;
-        /// 
+        /// </para>
+        /// <para>
         /// struct _MyObject {
         ///  GObject parent;
-        /// 
+        /// </para>
+        /// <para>
         ///  MyObjectPrivate *priv;
         /// };
-        /// 
+        /// </para>
+        /// <para>
         /// struct _MyObjectPrivate {
         ///   int some_field;
         /// };
-        /// 
+        /// </para>
+        /// <para>
         /// static void
         /// my_object_class_init (MyObjectClass *klass)
         /// {
         ///   g_type_class_add_private (klass, sizeof (MyObjectPrivate));
         /// }
-        /// 
+        /// </para>
+        /// <para>
         /// static void
         /// my_object_init (MyObject *my_object)
         /// {
@@ -195,19 +206,24 @@ int* privateSizeOrOffset);
         ///                                                  MyObjectPrivate);
         ///   // my_object-&gt;priv-&gt;some_field will be automatically initialised to 0
         /// }
-        /// 
+        /// </para>
+        /// <para>
         /// static int
         /// my_object_get_some_field (MyObject *my_object)
         /// {
         ///   MyObjectPrivate *priv;
-        /// 
+        /// </para>
+        /// <para>
         ///   g_return_val_if_fail (MY_IS_OBJECT (my_object), 0);
-        /// 
+        /// </para>
+        /// <para>
         ///   priv = my_object-&gt;priv;
-        /// 
+        /// </para>
+        /// <para>
         ///   return priv-&gt;some_field;
         /// }
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="gClass">
         /// class structure for an instantiatable
@@ -274,8 +290,10 @@ GISharp.Lib.GObject.GType privateType);
         /// class will always exist.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is essentially equivalent to:
         /// g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
+        /// </para>
         /// </remarks>
         /// <param name="gClass">
         /// the #GTypeClass structure to

@@ -1,3 +1,99 @@
 <declaration>
 
+<member name='UnmanagedStruct.GTypeClass'>
+<summary>
+the parent class
+</summary>
+</member>
+
+<member name='UnmanagedStruct.ConstructProperties'>
+</member>
+
+<member name='UnmanagedStruct.Constructor'>
+</member>
+
+<member name='UnmanagedStruct.SetProperty'>
+</member>
+
+<member name='UnmanagedStruct.GetProperty'>
+</member>
+
+<member name='UnmanagedStruct.Dispose'>
+</member>
+
+<member name='UnmanagedStruct.Finalize'>
+</member>
+
+<member name='UnmanagedStruct.DispatchPropertiesChanged'>
+</member>
+
+<member name='UnmanagedStruct.Notify'>
+</member>
+
+<member name='UnmanagedStruct.Constructed'>
+</member>
+
+<member name='UnmanagedStruct.Flags'>
+</member>
+
+<member name='UnmanagedStruct.Pdummy'>
+</member>
+
+<member name='SetProperty'>
+</member>
+
+<member name='GetProperty'>
+</member>
+
+<member name='Dispose'>
+</member>
+
+<member name='Finalize'>
+</member>
+
+<member name='DispatchPropertiesChanged'>
+</member>
+
+<member name='Notify'>
+</member>
+
+<member name='Constructed'>
+</member>
+
+<member name='ObjectClass'>
+<summary>
+The class structure for the GObject type.
+</summary>
+<remarks>
+<para>
+|[&lt;!-- language="C" --&gt;
+// Example of implementing a singleton using a constructor.
+static MySingleton *the_singleton = NULL;
+</para>
+<para>
+static GObject*
+my_singleton_constructor (GType                  type,
+                          guint                  n_construct_params,
+                          GObjectConstructParam *construct_params)
+{
+  GObject *object;
+  
+  if (!the_singleton)
+    {
+      object = G_OBJECT_CLASS (parent_class)-&gt;constructor (type,
+                                                           n_construct_params,
+                                                           construct_params);
+      the_singleton = MY_SINGLETON (object);
+    }
+  else
+    object = g_object_ref (G_OBJECT (the_singleton));
+</para>
+<para>
+  return object;
+}
+]|
+</para>
+</remarks>
+</member>
+
 </declaration>

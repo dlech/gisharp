@@ -53,8 +53,10 @@ namespace GISharp.Lib.Gio
         /// Creates a new action.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The created action is stateless. See g_simple_action_new_stateful() to create
         /// an action that has state.
+        /// </para>
         /// </remarks>
         /// <param name="name">
         /// the name of the action
@@ -99,10 +101,13 @@ namespace GISharp.Lib.Gio
         /// Creates a new stateful action.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// All future state values must have the same #GVariantType as the initial
         /// @state.
-        /// 
+        /// </para>
+        /// <para>
         /// If the @state #GVariant is floating, it is consumed.
+        /// </para>
         /// </remarks>
         /// <param name="name">
         /// the name of the action
@@ -209,11 +214,14 @@ namespace GISharp.Lib.Gio
         /// Sets the action as enabled or not.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// An action must be enabled in order to be activated or in order to
         /// have its state changed from outside callers.
-        /// 
+        /// </para>
+        /// <para>
         /// This should only be called by the implementor of the action.  Users
         /// of the action should not attempt to modify its enabled flag.
+        /// </para>
         /// </remarks>
         /// <param name="simple">
         /// a #GSimpleAction
@@ -248,14 +256,18 @@ namespace GISharp.Lib.Gio
         /// Sets the state of the action.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This directly updates the 'state' property to the given value.
-        /// 
+        /// </para>
+        /// <para>
         /// This should only be called by the implementor of the action.  Users
         /// of the action should not attempt to directly modify the 'state'
         /// property.  Instead, they should call g_action_change_state() to
         /// request the change.
-        /// 
+        /// </para>
+        /// <para>
         /// If the @value GVariant is floating, it is consumed.
+        /// </para>
         /// </remarks>
         /// <param name="simple">
         /// a #GSimpleAction
@@ -290,8 +302,10 @@ namespace GISharp.Lib.Gio
         /// Sets the state hint for the action.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See g_action_get_state_hint() for more information about
         /// action state hints.
+        /// </para>
         /// </remarks>
         /// <param name="simple">
         /// a #GSimpleAction

@@ -18,6 +18,7 @@ namespace GISharp.Lib.Gio
         /// support any I/O operation if @arg points to a malformed path.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that on Windows, this function expects its argument to be in
         /// UTF-8 -- not the system code page.  This means that you
         /// should not use this function with string from argv as it is passed
@@ -26,6 +27,7 @@ namespace GISharp.Lib.Gio
         /// g_application_command_line_create_file_for_arg() may be more useful
         /// for you there.  It is also always possible to use this function with
         /// #GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
+        /// </para>
         /// </remarks>
         /// <param name="arg">
         /// a command line string
@@ -57,15 +59,19 @@ namespace GISharp.Lib.Gio
         /// Creates a #GFile with the given argument from the command line.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is similar to g_file_new_for_commandline_arg() except
         /// that it allows for passing the current working directory as an
         /// argument instead of using the current working directory of the
         /// process.
-        /// 
+        /// </para>
+        /// <para>
         /// This is useful if the commandline argument was given in a context
         /// other than the invocation of the current process.
-        /// 
+        /// </para>
+        /// <para>
         /// See also g_application_command_line_create_file_for_arg().
+        /// </para>
         /// </remarks>
         /// <param name="arg">
         /// a command line string
@@ -171,12 +177,15 @@ namespace GISharp.Lib.Gio
         /// #GFileIOStream pointing to it.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @tmpl should be a string in the GLib file name encoding
         /// containing a sequence of six 'X' characters, and containing no
         /// directory components. If it is %NULL, a default template is used.
-        /// 
+        /// </para>
+        /// <para>
         /// Unlike the other #GFile constructors, this will return %NULL if
         /// a temporary file could not be created.
+        /// </para>
         /// </remarks>
         /// <param name="tmpl">
         /// Template for the file
@@ -616,20 +625,24 @@ namespace GISharp.Lib.Gio
         /// If the file doesn't already exist it is created.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// By default files created are generally readable by everyone,
         /// but if you pass #G_FILE_CREATE_PRIVATE in @flags the file
         /// will be made readable only to the current user, to the level that
         /// is supported on the target filesystem.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled
         /// by triggering the cancellable object from another thread. If the
         /// operation was cancelled, the error %G_IO_ERROR_CANCELLED will be
         /// returned.
-        /// 
+        /// </para>
+        /// <para>
         /// Some file systems don't allow all file names, and may return an
         /// %G_IO_ERROR_INVALID_FILENAME error. If the file is a directory the
         /// %G_IO_ERROR_IS_DIRECTORY error will be returned. Other errors are
         /// possible too, and depend on what kind of filesystem the file is on.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -689,12 +702,15 @@ namespace GISharp.Lib.Gio
         /// Asynchronously opens @file for appending.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_append_to() which is
         /// the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_append_to_finish() to get the result
         /// of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -820,43 +836,54 @@ namespace GISharp.Lib.Gio
         /// Can not handle recursive copies of directories.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the flag #G_FILE_COPY_OVERWRITE is specified an already
         /// existing @destination file is overwritten.
-        /// 
+        /// </para>
+        /// <para>
         /// If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
         /// will be copied as symlinks, otherwise the target of the
         /// @source symlink will be copied.
-        /// 
+        /// </para>
+        /// <para>
         /// If the flag #G_FILE_COPY_ALL_METADATA is specified then all the metadata
         /// that is possible to copy is copied, not just the default subset (which,
         /// for instance, does not include the owner, see #GFileInfo).
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If @progress_callback is not %NULL, then the operation can be monitored
         /// by setting this to a #GFileProgressCallback function.
         /// @progress_callback_data will be passed to this function. It is guaranteed
         /// that this callback will be called after all data has been transferred with
         /// the total number of bytes copied during the operation.
-        /// 
+        /// </para>
+        /// <para>
         /// If the @source file does not exist, then the %G_IO_ERROR_NOT_FOUND error
         /// is returned, independent on the status of the @destination.
-        /// 
+        /// </para>
+        /// <para>
         /// If #G_FILE_COPY_OVERWRITE is not specified and the target exists, then
         /// the error %G_IO_ERROR_EXISTS is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If trying to overwrite a file over a directory, the %G_IO_ERROR_IS_DIRECTORY
         /// error is returned. If trying to overwrite a directory with a directory the
         /// %G_IO_ERROR_WOULD_MERGE error is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If the source is a directory and the target does not exist, or
         /// #G_FILE_COPY_OVERWRITE is specified and the target is a file, then the
         /// %G_IO_ERROR_WOULD_RECURSE error is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If you are interested in copying the #GFile object itself (not the on-disk
         /// file), see g_file_dup().
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// input #GFile
@@ -941,13 +968,16 @@ namespace GISharp.Lib.Gio
         /// asynchronously. For details of the behaviour, see g_file_copy().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @progress_callback is not %NULL, then that function that will be called
         /// just like in g_file_copy(). The callback will run in the default main context
         /// of the thread calling g_file_copy_async() — the same context as @callback is
         /// run in.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called. You can then call
         /// g_file_copy_finish() to get the result of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// input #GFile
@@ -1034,12 +1064,14 @@ namespace GISharp.Lib.Gio
         /// Copies the file attributes from @source to @destination.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Normally only a subset of the file attributes are copied,
         /// those that are copies in a normal file copy operation
         /// (which for instance does not include e.g. owner). However
         /// if #G_FILE_COPY_ALL_METADATA is specified in @flags, then
         /// all the metadata that is possible to copy is copied. This
         /// is useful when implementing move by copy + delete source.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GFile with attributes
@@ -1158,22 +1190,26 @@ namespace GISharp.Lib.Gio
         /// The file must not already exist.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// By default files created are generally readable by everyone,
         /// but if you pass #G_FILE_CREATE_PRIVATE in @flags the file
         /// will be made readable only to the current user, to the level
         /// that is supported on the target filesystem.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled
         /// by triggering the cancellable object from another thread. If the
         /// operation was cancelled, the error %G_IO_ERROR_CANCELLED will be
         /// returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If a file or directory with this name already exists the
         /// %G_IO_ERROR_EXISTS error will be returned. Some file systems don't
         /// allow all file names, and may return an %G_IO_ERROR_INVALID_FILENAME
         /// error, and if the name is to long %G_IO_ERROR_FILENAME_TOO_LONG will
         /// be returned. Other errors are possible too, and depend on what kind
         /// of filesystem the file is on.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -1235,12 +1271,15 @@ namespace GISharp.Lib.Gio
         /// for writing to it. The file must not already exist.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_create() which is
         /// the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_create_finish() to get the result
         /// of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -1365,26 +1404,31 @@ namespace GISharp.Lib.Gio
         /// writing to it. The file must not already exist.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// By default files created are generally readable by everyone,
         /// but if you pass #G_FILE_CREATE_PRIVATE in @flags the file
         /// will be made readable only to the current user, to the level
         /// that is supported on the target filesystem.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled
         /// by triggering the cancellable object from another thread. If the
         /// operation was cancelled, the error %G_IO_ERROR_CANCELLED will be
         /// returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If a file or directory with this name already exists, the
         /// %G_IO_ERROR_EXISTS error will be returned. Some file systems don't
         /// allow all file names, and may return an %G_IO_ERROR_INVALID_FILENAME
         /// error, and if the name is too long, %G_IO_ERROR_FILENAME_TOO_LONG
         /// will be returned. Other errors are possible too, and depend on what
         /// kind of filesystem the file is on.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that in many non-local file cases read and write streams are
         /// not supported, so make sure you really need to do read and write
         /// streaming, rather than just opening for reading or writing.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// a #GFile
@@ -1448,12 +1492,15 @@ namespace GISharp.Lib.Gio
         /// for reading and writing to it. The file must not already exist.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_create_readwrite() which is
         /// the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_create_readwrite_finish() to get
         /// the result of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -1581,6 +1628,7 @@ namespace GISharp.Lib.Gio
         /// deleted if it is empty. This has the same semantics as g_unlink().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @file doesn’t exist, %G_IO_ERROR_NOT_FOUND will be returned. This allows
         /// for deletion to be implemented avoiding
         /// [time-of-check to time-of-use races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use):
@@ -1595,10 +1643,12 @@ namespace GISharp.Lib.Gio
         ///                g_file_peek_path (my_file), local_error-&gt;message);
         ///   }
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -1763,12 +1813,15 @@ namespace GISharp.Lib.Gio
         /// g_file_copy() if attempting to copy a file.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// g_file_dup() is useful when a second handle is needed to the same underlying
         /// file, for use in a separate thread (#GFile is not thread-safe). For use
         /// within the same thread, use g_object_ref() to increment the existing object’s
         /// reference count.
-        /// 
+        /// </para>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -1900,11 +1953,14 @@ namespace GISharp.Lib.Gio
         /// Checks if the two given #GFiles refer to the same file.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that two #GFiles that differ can still refer to the same
         /// file on the filesystem due to various forms of filename
         /// aliasing.
-        /// 
+        /// </para>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file1">
         /// the first #GFile
@@ -1942,17 +1998,21 @@ namespace GISharp.Lib.Gio
         /// Gets the base name (the last component of the path) for a given #GFile.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If called for the top level of a system (such as the filesystem root
         /// or a uri like sftp://host/) it will return a single directory separator
         /// (and on Windows, possibly a drive letter).
-        /// 
+        /// </para>
+        /// <para>
         /// The base name is a byte string (not UTF-8). It has no defined encoding
         /// or rules other than it may not contain zero bytes.  If you want to use
         /// filenames in a user interface you should use the display name that you
         /// can get by requesting the %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME
         /// attribute with g_file_query_info().
-        /// 
+        /// </para>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -1985,11 +2045,14 @@ namespace GISharp.Lib.Gio
         /// Gets a child of @file with basename equal to @name.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the file with that specific name might not exist, but
         /// you can still have a #GFile that points to it. You can use this
         /// for instance to create that file.
-        /// 
+        /// </para>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2033,7 +2096,9 @@ namespace GISharp.Lib.Gio
         /// type a filename in the file selector.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2088,7 +2153,9 @@ namespace GISharp.Lib.Gio
         /// file system, then %NULL will be returned.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2124,15 +2191,19 @@ namespace GISharp.Lib.Gio
         /// g_file_parse_name().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is generally used to show the #GFile as a nice
         /// full-pathname kind of string in a user interface,
         /// like in a location entry.
-        /// 
+        /// </para>
+        /// <para>
         /// For local files with names that can safely be converted
         /// to UTF-8 the pathname is used, otherwise the IRI is used
         /// (a form of URI that allows UTF-8 characters unescaped).
-        /// 
+        /// </para>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2166,7 +2237,9 @@ namespace GISharp.Lib.Gio
         /// guaranteed to be an absolute, canonical path. It might contain symlinks.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2199,7 +2272,9 @@ namespace GISharp.Lib.Gio
         /// Gets the path for @descendant relative to @parent.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="parent">
         /// input #GFile
@@ -2240,7 +2315,9 @@ namespace GISharp.Lib.Gio
         /// Gets the URI for the @file.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2278,7 +2355,9 @@ namespace GISharp.Lib.Gio
         /// Common schemes include "file", "http", "ftp", etc.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2311,9 +2390,11 @@ namespace GISharp.Lib.Gio
         /// Checks if @file has a parent, and optionally, if it is @parent.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @parent is %NULL then this function returns %TRUE if @file has any
         /// parent at all.  If @parent is non-%NULL then %TRUE is only returned
         /// if @file is an immediate child of @parent.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2354,18 +2435,22 @@ namespace GISharp.Lib.Gio
         /// Checks whether @file has the prefix specified by @prefix.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In other words, if the names of initial elements of @file's
         /// pathname match @prefix. Only full pathname elements are matched,
         /// so a path like /foo is not considered a prefix of /foobar, only
         /// of /foo/bar.
-        /// 
+        /// </para>
+        /// <para>
         /// A #GFile is not a prefix of itself. If you want to check for
         /// equality, use g_file_equal().
-        /// 
+        /// </para>
+        /// <para>
         /// This call does no I/O, as it works purely on names. As such it can
         /// sometimes return %FALSE even if @file is inside a @prefix (from a
         /// filesystem point of view), because the prefix of @file is an alias
         /// of @prefix.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2404,7 +2489,9 @@ namespace GISharp.Lib.Gio
         /// Checks to see if a #GFile has a given URI scheme.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2444,7 +2531,9 @@ namespace GISharp.Lib.Gio
         /// Creates a hash value for a #GFile.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// #gconstpointer to a #GFile
@@ -2478,15 +2567,19 @@ namespace GISharp.Lib.Gio
         /// Checks to see if a file is native to the platform.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// A native file is one expressed in the platform-native filename format,
         /// e.g. "C:\Windows" or "/usr/bin/". This does not mean the file is local,
         /// as it might be on a locally mounted remote filesystem.
-        /// 
+        /// </para>
+        /// <para>
         /// On some systems non-native files may be available using the native
         /// filesystem via a userspace filesystem (FUSE), in these cases this call
         /// will return %FALSE, but g_file_get_path() will still return a native path.
-        /// 
+        /// </para>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2517,15 +2610,19 @@ namespace GISharp.Lib.Gio
         /// Loads the contents of @file and returns it as #GBytes.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @file is a resource:// based URI, the resulting bytes will reference the
         /// embedded resource instead of a copy. Otherwise, this is equivalent to calling
         /// g_file_load_contents() and g_bytes_new_take().
-        /// 
+        /// </para>
+        /// <para>
         /// For resources, @etag_out will be set to %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// The data contained in the resulting #GBytes is always zero-terminated, but
         /// this is not included in the #GBytes length. The resulting #GBytes should be
         /// freed with g_bytes_unref() when no longer in use.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// a #GFile
@@ -2587,14 +2684,18 @@ namespace GISharp.Lib.Gio
         /// Asynchronously loads the contents of @file as #GBytes.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @file is a resource:// based URI, the resulting bytes will reference the
         /// embedded resource instead of a copy. Otherwise, this is equivalent to calling
         /// g_file_load_contents_async() and g_bytes_new_take().
-        /// 
+        /// </para>
+        /// <para>
         /// @callback should call g_file_load_bytes_finish() to get the result of this
         /// asynchronous operation.
-        /// 
+        /// </para>
+        /// <para>
         /// See g_file_load_bytes() for more information.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// a #GFile
@@ -2649,13 +2750,17 @@ namespace GISharp.Lib.Gio
         /// Completes an asynchronous request to g_file_load_bytes_async().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For resources, @etag_out will be set to %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// The data contained in the resulting #GBytes is always zero-terminated, but
         /// this is not included in the #GBytes length. The resulting #GBytes should be
         /// freed with g_bytes_unref() when no longer in use.
-        /// 
+        /// </para>
+        /// <para>
         /// See g_file_load_bytes() for more information.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// a #GFile
@@ -2726,9 +2831,11 @@ namespace GISharp.Lib.Gio
         /// needed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -2805,17 +2912,21 @@ namespace GISharp.Lib.Gio
         /// Starts an asynchronous load of the @file's contents.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_load_contents() which is
         /// the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the load operation has completed, @callback will be called
         /// with @user data. To finish the operation, call
         /// g_file_load_contents_finish() with the #GAsyncResult returned by
         /// the @callback.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -3039,12 +3150,15 @@ namespace GISharp.Lib.Gio
         /// %G_IO_ERROR_NOT_SUPPORTED.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For a local #GFile the newly created directory will have the default
         /// (current) ownership and permissions of the current process.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -3211,12 +3325,15 @@ namespace GISharp.Lib.Gio
         /// the similar g_mkdir_with_parents().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For a local #GFile the newly created directories will have the default
         /// (current) ownership and permissions of the current process.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -3269,9 +3386,11 @@ namespace GISharp.Lib.Gio
         /// @symlink_value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// a #GFile with the name of the symlink to create
@@ -3450,8 +3569,10 @@ namespace GISharp.Lib.Gio
         /// Finishes a mount operation. See g_file_mount_mountable() for details.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Finish an asynchronous mount operation that was started
         /// with g_file_mount_mountable().
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -3507,33 +3628,41 @@ namespace GISharp.Lib.Gio
         /// inside the same filesystem), but the fallback code does not.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the flag #G_FILE_COPY_OVERWRITE is specified an already
         /// existing @destination file is overwritten.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If @progress_callback is not %NULL, then the operation can be monitored
         /// by setting this to a #GFileProgressCallback function.
         /// @progress_callback_data will be passed to this function. It is
         /// guaranteed that this callback will be called after all data has been
         /// transferred with the total number of bytes copied during the operation.
-        /// 
+        /// </para>
+        /// <para>
         /// If the @source file does not exist, then the %G_IO_ERROR_NOT_FOUND
         /// error is returned, independent on the status of the @destination.
-        /// 
+        /// </para>
+        /// <para>
         /// If #G_FILE_COPY_OVERWRITE is not specified and the target exists,
         /// then the error %G_IO_ERROR_EXISTS is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If trying to overwrite a file over a directory, the %G_IO_ERROR_IS_DIRECTORY
         /// error is returned. If trying to overwrite a directory with a directory the
         /// %G_IO_ERROR_WOULD_MERGE error is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If the source is a directory and the target does not exist, or
         /// #G_FILE_COPY_OVERWRITE is specified and the target is a file, then
         /// the %G_IO_ERROR_WOULD_RECURSE error may be returned (if the native
         /// move operation isn't available).
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// #GFile pointing to the source location
@@ -3620,11 +3749,13 @@ namespace GISharp.Lib.Gio
         /// of the file.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled
         /// by triggering the cancellable object from another thread. If the
         /// operation was cancelled, the error %G_IO_ERROR_CANCELLED will be
         /// returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If the file does not exist, the %G_IO_ERROR_NOT_FOUND error will
         /// be returned. If the file is a directory, the %G_IO_ERROR_IS_DIRECTORY
         /// error will be returned. Other errors are possible too, and depend on
@@ -3632,6 +3763,7 @@ namespace GISharp.Lib.Gio
         /// file cases read and write streams are not supported, so make sure you
         /// really need to do read and write streaming, rather than just opening
         /// for reading or writing.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// #GFile to open
@@ -3685,12 +3817,15 @@ namespace GISharp.Lib.Gio
         /// Asynchronously opens @file for reading and writing.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_open_readwrite() which is
         /// the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_open_readwrite_finish() to get
         /// the result of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -3814,7 +3949,9 @@ namespace GISharp.Lib.Gio
         /// generally more efficient.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -3848,13 +3985,16 @@ namespace GISharp.Lib.Gio
         /// Polls a file of type #G_FILE_TYPE_MOUNTABLE.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_mount_mountable_finish() to get
         /// the result of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -3905,8 +4045,10 @@ namespace GISharp.Lib.Gio
         /// Finishes a poll operation. See g_file_poll_mountable() for details.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Finish an asynchronous poll operation that was polled
         /// with g_file_poll_mountable().
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -3958,12 +4100,14 @@ namespace GISharp.Lib.Gio
         /// implemented using g_file_query_info() and as such does blocking I/O.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that in many cases it is [racy to first check for file existence](https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use)
         /// and then execute something based on the outcome of that, because the
         /// file might have been created or removed in between the operations. The
         /// general approach to handling that is to not check, but just do the
         /// operation and handle the errors as they come.
-        /// 
+        /// </para>
+        /// <para>
         /// As an example of race-free checking, take the case of reading a file,
         /// and if it doesn't exist, creating it. There are two racy versions: read
         /// it, and on error create it; and: check if it exists, if not create it.
@@ -3971,12 +4115,14 @@ namespace GISharp.Lib.Gio
         /// a partially written file as the result). The correct approach is to
         /// always try to create the file with g_file_create() which will either
         /// atomically create the file or fail with a %G_IO_ERROR_EXISTS error.
-        /// 
+        /// </para>
+        /// <para>
         /// However, in many cases an existence check is useful in a user interface,
         /// for instance to make a menu item sensitive/insensitive, so that you don't
         /// have to fool users that something is possible and then just show an error
         /// dialog. If you do this, you should make sure to also handle the errors
         /// that can happen due to races when you execute the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4017,8 +4163,10 @@ namespace GISharp.Lib.Gio
         /// implemented using g_file_query_info() and as such does blocking I/O.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The primary use case of this method is to check if a file is
         /// a regular file, directory, or symlink.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4070,6 +4218,7 @@ namespace GISharp.Lib.Gio
         /// the filesystem.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The @attributes value is a string that specifies the attributes
         /// that should be gathered. It is not an error if it's not possible
         /// to read a particular requested attribute from a file - it just
@@ -4081,15 +4230,18 @@ namespace GISharp.Lib.Gio
         /// #G_FILE_ATTRIBUTE_FILESYSTEM_SIZE (the total size of the filesystem
         /// in bytes), #G_FILE_ATTRIBUTE_FILESYSTEM_FREE (number of bytes available),
         /// and #G_FILE_ATTRIBUTE_FILESYSTEM_TYPE (type of the filesystem).
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled
         /// by triggering the cancellable object from another thread. If the
         /// operation was cancelled, the error %G_IO_ERROR_CANCELLED will be
         /// returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If the file does not exist, the %G_IO_ERROR_NOT_FOUND error will
         /// be returned. Other errors are possible too, and depend on what
         /// kind of filesystem the file is on.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4152,12 +4304,15 @@ namespace GISharp.Lib.Gio
         /// file).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_query_filesystem_info() which is the
         /// synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called. You can
         /// then call g_file_query_info_finish() to get the result of the
         /// operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4284,6 +4439,7 @@ namespace GISharp.Lib.Gio
         /// attributes (such as the type or size of the file).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The @attributes value is a string that specifies the file
         /// attributes that should be gathered. It is not an error if
         /// it's not possible to read a particular requested attribute
@@ -4294,22 +4450,26 @@ namespace GISharp.Lib.Gio
         /// An example attribute query be "standard::*,owner::user".
         /// The standard attributes are available as defines, like
         /// #G_FILE_ATTRIBUTE_STANDARD_NAME.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled
         /// by triggering the cancellable object from another thread. If the
         /// operation was cancelled, the error %G_IO_ERROR_CANCELLED will be
         /// returned.
-        /// 
+        /// </para>
+        /// <para>
         /// For symlinks, normally the information about the target of the
         /// symlink is returned, rather than information about the symlink
         /// itself. However if you pass #G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS
         /// in @flags the information about the symlink itself will be returned.
         /// Also, for symlinks that point to non-existing files the information
         /// about the symlink itself will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If the file does not exist, the %G_IO_ERROR_NOT_FOUND error will be
         /// returned. Other errors are possible too, and depend on what kind of
         /// filesystem the file is on.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4378,11 +4538,14 @@ namespace GISharp.Lib.Gio
         /// (such as type or size for the file).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_query_info() which is the synchronous
         /// version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called. You can
         /// then call g_file_query_info_finish() to get the result of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4514,14 +4677,17 @@ namespace GISharp.Lib.Gio
         /// Obtain the list of settable attributes for the file.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Returns the type and full attribute name of all the attributes
         /// that can be set on this file. This doesn't mean setting it will
         /// always succeed though, you might get an access failure, or some
         /// specific file may not support a specific attribute.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4577,9 +4743,11 @@ namespace GISharp.Lib.Gio
         /// attributes (in the "xattr" namespace).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4634,14 +4802,17 @@ namespace GISharp.Lib.Gio
         /// can be used to read the contents of the file.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If the file does not exist, the %G_IO_ERROR_NOT_FOUND error will be
         /// returned. If the file is a directory, the %G_IO_ERROR_IS_DIRECTORY
         /// error will be returned. Other errors are possible too, and depend
         /// on what kind of filesystem the file is on.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// #GFile to read
@@ -4693,12 +4864,15 @@ namespace GISharp.Lib.Gio
         /// Asynchronously opens @file for reading.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_read() which is
         /// the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_read_finish() to get the result
         /// of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4817,22 +4991,26 @@ namespace GISharp.Lib.Gio
         /// it will be created.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This will try to replace the file in the safest way possible so
         /// that any errors during the writing will not affect an already
         /// existing copy of the file. For instance, for local files it
         /// may write to a temporary file and then atomically rename over
         /// the destination when the stream is closed.
-        /// 
+        /// </para>
+        /// <para>
         /// By default files created are generally readable by everyone,
         /// but if you pass #G_FILE_CREATE_PRIVATE in @flags the file
         /// will be made readable only to the current user, to the level that
         /// is supported on the target filesystem.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled
         /// by triggering the cancellable object from another thread. If the
         /// operation was cancelled, the error %G_IO_ERROR_CANCELLED will be
         /// returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If you pass in a non-%NULL @etag value and @file already exists, then
         /// this value is compared to the current entity tag of the file, and if
         /// they differ an %G_IO_ERROR_WRONG_ETAG error is returned. This
@@ -4841,12 +5019,14 @@ namespace GISharp.Lib.Gio
         /// after you've finished writing and closed the #GFileOutputStream. When
         /// you load a new file you can use g_file_input_stream_query_info() to
         /// get the etag of the file.
-        /// 
+        /// </para>
+        /// <para>
         /// If @make_backup is %TRUE, this function will attempt to make a
         /// backup of the current file before overwriting it. If this fails
         /// a %G_IO_ERROR_CANT_CREATE_BACKUP error will be returned. If you
         /// want to replace anyway, try again with @make_backup set to %FALSE.
-        /// 
+        /// </para>
+        /// <para>
         /// If the file is a directory the %G_IO_ERROR_IS_DIRECTORY error will
         /// be returned, and if the file is some other form of non-regular file
         /// then a %G_IO_ERROR_NOT_REGULAR_FILE error will be returned. Some
@@ -4854,6 +5034,7 @@ namespace GISharp.Lib.Gio
         /// %G_IO_ERROR_INVALID_FILENAME error, and if the name is to long
         /// %G_IO_ERROR_FILENAME_TOO_LONG will be returned. Other errors are
         /// possible too, and depend on what kind of filesystem the file is on.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -4929,12 +5110,15 @@ namespace GISharp.Lib.Gio
         /// possibly creating a backup copy of the file first.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_replace() which is
         /// the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_replace_finish() to get the result
         /// of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5016,20 +5200,25 @@ namespace GISharp.Lib.Gio
         /// Replaces the contents of @file with @contents of @length bytes.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @etag is specified (not %NULL), any existing file must have that etag,
         /// or the error %G_IO_ERROR_WRONG_ETAG will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If @make_backup is %TRUE, this function will attempt to make a backup
         /// of @file. Internally, it uses g_file_replace(), so will try to replace the
         /// file contents in the safest way possible. For example, atomic renames are
         /// used when replacing local files’ contents.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// The returned @new_etag can be used to verify that the file hasn't
         /// changed the next time it is saved over.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5132,21 +5321,26 @@ namespace GISharp.Lib.Gio
         /// current entity tag.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When this operation has completed, @callback will be called with
         /// @user_user data, and the operation can be finalized with
         /// g_file_replace_contents_finish().
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If @make_backup is %TRUE, this function will attempt to
         /// make a backup of @file.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that no copy of @contents will be made, so it must stay valid
         /// until @callback is called. See g_file_replace_contents_bytes_async()
         /// for a #GBytes version that will automatically hold a reference to the
         /// contents (without copying) for the duration of the call.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5237,9 +5431,11 @@ namespace GISharp.Lib.Gio
         /// content without waiting for the callback.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When this operation has completed, @callback will be called with
         /// @user_user data, and the operation can be finalized with
         /// g_file_replace_contents_finish().
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5445,12 +5641,15 @@ namespace GISharp.Lib.Gio
         /// exist, it will be created.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For details about the behaviour, see g_file_replace() which does the
         /// same thing but returns an output stream only.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that in many non-local file cases read and write streams are not
         /// supported, so make sure you really need to do read and write streaming,
         /// rather than just opening for reading or writing.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// a #GFile
@@ -5529,12 +5728,15 @@ namespace GISharp.Lib.Gio
         /// of the file first.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_replace_readwrite() which is
         /// the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_replace_readwrite_finish() to get
         /// the result of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5676,7 +5878,9 @@ namespace GISharp.Lib.Gio
         /// Resolves a relative path for @file to an absolute path.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call does no blocking I/O.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5716,12 +5920,15 @@ namespace GISharp.Lib.Gio
         /// Sets an attribute in the file with attribute name @attribute to @value_p.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Some attributes can be unset by setting @type to
         /// %G_FILE_ATTRIBUTE_TYPE_INVALID and @value_p to %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5801,9 +6008,11 @@ namespace GISharp.Lib.Gio
         /// returning %FALSE.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5875,9 +6084,11 @@ namespace GISharp.Lib.Gio
         /// If @attribute is of a different type, this operation will fail.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5949,9 +6160,11 @@ namespace GISharp.Lib.Gio
         /// If @attribute is of a different type, this operation will fail.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6022,9 +6235,11 @@ namespace GISharp.Lib.Gio
         /// If @attribute is of a different type, this operation will fail.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6095,9 +6310,11 @@ namespace GISharp.Lib.Gio
         /// If @attribute is of a different type, this operation will fail.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6169,9 +6386,11 @@ namespace GISharp.Lib.Gio
         /// If @attribute is of a different type, this operation will fail.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6242,12 +6461,15 @@ namespace GISharp.Lib.Gio
         /// Asynchronously sets the attributes of @file with @info.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_set_attributes_from_info(),
         /// which is the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_set_attributes_finish() to get
         /// the result of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6383,15 +6605,18 @@ namespace GISharp.Lib.Gio
         /// values, not stopping on the first error.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If there is any error during this operation then @error will
         /// be set to the first error. Error on particular fields are flagged
         /// by setting the "status" field in the attribute value to
         /// %G_FILE_ATTRIBUTE_STATUS_ERROR_SETTING, which means you can
         /// also detect further errors.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6454,19 +6679,24 @@ namespace GISharp.Lib.Gio
         /// Renames @file to the specified display name.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The display name is converted from UTF-8 to the correct encoding
         /// for the target filesystem if possible and the @file is renamed to this.
-        /// 
+        /// </para>
+        /// <para>
         /// If you want to implement a rename operation in the user interface the
         /// edit name (#G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) should be used as the
         /// initial value in the rename widget, and then the result after editing
         /// should be passed to g_file_set_display_name().
-        /// 
+        /// </para>
+        /// <para>
         /// On success the resulting converted filename is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6527,12 +6757,15 @@ namespace GISharp.Lib.Gio
         /// Asynchronously sets the display name for a given #GFile.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For more details, see g_file_set_display_name() which is
         /// the synchronous version of this call.
-        /// 
+        /// </para>
+        /// <para>
         /// When the operation is finished, @callback will be called.
         /// You can then call g_file_set_display_name_finish() to get
         /// the result of the operation.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6656,8 +6889,10 @@ namespace GISharp.Lib.Gio
         /// Finishes a start operation. See g_file_start_mountable() for details.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Finish an asynchronous start operation that was started
         /// with g_file_start_mountable().
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6708,8 +6943,10 @@ namespace GISharp.Lib.Gio
         /// Finishes a stop operation, see g_file_stop_mountable() for details.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Finish an asynchronous stop operation that was started
         /// with g_file_stop_mountable().
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -6798,9 +7035,11 @@ namespace GISharp.Lib.Gio
         /// mounts, the %G_IO_ERROR_NOT_SUPPORTED error will be returned in that case.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// #GFile to send to trash
@@ -6962,8 +7201,10 @@ namespace GISharp.Lib.Gio
         /// Finishes an unmount operation, see g_file_unmount_mountable() for details.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Finish an asynchronous unmount operation that was started
         /// with g_file_unmount_mountable().
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -7017,8 +7258,10 @@ namespace GISharp.Lib.Gio
         /// see g_file_unmount_mountable_with_operation() for details.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Finish an asynchronous unmount operation that was started
         /// with g_file_unmount_mountable_with_operation().
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile

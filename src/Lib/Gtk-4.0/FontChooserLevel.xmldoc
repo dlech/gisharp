@@ -36,8 +36,10 @@ This enumeration specifies the granularity of font selection
 that is desired in a font chooser.
 </summary>
 <remarks>
+<para>
 This enumeration may be extended in the future; applications should
 ignore unknown values.
+</para>
 </remarks>
 </member>
 

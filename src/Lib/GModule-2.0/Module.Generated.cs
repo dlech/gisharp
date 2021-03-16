@@ -36,15 +36,18 @@ namespace GISharp.Lib.GModule
         /// is added to the directory, using the correct separator character.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The directory should specify the directory where the module can be found.
         /// It can be %NULL or an empty string to indicate that the module is in a
         /// standard platform-specific directory, though this is not recommended
         /// since the wrong module may be found.
-        /// 
+        /// </para>
+        /// <para>
         /// For example, calling g_module_build_path() on a Linux system with a
         /// @directory of `/lib` and a @module_name of "mylibrary" will return
         /// `/lib/libmylibrary.so`. On a Windows system, using `\Windows` as the
         /// directory it will return `\Windows\mylibrary.dll`.
+        /// </para>
         /// </remarks>
         /// <param name="directory">
         /// the directory where the module is. This can be
@@ -106,6 +109,7 @@ namespace GISharp.Lib.GModule
         /// its reference count is incremented.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// First of all g_module_open() tries to open @file_name as a module.
         /// If that fails and @file_name has the ".la"-suffix (and is a libtool
         /// archive) it tries to open the corresponding module. If that fails
@@ -115,6 +119,7 @@ namespace GISharp.Lib.GModule
         /// ".la"-suffix, this suffix is appended and g_module_open() tries to open
         /// the corresponding module. If eventually that fails as well, %NULL is
         /// returned.
+        /// </para>
         /// </remarks>
         /// <param name="fileName">
         /// the name of the file containing the module, or %NULL
@@ -228,7 +233,9 @@ namespace GISharp.Lib.GModule
         /// Returns the filename that the module was opened with.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @module refers to the application itself, "main" is returned.
+        /// </para>
         /// </remarks>
         /// <param name="module">
         /// a #GModule

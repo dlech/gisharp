@@ -39,26 +39,32 @@ namespace GISharp.Lib.GLib
         /// Adds a new element on to the end of the list.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The return value is the new start of the list, which may
         /// have changed, so make sure you store the new value.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that g_slist_append() has to traverse the entire list
         /// to find the end, which is inefficient when adding multiple
         /// elements. A common idiom to avoid the inefficiency is to prepend
         /// the elements and reverse the list when all elements have been added.
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// // Notice that these are initialized to the empty list.
         /// GSList *list = NULL, *number_list = NULL;
-        /// 
+        /// </para>
+        /// <para>
         /// // This is a list of strings.
         /// list = g_slist_append (list, "first");
         /// list = g_slist_append (list, "second");
-        /// 
+        /// </para>
+        /// <para>
         /// // This is a list of integers.
         /// number_list = g_slist_append (number_list, GINT_TO_POINTER (27));
         /// number_list = g_slist_append (number_list, GINT_TO_POINTER (14));
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GSList
@@ -119,10 +125,12 @@ namespace GISharp.Lib.GLib
         /// Copies a #GSList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that this is a "shallow" copy. If the list elements
         /// consist of pointers to data, the pointers are copied but
         /// the actual data isn't. See g_slist_copy_deep() if you need
         /// to copy the data as well.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GSList
@@ -146,24 +154,29 @@ namespace GISharp.Lib.GLib
         /// Makes a full (deep) copy of a #GSList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In contrast with g_slist_copy(), this function uses @func to make a copy of
         /// each list element, in addition to copying the list container itself.
-        /// 
+        /// </para>
+        /// <para>
         /// @func, as a #GCopyFunc, takes two arguments, the data to be copied
         /// and a @user_data pointer. On common processor architectures, it's safe to
         /// pass %NULL as @user_data if the copy function takes only one argument. You
         /// may get compiler warnings from this though if compiling with GCC’s
         /// `-Wcast-function-type` warning.
-        /// 
+        /// </para>
+        /// <para>
         /// For instance, if @list holds a list of GObjects, you can do:
         /// |[&lt;!-- language="C" --&gt;
         /// another_list = g_slist_copy_deep (list, (GCopyFunc) g_object_ref, NULL);
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// And, to entirely free the new list, you could do:
         /// |[&lt;!-- language="C" --&gt;
         /// g_slist_free_full (another_list, g_object_unref);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GSList
@@ -202,11 +215,13 @@ namespace GISharp.Lib.GLib
         /// without freeing it.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Removing arbitrary nodes from a singly-linked list requires time
         /// that is proportional to the length of the list (ie. O(n)). If you
         /// find yourself using g_slist_delete_link() frequently, you should
         /// consider a different data structure, such as the doubly-linked
         /// #GList.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GSList
@@ -306,8 +321,10 @@ namespace GISharp.Lib.GLib
         /// Calls a function for each element of a #GSList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is safe for @func to remove the element from @list, but it must
         /// not modify any part of the list after that element.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GSList
@@ -339,16 +356,19 @@ namespace GISharp.Lib.GLib
         /// The freed elements are returned to the slice allocator.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If list elements contain dynamically-allocated memory,
         /// you should either use g_slist_free_full() or free them manually
         /// first.
-        /// 
+        /// </para>
+        /// <para>
         /// It can be combined with g_steal_pointer() to ensure the list head pointer
         /// is not left dangling:
         /// |[&lt;!-- language="C" --&gt;
         /// GSList *list_of_borrowed_things = …;  /&lt;!-- --&gt;* (transfer container) *&lt;!-- --&gt;/
         /// g_slist_free (g_steal_pointer (&amp;list_of_borrowed_things));
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// the first link of a #GSList
@@ -385,9 +405,11 @@ namespace GISharp.Lib.GLib
         /// calls the specified destroy function on every element's data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @free_func must not modify the list (eg, by removing the freed
         /// element from it).
-        /// 
+        /// </para>
+        /// <para>
         /// It can be combined with g_steal_pointer() to ensure the list head pointer
         /// is not left dangling ­— this also has the nice property that the head pointer
         /// is cleared before any of the list elements are freed, to prevent double frees
@@ -396,6 +418,7 @@ namespace GISharp.Lib.GLib
         /// GSList *list_of_owned_things = …;  /&lt;!-- --&gt;* (transfer full) (element-type GObject) *&lt;!-- --&gt;/
         /// g_slist_free_full (g_steal_pointer (&amp;list_of_owned_things), g_object_unref);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// the first link of a #GSList
@@ -598,7 +621,9 @@ namespace GISharp.Lib.GLib
         /// Gets the last element in a #GSList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function iterates over the whole list.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GSList
@@ -623,9 +648,11 @@ namespace GISharp.Lib.GLib
         /// Gets the number of elements in a #GSList.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function iterates over the whole list to
         /// count its elements. To check whether the list is non-empty, it is faster to
         /// check @list against %NULL.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GSList
@@ -730,15 +757,18 @@ namespace GISharp.Lib.GLib
         /// Adds a new element on to the start of the list.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The return value is the new start of the list, which
         /// may have changed, so make sure you store the new value.
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// // Notice that it is initialized to the empty list.
         /// GSList *list = NULL;
         /// list = g_slist_prepend (list, "last");
         /// list = g_slist_prepend (list, "first");
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GSList
@@ -830,11 +860,13 @@ namespace GISharp.Lib.GLib
         /// self-contained list with one element.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Removing arbitrary nodes from a singly-linked list
         /// requires time that is proportional to the length of the list
         /// (ie. O(n)). If you find yourself using g_slist_remove_link()
         /// frequently, you should consider a different data structure,
         /// such as the doubly-linked #GList.
+        /// </para>
         /// </remarks>
         /// <param name="list">
         /// a #GSList

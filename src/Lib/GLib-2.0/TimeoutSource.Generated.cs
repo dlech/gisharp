@@ -10,12 +10,15 @@ namespace GISharp.Lib.GLib
         /// Creates a new timeout source.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The source will not initially be associated with any #GMainContext
         /// and must be added to one with g_source_attach() before it will be
         /// executed.
-        /// 
+        /// </para>
+        /// <para>
         /// The interval given is in terms of monotonic time, not wall clock
         /// time.  See g_get_monotonic_time().
+        /// </para>
         /// </remarks>
         /// <param name="interval">
         /// the timeout interval in milliseconds.
@@ -46,15 +49,19 @@ namespace GISharp.Lib.GLib
         /// Creates a new timeout source.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The source will not initially be associated with any #GMainContext
         /// and must be added to one with g_source_attach() before it will be
         /// executed.
-        /// 
+        /// </para>
+        /// <para>
         /// The scheduling granularity/accuracy of this timeout source will be
         /// in seconds.
-        /// 
+        /// </para>
+        /// <para>
         /// The interval given is in terms of monotonic time, not wall clock time.
         /// See g_get_monotonic_time().
+        /// </para>
         /// </remarks>
         /// <param name="interval">
         /// the timeout interval in seconds

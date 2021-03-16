@@ -224,10 +224,12 @@ Returns the value associated with <paramref name="key"/> under <paramref name="g
 boolean.
 </summary>
 <remarks>
+<para>
 If <paramref name="key"/> cannot be found then <c>false</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set
 to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
 associated with <paramref name="key"/> cannot be interpreted as a boolean then <c>false</c>
 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -250,10 +252,12 @@ Returns the values associated with <paramref name="key"/> under <paramref name="
 booleans.
 </summary>
 <remarks>
+<para>
 If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
 with <paramref name="key"/> cannot be interpreted as booleans then <c>null</c> is returned
 and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -280,9 +284,11 @@ If <paramref name="key"/> is <c>null</c> then <c>comment</c> will be read from a
 <c>comment</c> will be read from above the first group in the file.
 </summary>
 <remarks>
+<para>
 Note that the returned string does not include the '#' comment markers,
 but does include any whitespace after them (on each line). It includes
 the line breaks between lines, but does not include the final line break.
+</para>
 </remarks>
 <param name="groupName">
 a group name, or <c>null</c>
@@ -304,10 +310,12 @@ Returns the value associated with <paramref name="key"/> under <paramref name="g
 double. If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
 </summary>
 <remarks>
+<para>
 If <paramref name="key"/> cannot be found then 0.0 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
 with <paramref name="key"/> cannot be interpreted as a double then 0.0 is returned
 and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -330,10 +338,12 @@ Returns the values associated with <paramref name="key"/> under <paramref name="
 doubles.
 </summary>
 <remarks>
+<para>
 If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
 with <paramref name="key"/> cannot be interpreted as doubles then <c>null</c> is returned
 and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -379,11 +389,13 @@ Returns the value associated with <paramref name="key"/> under <paramref name="g
 integer.
 </summary>
 <remarks>
+<para>
 If <paramref name="key"/> cannot be found then 0 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
 with <paramref name="key"/> cannot be interpreted as an integer, or is out of range
 for a #gint, then 0 is returned
 and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -406,11 +418,13 @@ Returns the values associated with <paramref name="key"/> under <paramref name="
 integers.
 </summary>
 <remarks>
+<para>
 If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
 with <paramref name="key"/> cannot be interpreted as integers, or are out of range for
 #gint, then <c>null</c> is returned
 and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -456,11 +470,13 @@ Returns the actual locale which the result of
 came from.
 </summary>
 <remarks>
+<para>
 If calling <see cref="KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> or
 <see cref="KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> with exactly the same this instance,
 <paramref name="groupName"/>, <paramref name="key"/> and <paramref name="locale"/>, the result of those functions will
 have originally been tagged with the locale that is the result of
 this function.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -484,14 +500,17 @@ translated in the given <paramref name="locale"/> if available.  If <paramref na
 <c>null</c> then the current locale is assumed.
 </summary>
 <remarks>
+<para>
 If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
 the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
-
+</para>
+<para>
 If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set
 to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
 with <paramref name="key"/> cannot be interpreted or no suitable translation can
 be found then the untranslated value is returned.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -518,16 +537,19 @@ translated in the given <paramref name="locale"/> if available.  If <paramref na
 <c>null</c> then the current locale is assumed.
 </summary>
 <remarks>
+<para>
 If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
 the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
-
+</para>
+<para>
 If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set
 to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
 with <paramref name="key"/> cannot be interpreted or no suitable translations
 can be found then the untranslated values are returned. The
 returned array is <c>null</c>-terminated, so <paramref name="length"/> may optionally
 be <c>null</c>.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -555,10 +577,12 @@ Unlike <see cref="KeyFile.GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib
 like \s.
 </summary>
 <remarks>
+<para>
 In the event the key cannot be found, <c>null</c> is returned and
 <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
 event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
 and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -580,10 +604,12 @@ On error
 Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>.
 </summary>
 <remarks>
+<para>
 In the event the key cannot be found, <c>null</c> is returned and
 <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
 event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
 and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -628,10 +654,12 @@ Returns the raw value associated with <paramref name="key"/> under <paramref nam
 Use <see cref="KeyFile.GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> to retrieve an unescaped UTF-8 string.
 </summary>
 <remarks>
+<para>
 In the event the key cannot be found, <c>null</c> is returned and
 <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
 event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
 and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -726,11 +754,13 @@ specified in <paramref name="searchDirs"/>, loads the file into this instance an
 returns the file's full path in <paramref name="fullPath"/>.
 </summary>
 <remarks>
+<para>
 If the file could not be found in any of the <paramref name="searchDirs"/>,
 <see cref="KeyFileError.NotFound"/> is returned. If
 the file is found but the OS returns an error when opening or reading the
 file, a %G_FILE_ERROR is returned. If there is a problem parsing the file, a
 %G_KEY_FILE_ERROR is returned.
+</para>
 </remarks>
 <param name="file">
 a relative path to a filename to open and parse
@@ -755,12 +785,15 @@ On error
 Loads a key file into an empty <see cref="KeyFile"/> structure.
 </summary>
 <remarks>
+<para>
 If the OS returns an error when opening or reading the file, a
 %G_FILE_ERROR is returned. If there is a problem parsing the file, a
 %G_KEY_FILE_ERROR is returned.
-
+</para>
+<para>
 This function will never return a <see cref="KeyFileError.NotFound"/> error. If the
 <paramref name="file"/> is not found, %G_FILE_ERROR_NOENT is returned.
+</para>
 </remarks>
 <param name="file">
 the path of a filename to load, in the GLib filename encoding
@@ -827,8 +860,10 @@ the written file than are provided by g_file_set_contents(), use
 g_file_set_contents_full() with the return value of <see cref="KeyFile.ToData(out int)"/>.
 </summary>
 <remarks>
+<para>
 This function can fail for any of the reasons that
 g_file_set_contents() may fail.
+</para>
 </remarks>
 <param name="filename">
 the name of the file to write to
@@ -876,12 +911,15 @@ an array of boolean values
 Places a comment above <paramref name="key"/> from <paramref name="groupName"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be written above <paramref name="groupName"/>.
 If both <paramref name="key"/> and <paramref name="groupName"/>  are <c>null</c>, then <paramref name="comment"/> will be
 written above the first group in the file.
-
+</para>
+<para>
 Note that this function prepends a '#' comment marker to
 each line of <paramref name="comment"/>.
+</para>
 </remarks>
 <param name="groupName">
 a group name, or <c>null</c>
@@ -1084,10 +1122,12 @@ an integer value
 Associates a new value with <paramref name="key"/> under <paramref name="groupName"/>.
 </summary>
 <remarks>
+<para>
 If <paramref name="key"/> cannot be found then it is created. If <paramref name="groupName"/> cannot
 be found then it is created. To set an UTF-8 string which may contain
 characters that need escaping (such as newlines or spaces), use
 <see cref="KeyFile.SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>.
+</para>
 </remarks>
 <param name="groupName">
 a group name
@@ -1105,8 +1145,10 @@ a string
 This function outputs this instance as a string.
 </summary>
 <remarks>
+<para>
 Note that this function never reports an error,
 so it is safe to pass <c>null</c> as <see cref="GISharp.Runtime.GErrorException"/>.
+</para>
 </remarks>
 <param name="length">
 return location for the length of the

@@ -13,10 +13,13 @@ namespace GISharp.Lib.Gio
         /// with g_source_add_child_source() to add cancellability to it.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For convenience, you can call this with a %NULL #GCancellable,
         /// in which case the source will never trigger.
-        /// 
+        /// </para>
+        /// <para>
         /// The new #GSource will hold a reference to the #GCancellable.
+        /// </para>
         /// </remarks>
         /// <param name="cancellable">
         /// a #GCancellable, or %NULL

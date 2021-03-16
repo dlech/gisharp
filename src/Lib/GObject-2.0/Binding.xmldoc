@@ -18,8 +18,10 @@ The name of the property of <see cref="Binding"/>:source that should be used
 as the source of the binding.
 </summary>
 <remarks>
+<para>
 This should be in [canonical form][canonical-parameter-names] to get the
 best performance.
+</para>
 </remarks>
 </member>
 
@@ -35,8 +37,10 @@ The name of the property of <see cref="Binding"/>:target that should be used
 as the target of the binding.
 </summary>
 <remarks>
+<para>
 This should be in [canonical form][canonical-parameter-names] to get the
 best performance.
+</para>
 </remarks>
 </member>
 
@@ -78,10 +82,12 @@ Explicitly releases the binding between the source and the target
 property expressed by this instance.
 </summary>
 <remarks>
+<para>
 This function will release the reference that is being held on
 the this instance instance; if you want to hold on to the <see cref="Binding"/> instance
 after calling <see cref="Binding.Unbind()"/>, you will need to hold a reference
 to it.
+</para>
 </remarks>
 </member>
 
@@ -94,33 +100,40 @@ value is applied to the target property; for instance, the following
 binding:
 </summary>
 <remarks>
+<para>
 |[&lt;!-- language="C" --&gt;
   g_object_bind_property (object1, "property-a",
                           object2, "property-b",
                           G_BINDING_DEFAULT);
 ]|
-
+</para>
+<para>
 will cause the property named "property-b" of <c>object2</c> to be updated
 every time g_object_set() or the specific accessor changes the value of
 the property "property-a" of <c>object1</c>.
-
+</para>
+<para>
 It is possible to create a bidirectional binding between two properties
 of two <see cref="Object"/> instances, so that if either property changes, the
 other is updated as well, for instance:
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
   g_object_bind_property (object1, "property-a",
                           object2, "property-b",
                           G_BINDING_BIDIRECTIONAL);
 ]|
-
+</para>
+<para>
 will keep the two properties in sync.
-
+</para>
+<para>
 It is also possible to set a custom transformation function (in both
 directions, in case of a bidirectional binding) to apply a custom
 transformation from the source value to the target value before
 applying it; for instance, the following binding:
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
   g_object_bind_property_full (adjustment1, "value",
                                adjustment2, "value",
@@ -129,42 +142,51 @@ applying it; for instance, the following binding:
                                fahrenheit_to_celsius,
                                NULL, NULL);
 ]|
-
+</para>
+<para>
 will keep the "value" property of the two adjustments in sync; the
 <c>celsiusToFahrenheit</c> function will be called whenever the "value"
 property of <c>adjustment1</c> changes and will transform the current value
 of the property before applying it to the "value" property of <c>adjustment2</c>.
-
+</para>
+<para>
 Vice versa, the <c>fahrenheitToCelsius</c> function will be called whenever
 the "value" property of <c>adjustment2</c> changes, and will transform the
 current value of the property before applying it to the "value" property
 of <c>adjustment1</c>.
-
+</para>
+<para>
 Note that <see cref="Binding"/> does not resolve cycles by itself; a cycle like
-
+</para>
+<para>
 |[
   object1:propertyA -&gt; object2:propertyB
   object2:propertyB -&gt; object3:propertyC
   object3:propertyC -&gt; object1:propertyA
 ]|
-
+</para>
+<para>
 might lead to an infinite loop. The loop, in this particular case,
 can be avoided if the objects emit the <see cref="Object"/>::notify signal only
 if the value has effectively been changed. A binding is implemented
 using the <see cref="Object"/>::notify signal, so it is susceptible to all the
 various ways of blocking a signal emission, like g_signal_stop_emission()
 or g_signal_handler_block().
-
+</para>
+<para>
 A binding will be severed, and the resources it allocates freed, whenever
 either one of the <see cref="Object"/> instances it refers to are finalized, or when
 the <see cref="Binding"/> instance loses its last reference.
-
+</para>
+<para>
 Bindings for languages with garbage collection can use
 <see cref="Binding.Unbind()"/> to explicitly release a binding between the source
 and target properties, instead of relying on the last reference on the
 binding, source, and target instances to drop.
-
+</para>
+<para>
 <see cref="Binding"/> is available since GObject 2.26
+</para>
 </remarks>
 </member>
 

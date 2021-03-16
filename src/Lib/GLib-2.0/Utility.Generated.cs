@@ -50,11 +50,14 @@ namespace GISharp.Lib.GLib
         /// but g_set_application_name() will not.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that for thread safety reasons, this function can only
         /// be called once.
-        /// 
+        /// </para>
+        /// <para>
         /// The application name will be used in contexts such as error messages,
         /// or when displaying an application's name in the task list.
+        /// </para>
         /// </remarks>
         /// <param name="applicationName">
         /// localized name of the application
@@ -82,11 +85,13 @@ namespace GISharp.Lib.GLib
         /// in contrast to g_get_application_name().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If you are using #GApplication the program name is set in
         /// g_application_run(). In case of GDK or GTK+ it is set in
         /// gdk_init(), which is called by gtk_init() and the
         /// #GtkApplication::startup handler. The program name is found by
         /// taking the last component of @argv[0].
+        /// </para>
         /// </remarks>
         /// <returns>
         /// the name of the program,
@@ -112,13 +117,16 @@ namespace GISharp.Lib.GLib
         /// in contrast to g_set_application_name().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If you are using #GApplication the program name is set in
         /// g_application_run(). In case of GDK or GTK+ it is set in
         /// gdk_init(), which is called by gtk_init() and the
         /// #GtkApplication::startup handler. The program name is found by
         /// taking the last component of @argv[0].
-        /// 
+        /// </para>
+        /// <para>
         /// Note that for thread-safety reasons this function can only be called once.
+        /// </para>
         /// </remarks>
         /// <param name="prgname">
         /// the name of the program.

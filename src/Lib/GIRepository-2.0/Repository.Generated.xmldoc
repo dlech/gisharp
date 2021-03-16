@@ -16,9 +16,11 @@ higher level language bindings to conform to the GObject method
 call conventions.
 </summary>
 <remarks>
+<para>
 All methods on <see cref="Repository"/> also accept <c>null</c> as an instance
 parameter to mean this default repository, which is usually more
 convenient for C.
+</para>
 </remarks>
 </member>
 
@@ -40,9 +42,12 @@ Return the list of currently loaded namespaces.
 <summary>
 </summary>
 <remarks>
+<para>
 Argument specified is a comma-separated pair of filenames; i.e. of the form "input.txt,output.xml". The input file should be a UTF-8 Unix-line-ending text file, with each line containing either "get-type:" followed by the name of a #GType _get_type function, or "error-quark:" followed by the name of an error quark function. No extra whitespace is allowed.
-
+</para>
+<para>
 The output file should already exist, but be empty. This function will overwrite its contents.
+</para>
 </remarks>
 <param name="arg">
 
@@ -61,7 +66,9 @@ On error
 Prepends <paramref name="directory"/> to the typelib search path.
 </summary>
 <remarks>
+<para>
 See also: <see cref="Repository.GetSearchPath()"/>.
+</para>
 </remarks>
 <param name="directory">
 directory name to prepend to the typelib
@@ -140,8 +147,10 @@ associated with the given introspection namespace.  Each C symbol
 starts with this prefix, as well each #GType in the library.
 </summary>
 <remarks>
+<para>
 Note: The namespace must have already been loaded using a function
 such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
+</para>
 </remarks>
 <param name="namespace">
 Namespace to inspect
@@ -158,11 +167,14 @@ Return an array of all (transitive) versioned dependencies for
 &lt;code&gt;namespace-version&lt;/code&gt;.
 </summary>
 <remarks>
+<para>
 Note: <paramref name="namespace"/> must have already been loaded using a function
 such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
-
+</para>
+<para>
 To get only the immediate dependencies for <paramref name="namespace"/>, use
 <see cref="Repository.GetImmediateDependencies(GISharp.Lib.GLib.UnownedUtf8)"/>.
+</para>
 </remarks>
 <param name="namespace">
 Namespace of interest
@@ -179,11 +191,14 @@ Return an array of the immediate versioned dependencies for <paramref name="name
 Returned strings are of the form &lt;code&gt;namespace-version&lt;/code&gt;.
 </summary>
 <remarks>
+<para>
 Note: <paramref name="namespace"/> must have already been loaded using a function
 such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
-
+</para>
+<para>
 To get the transitive closure of dependencies for <paramref name="namespace"/>, use
 <see cref="Repository.GetDependencies(GISharp.Lib.GLib.UnownedUtf8)"/>.
+</para>
 </remarks>
 <param name="namespace">
 Namespace of interest
@@ -201,6 +216,7 @@ cannot fail per se; but for a totally "unknown" #GType, it may
 return 0 implemented interfaces.
 </summary>
 <remarks>
+<para>
 The semantics of this function are designed for a dynamic binding,
 where in certain cases (such as a function which returns an
 interface which may have "hidden" implementation classes), not all
@@ -208,6 +224,7 @@ data may be statically known, and will have to be determined from
 the #GType of the object.  An example is g_file_new_for_path()
 returning a concrete class of #GLocalFile, which is a #GType we
 see at runtime, but not statically.
+</para>
 </remarks>
 <param name="gtype">
 a #GType whose fundamental type is G_TYPE_OBJECT
@@ -225,8 +242,10 @@ There may be no shared library path associated, in which case this
 function will return <c>null</c>.
 </summary>
 <remarks>
+<para>
 Note: The namespace must have already been loaded using a function
 such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
+</para>
 </remarks>
 <param name="namespace">
 Namespace to inspect
@@ -258,8 +277,10 @@ This function returns the loaded version associated with the given
 namespace <paramref name="namespace"/>.
 </summary>
 <remarks>
+<para>
 Note: The namespace must have already been loaded using a function
 such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
+</para>
 </remarks>
 <param name="namespace">
 Namespace to inspect
@@ -357,16 +378,20 @@ On error
 are represented on disk by type libraries (.typelib files).
 </summary>
 <remarks>
+<para>
 ### Discovery of type libraries
-
+</para>
+<para>
 <see cref="Repository"/> will typically look for a `girepository-1.0` directory
 under the library directory used when compiling gobject-introspection.
-
+</para>
+<para>
 It is possible to control the search paths programmatically, using
 <see cref="Repository.PrependSearchPath(GISharp.Lib.GLib.Filename)"/>. It is also possible to modify
 the search paths by using the `GI_TYPELIB_PATH` environment variable.
 The environment variable takes precedence over the default search path
 and the <see cref="Repository.PrependSearchPath(GISharp.Lib.GLib.Filename)"/> calls.
+</para>
 </remarks>
 </member>
 

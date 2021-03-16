@@ -5,9 +5,11 @@
 Use this for default priority event sources.
 </summary>
 <remarks>
+<para>
 In GLib this priority is used when adding timeout functions
 with <see cref="Timeout.Add"/>. In GDK this priority is used for events
 from the X server.
+</para>
 </remarks>
 </member>
 
@@ -16,8 +18,10 @@ from the X server.
 Use this for default priority idle functions.
 </summary>
 <remarks>
+<para>
 In GLib this priority is used when adding idle functions with
 <see cref="Idle.Add(SourceFunc,int)"/>.
+</para>
 </remarks>
 </member>
 
@@ -26,7 +30,9 @@ In GLib this priority is used when adding idle functions with
 Use this for high priority event sources.
 </summary>
 <remarks>
+<para>
 It is not used within GLib or GTK+.
+</para>
 </remarks>
 </member>
 
@@ -35,10 +41,12 @@ It is not used within GLib or GTK+.
 Use this for high priority idle functions.
 </summary>
 <remarks>
+<para>
 GTK+ uses <see cref="HighIdle"/> + 10 for resizing operations,
 and  <see cref="HighIdle"/> + 20 for redrawing operations. (This is
 done to ensure that any pending resizes are processed before any
 pending redraws, so that widgets are not redrawn twice unnecessarily.)
+</para>
 </remarks>
 </member>
 
@@ -47,7 +55,9 @@ pending redraws, so that widgets are not redrawn twice unnecessarily.)
 Use this for very low priority background tasks.
 </summary>
 <remarks>
+<para>
 It is not used within GLib or GTK+.
+</para>
 </remarks>
 </member>
 

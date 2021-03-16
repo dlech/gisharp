@@ -8,10 +8,13 @@ invoked. This can only happen after g_task_return_pointer(),
 on the task.
 </summary>
 <remarks>
+<para>
 This property is guaranteed to change from <c>false</c> to <c>true</c> exactly once.
-
+</para>
+<para>
 The #GObject::notify signal for this change is emitted in the same main
 context as the task’s callback, immediately after that callback is invoked.
+</para>
 </remarks>
 </member>
 
@@ -44,8 +47,10 @@ is, the context that was the
 at the point when this instance was created).
 </summary>
 <remarks>
+<para>
 This will always return a non-<c>null</c> value, even if the task's
 context is the default #GMainContext.
+</para>
 </remarks>
 </member>
 
@@ -103,11 +108,13 @@ used to invoke <paramref name="callback"/> in the current
 [thread-default main context][g-main-context-push-thread-default].
 </summary>
 <remarks>
+<para>
 Call this in the "start" method of your asynchronous method, and
 pass the <see cref="Task"/> around throughout the asynchronous operation. You
 can use <see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> to attach task-specific data to the
 object, which you can retrieve later via <see cref="Task.GetTaskData()"/>.
-
+</para>
+<para>
 By default, if <paramref name="cancellable"/> is cancelled, then the return value of
 the task will always be <see cref="IOErrorEnum.Cancelled"/>, even if the task had
 already completed before the cancellation. This allows for
@@ -115,6 +122,7 @@ simplified handling in cases where cancellation may imply that
 other objects that the task depends on have been destroyed. If you
 do not want this behavior, you can use
 <see cref="Task.SetCheckCancellable(bool)"/> to change it.
+</para>
 </remarks>
 <param name="sourceObject">
 the #GObject that owns
@@ -157,7 +165,9 @@ check if the result there is tagged as having been created by the
 wrapper method, and deal with it appropriately if so.
 </summary>
 <remarks>
+<para>
 See also g_task_report_new_error().
+</para>
 </remarks>
 <param name="sourceObject">
 the #GObject that owns
@@ -188,11 +198,14 @@ Tests if this instance resulted in an error.
 Gets the result of this instance as a #gboolean.
 </summary>
 <remarks>
+<para>
 If the task resulted in an error, or was cancelled, then this will
 instead return <c>false</c> and set <see cref="GISharp.Runtime.GErrorException"/>.
-
+</para>
+<para>
 Since this method transfers ownership of the return value (or
 error) to the caller, you may only call it once.
+</para>
 </remarks>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -204,11 +217,14 @@ On error
 Gets the result of this instance as an integer (#gssize).
 </summary>
 <remarks>
+<para>
 If the task resulted in an error, or was cancelled, then this will
 instead return -1 and set <see cref="GISharp.Runtime.GErrorException"/>.
-
+</para>
+<para>
 Since this method transfers ownership of the return value (or
 error) to the caller, you may only call it once.
+</para>
 </remarks>
 <returns>
 the task result, or -1 on error
@@ -224,11 +240,14 @@ Gets the result of this instance as a pointer, and transfers ownership
 of that value to the caller.
 </summary>
 <remarks>
+<para>
 If the task resulted in an error, or was cancelled, then this will
 instead return <c>null</c> and set <see cref="GISharp.Runtime.GErrorException"/>.
-
+</para>
+<para>
 Since this method transfers ownership of the return value (or
 error) to the caller, you may only call it once.
+</para>
 </remarks>
 <returns>
 the task result, or <c>null</c> on error
@@ -246,11 +265,14 @@ a generic low-level method; <see cref="Task.PropagatePointer()"/> and the like
 will usually be more useful for C code.
 </summary>
 <remarks>
+<para>
 If the task resulted in an error, or was cancelled, then this will
 instead set <see cref="GISharp.Runtime.GErrorException"/> and return <c>false</c>.
-
+</para>
+<para>
 Since this method transfers ownership of the return value (or
 error) to the caller, you may only call it once.
+</para>
 </remarks>
 <param name="value">
 return location for the #GValue
@@ -278,13 +300,16 @@ and completes the task (see g_task_return_pointer() for more
 discussion of exactly what this means).
 </summary>
 <remarks>
+<para>
 Note that since the task takes ownership of <paramref name="error"/>, and since the
 task may be completed before returning from <see cref="Task.ReturnError(GISharp.Lib.GLib.Error)"/>,
 you cannot assume that <paramref name="error"/> is still valid after calling this.
 Call g_error_copy() on the error if you need to keep a local copy
 as well.
-
+</para>
+<para>
 See also g_task_return_new_error().
+</para>
 </remarks>
 <param name="error">
 the #GError result of a task function.
@@ -319,12 +344,15 @@ the integer (#gssize) result of a task function.
 Sets this instance's result to <paramref name="result"/> (by copying it) and completes the task.
 </summary>
 <remarks>
+<para>
 If <paramref name="result"/> is <c>null</c> then a #GValue of type #G_TYPE_POINTER
 with a value of <c>null</c> will be used for the result.
-
+</para>
+<para>
 This is a very generic low-level method intended primarily for use
 by language bindings; for C code, g_task_return_pointer() and the
 like will normally be much easier to use.
+</para>
 </remarks>
 <param name="result">
 the #GValue result of a task function
@@ -338,11 +366,13 @@ meaningful for tasks run via g_task_run_in_thread() or
 g_task_run_in_thread_sync().
 </summary>
 <remarks>
+<para>
 If <paramref name="returnOnCancel"/> is <c>true</c>, then cancelling this instance's
 <see cref="Cancellable"/> will immediately cause it to return, as though the
 task's <see cref="TaskThreadFunc"/> had called
 <see cref="Task.ReturnErrorIfCancelled()"/> and then returned.
-
+</para>
+<para>
 This allows you to create a cancellable wrapper around an
 uninterruptible function. The <see cref="TaskThreadFunc"/> just needs to be
 careful that it does not modify any externally-visible state after
@@ -352,16 +382,19 @@ return-on-cancel <c>false</c> before making externally-visible changes;
 if the task gets cancelled before the return-on-cancel flag could
 be changed, <see cref="Task.SetReturnOnCancel(bool)"/> will indicate this by
 returning <c>false</c>.
-
+</para>
+<para>
 You can disable and re-enable this flag multiple times if you wish.
 If the task's <see cref="Cancellable"/> is cancelled while return-on-cancel is
 <c>false</c>, then calling <see cref="Task.SetReturnOnCancel(bool)"/> to set it <c>true</c>
 again will cause the task to be cancelled at that point.
-
+</para>
+<para>
 If the task's <see cref="Cancellable"/> is already cancelled before you call
 g_task_run_in_thread()/g_task_run_in_thread_sync(), then the
 <see cref="TaskThreadFunc"/> will still be run (for consistency), but the task
 will also be completed right away.
+</para>
 </remarks>
 <param name="returnOnCancel">
 whether the task returns automatically when
@@ -379,8 +412,10 @@ whether the task returns automatically when
 A <see cref="Task"/> represents and manages a cancellable "task".
 </summary>
 <remarks>
+<para>
 ## Asynchronous operations
-
+</para>
+<para>
 The most common usage of <see cref="Task"/> is as a <see cref="IAsyncResult"/>, to
 manage data during an asynchronous operation. You call
 <see cref="Task.Task(GISharp.Lib.GObject.Object,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/> in the "start" method, followed by
@@ -397,21 +432,24 @@ loop first, if necessary). The caller will pass the <see cref="Task"/> back to
 the operation's finish function (as a <see cref="IAsyncResult"/>), and you can
 use <see cref="Task.PropagatePointer()"/> or the like to extract the
 return value.
-
+</para>
+<para>
 Here is an example for using GTask as a GAsyncResult:
 |[&lt;!-- language="C" --&gt;
     typedef struct {
       CakeFrostingType frosting;
       char *message;
     } DecorationData;
-
+</para>
+<para>
     static void
     decoration_data_free (DecorationData *decoration)
     {
       g_free (decoration-&gt;message);
       g_slice_free (DecorationData, decoration);
     }
-
+</para>
+<para>
     static void
     baked_cb (Cake     *cake,
               gpointer  user_data)
@@ -419,7 +457,8 @@ Here is an example for using GTask as a GAsyncResult:
       GTask *task = user_data;
       DecorationData *decoration = g_task_get_task_data (task);
       GError *error = NULL;
-
+</para>
+<para>
       if (cake == NULL)
         {
           g_task_return_new_error (task, BAKER_ERROR, BAKER_ERROR_NO_FLOUR,
@@ -427,7 +466,8 @@ Here is an example for using GTask as a GAsyncResult:
           g_object_unref (task);
           return;
         }
-
+</para>
+<para>
       if (!cake_decorate (cake, decoration-&gt;frosting, decoration-&gt;message, &amp;error))
         {
           g_object_unref (cake);
@@ -436,11 +476,13 @@ Here is an example for using GTask as a GAsyncResult:
           g_object_unref (task);
           return;
         }
-
+</para>
+<para>
       g_task_return_pointer (task, cake, g_object_unref);
       g_object_unref (task);
     }
-
+</para>
+<para>
     void
     baker_bake_cake_async (Baker               *self,
                            guint                radius,
@@ -454,7 +496,8 @@ Here is an example for using GTask as a GAsyncResult:
       GTask *task;
       DecorationData *decoration;
       Cake  *cake;
-
+</para>
+<para>
       task = g_task_new (self, cancellable, callback, user_data);
       if (radius &lt; 3)
         {
@@ -464,7 +507,8 @@ Here is an example for using GTask as a GAsyncResult:
           g_object_unref (task);
           return;
         }
-
+</para>
+<para>
       cake = _baker_get_cached_cake (self, radius, flavor, frosting, message);
       if (cake != NULL)
         {
@@ -473,28 +517,34 @@ Here is an example for using GTask as a GAsyncResult:
           g_object_unref (task);
           return;
         }
-
+</para>
+<para>
       decoration = g_slice_new (DecorationData);
       decoration-&gt;frosting = frosting;
       decoration-&gt;message = g_strdup (message);
       g_task_set_task_data (task, decoration, (GDestroyNotify) decoration_data_free);
-
+</para>
+<para>
       _baker_begin_cake (self, radius, flavor, cancellable, baked_cb, task);
     }
-
+</para>
+<para>
     Cake *
     baker_bake_cake_finish (Baker         *self,
                             GAsyncResult  *result,
                             GError       **error)
     {
       g_return_val_if_fail (g_task_is_valid (result, self), NULL);
-
+</para>
+<para>
       return g_task_propagate_pointer (G_TASK (result), error);
     }
 ]|
-
+</para>
+<para>
 ## Chained asynchronous operations
-
+</para>
+<para>
 <see cref="Task"/> also tries to simplify asynchronous operations that
 internally chain together several smaller asynchronous
 operations. <see cref="Task.GetCancellable()"/>, <see cref="Task.GetContext()"/>,
@@ -504,7 +554,8 @@ when starting a new subtask, so you don't have to keep track
 of them yourself. g_task_attach_source() simplifies the case
 of waiting for a source to fire (automatically using the correct
 #GMainContext and priority).
-
+</para>
+<para>
 Here is an example for chained asynchronous operations:
   |[&lt;!-- language="C" --&gt;
     typedef struct {
@@ -512,7 +563,8 @@ Here is an example for chained asynchronous operations:
       CakeFrostingType frosting;
       char *message;
     } BakingData;
-
+</para>
+<para>
     static void
     decoration_data_free (BakingData *bd)
     {
@@ -521,7 +573,8 @@ Here is an example for chained asynchronous operations:
       g_free (bd-&gt;message);
       g_slice_free (BakingData, bd);
     }
-
+</para>
+<para>
     static void
     decorated_cb (Cake         *cake,
                   GAsyncResult *result,
@@ -529,7 +582,8 @@ Here is an example for chained asynchronous operations:
     {
       GTask *task = user_data;
       GError *error = NULL;
-
+</para>
+<para>
       if (!cake_decorate_finish (cake, result, &amp;error))
         {
           g_object_unref (cake);
@@ -537,26 +591,31 @@ Here is an example for chained asynchronous operations:
           g_object_unref (task);
           return;
         }
-
+</para>
+<para>
       // baking_data_free() will drop its ref on the cake, so we have to
       // take another here to give to the caller.
       g_task_return_pointer (task, g_object_ref (cake), g_object_unref);
       g_object_unref (task);
     }
-
+</para>
+<para>
     static gboolean
     decorator_ready (gpointer user_data)
     {
       GTask *task = user_data;
       BakingData *bd = g_task_get_task_data (task);
-
+</para>
+<para>
       cake_decorate_async (bd-&gt;cake, bd-&gt;frosting, bd-&gt;message,
                            g_task_get_cancellable (task),
                            decorated_cb, task);
-
+</para>
+<para>
       return G_SOURCE_REMOVE;
     }
-
+</para>
+<para>
     static void
     baked_cb (Cake     *cake,
               gpointer  user_data)
@@ -564,7 +623,8 @@ Here is an example for chained asynchronous operations:
       GTask *task = user_data;
       BakingData *bd = g_task_get_task_data (task);
       GError *error = NULL;
-
+</para>
+<para>
       if (cake == NULL)
         {
           g_task_return_new_error (task, BAKER_ERROR, BAKER_ERROR_NO_FLOUR,
@@ -572,22 +632,26 @@ Here is an example for chained asynchronous operations:
           g_object_unref (task);
           return;
         }
-
+</para>
+<para>
       bd-&gt;cake = cake;
-
+</para>
+<para>
       // Bail out now if the user has already cancelled
       if (g_task_return_error_if_cancelled (task))
         {
           g_object_unref (task);
           return;
         }
-
+</para>
+<para>
       if (cake_decorator_available (cake))
         decorator_ready (task);
       else
         {
           GSource *source;
-
+</para>
+<para>
           source = cake_decorator_wait_source_new (cake);
           // Attach @source to @task's GMainContext and have it call
           // decorator_ready() when it is ready.
@@ -595,7 +659,8 @@ Here is an example for chained asynchronous operations:
           g_source_unref (source);
         }
     }
-
+</para>
+<para>
     void
     baker_bake_cake_async (Baker               *self,
                            guint                radius,
@@ -609,37 +674,45 @@ Here is an example for chained asynchronous operations:
     {
       GTask *task;
       BakingData *bd;
-
+</para>
+<para>
       task = g_task_new (self, cancellable, callback, user_data);
       g_task_set_priority (task, priority);
-
+</para>
+<para>
       bd = g_slice_new0 (BakingData);
       bd-&gt;frosting = frosting;
       bd-&gt;message = g_strdup (message);
       g_task_set_task_data (task, bd, (GDestroyNotify) baking_data_free);
-
+</para>
+<para>
       _baker_begin_cake (self, radius, flavor, cancellable, baked_cb, task);
     }
-
+</para>
+<para>
     Cake *
     baker_bake_cake_finish (Baker         *self,
                             GAsyncResult  *result,
                             GError       **error)
     {
       g_return_val_if_fail (g_task_is_valid (result, self), NULL);
-
+</para>
+<para>
       return g_task_propagate_pointer (G_TASK (result), error);
     }
 ]|
-
+</para>
+<para>
 ## Asynchronous operations from synchronous ones
-
+</para>
+<para>
 You can use g_task_run_in_thread() to turn a synchronous
 operation into an asynchronous one, by running it in a thread.
 When it completes, the result will be dispatched to the
 [thread-default main context][g-main-context-push-thread-default]
 where the <see cref="Task"/> was created.
-
+</para>
+<para>
 Running a task in a thread:
   |[&lt;!-- language="C" --&gt;
     typedef struct {
@@ -648,14 +721,16 @@ Running a task in a thread:
       CakeFrostingType frosting;
       char *message;
     } CakeData;
-
+</para>
+<para>
     static void
     cake_data_free (CakeData *cake_data)
     {
       g_free (cake_data-&gt;message);
       g_slice_free (CakeData, cake_data);
     }
-
+</para>
+<para>
     static void
     bake_cake_thread (GTask         *task,
                       gpointer       source_object,
@@ -666,7 +741,8 @@ Running a task in a thread:
       CakeData *cake_data = task_data;
       Cake *cake;
       GError *error = NULL;
-
+</para>
+<para>
       cake = bake_cake (baker, cake_data-&gt;radius, cake_data-&gt;flavor,
                         cake_data-&gt;frosting, cake_data-&gt;message,
                         cancellable, &amp;error);
@@ -675,7 +751,8 @@ Running a task in a thread:
       else
         g_task_return_error (task, error);
     }
-
+</para>
+<para>
     void
     baker_bake_cake_async (Baker               *self,
                            guint                radius,
@@ -688,7 +765,8 @@ Running a task in a thread:
     {
       CakeData *cake_data;
       GTask *task;
-
+</para>
+<para>
       cake_data = g_slice_new (CakeData);
       cake_data-&gt;radius = radius;
       cake_data-&gt;flavor = flavor;
@@ -699,20 +777,24 @@ Running a task in a thread:
       g_task_run_in_thread (task, bake_cake_thread);
       g_object_unref (task);
     }
-
+</para>
+<para>
     Cake *
     baker_bake_cake_finish (Baker         *self,
                             GAsyncResult  *result,
                             GError       **error)
     {
       g_return_val_if_fail (g_task_is_valid (result, self), NULL);
-
+</para>
+<para>
       return g_task_propagate_pointer (G_TASK (result), error);
     }
 ]|
-
+</para>
+<para>
 ## Adding cancellability to uncancellable tasks
-
+</para>
+<para>
 Finally, g_task_run_in_thread() and g_task_run_in_thread_sync()
 can be used to turn an uncancellable operation into a
 cancellable one. If you call <see cref="Task.SetReturnOnCancel(bool)"/>,
@@ -724,7 +806,8 @@ Provided that the task thread is careful about how it uses
 locks and other externally-visible resources, this allows you
 to make "GLib-friendly" asynchronous and cancellable
 synchronous variants of blocking APIs.
-
+</para>
+<para>
 Cancelling a task:
   |[&lt;!-- language="C" --&gt;
     static void
@@ -737,7 +820,8 @@ Cancelling a task:
       CakeData *cake_data = task_data;
       Cake *cake;
       GError *error = NULL;
-
+</para>
+<para>
       cake = bake_cake (baker, cake_data-&gt;radius, cake_data-&gt;flavor,
                         cake_data-&gt;frosting, cake_data-&gt;message,
                         &amp;error);
@@ -746,7 +830,8 @@ Cancelling a task:
           g_task_return_error (task, error);
           return;
         }
-
+</para>
+<para>
       // If the task has already been cancelled, then we don't want to add
       // the cake to the cake cache. Likewise, we don't  want to have the
       // task get cancelled in the middle of updating the cache.
@@ -765,7 +850,8 @@ Cancelling a task:
           g_task_return_pointer (task, cake, g_object_unref);
         }
     }
-
+</para>
+<para>
     void
     baker_bake_cake_async (Baker               *self,
                            guint                radius,
@@ -778,17 +864,21 @@ Cancelling a task:
     {
       CakeData *cake_data;
       GTask *task;
-
+</para>
+<para>
       cake_data = g_slice_new (CakeData);
-
+</para>
+<para>
       ...
-
+</para>
+<para>
       task = g_task_new (self, cancellable, callback, user_data);
       g_task_set_task_data (task, cake_data, (GDestroyNotify) cake_data_free);
       g_task_set_return_on_cancel (task, TRUE);
       g_task_run_in_thread (task, bake_cake_thread);
     }
-
+</para>
+<para>
     Cake *
     baker_bake_cake_sync (Baker               *self,
                           guint                radius,
@@ -801,24 +891,30 @@ Cancelling a task:
       CakeData *cake_data;
       GTask *task;
       Cake *cake;
-
+</para>
+<para>
       cake_data = g_slice_new (CakeData);
-
+</para>
+<para>
       ...
-
+</para>
+<para>
       task = g_task_new (self, cancellable, NULL, NULL);
       g_task_set_task_data (task, cake_data, (GDestroyNotify) cake_data_free);
       g_task_set_return_on_cancel (task, TRUE);
       g_task_run_in_thread_sync (task, bake_cake_thread);
-
+</para>
+<para>
       cake = g_task_propagate_pointer (task, error);
       g_object_unref (task);
       return cake;
     }
 ]|
-
+</para>
+<para>
 ## Porting from GSimpleAsyncResult
-
+</para>
+<para>
 <see cref="Task"/>'s API attempts to be simpler than #GSimpleAsyncResult's
 in several ways:
 - You can save task-specific data with <see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>, and
@@ -872,6 +968,7 @@ in several ways:
   having come from the `_async()` wrapper
   function (for "short-circuit" results, such as when passing
   0 to <see cref="InputStream.ReadAsync(System.Memory{byte},int,GISharp.Lib.Gio.Cancellable)"/>).
+</para>
 </remarks>
 </member>
 

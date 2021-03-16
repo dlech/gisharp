@@ -427,9 +427,11 @@ namespace GISharp.Lib.GLib
         /// 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See
         /// [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
         /// for details.
+        /// </para>
         /// </remarks>
         /// <param name="iso15924">
         /// a Unicode script
@@ -468,9 +470,11 @@ namespace GISharp.Lib.GLib
         /// 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See
         /// [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
         /// for details.
+        /// </para>
         /// </remarks>
         /// <param name="script">
         /// a Unicode script

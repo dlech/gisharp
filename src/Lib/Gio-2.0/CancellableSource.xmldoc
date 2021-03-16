@@ -8,10 +8,13 @@ primarily useful for attaching to another (non-cancellable) source
 with <see cref="GISharp.Lib.GLib.Source.AddChildSource"/> to add cancellability to it.
 </summary>
 <remarks>
+<para>
 For convenience, you can call this with a <c>null</c> <see cref="Cancellable"/>,
 in which case the source will never trigger.
-
+</para>
+<para>
 The new <see cref="GISharp.Lib.GLib.Source"/> will hold a reference to the <see cref="Cancellable"/>.
+</para>
 </remarks>
 <param name="cancellable">
 a <see cref="Cancellable"/>, or <c>null</c>

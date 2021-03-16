@@ -20,13 +20,16 @@ namespace GISharp.Lib.GLib
         /// to a #GTimeVal and puts it into @time_.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @iso_date must include year, month, day, hours, minutes, and
         /// seconds. It can optionally include fractions of a second and a time
         /// zone indicator. (In the absence of any time zone indication, the
         /// timestamp is assumed to be in local time.)
-        /// 
+        /// </para>
+        /// <para>
         /// Any leading or trailing space in @iso_date is ignored.
-        /// 
+        /// </para>
+        /// <para>
         /// This function was deprecated, along with #GTimeVal itself, in GLib 2.62.
         /// Equivalent functionality is available using code like:
         /// |[
@@ -34,6 +37,7 @@ namespace GISharp.Lib.GLib
         /// gint64 time_val = g_date_time_to_unix (dt);
         /// g_date_time_unref (dt);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="isoDate">
         /// an ISO 8601 encoded date string
@@ -119,23 +123,27 @@ namespace GISharp.Lib.GLib
         /// allowed by ISO 8601.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// ISO 8601 allows a large number of date/time formats, with or without
         /// punctuation and optional elements. The format returned by this function
         /// is a complete date and time, with optional punctuation included, the
         /// UTC time zone represented as "Z", and the @tv_usec part included if
         /// and only if it is nonzero, i.e. either
         /// "YYYY-MM-DDTHH:MM:SSZ" or "YYYY-MM-DDTHH:MM:SS.fffffZ".
-        /// 
+        /// </para>
+        /// <para>
         /// This corresponds to the Internet date/time format defined by
         /// [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt),
         /// and to either of the two most-precise formats defined by
         /// the W3C Note
         /// [Date and Time Formats](http://www.w3.org/TR/NOTE-datetime-19980827).
         /// Both of these documents are profiles of ISO 8601.
-        /// 
+        /// </para>
+        /// <para>
         /// Use g_date_time_format() or g_strdup_printf() if a different
         /// variation of ISO 8601 format is required.
-        /// 
+        /// </para>
+        /// <para>
         /// If @time_ represents a date which is too large to fit into a `struct tm`,
         /// %NULL will be returned. This is platform dependent. Note also that since
         /// `GTimeVal` stores the number of seconds as a `glong`, on 32-bit systems it
@@ -146,9 +154,11 @@ namespace GISharp.Lib.GLib
         /// iso8601_string = g_date_time_format_iso8601 (dt);
         /// g_date_time_unref (dt);
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// The return value of g_time_val_to_iso8601() has been nullable since GLib
         /// 2.54; before then, GLib would crash under the same conditions.
+        /// </para>
         /// </remarks>
         /// <param name="time">
         /// a #GTimeVal

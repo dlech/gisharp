@@ -18,7 +18,9 @@ namespace GISharp.Lib.Gtk
         /// you wanted to set different values for different locale categories.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Most programs should not need to call this function.
+        /// </para>
         /// </remarks>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -39,21 +41,25 @@ namespace GISharp.Lib.Gtk
         /// toolkit and parses some standard command line options.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If you are using #GtkApplication, you don't have to call gtk_init()
         /// or gtk_init_check(); the #GApplication::startup handler
         /// does it for you.
-        /// 
+        /// </para>
+        /// <para>
         /// This function will terminate your program if it was unable to
         /// initialize the windowing system for some reason. If you want
         /// your program to fall back to a textual interface you want to
         /// call gtk_init_check() instead.
-        /// 
+        /// </para>
+        /// <para>
         /// GTK calls `signal (SIGPIPE, SIG_IGN)`
         /// during initialization, to ignore SIGPIPE signals, since these are
         /// almost never wanted in graphical applications. If you do need to
         /// handle SIGPIPE for some reason, reset the handler after gtk_init(),
         /// but notice that other libraries (e.g. libdbus or gvfs) might do
         /// similar things.
+        /// </para>
         /// </remarks>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -74,9 +80,11 @@ namespace GISharp.Lib.Gtk
         /// can’t be initialized. Instead it returns %FALSE on failure.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This way the application can fall back to some other means of
         /// communication with the user - for example a curses or command line
         /// interface.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// %TRUE if the windowing system has been successfully

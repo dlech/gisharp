@@ -5,8 +5,10 @@
 If this instance is currently enabled.
 </summary>
 <remarks>
+<para>
 If the action is disabled then calls to <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> and
 <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> have no effect.
+</para>
 </remarks>
 </member>
 
@@ -42,8 +44,10 @@ action is stateless.
 Creates a new action.
 </summary>
 <remarks>
+<para>
 The created action is stateless. See <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/> to create
 an action that has state.
+</para>
 </remarks>
 <param name="name">
 the name of the action
@@ -59,10 +63,13 @@ the type of parameter that will be passed to
 Creates a new stateful action.
 </summary>
 <remarks>
+<para>
 All future state values must have the same <see cref="GLib.VariantType"/> as the initial
 <paramref name="state"/>.
-
+</para>
+<para>
 If the <paramref name="state"/> <see cref="GLib.Variant"/> is floating, it is consumed.
+</para>
 </remarks>
 <param name="name">
 the name of the action
@@ -81,10 +88,12 @@ the initial state of the action
 Indicates that the action was just activated.
 </summary>
 <remarks>
+<para>
 <paramref name="parameter"/> will always be of the expected type, i.e. the parameter type
 specified when the action was created. If an incorrect type is given when
 activating the action, this signal is not emitted.
-
+</para>
+<para>
 Since GLib 2.40, if no handler is connected to this signal then the
 default behaviour for boolean-stated actions with a <c>null</c> parameter
 type is to toggle them via the <see cref="SimpleAction.ChangeStateSignal"/>.
@@ -92,6 +101,7 @@ For stateful actions where the state type is equal to the parameter
 type, the default is to forward them directly to
 <see cref="SimpleAction.ChangeStateSignal"/>.  This should allow almost all users
 of <see cref="SimpleAction"/> to connect only one handler or the other.
+</para>
 </remarks>
 <param name="simpleAction">
 the instance on which the signal was invoked
@@ -112,17 +122,20 @@ Indicates that the action just received a request to change its
 state.
 </summary>
 <remarks>
+<para>
 <paramref name="value"/> will always be of the correct state type, i.e. the type of the
 initial state passed to <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>. If an incorrect
 type is given when requesting to change the state, this signal is not
 emitted.
-
+</para>
+<para>
 If no handler is connected to this signal then the default
 behaviour is to call <see cref="SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> to set the state
 to the requested value. If you connect a signal handler then no
 default action is taken. If the state should change then you must
 call <see cref="SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> from the handler.
-
+</para>
+<para>
 An example of a 'change-state' handler:
 |[&lt;!-- language="C" --&gt;
 static void
@@ -131,17 +144,21 @@ change_volume_state (GSimpleAction *action,
                      gpointer       user_data)
 {
   gint requested;
-
+</para>
+<para>
   requested = g_variant_get_int32 (value);
-
+</para>
+<para>
   // Volume only goes from 0 to 10
   if (0 &lt;= requested &amp;&amp; requested &lt;= 10)
     g_simple_action_set_state (action, value);
 }
 ]|
-
+</para>
+<para>
 The handler need not set the state to the requested value.
 It could set it to any value at all, or take some other action.
+</para>
 </remarks>
 <param name="simpleAction">
 the instance on which the signal was invoked
@@ -160,11 +177,14 @@ the requested value for the state
 Sets the action as enabled or not.
 </summary>
 <remarks>
+<para>
 An action must be enabled in order to be activated or in order to
 have its state changed from outside callers.
-
+</para>
+<para>
 This should only be called by the implementor of the action.  Users
 of the action should not attempt to modify its enabled flag.
+</para>
 </remarks>
 <param name="enabled">
 whether the action is enabled
@@ -176,14 +196,18 @@ whether the action is enabled
 Sets the state of the action.
 </summary>
 <remarks>
+<para>
 This directly updates the 'state' property to the given value.
-
+</para>
+<para>
 This should only be called by the implementor of the action.  Users
 of the action should not attempt to directly modify the 'state'
 property.  Instead, they should call <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> to
 request the change.
-
+</para>
+<para>
 If the <paramref name="value"/> GVariant is floating, it is consumed.
+</para>
 </remarks>
 <param name="value">
 the new <see cref="GLib.Variant"/> for the state
@@ -195,8 +219,10 @@ the new <see cref="GLib.Variant"/> for the state
 Sets the state hint for the action.
 </summary>
 <remarks>
+<para>
 See <see cref="Action.GetStateHint(GISharp.Lib.Gio.IAction)"/> for more information about
 action state hints.
+</para>
 </remarks>
 <param name="stateHint">
 a <see cref="GLib.Variant"/> representing the state hint
@@ -210,7 +236,9 @@ interface. This is the easiest way to create an action for purposes of
 adding it to a <see cref="T:SimpleActionGroup"/>.
 </summary>
 <remarks>
+<para>
 See also #GtkAction.
+</para>
 </remarks>
 </member>
 

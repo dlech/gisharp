@@ -39,7 +39,9 @@ Flags to be passed to <see cref="Object.BindProperty(GISharp.Lib.GLib.UnownedUtf
 g_object_bind_property_full().
 </summary>
 <remarks>
+<para>
 This enumeration can be extended at later date.
+</para>
 </remarks>
 </member>
 

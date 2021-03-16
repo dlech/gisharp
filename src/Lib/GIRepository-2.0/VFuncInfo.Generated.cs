@@ -115,7 +115,9 @@ namespace GISharp.Lib.GIRepository
         /// method will return it.  An invoker method is a C entry point.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Not all virtuals will have invokers.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GIVFuncInfo

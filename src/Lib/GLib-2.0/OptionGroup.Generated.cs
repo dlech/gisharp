@@ -134,9 +134,11 @@ namespace GISharp.Lib.GLib
         /// and after the last option has been parsed, respectively.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the user data to be passed to @pre_parse_func and
         /// @post_parse_func can be specified when constructing the group
         /// with g_option_group_new().
+        /// </para>
         /// </remarks>
         /// <param name="group">
         /// a #GOptionGroup
@@ -168,8 +170,10 @@ namespace GISharp.Lib.GLib
         /// #GTranslateFuncs. If @func is %NULL, strings are not translated.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If you are using gettext(), you only need to set the translation
         /// domain, see g_option_group_set_translation_domain().
+        /// </para>
         /// </remarks>
         /// <param name="group">
         /// a #GOptionGroup

@@ -12,11 +12,14 @@ namespace GISharp.Lib.GLib
         /// (g_log_writer_default()) will be used.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Libraries **must not** call this function — only programs are allowed to
         /// install a writer function, as there must be a single, central point where
         /// log messages are formatted and outputted.
-        /// 
+        /// </para>
+        /// <para>
         /// There can only be one writer function. It is an error to set more than one.
+        /// </para>
         /// </remarks>
         /// <param name="func">
         /// log writer function, which must not be %NULL
@@ -50,16 +53,20 @@ namespace GISharp.Lib.GLib
         /// being redirected to a file.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Support for other platform-specific logging mechanisms may be added in
         /// future. Distributors of GLib may modify this function to impose their own
         /// (documented) platform-specific log writing policies.
-        /// 
+        /// </para>
+        /// <para>
         /// This is suitable for use as a #GLogWriterFunc, and is the default writer used
         /// if no other is set using g_log_set_writer_func().
-        /// 
+        /// </para>
+        /// <para>
         /// As with g_log_default_handler(), this function drops debug and informational
         /// messages unless their log domain (or `all`) is listed in the space-separated
         /// `G_MESSAGES_DEBUG` environment variable.
+        /// </para>
         /// </remarks>
         /// <param name="logLevel">
         /// log level, either from #GLogLevelFlags, or a user-defined
@@ -106,9 +113,11 @@ namespace GISharp.Lib.GLib
         /// unknown fields.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The returned string does **not** have a trailing new-line character. It is
         /// encoded in the character set of the current locale, which is not necessarily
         /// UTF-8.
+        /// </para>
         /// </remarks>
         /// <param name="logLevel">
         /// log level, either from #GLogLevelFlags, or a user-defined
@@ -173,11 +182,13 @@ namespace GISharp.Lib.GLib
         /// `stderr`).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Invalid file descriptors are accepted and return %FALSE, which allows for
         /// the following construct without needing any additional error handling:
         /// |[&lt;!-- language="C" --&gt;
         ///   is_journald = g_log_writer_is_journald (fileno (stderr));
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="outputFd">
         /// output file descriptor to check
@@ -213,10 +224,13 @@ namespace GISharp.Lib.GLib
         /// sent.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is suitable for use as a #GLogWriterFunc.
-        /// 
+        /// </para>
+        /// <para>
         /// If GLib has been compiled without systemd support, this function is still
         /// defined, but will always return %G_LOG_WRITER_UNHANDLED.
+        /// </para>
         /// </remarks>
         /// <param name="logLevel">
         /// log level, either from #GLogLevelFlags, or a user-defined
@@ -263,12 +277,16 @@ namespace GISharp.Lib.GLib
         /// which is printed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the output stream supports ANSI color escape sequences, they will be used
         /// in the output.
-        /// 
+        /// </para>
+        /// <para>
         /// A trailing new-line character is added to the log message when it is printed.
-        /// 
+        /// </para>
+        /// <para>
         /// This is suitable for use as a #GLogWriterFunc.
+        /// </para>
         /// </remarks>
         /// <param name="logLevel">
         /// log level, either from #GLogLevelFlags, or a user-defined

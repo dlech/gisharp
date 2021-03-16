@@ -48,10 +48,13 @@ namespace GISharp.Lib.Gio
         /// Adds an action to the @action_map.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the action map already contains an action with the same name
         /// as @action then the old action is dropped from the action map.
-        /// 
+        /// </para>
+        /// <para>
         /// The action map takes its own reference on @action.
+        /// </para>
         /// </remarks>
         /// <param name="actionMap">
         /// a #GActionMap
@@ -86,7 +89,9 @@ namespace GISharp.Lib.Gio
         /// Looks up the action with the name @action_name in @action_map.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If no such action exists, returns %NULL.
+        /// </para>
         /// </remarks>
         /// <param name="actionMap">
         /// a #GActionMap
@@ -126,7 +131,9 @@ namespace GISharp.Lib.Gio
         /// Removes the named action from the action map.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If no action of this name is in the map then nothing happens.
+        /// </para>
         /// </remarks>
         /// <param name="actionMap">
         /// a #GActionMap

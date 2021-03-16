@@ -89,11 +89,14 @@ or applications. Note that input methods may already tailor their
 behaviour according to the <see cref="InputPurpose"/> of the entry.
 </summary>
 <remarks>
+<para>
 Some common sense is expected when using these flags - mixing
 <see cref="InputHints.Lowercase"/> with any of the uppercase hints makes no sense.
-
+</para>
+<para>
 This enumeration may be extended in the future; input methods should
 ignore unknown values.
+</para>
 </remarks>
 </member>
 

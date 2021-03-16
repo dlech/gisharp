@@ -19,8 +19,10 @@ was successfully handled by the writer, or whether there was an error in
 handling it (and hence a fallback writer should be used).
 </summary>
 <remarks>
+<para>
 If a <see cref="LogWriterFunc"/> ignores a log entry, it should return
 <see cref="LogWriterOutput.Handled"/>.
+</para>
 </remarks>
 </member>
 

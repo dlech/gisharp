@@ -114,9 +114,11 @@ namespace GISharp.Lib.GLib
         /// `sizeof (GSource)`.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The source will not initially be associated with any #GMainContext
         /// and must be added to one with g_source_attach() before it will be
         /// executed.
+        /// </para>
         /// </remarks>
         /// <param name="sourceFuncs">
         /// structure containing functions that implement
@@ -159,14 +161,17 @@ namespace GISharp.Lib.GLib
         /// use g_source_destroy() for sources added to a non-default main context.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The ID of a #GSource is given by g_source_get_id(), or will be
         /// returned by the functions g_source_attach(), g_idle_add(),
         /// g_idle_add_full(), g_timeout_add(), g_timeout_add_full(),
         /// g_child_watch_add(), g_child_watch_add_full(), g_io_add_watch(), and
         /// g_io_add_watch_full().
-        /// 
+        /// </para>
+        /// <para>
         /// It is a programmer error to attempt to remove a non-existent source.
-        /// 
+        /// </para>
+        /// <para>
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
@@ -175,6 +180,7 @@ namespace GISharp.Lib.GLib
         /// is called on its (now invalid) source ID.  This source ID may have
         /// been reissued, leading to the operation being performed against the
         /// wrong source.
+        /// </para>
         /// </remarks>
         /// <param name="tag">
         /// the ID of the source to remove.
@@ -272,12 +278,15 @@ namespace GISharp.Lib.GLib
         /// Sets the name of a source using its ID.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is a convenience utility to set source names from the return
         /// value of g_idle_add(), g_timeout_add(), etc.
-        /// 
+        /// </para>
+        /// <para>
         /// It is a programmer error to attempt to set the name of a non-existent
         /// source.
-        /// 
+        /// </para>
+        /// <para>
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
@@ -286,6 +295,7 @@ namespace GISharp.Lib.GLib
         /// is called on its (now invalid) source ID.  This source ID may have
         /// been reissued, leading to the operation being performed against the
         /// wrong source.
+        /// </para>
         /// </remarks>
         /// <param name="tag">
         /// a #GSource ID
@@ -353,15 +363,19 @@ namespace GISharp.Lib.GLib
         /// its own prepare/check functions indicate that it is ready.)
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If you don't need @child_source to do anything on its own when it
         /// triggers, you can call g_source_set_dummy_callback() on it to set a
         /// callback that does nothing (except return %TRUE if appropriate).
-        /// 
+        /// </para>
+        /// <para>
         /// @source will hold a reference on @child_source while @child_source
         /// is attached to it.
-        /// 
+        /// </para>
+        /// <para>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -400,12 +414,15 @@ namespace GISharp.Lib.GLib
         /// to be processed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
-        /// 
+        /// </para>
+        /// <para>
         /// Using this API forces the linear scanning of event sources on each
         /// main loop iteration.  Newly-written event sources should try to use
         /// g_source_add_unix_fd() instead of this API.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -439,17 +456,22 @@ namespace GISharp.Lib.GLib
         /// Monitors @fd for the IO events in @events.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The tag returned by this function can be used to remove or modify the
         /// monitoring of the fd using g_source_remove_unix_fd() or
         /// g_source_modify_unix_fd().
-        /// 
+        /// </para>
+        /// <para>
         /// It is not necessary to remove the fd before destroying the source; it
         /// will be cleaned up automatically.
-        /// 
+        /// </para>
+        /// <para>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
-        /// 
+        /// </para>
+        /// <para>
         /// As the name suggests, this function is not available on Windows.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -497,8 +519,10 @@ namespace GISharp.Lib.GLib
         /// that context. Remove it by calling g_source_destroy().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is safe to call from any thread, regardless of which thread
         /// the @context is running in.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -540,11 +564,14 @@ namespace GISharp.Lib.GLib
         /// removed from their context.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This does not unref the #GSource: if you still hold a reference, use
         /// g_source_unref() to drop it.
-        /// 
+        /// </para>
+        /// <para>
         /// This function is safe to call from any thread, regardless of which thread
         /// the #GMainContext is running in.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -598,12 +625,14 @@ namespace GISharp.Lib.GLib
         /// Gets the #GMainContext with which the source is associated.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You can call this on a source that has been destroyed, provided
         /// that the #GMainContext it was attached to still exists (in which
         /// case it will return that #GMainContext). In particular, you can
         /// always call this function on the source returned from
         /// g_main_current_source(). But calling this function on a source
         /// whose #GMainContext has been destroyed is an error.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -673,10 +702,12 @@ namespace GISharp.Lib.GLib
         /// mapping from ID to source is done by g_main_context_find_source_by_id().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You can only call this function while the source is associated to a
         /// #GMainContext instance; calling this function before g_source_attach()
         /// or after g_source_destroy() yields undefined behavior. The ID returned
         /// is unique within the #GMainContext instance passed to g_source_attach().
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -764,8 +795,10 @@ namespace GISharp.Lib.GLib
         /// g_source_set_ready_time().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Any time before the current monotonic time (including 0) is an
         /// indication that the source will fire immediately.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -798,8 +831,10 @@ namespace GISharp.Lib.GLib
         /// instead of having to repeatedly get the system monotonic time.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The time here is the system monotonic time, if available, or some
         /// other reasonable alternative otherwise.  See g_get_monotonic_time().
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -831,10 +866,12 @@ namespace GISharp.Lib.GLib
         /// Returns whether @source has been destroyed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is important when you operate upon your objects
         /// from within idle handlers, but may have freed the object
         /// before the dispatch of your idle handler.
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// static gboolean
         /// idle_callback (gpointer data)
@@ -866,13 +903,15 @@ namespace GISharp.Lib.GLib
         ///   G_OBJECT_CLASS (parent_class)-&gt;finalize (object);
         /// }
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// This will fail in a multi-threaded application if the
         /// widget is destroyed before the idle handler fires due
         /// to the use after free in the callback. A solution, to
         /// this particular problem, is to check to if the source
         /// has already been destroy within the callback.
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// static gboolean
         /// idle_callback (gpointer data)
@@ -889,12 +928,14 @@ namespace GISharp.Lib.GLib
         ///   return FALSE;
         /// }
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// Calls to this function from a thread other than the one acquired by the
         /// #GMainContext the #GSource is attached to are typically redundant, as the
         /// source could be destroyed immediately after this function returns. However,
         /// once a source is destroyed it cannot be un-destroyed, so this function can be
         /// used for opportunistic checks from any thread.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -926,15 +967,20 @@ namespace GISharp.Lib.GLib
         /// Updates the event mask to watch for the fd identified by @tag.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @tag is the tag returned from g_source_add_unix_fd().
-        /// 
+        /// </para>
+        /// <para>
         /// If you want to remove a fd, don't set its event mask to zero.
         /// Instead, call g_source_remove_unix_fd().
-        /// 
+        /// </para>
+        /// <para>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
-        /// 
+        /// </para>
+        /// <para>
         /// As the name suggests, this function is not available on Windows.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -977,13 +1023,17 @@ namespace GISharp.Lib.GLib
         /// @source during the last poll.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The return value of this function is only defined when the function
         /// is called from the check or dispatch functions for @source.
-        /// 
+        /// </para>
+        /// <para>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
-        /// 
+        /// </para>
+        /// <para>
         /// As the name suggests, this function is not available on Windows.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -1046,8 +1096,10 @@ namespace GISharp.Lib.GLib
         /// Detaches @child_source from @source and destroys it.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -1084,8 +1136,10 @@ namespace GISharp.Lib.GLib
         /// this source.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -1118,14 +1172,18 @@ namespace GISharp.Lib.GLib
         /// Reverses the effect of a previous call to g_source_add_unix_fd().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You only need to call this if you want to remove an fd from being
         /// watched while keeping the same source around.  In the normal case you
         /// will just want to destroy the source.
-        /// 
+        /// </para>
+        /// <para>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
-        /// 
+        /// </para>
+        /// <para>
         /// As the name suggests, this function is not available on Windows.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -1161,20 +1219,25 @@ namespace GISharp.Lib.GLib
         /// called from the source's dispatch function.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The exact type of @func depends on the type of source; ie. you
         /// should not count on @func being called with @data as its first
         /// parameter. Cast @func with G_SOURCE_FUNC() to avoid warnings about
         /// incompatible function types.
-        /// 
+        /// </para>
+        /// <para>
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle memory management of @data.
-        /// 
+        /// </para>
+        /// <para>
         /// Typically, you won't use this function. Instead use functions specific
         /// to the type of source you are using, such as g_idle_add() or g_timeout_add().
-        /// 
+        /// </para>
+        /// <para>
         /// It is safe to call this function multiple times on a source which has already
         /// been attached to a context. The changes will take effect for the next time
         /// the source is dispatched after this call returns.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// the source
@@ -1227,9 +1290,11 @@ namespace GISharp.Lib.GLib
         /// than @callback_funcs-&gt;ref.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is safe to call this function multiple times on a source which has already
         /// been attached to a context. The changes will take effect for the next time
         /// the source is dispatched after this call returns.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// the source
@@ -1336,19 +1401,23 @@ namespace GISharp.Lib.GLib
         /// The name defaults to #NULL.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The source name should describe in a human-readable way
         /// what the source does. For example, "X11 event queue"
         /// or "GTK+ repaint idle handler" or whatever it is.
-        /// 
+        /// </para>
+        /// <para>
         /// It is permitted to call this function multiple times, but is not
         /// recommended due to the potential performance impact.  For example,
         /// one could change the name in the "check" function of a #GSourceFuncs
         /// to include details like the event type in the source name.
-        /// 
+        /// </para>
+        /// <para>
         /// Use caution if changing the name while another thread may be
         /// accessing it with g_source_get_name(); that function does not copy
         /// the value, and changing the value will free it while the other thread
         /// may be attempting to use it.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -1385,9 +1454,11 @@ namespace GISharp.Lib.GLib
         /// dispatched.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// A child source always has the same priority as its parent.  It is not
         /// permitted to change the priority of a source once it has been added
         /// as a child of another source.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -1422,23 +1493,29 @@ namespace GISharp.Lib.GLib
         /// dispatched immediately.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @ready_time is -1 then the source is never woken up on the basis
         /// of the passage of time.
-        /// 
+        /// </para>
+        /// <para>
         /// Dispatching the source does not reset the ready time.  You should do
         /// so yourself, from the source dispatch function.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that if you have a pair of sources where the ready time of one
         /// suggests that it will be delivered first but the priority for the
         /// other suggests that it would be delivered first, and the ready time
         /// for both sources is reached during the same main context iteration,
         /// then the order of dispatch is undefined.
-        /// 
+        /// </para>
+        /// <para>
         /// It is a no-op to call this function on a #GSource which has already been
         /// destroyed with g_source_destroy().
-        /// 
+        /// </para>
+        /// <para>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource

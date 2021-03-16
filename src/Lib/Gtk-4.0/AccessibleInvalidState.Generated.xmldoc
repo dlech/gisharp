@@ -30,9 +30,11 @@ The possible values for the <see cref="AccessibleState.Invalid"/>
 accessible state.
 </summary>
 <remarks>
+<para>
 Note that the <see cref="AccessibleInvalidState.False"/> and
 <see cref="AccessibleInvalidState.True"/> have the same values
 as <c>false</c> and <c>true</c>.
+</para>
 </remarks>
 </member>
 

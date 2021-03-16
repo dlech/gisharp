@@ -46,12 +46,15 @@ a callback to a recursive call to <see cref="MainContext.Iteration(bool)"/>,
 it returns 2. And so forth.
 </summary>
 <remarks>
+<para>
 This function is useful in a situation like the following:
 Imagine an extremely simple "garbage collected" system.
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
 static GList *free_list;
-
+</para>
+<para>
 gpointer
 allocate_memory (gsize size)
 {
@@ -59,7 +62,8 @@ allocate_memory (gsize size)
   free_list = g_list_prepend (free_list, result);
   return result;
 }
-
+</para>
+<para>
 void
 free_allocated_memory (void)
 {
@@ -69,23 +73,27 @@ free_allocated_memory (void)
   g_list_free (free_list);
   free_list = NULL;
  }
-
+</para>
+<para>
 [...]
-
+</para>
+<para>
 while (TRUE);
  {
    g_main_context_iteration (NULL, TRUE);
    free_allocated_memory();
   }
 ]|
-
+</para>
+<para>
 This works from an application, however, if you want to do the same
 thing from a library, it gets more difficult, since you no longer
 control the main loop. You might think you can simply use an idle
 function to make the call to free_allocated_memory(), but that
 doesn't work, since the idle function could be called from a
 recursive callback. This can be fixed by using <see cref="MainContext.GetDepth()"/>
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
 gpointer
 allocate_memory (gsize size)
@@ -96,7 +104,8 @@ allocate_memory (gsize size)
   free_list = g_list_prepend (free_list, block);
   return block-&gt;mem;
 }
-
+</para>
+<para>
 void
 free_allocated_memory (void)
 {
@@ -118,7 +127,8 @@ free_allocated_memory (void)
     }
   }
 ]|
-
+</para>
+<para>
 There is a temptation to use <see cref="MainContext.GetDepth()"/> to solve
 problems with reentrancy. For instance, while waiting for data
 to be received from the network in response to a menu item,
@@ -130,15 +140,18 @@ the menu item do nothing. Furthermore, you'll find yourself adding
 these checks all over your code, since there are doubtless many,
 many things that the user could do. Instead, you can use the
 following techniques:
-
+</para>
+<para>
 1. Use gtk_widget_set_sensitive() or modal dialogs to prevent
    the user from interacting with elements while the main
    loop is recursing.
-
+</para>
+<para>
 2. Avoid main loop recursion in situations where you can't handle
    arbitrary  callbacks. Instead, structure your code so that you
    simply return to the main loop and then get called again when
    there is more work to do.
+</para>
 </remarks>
 </member>
 
@@ -157,17 +170,20 @@ directly if you need to block until a file descriptor is ready, but
 don't want to run the full main loop.
 </summary>
 <remarks>
+<para>
 Each element of <paramref name="fds"/> is a <see cref="PollFD"/> describing a single file
 descriptor to poll. The <c>fd</c> field indicates the file descriptor,
 and the <c>events</c> field indicates the events to poll for. On return,
 the <c>revents</c> fields will be filled with the events that actually
 occurred.
-
+</para>
+<para>
 On POSIX systems, the file descriptors in <paramref name="fds"/> can be any sort of
 file descriptor, but the situation is much more complicated on
 Windows. If you need to use <see cref="MainContext.Poll(System.ReadOnlySpan{GISharp.Lib.GLib.PollFD},int)"/> in code that has to run on
 Windows, the easiest solution is to construct all of your
 <see cref="PollFD"/>s with g_io_channel_win32_make_pollfd().
+</para>
 </remarks>
 <param name="fds">
 file descriptors to poll
@@ -192,9 +208,11 @@ and will release ownership when <see cref="MainContext.Release()"/>
 is called as many times as <see cref="MainContext.Acquire()"/>.
 </summary>
 <remarks>
+<para>
 You must be the owner of a context before you
 can call <see cref="MainContext.TryPrepare(out int)"/>, <see cref="MainContext.Query(int,out int,System.Span{GISharp.Lib.GLib.PollFD})"/>,
 <see cref="MainContext.Check(int,System.ReadOnlySpan{GISharp.Lib.GLib.PollFD})"/>, <see cref="MainContext.Dispatch()"/>.
+</para>
 </remarks>
 <returns>
 <c>true</c> if the operation succeeded, and
@@ -224,8 +242,10 @@ the priority for this file descriptor which should be
 Passes the results of polling back to the main loop.
 </summary>
 <remarks>
+<para>
 You must have successfully acquired the context with
 <see cref="MainContext.Acquire()"/> before you may call this function.
+</para>
 </remarks>
 <param name="maxPriority">
 the maximum numerical priority of sources to check
@@ -244,8 +264,10 @@ array of <see cref="PollFD"/>'s that was passed to
 Dispatches all pending sources.
 </summary>
 <remarks>
+<para>
 You must have successfully acquired the context with
 <see cref="MainContext.Acquire()"/> before you may call this function.
+</para>
 </remarks>
 </member>
 
@@ -271,8 +293,10 @@ the source, if one was found, otherwise <c>null</c>
 Finds a <see cref="Source"/> given a pair of context and ID.
 </summary>
 <remarks>
+<para>
 It is a programmer error to attempt to look up a non-existent source.
-
+</para>
+<para>
 More specifically: source IDs can be reissued after a source has been
 destroyed and therefore it is never valid to use this function with a
 source ID which may have already been removed.  An example is when
@@ -281,6 +305,7 @@ idle may already have run and been removed by the time this function
 is called on its (now invalid) source ID.  This source ID may have
 been reissued, leading to the operation being performed against the
 wrong source.
+</para>
 </remarks>
 <param name="sourceId">
 the source ID, as returned by <see cref="Source.GetId()"/>.
@@ -310,12 +335,15 @@ Invokes a function in such a way that this instance is owned during the
 invocation of <paramref name="function"/>.
 </summary>
 <remarks>
+<para>
 This function is the same as g_main_context_invoke() except that it
 lets you specify the priority in case <paramref name="function"/> ends up being
 scheduled as an idle and also lets you give a <see cref="DestroyNotify"/> for <paramref name="data"/>.
-
+</para>
+<para>
 <paramref name="notify"/> should not assume that it is called from any particular
 thread or with any particular context acquired.
+</para>
 </remarks>
 <param name="function">
 function to call
@@ -337,9 +365,11 @@ events sources will be dispatched (if any), that are ready at this
 given moment without further waiting.
 </summary>
 <remarks>
+<para>
 Note that even when <paramref name="mayBlock"/> is <c>true</c>, it is still possible for
 <see cref="MainContext.Iteration(bool)"/> to return <c>false</c>, since the wait may
 be interrupted for other reasons than an event source becoming ready.
+</para>
 </remarks>
 <param name="mayBlock">
 whether the call may block.
@@ -362,8 +392,10 @@ Prepares to poll sources within a main loop. The resulting information
 for polling is determined by calling g_main_context_query ().
 </summary>
 <remarks>
+<para>
 You must have successfully acquired the context with
 <see cref="MainContext.Acquire()"/> before you may call this function.
+</para>
 </remarks>
 <param name="priority">
 location to store priority of highest priority
@@ -388,6 +420,7 @@ not the one returned by <see cref="MainContext.GetDefault()"/>, so it does not a
 the context used by functions like g_idle_add().
 </summary>
 <remarks>
+<para>
 Normally you would call this function shortly after creating a new
 thread, passing it a <see cref="MainContext"/> which will be run by a
 <see cref="MainLoop"/> in that thread, to set a new default context for all
@@ -395,7 +428,8 @@ async operations in that thread. In this case you may not need to
 ever call <see cref="MainContext.PopThreadDefault()"/>, assuming you want the
 new <see cref="MainContext"/> to be the default for the whole lifecycle of the
 thread.
-
+</para>
+<para>
 If you don't have control over how the new thread was created (e.g.
 in the new thread isn't newly created, or if the thread life
 cycle is managed by a #GThreadPool), it is always suggested to wrap
@@ -403,7 +437,8 @@ the logic that needs to use the new <see cref="MainContext"/> inside a
 <see cref="MainContext.PushThreadDefault()"/> / <see cref="MainContext.PopThreadDefault()"/>
 pair, otherwise threads that are re-used will end up never explicitly
 releasing the <see cref="MainContext"/> reference they hold.
-
+</para>
+<para>
 In some cases you may want to schedule a single operation in a
 non-default context, or temporarily use a non-default context in
 the main thread. In that case, you can wrap the call to the
@@ -412,10 +447,12 @@ asynchronous operation inside a
 <see cref="MainContext.PopThreadDefault()"/> pair, but it is up to you to
 ensure that no other asynchronous operations accidentally get
 started while the non-default context is active.
-
+</para>
+<para>
 Beware that libraries that predate this function may not correctly
 handle being used from a thread with a thread-default context. Eg,
 see g_file_supports_thread_contexts().
+</para>
 </remarks>
 </member>
 
@@ -424,8 +461,10 @@ see g_file_supports_thread_contexts().
 Determines information necessary to poll this main loop.
 </summary>
 <remarks>
+<para>
 You must have successfully acquired the context with
 <see cref="MainContext.Acquire()"/> before you may call this function.
+</para>
 </remarks>
 <param name="maxPriority">
 maximum priority source to check
@@ -471,13 +510,16 @@ and return.  Otherwise, cause the next invocation of
 <see cref="MainContext.Iteration(bool)"/> to return without blocking.
 </summary>
 <remarks>
+<para>
 This API is useful for low-level control over <see cref="MainContext"/>; for
 example, integrating it with main loop implementations such as
 <see cref="MainLoop"/>.
-
+</para>
+<para>
 Another related use for this function is when implementing a main
 loop with a termination condition, computed from multiple threads:
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
   #define NUM_TASKS 10
   static volatile gint tasks_remaining = NUM_TASKS;
@@ -490,10 +532,12 @@ loop with a termination condition, computed from multiple threads:
 Then in a thread:
 |[&lt;!-- language="C" --&gt;
   perform_work();
-
+</para>
+<para>
   if (g_atomic_int_dec_and_test (&amp;tasks_remaining))
     g_main_context_wakeup (NULL);
 ]|
+</para>
 </remarks>
 </member>
 

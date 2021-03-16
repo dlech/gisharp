@@ -343,7 +343,9 @@ might have a different encoding. If the filename is not a valid string in the
 encoding selected for the filesystem it is in then the copy name will not be set.
 </summary>
 <remarks>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
 </remarks>
 </member>
 
@@ -357,7 +359,9 @@ for a file in the trash. This is useful for instance as the window title
 when displaying a directory or for a bookmarks menu.
 </summary>
 <remarks>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
 </remarks>
 </member>
 
@@ -379,7 +383,9 @@ might contain information you don't want in the new filename (such as
 "(invalid unicode)" if the filename was in an invalid encoding).
 </summary>
 <remarks>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
 </remarks>
 </member>
 
@@ -440,7 +446,9 @@ indicate that the URI is not persistent. Applications should look
 at <see cref="FileAttribute.StandardSymlinkTarget"/> for the persistent URI.
 </summary>
 <remarks>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
 </remarks>
 </member>
 
@@ -521,10 +529,13 @@ This attribute is <c>true</c> if the thumbnail is up-to-date with the file it re
 and <c>false</c> if the file has been modified since the thumbnail was generated.
 </summary>
 <remarks>
+<para>
 If %G_FILE_ATTRIBUTE_THUMBNAILING_FAILED is <c>true</c> and this attribute is <c>false</c>,
 it indicates that thumbnailing may be attempted again and may succeed.
-
+</para>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
 </remarks>
 </member>
 
@@ -562,7 +573,9 @@ and contains the time since the file was last changed, in seconds since the
 UNIX epoch.
 </summary>
 <remarks>
+<para>
 This corresponds to the traditional UNIX ctime.
+</para>
 </remarks>
 </member>
 
@@ -583,8 +596,10 @@ and contains the time since the file was created, in seconds since the UNIX
 epoch.
 </summary>
 <remarks>
+<para>
 This may correspond to Linux stx_btime, FreeBSD st_birthtim, NetBSD
 st_birthtime or NTFS ctime.
+</para>
 </remarks>
 </member>
 

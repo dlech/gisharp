@@ -70,9 +70,11 @@ deprecated or not.
 Compare two <see cref="BaseInfo"/>.
 </summary>
 <remarks>
+<para>
 Using pointer comparison is not practical since many functions return
 different instances of <see cref="BaseInfo"/> that refers to the same part of the
 TypeLib; use this function instead to do <see cref="BaseInfo"/> comparisons.
+</para>
 </remarks>
 <param name="info2">
 a <see cref="BaseInfo"/>

@@ -70,9 +70,11 @@ Gets the modification time of the current this instance and returns it as a
 #GDateTime.
 </summary>
 <remarks>
+<para>
 This requires the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute. If
 %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is provided, the resulting #GDateTime
 will have microsecond precision.
+</para>
 </remarks>
 </member>
 
@@ -486,8 +488,10 @@ needed by external code that implement <see cref="File.SetAttributesFromInfo(GIS
 or similar functions.
 </summary>
 <remarks>
+<para>
 The attribute must exist in this instance for this to work. Otherwise <c>false</c>
 is returned and this instance is unchanged.
+</para>
 </remarks>
 <param name="attribute">
 a file attribute key
@@ -519,7 +523,9 @@ Sets the <paramref name="attribute"/> to contain the given <paramref name="attrV
 if possible.
 </summary>
 <remarks>
+<para>
 Sinze: 2.22
+</para>
 </remarks>
 <param name="attribute">
 a file attribute key
@@ -581,26 +587,32 @@ implements methods for getting information that all files should
 contain, and allows for manipulation of extended attributes.
 </summary>
 <remarks>
+<para>
 See [GFileAttribute][gio-GFileAttribute] for more information on how
 GIO handles file attributes.
-
+</para>
+<para>
 To obtain a <see cref="FileInfo"/> for a <see cref="IFile"/>, use <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> (or its
 async variant). To obtain a <see cref="FileInfo"/> for a file input or output
 stream, use <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> or
 <see cref="FileOutputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> (or their async variants).
-
+</para>
+<para>
 To change the actual attributes of a file, you should then set the
 attribute in the <see cref="FileInfo"/> and call <see cref="File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>
 or <see cref="File.SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,int,GISharp.Lib.Gio.Cancellable)"/> on a GFile.
-
+</para>
+<para>
 However, not all attributes can be changed in the file. For instance,
 the actual size of a file cannot be changed via <see cref="FileInfo.SetSize(long)"/>.
 You may call <see cref="File.QuerySettableAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> and
 <see cref="File.QueryWritableNamespaces(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> to discover the settable attributes
 of a particular file at runtime.
-
+</para>
+<para>
 <see cref="FileAttributeMatcher"/> allows for searching through a <see cref="FileInfo"/> for
 attributes.
+</para>
 </remarks>
 </member>
 

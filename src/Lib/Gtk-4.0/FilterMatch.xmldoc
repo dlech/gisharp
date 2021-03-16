@@ -26,9 +26,11 @@ The filter matches all items,
 Describes the known strictness of a filter.
 </summary>
 <remarks>
+<para>
 Note that for filters where the strictness is not known,
 <see cref="FilterMatch.Some"/> is always an acceptable value,
 even if a filter does match all or no items.
+</para>
 </remarks>
 </member>
 

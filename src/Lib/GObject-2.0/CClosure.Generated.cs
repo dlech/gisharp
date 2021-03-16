@@ -33,7 +33,9 @@ namespace GISharp.Lib.GObject
         /// the last parameter.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @destroy_data will be called as a finalize notifier on the #GClosure.
+        /// </para>
         /// </remarks>
         /// <param name="callbackFunc">
         /// the function to invoke
@@ -120,7 +122,9 @@ namespace GISharp.Lib.GObject
         /// the first parameter.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @destroy_data will be called as a finalize notifier on the #GClosure.
+        /// </para>
         /// </remarks>
         /// <param name="callbackFunc">
         /// the function to invoke

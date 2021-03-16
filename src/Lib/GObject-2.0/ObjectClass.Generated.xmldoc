@@ -65,10 +65,12 @@ the parent class
 The class structure for the GObject type.
 </summary>
 <remarks>
+<para>
 |[&lt;!-- language="C" --&gt;
 // Example of implementing a singleton using a constructor.
 static MySingleton *the_singleton = NULL;
-
+</para>
+<para>
 static GObject*
 my_singleton_constructor (GType                  type,
                           guint                  n_construct_params,
@@ -85,10 +87,12 @@ my_singleton_constructor (GType                  type,
     }
   else
     object = g_object_ref (G_OBJECT (the_singleton));
-
+</para>
+<para>
   return object;
 }
 ]|
+</para>
 </remarks>
 </member>
 

@@ -263,10 +263,13 @@ Zero Width Joiner (ZWJ).
 These are the possible line break classifications.
 </summary>
 <remarks>
+<para>
 Since new unicode versions may add new types here, applications should be ready
 to handle unknown values. They may be regarded as <see cref="UnicodeBreakType.Unknown"/>.
-
+</para>
+<para>
 See [Unicode Line Breaking Algorithm](http://www.unicode.org/unicode/reports/tr14/).
+</para>
 </remarks>
 </member>
 

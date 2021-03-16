@@ -29,9 +29,11 @@ Describes changes in a filter in more detail and allows objects
 using the filter to optimize refiltering items.
 </summary>
 <remarks>
+<para>
 If you are writing an implementation and are not sure which
 value to pass, <see cref="FilterChange.Different"/> is always a correct
 choice.
+</para>
 </remarks>
 </member>
 

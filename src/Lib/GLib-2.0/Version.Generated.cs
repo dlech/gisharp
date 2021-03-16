@@ -25,12 +25,14 @@ namespace GISharp.Lib.GLib
         /// against.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Compatibility is defined by two things: first the version
         /// of the running library is newer than the version
         /// @required_major.required_minor.@required_micro. Second
         /// the running library must be binary compatible with the
         /// version @required_major.required_minor.@required_micro
         /// (same major version.)
+        /// </para>
         /// </remarks>
         /// <param name="requiredMajor">
         /// the required major version

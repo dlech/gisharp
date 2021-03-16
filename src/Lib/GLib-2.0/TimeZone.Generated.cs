@@ -45,19 +45,23 @@ namespace GISharp.Lib.GLib
         /// Creates a #GTimeZone corresponding to @identifier.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @identifier can either be an RFC3339/ISO 8601 time offset or
         /// something that would pass as a valid value for the `TZ` environment
         /// variable (including %NULL).
-        /// 
+        /// </para>
+        /// <para>
         /// In Windows, @identifier can also be the unlocalized name of a time
         /// zone for standard time, for example "Pacific Standard Time".
-        /// 
+        /// </para>
+        /// <para>
         /// Valid RFC3339 time offsets are `"Z"` (for UTC) or
         /// `"±hh:mm"`.  ISO 8601 additionally specifies
         /// `"±hhmm"` and `"±hh"`.  Offsets are
         /// time values to be added to Coordinated Universal Time (UTC) to get
         /// the local time.
-        /// 
+        /// </para>
+        /// <para>
         /// In UNIX, the `TZ` environment variable typically corresponds
         /// to the name of a file in the zoneinfo database, an absolute path to a file
         /// somewhere else, or a string in
@@ -73,27 +77,31 @@ namespace GISharp.Lib.GLib
         /// (0 &lt;= d &lt;= 6) of week w (1 &lt;= w &lt;= 5) of month m (1 &lt;= m &lt;= 12), day
         /// 0 is a Sunday).  Times are in local wall clock time, the default is
         /// 02:00:00.
-        /// 
+        /// </para>
+        /// <para>
         /// In Windows, the "tzn[+|–]hh[:mm[:ss]][dzn]" format is used, but also
         /// accepts POSIX format.  The Windows format uses US rules for all time
         /// zones; daylight savings time is 60 minutes behind the standard time
         /// with date and time of change taken from Pacific Standard Time.
         /// Offsets are time values to be added to the local time to get
         /// Coordinated Universal Time (UTC).
-        /// 
+        /// </para>
+        /// <para>
         /// g_time_zone_new_local() calls this function with the value of the
         /// `TZ` environment variable. This function itself is independent of
         /// the value of `TZ`, but if @identifier is %NULL then `/etc/localtime`
         /// will be consulted to discover the correct time zone on UNIX and the
         /// registry will be consulted or GetTimeZoneInformation() will be used
         /// to get the local time zone on Windows.
-        /// 
+        /// </para>
+        /// <para>
         /// If intervals are not available, only time zone rules from `TZ`
         /// environment variable or other means, then they will be computed
         /// from year 1900 to 2037.  If the maximum year for the rules is
         /// available and it is greater than 2037, then it will followed
         /// instead.
-        /// 
+        /// </para>
+        /// <para>
         /// See
         /// [RFC3339 §5.6](http://tools.ietf.org/html/rfc3339#section-5.6)
         /// for a precise definition of valid RFC3339 time offsets
@@ -104,9 +112,11 @@ namespace GISharp.Lib.GLib
         /// values of the `TZ` environment variable. See
         /// [Microsoft Time Zone Index Values](http://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx)
         /// for the list of time zones on Windows.
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_time_zone_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <param name="identifier">
         /// a timezone identifier
@@ -144,8 +154,10 @@ namespace GISharp.Lib.GLib
         /// in seconds.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is equivalent to calling g_time_zone_new() with a string in the form
         /// `[+|-]hh[:mm[:ss]]`.
+        /// </para>
         /// </remarks>
         /// <param name="seconds">
         /// offset to UTC, in seconds
@@ -184,11 +196,14 @@ namespace GISharp.Lib.GLib
         /// if the system administrator changes it.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is equivalent to calling g_time_zone_new() with the value of
         /// the `TZ` environment variable (including the possibility of %NULL).
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_time_zone_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// the local timezone
@@ -213,11 +228,14 @@ namespace GISharp.Lib.GLib
         /// Creates a #GTimeZone corresponding to UTC.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is equivalent to calling g_time_zone_new() with a value like
         /// "Z", "UTC", "+00", etc.
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_time_zone_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// the universal timezone
@@ -249,18 +267,22 @@ namespace GISharp.Lib.GLib
         /// The meaning of @time_ depends on @type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is similar to g_time_zone_find_interval(), with the
         /// difference that it always succeeds (by making the adjustments
         /// described below).
-        /// 
+        /// </para>
+        /// <para>
         /// In any of the cases where g_time_zone_find_interval() succeeds then
         /// this function returns the same value, without modifying @time_.
-        /// 
+        /// </para>
+        /// <para>
         /// This function may, however, modify @time_ in order to deal with
         /// non-existent times.  If the non-existent local @time_ of 02:30 were
         /// requested on March 14th 2010 in Toronto then this function would
         /// adjust @time_ to be 03:00 and return the interval containing the
         /// adjusted time.
+        /// </para>
         /// </remarks>
         /// <param name="tz">
         /// a #GTimeZone
@@ -308,9 +330,11 @@ namespace GISharp.Lib.GLib
         /// The meaning of @time_ depends on @type.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @type is %G_TIME_TYPE_UNIVERSAL then this function will always
         /// succeed (since universal time is monotonic and continuous).
-        /// 
+        /// </para>
+        /// <para>
         /// Otherwise @time_ is treated as local time.  The distinction between
         /// %G_TIME_TYPE_STANDARD and %G_TIME_TYPE_DAYLIGHT is ignored except in
         /// the case that the given @time_ is ambiguous.  In Toronto, for example,
@@ -318,11 +342,13 @@ namespace GISharp.Lib.GLib
         /// savings time and the next, an hour later, outside of daylight savings
         /// time).  In this case, the different value of @type would result in a
         /// different interval being returned.
-        /// 
+        /// </para>
+        /// <para>
         /// It is still possible for this function to fail.  In Toronto, for
         /// example, 02:00 on March 14th 2010 does not exist (due to the leap
         /// forward to begin daylight savings time).  -1 is returned in that
         /// case.
+        /// </para>
         /// </remarks>
         /// <param name="tz">
         /// a #GTimeZone
@@ -370,9 +396,11 @@ namespace GISharp.Lib.GLib
         /// @interval of time in the time zone @tz.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For example, in Toronto this is currently "EST" during the winter
         /// months and "EDT" during the summer months when daylight savings time
         /// is in effect.
+        /// </para>
         /// </remarks>
         /// <param name="tz">
         /// a #GTimeZone
@@ -415,9 +443,11 @@ namespace GISharp.Lib.GLib
         /// construction time will be returned.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The identifier will be returned in the same format as provided at
         /// construction time: if provided as a time offset, that will be returned by
         /// this function.
+        /// </para>
         /// </remarks>
         /// <param name="tz">
         /// a #GTimeZone
@@ -450,9 +480,11 @@ namespace GISharp.Lib.GLib
         /// of time in the time zone @tz.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The offset is the number of seconds that you add to UTC time to
         /// arrive at local time for @tz (ie: negative numbers for time zones
         /// west of GMT, positive numbers for east).
+        /// </para>
         /// </remarks>
         /// <param name="tz">
         /// a #GTimeZone

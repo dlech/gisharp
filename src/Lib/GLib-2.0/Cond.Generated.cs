@@ -46,11 +46,14 @@ namespace GISharp.Lib.GLib
         /// Frees the resources allocated to a #GCond with g_cond_init().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function should not be used with a #GCond that has been
         /// statically allocated.
-        /// 
+        /// </para>
+        /// <para>
         /// Calling g_cond_clear() for a #GCond on which threads are
         /// blocking leads to undefined behaviour.
+        /// </para>
         /// </remarks>
         /// <param name="cond">
         /// an initialised #GCond
@@ -81,15 +84,19 @@ namespace GISharp.Lib.GLib
         /// Initialises a #GCond so that it can be used.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is useful to initialise a #GCond that has been
         /// allocated as part of a larger structure.  It is not necessary to
         /// initialise a #GCond that has been statically allocated.
-        /// 
+        /// </para>
+        /// <para>
         /// To undo the effect of g_cond_init() when a #GCond is no longer
         /// needed, use g_cond_clear().
-        /// 
+        /// </para>
+        /// <para>
         /// Calling g_cond_init() on an already-initialised #GCond leads
         /// to undefined behaviour.
+        /// </para>
         /// </remarks>
         /// <param name="cond">
         /// an uninitialized #GCond
@@ -151,6 +158,7 @@ namespace GISharp.Lib.GLib
         /// calling thread.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When using condition variables, it is possible that a spurious wakeup
         /// may occur (ie: g_cond_wait() returns even though g_cond_signal() was
         /// not called).  It's also possible that a stolen wakeup may occur.
@@ -158,9 +166,11 @@ namespace GISharp.Lib.GLib
         /// @mutex before this thread and modifies the state of the program in
         /// such a way that when g_cond_wait() is able to return, the expected
         /// condition is no longer met.
-        /// 
+        /// </para>
+        /// <para>
         /// For this reason, g_cond_wait() must always be used in a loop.  See
         /// the documentation for #GCond for a complete example.
+        /// </para>
         /// </remarks>
         /// <param name="cond">
         /// a #GCond
@@ -196,27 +206,33 @@ namespace GISharp.Lib.GLib
         /// Waits until either @cond is signalled or @end_time has passed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// As with g_cond_wait() it is possible that a spurious or stolen wakeup
         /// could occur.  For that reason, waiting on a condition variable should
         /// always be in a loop, based on an explicitly-checked predicate.
-        /// 
+        /// </para>
+        /// <para>
         /// %TRUE is returned if the condition variable was signalled (or in the
         /// case of a spurious wakeup).  %FALSE is returned if @end_time has
         /// passed.
-        /// 
+        /// </para>
+        /// <para>
         /// The following code shows how to correctly perform a timed wait on a
         /// condition variable (extending the example presented in the
         /// documentation for #GCond):
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// gpointer
         /// pop_data_timed (void)
         /// {
         ///   gint64 end_time;
         ///   gpointer data;
-        /// 
+        /// </para>
+        /// <para>
         ///   g_mutex_lock (&amp;data_mutex);
-        /// 
+        /// </para>
+        /// <para>
         ///   end_time = g_get_monotonic_time () + 5 * G_TIME_SPAN_SECOND;
         ///   while (!current_data)
         ///     if (!g_cond_wait_until (&amp;data_cond, &amp;data_mutex, end_time))
@@ -225,23 +241,28 @@ namespace GISharp.Lib.GLib
         ///         g_mutex_unlock (&amp;data_mutex);
         ///         return NULL;
         ///       }
-        /// 
+        /// </para>
+        /// <para>
         ///   // there is data for us
         ///   data = current_data;
         ///   current_data = NULL;
-        /// 
+        /// </para>
+        /// <para>
         ///   g_mutex_unlock (&amp;data_mutex);
-        /// 
+        /// </para>
+        /// <para>
         ///   return data;
         /// }
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// Notice that the end time is calculated once, before entering the
         /// loop and reused.  This is the motivation behind the use of absolute
         /// time on this API -- if a relative time of 5 seconds were passed
         /// directly to the call and a spurious wakeup occurred, the program would
         /// have to start over waiting again (which would lead to a total wait
         /// time of more than 5 seconds).
+        /// </para>
         /// </remarks>
         /// <param name="cond">
         /// a #GCond

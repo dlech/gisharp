@@ -140,8 +140,10 @@ namespace GISharp.Lib.Gio
         /// specific value instead).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// As %errno is global and may be modified by intermediate function
         /// calls, you should save its value as soon as the call which sets it
+        /// </para>
         /// </remarks>
         /// <param name="errno">
         /// Error number as defined in errno.h.

@@ -8,10 +8,13 @@ primarily useful for attaching to another (non-cancellable) source
 with g_source_add_child_source() to add cancellability to it.
 </summary>
 <remarks>
+<para>
 For convenience, you can call this with a <c>null</c> <see cref="Cancellable"/>,
 in which case the source will never trigger.
-
+</para>
+<para>
 The new #GSource will hold a reference to the <see cref="Cancellable"/>.
+</para>
 </remarks>
 <param name="cancellable">
 a <see cref="Cancellable"/>, or <c>null</c>

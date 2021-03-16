@@ -63,10 +63,18 @@ namespace GISharp.CodeGen.Syntax
                     if (line is not null) {
                         // if there are more lines, they go in the remarks
                         builder.AppendLine("/// <remarks>");
+                        builder.AppendLine("/// <para>");
                         while ((line = reader.ReadLine()) is not null) {
-                            builder.AppendFormat("/// {0}", new XText(line));
-                            builder.AppendLine();
+                            if (string.IsNullOrEmpty(line)) {
+                                builder.AppendLine("/// </para>");
+                                builder.AppendLine("/// <para>");
+                            }
+                            else {
+                                builder.AppendFormat("/// {0}", new XText(line));
+                                builder.AppendLine();
+                            }
                         }
+                        builder.AppendLine("/// </para>");
                         builder.AppendLine("/// </remarks>");
                     }
                 }

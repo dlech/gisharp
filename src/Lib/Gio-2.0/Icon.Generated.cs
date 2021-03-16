@@ -45,9 +45,11 @@ namespace GISharp.Lib.Gio
         /// @str is not valid - see g_icon_to_string() for discussion.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If your application or library provides one or more #GIcon
         /// implementations you need to ensure that each #GType is registered
         /// with the type system prior to calling g_icon_new_for_string().
+        /// </para>
         /// </remarks>
         /// <param name="str">
         /// A string obtained via g_icon_to_string().
@@ -226,17 +228,21 @@ namespace GISharp.Lib.Gio
         /// get @icon back from the returned string.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The encoding of the returned string is proprietary to #GIcon except
         /// in the following two cases
-        /// 
+        /// </para>
+        /// <para>
         /// - If @icon is a #GFileIcon, the returned string is a native path
         ///   (such as `/path/to/my icon.png`) without escaping
         ///   if the #GFile for @icon is a native file.  If the file is not
         ///   native, the returned string is the result of g_file_get_uri()
         ///   (such as `sftp://path/to/my%20icon.png`).
-        /// 
+        /// </para>
+        /// <para>
         /// - If @icon is a #GThemedIcon with exactly one name and no fallbacks,
         ///   the encoding is simply the name (such as `network-server`).
+        /// </para>
         /// </remarks>
         /// <param name="icon">
         /// a #GIcon.

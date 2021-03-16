@@ -9,13 +9,16 @@ namespace GISharp.Lib.GObject
     /// allocates any resources required by it.
     /// </summary>
     /// <remarks>
+    /// <para>
     /// Initialization of a derived instance involves calling all its parent
     /// types instance initializers, so the class member of the instance
     /// is altered during its initialization to always point to the class that
     /// belongs to the type the current initializer was introduced for.
-    /// 
+    /// </para>
+    /// <para>
     /// The extended members of @instance are guaranteed to have been filled with
     /// zeros before this function is called.
+    /// </para>
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]

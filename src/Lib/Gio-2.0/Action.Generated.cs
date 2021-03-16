@@ -39,11 +39,14 @@ namespace GISharp.Lib.Gio
         /// Checks if @action_name is valid.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @action_name is valid if it consists only of alphanumeric characters,
         /// plus '-' and '.'.  The empty string is not a valid action name.
-        /// 
+        /// </para>
+        /// <para>
         /// It is an error to call this function with a non-utf8 @action_name.
         /// @action_name must not be %NULL.
+        /// </para>
         /// </remarks>
         /// <param name="actionName">
         /// a potential action name
@@ -77,18 +80,22 @@ namespace GISharp.Lib.Gio
         /// components.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Detailed action names can have three formats.
-        /// 
+        /// </para>
+        /// <para>
         /// The first format is used to represent an action name with no target
         /// value and consists of just an action name containing no whitespace
         /// nor the characters ':', '(' or ')'.  For example: "app.action".
-        /// 
+        /// </para>
+        /// <para>
         /// The second format is used to represent an action with a target value
         /// that is a non-empty string consisting only of alphanumerics, plus '-'
         /// and '.'.  In that case, the action name and target value are
         /// separated by a double colon ("::").  For example:
         /// "app.action::target".
-        /// 
+        /// </para>
+        /// <para>
         /// The third format is used to represent an action with any type of
         /// target value, including strings.  The target value follows the action
         /// name, surrounded in parens.  For example: "app.action(42)".  The
@@ -98,6 +105,7 @@ namespace GISharp.Lib.Gio
         /// target can be specified this way as well: "app.action('target')".
         /// For strings, this third format must be used if * target value is
         /// empty or contains characters other than alphanumerics, '-' and '.'.
+        /// </para>
         /// </remarks>
         /// <param name="detailedName">
         /// a detailed action name
@@ -157,14 +165,18 @@ namespace GISharp.Lib.Gio
         /// Formats a detailed action name from @action_name and @target_value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is an error to call this function with an invalid action name.
-        /// 
+        /// </para>
+        /// <para>
         /// This function is the opposite of g_action_parse_detailed_name().
         /// It will produce a string that can be parsed back to the @action_name
         /// and @target_value by that function.
-        /// 
+        /// </para>
+        /// <para>
         /// See that function for the types of strings that will be printed by
         /// this function.
+        /// </para>
         /// </remarks>
         /// <param name="actionName">
         /// a valid action name
@@ -262,11 +274,14 @@ namespace GISharp.Lib.Gio
         /// Activates the action.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @parameter must be the correct type of parameter for the action (ie:
         /// the parameter type given at construction time).  If the parameter
         /// type was %NULL then @parameter must also be %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// If the @parameter GVariant is floating, it is consumed.
+        /// </para>
         /// </remarks>
         /// <param name="action">
         /// a #GAction
@@ -301,14 +316,18 @@ namespace GISharp.Lib.Gio
         /// Request for the state of @action to be changed to @value.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The action must be stateful and @value must be of the correct type.
         /// See g_action_get_state_type().
-        /// 
+        /// </para>
+        /// <para>
         /// This call merely requests a change.  The action may refuse to change
         /// its state or may change its state to something other than @value.
         /// See g_action_get_state_hint().
-        /// 
+        /// </para>
+        /// <para>
         /// If the @value GVariant is floating, it is consumed.
+        /// </para>
         /// </remarks>
         /// <param name="action">
         /// a #GAction
@@ -343,8 +362,10 @@ namespace GISharp.Lib.Gio
         /// Checks if @action is currently enabled.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// An action must be enabled in order to be activated or in order to
         /// have its state changed from outside callers.
+        /// </para>
         /// </remarks>
         /// <param name="action">
         /// a #GAction
@@ -408,11 +429,14 @@ namespace GISharp.Lib.Gio
         /// @action.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When activating the action using g_action_activate(), the #GVariant
         /// given to that function must be of the type returned by this function.
-        /// 
+        /// </para>
+        /// <para>
         /// In the case that this function returns %NULL, you must not give any
         /// #GVariant, but %NULL instead.
+        /// </para>
         /// </remarks>
         /// <param name="action">
         /// a #GAction
@@ -445,12 +469,15 @@ namespace GISharp.Lib.Gio
         /// Queries the current state of @action.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the action is not stateful then %NULL will be returned.  If the
         /// action is stateful then the type of the return value is the type
         /// given by g_action_get_state_type().
-        /// 
+        /// </para>
+        /// <para>
         /// The return value (if non-%NULL) should be freed with
         /// g_variant_unref() when it is no longer required.
+        /// </para>
         /// </remarks>
         /// <param name="action">
         /// a #GAction
@@ -484,21 +511,26 @@ namespace GISharp.Lib.Gio
         /// @action.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If %NULL is returned it either means that the action is not stateful
         /// or that there is no hint about the valid range of values for the
         /// state of the action.
-        /// 
+        /// </para>
+        /// <para>
         /// If a #GVariant array is returned then each item in the array is a
         /// possible value for the state.  If a #GVariant pair (ie: two-tuple) is
         /// returned then the tuple specifies the inclusive lower and upper bound
         /// of valid values for the state.
-        /// 
+        /// </para>
+        /// <para>
         /// In any case, the information is merely a hint.  It may be possible to
         /// have a state value outside of the hinted range and setting a value
         /// within the range may fail.
-        /// 
+        /// </para>
+        /// <para>
         /// The return value (if non-%NULL) should be freed with
         /// g_variant_unref() when it is no longer required.
+        /// </para>
         /// </remarks>
         /// <param name="action">
         /// a #GAction
@@ -531,16 +563,19 @@ namespace GISharp.Lib.Gio
         /// Queries the type of the state of @action.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the action is stateful (e.g. created with
         /// g_simple_action_new_stateful()) then this function returns the
         /// #GVariantType of the state.  This is the type of the initial value
         /// given as the state. All calls to g_action_change_state() must give a
         /// #GVariant of this type and g_action_get_state() will return a
         /// #GVariant of the same type.
-        /// 
+        /// </para>
+        /// <para>
         /// If the action is not stateful (e.g. created with g_simple_action_new())
         /// then this function will return %NULL. In that case, g_action_get_state()
         /// will return %NULL and you must not call g_action_change_state().
+        /// </para>
         /// </remarks>
         /// <param name="action">
         /// a #GAction

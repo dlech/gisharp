@@ -114,7 +114,9 @@ The Mozilla Public License, version 2.0
 The type of license for an application.
 </summary>
 <remarks>
+<para>
 This enumeration can be expanded at later date.
+</para>
 </remarks>
 </member>
 

@@ -19,6 +19,7 @@ at '-' characters. If the "names" array has more than one element,
 ignores any past the first.
 </summary>
 <remarks>
+<para>
 For example, if the icon name was "gnome-dev-cdrom-audio", the array
 would become
 |[&lt;!-- language="C" --&gt;
@@ -30,6 +31,7 @@ would become
   NULL
 };
 ]|
+</para>
 </remarks>
 </member>
 
@@ -53,8 +55,10 @@ an array of strings containing icon names.
 Append a name to the list of icons from within this instance.
 </summary>
 <remarks>
+<para>
 Note that doing so invalidates the hash computed by prior calls
 to <see cref="Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
+</para>
 </remarks>
 <param name="iconname">
 name of icon to append to list of icons from within this instance.
@@ -66,8 +70,10 @@ name of icon to append to list of icons from within this instance.
 Prepend a name to the list of icons from within this instance.
 </summary>
 <remarks>
+<para>
 Note that doing so invalidates the hash computed by prior calls
 to <see cref="Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
+</para>
 </remarks>
 <param name="iconname">
 name of icon to prepend to list of icons from within this instance.

@@ -60,8 +60,10 @@ namespace GISharp.Lib.Gtk
         /// Returns the GTK debug flags that are currently active.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is intended for GTK modules that want
         /// to adjust their debug output based on GTK debug flags.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// the GTK debug flags.

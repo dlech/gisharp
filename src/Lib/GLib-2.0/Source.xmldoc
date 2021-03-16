@@ -65,12 +65,14 @@ see <see cref="Source.SetCanRecurse(bool)"/>.
 Gets the <see cref="MainContext"/> with which the source is associated.
 </summary>
 <remarks>
+<para>
 You can call this on a source that has been destroyed, provided
 that the <see cref="MainContext"/> it was attached to still exists (in which
 case it will return that <see cref="MainContext"/>). In particular, you can
 always call this function on the source returned from
 <see cref="Source.Current"/>. But calling this function on a source
 whose <see cref="MainContext"/> has been destroyed is an error.
+</para>
 </remarks>
 </member>
 
@@ -82,10 +84,12 @@ context. The reverse
 mapping from ID to source is done by <see cref="MainContext.FindSourceById(uint)"/>.
 </summary>
 <remarks>
+<para>
 You can only call this function while the source is associated to a
 <see cref="MainContext"/> instance; calling this function before <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/>
 or after <see cref="Source.Destroy()"/> yields undefined behavior. The ID returned
 is unique within the <see cref="MainContext"/> instance passed to <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/>.
+</para>
 </remarks>
 </member>
 
@@ -108,8 +112,10 @@ Gets the "ready time" of this instance, as set by
 <see cref="Source.SetReadyTime(long)"/>.
 </summary>
 <remarks>
+<para>
 Any time before the current monotonic time (including 0) is an
 indication that the source will fire immediately.
+</para>
 </remarks>
 </member>
 
@@ -121,8 +127,10 @@ that when checking multiple sources, GLib can cache a single value
 instead of having to repeatedly get the system monotonic time.
 </summary>
 <remarks>
+<para>
 The time here is the system monotonic time, if available, or some
 other reasonable alternative otherwise.  See g_get_monotonic_time().
+</para>
 </remarks>
 </member>
 
@@ -131,10 +139,12 @@ other reasonable alternative otherwise.  See g_get_monotonic_time().
 Returns whether this instance has been destroyed.
 </summary>
 <remarks>
+<para>
 This is important when you operate upon your objects
 from within idle handlers, but may have freed the object
 before the dispatch of your idle handler.
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
 static gboolean
 idle_callback (gpointer data)
@@ -166,13 +176,15 @@ some_widget_finalize (GObject *object)
   G_OBJECT_CLASS (parent_class)-&gt;finalize (object);
 }
 ]|
-
+</para>
+<para>
 This will fail in a multi-threaded application if the
 widget is destroyed before the idle handler fires due
 to the use after free in the callback. A solution, to
 this particular problem, is to check to if the source
 has already been destroy within the callback.
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
 static gboolean
 idle_callback (gpointer data)
@@ -189,12 +201,14 @@ idle_callback (gpointer data)
   return FALSE;
 }
 ]|
-
+</para>
+<para>
 Calls to this function from a thread other than the one acquired by the
 <see cref="MainContext"/> the <see cref="Source"/> is attached to are typically redundant, as the
 source could be destroyed immediately after this function returns. However,
 once a source is destroyed it cannot be un-destroyed, so this function can be
 used for opportunistic checks from any thread.
+</para>
 </remarks>
 </member>
 
@@ -212,9 +226,11 @@ additional data. The size passed in must be at least
 `sizeof (GSource)`.
 </summary>
 <remarks>
+<para>
 The source will not initially be associated with any <see cref="MainContext"/>
 and must be added to one with <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/> before it will be
 executed.
+</para>
 </remarks>
 <param name="sourceFuncs">
 structure containing functions that implement
@@ -231,14 +247,17 @@ Removes the source with the given ID from the default main context. You must
 use <see cref="Source.Destroy()"/> for sources added to a non-default main context.
 </summary>
 <remarks>
+<para>
 The ID of a <see cref="Source"/> is given by <see cref="Source.GetId()"/>, or will be
 returned by the functions <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/>,
 <see cref="Idle.Add(GISharp.Lib.GLib.SourceFunc,int)"/>, <see cref="Timeout.Add(uint,GISharp.Lib.GLib.SourceFunc,int)"/>,
 g_child_watch_add(), g_child_watch_add_full(), g_io_add_watch(), and
 g_io_add_watch_full().
-
+</para>
+<para>
 It is a programmer error to attempt to remove a non-existent source.
-
+</para>
+<para>
 More specifically: source IDs can be reissued after a source has been
 destroyed and therefore it is never valid to use this function with a
 source ID which may have already been removed.  An example is when
@@ -247,6 +266,7 @@ idle may already have run and been removed by the time this function
 is called on its (now invalid) source ID.  This source ID may have
 been reissued, leading to the operation being performed against the
 wrong source.
+</para>
 </remarks>
 <param name="tag">
 the ID of the source to remove.
@@ -292,12 +312,15 @@ the user_data for the callback.
 Sets the name of a source using its ID.
 </summary>
 <remarks>
+<para>
 This is a convenience utility to set source names from the return
 value of g_idle_add(), g_timeout_add(), etc.
-
+</para>
+<para>
 It is a programmer error to attempt to set the name of a non-existent
 source.
-
+</para>
+<para>
 More specifically: source IDs can be reissued after a source has been
 destroyed and therefore it is never valid to use this function with a
 source ID which may have already been removed.  An example is when
@@ -306,6 +329,7 @@ idle may already have run and been removed by the time this function
 is called on its (now invalid) source ID.  This source ID may have
 been reissued, leading to the operation being performed against the
 wrong source.
+</para>
 </remarks>
 <param name="tag">
 a <see cref="Source"/> ID
@@ -326,15 +350,19 @@ callback), and when this instance is destroyed, it will destroy
 its own prepare/check functions indicate that it is ready.)
 </summary>
 <remarks>
+<para>
 If you don't need <paramref name="childSource"/> to do anything on its own when it
 triggers, you can call g_source_set_dummy_callback() on it to set a
 callback that does nothing (except return <c>true</c> if appropriate).
-
+</para>
+<para>
 this instance will hold a reference on <paramref name="childSource"/> while <paramref name="childSource"/>
 is attached to it.
-
+</para>
+<para>
 This API is only intended to be used by implementations of <see cref="Source"/>.
 Do not call this API on a <see cref="Source"/> that you did not create.
+</para>
 </remarks>
 <param name="childSource">
 a second <see cref="Source"/> that this instance should "poll"
@@ -350,12 +378,15 @@ the <c>revents</c> field in the <see cref="PollFD"/> struct and return <c>true</
 to be processed.
 </summary>
 <remarks>
+<para>
 This API is only intended to be used by implementations of <see cref="Source"/>.
 Do not call this API on a <see cref="Source"/> that you did not create.
-
+</para>
+<para>
 Using this API forces the linear scanning of event sources on each
 main loop iteration.  Newly-written event sources should try to use
 <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/> instead of this API.
+</para>
 </remarks>
 <param name="fd">
 a <see cref="PollFD"/> structure holding information about a file
@@ -368,17 +399,22 @@ a <see cref="PollFD"/> structure holding information about a file
 Monitors <paramref name="fd"/> for the IO events in <paramref name="events"/>.
 </summary>
 <remarks>
+<para>
 The tag returned by this function can be used to remove or modify the
 monitoring of the fd using <see cref="Source.RemoveUnixFd(System.IntPtr)"/> or
 <see cref="Source.ModifyUnixFd(System.IntPtr,GISharp.Lib.GLib.IOCondition)"/>.
-
+</para>
+<para>
 It is not necessary to remove the fd before destroying the source; it
 will be cleaned up automatically.
-
+</para>
+<para>
 This API is only intended to be used by implementations of <see cref="Source"/>.
 Do not call this API on a <see cref="Source"/> that you did not create.
-
+</para>
+<para>
 As the name suggests, this function is not available on Windows.
+</para>
 </remarks>
 <param name="fd">
 the fd to monitor
@@ -397,8 +433,10 @@ Adds a <see cref="Source"/> to a <paramref name="context"/> so that it will be e
 that context. Remove it by calling <see cref="Source.Destroy()"/>.
 </summary>
 <remarks>
+<para>
 This function is safe to call from any thread, regardless of which thread
 the <paramref name="context"/> is running in.
+</para>
 </remarks>
 <param name="context">
 a <see cref="MainContext"/> (if <c>null</c>, the default context will be used)
@@ -442,15 +480,20 @@ g_get_current_time().
 Updates the event mask to watch for the fd identified by <paramref name="tag"/>.
 </summary>
 <remarks>
+<para>
 <paramref name="tag"/> is the tag returned from <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>.
-
+</para>
+<para>
 If you want to remove a fd, don't set its event mask to zero.
 Instead, call <see cref="Source.RemoveUnixFd(System.IntPtr)"/>.
-
+</para>
+<para>
 This API is only intended to be used by implementations of <see cref="Source"/>.
 Do not call this API on a <see cref="Source"/> that you did not create.
-
+</para>
+<para>
 As the name suggests, this function is not available on Windows.
+</para>
 </remarks>
 <param name="tag">
 the tag from <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>
@@ -466,13 +509,17 @@ Queries the events reported for the fd corresponding to <paramref name="tag"/> o
 this instance during the last poll.
 </summary>
 <remarks>
+<para>
 The return value of this function is only defined when the function
 is called from the check or dispatch functions for this instance.
-
+</para>
+<para>
 This API is only intended to be used by implementations of <see cref="Source"/>.
 Do not call this API on a <see cref="Source"/> that you did not create.
-
+</para>
+<para>
 As the name suggests, this function is not available on Windows.
+</para>
 </remarks>
 <param name="tag">
 the tag from <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>
@@ -487,8 +534,10 @@ the conditions reported on the fd
 Detaches <paramref name="childSource"/> from this instance and destroys it.
 </summary>
 <remarks>
+<para>
 This API is only intended to be used by implementations of <see cref="Source"/>.
 Do not call this API on a <see cref="Source"/> that you did not create.
+</para>
 </remarks>
 <param name="childSource">
 a <see cref="Source"/> previously passed to
@@ -502,8 +551,10 @@ Removes a file descriptor from the set of file descriptors polled for
 this source.
 </summary>
 <remarks>
+<para>
 This API is only intended to be used by implementations of <see cref="Source"/>.
 Do not call this API on a <see cref="Source"/> that you did not create.
+</para>
 </remarks>
 <param name="fd">
 a <see cref="PollFD"/> structure previously passed to <see cref="Source.AddPoll(GISharp.Lib.GLib.PollFD)"/>.
@@ -515,14 +566,18 @@ a <see cref="PollFD"/> structure previously passed to <see cref="Source.AddPoll(
 Reverses the effect of a previous call to <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>.
 </summary>
 <remarks>
+<para>
 You only need to call this if you want to remove an fd from being
 watched while keeping the same source around.  In the normal case you
 will just want to destroy the source.
-
+</para>
+<para>
 This API is only intended to be used by implementations of <see cref="Source"/>.
 Do not call this API on a <see cref="Source"/> that you did not create.
-
+</para>
+<para>
 As the name suggests, this function is not available on Windows.
+</para>
 </remarks>
 <param name="tag">
 the tag from <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>
@@ -562,9 +617,11 @@ an initial reference count on <paramref name="callbackData"/>, and thus
 than <paramref name="callbackFuncs"/>-&gt;ref.
 </summary>
 <remarks>
+<para>
 It is safe to call this function multiple times on a source which has already
 been attached to a context. The changes will take effect for the next time
 the source is dispatched after this call returns.
+</para>
 </remarks>
 <param name="callbackData">
 pointer to callback data "object"

@@ -15,23 +15,28 @@ namespace GISharp.Lib.GLib
         /// function will be at the end of the first @interval.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that timeout functions may be delayed, due to the processing of other
         /// event sources. Thus they should not be relied on for precise timing.
         /// After each call to the timeout function, the time of the next
         /// timeout is recalculated based on the current time and the given interval
         /// (it does not try to 'catch up' time lost in delays).
-        /// 
+        /// </para>
+        /// <para>
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle the return value and memory management of @data.
-        /// 
+        /// </para>
+        /// <para>
         /// This internally creates a main loop source using g_timeout_source_new()
         /// and attaches it to the global #GMainContext using g_source_attach(), so
         /// the callback will be invoked in whichever thread is running that main
         /// context. You can do these steps manually if you need greater control or to
         /// use a custom main context.
-        /// 
+        /// </para>
+        /// <para>
         /// The interval given is in terms of monotonic time, not wall clock time.
         /// See g_get_monotonic_time().
+        /// </para>
         /// </remarks>
         /// <param name="priority">
         /// the priority of the timeout source. Typically this will be in
@@ -96,6 +101,7 @@ namespace GISharp.Lib.GLib
         /// not be called again.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Unlike g_timeout_add(), this function operates at whole second granularity.
         /// The initial starting point of the timer is determined by the implementation
         /// and the implementation is expected to group multiple timers together so that
@@ -103,32 +109,40 @@ namespace GISharp.Lib.GLib
         /// To allow this grouping, the @interval to the first timer is rounded
         /// and can deviate up to one second from the specified interval.
         /// Subsequent timer iterations will generally run at the specified interval.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that timeout functions may be delayed, due to the processing of other
         /// event sources. Thus they should not be relied on for precise timing.
         /// After each call to the timeout function, the time of the next
         /// timeout is recalculated based on the current time and the given @interval
-        /// 
+        /// </para>
+        /// <para>
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle the return value and memory management of @data.
-        /// 
+        /// </para>
+        /// <para>
         /// If you want timing more precise than whole seconds, use g_timeout_add()
         /// instead.
-        /// 
+        /// </para>
+        /// <para>
         /// The grouping of timers to fire at the same time results in a more power
         /// and CPU efficient behavior so if your timer is in multiples of seconds
         /// and you don't require the first timer exactly one second from now, the
         /// use of g_timeout_add_seconds() is preferred over g_timeout_add().
-        /// 
+        /// </para>
+        /// <para>
         /// This internally creates a main loop source using
         /// g_timeout_source_new_seconds() and attaches it to the main loop context
         /// using g_source_attach(). You can do these steps manually if you need
         /// greater control.
-        /// 
+        /// </para>
+        /// <para>
         /// It is safe to call this function from any thread.
-        /// 
+        /// </para>
+        /// <para>
         /// The interval given is in terms of monotonic time, not wall clock
         /// time.  See g_get_monotonic_time().
+        /// </para>
         /// </remarks>
         /// <param name="priority">
         /// the priority of the timeout source. Typically this will be in

@@ -7,8 +7,10 @@ interface.  This function should initialize all internal data and
 allocate any resources required by the interface.
 </summary>
 <remarks>
+<para>
 The members of <paramref name="ifaceData"/> are guaranteed to have been filled with
 zeros before this function is called.
+</para>
 </remarks>
 </member>
 

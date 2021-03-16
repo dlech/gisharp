@@ -80,6 +80,7 @@ namespace GISharp.Lib.GLib
         /// result (if not, the function may produce false-negative).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This example defines a comparison function and search an element in a #GArray:
         /// |[&lt;!-- language="C" --&gt;
         /// static gint*
@@ -87,7 +88,8 @@ namespace GISharp.Lib.GLib
         /// {
         ///   const gint *_a = a;
         ///   const gint *_b = b;
-        /// 
+        /// </para>
+        /// <para>
         ///   return *_a - *_b;
         /// }
         /// ...
@@ -96,6 +98,7 @@ namespace GISharp.Lib.GLib
         /// gboolean result = g_array_binary_search (garray, &amp;i, cmpint, &amp;matched_index);
         /// ...
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GArray.
@@ -165,13 +168,16 @@ namespace GISharp.Lib.GLib
         /// the size of  @array will be set to zero.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If array contents point to dynamically-allocated memory, they should
         /// be freed separately if @free_seg is %TRUE and no @clear_func
         /// function has been set for @array.
-        /// 
+        /// </para>
+        /// <para>
         /// This function is not thread-safe. If using a #GArray from multiple
         /// threads, use only the atomic g_array_ref() and g_array_unref()
         /// functions.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GArray
@@ -220,17 +226,21 @@ namespace GISharp.Lib.GLib
         /// Inserts @len elements into a #GArray at the given index.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @index_ is greater than the array’s current length, the array is expanded.
         /// The elements between the old end of the array and the newly inserted elements
         /// will be initialised to zero if the array was configured to clear elements;
         /// otherwise their values will be undefined.
-        /// 
+        /// </para>
+        /// <para>
         /// If @index_ is less than the array’s current length, new entries will be
         /// inserted into the array, and the existing entries above @index_ will be moved
         /// upwards.
-        /// 
+        /// </para>
+        /// <para>
         /// @data may be %NULL if (and only if) @len is zero. If @len is zero, this
         /// function is a no-op.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GArray
@@ -305,12 +315,15 @@ namespace GISharp.Lib.GLib
         /// Adds @len elements onto the start of the array.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @data may be %NULL if (and only if) @len is zero. If @len is zero, this
         /// function is a no-op.
-        /// 
+        /// </para>
+        /// <para>
         /// This operation is slower than g_array_append_vals() since the
         /// existing elements in the array have to be moved to make space for
         /// the new elements.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GArray
@@ -439,14 +452,17 @@ namespace GISharp.Lib.GLib
         /// Sets a function to clear an element of @array.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The @clear_func will be called when an element in the array
         /// data segment is removed and when the array is freed and data
         /// segment is deallocated as well. @clear_func will be passed a
         /// pointer to the element to clear, rather than the element itself.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that in contrast with other uses of #GDestroyNotify
         /// functions, @clear_func is expected to clear the contents of
         /// the array element it is given, but not free the element itself.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// A #GArray
@@ -545,7 +561,9 @@ namespace GISharp.Lib.GLib
         /// greater than second arg).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is guaranteed to be a stable sort since version 2.32.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GArray
@@ -571,11 +589,14 @@ namespace GISharp.Lib.GLib
         /// user data argument.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is guaranteed to be a stable sort since version 2.32.
-        /// 
+        /// </para>
+        /// <para>
         /// There used to be a comment here about making the sort stable by
         /// using the addresses of the elements in the comparison function.
         /// This did not actually work, so any such code should be removed.
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GArray
@@ -608,12 +629,15 @@ namespace GISharp.Lib.GLib
         /// to the caller.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the array was created with the @zero_terminate property
         /// set to %TRUE, the returned data is zero terminated too.
-        /// 
+        /// </para>
+        /// <para>
         /// If array elements contain dynamically-allocated memory,
         /// the array elements should also be freed by the caller.
-        /// 
+        /// </para>
+        /// <para>
         /// A short example of use:
         /// |[&lt;!-- language="C" --&gt;
         /// ...
@@ -622,6 +646,7 @@ namespace GISharp.Lib.GLib
         /// data = g_array_steal (some_array, &amp;data_len);
         /// ...
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// a #GArray.

@@ -36,19 +36,23 @@ namespace GISharp.Lib.Gio
         /// automatically destroyed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The @attributes string should be formatted with specific keys separated
         /// from namespaces with a double colon. Several "namespace::key" strings may be
         /// concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
         /// The wildcard "*" may be used to match all keys and namespaces, or
         /// "namespace::*" will match all keys in a given namespace.
-        /// 
+        /// </para>
+        /// <para>
         /// ## Examples of file attribute matcher strings and results
-        /// 
+        /// </para>
+        /// <para>
         /// - `"*"`: matches all attributes.
         /// - `"standard::is-hidden"`: matches only the key is-hidden in the
         ///   standard namespace.
         /// - `"standard::type,unix::*"`: matches the type key in the standard
         ///   namespace and all keys in the unix namespace.
+        /// </para>
         /// </remarks>
         /// <param name="attributes">
         /// an attribute string to match.
@@ -90,7 +94,9 @@ namespace GISharp.Lib.Gio
         /// using "*" and namespace is anything.)
         /// </summary>
         /// <remarks>
+        /// <para>
         /// TODO: this is awkwardly worded.
+        /// </para>
         /// </remarks>
         /// <param name="matcher">
         /// a #GFileAttributeMatcher.
@@ -255,11 +261,13 @@ namespace GISharp.Lib.Gio
         /// a matcher that supports those attributes.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that currently it is not possible to remove a single
         /// attribute when the @matcher matches the whole namespace - or remove
         /// a namespace or attribute when the matcher matches everything. This
         /// is a limitation of the current implementation, but may be fixed
         /// in the future.
+        /// </para>
         /// </remarks>
         /// <param name="matcher">
         /// Matcher to subtract from

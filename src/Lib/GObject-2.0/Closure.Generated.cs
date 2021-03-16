@@ -117,6 +117,7 @@ namespace GISharp.Lib.GObject
         /// implementing new types of closures.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// typedef struct _MyClosure MyClosure;
         /// struct _MyClosure
@@ -124,31 +125,38 @@ namespace GISharp.Lib.GObject
         ///   GClosure closure;
         ///   // extra data goes here
         /// };
-        /// 
+        /// </para>
+        /// <para>
         /// static void
         /// my_closure_finalize (gpointer  notify_data,
         ///                      GClosure *closure)
         /// {
         ///   MyClosure *my_closure = (MyClosure *)closure;
-        /// 
+        /// </para>
+        /// <para>
         ///   // free extra data here
         /// }
-        /// 
+        /// </para>
+        /// <para>
         /// MyClosure *my_closure_new (gpointer data)
         /// {
         ///   GClosure *closure;
         ///   MyClosure *my_closure;
-        /// 
+        /// </para>
+        /// <para>
         ///   closure = g_closure_new_simple (sizeof (MyClosure), data);
         ///   my_closure = (MyClosure *) closure;
-        /// 
+        /// </para>
+        /// <para>
         ///   // initialize extra data here
-        /// 
+        /// </para>
+        /// <para>
         ///   g_closure_add_finalize_notifier (closure, notify_data,
         ///                                    my_closure_finalize);
         ///   return my_closure;
         /// }
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="sizeofClosure">
         /// the size of the structure to allocate, must be at least
@@ -203,9 +211,11 @@ namespace GISharp.Lib.GObject
         /// that you've previously called g_closure_ref().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that g_closure_invalidate() will also be called when the
         /// reference count of a closure drops to zero (unless it has already
         /// been invalidated before).
+        /// </para>
         /// </remarks>
         /// <param name="closure">
         /// #GClosure to invalidate
@@ -334,6 +344,7 @@ namespace GISharp.Lib.GObject
         /// ]|
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Generally, this function is used together with g_closure_ref(). An example
         /// of storing a closure for later notification looks like:
         /// |[&lt;!-- language="C" --&gt;
@@ -351,10 +362,12 @@ namespace GISharp.Lib.GObject
         ///     }
         /// }
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// Because g_closure_sink() may decrement the reference count of a closure
         /// (if it hasn't been called on @closure yet) just like g_closure_unref(),
         /// g_closure_ref() should be called prior to this function.
+        /// </para>
         /// </remarks>
         /// <param name="closure">
         /// #GClosure to decrement the initial reference count on, if it's

@@ -33,14 +33,17 @@ namespace GISharp.Lib.GLib
         /// Allocates and initialises a new #GVariantDict.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You should call g_variant_dict_unref() on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
-        /// 
+        /// </para>
+        /// <para>
         /// In some cases it may be easier to place a #GVariantDict directly on
         /// the stack of the calling function and initialise it with
         /// g_variant_dict_init().  This is particularly useful when you are
         /// using #GVariantDict to construct a #GVariant.
+        /// </para>
         /// </remarks>
         /// <param name="fromAsv">
         /// the #GVariant with which to initialise the
@@ -121,10 +124,12 @@ namespace GISharp.Lib.GLib
         /// %G_VARIANT_TYPE_VARDICT, clearing it in the process.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is not permissible to use @dict in any way after this call except
         /// for reference counting operations (in the case of a heap-allocated
         /// #GVariantDict) or by reinitialising it with g_variant_dict_init() (in
         /// the case of stack-allocated).
+        /// </para>
         /// </remarks>
         /// <param name="dict">
         /// a #GVariantDict
@@ -157,7 +162,9 @@ namespace GISharp.Lib.GLib
         /// Inserts (or replaces) a key in a #GVariantDict.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @value is consumed if it is floating.
+        /// </para>
         /// </remarks>
         /// <param name="dict">
         /// a #GVariantDict
@@ -199,15 +206,19 @@ namespace GISharp.Lib.GLib
         /// Looks up a value in a #GVariantDict.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @key is not found in @dictionary, %NULL is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// The @expected_type string specifies what type of value is expected.
         /// If the value associated with @key has a different type then %NULL is
         /// returned.
-        /// 
+        /// </para>
+        /// <para>
         /// If the key is found and the value has the correct type, it is
         /// returned.  If @expected_type was specified then any non-%NULL return
         /// value will have this type.
+        /// </para>
         /// </remarks>
         /// <param name="dict">
         /// a #GVariantDict
@@ -254,8 +265,10 @@ namespace GISharp.Lib.GLib
         /// Increases the reference count on @dict.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Don't call this on stack-allocated #GVariantDict instances or bad
         /// things will happen.
+        /// </para>
         /// </remarks>
         /// <param name="dict">
         /// a heap-allocated #GVariantDict
@@ -319,11 +332,14 @@ namespace GISharp.Lib.GLib
         /// Decreases the reference count on @dict.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In the event that there are no more references, releases all memory
         /// associated with the #GVariantDict.
-        /// 
+        /// </para>
+        /// <para>
         /// Don't call this on stack-allocated #GVariantDict instances or bad
         /// things will happen.
+        /// </para>
         /// </remarks>
         /// <param name="dict">
         /// a heap-allocated #GVariantDict

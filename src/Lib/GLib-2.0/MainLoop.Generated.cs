@@ -138,8 +138,10 @@ namespace GISharp.Lib.GLib
         /// for the loop will return.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that sources that have already been dispatched when
         /// g_main_loop_quit() is called will still be executed.
+        /// </para>
         /// </remarks>
         /// <param name="loop">
         /// a #GMainLoop

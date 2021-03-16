@@ -93,9 +93,11 @@ namespace GISharp.Lib.Gio
         /// of the invocation of @cmdline.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This differs from g_file_new_for_commandline_arg() in that it
         /// resolves relative pathnames using the current working directory of
         /// the invoking process rather than the local process.
+        /// </para>
         /// </remarks>
         /// <param name="cmdline">
         /// a #GApplicationCommandLine
@@ -135,15 +137,19 @@ namespace GISharp.Lib.Gio
         /// Gets the list of arguments that was passed on the command line.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The strings in the array may contain non-UTF-8 data on UNIX (such as
         /// filenames or arguments given in the system locale) but are always in
         /// UTF-8 on Windows.
-        /// 
+        /// </para>
+        /// <para>
         /// If you wish to use the return value with #GOptionContext, you must
         /// use g_option_context_parse_strv().
-        /// 
+        /// </para>
+        /// <para>
         /// The return value is %NULL-terminated and should be freed using
         /// g_strfreev().
+        /// </para>
         /// </remarks>
         /// <param name="cmdline">
         /// a #GApplicationCommandLine
@@ -186,11 +192,14 @@ namespace GISharp.Lib.Gio
         /// The string may contain non-utf8 data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is possible that the remote application did not send a working
         /// directory, so this may be %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// The return value should not be modified or freed and is valid for as
         /// long as @cmdline exists.
+        /// </para>
         /// </remarks>
         /// <param name="cmdline">
         /// a #GApplicationCommandLine
@@ -225,16 +234,20 @@ namespace GISharp.Lib.Gio
         /// The strings may contain non-utf8 data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The remote application usually does not send an environment.  Use
         /// %G_APPLICATION_SEND_ENVIRONMENT to affect that.  Even with this flag
         /// set it is possible that the environment is still not available (due
         /// to invocation messages from other applications).
-        /// 
+        /// </para>
+        /// <para>
         /// The return value should not be modified or freed and is valid for as
         /// long as @cmdline exists.
-        /// 
+        /// </para>
+        /// <para>
         /// See g_application_command_line_getenv() if you are only interested
         /// in the value of a single environment variable.
+        /// </para>
         /// </remarks>
         /// <param name="cmdline">
         /// a #GApplicationCommandLine
@@ -328,13 +341,16 @@ namespace GISharp.Lib.Gio
         /// Gets the options there were passed to g_application_command_line().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If you did not override local_command_line() then these are the same
         /// options that were parsed according to the #GOptionEntrys added to the
         /// application with g_application_add_main_option_entries() and possibly
         /// modified from your GApplication::handle-local-options handler.
-        /// 
+        /// </para>
+        /// <para>
         /// If no options were sent then an empty dictionary is returned so that
         /// you don't need to check for %NULL.
+        /// </para>
         /// </remarks>
         /// <param name="cmdline">
         /// a #GApplicationCommandLine
@@ -366,12 +382,15 @@ namespace GISharp.Lib.Gio
         /// Gets the platform data associated with the invocation of @cmdline.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is a #GVariant dictionary containing information about the
         /// context in which the invocation occurred.  It typically contains
         /// information like the current working directory and the startup
         /// notification ID.
-        /// 
+        /// </para>
+        /// <para>
         /// For local invocation, it will be %NULL.
+        /// </para>
         /// </remarks>
         /// <param name="cmdline">
         /// #GApplicationCommandLine
@@ -403,14 +422,17 @@ namespace GISharp.Lib.Gio
         /// Gets the stdin of the invoking process.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The #GInputStream can be used to read data passed to the standard
         /// input of the invoking process.
         /// This doesn't work on all platforms.  Presently, it is only available
         /// on UNIX when using a DBus daemon capable of passing file descriptors.
         /// If stdin is not available then %NULL will be returned.  In the
         /// future, support may be expanded to other platforms.
-        /// 
+        /// </para>
+        /// <para>
         /// You must only call this function once per commandline invocation.
+        /// </para>
         /// </remarks>
         /// <param name="cmdline">
         /// a #GApplicationCommandLine
@@ -444,13 +466,16 @@ namespace GISharp.Lib.Gio
         /// contain non-utf8 data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The remote application usually does not send an environment.  Use
         /// %G_APPLICATION_SEND_ENVIRONMENT to affect that.  Even with this flag
         /// set it is possible that the environment is still not available (due
         /// to invocation messages from other applications).
-        /// 
+        /// </para>
+        /// <para>
         /// The return value should not be modified or freed and is valid for as
         /// long as @cmdline exists.
+        /// </para>
         /// </remarks>
         /// <param name="cmdline">
         /// a #GApplicationCommandLine
@@ -491,17 +516,20 @@ namespace GISharp.Lib.Gio
         /// exits.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The return value of the #GApplication::command-line signal is
         /// passed to this function when the handler returns.  This is the usual
         /// way of setting the exit status.
-        /// 
+        /// </para>
+        /// <para>
         /// In the event that you want the remote invocation to continue running
         /// and want to decide on the exit status in the future, you can use this
         /// call.  For the case of a remote invocation, the remote process will
         /// typically exit when the last reference is dropped on @cmdline.  The
         /// exit status of the remote process will be equal to the last value
         /// that was set with this function.
-        /// 
+        /// </para>
+        /// <para>
         /// In the case that the commandline invocation is local, the situation
         /// is slightly more complicated.  If the commandline invocation results
         /// in the mainloop running (ie: because the use-count of the application
@@ -509,6 +537,7 @@ namespace GISharp.Lib.Gio
         /// have been 'successful' in a certain sense, and the exit status is
         /// always zero.  If the application use count is zero, though, the exit
         /// status of the local #GApplicationCommandLine is used.
+        /// </para>
         /// </remarks>
         /// <param name="cmdline">
         /// a #GApplicationCommandLine

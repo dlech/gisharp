@@ -32,8 +32,10 @@ Stops a <see cref="MainLoop"/> from running. Any calls to <see cref="MainLoop.Ru
 for the loop will return.
 </summary>
 <remarks>
+<para>
 Note that sources that have already been dispatched when
 <see cref="MainLoop.Quit()"/> is called will still be executed.
+</para>
 </remarks>
 </member>
 

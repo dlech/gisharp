@@ -42,9 +42,12 @@ vfunc to indicate that a system setting has changed and widgets may
 need to drop caches, or react otherwise.
 </summary>
 <remarks>
+<para>
 Most of the values correspond to #GtkSettings properties.
-
+</para>
+<para>
 More values may be added over time.
+</para>
 </remarks>
 </member>
 

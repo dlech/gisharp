@@ -79,7 +79,9 @@ For 'in' values this means that <c>null</c> is a valid value.  For 'out'
 values, this means that <c>null</c> may be returned.
 </summary>
 <remarks>
+<para>
 See also <see cref="ArgInfo.GetIsOptional()"/>.
+</para>
 </remarks>
 </member>
 

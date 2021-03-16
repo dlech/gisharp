@@ -5,13 +5,16 @@
 Allocates and initialises a new <see cref="VariantBuilder"/>.
 </summary>
 <remarks>
+<para>
 You should call <see cref="VariantBuilder.Unref()"/> on the return value when it
 is no longer needed.  The memory will not be automatically freed by
 any other call.
-
+</para>
+<para>
 In most cases it is easier to place a <see cref="VariantBuilder"/> directly on
 the stack of the calling function and initialise it with
 g_variant_builder_init().
+</para>
 </remarks>
 <param name="type">
 a container type
@@ -23,14 +26,17 @@ a container type
 Adds <paramref name="value"/> to this instance.
 </summary>
 <remarks>
+<para>
 It is an error to call this function in any way that would create an
 inconsistent value to be constructed.  Some examples of this are
 putting different types of items into an array, putting the wrong
 types or number of items in a tuple, putting more than one value into
 a variant, etc.
-
+</para>
+<para>
 If <paramref name="value"/> is a floating reference (see <see cref="Variant.RefSink()"/>),
 the this instance instance takes ownership of <paramref name="value"/>.
+</para>
 </remarks>
 <param name="value">
 a <see cref="Variant"/>
@@ -43,9 +49,11 @@ Closes the subcontainer inside the given this instance that was opened by
 the most recent call to <see cref="VariantBuilder.Open(GISharp.Lib.GLib.VariantType)"/>.
 </summary>
 <remarks>
+<para>
 It is an error to call this function in any way that would create an
 inconsistent value to be constructed (ie: too few values added to the
 subcontainer).
+</para>
 </remarks>
 </member>
 
@@ -54,6 +62,7 @@ subcontainer).
 Ends the builder process and returns the constructed value.
 </summary>
 <remarks>
+<para>
 It is not permissible to use this instance in any way after this call
 except for reference counting operations (in the case of a
 heap-allocated <see cref="VariantBuilder"/>) or by reinitialising it with
@@ -61,7 +70,8 @@ g_variant_builder_init() (in the case of stack-allocated). This
 means that for the stack-allocated builders there is no need to
 call g_variant_builder_clear() after the call to
 <see cref="VariantBuilder.End()"/>.
-
+</para>
+<para>
 It is an error to call this function in any way that would create an
 inconsistent value to be constructed (ie: insufficient number of
 items added to a container with a specific number of children
@@ -69,6 +79,7 @@ required).  It is also an error to call this function if the builder
 was created with an indefinite array or maybe type and no children
 have been added; in this case it is impossible to infer the type of
 the empty array.
+</para>
 </remarks>
 <returns>
 a new, floating, <see cref="Variant"/>
@@ -83,10 +94,12 @@ is the type of the container: so to build a tuple of several values, <paramref n
 must include the tuple itself.
 </summary>
 <remarks>
+<para>
 It is an error to call this function in any way that would cause an
 inconsistent value to be constructed (ie: adding too many values or
 a value of an incorrect type).
-
+</para>
+<para>
 Example of building a nested variant:
 |[&lt;!-- language="C" --&gt;
 GVariantBuilder builder;
@@ -96,11 +109,13 @@ GHashTableIter iter;
 const gchar *key;
 const GVariant *value;
 g_autoptr (GVariant) output = NULL;
-
+</para>
+<para>
 g_variant_builder_init (&amp;builder, G_VARIANT_TYPE ("(ua{sv})"));
 g_variant_builder_add (&amp;builder, "u", some_number);
 g_variant_builder_open (&amp;builder, G_VARIANT_TYPE ("a{sv}"));
-
+</para>
+<para>
 g_hash_table_iter_init (&amp;iter, some_dict);
 while (g_hash_table_iter_next (&amp;iter, (gpointer *) &amp;key, (gpointer *) &amp;value))
   {
@@ -109,11 +124,14 @@ while (g_hash_table_iter_next (&amp;iter, (gpointer *) &amp;key, (gpointer *) &a
     g_variant_builder_add (&amp;builder, "v", value);
     g_variant_builder_close (&amp;builder);
   }
-
+</para>
+<para>
 g_variant_builder_close (&amp;builder);
-
+</para>
+<para>
 output = g_variant_builder_end (&amp;builder);
 ]|
+</para>
 </remarks>
 <param name="type">
 the <see cref="VariantType"/> of the container
@@ -125,11 +143,14 @@ the <see cref="VariantType"/> of the container
 A utility type for constructing container-type <see cref="Variant"/> instances.
 </summary>
 <remarks>
+<para>
 This is an opaque structure and may only be accessed using the
 following functions.
-
+</para>
+<para>
 <see cref="VariantBuilder"/> is not threadsafe in any way.  Do not attempt to
 access it from more than one thread.
+</para>
 </remarks>
 </member>
 

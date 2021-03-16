@@ -305,6 +305,7 @@ Message too large.
 Error codes returned by GIO functions.
 </summary>
 <remarks>
+<para>
 Note that this domain may be extended in future GLib releases. In
 general, new error codes either only apply to new APIs, or else
 replace <see cref="IOErrorEnum.Failed"/> in cases that were not explicitly
@@ -318,9 +319,11 @@ if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_FAILED))
 ]|
 but should instead treat all unrecognized error codes the same as
 #G_IO_ERROR_FAILED.
-
+</para>
+<para>
 See also #GPollableReturn for a cheaper way of returning
 <see cref="IOErrorEnum.WouldBlock"/> to callers without allocating a #GError.
+</para>
 </remarks>
 </member>
 
@@ -338,8 +341,10 @@ handled (but note that future GLib releases may return a more
 specific value instead).
 </summary>
 <remarks>
+<para>
 As %errno is global and may be modified by intermediate function
 calls, you should save its value as soon as the call which sets it
+</para>
 </remarks>
 <param name="errno">
 Error number as defined in errno.h.

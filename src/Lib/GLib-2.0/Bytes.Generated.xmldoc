@@ -5,11 +5,14 @@
 Get the byte data in the <see cref="Bytes"/>. This data should not be modified.
 </summary>
 <remarks>
+<para>
 This function will always return the same pointer for a given <see cref="Bytes"/>.
-
+</para>
+<para>
 <c>null</c> may be returned if <paramref name="size"/> is 0. This is not guaranteed, as the <see cref="Bytes"/>
 may represent an empty string with <c>data</c> non-<c>null</c> and <paramref name="size"/> as 0. <c>null</c> will
 not be returned if <paramref name="size"/> is non-zero.
+</para>
 </remarks>
 </member>
 
@@ -18,7 +21,9 @@ not be returned if <paramref name="size"/> is non-zero.
 Get the size of the byte data in the <see cref="Bytes"/>.
 </summary>
 <remarks>
+<para>
 This function will always return the same value for a given <see cref="Bytes"/>.
+</para>
 </remarks>
 </member>
 
@@ -27,7 +32,9 @@ This function will always return the same value for a given <see cref="Bytes"/>.
 Creates a new <see cref="Bytes"/> from <paramref name="data"/>.
 </summary>
 <remarks>
+<para>
 <paramref name="data"/> is copied. If the length of <paramref name="data"/> is 0, <paramref name="data"/> may be <c>null</c>.
+</para>
 </remarks>
 <param name="data">
 
@@ -40,16 +47,20 @@ Creates a new <see cref="Bytes"/> from <paramref name="data"/>.
 Creates a new <see cref="Bytes"/> from <paramref name="data"/>.
 </summary>
 <remarks>
+<para>
 After this call, <paramref name="data"/> belongs to the bytes and may no longer be
 modified by the caller.  g_free() will be called on <paramref name="data"/> when the
 bytes is no longer in use. Because of this <paramref name="data"/> must have been created by
 a call to g_malloc(), g_malloc0() or g_realloc() or by one of the many
 functions that wrap these calls (such as g_new(), g_strdup(), etc).
-
+</para>
+<para>
 For creating <see cref="Bytes"/> with memory from other allocators, see
 <see cref="Bytes.Bytes(System.ReadOnlySpan{byte},GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/>.
-
+</para>
+<para>
 <paramref name="data"/> may be <c>null</c> if the length of <paramref name="data"/> is 0.
+</para>
 </remarks>
 <param name="data">
 
@@ -62,13 +73,16 @@ For creating <see cref="Bytes"/> with memory from other allocators, see
 Compares the two <see cref="Bytes"/> values.
 </summary>
 <remarks>
+<para>
 This function can be used to sort GBytes instances in lexicographical order.
-
+</para>
+<para>
 If <paramref name="bytes1"/> and <paramref name="bytes2"/> have different length but the shorter one is a
 prefix of the longer one then the shorter one is considered to be less than
 the longer one. Otherwise the first byte where both differ is used for
 comparison. If <paramref name="bytes1"/> has a smaller value at that position it is
 considered less, otherwise greater than <paramref name="bytes2"/>.
+</para>
 </remarks>
 <param name="bytes1">
 a pointer to a <see cref="Bytes"/>
@@ -89,8 +103,10 @@ Compares the two <see cref="Bytes"/> values being pointed to and returns
 <c>true</c> if they are equal.
 </summary>
 <remarks>
+<para>
 This function can be passed to <see cref="HashTable.New(GISharp.Lib.GLib.HashFunc,GISharp.Lib.GLib.EqualFunc)"/> as the <c>keyEqualFunc</c>
 parameter, when using non-<c>null</c> <see cref="Bytes"/> pointers as keys in a <see cref="HashTable"/>.
+</para>
 </remarks>
 <param name="bytes2">
 a pointer to a <see cref="Bytes"/> to compare with this instance
@@ -105,8 +121,10 @@ a pointer to a <see cref="Bytes"/> to compare with this instance
 Creates an integer hash code for the byte data in the <see cref="Bytes"/>.
 </summary>
 <remarks>
+<para>
 This function can be passed to <see cref="HashTable.New(GISharp.Lib.GLib.HashFunc,GISharp.Lib.GLib.EqualFunc)"/> as the <c>keyHashFunc</c>
 parameter, when using non-<c>null</c> <see cref="Bytes"/> pointers as keys in a <see cref="HashTable"/>.
+</para>
 </remarks>
 <returns>
 a hash value corresponding to the key.
@@ -119,14 +137,17 @@ Creates a <see cref="Bytes"/> which is a subsection of another <see cref="Bytes"
 <paramref name="length"/> may not be longer than the size of this instance.
 </summary>
 <remarks>
+<para>
 A reference to this instance will be held by the newly created <see cref="Bytes"/> until
 the byte data is no longer needed.
-
+</para>
+<para>
 Since 2.56, if <paramref name="offset"/> is 0 and <paramref name="length"/> matches the size of this instance, then
 this instance will be returned with the reference count incremented by 1. If this instance
 is a slice of another <see cref="Bytes"/>, then the resulting <see cref="Bytes"/> will reference
 the same <see cref="Bytes"/> instead of this instance. This allows consumers to simplify the
 usage of <see cref="Bytes"/> when asynchronously writing to streams.
+</para>
 </remarks>
 <param name="offset">
 offset which subsection starts at
@@ -145,10 +166,12 @@ Unreferences the bytes, and returns a new mutable <see cref="ByteArray"/> contai
 the same byte data.
 </summary>
 <remarks>
+<para>
 As an optimization, the byte data is transferred to the array without copying
 if this was the last reference to bytes and bytes was created with
 <see cref="Bytes.Bytes(System.ReadOnlySpan{byte})"/>, <see cref="Bytes.Bytes(GISharp.Runtime.CArray{byte})"/> or <see cref="ByteArray.FreeToBytes()"/>. In all
 other cases the data is copied.
+</para>
 </remarks>
 <returns>
 a new mutable <see cref="ByteArray"/> containing the same byte data
@@ -161,10 +184,12 @@ Unreferences the bytes, and returns a pointer the same byte data
 contents.
 </summary>
 <remarks>
+<para>
 As an optimization, the byte data is returned without copying if this was
 the last reference to bytes and bytes was created with <see cref="Bytes.Bytes(System.ReadOnlySpan{byte})"/>,
 <see cref="Bytes.Bytes(GISharp.Runtime.CArray{byte})"/> or <see cref="ByteArray.FreeToBytes()"/>. In all other cases the
 data is copied.
+</para>
 </remarks>
 <returns>
 a pointer to the same byte data, which should be
@@ -178,27 +203,32 @@ A simple refcounted data type representing an immutable sequence of zero or
 more bytes from an unspecified origin.
 </summary>
 <remarks>
+<para>
 The purpose of a <see cref="Bytes"/> is to keep the memory region that it holds
 alive for as long as anyone holds a reference to the bytes.  When
 the last reference count is dropped, the memory is released. Multiple
 unrelated callers can use byte data in the <see cref="Bytes"/> without coordinating
 their activities, resting assured that the byte data will not change or
 move while they hold a reference.
-
+</para>
+<para>
 A <see cref="Bytes"/> can come from many different origins that may have
 different procedures for freeing the memory region.  Examples are
 memory from g_malloc(), from memory slices, from a #GMappedFile or
 memory from other allocators.
-
+</para>
+<para>
 <see cref="Bytes"/> work well as keys in <see cref="HashTable"/>. Use <see cref="Bytes.Equals(GISharp.Lib.GLib.Bytes)"/> and
 <see cref="Bytes.GetHashCode()"/> as parameters to <see cref="HashTable.New(GISharp.Lib.GLib.HashFunc,GISharp.Lib.GLib.EqualFunc)"/> or <see cref="HashTable.NewFull(GISharp.Lib.GLib.HashFunc,GISharp.Lib.GLib.EqualFunc,GISharp.Lib.GLib.DestroyNotify)"/>.
 <see cref="Bytes"/> can also be used as keys in a #GTree by passing the <see cref="Bytes.Compare(GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.Bytes)"/>
 function to g_tree_new().
-
+</para>
+<para>
 The data pointed to by this bytes must not be modified. For a mutable
 array of bytes see <see cref="ByteArray"/>. Use <see cref="Bytes.UnrefToArray()"/> to create a
 mutable array for a <see cref="Bytes"/> sequence. To create an immutable <see cref="Bytes"/> from
 a mutable <see cref="ByteArray"/>, use the <see cref="ByteArray.FreeToBytes()"/> function.
+</para>
 </remarks>
 </member>
 

@@ -20,8 +20,10 @@ Checks whether this instance has a [floating][floating-ref] reference.
 Creates a new instance of a <see cref="Object"/> subtype and sets its properties.
 </summary>
 <remarks>
+<para>
 Construction parameters (see #G_PARAM_CONSTRUCT, #G_PARAM_CONSTRUCT_ONLY)
 which are not explicitly specified are set to their default values.
+</para>
 </remarks>
 <param name="objectType">
 the type id of the <see cref="Object"/> subtype to instantiate
@@ -37,6 +39,7 @@ The notify signal is emitted on an object when one of its properties has
 its value set through <see cref="Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)"/>, g_object_set(), et al.
 </summary>
 <remarks>
+<para>
 Note that getting this signal doesn’t itself guarantee that the value of
 the property has actually changed. When it is emitted is determined by the
 derived GObject class. If the implementor did not create the property with
@@ -45,7 +48,8 @@ in ::notify being emitted, even if the new value is the same as the old.
 If they did pass <see cref="ParamFlags.ExplicitNotify"/>, then this signal is emitted only
 when they explicitly call <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/> or <see cref="Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)"/>,
 and common practice is to do that only when the value has actually changed.
-
+</para>
+<para>
 This signal is typically used to obtain change notification for a
 single property, by specifying the property name as a detail in the
 g_signal_connect() call, like this:
@@ -57,6 +61,7 @@ g_signal_connect (text_view-&gt;buffer, "notify::paste-target-list",
 It is important to note that you must use
 [canonical parameter names][canonical-parameter-names] as
 detail strings for the notify signal.
+</para>
 </remarks>
 <param name="object">
 the instance on which the signal was invoked
@@ -108,12 +113,15 @@ property description, default value, bounds, and so forth from the
 interface property.
 </summary>
 <remarks>
+<para>
 This function is meant to be called from the interface's default
 vtable initialization function (the <c>classInit</c> member of
 <see cref="TypeInfo"/>.) It must not be called after after <c>classInit</c> has
 been called for any object types implementing this interface.
-
+</para>
+<para>
 If <paramref name="pspec"/> is a floating reference, it will be consumed.
+</para>
 </remarks>
 <param name="gIface">
 any interface vtable for the
@@ -152,24 +160,30 @@ on <paramref name="target"/>. Whenever the <paramref name="sourceProperty"/> is 
 updated using the same value. For instance:
 </summary>
 <remarks>
+<para>
 |[
   g_object_bind_property (action, "active", widget, "sensitive", 0);
 ]|
-
+</para>
+<para>
 Will result in the "sensitive" property of the widget <see cref="Object"/> instance to be
 updated with the same value of the "active" property of the action <see cref="Object"/>
 instance.
-
+</para>
+<para>
 If <paramref name="flags"/> contains <see cref="BindingFlags.Bidirectional"/> then the binding will be mutual:
 if <paramref name="targetProperty"/> on <paramref name="target"/> changes then the <paramref name="sourceProperty"/> on this instance
 will be updated as well.
-
+</para>
+<para>
 The binding will automatically be removed when either the this instance or the
 <paramref name="target"/> instances are finalized. To remove the binding without affecting the
 this instance and the <paramref name="target"/> you can just call <see cref="Object.Unref()"/> on the returned
 <see cref="Binding"/> instance.
-
+</para>
+<para>
 A <see cref="Object"/> can have multiple bindings.
+</para>
 </remarks>
 <param name="sourceProperty">
 the property on this instance to bind
@@ -197,9 +211,11 @@ on <paramref name="target"/>, allowing you to set the transformation functions t
 the binding.
 </summary>
 <remarks>
+<para>
 This function is the language bindings friendly version of
 g_object_bind_property_full(), using #GClosures instead of
 function pointers.
+</para>
 </remarks>
 <param name="sourceProperty">
 the property on this instance to bind
@@ -247,8 +263,10 @@ to zero. Duplicate notifications are squashed so that at most one
 object is frozen.
 </summary>
 <remarks>
+<para>
 This is necessary for accessors that modify multiple properties to prevent
 premature notification while the object is still being modified.
+</para>
 </remarks>
 </member>
 
@@ -270,20 +288,25 @@ the data if found,
 Gets a property of an object.
 </summary>
 <remarks>
+<para>
 The <paramref name="value"/> can be:
-
+</para>
+<para>
  - an empty <see cref="Value"/> initialized by %G_VALUE_INIT, which will be
    automatically initialized with the expected type of the property
    (since GLib 2.60)
  - a <see cref="Value"/> initialized with the expected type of the property
  - a <see cref="Value"/> initialized with a type to which the expected type
    of the property can be transformed
-
+</para>
+<para>
 In general, a copy is made of the property contents and the caller is
 responsible for freeing the memory by calling <see cref="Value.Unset()"/>.
-
+</para>
+<para>
 Note that <see cref="Object.GetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)"/> is really intended for language
 bindings, g_object_get() is much more convenient for C programming.
+</para>
 </remarks>
 <param name="propertyName">
 the name of the property to get
@@ -326,14 +349,17 @@ the values of each property to get
 Emits a "notify" signal for the property <paramref name="propertyName"/> on this instance.
 </summary>
 <remarks>
+<para>
 When possible, eg. when signaling a property change from within the class
 that registered the property, you should use <see cref="Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)"/>
 instead.
-
+</para>
+<para>
 Note that emission of the notify signal may be blocked with
 <see cref="Object.FreezeNotify()"/>. In this case, the signal emissions are queued
 and will be emitted (in reverse order) when <see cref="Object.ThawNotify()"/> is
 called.
+</para>
 </remarks>
 <param name="propertyName">
 the name of a property installed on the class of this instance.
@@ -345,14 +371,17 @@ the name of a property installed on the class of this instance.
 Emits a "notify" signal for the property specified by <paramref name="pspec"/> on this instance.
 </summary>
 <remarks>
+<para>
 This function omits the property name lookup, hence it is faster than
 <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/>.
-
+</para>
+<para>
 One way to avoid using <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/> from within the
 class that registered the properties, and using <see cref="Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)"/>
 instead, is to store the GParamSpec used with
 <see cref="ObjectClass.InstallProperty(uint,GISharp.Lib.GObject.ParamSpec)"/> inside a static array, e.g.:
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
   enum
   {
@@ -360,9 +389,11 @@ instead, is to store the GParamSpec used with
     PROP_FOO,
     PROP_LAST
   };
-
+</para>
+<para>
   static GParamSpec *properties[PROP_LAST];
-
+</para>
+<para>
   static void
   my_object_class_init (MyObjectClass *klass)
   {
@@ -375,12 +406,15 @@ instead, is to store the GParamSpec used with
                                      properties[PROP_FOO]);
   }
 ]|
-
+</para>
+<para>
 and then notify a change on the "foo" property with:
-
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
   g_object_notify_by_pspec (self, properties[PROP_FOO]);
 ]|
+</para>
 </remarks>
 <param name="pspec">
 the <see cref="ParamSpec"/> of a property installed on the class of this instance.
@@ -393,14 +427,17 @@ Increase the reference count of this instance, and possibly remove the
 [floating][floating-ref] reference, if this instance has a floating reference.
 </summary>
 <remarks>
+<para>
 In other words, if the object is floating, then this call "assumes
 ownership" of the floating reference, converting it to a normal
 reference by clearing the floating flag while leaving the reference
 count unchanged.  If the object is not floating, then this call
 adds a new normal reference increasing the reference count by one.
-
+</para>
+<para>
 Since GLib 2.56, the type of this instance will be propagated to the return type
 under the same conditions as for <see cref="Object.Ref()"/>.
+</para>
 </remarks>
 <returns>
 this instance
@@ -413,7 +450,9 @@ Releases all references to other objects. This can be used to break
 reference cycles.
 </summary>
 <remarks>
+<para>
 This function should only be called from object system implementations.
+</para>
 </remarks>
 </member>
 
@@ -423,13 +462,16 @@ Each object carries around a table of associations from
 strings to pointers.  This function lets you set an association.
 </summary>
 <remarks>
+<para>
 If the object already had an association with that name,
 the old association will be destroyed.
-
+</para>
+<para>
 Internally, the <paramref name="key"/> is converted to a #GQuark using g_quark_from_string().
 This means a copy of <paramref name="key"/> is kept permanently (even after this instance has been
 finalized) — so it is recommended to only use a small, bounded set of values
 for <paramref name="key"/> in your program, to avoid the #GQuark storage growing unbounded.
+</para>
 </remarks>
 <param name="key">
 name of the key
@@ -484,6 +526,7 @@ object_add_to_user_list (GObject     *object,
   GList *list = g_object_steal_qdata (object, quark_string_list);
 </summary>
 <remarks>
+<para>
   // prepend new string
   list = g_list_prepend (list, g_strdup (new_string));
   // this changed 'list', so we need to set it again
@@ -493,7 +536,8 @@ static void
 free_string_list (gpointer data)
 {
   GList *node, *list = data;
-
+</para>
+<para>
   for (node = list; node; node = node-&gt;next)
     g_free (node-&gt;data);
   g_list_free (list);
@@ -503,6 +547,7 @@ Using <see cref="Object.GetQdata(GISharp.Lib.GLib.Quark)"/> in the above example
 <see cref="Object.StealQdata(GISharp.Lib.GLib.Quark)"/> would have left the destroy function set,
 and thus the partial string list would have been freed upon
 g_object_set_qdata_full().
+</para>
 </remarks>
 <param name="quark">
 A #GQuark, naming the user data pointer
@@ -519,11 +564,14 @@ Reverts the effect of a previous call to
 and when it reaches zero, queued "notify" signals are emitted.
 </summary>
 <remarks>
+<para>
 Duplicate notifications for each property are squashed so that at most one
 <see cref="Object"/>::notify signal is emitted for each property, in the reverse order
 in which they have been queued.
-
+</para>
+<para>
 It is an error to call this function when the freeze count is zero.
+</para>
 </remarks>
 </member>
 
@@ -564,14 +612,17 @@ use this this instance as closure data.
 Emits a "notify" signal for the property <c>propertyName</c> on this instance.
 </summary>
 <remarks>
+<para>
 When possible, eg. when signaling a property change from within the class
 that registered the property, you should use <see cref="Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)"/>
 instead.
-
+</para>
+<para>
 Note that emission of the notify signal may be blocked with
 <see cref="Object.FreezeNotify()"/>. In this case, the signal emissions are queued
 and will be emitted (in reverse order) when <see cref="Object.ThawNotify()"/> is
 called.
+</para>
 </remarks>
 </member>
 

@@ -23,15 +23,19 @@
 Gets the list of arguments that was passed on the command line.
 </summary>
 <remarks>
+<para>
 The strings in the array may contain non-UTF-8 data on UNIX (such as
 filenames or arguments given in the system locale) but are always in
 UTF-8 on Windows.
-
+</para>
+<para>
 If you wish to use the return value with #GOptionContext, you must
 use g_option_context_parse_strv().
-
+</para>
+<para>
 The return value is <c>null</c>-terminated and should be freed using
 g_strfreev().
+</para>
 </remarks>
 </member>
 
@@ -41,11 +45,14 @@ Gets the working directory of the command line invocation.
 The string may contain non-utf8 data.
 </summary>
 <remarks>
+<para>
 It is possible that the remote application did not send a working
 directory, so this may be <c>null</c>.
-
+</para>
+<para>
 The return value should not be modified or freed and is valid for as
 long as this instance exists.
+</para>
 </remarks>
 </member>
 
@@ -57,16 +64,20 @@ invocation, as would be returned by g_get_environ(), ie as a
 The strings may contain non-utf8 data.
 </summary>
 <remarks>
+<para>
 The remote application usually does not send an environment.  Use
 <see cref="ApplicationFlags.SendEnvironment"/> to affect that.  Even with this flag
 set it is possible that the environment is still not available (due
 to invocation messages from other applications).
-
+</para>
+<para>
 The return value should not be modified or freed and is valid for as
 long as this instance exists.
-
+</para>
+<para>
 See <see cref="ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)"/> if you are only interested
 in the value of a single environment variable.
+</para>
 </remarks>
 </member>
 
@@ -88,13 +99,16 @@ Determines if this instance represents a remote invocation.
 Gets the options there were passed to g_application_command_line().
 </summary>
 <remarks>
+<para>
 If you did not override local_command_line() then these are the same
 options that were parsed according to the #GOptionEntrys added to the
 application with <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> and possibly
 modified from your GApplication::handle-local-options handler.
-
+</para>
+<para>
 If no options were sent then an empty dictionary is returned so that
 you don't need to check for <c>null</c>.
+</para>
 </remarks>
 </member>
 
@@ -103,12 +117,15 @@ you don't need to check for <c>null</c>.
 Gets the platform data associated with the invocation of this instance.
 </summary>
 <remarks>
+<para>
 This is a <see cref="GLib.Variant"/> dictionary containing information about the
 context in which the invocation occurred.  It typically contains
 information like the current working directory and the startup
 notification ID.
-
+</para>
+<para>
 For local invocation, it will be <c>null</c>.
+</para>
 </remarks>
 </member>
 
@@ -117,14 +134,17 @@ For local invocation, it will be <c>null</c>.
 Gets the stdin of the invoking process.
 </summary>
 <remarks>
+<para>
 The <see cref="InputStream"/> can be used to read data passed to the standard
 input of the invoking process.
 This doesn't work on all platforms.  Presently, it is only available
 on UNIX when using a DBus daemon capable of passing file descriptors.
 If stdin is not available then <c>null</c> will be returned.  In the
 future, support may be expanded to other platforms.
-
+</para>
+<para>
 You must only call this function once per commandline invocation.
+</para>
 </remarks>
 </member>
 
@@ -134,9 +154,11 @@ Creates a <see cref="IFile"/> corresponding to a filename that was given as part
 of the invocation of this instance.
 </summary>
 <remarks>
+<para>
 This differs from <see cref="IFile.NewForCommandlineArg(GISharp.Lib.GLib.Filename)"/> in that it
 resolves relative pathnames using the current working directory of
 the invoking process rather than the local process.
+</para>
 </remarks>
 <param name="arg">
 an argument from this instance
@@ -153,13 +175,16 @@ line invocation, as would be returned by g_getenv().  The strings may
 contain non-utf8 data.
 </summary>
 <remarks>
+<para>
 The remote application usually does not send an environment.  Use
 <see cref="ApplicationFlags.SendEnvironment"/> to affect that.  Even with this flag
 set it is possible that the environment is still not available (due
 to invocation messages from other applications).
-
+</para>
+<para>
 The return value should not be modified or freed and is valid for as
 long as this instance exists.
+</para>
 </remarks>
 <param name="name">
 the environment variable to get
@@ -174,14 +199,17 @@ the value of the variable, or <c>null</c> if unset or unsent
 Gets the stdin of the invoking process.
 </summary>
 <remarks>
+<para>
 The <see cref="InputStream"/> can be used to read data passed to the standard
 input of the invoking process.
 This doesn't work on all platforms.  Presently, it is only available
 on UNIX when using a DBus daemon capable of passing file descriptors.
 If stdin is not available then <c>null</c> will be returned.  In the
 future, support may be expanded to other platforms.
-
+</para>
+<para>
 You must only call this function once per commandline invocation.
+</para>
 </remarks>
 <returns>
 a <see cref="InputStream"/> for stdin
@@ -201,24 +229,28 @@ an application.  It is created by <see cref="Application"/> and emitted
 in the <see cref="Application"/>::command-line signal and virtual function.
 </summary>
 <remarks>
+<para>
 The class contains the list of arguments that the program was invoked
 with.  It is also possible to query if the commandline invocation was
 local (ie: the current process is running in direct response to the
 invocation) or remote (ie: some other process forwarded the
 commandline to this process).
-
+</para>
+<para>
 The GApplicationCommandLine object can provide the argc and argv
 parameters for use with the #GOptionContext command-line parsing API,
 with the <see cref="ApplicationCommandLine.GetArguments()"/> function. See
 [gapplication-example-cmdline3.c][gapplication-example-cmdline3]
 for an example.
-
+</para>
+<para>
 The exit status of the originally-invoked process may be set and
 messages can be printed to stdout or stderr of that process.  The
 lifecycle of the originally-invoked process is tied to the lifecycle
 of this object (ie: the process exits when the last reference is
 dropped).
-
+</para>
+<para>
 The main use for <see cref="ApplicationCommandLine"/> (and the
 <see cref="Application"/>::command-line signal) is 'Emacs server' like use cases:
 You can set the `EDITOR` environment variable to have e.g. git use
@@ -227,7 +259,8 @@ have an instance of the editor running, the editing will happen
 in the running instance, instead of opening a new one. An important
 aspect of this use case is that the process that gets started by git
 does not return until the editing is done.
-
+</para>
+<para>
 Normally, the commandline is completely handled in the
 <see cref="Application"/>::command-line handler. The launching instance exits
 once the signal handler in the primary instance has returned, and
@@ -241,24 +274,30 @@ command_line (GApplication            *application,
   gchar **argv;
   gint argc;
   gint i;
-
+</para>
+<para>
   argv = g_application_command_line_get_arguments (cmdline, &amp;argc);
-
+</para>
+<para>
   g_application_command_line_print (cmdline,
                                     "This text is written back\n"
                                     "to stdout of the caller\n");
-
+</para>
+<para>
   for (i = 0; i &lt; argc; i++)
     g_print ("argument %d: %s\n", i, argv[i]);
-
+</para>
+<para>
   g_strfreev (argv);
-
+</para>
+<para>
   return 0;
 }
 ]|
 The complete example can be found here:
 [gapplication-example-cmdline.c](https://git.gnome.org/browse/glib/tree/gio/tests/gapplication-example-cmdline.c)
-
+</para>
+<para>
 In more complicated cases, the handling of the comandline can be
 split between the launcher and the primary instance.
 |[&lt;!-- language="C" --&gt;
@@ -269,9 +308,11 @@ static gboolean
 {
   gint i, j;
   gchar **argv;
-
+</para>
+<para>
   argv = *arguments;
-
+</para>
+<para>
   i = 1;
   while (argv[i])
     {
@@ -288,17 +329,21 @@ static gboolean
           i++;
         }
     }
-
+</para>
+<para>
   *exit_status = 0;
-
+</para>
+<para>
   return FALSE;
 }
-
+</para>
+<para>
 static void
 test_application_class_init (TestApplicationClass *class)
 {
   G_APPLICATION_CLASS (class)-&gt;local_command_line = test_local_cmdline;
-
+</para>
+<para>
   ...
 }
 ]|
@@ -306,10 +351,12 @@ In this example of split commandline handling, options that start
 with `--local-` are handled locally, all other options are passed
 to the <see cref="Application"/>::command-line handler which runs in the primary
 instance.
-
+</para>
+<para>
 The complete example can be found here:
 [gapplication-example-cmdline2.c](https://git.gnome.org/browse/glib/tree/gio/tests/gapplication-example-cmdline2.c)
-
+</para>
+<para>
 If handling the commandline requires a lot of work, it may
 be better to defer it.
 |[&lt;!-- language="C" --&gt;
@@ -317,29 +364,36 @@ static gboolean
 my_cmdline_handler (gpointer data)
 {
   GApplicationCommandLine *cmdline = data;
-
+</para>
+<para>
   // do the heavy lifting in an idle
-
+</para>
+<para>
   g_application_command_line_set_exit_status (cmdline, 0);
   g_object_unref (cmdline); // this releases the application
-
+</para>
+<para>
   return G_SOURCE_REMOVE;
 }
-
+</para>
+<para>
 static int
 command_line (GApplication            *application,
               GApplicationCommandLine *cmdline)
 {
   // keep the application running until we are done with this commandline
   g_application_hold (application);
-
+</para>
+<para>
   g_object_set_data_full (G_OBJECT (cmdline),
                           "application", application,
                           (GDestroyNotify)g_application_release);
-
+</para>
+<para>
   g_object_ref (cmdline);
   g_idle_add (my_cmdline_handler, cmdline);
-
+</para>
+<para>
   return 0;
 }
 ]|
@@ -348,9 +402,11 @@ the <see cref="Application"/>::command-line handler returns. Instead, we keep
 a reference to the <see cref="ApplicationCommandLine"/> object and handle it
 later (in this example, in an idle). Note that it is necessary to
 hold the application until you are done with the commandline.
-
+</para>
+<para>
 The complete example can be found here:
 [gapplication-example-cmdline3.c](https://git.gnome.org/browse/glib/tree/gio/tests/gapplication-example-cmdline3.c)
+</para>
 </remarks>
 </member>
 

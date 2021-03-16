@@ -404,7 +404,9 @@ namespace GISharp.Lib.GObject
         /// type is unsigned, such as ARM and PowerPC.  See g_value_get_schar().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Get the contents of a %G_TYPE_CHAR #GValue.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a valid #GValue of type %G_TYPE_CHAR
@@ -1026,10 +1028,12 @@ namespace GISharp.Lib.GObject
         /// value_table's collect_value() function.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note: The @value will be initialised with the exact type of
         /// @instance.  If you wish to set the @value's type to a different GType
         /// (such as a parent class GType), you need to manually call
         /// g_value_init() and g_value_set_instance().
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// An uninitialized #GValue structure.
@@ -1598,15 +1602,18 @@ namespace GISharp.Lib.GObject
         /// Set the contents of a %G_TYPE_OBJECT derived #GValue to @v_object.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// g_value_set_object() increases the reference count of @v_object
         /// (the #GValue holds a reference to @v_object).  If you do not wish
         /// to increase the reference count of the object (i.e. you wish to
         /// pass your current reference to the #GValue because you no longer
         /// need it), use g_value_take_object() instead.
-        /// 
+        /// </para>
+        /// <para>
         /// It is important that your #GValue holds a reference to @v_object (either its
         /// own, or one it has taken) to ensure that the object won't be destroyed while
         /// the #GValue still exists).
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a valid #GValue of %G_TYPE_OBJECT derived type
@@ -1776,8 +1783,10 @@ namespace GISharp.Lib.GObject
         /// when setting the #GValue.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the the string is a canonical string, using g_value_set_interned_string()
         /// is more appropriate.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a valid #GValue of type %G_TYPE_STRING
@@ -2120,13 +2129,17 @@ namespace GISharp.Lib.GObject
         /// count of the variant is not increased).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @variant was floating then its floating reference is converted to
         /// a hard reference.
-        /// 
+        /// </para>
+        /// <para>
         /// If you want the #GValue to hold its own reference to @variant, use
         /// g_value_set_variant() instead.
-        /// 
+        /// </para>
+        /// <para>
         /// This is an internal function introduced mainly for C marshallers.
+        /// </para>
         /// </remarks>
         /// <param name="value">
         /// a valid #GValue of type %G_TYPE_VARIANT

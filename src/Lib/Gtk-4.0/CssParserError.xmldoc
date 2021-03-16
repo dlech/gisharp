@@ -37,8 +37,10 @@ The given value is not
 Errors that can occur while parsing CSS.
 </summary>
 <remarks>
+<para>
 These errors are unexpected and will cause parts of the given CSS
 to be ignored.
+</para>
 </remarks>
 </member>
 

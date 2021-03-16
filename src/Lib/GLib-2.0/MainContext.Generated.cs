@@ -130,12 +130,15 @@ namespace GISharp.Lib.GLib
         /// it returns 2. And so forth.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is useful in a situation like the following:
         /// Imagine an extremely simple "garbage collected" system.
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// static GList *free_list;
-        /// 
+        /// </para>
+        /// <para>
         /// gpointer
         /// allocate_memory (gsize size)
         /// {
@@ -143,7 +146,8 @@ namespace GISharp.Lib.GLib
         ///   free_list = g_list_prepend (free_list, result);
         ///   return result;
         /// }
-        /// 
+        /// </para>
+        /// <para>
         /// void
         /// free_allocated_memory (void)
         /// {
@@ -153,23 +157,27 @@ namespace GISharp.Lib.GLib
         ///   g_list_free (free_list);
         ///   free_list = NULL;
         ///  }
-        /// 
+        /// </para>
+        /// <para>
         /// [...]
-        /// 
+        /// </para>
+        /// <para>
         /// while (TRUE);
         ///  {
         ///    g_main_context_iteration (NULL, TRUE);
         ///    free_allocated_memory();
         ///   }
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// This works from an application, however, if you want to do the same
         /// thing from a library, it gets more difficult, since you no longer
         /// control the main loop. You might think you can simply use an idle
         /// function to make the call to free_allocated_memory(), but that
         /// doesn't work, since the idle function could be called from a
         /// recursive callback. This can be fixed by using g_main_depth()
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// gpointer
         /// allocate_memory (gsize size)
@@ -180,7 +188,8 @@ namespace GISharp.Lib.GLib
         ///   free_list = g_list_prepend (free_list, block);
         ///   return block-&gt;mem;
         /// }
-        /// 
+        /// </para>
+        /// <para>
         /// void
         /// free_allocated_memory (void)
         /// {
@@ -202,7 +211,8 @@ namespace GISharp.Lib.GLib
         ///     }
         ///   }
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// There is a temptation to use g_main_depth() to solve
         /// problems with reentrancy. For instance, while waiting for data
         /// to be received from the network in response to a menu item,
@@ -214,15 +224,18 @@ namespace GISharp.Lib.GLib
         /// these checks all over your code, since there are doubtless many,
         /// many things that the user could do. Instead, you can use the
         /// following techniques:
-        /// 
+        /// </para>
+        /// <para>
         /// 1. Use gtk_widget_set_sensitive() or modal dialogs to prevent
         ///    the user from interacting with elements while the main
         ///    loop is recursing.
-        /// 
+        /// </para>
+        /// <para>
         /// 2. Avoid main loop recursion in situations where you can't handle
         ///    arbitrary  callbacks. Instead, structure your code so that you
         ///    simply return to the main loop and then get called again when
         ///    there is more work to do.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// The main loop recursion level in the current thread
@@ -249,17 +262,20 @@ namespace GISharp.Lib.GLib
         /// don't want to run the full main loop.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Each element of @fds is a #GPollFD describing a single file
         /// descriptor to poll. The @fd field indicates the file descriptor,
         /// and the @events field indicates the events to poll for. On return,
         /// the @revents fields will be filled with the events that actually
         /// occurred.
-        /// 
+        /// </para>
+        /// <para>
         /// On POSIX systems, the file descriptors in @fds can be any sort of
         /// file descriptor, but the situation is much more complicated on
         /// Windows. If you need to use g_poll() in code that has to run on
         /// Windows, the easiest solution is to construct all of your
         /// #GPollFDs with g_io_channel_win32_make_pollfd().
+        /// </para>
         /// </remarks>
         /// <param name="fds">
         /// file descriptors to poll
@@ -323,9 +339,11 @@ namespace GISharp.Lib.GLib
         /// is called as many times as g_main_context_acquire().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You must be the owner of a context before you
         /// can call g_main_context_prepare(), g_main_context_query(),
         /// g_main_context_check(), g_main_context_dispatch().
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext
@@ -399,8 +417,10 @@ namespace GISharp.Lib.GLib
         /// Passes the results of polling back to the main loop.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You must have successfully acquired the context with
         /// g_main_context_acquire() before you may call this function.
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext
@@ -458,8 +478,10 @@ namespace GISharp.Lib.GLib
         /// Dispatches all pending sources.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You must have successfully acquired the context with
         /// g_main_context_acquire() before you may call this function.
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext
@@ -529,8 +551,10 @@ namespace GISharp.Lib.GLib
         /// Finds a #GSource given a pair of context and ID.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// It is a programmer error to attempt to look up a non-existent source.
-        /// 
+        /// </para>
+        /// <para>
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
@@ -539,6 +563,7 @@ namespace GISharp.Lib.GLib
         /// is called on its (now invalid) source ID.  This source ID may have
         /// been reissued, leading to the operation being performed against the
         /// wrong source.
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext (if %NULL, the default context will be used)
@@ -614,12 +639,15 @@ namespace GISharp.Lib.GLib
         /// invocation of @function.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is the same as g_main_context_invoke() except that it
         /// lets you specify the priority in case @function ends up being
         /// scheduled as an idle and also lets you give a #GDestroyNotify for @data.
-        /// 
+        /// </para>
+        /// <para>
         /// @notify should not assume that it is called from any particular
         /// thread or with any particular context acquired.
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext, or %NULL
@@ -715,9 +743,11 @@ namespace GISharp.Lib.GLib
         /// given moment without further waiting.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that even when @may_block is %TRUE, it is still possible for
         /// g_main_context_iteration() to return %FALSE, since the wait may
         /// be interrupted for other reasons than an event source becoming ready.
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext (if %NULL, the default context will be used)
@@ -809,8 +839,10 @@ namespace GISharp.Lib.GLib
         /// for polling is determined by calling g_main_context_query ().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You must have successfully acquired the context with
         /// g_main_context_acquire() before you may call this function.
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext
@@ -859,6 +891,7 @@ namespace GISharp.Lib.GLib
         /// the context used by functions like g_idle_add().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Normally you would call this function shortly after creating a new
         /// thread, passing it a #GMainContext which will be run by a
         /// #GMainLoop in that thread, to set a new default context for all
@@ -866,7 +899,8 @@ namespace GISharp.Lib.GLib
         /// ever call g_main_context_pop_thread_default(), assuming you want the
         /// new #GMainContext to be the default for the whole lifecycle of the
         /// thread.
-        /// 
+        /// </para>
+        /// <para>
         /// If you don't have control over how the new thread was created (e.g.
         /// in the new thread isn't newly created, or if the thread life
         /// cycle is managed by a #GThreadPool), it is always suggested to wrap
@@ -874,7 +908,8 @@ namespace GISharp.Lib.GLib
         /// g_main_context_push_thread_default() / g_main_context_pop_thread_default()
         /// pair, otherwise threads that are re-used will end up never explicitly
         /// releasing the #GMainContext reference they hold.
-        /// 
+        /// </para>
+        /// <para>
         /// In some cases you may want to schedule a single operation in a
         /// non-default context, or temporarily use a non-default context in
         /// the main thread. In that case, you can wrap the call to the
@@ -883,10 +918,12 @@ namespace GISharp.Lib.GLib
         /// g_main_context_pop_thread_default() pair, but it is up to you to
         /// ensure that no other asynchronous operations accidentally get
         /// started while the non-default context is active.
-        /// 
+        /// </para>
+        /// <para>
         /// Beware that libraries that predate this function may not correctly
         /// handle being used from a thread with a thread-default context. Eg,
         /// see g_file_supports_thread_contexts().
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext, or %NULL for the global default context
@@ -914,8 +951,10 @@ namespace GISharp.Lib.GLib
         /// Determines information necessary to poll this main loop.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You must have successfully acquired the context with
         /// g_main_context_acquire() before you may call this function.
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext
@@ -1092,13 +1131,16 @@ namespace GISharp.Lib.GLib
         /// g_main_context_iteration() to return without blocking.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This API is useful for low-level control over #GMainContext; for
         /// example, integrating it with main loop implementations such as
         /// #GMainLoop.
-        /// 
+        /// </para>
+        /// <para>
         /// Another related use for this function is when implementing a main
         /// loop with a termination condition, computed from multiple threads:
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         ///   #define NUM_TASKS 10
         ///   static volatile gint tasks_remaining = NUM_TASKS;
@@ -1111,10 +1153,12 @@ namespace GISharp.Lib.GLib
         /// Then in a thread:
         /// |[&lt;!-- language="C" --&gt;
         ///   perform_work();
-        /// 
+        /// </para>
+        /// <para>
         ///   if (g_atomic_int_dec_and_test (&amp;tasks_remaining))
         ///     g_main_context_wakeup (NULL);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="context">
         /// a #GMainContext

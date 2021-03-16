@@ -227,10 +227,12 @@ namespace GISharp.Lib.GObject
         /// property expressed by @binding.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function will release the reference that is being held on
         /// the @binding instance; if you want to hold on to the #GBinding instance
         /// after calling g_binding_unbind(), you will need to hold a reference
         /// to it.
+        /// </para>
         /// </remarks>
         /// <param name="binding">
         /// a #GBinding

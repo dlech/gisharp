@@ -78,6 +78,7 @@ namespace GISharp.Lib.GLib
         /// Unicode canonical composition algorithm.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function includes algorithmic Hangul Jamo composition,
         /// but it is not exactly the inverse of g_unichar_decompose().
         /// No composition can have either of @a or @b equal to zero.
@@ -85,12 +86,15 @@ namespace GISharp.Lib.GLib
         /// there exists a Primary Composite P which is canonically
         /// equivalent to the sequence &lt;@a,@b&gt;.  See the Unicode
         /// Standard for the definition of Primary Composite.
-        /// 
+        /// </para>
+        /// <para>
         /// If @a and @b do not compose a new character, @ch is set to zero.
-        /// 
+        /// </para>
+        /// <para>
         /// See
         /// [UAX#15](http://unicode.org/reports/tr15/)
         /// for details.
+        /// </para>
         /// </remarks>
         /// <param name="a">
         /// a Unicode character
@@ -139,26 +143,31 @@ namespace GISharp.Lib.GLib
         /// Unicode canonical decomposition algorithm.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function does not include compatibility
         /// decompositions. It does, however, include algorithmic
         /// Hangul Jamo decomposition, as well as 'singleton'
         /// decompositions which replace a character by a single
         /// other character. In the case of singletons *@b will
         /// be set to zero.
-        /// 
+        /// </para>
+        /// <para>
         /// If @ch is not decomposable, *@a is set to @ch and *@b
         /// is set to zero.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that the way Unicode decomposition pairs are
         /// defined, it is guaranteed that @b would not decompose
         /// further, but @a may itself decompose.  To get the full
         /// canonical decomposition for @ch, one would need to
         /// recursively call this function on @a.  Or use
         /// g_unichar_fully_decompose().
-        /// 
+        /// </para>
+        /// <para>
         /// See
         /// [UAX#15](http://unicode.org/reports/tr15/)
         /// for details.
+        /// </para>
         /// </remarks>
         /// <param name="ch">
         /// a Unicode character
@@ -240,6 +249,7 @@ namespace GISharp.Lib.GLib
         /// pass %FALSE for @compat.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The decomposed sequence is placed in @result.  Only up to
         /// @result_len characters are written into @result.  The length
         /// of the full decomposition (irrespective of @result_len) is
@@ -250,10 +260,12 @@ namespace GISharp.Lib.GLib
         /// 18 is always enough for both compatibility and canonical
         /// decompositions, so that is the size recommended. This is provided
         /// as %G_UNICHAR_MAX_DECOMPOSITION_LENGTH.
-        /// 
+        /// </para>
+        /// <para>
         /// See
         /// [UAX#15](http://unicode.org/reports/tr15/)
         /// for details.
+        /// </para>
         /// </remarks>
         /// <param name="ch">
         /// a Unicode character.
@@ -297,10 +309,12 @@ namespace GISharp.Lib.GLib
         /// right-to-left text.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @ch has the Unicode mirrored property and there is another unicode
         /// character that typically has a glyph that is the mirror image of @ch's
         /// glyph and @mirrored_ch is set, it puts that character in the address
         /// pointed to by @mirrored_ch.  Otherwise the original character is put.
+        /// </para>
         /// </remarks>
         /// <param name="ch">
         /// a Unicode character
@@ -344,8 +358,10 @@ namespace GISharp.Lib.GLib
         /// result is undefined.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is equivalent to pango_script_for_unichar() and the
         /// two are interchangeable.
+        /// </para>
         /// </remarks>
         /// <param name="ch">
         /// a Unicode character
@@ -592,10 +608,12 @@ namespace GISharp.Lib.GLib
         /// with g_utf8_get_char().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note: in most cases where isalpha characters are allowed,
         /// ismark characters should be allowed to as they are essential
         /// for writing most European languages as well as many non-Latin
         /// scripts.
+        /// </para>
         /// </remarks>
         /// <param name="c">
         /// a Unicode character
@@ -691,9 +709,11 @@ namespace GISharp.Lib.GLib
         /// character value with g_utf8_get_char().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// (Note: don't use this to do word breaking; you have to use
         /// Pango or equivalent to get word breaking right, the algorithm
         /// is fairly complex.)
+        /// </para>
         /// </remarks>
         /// <param name="c">
         /// a Unicode character
@@ -819,9 +839,11 @@ namespace GISharp.Lib.GLib
         /// for details.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If a character passes the g_unichar_iswide() test then it will also pass
         /// this test, but not the other way around.  Note that some characters may
         /// pass both this test and g_unichar_iszerowidth().
+        /// </para>
         /// </remarks>
         /// <param name="c">
         /// a Unicode character
@@ -885,10 +907,12 @@ namespace GISharp.Lib.GLib
         /// space, but not U+00AD SOFT HYPHEN.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// A typical use of this function is with one of g_unichar_iswide() or
         /// g_unichar_iswide_cjk() to determine the number of cells a string occupies
         /// when displayed on a grid display (terminals).  However, note that not all
         /// terminals support zero-width rendering of zero-width marks.
+        /// </para>
         /// </remarks>
         /// <param name="c">
         /// a Unicode character

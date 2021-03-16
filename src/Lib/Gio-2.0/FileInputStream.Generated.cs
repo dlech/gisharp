@@ -103,12 +103,15 @@ namespace GISharp.Lib.Gio
         /// to get the result of the operation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For the synchronous version of this function,
         /// see g_file_input_stream_query_info().
-        /// 
+        /// </para>
+        /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be set
+        /// </para>
         /// </remarks>
         /// <param name="stream">
         /// a #GFileInputStream.

@@ -5,8 +5,10 @@
 If this instance is currently enabled.
 </summary>
 <remarks>
+<para>
 If the action is disabled then calls to <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> and
 <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> have no effect.
+</para>
 </remarks>
 </member>
 
@@ -43,11 +45,14 @@ action is stateless. This is immutable.
 Checks if <paramref name="actionName"/> is valid.
 </summary>
 <remarks>
+<para>
 <paramref name="actionName"/> is valid if it consists only of alphanumeric characters,
 plus '-' and '.'.  The empty string is not a valid action name.
-
+</para>
+<para>
 It is an error to call this function with a non-utf8 <paramref name="actionName"/>.
 <paramref name="actionName"/> must not be <c>null</c>.
+</para>
 </remarks>
 <param name="actionName">
 a potential action name
@@ -63,18 +68,22 @@ Parses a detailed action name into its separate name and target
 components.
 </summary>
 <remarks>
+<para>
 Detailed action names can have three formats.
-
+</para>
+<para>
 The first format is used to represent an action name with no target
 value and consists of just an action name containing no whitespace
 nor the characters ':', '(' or ')'.  For example: "app.action".
-
+</para>
+<para>
 The second format is used to represent an action with a target value
 that is a non-empty string consisting only of alphanumerics, plus '-'
 and '.'.  In that case, the action name and target value are
 separated by a double colon ("::").  For example:
 "app.action::target".
-
+</para>
+<para>
 The third format is used to represent an action with any type of
 target value, including strings.  The target value follows the action
 name, surrounded in parens.  For example: "app.action(42)".  The
@@ -84,6 +93,7 @@ two sets of parens, for example: "app.action((1,2,3))".  A string
 target can be specified this way as well: "app.action('target')".
 For strings, this third format must be used if * target value is
 empty or contains characters other than alphanumerics, '-' and '.'.
+</para>
 </remarks>
 <param name="detailedName">
 a detailed action name
@@ -104,14 +114,18 @@ On error
 Formats a detailed action name from <paramref name="actionName"/> and <paramref name="targetValue"/>.
 </summary>
 <remarks>
+<para>
 It is an error to call this function with an invalid action name.
-
+</para>
+<para>
 This function is the opposite of <see cref="IAction.ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8,out GISharp.Lib.GLib.Utf8,out GISharp.Lib.GLib.Variant)"/>.
 It will produce a string that can be parsed back to the <paramref name="actionName"/>
 and <paramref name="targetValue"/> by that function.
-
+</para>
+<para>
 See that function for the types of strings that will be printed by
 this function.
+</para>
 </remarks>
 <param name="actionName">
 a valid action name
@@ -129,11 +143,14 @@ a detailed format string
 Activates the action.
 </summary>
 <remarks>
+<para>
 <paramref name="parameter"/> must be the correct type of parameter for the action (ie:
 the parameter type given at construction time).  If the parameter
 type was <c>null</c> then <paramref name="parameter"/> must also be <c>null</c>.
-
+</para>
+<para>
 If the <paramref name="parameter"/> GVariant is floating, it is consumed.
+</para>
 </remarks>
 <param name="parameter">
 the parameter to the activation
@@ -145,14 +162,18 @@ the parameter to the activation
 Request for the state of this instance to be changed to <paramref name="value"/>.
 </summary>
 <remarks>
+<para>
 The action must be stateful and <paramref name="value"/> must be of the correct type.
 See <see cref="Action.GetStateType(GISharp.Lib.Gio.IAction)"/>.
-
+</para>
+<para>
 This call merely requests a change.  The action may refuse to change
 its state or may change its state to something other than <paramref name="value"/>.
 See <see cref="Action.GetStateHint(GISharp.Lib.Gio.IAction)"/>.
-
+</para>
+<para>
 If the <paramref name="value"/> GVariant is floating, it is consumed.
+</para>
 </remarks>
 <param name="value">
 the new state
@@ -164,8 +185,10 @@ the new state
 Checks if this instance is currently enabled.
 </summary>
 <remarks>
+<para>
 An action must be enabled in order to be activated or in order to
 have its state changed from outside callers.
+</para>
 </remarks>
 <returns>
 whether the action is enabled
@@ -187,11 +210,14 @@ Queries the type of the parameter that must be given when activating
 this instance.
 </summary>
 <remarks>
+<para>
 When activating the action using <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>, the <see cref="GLib.Variant"/>
 given to that function must be of the type returned by this function.
-
+</para>
+<para>
 In the case that this function returns <c>null</c>, you must not give any
 <see cref="GLib.Variant"/>, but <c>null</c> instead.
+</para>
 </remarks>
 <returns>
 the parameter type
@@ -203,12 +229,15 @@ the parameter type
 Queries the current state of this instance.
 </summary>
 <remarks>
+<para>
 If the action is not stateful then <c>null</c> will be returned.  If the
 action is stateful then the type of the return value is the type
 given by <see cref="Action.GetStateType(GISharp.Lib.Gio.IAction)"/>.
-
+</para>
+<para>
 The return value (if non-<c>null</c>) should be freed with
 g_variant_unref() when it is no longer required.
+</para>
 </remarks>
 <returns>
 the current state of the action
@@ -221,21 +250,26 @@ Requests a hint about the valid range of values for the state of
 this instance.
 </summary>
 <remarks>
+<para>
 If <c>null</c> is returned it either means that the action is not stateful
 or that there is no hint about the valid range of values for the
 state of the action.
-
+</para>
+<para>
 If a <see cref="GLib.Variant"/> array is returned then each item in the array is a
 possible value for the state.  If a <see cref="GLib.Variant"/> pair (ie: two-tuple) is
 returned then the tuple specifies the inclusive lower and upper bound
 of valid values for the state.
-
+</para>
+<para>
 In any case, the information is merely a hint.  It may be possible to
 have a state value outside of the hinted range and setting a value
 within the range may fail.
-
+</para>
+<para>
 The return value (if non-<c>null</c>) should be freed with
 g_variant_unref() when it is no longer required.
+</para>
 </remarks>
 <returns>
 the state range hint
@@ -247,16 +281,19 @@ the state range hint
 Queries the type of the state of this instance.
 </summary>
 <remarks>
+<para>
 If the action is stateful (e.g. created with
 <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>) then this function returns the
 <see cref="GLib.VariantType"/> of the state.  This is the type of the initial value
 given as the state. All calls to <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> must give a
 <see cref="GLib.Variant"/> of this type and <see cref="Action.GetState(GISharp.Lib.Gio.IAction)"/> will return a
 <see cref="GLib.Variant"/> of the same type.
-
+</para>
+<para>
 If the action is not stateful (e.g. created with <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType)"/>)
 then this function will return <c>null</c>. In that case, <see cref="Action.GetState(GISharp.Lib.Gio.IAction)"/>
 will return <c>null</c> and you must not call <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>.
+</para>
 </remarks>
 <returns>
 the state type, if the action is stateful
@@ -268,33 +305,40 @@ the state type, if the action is stateful
 <see cref="IAction"/> represents a single named action.
 </summary>
 <remarks>
+<para>
 The main interface to an action is that it can be activated with
 <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>.  This results in the 'activate' signal being
 emitted.  An activation has a <see cref="GLib.Variant"/> parameter (which may be
 <c>null</c>).  The correct type for the parameter is determined by a static
 parameter type (which is given at construction time).
-
+</para>
+<para>
 An action may optionally have a state, in which case the state may be
 set with <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>.  This call takes a <see cref="GLib.Variant"/>.  The
 correct type for the state is determined by a static state type
 (which is given at construction time).
-
+</para>
+<para>
 The state may have a hint associated with it, specifying its valid
 range.
-
+</para>
+<para>
 <see cref="IAction"/> is merely the interface to the concept of an action, as
 described above.  Various implementations of actions exist, including
 <see cref="SimpleAction"/>.
-
+</para>
+<para>
 In all cases, the implementing class is responsible for storing the
 name of the action, the parameter type, the enabled state, the
 optional state type and the state and emitting the appropriate
 signals when these change.  The implementor is responsible for filtering
 calls to <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> and <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> for type
 safety and for the state being enabled.
-
+</para>
+<para>
 Probably the only useful thing to do with a <see cref="IAction"/> is to put it
 inside of a <see cref="T:SimpleActionGroup"/>.
+</para>
 </remarks>
 </member>
 
@@ -303,11 +347,14 @@ inside of a <see cref="T:SimpleActionGroup"/>.
 Activates the action.
 </summary>
 <remarks>
+<para>
 <paramref name="parameter"/> must be the correct type of parameter for the action (ie:
 the parameter type given at construction time).  If the parameter
 type was <c>null</c> then <paramref name="parameter"/> must also be <c>null</c>.
-
+</para>
+<para>
 If the <paramref name="parameter"/> GVariant is floating, it is consumed.
+</para>
 </remarks>
 <param name="action">
 a <see cref="IAction"/>
@@ -322,14 +369,18 @@ the parameter to the activation
 Request for the state of <paramref name="action"/> to be changed to <paramref name="value"/>.
 </summary>
 <remarks>
+<para>
 The action must be stateful and <paramref name="value"/> must be of the correct type.
 See <see cref="Action.GetStateType(GISharp.Lib.Gio.IAction)"/>.
-
+</para>
+<para>
 This call merely requests a change.  The action may refuse to change
 its state or may change its state to something other than <paramref name="value"/>.
 See <see cref="Action.GetStateHint(GISharp.Lib.Gio.IAction)"/>.
-
+</para>
+<para>
 If the <paramref name="value"/> GVariant is floating, it is consumed.
+</para>
 </remarks>
 <param name="action">
 a <see cref="IAction"/>
@@ -344,8 +395,10 @@ the new state
 Checks if <paramref name="action"/> is currently enabled.
 </summary>
 <remarks>
+<para>
 An action must be enabled in order to be activated or in order to
 have its state changed from outside callers.
+</para>
 </remarks>
 <param name="action">
 a <see cref="IAction"/>
@@ -373,11 +426,14 @@ Queries the type of the parameter that must be given when activating
 <paramref name="action"/>.
 </summary>
 <remarks>
+<para>
 When activating the action using <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>, the <see cref="GLib.Variant"/>
 given to that function must be of the type returned by this function.
-
+</para>
+<para>
 In the case that this function returns <c>null</c>, you must not give any
 <see cref="GLib.Variant"/>, but <c>null</c> instead.
+</para>
 </remarks>
 <param name="action">
 a <see cref="IAction"/>
@@ -392,12 +448,15 @@ the parameter type
 Queries the current state of <paramref name="action"/>.
 </summary>
 <remarks>
+<para>
 If the action is not stateful then <c>null</c> will be returned.  If the
 action is stateful then the type of the return value is the type
 given by <see cref="Action.GetStateType(GISharp.Lib.Gio.IAction)"/>.
-
+</para>
+<para>
 The return value (if non-<c>null</c>) should be freed with
 g_variant_unref() when it is no longer required.
+</para>
 </remarks>
 <param name="action">
 a <see cref="IAction"/>
@@ -413,21 +472,26 @@ Requests a hint about the valid range of values for the state of
 <paramref name="action"/>.
 </summary>
 <remarks>
+<para>
 If <c>null</c> is returned it either means that the action is not stateful
 or that there is no hint about the valid range of values for the
 state of the action.
-
+</para>
+<para>
 If a <see cref="GLib.Variant"/> array is returned then each item in the array is a
 possible value for the state.  If a <see cref="GLib.Variant"/> pair (ie: two-tuple) is
 returned then the tuple specifies the inclusive lower and upper bound
 of valid values for the state.
-
+</para>
+<para>
 In any case, the information is merely a hint.  It may be possible to
 have a state value outside of the hinted range and setting a value
 within the range may fail.
-
+</para>
+<para>
 The return value (if non-<c>null</c>) should be freed with
 g_variant_unref() when it is no longer required.
+</para>
 </remarks>
 <param name="action">
 a <see cref="IAction"/>
@@ -442,16 +506,19 @@ the state range hint
 Queries the type of the state of <paramref name="action"/>.
 </summary>
 <remarks>
+<para>
 If the action is stateful (e.g. created with
 <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>) then this function returns the
 <see cref="GLib.VariantType"/> of the state.  This is the type of the initial value
 given as the state. All calls to <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> must give a
 <see cref="GLib.Variant"/> of this type and <see cref="Action.GetState(GISharp.Lib.Gio.IAction)"/> will return a
 <see cref="GLib.Variant"/> of the same type.
-
+</para>
+<para>
 If the action is not stateful (e.g. created with <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType)"/>)
 then this function will return <c>null</c>. In that case, <see cref="Action.GetState(GISharp.Lib.Gio.IAction)"/>
 will return <c>null</c> and you must not call <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>.
+</para>
 </remarks>
 <param name="action">
 a <see cref="IAction"/>

@@ -47,8 +47,10 @@ namespace GISharp.Lib.GObject
         /// Creates a new instance of a #GObject subtype and sets its properties.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Construction parameters (see #G_PARAM_CONSTRUCT, #G_PARAM_CONSTRUCT_ONLY)
         /// which are not explicitly specified are set to their default values.
+        /// </para>
         /// </remarks>
         /// <param name="objectType">
         /// the type id of the #GObject subtype to instantiate
@@ -207,12 +209,15 @@ System.IntPtr data);
         /// interface property.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is meant to be called from the interface's default
         /// vtable initialization function (the @class_init member of
         /// #GTypeInfo.) It must not be called after after @class_init has
         /// been called for any object types implementing this interface.
-        /// 
+        /// </para>
+        /// <para>
         /// If @pspec is a floating reference, it will be consumed.
+        /// </para>
         /// </remarks>
         /// <param name="gIface">
         /// any interface vtable for the
@@ -303,24 +308,30 @@ System.IntPtr data);
         /// updated using the same value. For instance:
         /// </summary>
         /// <remarks>
+        /// <para>
         /// |[
         ///   g_object_bind_property (action, "active", widget, "sensitive", 0);
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// Will result in the "sensitive" property of the widget #GObject instance to be
         /// updated with the same value of the "active" property of the action #GObject
         /// instance.
-        /// 
+        /// </para>
+        /// <para>
         /// If @flags contains %G_BINDING_BIDIRECTIONAL then the binding will be mutual:
         /// if @target_property on @target changes then the @source_property on @source
         /// will be updated as well.
-        /// 
+        /// </para>
+        /// <para>
         /// The binding will automatically be removed when either the @source or the
         /// @target instances are finalized. To remove the binding without affecting the
         /// @source and the @target you can just call g_object_unref() on the returned
         /// #GBinding instance.
-        /// 
+        /// </para>
+        /// <para>
         /// A #GObject can have multiple bindings.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// the source #GObject
@@ -385,9 +396,11 @@ System.IntPtr data);
         /// the binding.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function is the language bindings friendly version of
         /// g_object_bind_property_full(), using #GClosures instead of
         /// function pointers.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// the source #GObject
@@ -499,8 +512,10 @@ System.IntPtr data);
         /// object is frozen.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is necessary for accessors that modify multiple properties to prevent
         /// premature notification while the object is still being modified.
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// a #GObject
@@ -562,20 +577,25 @@ System.IntPtr data);
         /// Gets a property of an object.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The @value can be:
-        /// 
+        /// </para>
+        /// <para>
         ///  - an empty #GValue initialized by %G_VALUE_INIT, which will be
         ///    automatically initialized with the expected type of the property
         ///    (since GLib 2.60)
         ///  - a #GValue initialized with the expected type of the property
         ///  - a #GValue initialized with a type to which the expected type
         ///    of the property can be transformed
-        /// 
+        /// </para>
+        /// <para>
         /// In general, a copy is made of the property contents and the caller is
         /// responsible for freeing the memory by calling g_value_unset().
-        /// 
+        /// </para>
+        /// <para>
         /// Note that g_object_get_property() is really intended for language
         /// bindings, g_object_get() is much more convenient for C programming.
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// a #GObject
@@ -740,14 +760,17 @@ System.IntPtr data);
         /// Emits a "notify" signal for the property @property_name on @object.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When possible, eg. when signaling a property change from within the class
         /// that registered the property, you should use g_object_notify_by_pspec()
         /// instead.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that emission of the notify signal may be blocked with
         /// g_object_freeze_notify(). In this case, the signal emissions are queued
         /// and will be emitted (in reverse order) when g_object_thaw_notify() is
         /// called.
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// a #GObject
@@ -780,14 +803,17 @@ System.IntPtr data);
         /// Emits a "notify" signal for the property specified by @pspec on @object.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function omits the property name lookup, hence it is faster than
         /// g_object_notify().
-        /// 
+        /// </para>
+        /// <para>
         /// One way to avoid using g_object_notify() from within the
         /// class that registered the properties, and using g_object_notify_by_pspec()
         /// instead, is to store the GParamSpec used with
         /// g_object_class_install_property() inside a static array, e.g.:
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         ///   enum
         ///   {
@@ -795,9 +821,11 @@ System.IntPtr data);
         ///     PROP_FOO,
         ///     PROP_LAST
         ///   };
-        /// 
+        /// </para>
+        /// <para>
         ///   static GParamSpec *properties[PROP_LAST];
-        /// 
+        /// </para>
+        /// <para>
         ///   static void
         ///   my_object_class_init (MyObjectClass *klass)
         ///   {
@@ -810,12 +838,15 @@ System.IntPtr data);
         ///                                      properties[PROP_FOO]);
         ///   }
         /// ]|
-        /// 
+        /// </para>
+        /// <para>
         /// and then notify a change on the "foo" property with:
-        /// 
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         ///   g_object_notify_by_pspec (self, properties[PROP_FOO]);
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// a #GObject
@@ -850,10 +881,12 @@ System.IntPtr data);
         /// Increases the reference count of @object.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Since GLib 2.56, if `GLIB_VERSION_MAX_ALLOWED` is 2.56 or greater, the type
         /// of @object will be propagated to the return type (using the GCC typeof()
         /// extension), so any casting the caller needs to do on the return type must be
         /// explicit.
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// a #GObject
@@ -880,14 +913,17 @@ System.IntPtr data);
         /// [floating][floating-ref] reference, if @object has a floating reference.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In other words, if the object is floating, then this call "assumes
         /// ownership" of the floating reference, converting it to a normal
         /// reference by clearing the floating flag while leaving the reference
         /// count unchanged.  If the object is not floating, then this call
         /// adds a new normal reference increasing the reference count by one.
-        /// 
+        /// </para>
+        /// <para>
         /// Since GLib 2.56, the type of @object will be propagated to the return type
         /// under the same conditions as for g_object_ref().
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// a #GObject
@@ -921,7 +957,9 @@ System.IntPtr data);
         /// reference cycles.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function should only be called from object system implementations.
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// a #GObject
@@ -948,13 +986,16 @@ System.IntPtr data);
         /// strings to pointers.  This function lets you set an association.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the object already had an association with that name,
         /// the old association will be destroyed.
-        /// 
+        /// </para>
+        /// <para>
         /// Internally, the @key is converted to a #GQuark using g_quark_from_string().
         /// This means a copy of @key is kept permanently (even after @object has been
         /// finalized) — so it is recommended to only use a small, bounded set of values
         /// for @key in your program, to avoid the #GQuark storage growing unbounded.
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// #GObject containing the associations.
@@ -1082,6 +1123,7 @@ System.IntPtr data);
         ///   GList *list = g_object_steal_qdata (object, quark_string_list);
         /// </summary>
         /// <remarks>
+        /// <para>
         ///   // prepend new string
         ///   list = g_list_prepend (list, g_strdup (new_string));
         ///   // this changed 'list', so we need to set it again
@@ -1091,7 +1133,8 @@ System.IntPtr data);
         /// free_string_list (gpointer data)
         /// {
         ///   GList *node, *list = data;
-        /// 
+        /// </para>
+        /// <para>
         ///   for (node = list; node; node = node-&gt;next)
         ///     g_free (node-&gt;data);
         ///   g_list_free (list);
@@ -1101,6 +1144,7 @@ System.IntPtr data);
         /// g_object_steal_qdata() would have left the destroy function set,
         /// and thus the partial string list would have been freed upon
         /// g_object_set_qdata_full().
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// The GObject to get a stored user data pointer from
@@ -1140,11 +1184,14 @@ System.IntPtr data);
         /// and when it reaches zero, queued "notify" signals are emitted.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Duplicate notifications for each property are squashed so that at most one
         /// #GObject::notify signal is emitted for each property, in the reverse order
         /// in which they have been queued.
-        /// 
+        /// </para>
+        /// <para>
         /// It is an error to call this function when the freeze count is zero.
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// a #GObject
@@ -1171,10 +1218,12 @@ System.IntPtr data);
         /// drops to 0, the object is finalized (i.e. its memory is freed).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the pointer to the #GObject may be reused in future (for example, if it is
         /// an instance variable of another object), it is recommended to clear the
         /// pointer to %NULL rather than retain a dangling pointer to a potentially
         /// invalid #GObject instance. Use g_clear_object() for this.
+        /// </para>
         /// </remarks>
         /// <param name="object">
         /// a #GObject

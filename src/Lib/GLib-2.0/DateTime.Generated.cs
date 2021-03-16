@@ -106,31 +106,39 @@ namespace GISharp.Lib.GLib
         /// the time zone @tz.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The @year must be between 1 and 9999, @month between 1 and 12 and @day
         /// between 1 and 28, 29, 30 or 31 depending on the month and the year.
-        /// 
+        /// </para>
+        /// <para>
         /// @hour must be between 0 and 23 and @minute must be between 0 and 59.
-        /// 
+        /// </para>
+        /// <para>
         /// @seconds must be at least 0.0 and must be strictly less than 60.0.
         /// It will be rounded down to the nearest microsecond.
-        /// 
+        /// </para>
+        /// <para>
         /// If the given time is not representable in the given time zone (for
         /// example, 02:30 on March 14th 2010 in Toronto, due to daylight savings
         /// time) then the time will be rounded up to the nearest existing time
         /// (in this case, 03:00).  If this matters to you then you should verify
         /// the return value for containing the same as the numbers you gave.
-        /// 
+        /// </para>
+        /// <para>
         /// In the case that the given time is ambiguous in the given time zone
         /// (for example, 01:30 on November 7th 2010 in Toronto, due to daylight
         /// savings time) then the time falling within standard (ie:
         /// non-daylight) time is taken.
-        /// 
+        /// </para>
+        /// <para>
         /// It not considered a programmer error for the values to this function
         /// to be out of range, but in the case that they are, the function will
         /// return %NULL.
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_date_time_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <param name="tz">
         /// a #GTimeZone
@@ -213,16 +221,20 @@ namespace GISharp.Lib.GLib
         /// mentioned below.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that as #GDateTime "is oblivious to leap seconds", leap seconds information
         /// in an ISO-8601 string will be ignored, so a `23:59:60` time would be parsed as
         /// `23:59:59`.
-        /// 
+        /// </para>
+        /// <para>
         /// &lt;sep&gt; is the separator and can be either 'T', 't' or ' '. The latter two
         /// separators are an extension from
         /// [RFC 3339](https://tools.ietf.org/html/rfc3339#section-5.6).
-        /// 
+        /// </para>
+        /// <para>
         /// &lt;date&gt; is in the form:
-        /// 
+        /// </para>
+        /// <para>
         /// - `YYYY-MM-DD` - Year/month/day, e.g. 2016-08-24.
         /// - `YYYYMMDD` - Same as above without dividers.
         /// - `YYYY-DDD` - Ordinal day where DDD is from 001 to 366, e.g. 2016-237.
@@ -230,26 +242,34 @@ namespace GISharp.Lib.GLib
         /// - `YYYY-Www-D` - Week day where ww is from 01 to 52 and D from 1-7,
         ///   e.g. 2016-W34-3.
         /// - `YYYYWwwD` - Same as above without dividers.
-        /// 
+        /// </para>
+        /// <para>
         /// &lt;time&gt; is in the form:
-        /// 
+        /// </para>
+        /// <para>
         /// - `hh:mm:ss(.sss)` - Hours, minutes, seconds (subseconds), e.g. 22:10:42.123.
         /// - `hhmmss(.sss)` - Same as above without dividers.
-        /// 
+        /// </para>
+        /// <para>
         /// &lt;tz&gt; is an optional timezone suffix of the form:
-        /// 
+        /// </para>
+        /// <para>
         /// - `Z` - UTC.
         /// - `+hh:mm` or `-hh:mm` - Offset from UTC in hours and minutes, e.g. +12:00.
         /// - `+hh` or `-hh` - Offset from UTC in hours, e.g. +12.
-        /// 
+        /// </para>
+        /// <para>
         /// If the timezone is not provided in @text it must be provided in @default_tz
         /// (this field is otherwise ignored).
-        /// 
+        /// </para>
+        /// <para>
         /// This call can fail (returning %NULL) if @text is not a valid ISO 8601
         /// formatted string.
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_date_time_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <param name="text">
         /// an ISO 8601 formatted time string.
@@ -291,15 +311,19 @@ namespace GISharp.Lib.GLib
         /// local time zone.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The time contained in a #GTimeVal is always stored in the form of
         /// seconds elapsed since 1970-01-01 00:00:00 UTC, regardless of the
         /// local time offset.
-        /// 
+        /// </para>
+        /// <para>
         /// This call can fail (returning %NULL) if @tv represents a time outside
         /// of the supported range of #GDateTime.
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_date_time_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <param name="tv">
         /// a #GTimeVal
@@ -336,14 +360,18 @@ namespace GISharp.Lib.GLib
         /// Creates a #GDateTime corresponding to the given #GTimeVal @tv in UTC.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The time contained in a #GTimeVal is always stored in the form of
         /// seconds elapsed since 1970-01-01 00:00:00 UTC.
-        /// 
+        /// </para>
+        /// <para>
         /// This call can fail (returning %NULL) if @tv represents a time outside
         /// of the supported range of #GDateTime.
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_date_time_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <param name="tv">
         /// a #GTimeVal
@@ -381,14 +409,18 @@ namespace GISharp.Lib.GLib
         /// local time zone.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Unix time is the number of seconds that have elapsed since 1970-01-01
         /// 00:00:00 UTC, regardless of the local time offset.
-        /// 
+        /// </para>
+        /// <para>
         /// This call can fail (returning %NULL) if @t represents a time outside
         /// of the supported range of #GDateTime.
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_date_time_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <param name="t">
         /// the Unix time
@@ -421,14 +453,18 @@ namespace GISharp.Lib.GLib
         /// Creates a #GDateTime corresponding to the given Unix time @t in UTC.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Unix time is the number of seconds that have elapsed since 1970-01-01
         /// 00:00:00 UTC.
-        /// 
+        /// </para>
+        /// <para>
         /// This call can fail (returning %NULL) if @t represents a time outside
         /// of the supported range of #GDateTime.
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_date_time_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <param name="t">
         /// the Unix time
@@ -462,8 +498,10 @@ namespace GISharp.Lib.GLib
         /// the local time zone.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call is equivalent to calling g_date_time_new() with the time
         /// zone returned by g_time_zone_new_local().
+        /// </para>
         /// </remarks>
         /// <param name="year">
         /// the year component of the date
@@ -533,11 +571,14 @@ namespace GISharp.Lib.GLib
         /// maximum accuracy of 1 microsecond.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function will always succeed unless GLib is still being used after the
         /// year 9999.
-        /// 
+        /// </para>
+        /// <para>
         /// You should release the return value by calling g_date_time_unref()
         /// when you are done with it.
+        /// </para>
         /// </remarks>
         /// <param name="tz">
         /// a #GTimeZone
@@ -571,8 +612,10 @@ namespace GISharp.Lib.GLib
         /// time zone.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is equivalent to calling g_date_time_new_now() with the time
         /// zone returned by g_time_zone_new_local().
+        /// </para>
         /// </remarks>
         /// <returns>
         /// a new #GDateTime, or %NULL
@@ -597,8 +640,10 @@ namespace GISharp.Lib.GLib
         /// Creates a #GDateTime corresponding to this exact instant in UTC.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This is equivalent to calling g_date_time_new_now() with the time
         /// zone returned by g_time_zone_new_utc().
+        /// </para>
         /// </remarks>
         /// <returns>
         /// a new #GDateTime, or %NULL
@@ -624,8 +669,10 @@ namespace GISharp.Lib.GLib
         /// UTC.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call is equivalent to calling g_date_time_new() with the time
         /// zone returned by g_time_zone_new_utc().
+        /// </para>
         /// </remarks>
         /// <param name="year">
         /// the year component of the date
@@ -967,10 +1014,12 @@ namespace GISharp.Lib.GLib
         /// copy. Add negative values to subtract months.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The day of the month of the resulting #GDateTime is clamped to the number
         /// of days in the updated calendar month. For example, if adding 1 month to
         /// 31st January 2018, the result would be 28th February 2018. In 2020 (a leap
         /// year), the result would be 29th February.
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -1090,8 +1139,10 @@ namespace GISharp.Lib.GLib
         /// copy. Add negative values to subtract years.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// As with g_date_time_add_months(), if the resulting date would be 29th
         /// February on a non-leap year, the day will be clamped to 28th February.
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -1172,19 +1223,23 @@ namespace GISharp.Lib.GLib
         /// Creates a newly allocated string representing the requested @format.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The format strings understood by this function are a subset of the
         /// strftime() format language as specified by C99.  The \%D, \%U and \%W
         /// conversions are not supported, nor is the 'E' modifier.  The GNU
         /// extensions \%k, \%l, \%s and \%P are supported, however, as are the
         /// '0', '_' and '-' modifiers. The Python extension \%f is also supported.
-        /// 
+        /// </para>
+        /// <para>
         /// In contrast to strftime(), this function always produces a UTF-8
         /// string, regardless of the current locale.  Note that the rendering of
         /// many formats is locale-dependent and may not match the strftime()
         /// output exactly.
-        /// 
+        /// </para>
+        /// <para>
         /// The following format specifiers are supported:
-        /// 
+        /// </para>
+        /// <para>
         /// - \%a: the abbreviated weekday name according to the current locale
         /// - \%A: the full weekday name according to the current locale
         /// - \%b: the abbreviated month name according to the current locale
@@ -1248,12 +1303,14 @@ namespace GISharp.Lib.GLib
         ///   precision (e.g., -04, +05:30). This is a gnulib strftime() extension. Since: 2.38
         /// - \%Z: the time zone or name or abbreviation
         /// - \%\%: a literal \% character
-        /// 
+        /// </para>
+        /// <para>
         /// Some conversion specifications can be modified by preceding the
         /// conversion specifier by one or more modifier characters. The
         /// following modifiers are supported for many of the numeric
         /// conversions:
-        /// 
+        /// </para>
+        /// <para>
         /// - O: Use alternative numeric symbols, if the current locale supports those.
         /// - _: Pad a numeric result with spaces. This overrides the default padding
         ///   for the specifier.
@@ -1261,7 +1318,8 @@ namespace GISharp.Lib.GLib
         ///   for the specifier.
         /// - 0: Pad a numeric result with zeros. This overrides the default padding
         ///   for the specifier.
-        /// 
+        /// </para>
+        /// <para>
         /// Additionally, when O is used with B, b, or h, it produces the alternative
         /// form of a month name. The alternative form should be used when the month
         /// name is used without a day number (e.g., standalone). It is required in
@@ -1269,6 +1327,7 @@ namespace GISharp.Lib.GLib
         /// rules. For other languages there is no difference. \%OB is a GNU and BSD
         /// strftime() extension expected to be added to the future POSIX specification,
         /// \%Ob and \%Oh are GNU strftime() extensions. Since: 2.56
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// A #GDateTime
@@ -1314,7 +1373,9 @@ namespace GISharp.Lib.GLib
         /// string.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Since GLib 2.66, this will output to sub-second precision if needed.
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// A #GDateTime
@@ -1645,9 +1706,11 @@ namespace GISharp.Lib.GLib
         /// the time zone of @datetime.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// For example, in Toronto this is currently "EST" during the winter
         /// months and "EDT" during the summer months when daylight savings
         /// time is in effect.
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -1682,11 +1745,14 @@ namespace GISharp.Lib.GLib
         /// zone of @datetime.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The offset is the number of microseconds that you add to UTC time to
         /// arrive at local time for the time zone (ie: negative numbers for time
         /// zones west of GMT, positive numbers for east).
-        /// 
+        /// </para>
+        /// <para>
         /// If @datetime represents UTC time, then the offset is always zero.
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -1720,34 +1786,42 @@ namespace GISharp.Lib.GLib
         /// @datetime falls.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function, taken together with g_date_time_get_week_of_year() and
         /// g_date_time_get_day_of_week() can be used to determine the full ISO
         /// week date on which @datetime falls.
-        /// 
+        /// </para>
+        /// <para>
         /// This is usually equal to the normal Gregorian year (as returned by
         /// g_date_time_get_year()), except as detailed below:
-        /// 
+        /// </para>
+        /// <para>
         /// For Thursday, the week-numbering year is always equal to the usual
         /// calendar year.  For other days, the number is such that every day
         /// within a complete week (Monday to Sunday) is contained within the
         /// same week-numbering year.
-        /// 
+        /// </para>
+        /// <para>
         /// For Monday, Tuesday and Wednesday occurring near the end of the year,
         /// this may mean that the week-numbering year is one greater than the
         /// calendar year (so that these days have the same week-numbering year
         /// as the Thursday occurring early in the next year).
-        /// 
+        /// </para>
+        /// <para>
         /// For Friday, Saturday and Sunday occurring near the start of the year,
         /// this may mean that the week-numbering year is one less than the
         /// calendar year (so that these days have the same week-numbering year
         /// as the Thursday occurring late in the previous year).
-        /// 
+        /// </para>
+        /// <para>
         /// An equivalent description is that the week-numbering year is equal to
         /// the calendar year containing the majority of the days in the current
         /// week (Monday to Sunday).
-        /// 
+        /// </para>
+        /// <para>
         /// Note that January 1 0001 in the proleptic Gregorian calendar is a
         /// Monday, so this function never returns 0.
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -1782,16 +1856,19 @@ namespace GISharp.Lib.GLib
         /// (described below).
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The first week of the year is week 1.  This is the week that contains
         /// the first Thursday of the year.  Equivalently, this is the first week
         /// that has more than 4 of its days falling within the calendar year.
-        /// 
+        /// </para>
+        /// <para>
         /// The value 0 is never returned by this function.  Days contained
         /// within a year but occurring before the first ISO 8601 week of that
         /// year are considered as being contained in the last week of the
         /// previous year.  Similarly, the final days of a calendar year may be
         /// considered as being part of the first ISO 8601 week of the next year
         /// if 4 or more days of that week are contained within the new year.
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -1956,8 +2033,10 @@ namespace GISharp.Lib.GLib
         /// @datetime, but in the local time zone.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call is equivalent to calling g_date_time_to_timezone() with the
         /// time zone returned by g_time_zone_new_local().
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -1991,17 +2070,21 @@ namespace GISharp.Lib.GLib
         /// Stores the instant in time that @datetime represents into @tv.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The time contained in a #GTimeVal is always stored in the form of
         /// seconds elapsed since 1970-01-01 00:00:00 UTC, regardless of the time
         /// zone associated with @datetime.
-        /// 
+        /// </para>
+        /// <para>
         /// On systems where 'long' is 32bit (ie: all 32bit systems and all
         /// Windows systems), a #GTimeVal is incapable of storing the entire
         /// range of values that #GDateTime is capable of expressing.  On those
         /// systems, this function returns %FALSE to indicate that the time is
         /// out of range.
-        /// 
+        /// </para>
+        /// <para>
         /// On systems where 'long' is 64bit, this function never fails.
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -2046,9 +2129,11 @@ namespace GISharp.Lib.GLib
         /// @datetime, but in the time zone @tz.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call can fail in the case that the time goes out of bounds.  For
         /// example, converting 0001-01-01 00:00:00 UTC to a time zone west of
         /// Greenwich will fail (due to the year 0 being out of range).
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -2090,8 +2175,10 @@ namespace GISharp.Lib.GLib
         /// nearest second.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Unix time is the number of seconds that have elapsed since 1970-01-01
         /// 00:00:00 UTC, regardless of the time zone associated with @datetime.
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -2125,8 +2212,10 @@ namespace GISharp.Lib.GLib
         /// @datetime, but in UTC.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This call is equivalent to calling g_date_time_to_timezone() with the
         /// time zone returned by g_time_zone_new_utc().
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -2160,8 +2249,10 @@ namespace GISharp.Lib.GLib
         /// Atomically decrements the reference count of @datetime by one.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When the reference count reaches zero, the resources allocated by
         /// @datetime are freed
+        /// </para>
         /// </remarks>
         /// <param name="datetime">
         /// a #GDateTime
@@ -2190,8 +2281,10 @@ namespace GISharp.Lib.GLib
         /// Checks to see if @dt1 and @dt2 are equal.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Equal here means that they represent the same moment after converting
         /// them to the same time zone.
+        /// </para>
         /// </remarks>
         /// <param name="dt1">
         /// a #GDateTime

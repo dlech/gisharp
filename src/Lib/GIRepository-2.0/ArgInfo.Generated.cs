@@ -347,7 +347,9 @@ namespace GISharp.Lib.GIRepository
         /// allocation.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The initialized @type must not be referenced after @info is deallocated.
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GIArgInfo
@@ -372,7 +374,9 @@ namespace GISharp.Lib.GIRepository
         /// values, this means that %NULL may be returned.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See also g_arg_info_is_optional().
+        /// </para>
         /// </remarks>
         /// <param name="info">
         /// a #GIArgInfo

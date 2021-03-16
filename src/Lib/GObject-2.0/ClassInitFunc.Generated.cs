@@ -9,8 +9,10 @@ namespace GISharp.Lib.GObject
     /// members.
     /// </summary>
     /// <remarks>
+    /// <para>
     /// The initialization process of a class involves:
-    /// 
+    /// </para>
+    /// <para>
     /// - Copying common members from the parent class over to the
     ///   derived class structure.
     /// - Zero initialization of the remaining members not copied
@@ -18,7 +20,8 @@ namespace GISharp.Lib.GObject
     /// - Invocation of the GBaseInitFunc() initializers of all parent
     ///   types and the class' type.
     /// - Invocation of the class' GClassInitFunc() initializer.
-    /// 
+    /// </para>
+    /// <para>
     /// Since derived classes are partially initialized through a memory copy
     /// of the parent class, the general rule is that GBaseInitFunc() and
     /// GBaseFinalizeFunc() should take care of necessary reinitialization
@@ -29,10 +32,12 @@ namespace GISharp.Lib.GObject
     /// or reference counted resources) are better handled by a GBaseInitFunc()
     /// for this type, so proper initialization of the dynamic class members
     /// is performed for class initialization of derived types as well.
-    /// 
+    /// </para>
+    /// <para>
     /// An example may help to correspond the intend of the different class
     /// initializers:
-    /// 
+    /// </para>
+    /// <para>
     /// |[&lt;!-- language="C" --&gt;
     /// typedef struct {
     ///   GObjectClass parent_class;
@@ -54,7 +59,8 @@ namespace GISharp.Lib.GObject
     /// {
     ///   class-&gt;static_integer = 42;
     /// }
-    /// 
+    /// </para>
+    /// <para>
     /// typedef struct {
     ///   TypeAClass   parent_class;
     ///   gfloat       static_float;
@@ -79,7 +85,8 @@ namespace GISharp.Lib.GObject
     /// Initialization of TypeBClass will first cause initialization of
     /// TypeAClass (derived classes reference their parent classes, see
     /// g_type_class_ref() on this).
-    /// 
+    /// </para>
+    /// <para>
     /// Initialization of TypeAClass roughly involves zero-initializing its fields,
     /// then calling its GBaseInitFunc() type_a_base_class_init() to allocate
     /// its dynamic members (dynamic_string), and finally calling its GClassInitFunc()
@@ -90,16 +97,19 @@ namespace GISharp.Lib.GObject
     /// The dynamic members of TypeAClass within TypeBClass now need
     /// reinitialization which is performed by calling type_a_base_class_init()
     /// with an argument of TypeBClass.
-    /// 
+    /// </para>
+    /// <para>
     /// After that, the GBaseInitFunc() of TypeBClass, type_b_base_class_init()
     /// is called to allocate the dynamic members of TypeBClass (dynamic_gstring),
     /// and finally the GClassInitFunc() of TypeBClass, type_b_class_init(),
     /// is called to complete the initialization process with the static members
     /// (static_float).
-    /// 
+    /// </para>
+    /// <para>
     /// Corresponding finalization counter parts to the GBaseInitFunc() functions
     /// have to be provided to release allocated resources at class finalization
     /// time.
+    /// </para>
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]

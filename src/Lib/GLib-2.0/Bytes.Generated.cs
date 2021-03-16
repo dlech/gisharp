@@ -41,7 +41,9 @@ namespace GISharp.Lib.GLib
         /// Creates a new #GBytes from @data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// @data is copied. If @size is 0, @data may be %NULL.
+        /// </para>
         /// </remarks>
         /// <param name="data">
         /// 
@@ -91,16 +93,20 @@ namespace GISharp.Lib.GLib
         /// Creates a new #GBytes from @data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// After this call, @data belongs to the bytes and may no longer be
         /// modified by the caller.  g_free() will be called on @data when the
         /// bytes is no longer in use. Because of this @data must have been created by
         /// a call to g_malloc(), g_malloc0() or g_realloc() or by one of the many
         /// functions that wrap these calls (such as g_new(), g_strdup(), etc).
-        /// 
+        /// </para>
+        /// <para>
         /// For creating #GBytes with memory from other allocators, see
         /// g_bytes_new_with_free_func().
-        /// 
+        /// </para>
+        /// <para>
         /// @data may be %NULL if @size is 0.
+        /// </para>
         /// </remarks>
         /// <param name="data">
         /// 
@@ -148,13 +154,17 @@ namespace GISharp.Lib.GLib
         /// Creates a #GBytes from @data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// When the last reference is dropped, @free_func will be called with the
         /// @user_data argument.
-        /// 
+        /// </para>
+        /// <para>
         /// @data must not be modified after this call is made until @free_func has
         /// been called to indicate that the bytes is no longer in use.
-        /// 
+        /// </para>
+        /// <para>
         /// @data may be %NULL if @size is 0.
+        /// </para>
         /// </remarks>
         /// <param name="data">
         /// 
@@ -196,13 +206,16 @@ namespace GISharp.Lib.GLib
         /// Compares the two #GBytes values.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function can be used to sort GBytes instances in lexicographical order.
-        /// 
+        /// </para>
+        /// <para>
         /// If @bytes1 and @bytes2 have different length but the shorter one is a
         /// prefix of the longer one then the shorter one is considered to be less than
         /// the longer one. Otherwise the first byte where both differ is used for
         /// comparison. If @bytes1 has a smaller value at that position it is
         /// considered less, otherwise greater than @bytes2.
+        /// </para>
         /// </remarks>
         /// <param name="bytes1">
         /// a pointer to a #GBytes
@@ -281,8 +294,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if they are equal.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function can be passed to g_hash_table_new() as the @key_equal_func
         /// parameter, when using non-%NULL #GBytes pointers as keys in a #GHashTable.
+        /// </para>
         /// </remarks>
         /// <param name="bytes1">
         /// a pointer to a #GBytes
@@ -350,11 +365,14 @@ namespace GISharp.Lib.GLib
         /// Get the byte data in the #GBytes. This data should not be modified.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function will always return the same pointer for a given #GBytes.
-        /// 
+        /// </para>
+        /// <para>
         /// %NULL may be returned if @size is 0. This is not guaranteed, as the #GBytes
         /// may represent an empty string with @data non-%NULL and @size as 0. %NULL will
         /// not be returned if @size is non-zero.
+        /// </para>
         /// </remarks>
         /// <param name="bytes">
         /// a #GBytes
@@ -396,7 +414,9 @@ namespace GISharp.Lib.GLib
         /// Get the size of the byte data in the #GBytes.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function will always return the same value for a given #GBytes.
+        /// </para>
         /// </remarks>
         /// <param name="bytes">
         /// a #GBytes
@@ -428,8 +448,10 @@ namespace GISharp.Lib.GLib
         /// Creates an integer hash code for the byte data in the #GBytes.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function can be passed to g_hash_table_new() as the @key_hash_func
         /// parameter, when using non-%NULL #GBytes pointers as keys in a #GHashTable.
+        /// </para>
         /// </remarks>
         /// <param name="bytes">
         /// a pointer to a #GBytes key
@@ -463,14 +485,17 @@ namespace GISharp.Lib.GLib
         /// @length may not be longer than the size of @bytes.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// A reference to @bytes will be held by the newly created #GBytes until
         /// the byte data is no longer needed.
-        /// 
+        /// </para>
+        /// <para>
         /// Since 2.56, if @offset is 0 and @length matches the size of @bytes, then
         /// @bytes will be returned with the reference count incremented by 1. If @bytes
         /// is a slice of another #GBytes, then the resulting #GBytes will reference
         /// the same #GBytes instead of @bytes. This allows consumers to simplify the
         /// usage of #GBytes when asynchronously writing to streams.
+        /// </para>
         /// </remarks>
         /// <param name="bytes">
         /// a #GBytes
@@ -569,10 +594,12 @@ namespace GISharp.Lib.GLib
         /// the same byte data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// As an optimization, the byte data is transferred to the array without copying
         /// if this was the last reference to bytes and bytes was created with
         /// g_bytes_new(), g_bytes_new_take() or g_byte_array_free_to_bytes(). In all
         /// other cases the data is copied.
+        /// </para>
         /// </remarks>
         /// <param name="bytes">
         /// a #GBytes
@@ -608,10 +635,12 @@ namespace GISharp.Lib.GLib
         /// contents.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// As an optimization, the byte data is returned without copying if this was
         /// the last reference to bytes and bytes was created with g_bytes_new(),
         /// g_bytes_new_take() or g_byte_array_free_to_bytes(). In all other cases the
         /// data is copied.
+        /// </para>
         /// </remarks>
         /// <param name="bytes">
         /// a #GBytes

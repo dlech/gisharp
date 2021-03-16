@@ -25,23 +25,29 @@ namespace GISharp.Lib.GLib
         /// manually included in @message.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The behavior of this log handler can be influenced by a number of
         /// environment variables:
-        /// 
+        /// </para>
+        /// <para>
         /// - `G_MESSAGES_PREFIXED`: A :-separated list of log levels for which
         ///   messages should be prefixed by the program name and PID of the
         ///   application.
-        /// 
+        /// </para>
+        /// <para>
         /// - `G_MESSAGES_DEBUG`: A space-separated list of log domains for
         ///   which debug and informational messages are printed. By default
         ///   these messages are not printed.
-        /// 
+        /// </para>
+        /// <para>
         /// stderr is used for levels %G_LOG_LEVEL_ERROR, %G_LOG_LEVEL_CRITICAL,
         /// %G_LOG_LEVEL_WARNING and %G_LOG_LEVEL_MESSAGE. stdout is used for
         /// the rest.
-        /// 
+        /// </para>
+        /// <para>
         /// This has no effect if structured logging is enabled; see
         /// [Using Structured Logging][using-structured-logging].
+        /// </para>
         /// </remarks>
         /// <param name="logDomain">
         /// the log domain of the message, or %NULL for the
@@ -77,8 +83,10 @@ namespace GISharp.Lib.GLib
         /// Removes the log handler.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This has no effect if structured logging is enabled; see
         /// [Using Structured Logging][using-structured-logging].
+        /// </para>
         /// </remarks>
         /// <param name="logDomain">
         /// the log domain
@@ -115,17 +123,21 @@ namespace GISharp.Lib.GLib
         /// %G_LOG_LEVEL_ERROR is always fatal.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// You can also make some message levels fatal at runtime by setting
         /// the `G_DEBUG` environment variable (see
         /// [Running GLib Applications](glib-running.html)).
-        /// 
+        /// </para>
+        /// <para>
         /// Libraries should not call this function, as it affects all messages logged
         /// by a process, including those from other libraries.
-        /// 
+        /// </para>
+        /// <para>
         /// Structured log messages (using g_log_structured() and
         /// g_log_structured_array()) are fatal only if the default log writer is used;
         /// otherwise it is up to the writer function to determine which log messages
         /// are fatal. See [Using Structured Logging][using-structured-logging].
+        /// </para>
         /// </remarks>
         /// <param name="fatalMask">
         /// the mask containing bits set for each level
@@ -160,8 +172,10 @@ namespace GISharp.Lib.GLib
         /// g_log_default_handler() as default log handler.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This has no effect if structured logging is enabled; see
         /// [Using Structured Logging][using-structured-logging].
+        /// </para>
         /// </remarks>
         /// <param name="logFunc">
         /// the log handler function
@@ -189,16 +203,19 @@ namespace GISharp.Lib.GLib
         /// %G_LOG_LEVEL_ERROR is always fatal.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This has no effect on structured log messages (using g_log_structured() or
         /// g_log_structured_array()). To change the fatal behaviour for specific log
         /// messages, programs must install a custom log writer function using
         /// g_log_set_writer_func(). See
         /// [Using Structured Logging][using-structured-logging].
-        /// 
+        /// </para>
+        /// <para>
         /// This function is mostly intended to be used with
         /// %G_LOG_LEVEL_CRITICAL.  You should typically not set
         /// %G_LOG_LEVEL_WARNING, %G_LOG_LEVEL_MESSAGE, %G_LOG_LEVEL_INFO or
         /// %G_LOG_LEVEL_DEBUG as fatal except inside of test programs.
+        /// </para>
         /// </remarks>
         /// <param name="logDomain">
         /// the log domain
@@ -236,8 +253,10 @@ namespace GISharp.Lib.GLib
         /// Like g_log_set_handler(), but takes a destroy notify for the @user_data.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This has no effect if structured logging is enabled; see
         /// [Using Structured Logging][using-structured-logging].
+        /// </para>
         /// </remarks>
         /// <param name="logDomain">
         /// the log domain, or %NULL for the default ""
@@ -306,10 +325,13 @@ namespace GISharp.Lib.GLib
         /// be aborted at the end of this function.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See g_log_structured() for more documentation.
-        /// 
+        /// </para>
+        /// <para>
         /// This assumes that @log_level is already present in @fields (typically as the
         /// `PRIORITY` field).
+        /// </para>
         /// </remarks>
         /// <param name="logLevel">
         /// log level, either from #GLogLevelFlags, or a user-defined
@@ -359,17 +381,21 @@ namespace GISharp.Lib.GLib
         /// version is especially useful for use in other languages, via introspection.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The only mandatory item in the @fields dictionary is the "MESSAGE" which must
         /// contain the text shown to the user.
-        /// 
+        /// </para>
+        /// <para>
         /// The values in the @fields dictionary are likely to be of type String
         /// (#G_VARIANT_TYPE_STRING). Array of bytes (#G_VARIANT_TYPE_BYTESTRING) is also
         /// supported. In this case the message is handled as binary and will be forwarded
         /// to the log writer as such. The size of the array should not be higher than
         /// %G_MAXSSIZE. Otherwise it will be truncated to this size. For other types
         /// g_variant_print() will be used to convert the value into a string.
-        /// 
+        /// </para>
+        /// <para>
         /// For more details on its usage and about the parameters, see g_log_structured().
+        /// </para>
         /// </remarks>
         /// <param name="logDomain">
         /// log domain, usually %G_LOG_DOMAIN

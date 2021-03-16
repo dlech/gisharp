@@ -116,6 +116,7 @@ namespace GISharp.Lib.Gio
         /// that can be created by shortening @iconname at '-' characters.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In the following example, @icon1 and @icon2 are equivalent:
         /// |[&lt;!-- language="C" --&gt;
         /// const char *names[] = {
@@ -124,10 +125,12 @@ namespace GISharp.Lib.Gio
         ///   "gnome-dev",
         ///   "gnome"
         /// };
-        /// 
+        /// </para>
+        /// <para>
         /// icon1 = g_themed_icon_new_from_names (names, 4);
         /// icon2 = g_themed_icon_new_with_default_fallbacks ("gnome-dev-cdrom-audio");
         /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="iconname">
         /// a string containing an icon name
@@ -161,8 +164,10 @@ namespace GISharp.Lib.Gio
         /// Append a name to the list of icons from within @icon.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that doing so invalidates the hash computed by prior calls
         /// to g_icon_hash().
+        /// </para>
         /// </remarks>
         /// <param name="icon">
         /// a #GThemedIcon
@@ -224,8 +229,10 @@ namespace GISharp.Lib.Gio
         /// Prepend a name to the list of icons from within @icon.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that doing so invalidates the hash computed by prior calls
         /// to g_icon_hash().
+        /// </para>
         /// </remarks>
         /// <param name="icon">
         /// a #GThemedIcon

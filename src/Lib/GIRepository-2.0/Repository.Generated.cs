@@ -44,9 +44,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Argument specified is a comma-separated pair of filenames; i.e. of the form "input.txt,output.xml". The input file should be a UTF-8 Unix-line-ending text file, with each line containing either "get-type:" followed by the name of a #GType _get_type function, or "error-quark:" followed by the name of an error quark function. No extra whitespace is allowed.
-        /// 
+        /// </para>
+        /// <para>
         /// The output file should already exist, but be empty. This function will overwrite its contents.
+        /// </para>
         /// </remarks>
         /// <param name="arg">
         /// 
@@ -90,9 +93,11 @@ namespace GISharp.Lib.GIRepository
         /// call conventions.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// All methods on #GIRepository also accept %NULL as an instance
         /// parameter to mean this default repository, which is usually more
         /// convenient for C.
+        /// </para>
         /// </remarks>
         /// <returns>
         /// The global singleton #GIRepository
@@ -156,7 +161,9 @@ byte* directory);
         /// Prepends @directory to the typelib search path.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See also: g_irepository_get_search_path().
+        /// </para>
         /// </remarks>
         /// <param name="directory">
         /// directory name to prepend to the typelib
@@ -358,8 +365,10 @@ byte* directory);
         /// starts with this prefix, as well each #GType in the library.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note: The namespace must have already been loaded using a function
         /// such as g_irepository_require() before calling this function.
+        /// </para>
         /// </remarks>
         /// <param name="repository">
         /// A #GIRepository or %NULL for the singleton
@@ -400,11 +409,14 @@ byte* directory);
         /// &lt;code&gt;namespace-version&lt;/code&gt;.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note: @namespace_ must have already been loaded using a function
         /// such as g_irepository_require() before calling this function.
-        /// 
+        /// </para>
+        /// <para>
         /// To get only the immediate dependencies for @namespace_, use
         /// g_irepository_get_immediate_dependencies().
+        /// </para>
         /// </remarks>
         /// <param name="repository">
         /// A #GIRepository or %NULL for the singleton
@@ -447,11 +459,14 @@ byte* directory);
         /// Returned strings are of the form &lt;code&gt;namespace-version&lt;/code&gt;.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note: @namespace_ must have already been loaded using a function
         /// such as g_irepository_require() before calling this function.
-        /// 
+        /// </para>
+        /// <para>
         /// To get the transitive closure of dependencies for @namespace_, use
         /// g_irepository_get_dependencies().
+        /// </para>
         /// </remarks>
         /// <param name="repository">
         /// A #GIRepository or %NULL for the singleton
@@ -610,6 +625,7 @@ byte* directory);
         /// return 0 implemented interfaces.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The semantics of this function are designed for a dynamic binding,
         /// where in certain cases (such as a function which returns an
         /// interface which may have "hidden" implementation classes), not all
@@ -617,6 +633,7 @@ byte* directory);
         /// the #GType of the object.  An example is g_file_new_for_path()
         /// returning a concrete class of #GLocalFile, which is a #GType we
         /// see at runtime, but not statically.
+        /// </para>
         /// </remarks>
         /// <param name="repository">
         /// a #GIRepository, or %NULL for the default repository
@@ -671,8 +688,10 @@ byte* directory);
         /// function will return %NULL.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note: The namespace must have already been loaded using a function
         /// such as g_irepository_require() before calling this function.
+        /// </para>
         /// </remarks>
         /// <param name="repository">
         /// A #GIRepository or %NULL for the singleton
@@ -752,8 +771,10 @@ byte* directory);
         /// namespace @namespace_.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note: The namespace must have already been loaded using a function
         /// such as g_irepository_require() before calling this function.
+        /// </para>
         /// </remarks>
         /// <param name="repository">
         /// A #GIRepository or %NULL for the singleton

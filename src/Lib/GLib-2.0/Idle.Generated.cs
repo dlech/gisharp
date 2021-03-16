@@ -12,14 +12,17 @@ namespace GISharp.Lib.GLib
         /// removed from the list of event sources and will not be called again.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle the return value and memory management of @data.
-        /// 
+        /// </para>
+        /// <para>
         /// This internally creates a main loop source using g_idle_source_new()
         /// and attaches it to the global #GMainContext using g_source_attach(), so
         /// the callback will be invoked in whichever thread is running that main
         /// context. You can do these steps manually if you need greater control or to
         /// use a custom main context.
+        /// </para>
         /// </remarks>
         /// <param name="priority">
         /// the priority of the idle source. Typically this will be in the

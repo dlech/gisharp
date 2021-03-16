@@ -176,10 +176,12 @@ namespace GISharp.Lib.GLib
         /// boolean.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @key cannot be found then %FALSE is returned and @error is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
         /// associated with @key cannot be interpreted as a boolean then %FALSE
         /// is returned and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -241,10 +243,12 @@ namespace GISharp.Lib.GLib
         /// booleans.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @key cannot be found then %NULL is returned and @error is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
         /// with @key cannot be interpreted as booleans then %NULL is returned
         /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -319,9 +323,11 @@ namespace GISharp.Lib.GLib
         /// @comment will be read from above the first group in the file.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that the returned string does not include the '#' comment markers,
         /// but does include any whitespace after them (on each line). It includes
         /// the line breaks between lines, but does not include the final line break.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -382,10 +388,12 @@ namespace GISharp.Lib.GLib
         /// double. If @group_name is %NULL, the start_group is used.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @key cannot be found then 0.0 is returned and @error is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
         /// with @key cannot be interpreted as a double then 0.0 is returned
         /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -447,10 +455,12 @@ namespace GISharp.Lib.GLib
         /// doubles.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @key cannot be found then %NULL is returned and @error is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
         /// with @key cannot be interpreted as doubles then %NULL is returned
         /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -624,11 +634,13 @@ namespace GISharp.Lib.GLib
         /// integer.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @key cannot be found then 0 is returned and @error is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
         /// with @key cannot be interpreted as an integer, or is out of range
         /// for a #gint, then 0 is returned
         /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -690,11 +702,13 @@ namespace GISharp.Lib.GLib
         /// integers.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @key cannot be found then %NULL is returned and @error is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
         /// with @key cannot be interpreted as integers, or are out of range for
         /// #gint, then %NULL is returned
         /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -832,11 +846,13 @@ namespace GISharp.Lib.GLib
         /// came from.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If calling g_key_file_get_locale_string() or
         /// g_key_file_get_locale_string_list() with exactly the same @key_file,
         /// @group_name, @key and @locale, the result of those functions will
         /// have originally been tagged with the locale that is the result of
         /// this function.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -893,14 +909,17 @@ namespace GISharp.Lib.GLib
         /// %NULL then the current locale is assumed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @locale is to be non-%NULL, or if the current locale will change over
         /// the lifetime of the #GKeyFile, it must be loaded with
         /// %G_KEY_FILE_KEEP_TRANSLATIONS in order to load strings for all locales.
-        /// 
+        /// </para>
+        /// <para>
         /// If @key cannot be found then %NULL is returned and @error is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
         /// with @key cannot be interpreted or no suitable translation can
         /// be found then the untranslated value is returned.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -970,16 +989,19 @@ namespace GISharp.Lib.GLib
         /// %NULL then the current locale is assumed.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @locale is to be non-%NULL, or if the current locale will change over
         /// the lifetime of the #GKeyFile, it must be loaded with
         /// %G_KEY_FILE_KEEP_TRANSLATIONS in order to load strings for all locales.
-        /// 
+        /// </para>
+        /// <para>
         /// If @key cannot be found then %NULL is returned and @error is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
         /// with @key cannot be interpreted or no suitable translations
         /// can be found then the untranslated values are returned. The
         /// returned array is %NULL-terminated, so @length may optionally
         /// be %NULL.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -1088,10 +1110,12 @@ namespace GISharp.Lib.GLib
         /// like \s.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In the event the key cannot be found, %NULL is returned and
         /// @error is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
         /// event that the @group_name cannot be found, %NULL is returned
         /// and @error is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -1152,10 +1176,12 @@ namespace GISharp.Lib.GLib
         /// Returns the values associated with @key under @group_name.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In the event the key cannot be found, %NULL is returned and
         /// @error is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
         /// event that the @group_name cannot be found, %NULL is returned
         /// and @error is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -1287,10 +1313,12 @@ namespace GISharp.Lib.GLib
         /// Use g_key_file_get_string() to retrieve an unescaped UTF-8 string.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// In the event the key cannot be found, %NULL is returned and
         /// @error is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
         /// event that the @group_name cannot be found, %NULL is returned
         /// and @error is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -1576,11 +1604,13 @@ namespace GISharp.Lib.GLib
         /// returns the file's full path in @full_path.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the file could not be found in any of the @search_dirs,
         /// %G_KEY_FILE_ERROR_NOT_FOUND is returned. If
         /// the file is found but the OS returns an error when opening or reading the
         /// file, a %G_FILE_ERROR is returned. If there is a problem parsing the file, a
         /// %G_KEY_FILE_ERROR is returned.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// an empty #GKeyFile struct
@@ -1656,12 +1686,15 @@ namespace GISharp.Lib.GLib
         /// Loads a key file into an empty #GKeyFile structure.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If the OS returns an error when opening or reading the file, a
         /// %G_FILE_ERROR is returned. If there is a problem parsing the file, a
         /// %G_KEY_FILE_ERROR is returned.
-        /// 
+        /// </para>
+        /// <para>
         /// This function will never return a %G_KEY_FILE_ERROR_NOT_FOUND error. If the
         /// @file is not found, %G_FILE_ERROR_NOENT is returned.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// an empty #GKeyFile struct
@@ -1904,8 +1937,10 @@ namespace GISharp.Lib.GLib
         /// g_file_set_contents_full() with the return value of g_key_file_to_data().
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This function can fail for any of the reasons that
         /// g_file_set_contents() may fail.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -2062,12 +2097,15 @@ namespace GISharp.Lib.GLib
         /// Places a comment above @key from @group_name.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @key is %NULL then @comment will be written above @group_name.
         /// If both @key and @group_name  are %NULL, then @comment will be
         /// written above the first group in the file.
-        /// 
+        /// </para>
+        /// <para>
         /// Note that this function prepends a '#' comment marker to
         /// each line of @comment.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -2702,10 +2740,12 @@ namespace GISharp.Lib.GLib
         /// Associates a new value with @key under @group_name.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// If @key cannot be found then it is created. If @group_name cannot
         /// be found then it is created. To set an UTF-8 string which may contain
         /// characters that need escaping (such as newlines or spaces), use
         /// g_key_file_set_string().
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
@@ -2754,8 +2794,10 @@ namespace GISharp.Lib.GLib
         /// This function outputs @key_file as a string.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Note that this function never reports an error,
         /// so it is safe to pass %NULL as @error.
+        /// </para>
         /// </remarks>
         /// <param name="keyFile">
         /// a #GKeyFile
