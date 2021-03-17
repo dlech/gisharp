@@ -5,12 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices;
-
-using GISharp.Lib.GObject;
-
-using Object = GISharp.Lib.GObject.Object;
-
 namespace GISharp.Runtime
 {
     /// <summary>
@@ -123,47 +117,25 @@ namespace GISharp.Runtime
                 return null;
             }
 
-            if (typeof(Object).IsAssignableFrom(type)) {
-                return Object.GetInstance(handle, ownership);
-            }
-
-            if (typeof(ParamSpec).IsAssignableFrom(type)) {
-                return ParamSpec.GetInstance(handle, ownership);
-            }
-
-            if (fundamentalTypes.Keys
+            if (typeResolvers.Keys
                 .Where(x => x.IsAssignableFrom(type))
-                .Select(x => fundamentalTypes[x])
+                .Select(x => typeResolvers[x])
                 .SingleOrDefault() is Func<IntPtr, Transfer, IOpaque?> getInstance
             ) {
                 return getInstance(handle, ownership);
             }
 
-            if (typeof(TypeInstance).IsAssignableFrom(type)) {
-                var gclassPtr = Marshal.ReadIntPtr(handle);
-                var gtype = Marshal.PtrToStructure<GType>(gclassPtr);
-                type = gtype.GetGTypeStruct();
-            }
-            else if (typeof(TypeClass).IsAssignableFrom(type)) {
-                var gtype = Marshal.PtrToStructure<GType>(handle);
-                type = gtype.GetGTypeStruct();
-            }
-            else if (typeof(TypeInterface).IsAssignableFrom(type)) {
-                var gtype = Marshal.PtrToStructure<GType>(handle);
-                type = gtype.GetGTypeStruct();
-            }
-
             return (IOpaque)Activator.CreateInstance(type, handle, ownership)!;
         }
 
-        private static readonly Dictionary<Type, Func<IntPtr, Transfer, IOpaque?>> fundamentalTypes = new();
+        private static readonly Dictionary<Type, Func<IntPtr, Transfer, IOpaque?>> typeResolvers = new();
 
         /// <summary>
         /// Registers a new fundamental type for getting correct subclass type.
         /// </summary>
-        protected static void RegisterFundamentalType<T>(Func<IntPtr, Transfer, IOpaque?> getInstance) where T : IOpaque
+        protected static void RegisterTypeResolver<T>(Func<IntPtr, Transfer, IOpaque?> getInstance) where T : IOpaque
         {
-            fundamentalTypes.Add(typeof(T), getInstance);
+            typeResolvers.Add(typeof(T), getInstance);
         }
 
         /// <inheritdoc />

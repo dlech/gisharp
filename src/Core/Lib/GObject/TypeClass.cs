@@ -14,7 +14,7 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// An opaque structure used as the base of all classes.
     /// </summary>
-    public abstract class TypeClass : Opaque
+    public abstract unsafe class TypeClass : Opaque
     {
         class VirtualMethodInfo
         {
@@ -83,6 +83,20 @@ namespace GISharp.Lib.GObject
         internal static extern IntPtr g_type_class_ref(GType type);
 
         /// <summary>
+        /// Marshals an unmanged pointer to a managed object.
+        /// </summary>
+        public static new T? GetInstance<T>(IntPtr handle, Transfer ownership) where T : TypeClass
+        {
+            if (handle == IntPtr.Zero) {
+                return null;
+            }
+
+            var gtype = ((UnmanagedStruct*)handle)->GType;
+            var type = gtype.GetGTypeStruct();
+            return (T?)Activator.CreateInstance(type, handle, ownership);
+        }
+
+        /// <summary>
         /// Gets the type class for the given GType.
         /// </summary>
         public static T GetInstance<T>(GType type) where T : TypeClass
@@ -91,7 +105,7 @@ namespace GISharp.Lib.GObject
                 throw new ArgumentException("GType is not classed", nameof(type));
             }
             var handle = g_type_class_ref(type);
-            var ret = GetInstance<T>(handle, Transfer.Full);
+            var ret = GetInstance<T>(handle, Transfer.Full)!;
             return ret;
         }
 
@@ -101,6 +115,12 @@ namespace GISharp.Lib.GObject
         public static TypeClass Get(GType type)
         {
             return GetInstance<TypeClass>(type);
+        }
+
+        [ModuleInitializer]
+        internal static void RegisterTypeResolver()
+        {
+            RegisterTypeResolver<TypeClass>(GetInstance<TypeClass>);
         }
 
         /// <summary>

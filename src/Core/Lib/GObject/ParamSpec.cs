@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
@@ -450,6 +451,12 @@ namespace GISharp.Lib.GObject
             catch (Exception ex) {
                 ex.LogUnhandledException();
             }
+        }
+
+        [ModuleInitializer]
+        internal static void RegisterTypeResolver()
+        {
+            RegisterTypeResolver<ParamSpec>(GetInstance);
         }
 
         /// <summary>

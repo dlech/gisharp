@@ -1187,6 +1187,12 @@ namespace GISharp.Lib.GObject
         /// </summary>
         protected virtual void DoNotify(ParamSpec pspec) => parentObjectClass?.DoNotify(this, pspec);
 
+        [ModuleInitializer]
+        internal static void RegisterTypeResolver()
+        {
+            RegisterTypeResolver<Object>(GetInstance<Object>);
+        }
+
         /// <summary>
         /// Gets a managed proxy for a an unmanged GObject.
         /// </summary>

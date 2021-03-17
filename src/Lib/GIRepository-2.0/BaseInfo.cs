@@ -120,7 +120,7 @@ namespace GISharp.Lib.GIRepository
         [ModuleInitializer]
         internal static void RegisterTypeResolver()
         {
-            RegisterFundamentalType<BaseInfo>(GetInstance<BaseInfo>);
+            RegisterTypeResolver<BaseInfo>(GetInstance<BaseInfo>);
         }
     }
 }
