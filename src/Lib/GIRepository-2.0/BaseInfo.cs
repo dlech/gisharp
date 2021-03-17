@@ -57,64 +57,28 @@ namespace GISharp.Lib.GIRepository
                 return null;
             }
 
-            Type type = typeof(BaseInfo);
-            switch (g_base_info_get_type((UnmanagedStruct*)handle)) {
-            case InfoType.Arg:
-                type = typeof(ArgInfo);
-                break;
-            case InfoType.Boxed:
-                // TODO: could be struct or union
-                type = typeof(StructInfo);
-                break;
-            case InfoType.Callback:
-                type = typeof(CallbackInfo);
-                break;
-            case InfoType.Constant:
-                type = typeof(ConstantInfo);
-                break;
-            case InfoType.Enum:
-            case InfoType.Flags:
-                type = typeof(EnumInfo);
-                break;
-            case InfoType.Field:
-                type = typeof(FieldInfo);
-                break;
-            case InfoType.Function:
-                type = typeof(FunctionInfo);
-                break;
-            case InfoType.Interface:
-                type = typeof(InterfaceInfo);
-                break;
-            case InfoType.Object:
-                type = typeof(ObjectInfo);
-                break;
-            case InfoType.Property:
-                type = typeof(PropertyInfo);
-                break;
-            case InfoType.Signal:
-                type = typeof(SignalInfo);
-                break;
-            case InfoType.Struct:
-                type = typeof(StructInfo);
-                break;
-            case InfoType.Type:
-                type = typeof(TypeInfo);
-                break;
-            case InfoType.Union:
-                type = typeof(UnionInfo);
-                break;
-            case InfoType.Unresolved:
-                type = typeof(UnresolvedInfo);
-                break;
-            case InfoType.Value:
-                type = typeof(ValueInfo);
-                break;
-            case InfoType.VFunc:
-                type = typeof(VFuncInfo);
-                break;
-            }
+            Type type = (g_base_info_get_type((UnmanagedStruct*)handle)) switch {
+                InfoType.Arg => typeof(ArgInfo),
+                InfoType.Boxed => typeof(StructInfo),// TODO: could be struct or union
+                InfoType.Callback => typeof(CallbackInfo),
+                InfoType.Constant => typeof(ConstantInfo),
+                InfoType.Enum or InfoType.Flags => typeof(EnumInfo),
+                InfoType.Field => typeof(FieldInfo),
+                InfoType.Function => typeof(FunctionInfo),
+                InfoType.Interface => typeof(InterfaceInfo),
+                InfoType.Object => typeof(ObjectInfo),
+                InfoType.Property => typeof(PropertyInfo),
+                InfoType.Signal => typeof(SignalInfo),
+                InfoType.Struct => typeof(StructInfo),
+                InfoType.Type => typeof(TypeInfo),
+                InfoType.Union => typeof(UnionInfo),
+                InfoType.Unresolved => typeof(UnresolvedInfo),
+                InfoType.Value => typeof(ValueInfo),
+                InfoType.VFunc => typeof(VFuncInfo),
+                _ => typeof(BaseInfo),
+            };
 
-            return (T?)Activator.CreateInstance(type, new object[] { handle, ownership });
+            return (T?)Activator.CreateInstance(type, handle, ownership);
         }
 
         [ModuleInitializer]
