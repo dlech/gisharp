@@ -83,6 +83,7 @@ namespace GISharp.Lib.GObject
             var boxedType_ = (GISharp.Runtime.GType)boxedType;
             var flags_ = (GISharp.Lib.GObject.ParamFlags)flags;
             var ret_ = g_param_spec_boxed(name_,nick_,blurb_,boxedType_,flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 

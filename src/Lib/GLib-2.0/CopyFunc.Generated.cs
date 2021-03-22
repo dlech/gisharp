@@ -39,6 +39,7 @@ namespace GISharp.Lib.GLib
                 var src_ = (System.IntPtr)src;
                 var data_ = (System.IntPtr)data;
                 var ret_ = callback_(src_,data_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = (System.IntPtr)ret_;
                 return ret;
             }

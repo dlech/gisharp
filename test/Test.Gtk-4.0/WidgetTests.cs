@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class WidgetTests : Tests
+    public class WidgetTests
     {
         [Test]
         public void TextDirectionGType()

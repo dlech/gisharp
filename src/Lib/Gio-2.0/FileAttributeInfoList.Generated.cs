@@ -51,6 +51,7 @@ namespace GISharp.Lib.Gio
         {
             CheckNewArgs();
             var ret_ = g_file_attribute_info_list_new();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -107,6 +108,7 @@ namespace GISharp.Lib.Gio
             var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
             var flags_ = (GISharp.Lib.Gio.FileAttributeInfoFlags)flags;
             g_file_attribute_info_list_add(list_, name_, type_, flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -133,6 +135,7 @@ namespace GISharp.Lib.Gio
             CheckDupArgs();
             var list_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_attribute_info_list_dup(list_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.Gio.FileAttributeInfoList.GetInstance<GISharp.Lib.Gio.FileAttributeInfoList>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -169,6 +172,7 @@ namespace GISharp.Lib.Gio
             var list_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_file_attribute_info_list_lookup(list_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.Gio.FileAttributeInfo>(ret_);
             return ref ret;
         }

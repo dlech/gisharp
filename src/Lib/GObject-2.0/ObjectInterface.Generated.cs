@@ -46,6 +46,7 @@ namespace GISharp.Lib.GObject
             var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;
             var propertyName_ = (byte*)propertyName.UnsafeHandle;
             var ret_ = g_object_interface_find_property(gIface_,propertyName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -101,6 +102,7 @@ namespace GISharp.Lib.GObject
             var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
             g_object_interface_install_property(gIface_, pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -146,6 +148,7 @@ namespace GISharp.Lib.GObject
             var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;
             uint nPropertiesP_;
             var ret_ = g_object_interface_list_properties(gIface_,&nPropertiesP_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nPropertiesP_, GISharp.Runtime.Transfer.Container);
             return ret;
         }

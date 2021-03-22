@@ -34,6 +34,7 @@ namespace GISharp.Lib.GLib
             var freeFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&FreeMemoryHandle;
             var userData_ = (IntPtr)GCHandle.Alloc(memoryHandle);
             var ret_ = g_bytes_new_with_free_func(data_, size_, freeFunc_, userData_);
+            GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -47,7 +48,7 @@ namespace GISharp.Lib.GLib
                 gcHandle.Free();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 

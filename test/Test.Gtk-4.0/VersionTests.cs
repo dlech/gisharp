@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class VersionTests : Tests
+    public class VersionTests
     {
         [Test]
         public void TestVersion()

@@ -32,6 +32,7 @@ namespace GISharp.Lib.GLib
         {
             CheckNewArgs();
             var ret_ = g_idle_source_new();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

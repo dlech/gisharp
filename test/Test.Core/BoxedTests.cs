@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GObject
 {
-    public class BoxedTests : Tests
+    public class BoxedTests
     {
         [Test]
         public void TestBoxingManagedType()

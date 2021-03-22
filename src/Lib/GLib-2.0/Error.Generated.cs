@@ -78,6 +78,7 @@ namespace GISharp.Lib.GLib
             var code_ = (int)code;
             var message_ = (byte*)message.UnsafeHandle;
             var ret_ = g_error_new_literal(domain_,code_,message_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -183,6 +184,7 @@ namespace GISharp.Lib.GLib
             var domain_ = (GISharp.Lib.GLib.Quark)domain;
             var code_ = (int)code;
             var ret_ = g_error_matches(error_,domain_,code_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

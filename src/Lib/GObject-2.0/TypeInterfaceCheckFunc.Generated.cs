@@ -39,6 +39,7 @@ namespace GISharp.Lib.GObject
                 var checkData_ = (System.IntPtr)checkData;
                 var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;
                 callback_(checkData_, gIface_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;

@@ -7,7 +7,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.GObject
 {
-    public class EnumTests : Tests
+    public class EnumTests
     {
         [Test]
         public void TestRegister1()

@@ -4,6 +4,7 @@
 using System;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.Gio
 {
@@ -28,6 +29,7 @@ namespace GISharp.Lib.Gio
             var data_ = (IntPtr)funcHandle;
             var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&Runtime.GMarshal.DestroyGCHandle;
             g_source_set_callback(source_, func_, data_, notify_);
+            GMarshal.PopUnhandledException();
         }
     }
 }

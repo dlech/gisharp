@@ -178,6 +178,7 @@ namespace GISharp.Lib.GLib
         {
             if (ownership == Transfer.None) {
                 this.handle = (IntPtr)g_variant_type_copy((UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
             LazyItems = new Lazy<ItemsEnumerable>(() => new ItemsEnumerable(this));
         }
@@ -190,6 +191,7 @@ namespace GISharp.Lib.GLib
         {
             if (handle != IntPtr.Zero) {
                 g_variant_type_free((UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
             base.Dispose(disposing);
         }
@@ -456,6 +458,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentException("Invalid type string", nameof(typeString));
             }
             var ret = g_variant_type_new((byte*)typeString.UnsafeHandle);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -511,6 +514,7 @@ namespace GISharp.Lib.GLib
         {
             var element_ = (UnmanagedStruct*)element.UnsafeHandle;
             var ret_ = g_variant_type_new_array(element_);
+            GMarshal.PopUnhandledException();
             var ret = new VariantType((IntPtr)ret_, Transfer.Full);
             return ret;
         }
@@ -562,6 +566,7 @@ namespace GISharp.Lib.GLib
             var key_ = (UnmanagedStruct*)key.UnsafeHandle;
             var value_ = (UnmanagedStruct*)value.UnsafeHandle;
             var ret_ = g_variant_type_new_dict_entry(key_, value_);
+            GMarshal.PopUnhandledException();
             var ret = new VariantType((IntPtr)ret_, Transfer.Full);
             return ret;
         }
@@ -603,6 +608,7 @@ namespace GISharp.Lib.GLib
         {
             var element_ = (UnmanagedStruct*)element.UnsafeHandle;
             var ret_ = g_variant_type_new_maybe(element_);
+            GMarshal.PopUnhandledException();
             var ret = new VariantType((IntPtr)ret_, Transfer.Full);
             return ret;
         }
@@ -657,6 +663,7 @@ namespace GISharp.Lib.GLib
             fixed (IntPtr* items_ = items) {
                 var length_ = items.Length;
                 var ret_ = g_variant_type_new_tuple((UnmanagedStruct**)items_, length_);
+                GMarshal.PopUnhandledException();
                 var ret = new VariantType((IntPtr)ret_, Transfer.Full);
                 return ret;
             }
@@ -717,6 +724,7 @@ namespace GISharp.Lib.GLib
         {
             var typeString_ = (byte*)typeString.UnsafeHandle;
             var ret_ = g_variant_type_string_is_valid(typeString_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -796,6 +804,7 @@ namespace GISharp.Lib.GLib
             var type_ = (UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_peek_string(type_);
             var length_ = g_variant_type_get_string_length(type_);
+            GMarshal.PopUnhandledException();
             var ret = System.Text.Encoding.UTF8.GetString((byte*)ret_, (int)length_);
             return ret;
         }
@@ -841,6 +850,7 @@ namespace GISharp.Lib.GLib
                     throw new InvalidOperationException();
                 }
                 var ret_ = g_variant_type_element(type_);
+                GMarshal.PopUnhandledException();
                 var ret = new VariantType((IntPtr)ret_, Transfer.None);
                 return ret;
             }
@@ -891,6 +901,7 @@ namespace GISharp.Lib.GLib
             var type1_ = (UnmanagedStruct*)type1.UnsafeHandle;
             var type2_ = (UnmanagedStruct*)type2.UnsafeHandle;
             var ret_ = g_variant_type_equal(type1_, type2_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -1123,6 +1134,7 @@ namespace GISharp.Lib.GLib
         {
             var type_ = (UnmanagedStruct*)UnsafeHandle;
             var ret = g_variant_type_hash(type_);
+            GMarshal.PopUnhandledException();
             return (int)ret;
         }
 
@@ -1167,6 +1179,7 @@ namespace GISharp.Lib.GLib
             get {
                 var type_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_variant_type_is_array(type_);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1219,6 +1232,7 @@ namespace GISharp.Lib.GLib
             get {
                 var type_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_variant_type_is_basic(type_);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1269,6 +1283,7 @@ namespace GISharp.Lib.GLib
             get {
                 var type_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_variant_type_is_container(type_);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1323,6 +1338,7 @@ namespace GISharp.Lib.GLib
             get {
                 var type_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_variant_type_is_definite(type_);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1369,6 +1385,7 @@ namespace GISharp.Lib.GLib
             get {
                 var type_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_variant_type_is_dict_entry(type_);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1415,6 +1432,7 @@ namespace GISharp.Lib.GLib
             get {
                 var type_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_variant_type_is_maybe(type_);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1469,6 +1487,7 @@ namespace GISharp.Lib.GLib
             var type_ = (UnmanagedStruct*)UnsafeHandle;
             var supertype_ = (UnmanagedStruct*)supertype.UnsafeHandle;
             var ret_ = g_variant_type_is_subtype_of(type_, supertype_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -1516,6 +1535,7 @@ namespace GISharp.Lib.GLib
             get {
                 var type_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_variant_type_is_tuple(type_);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1550,6 +1570,7 @@ namespace GISharp.Lib.GLib
             get {
                 var type_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_variant_type_is_variant(type_);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1598,6 +1619,7 @@ namespace GISharp.Lib.GLib
                     throw new InvalidOperationException("only valid for dictionary entry types");
                 }
                 var ret_ = g_variant_type_key(type_);
+                GMarshal.PopUnhandledException();
                 var ret = new VariantType((IntPtr)ret_, Transfer.None);
                 return ret;
             }
@@ -1657,6 +1679,7 @@ namespace GISharp.Lib.GLib
                     throw new InvalidOperationException("only valid for non-generic tuple types");
                 }
                 var ret = g_variant_type_n_items(type_);
+                GMarshal.PopUnhandledException();
                 return (int)ret;
             }
         }
@@ -1751,6 +1774,7 @@ namespace GISharp.Lib.GLib
                     throw new InvalidOperationException("only valid for dictionary entry types");
                 }
                 var ret_ = g_variant_type_value(type_);
+                GMarshal.PopUnhandledException();
                 var ret = new VariantType((IntPtr)ret_, Transfer.None);
                 return ret;
             }

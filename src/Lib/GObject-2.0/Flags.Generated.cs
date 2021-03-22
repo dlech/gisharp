@@ -49,6 +49,7 @@ namespace GISharp.Lib.GObject
                 var constValues_ = (GISharp.Lib.GObject.FlagsValue*)constValuesData_;
                 GISharp.Lib.GObject.TypeInfo info_;
                 g_flags_complete_type_info(gFlagsType_, &info_, constValues_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 info = (GISharp.Lib.GObject.TypeInfo)info_;
             }
         }
@@ -85,6 +86,7 @@ namespace GISharp.Lib.GObject
             var flagsClass_ = (GISharp.Lib.GObject.FlagsClass.UnmanagedStruct*)flagsClass.UnsafeHandle;
             var value_ = (uint)value;
             var ret_ = g_flags_get_first_value(flagsClass_,value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.FlagsValue>(ret_);
             return ref ret;
         }
@@ -121,6 +123,7 @@ namespace GISharp.Lib.GObject
             var flagsClass_ = (GISharp.Lib.GObject.FlagsClass.UnmanagedStruct*)flagsClass.UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_flags_get_value_by_name(flagsClass_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.FlagsValue>(ret_);
             return ref ret;
         }
@@ -157,6 +160,7 @@ namespace GISharp.Lib.GObject
             var flagsClass_ = (GISharp.Lib.GObject.FlagsClass.UnmanagedStruct*)flagsClass.UnsafeHandle;
             var nick_ = (byte*)nick.UnsafeHandle;
             var ret_ = g_flags_get_value_by_nick(flagsClass_,nick_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.FlagsValue>(ret_);
             return ref ret;
         }
@@ -205,6 +209,7 @@ namespace GISharp.Lib.GObject
                 var name_ = (byte*)name.UnsafeHandle;
                 var constStaticValues_ = (GISharp.Lib.GObject.FlagsValue*)constStaticValuesData_;
                 var ret_ = g_flags_register_static(name_,constStaticValues_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = (GISharp.Runtime.GType)ret_;
                 return ret;
             }
@@ -250,6 +255,7 @@ namespace GISharp.Lib.GObject
             var flagsType_ = (GISharp.Runtime.GType)flagsType;
             var value_ = (uint)value;
             var ret_ = g_flags_to_string(flagsType_,value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

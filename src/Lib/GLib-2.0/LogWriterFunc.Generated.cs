@@ -71,6 +71,7 @@ namespace GISharp.Lib.GLib
                     var fields_ = (GISharp.Lib.GLib.LogField*)fieldsData_;
                     var nFields_ = (nuint)fields.Length;
                     var ret_ = callback_(logLevel_,fields_,nFields_,userData_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                     var ret = (GISharp.Lib.GLib.LogWriterOutput)ret_;
                     return ret;
                 }
@@ -102,7 +103,7 @@ namespace GISharp.Lib.GLib
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
 
             return default(GISharp.Lib.GLib.LogWriterOutput);

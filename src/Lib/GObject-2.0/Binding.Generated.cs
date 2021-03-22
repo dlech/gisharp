@@ -100,6 +100,7 @@ namespace GISharp.Lib.GObject
             CheckGetFlagsArgs();
             var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_binding_get_flags(binding_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GObject.BindingFlags)ret_;
             return ret;
         }
@@ -129,6 +130,7 @@ namespace GISharp.Lib.GObject
             CheckGetSourceArgs();
             var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_binding_get_source(binding_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -159,6 +161,7 @@ namespace GISharp.Lib.GObject
             CheckGetSourcePropertyArgs();
             var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_binding_get_source_property(binding_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -188,6 +191,7 @@ namespace GISharp.Lib.GObject
             CheckGetTargetArgs();
             var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_binding_get_target(binding_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -218,6 +222,7 @@ namespace GISharp.Lib.GObject
             CheckGetTargetPropertyArgs();
             var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_binding_get_target_property(binding_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }

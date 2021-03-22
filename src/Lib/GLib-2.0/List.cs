@@ -104,6 +104,7 @@ namespace GISharp.Lib.GLib
             var userDataHandle = GCHandle.Alloc((marshalFunc, CallbackScope.Call));
             var userData_ = (IntPtr)userDataHandle;
             g_list_foreach(list_, func_, userData_);
+            GMarshal.PopUnhandledException();
             userDataHandle.Free();
         }
 
@@ -127,6 +128,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             var ret = g_list_index(list_, data);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -204,6 +206,7 @@ namespace GISharp.Lib.GLib
             get {
                 var list_ = (UnmanagedStruct*)handle;
                 var ret = g_list_length(list_);
+                GMarshal.PopUnhandledException();
                 return (int)ret;
             }
         }
@@ -222,6 +225,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             var ret = g_list_nth_data(list_, (uint)n);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -533,7 +537,7 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             }
@@ -625,7 +629,7 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             }
@@ -829,7 +833,7 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             }
@@ -921,7 +925,7 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             }

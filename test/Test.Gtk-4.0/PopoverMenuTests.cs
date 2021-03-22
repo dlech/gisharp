@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class PopoverMenuTests : Tests
+    public class PopoverMenuTests
     {
         [Test]
         public void PopoverMenuFlagsGType()

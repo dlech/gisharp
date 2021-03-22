@@ -62,6 +62,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetErrorDomainArgs();
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_enum_info_get_error_domain(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -99,6 +100,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_enum_info_get_method(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -128,6 +130,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNMethodsArgs();
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_enum_info_get_n_methods(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -155,6 +158,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNValuesArgs();
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_enum_info_get_n_values(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -190,6 +194,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetStorageTypeArgs();
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_enum_info_get_storage_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GIRepository.TypeTag)ret_;
             return ret;
         }
@@ -225,6 +230,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_enum_info_get_value(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.ValueInfo.GetInstance<GISharp.Lib.GIRepository.ValueInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

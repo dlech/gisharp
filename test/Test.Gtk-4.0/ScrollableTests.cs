@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class ScrollableTests : Tests
+    public class ScrollableTests
     {
         [Test]
         public void ScrollablePolicyGType()

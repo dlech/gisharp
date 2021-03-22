@@ -52,6 +52,7 @@ namespace GISharp.Lib.GObject
                         {
                             var data_ = (System.IntPtr)data;
                             var ret_ = callback_(ihint_,returnAccu_,handlerReturn_,data_);
+                            GISharp.Runtime.GMarshal.PopUnhandledException();
                             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                             return ret;
                         }

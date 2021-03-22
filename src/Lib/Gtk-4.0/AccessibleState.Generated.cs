@@ -56,6 +56,7 @@ GISharp.Lib.GObject.Value* value);
                 CheckInitValueArgs(state, ref value);
                 var state_ = (GISharp.Lib.Gtk.AccessibleState)state;
                 gtk_accessible_state_init_value(state_, value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
     }

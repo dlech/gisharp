@@ -60,6 +60,7 @@ namespace GISharp.Lib.GObject
             var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
             var prerequisiteType_ = (GISharp.Runtime.GType)prerequisiteType;
             g_type_interface_add_prerequisite(interfaceType_, prerequisiteType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -126,6 +127,7 @@ namespace GISharp.Lib.GObject
             var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
             uint nPrerequisites_;
             var ret_ = g_type_interface_prerequisites(interfaceType_,&nPrerequisites_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.CArray<GISharp.Runtime.GType>((System.IntPtr)ret_, (int)nPrerequisites_, GISharp.Runtime.Transfer.Full);
             return ret;
         }

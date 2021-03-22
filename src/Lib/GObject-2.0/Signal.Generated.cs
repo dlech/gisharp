@@ -151,6 +151,7 @@ namespace GISharp.Lib.GObject
             var hookData_ = (System.IntPtr)hookFuncHandle;
             var dataDestroy_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var ret_ = g_signal_add_emission_hook(signalId_,detail_,hookFunc_,hookData_,dataDestroy_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Runtime.CULong)ret_;
             return ret;
         }
@@ -193,6 +194,7 @@ namespace GISharp.Lib.GObject
                     CheckChainFromOverriddenArgs(instanceAndParams, ref returnValue);
                     var instanceAndParams_ = (GISharp.Lib.GObject.Value*)instanceAndParamsData_;
                     g_signal_chain_from_overridden(instanceAndParams_, returnValue_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                 }
             }
         }
@@ -243,6 +245,7 @@ namespace GISharp.Lib.GObject
             var closure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)closure.UnsafeHandle;
             var after_ = GISharp.Runtime.BooleanExtensions.ToBoolean(after);
             var ret_ = g_signal_connect_closure(instance_,detailedSignal_,closure_,after_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Runtime.CULong)ret_;
             return ret;
         }
@@ -300,6 +303,7 @@ namespace GISharp.Lib.GObject
             var closure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)closure.UnsafeHandle;
             var after_ = GISharp.Runtime.BooleanExtensions.ToBoolean(after);
             var ret_ = g_signal_connect_closure_by_id(instance_,signalId_,detail_,closure_,after_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Runtime.CULong)ret_;
             return ret;
         }
@@ -412,6 +416,7 @@ namespace GISharp.Lib.GObject
                     var signalId_ = (uint)signalId;
                     var detail_ = (GISharp.Lib.GLib.Quark)detail;
                     g_signal_emitv(instanceAndParams_, signalId_, detail_, returnValue_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                 }
             }
         }
@@ -440,6 +445,7 @@ namespace GISharp.Lib.GObject
             CheckGetInvocationHintArgs(instance);
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
             var ret_ = g_signal_get_invocation_hint(instance_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.SignalInvocationHint>(ret_);
             return ref ret;
         }
@@ -482,6 +488,7 @@ namespace GISharp.Lib.GObject
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
             var handlerId_ = (GISharp.Runtime.CULong)handlerId;
             g_signal_handler_block(instance_, handlerId_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -520,6 +527,7 @@ namespace GISharp.Lib.GObject
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
             var handlerId_ = (GISharp.Runtime.CULong)handlerId;
             g_signal_handler_disconnect(instance_, handlerId_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -611,6 +619,7 @@ namespace GISharp.Lib.GObject
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
             var handlerId_ = (GISharp.Runtime.CULong)handlerId;
             var ret_ = g_signal_handler_is_connected(instance_,handlerId_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -658,6 +667,7 @@ namespace GISharp.Lib.GObject
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
             var handlerId_ = (GISharp.Runtime.CULong)handlerId;
             g_signal_handler_unblock(instance_, handlerId_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -924,6 +934,7 @@ namespace GISharp.Lib.GObject
             var detail_ = (GISharp.Lib.GLib.Quark)detail;
             var mayBeBlocked_ = GISharp.Runtime.BooleanExtensions.ToBoolean(mayBeBlocked);
             var ret_ = g_signal_has_handler_pending(instance_,signalId_,detail_,mayBeBlocked_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -962,6 +973,7 @@ namespace GISharp.Lib.GObject
             CheckIsValidNameArgs(name);
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_signal_is_valid_name(name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1001,6 +1013,7 @@ namespace GISharp.Lib.GObject
             var itype_ = (GISharp.Runtime.GType)itype;
             uint nIds_;
             var ret_ = g_signal_list_ids(itype_,&nIds_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.CArray<uint>((System.IntPtr)ret_, (int)nIds_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -1051,6 +1064,7 @@ namespace GISharp.Lib.GObject
             var name_ = (byte*)name.UnsafeHandle;
             var itype_ = (GISharp.Runtime.GType)itype;
             var ret_ = g_signal_lookup(name_,itype_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -1084,6 +1098,7 @@ namespace GISharp.Lib.GObject
             CheckNameArgs(signalId);
             var signalId_ = (uint)signalId;
             var ret_ = g_signal_name(signalId_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -1223,6 +1238,7 @@ namespace GISharp.Lib.GObject
             var instanceType_ = (GISharp.Runtime.GType)instanceType;
             var classClosure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)classClosure.UnsafeHandle;
             g_signal_override_class_closure(signalId_, instanceType_, classClosure_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1278,6 +1294,7 @@ namespace GISharp.Lib.GObject
             uint signalIdP_;
             GISharp.Lib.GLib.Quark detailP_;
             var ret_ = g_signal_parse_name(detailedSignal_,itype_,&signalIdP_,&detailP_,forceDetailQuark_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             signalIdP = (uint)signalIdP_;
             detailP = (GISharp.Lib.GLib.Quark)detailP_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -1319,6 +1336,7 @@ namespace GISharp.Lib.GObject
                 CheckQueryArgs(signalId);
                 var signalId_ = (uint)signalId;
                 g_signal_query(signalId_, query_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -1351,6 +1369,7 @@ namespace GISharp.Lib.GObject
             var signalId_ = (uint)signalId;
             var hookId_ = (GISharp.Runtime.CULong)hookId;
             g_signal_remove_emission_hook(signalId_, hookId_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1398,6 +1417,7 @@ namespace GISharp.Lib.GObject
             var signalId_ = (uint)signalId;
             var detail_ = (GISharp.Lib.GLib.Quark)detail;
             g_signal_stop_emission(instance_, signalId_, detail_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1434,6 +1454,7 @@ namespace GISharp.Lib.GObject
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
             var detailedSignal_ = (byte*)detailedSignal.UnsafeHandle;
             g_signal_stop_emission_by_name(instance_, detailedSignal_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1470,6 +1491,7 @@ namespace GISharp.Lib.GObject
             var itype_ = (GISharp.Runtime.GType)itype;
             var structOffset_ = (uint)structOffset;
             var ret_ = g_signal_type_cclosure_new(itype_,structOffset_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.Closure.GetInstance<GISharp.Lib.GObject.Closure>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }

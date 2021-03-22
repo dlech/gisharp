@@ -214,6 +214,11 @@ namespace GISharp.CodeGen.Syntax
                 block = block.AddStatements(freeStatement);
             }
 
+            // Check for unhandled managed exception
+            block = block.AddStatements(ExpressionStatement(ParseExpression(
+                "GISharp.Runtime.GMarshal.PopUnhandledException()"
+            )));
+
             // Check for GError and throw GErrorException
 
             if (callable.ThrowsGErrorException) {
@@ -400,7 +405,7 @@ namespace GISharp.CodeGen.Syntax
                 .WithDeclaration(CatchDeclaration(ParseTypeName("System.Exception"),
                     ParseToken("ex")))
                 .WithBlock(Block(ExpressionStatement(ParseExpression(
-                    "GISharp.Runtime.GMarshal.LogUnhandledException(ex)"
+                    "GISharp.Runtime.GMarshal.PushUnhandledException(ex)"
                 ))))
             );
 
@@ -438,7 +443,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var catchType = ParseTypeName("System.Exception");
             var catchStatement = ExpressionStatement(ParseExpression(
-                "GISharp.Runtime.GMarshal.LogUnhandledException(ex)"
+                "GISharp.Runtime.GMarshal.PushUnhandledException(ex)"
             ));
             yield return TryStatement()
                 .WithBlock(callable.GetCallbackTryBlock())

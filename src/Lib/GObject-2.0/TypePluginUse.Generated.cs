@@ -33,6 +33,7 @@ namespace GISharp.Lib.GObject
             {
                 var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
                 callback_(plugin_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;

@@ -57,6 +57,7 @@ namespace GISharp.Lib.GObject
                         var invocationHint_ = (System.IntPtr)invocationHint;
                         var marshalData_ = (System.IntPtr)marshalData;
                         callback_(closure_, returnValue_, nParamValues_, paramValues_, invocationHint_, marshalData_);
+                        GISharp.Runtime.GMarshal.PopUnhandledException();
                     }
                 }
             }

@@ -102,6 +102,7 @@ namespace GISharp.Lib.Gtk
             var requiredMinor_ = (uint)requiredMinor;
             var requiredMicro_ = (uint)requiredMicro;
             var ret_ = gtk_check_version(requiredMajor_,requiredMinor_,requiredMicro_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -125,6 +126,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckGetRunTimeBinaryAgeArgs();
             var ret_ = gtk_get_binary_age();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -148,6 +150,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckGetRunTimeInterfaceAgeArgs();
             var ret_ = gtk_get_interface_age();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -177,6 +180,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckGetMajorVersionArgs();
             var ret_ = gtk_get_major_version();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -206,6 +210,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckGetMicroVersionArgs();
             var ret_ = gtk_get_micro_version();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -235,6 +240,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckGetMinorVersionArgs();
             var ret_ = gtk_get_minor_version();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }

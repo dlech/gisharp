@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test
 {
-    public abstract class IListTests<TList, TItem> : Tests where TList : IList<TItem>, IDisposable, new()
+    public abstract class IListTests<TList, TItem> where TList : IList<TItem>, IDisposable, new()
     {
         readonly Func<TList, int, TItem> getItemAt;
         readonly TItem[] values = new TItem[5];

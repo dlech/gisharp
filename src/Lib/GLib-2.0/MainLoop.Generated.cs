@@ -66,6 +66,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)(context?.UnsafeHandle ?? System.IntPtr.Zero);
             var isRunning_ = GISharp.Runtime.BooleanExtensions.ToBoolean(isRunning);
             var ret_ = g_main_loop_new(context_,isRunning_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -102,6 +103,7 @@ namespace GISharp.Lib.GLib
             CheckGetContextArgs();
             var loop_ = (GISharp.Lib.GLib.MainLoop.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_main_loop_get_context(loop_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.MainContext.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -129,6 +131,7 @@ namespace GISharp.Lib.GLib
             CheckGetIsRunningArgs();
             var loop_ = (GISharp.Lib.GLib.MainLoop.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_main_loop_is_running(loop_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -161,6 +164,7 @@ namespace GISharp.Lib.GLib
             CheckQuitArgs();
             var loop_ = (GISharp.Lib.GLib.MainLoop.UnmanagedStruct*)UnsafeHandle;
             g_main_loop_quit(loop_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>

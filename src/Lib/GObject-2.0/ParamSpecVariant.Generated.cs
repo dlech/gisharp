@@ -115,6 +115,7 @@ namespace GISharp.Lib.GObject
             var defaultValue_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(defaultValue?.Take() ?? System.IntPtr.Zero);
             var flags_ = (GISharp.Lib.GObject.ParamFlags)flags;
             var ret_ = g_param_spec_variant(name_,nick_,blurb_,type_,defaultValue_,flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 

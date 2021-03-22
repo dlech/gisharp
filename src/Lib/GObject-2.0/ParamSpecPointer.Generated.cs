@@ -77,6 +77,7 @@ namespace GISharp.Lib.GObject
             var blurb_ = (byte*)blurb.UnsafeHandle;
             var flags_ = (GISharp.Lib.GObject.ParamFlags)flags;
             var ret_ = g_param_spec_pointer(name_,nick_,blurb_,flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 

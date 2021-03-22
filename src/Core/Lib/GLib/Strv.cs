@@ -47,6 +47,7 @@ namespace GISharp.Lib.GLib
         {
             if (ownership == Transfer.None) {
                 this.handle = (IntPtr)g_strdupv((byte**)handle);
+                GMarshal.PopUnhandledException();
             }
             _Value = new Lazy<string[]>(() => this.Select(x => (string)x).ToArray());
         }
@@ -68,6 +69,7 @@ namespace GISharp.Lib.GLib
         {
             if (handle != IntPtr.Zero) {
                 g_strfreev((byte**)handle);
+                GMarshal.PopUnhandledException();
             }
             base.Dispose(disposing);
         }
@@ -89,6 +91,7 @@ namespace GISharp.Lib.GLib
             get {
                 var this_ = (byte**)UnsafeHandle;
                 var ret = g_strv_length(this_);
+                GMarshal.PopUnhandledException();
                 return (int)ret;
             }
         }
@@ -113,6 +116,7 @@ namespace GISharp.Lib.GLib
             var this_ = (byte**)UnsafeHandle;
             var str_ = (byte*)str.UnsafeHandle;
             var ret_ = g_strv_contains(this_, str_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }

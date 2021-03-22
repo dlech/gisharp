@@ -83,6 +83,7 @@ namespace GISharp.Lib.Gio
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             g_action_map_add_action(actionMap_, action_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -123,6 +124,7 @@ namespace GISharp.Lib.Gio
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;
             var actionName_ = (byte*)actionName.UnsafeHandle;
             var ret_ = g_action_map_lookup_action(actionMap_,actionName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gio.IAction?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -162,6 +164,7 @@ namespace GISharp.Lib.Gio
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;
             var actionName_ = (byte*)actionName.UnsafeHandle;
             g_action_map_remove_action(actionMap_, actionName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

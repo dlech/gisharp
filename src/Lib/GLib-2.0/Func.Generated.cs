@@ -36,6 +36,7 @@ namespace GISharp.Lib.GLib
             {
                 var data_ = (System.IntPtr)data;
                 callback_(data_, userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;
@@ -60,7 +61,7 @@ namespace GISharp.Lib.GLib
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
     }

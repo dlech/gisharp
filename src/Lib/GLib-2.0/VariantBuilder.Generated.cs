@@ -65,6 +65,7 @@ namespace GISharp.Lib.GLib
             CheckNewArgs(type);
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)type.UnsafeHandle;
             var ret_ = g_variant_builder_new(type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -122,6 +123,7 @@ namespace GISharp.Lib.GLib
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle;
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             g_variant_builder_add_value(builder_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -155,6 +157,7 @@ namespace GISharp.Lib.GLib
             CheckCloseArgs();
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle;
             g_variant_builder_close(builder_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -203,6 +206,7 @@ namespace GISharp.Lib.GLib
             CheckEndArgs();
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_builder_end(builder_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -280,6 +284,7 @@ namespace GISharp.Lib.GLib
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle;
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)type.UnsafeHandle;
             g_variant_builder_open(builder_, type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>

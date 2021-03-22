@@ -14,7 +14,7 @@ using ActionSet = System.Collections.Generic.HashSet<GISharp.Lib.Gio.IAction>;
 
 namespace GISharp.Test.Gio
 {
-    public class ActionMapTests : Tests
+    public class ActionMapTests
     {
         [Test]
         public void TestGType()

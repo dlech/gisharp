@@ -181,6 +181,7 @@ namespace GISharp.Lib.GObject
                         var utf8_ = (byte*)(IntPtr)unownedUtf8HandleProperty.GetValue(obj)!;
                         fixed (Value* value_ = &this) {
                             g_value_set_string(value_, utf8_);
+                            GMarshal.PopUnhandledException();
                         }
                     }
                     else if (obj?.GetType() == typeof(NullableUnownedUtf8)) {
@@ -190,6 +191,7 @@ namespace GISharp.Lib.GObject
                         var utf8_ = (byte*)(IntPtr)nullableUnownedUtf8HandleProperty.GetValue(obj)!;
                         fixed (Value* value_ = &this) {
                             g_value_set_string(value_, utf8_);
+                            GMarshal.PopUnhandledException();
                         }
                     }
                     else {
@@ -620,6 +622,7 @@ namespace GISharp.Lib.GObject
                 var managedType = ValueGType.ToType();
                 fixed (Value* value_ = &this) {
                     var ret_ = g_value_get_boxed(value_);
+                    GMarshal.PopUnhandledException();
                     return (Boxed?)Opaque.GetInstance(managedType, ret_, Transfer.None);
                 }
             }
@@ -628,6 +631,7 @@ namespace GISharp.Lib.GObject
                 var boxed_ = value?.UnsafeHandle ?? IntPtr.Zero;
                 fixed (Value* value_ = &this) {
                     g_value_set_boxed(value_, boxed_);
+                    GMarshal.PopUnhandledException();
                 }
             }
         }
@@ -921,6 +925,7 @@ namespace GISharp.Lib.GObject
             AssertInitialized();
             fixed (Value* value_ = &this) {
                 var ret_ = g_strdup_value_contents(value_);
+                GMarshal.PopUnhandledException();
                 using var ret = new Utf8((IntPtr)ret_, Transfer.Full);
                 return $"{ValueGType.Name}: {ret}";
             }

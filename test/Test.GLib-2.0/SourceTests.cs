@@ -7,7 +7,7 @@ using GISharp.Lib.GLib;
 
 namespace GISharp.Test.GLib
 {
-    public class SourceTests : Tests
+    public class SourceTests
     {
         [Test]
         public void TestCurrent()

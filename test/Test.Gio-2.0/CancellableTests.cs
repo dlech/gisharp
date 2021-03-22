@@ -13,7 +13,7 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Gio
 {
-    public class CancellableTests : Tests
+    public class CancellableTests
     {
         [Test]
         public void TestIsCancelled()

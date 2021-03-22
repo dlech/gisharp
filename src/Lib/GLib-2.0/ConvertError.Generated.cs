@@ -45,6 +45,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetQuarkArgs();
             var ret_ = g_convert_error_quark();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Quark)ret_;
             return ret;
         }

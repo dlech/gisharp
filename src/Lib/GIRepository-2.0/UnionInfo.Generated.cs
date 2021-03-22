@@ -74,6 +74,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_union_info_find_method(info_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -101,6 +102,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetAlignmentArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_alignment(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -139,6 +141,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_union_info_get_discriminator(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.ConstantInfo.GetInstance<GISharp.Lib.GIRepository.ConstantInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -166,6 +169,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetDiscriminatorOffsetArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_discriminator_offset(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -194,6 +198,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetDiscriminatorTypeArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_discriminator_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.TypeInfo.GetInstance<GISharp.Lib.GIRepository.TypeInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -229,6 +234,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_union_info_get_field(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FieldInfo.GetInstance<GISharp.Lib.GIRepository.FieldInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -264,6 +270,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_union_info_get_method(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -291,6 +298,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNFieldsArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_n_fields(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -318,6 +326,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNMethodsArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_n_methods(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -345,6 +354,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetSizeArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_size(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -372,6 +382,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetIsDiscriminatedArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_is_discriminated(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

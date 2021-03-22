@@ -41,6 +41,7 @@ namespace GISharp.Lib.GObject
                 var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)@object.UnsafeHandle;
                 var isLastRef_ = GISharp.Runtime.BooleanExtensions.ToBoolean(isLastRef);
                 callback_(data_, @object_, isLastRef_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;

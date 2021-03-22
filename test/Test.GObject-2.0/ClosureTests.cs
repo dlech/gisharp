@@ -6,7 +6,7 @@ using GISharp.Lib.GObject;
 
 namespace GISharp.Test.GObject
 {
-    public class ClosureTests : Tests
+    public class ClosureTests
     {
         [Test]
         public void TestInvoke()

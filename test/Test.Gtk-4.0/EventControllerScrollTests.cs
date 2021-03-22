@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class EventControllerScrollTests : Tests
+    public class EventControllerScrollTests
     {
         [Test]
         public void EventControllerScrollFlagsGType()

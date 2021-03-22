@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class AssistantTests : Tests
+    public class AssistantTests
     {
         [Test]
         public void AssistantPageTypeGtype()

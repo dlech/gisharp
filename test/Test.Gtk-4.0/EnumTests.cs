@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class EnumTests : Tests
+    public class EnumTests
     {
         [Test]
         public void BaselinePositionGType()

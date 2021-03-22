@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class UnicharTests : Tests
+    public class UnicharTests
     {
         [Test]
         public void TestSizeOf()

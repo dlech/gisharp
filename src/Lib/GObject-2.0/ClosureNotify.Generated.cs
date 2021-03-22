@@ -37,6 +37,7 @@ namespace GISharp.Lib.GObject
                 var data_ = (System.IntPtr)data;
                 var closure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)closure.UnsafeHandle;
                 callback_(data_, closure_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;

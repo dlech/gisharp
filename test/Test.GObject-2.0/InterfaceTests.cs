@@ -14,7 +14,7 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.GObject
 {
-    public class InterfaceTests : Tests
+    public class InterfaceTests
     {
         [Test]
         public void TestUnmanagedTypeRegistration()

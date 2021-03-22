@@ -38,6 +38,7 @@ namespace GISharp.Lib.Gio
             {
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
                 var ret_ = callback_(cancellable_,userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }
@@ -67,7 +68,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
 
             return default(GISharp.Runtime.Boolean);

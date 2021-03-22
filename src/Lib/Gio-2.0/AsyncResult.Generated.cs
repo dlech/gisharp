@@ -66,6 +66,7 @@ namespace GISharp.Lib.Gio
             CheckGetSourceObjectArgs(res);
             var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;
             var ret_ = g_async_result_get_source_object(res_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -94,6 +95,7 @@ namespace GISharp.Lib.Gio
             CheckGetUserDataArgs(res);
             var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;
             var ret_ = g_async_result_get_user_data(res_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (System.IntPtr)ret_;
             return ret;
         }
@@ -133,6 +135,7 @@ namespace GISharp.Lib.Gio
             var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             var ret_ = g_async_result_is_tagged(res_,sourceTag_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

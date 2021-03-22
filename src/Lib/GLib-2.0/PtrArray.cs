@@ -25,6 +25,7 @@ namespace GISharp.Lib.GLib
         static UnmanagedStruct* New()
         {
             var ret = g_ptr_array_new();
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -41,6 +42,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentOutOfRangeException(nameof(reservedSize));
             }
             var ret = g_ptr_array_sized_new((uint)reservedSize);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -54,6 +56,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentOutOfRangeException(nameof(reservedSize));
             }
             var ret = g_ptr_array_new_full((uint)reservedSize, elementFreeFunc);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -96,6 +99,7 @@ namespace GISharp.Lib.GLib
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             g_ptr_array_add(array_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -112,6 +116,7 @@ namespace GISharp.Lib.GLib
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             var length = (int)array_->Len;
             var data = g_ptr_array_free(array_, Runtime.Boolean.False);
+            GMarshal.PopUnhandledException();
             handle = IntPtr.Zero; // object becomes disposed
             GC.SuppressFinalize(this);
             return (data, length);
@@ -132,6 +137,7 @@ namespace GISharp.Lib.GLib
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             g_ptr_array_insert(array_, index, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -155,6 +161,7 @@ namespace GISharp.Lib.GLib
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_ptr_array_remove(array_, data);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -180,6 +187,7 @@ namespace GISharp.Lib.GLib
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_ptr_array_remove_fast(array_, data);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -203,6 +211,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             var ret = g_ptr_array_remove_index(array_, (uint)index);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -226,6 +235,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             var ret = g_ptr_array_remove_index_fast(array_, (uint)index);
+            GMarshal.PopUnhandledException();
             return ret;
         }
         /// <summary>
@@ -254,6 +264,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentException("index + length exceeds Count.");
             }
             g_ptr_array_remove_range(array_, (uint)index, (uint)length);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -269,6 +280,7 @@ namespace GISharp.Lib.GLib
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             g_ptr_array_set_free_func(array_, elementFreeFunc);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -287,6 +299,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
             g_ptr_array_set_size(array_, length);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -313,13 +326,14 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             });
 
             var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
             g_ptr_array_sort(array_, compareFunc_);
+            GMarshal.PopUnhandledException();
             GC.KeepAlive(unmanagedCompareFunc);
         }
 
@@ -374,6 +388,7 @@ namespace GISharp.Lib.GLib
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             uint index_;
             var ret_ = g_ptr_array_find(array_, needle, &index_);
+            GMarshal.PopUnhandledException();
             index = (int)index_;
             var ret = ret_.IsTrue();
             return ret;

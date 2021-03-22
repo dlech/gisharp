@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class OptionGroupTests : Tests
+    public class OptionGroupTests
     {
         [Test]
         public void TestAddEntries()

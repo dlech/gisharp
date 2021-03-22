@@ -25,6 +25,7 @@ namespace GISharp.Lib.GObject
         {
             if (handle != IntPtr.Zero) {
                 g_type_default_interface_unref((TypeInterface.UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

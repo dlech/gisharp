@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class ConstraintLayoutTests : Tests
+    public class ConstraintLayoutTests
     {
         [Test]
         public void ConstraintVflParserErrorGType()

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class RevealerTests : Tests
+    public class RevealerTests
     {
         [Test]
         public void RevealerTransitionTypeGType()

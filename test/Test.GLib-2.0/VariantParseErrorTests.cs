@@ -9,7 +9,7 @@ using GISharp.Runtime;
 namespace GISharp.Test.GLib
 {
     [TestOf(typeof(VariantParseError))]
-    public class VariantParseErrorTests : Tests
+    public class VariantParseErrorTests
     {
         [Test]
         public void TestQuark()

@@ -36,6 +36,7 @@ namespace GISharp.Lib.Gio
             CheckDeserializeArgs(value);
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             var ret_ = g_icon_deserialize(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -82,6 +83,7 @@ namespace GISharp.Lib.Gio
             var str_ = (byte*)str.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_icon_new_for_string(str_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -148,6 +150,7 @@ namespace GISharp.Lib.Gio
             CheckGetHashCodeArgs(icon);
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
             var ret_ = g_icon_hash(icon_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (System.Int32)ret_;
             return ret;
         }
@@ -183,6 +186,7 @@ namespace GISharp.Lib.Gio
             var icon1_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)(icon1?.UnsafeHandle ?? System.IntPtr.Zero);
             var icon2_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)(icon2?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_icon_equal(icon1_,icon2_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -217,6 +221,7 @@ namespace GISharp.Lib.Gio
             CheckSerializeArgs(icon);
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
             var ret_ = g_icon_serialize(icon_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -268,6 +273,7 @@ namespace GISharp.Lib.Gio
             CheckToStringArgs(icon);
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
             var ret_ = g_icon_to_string(icon_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }

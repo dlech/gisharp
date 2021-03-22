@@ -78,6 +78,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckGetCurrentArgs();
             var ret_ = gtk_get_debug_flags();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gtk.DebugFlags)ret_;
             return ret;
         }
@@ -102,6 +103,7 @@ namespace GISharp.Lib.Gtk
             CheckSetCurrentArgs(flags);
             var flags_ = (GISharp.Lib.Gtk.DebugFlags)flags;
             gtk_set_debug_flags(flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

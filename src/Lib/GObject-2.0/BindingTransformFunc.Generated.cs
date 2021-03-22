@@ -52,6 +52,7 @@ namespace GISharp.Lib.GObject
                     {
                         var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)binding.UnsafeHandle;
                         var ret_ = callback_(binding_,fromValue_,toValue_,userData_);
+                        GISharp.Runtime.GMarshal.PopUnhandledException();
                         var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                         return ret;
                     }
@@ -85,7 +86,7 @@ namespace GISharp.Lib.GObject
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
 
             return default(GISharp.Runtime.Boolean);

@@ -217,6 +217,7 @@ namespace GISharp.Lib.GLib
             var data_ = (System.IntPtr)funcHandle;
             var destroyNotify_ = func is null ? default : (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             g_option_group_set_translate_func(group_, func_, data_, destroyNotify_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -250,6 +251,7 @@ namespace GISharp.Lib.GLib
             var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)UnsafeHandle;
             var domain_ = (byte*)domain.UnsafeHandle;
             g_option_group_set_translation_domain(group_, domain_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>

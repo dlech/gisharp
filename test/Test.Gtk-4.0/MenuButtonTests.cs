@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class MenuButtonTests : Tests
+    public class MenuButtonTests
     {
         [Test]
         public void ArrowTypeGType()

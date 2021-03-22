@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Runtime
 {
-    public class VoidTests : Tests
+    public class VoidTests
     {
         [Test]
         public void TestEquals()

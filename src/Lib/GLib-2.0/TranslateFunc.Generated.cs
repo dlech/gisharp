@@ -37,6 +37,7 @@ namespace GISharp.Lib.GLib
             {
                 var str_ = (byte*)str.UnsafeHandle;
                 var ret_ = callback_(str_,data_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
                 return ret;
             }
@@ -66,7 +67,7 @@ namespace GISharp.Lib.GLib
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
 
             return default(byte*);

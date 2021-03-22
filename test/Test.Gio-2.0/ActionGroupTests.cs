@@ -13,7 +13,7 @@ using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.Gio
 {
-    public class ActionGroupTests : Tests
+    public class ActionGroupTests
     {
         [Test]
         public void TestGType()

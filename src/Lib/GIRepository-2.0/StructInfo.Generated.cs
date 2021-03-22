@@ -73,6 +73,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_struct_info_find_field(info_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FieldInfo.GetInstance<GISharp.Lib.GIRepository.FieldInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -109,6 +110,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_struct_info_find_method(info_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -136,6 +138,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetAlignmentArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_get_alignment(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -171,6 +174,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_struct_info_get_field(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FieldInfo.GetInstance<GISharp.Lib.GIRepository.FieldInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -206,6 +210,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_struct_info_get_method(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -233,6 +238,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNFieldsArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_get_n_fields(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -260,6 +266,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNMethodsArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_get_n_methods(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -287,6 +294,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetSizeArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_get_size(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -314,6 +322,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetIsForeignArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_is_foreign(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -343,6 +352,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetIsGtypeStructArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_is_gtype_struct(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

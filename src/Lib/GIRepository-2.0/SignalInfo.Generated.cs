@@ -55,6 +55,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetClassClosureArgs();
             var info_ = (GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_signal_info_get_class_closure(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.VFuncInfo.GetInstance<GISharp.Lib.GIRepository.VFuncInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -83,6 +84,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetFlagsArgs();
             var info_ = (GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_signal_info_get_flags(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GObject.SignalFlags)ret_;
             return ret;
         }
@@ -111,6 +113,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetTrueStopsEmitArgs();
             var info_ = (GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_signal_info_true_stops_emit(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

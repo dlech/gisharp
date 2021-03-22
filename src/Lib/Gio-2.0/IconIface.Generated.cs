@@ -67,7 +67,7 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
             /// </summary>
             public static UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
-                uint unmanagedHash(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doHash = (_Hash)methodInfo.CreateDelegate(typeof(_Hash), icon); var ret = doHash(); var ret_ = (uint)ret; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(uint); }
+                uint unmanagedHash(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doHash = (_Hash)methodInfo.CreateDelegate(typeof(_Hash), icon); var ret = doHash(); var ret_ = (uint)ret; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(uint); }
 
                 return unmanagedHash;
             }
@@ -101,7 +101,7 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2);
             /// </summary>
             public static UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedEqual(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon1_, GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2_) { try { var icon1 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon1_, GISharp.Runtime.Transfer.None); var icon2 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon2_, GISharp.Runtime.Transfer.None); var doEqual = (_Equal)methodInfo.CreateDelegate(typeof(_Equal), icon1); var ret = doEqual(icon2); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedEqual(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon1_, GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2_) { try { var icon1 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon1_, GISharp.Runtime.Transfer.None); var icon2 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon2_, GISharp.Runtime.Transfer.None); var doEqual = (_Equal)methodInfo.CreateDelegate(typeof(_Equal), icon1); var ret = doEqual(icon2); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedEqual;
             }
@@ -132,7 +132,7 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
             /// </summary>
             public static UnmanagedSerialize Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedSerialize(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doSerialize = (_Serialize)methodInfo.CreateDelegate(typeof(_Serialize), icon); var ret = doSerialize(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
+                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedSerialize(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doSerialize = (_Serialize)methodInfo.CreateDelegate(typeof(_Serialize), icon); var ret = doSerialize(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
 
                 return unmanagedSerialize;
             }

@@ -29,6 +29,7 @@ namespace GISharp.Lib.GLib
             void managedCallback()
             {
                 callback_();
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;

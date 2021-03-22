@@ -83,6 +83,7 @@ namespace GISharp.Lib.Gio
                 var numDirs_ = (ulong)numDirs;
                 var numFiles_ = (ulong)numFiles;
                 callback_(reporting_, currentSize_, numDirs_, numFiles_, userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;
@@ -110,7 +111,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
     }

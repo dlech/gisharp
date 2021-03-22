@@ -39,6 +39,7 @@ namespace GISharp.Lib.GLib
                 CheckBroadcastArgs();
                 var cond_ = this_;
                 g_cond_broadcast(cond_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -77,6 +78,7 @@ namespace GISharp.Lib.GLib
                 CheckClearArgs();
                 var cond_ = this_;
                 g_cond_clear(cond_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -120,6 +122,7 @@ namespace GISharp.Lib.GLib
                 CheckInitArgs();
                 var cond_ = this_;
                 g_cond_init(cond_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -149,6 +152,7 @@ namespace GISharp.Lib.GLib
                 CheckSignalArgs();
                 var cond_ = this_;
                 g_cond_signal(cond_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -200,6 +204,7 @@ namespace GISharp.Lib.GLib
                     CheckWaitArgs(ref mutex);
                     var cond_ = this_;
                     g_cond_wait(cond_, mutex_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                 }
             }
         }
@@ -306,6 +311,7 @@ namespace GISharp.Lib.GLib
                     var cond_ = this_;
                     var endTime_ = (long)endTime;
                     var ret_ = g_cond_wait_until(cond_,mutex_,endTime_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                     var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                     return ret;
                 }

@@ -11,7 +11,7 @@ using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.GObject
 {
-    public class SignalTests : Tests
+    public class SignalTests
     {
         [Test]
         public void TestValidateName()

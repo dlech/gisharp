@@ -72,6 +72,7 @@ namespace GISharp.Lib.Gio
             CheckCanSeekArgs(seekable);
             var seekable_ = (GISharp.Lib.Gio.Seekable.UnmanagedStruct*)seekable.UnsafeHandle;
             var ret_ = g_seekable_can_seek(seekable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -101,6 +102,7 @@ namespace GISharp.Lib.Gio
             CheckCanTruncateArgs(seekable);
             var seekable_ = (GISharp.Lib.Gio.Seekable.UnmanagedStruct*)seekable.UnsafeHandle;
             var ret_ = g_seekable_can_truncate(seekable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -177,6 +179,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_seekable_seek(seekable_, offset_, type_, cancellable_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -208,6 +211,7 @@ namespace GISharp.Lib.Gio
             CheckTellArgs(seekable);
             var seekable_ = (GISharp.Lib.Gio.Seekable.UnmanagedStruct*)seekable.UnsafeHandle;
             var ret_ = g_seekable_tell(seekable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (long)ret_;
             return ret;
         }
@@ -270,6 +274,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_seekable_truncate(seekable_, offset_, cancellable_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);

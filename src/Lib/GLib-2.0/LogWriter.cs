@@ -39,20 +39,24 @@ namespace GISharp.Lib.GLib
             if (func == Default) {
                 var func_ = (delegate* unmanaged[Cdecl]<LogLevelFlags, LogField*, nuint, IntPtr, LogWriterOutput>)CLibrary.GetSymbol("glib-2.0", nameof(g_log_writer_default));
                 g_log_set_writer_func(func_, IntPtr.Zero, null);
+                GMarshal.PopUnhandledException();
             }
             else if (func == Journald) {
                 var func_ = (delegate* unmanaged[Cdecl]<LogLevelFlags, LogField*, nuint, IntPtr, LogWriterOutput>)CLibrary.GetSymbol("glib-2.0", nameof(g_log_writer_journald));
                 g_log_set_writer_func(func_, IntPtr.Zero, null);
+                GMarshal.PopUnhandledException();
             }
             else if (func == StandardStreams) {
                 var func_ = (delegate* unmanaged[Cdecl]<LogLevelFlags, LogField*, nuint, IntPtr, LogWriterOutput>)CLibrary.GetSymbol("glib-2.0", nameof(g_log_writer_standard_streams));
                 g_log_set_writer_func(func_, IntPtr.Zero, null);
+                GMarshal.PopUnhandledException();
             }
             else {
                 var func_ = (delegate* unmanaged[Cdecl]<LogLevelFlags, LogField*, nuint, IntPtr, LogWriterOutput>)&LogWriterFuncMarshal.Callback;
                 var userData_ = (IntPtr)GCHandle.Alloc(func);
                 var userDataFree_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
                 g_log_set_writer_func(func_, userData_, userDataFree_);
+                GMarshal.PopUnhandledException();
             }
             isFuncSet = true;
         }
@@ -92,6 +96,7 @@ namespace GISharp.Lib.GLib
             fixed (LogField* fields_ = fields) {
                 var nFields_ = (nuint)fields.Length;
                 var ret = g_log_writer_default(logLevel, fields_, nFields_, IntPtr.Zero);
+                GMarshal.PopUnhandledException();
                 return ret;
             }
         }
@@ -125,6 +130,7 @@ namespace GISharp.Lib.GLib
             fixed (LogField* fields_ = fields) {
                 var nFields_ = (nuint)fields.Length;
                 var ret = g_log_writer_journald(logLevel, fields_, nFields_, IntPtr.Zero);
+                GMarshal.PopUnhandledException();
                 return ret;
             }
         }
@@ -161,6 +167,7 @@ namespace GISharp.Lib.GLib
             fixed (LogField* fields_ = fields) {
                 var nFields_ = (nuint)fields.Length;
                 var ret = g_log_writer_standard_streams(logLevel, fields_, nFields_, IntPtr.Zero);
+                GMarshal.PopUnhandledException();
                 return ret;
             }
         }

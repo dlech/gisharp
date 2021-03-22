@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class IconThemeTests : Tests
+    public class IconThemeTests
     {
         [Test]
         public void IconLookupFlagsGType()

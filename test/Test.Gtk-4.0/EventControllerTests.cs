@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class EventControllerTests : Tests
+    public class EventControllerTests
     {
         [Test]
         public void PropagationPhaseGType()

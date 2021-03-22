@@ -8,7 +8,7 @@ using GISharp.Lib.GLib;
 namespace GISharp.Test.GLib
 {
     [TestOf(typeof(VariantBuilder))]
-    public class VariantBuilderTests : Tests
+    public class VariantBuilderTests
     {
         [Test]
         public void TestNew()

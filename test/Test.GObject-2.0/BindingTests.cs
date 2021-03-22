@@ -11,7 +11,7 @@ using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.GObject
 {
-    public class BindingTests : Tests
+    public class BindingTests
     {
         [Test]
         public void TestBindProperty()

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class ShortcutControllerTests : Tests
+    public class ShortcutControllerTests
     {
         [Test]
         public void ShortcutScopeGType()

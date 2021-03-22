@@ -38,6 +38,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetApplicationNameArgs();
             var ret_ = g_get_application_name();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -78,6 +79,7 @@ namespace GISharp.Lib.GLib
             CheckSetApplicationNameArgs(applicationName);
             var applicationName_ = (byte*)applicationName.UnsafeHandle;
             g_set_application_name(applicationName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -108,6 +110,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetProgramNameArgs();
             var ret_ = g_get_prgname();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -145,6 +148,7 @@ namespace GISharp.Lib.GLib
             CheckSetProgramNameArgs(prgname);
             var prgname_ = (byte*)prgname.UnsafeHandle;
             g_set_prgname(prgname_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

@@ -73,6 +73,7 @@ namespace GISharp.Lib.GObject
                 var instanceType_ = (GISharp.Runtime.GType)instanceType;
                 var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
                 g_type_plugin_complete_interface_info(plugin_, instanceType_, interfaceType_, info_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -122,6 +123,7 @@ namespace GISharp.Lib.GObject
                     var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
                     var gType_ = (GISharp.Runtime.GType)gType;
                     g_type_plugin_complete_type_info(plugin_, gType_, info_, valueTable_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                 }
             }
         }
@@ -149,6 +151,7 @@ namespace GISharp.Lib.GObject
             CheckUnuseArgs(plugin);
             var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
             g_type_plugin_unuse(plugin_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -174,6 +177,7 @@ namespace GISharp.Lib.GObject
             CheckUseArgs(plugin);
             var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
             g_type_plugin_use(plugin_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

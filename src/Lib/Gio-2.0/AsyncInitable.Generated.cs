@@ -93,6 +93,7 @@ namespace GISharp.Lib.Gio
                 var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&NewFinish;
                 var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
                 g_async_initable_newv_async(objectType_, nParameters_, parameters_, ioPriority_, cancellable_, callback_, userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 return completionSource.Task;
             }
         }
@@ -151,7 +152,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -278,6 +279,7 @@ namespace GISharp.Lib.Gio
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&InitFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_async_initable_init_async(initable_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return completionSource.Task;
         }
 
@@ -334,7 +336,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
     }

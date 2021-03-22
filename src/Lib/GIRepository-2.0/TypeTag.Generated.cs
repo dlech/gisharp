@@ -81,6 +81,7 @@ namespace GISharp.Lib.GIRepository
             CheckToStringArgs(type);
             var type_ = (GISharp.Lib.GIRepository.TypeTag)type;
             var ret_ = g_type_tag_to_string(type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }

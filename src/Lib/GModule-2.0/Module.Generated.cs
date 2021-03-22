@@ -80,6 +80,7 @@ namespace GISharp.Lib.GModule
             var directory_ = (byte*)directory.UnsafeHandle;
             var moduleName_ = (byte*)moduleName.UnsafeHandle;
             var ret_ = g_module_build_path(directory_,moduleName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -100,6 +101,7 @@ namespace GISharp.Lib.GModule
         {
             CheckGetErrorArgs();
             var ret_ = g_module_error();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -151,6 +153,7 @@ namespace GISharp.Lib.GModule
             var fileName_ = (byte*)fileName.UnsafeHandle;
             var flags_ = (GISharp.Lib.GModule.ModuleFlags)flags;
             var ret_ = g_module_open(fileName_,flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GModule.Module.GetInstance<GISharp.Lib.GModule.Module>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -171,6 +174,7 @@ namespace GISharp.Lib.GModule
         {
             CheckGetSupportedArgs();
             var ret_ = g_module_supported();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -200,6 +204,7 @@ namespace GISharp.Lib.GModule
             CheckCloseArgs();
             var module_ = (GISharp.Lib.GModule.Module.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_module_close(module_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             CheckCloseReturn(ret);
             return ret;
@@ -227,6 +232,7 @@ namespace GISharp.Lib.GModule
             CheckMakeResidentArgs();
             var module_ = (GISharp.Lib.GModule.Module.UnmanagedStruct*)UnsafeHandle;
             g_module_make_resident(module_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -257,6 +263,7 @@ namespace GISharp.Lib.GModule
             CheckGetNameArgs();
             var module_ = (GISharp.Lib.GModule.Module.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_module_name(module_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -300,6 +307,7 @@ namespace GISharp.Lib.GModule
             var symbolName_ = (byte*)symbolName.UnsafeHandle;
             System.IntPtr symbol_;
             var ret_ = g_module_symbol(module_,symbolName_,&symbol_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             symbol = (System.IntPtr)symbol_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;

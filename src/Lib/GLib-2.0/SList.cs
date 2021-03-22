@@ -45,6 +45,7 @@ namespace GISharp.Lib.GLib
             var list1_ = (UnmanagedStruct*)handle;
             var list2_ = (UnmanagedStruct*)list2.handle;
             handle = (IntPtr)g_slist_concat(list1_, list2_);
+            GMarshal.PopUnhandledException();
             list2.handle = IntPtr.Zero;
         }
 
@@ -67,6 +68,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_slist_append(list_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -85,6 +87,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             var ret_ = g_slist_copy(list_);
+            GMarshal.PopUnhandledException();
             var ret = new WeakSList<T>((IntPtr)ret_, Transfer.Container);
             return ret;
         }
@@ -108,6 +111,7 @@ namespace GISharp.Lib.GLib
             var userDataHandle = GCHandle.Alloc((marshalFunc, CallbackScope.Call));
             var userData_ = (IntPtr)userDataHandle;
             g_slist_foreach(list_, func_, userData_);
+            GMarshal.PopUnhandledException();
             userDataHandle.Free();
         }
 
@@ -131,6 +135,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             var ret = g_slist_index(list_, data);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -150,6 +155,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_slist_insert(list_, data, position);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -166,6 +172,7 @@ namespace GISharp.Lib.GLib
             var list_ = (UnmanagedStruct*)handle;
             var sibling_ = (UnmanagedStruct*)sibling;
             handle = (IntPtr)g_slist_insert_before(list_, sibling_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -185,6 +192,7 @@ namespace GISharp.Lib.GLib
             var list_ = (UnmanagedStruct*)handle;
             var func_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(func);
             handle = (IntPtr)g_slist_insert_sorted(list_, data, func_);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -201,6 +209,7 @@ namespace GISharp.Lib.GLib
             get {
                 var list_ = (UnmanagedStruct*)handle;
                 var ret = g_slist_length(list_);
+                GMarshal.PopUnhandledException();
                 return (int)ret;
             }
         }
@@ -219,6 +228,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             var ret = g_slist_nth_data(list_, (uint)n);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -232,6 +242,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_slist_prepend(list_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -246,6 +257,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_slist_remove(list_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -261,6 +273,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_slist_remove_all(list_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -270,6 +283,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_slist_reverse(list_);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -287,6 +301,7 @@ namespace GISharp.Lib.GLib
             var list_ = (UnmanagedStruct*)handle;
             var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(compareFunc);
             handle = (IntPtr)g_slist_sort(list_, compareFunc_);
+            GMarshal.PopUnhandledException();
         }
     }
 
@@ -515,7 +530,7 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             }
@@ -602,7 +617,7 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             }
@@ -797,7 +812,7 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             }
@@ -884,7 +899,7 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             }

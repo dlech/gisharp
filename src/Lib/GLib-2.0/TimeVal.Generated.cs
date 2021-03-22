@@ -74,6 +74,7 @@ namespace GISharp.Lib.GLib
                 CheckTryFromIso8601Args(isoDate);
                 var isoDate_ = (byte*)isoDate.UnsafeHandle;
                 var ret_ = g_time_val_from_iso8601(isoDate_,time_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }
@@ -114,6 +115,7 @@ namespace GISharp.Lib.GLib
                 var time_ = this_;
                 var microseconds_ = (GISharp.Runtime.CLong)microseconds;
                 g_time_val_add(time_, microseconds_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -190,6 +192,7 @@ namespace GISharp.Lib.GLib
                 CheckToIso8601Args();
                 var time_ = this_;
                 var ret_ = g_time_val_to_iso8601(time_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
                 return ret;
             }

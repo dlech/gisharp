@@ -39,6 +39,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckGetQuarkArgs();
             var ret_ = g_invoke_error_quark();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Quark)ret_;
             return ret;
         }

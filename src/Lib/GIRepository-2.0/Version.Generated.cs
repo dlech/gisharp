@@ -49,6 +49,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckGetRunTimeMajorVersionArgs();
             var ret_ = gi_get_major_version();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -72,6 +73,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckGetRunTimeMicroVersionArgs();
             var ret_ = gi_get_micro_version();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -95,6 +97,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckGetRunTimeMinorVersionArgs();
             var ret_ = gi_get_minor_version();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }

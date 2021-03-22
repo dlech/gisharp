@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class TimeoutTests : Tests
+    public class TimeoutTests
     {
         [Test]
         public void TestAdd()

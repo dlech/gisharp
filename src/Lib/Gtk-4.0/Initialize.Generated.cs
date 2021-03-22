@@ -33,6 +33,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckDisableSetlocaleArgs();
             gtk_disable_setlocale();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -72,6 +73,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckInitArgs();
             gtk_init();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -101,6 +103,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckTryInitArgs();
             var ret_ = gtk_init_check();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -122,6 +125,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckGetIsInitializedArgs();
             var ret_ = gtk_is_initialized();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

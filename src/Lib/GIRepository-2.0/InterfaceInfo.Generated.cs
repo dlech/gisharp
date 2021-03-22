@@ -75,6 +75,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_interface_info_find_method(info_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -113,6 +114,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_interface_info_find_signal(info_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.SignalInfo.GetInstance<GISharp.Lib.GIRepository.SignalInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -150,6 +152,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_interface_info_find_vfunc(info_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.VFuncInfo.GetInstance<GISharp.Lib.GIRepository.VFuncInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -185,6 +188,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_interface_info_get_constant(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.ConstantInfo.GetInstance<GISharp.Lib.GIRepository.ConstantInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -213,6 +217,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetIfaceStructArgs();
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_interface_info_get_iface_struct(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.StructInfo.GetInstance<GISharp.Lib.GIRepository.StructInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -248,6 +253,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_interface_info_get_method(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -275,6 +281,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNConstantsArgs();
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_interface_info_get_n_constants(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -302,6 +309,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNMethodsArgs();
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_interface_info_get_n_methods(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -331,6 +339,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNPrerequisitesArgs();
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_interface_info_get_n_prerequisites(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -358,6 +367,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNPropertiesArgs();
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_interface_info_get_n_properties(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -385,6 +395,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNSignalsArgs();
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_interface_info_get_n_signals(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -412,6 +423,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNVFuncsArgs();
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_interface_info_get_n_vfuncs(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -447,6 +459,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_interface_info_get_prerequisite(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -482,6 +495,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_interface_info_get_property(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.PropertyInfo.GetInstance<GISharp.Lib.GIRepository.PropertyInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -517,6 +531,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_interface_info_get_signal(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.SignalInfo.GetInstance<GISharp.Lib.GIRepository.SignalInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -552,6 +567,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_interface_info_get_vfunc(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.VFuncInfo.GetInstance<GISharp.Lib.GIRepository.VFuncInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

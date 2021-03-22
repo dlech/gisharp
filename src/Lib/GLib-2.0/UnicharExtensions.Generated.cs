@@ -39,6 +39,7 @@ namespace GISharp.Lib.GLib
             CheckBreakTypeArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_break_type(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.UnicodeBreakType)ret_;
             return ret;
         }
@@ -69,6 +70,7 @@ namespace GISharp.Lib.GLib
             CheckCombiningClassArgs(uc);
             var uc_ = (GISharp.Lib.GLib.Unichar)uc;
             var ret_ = g_unichar_combining_class(uc_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -133,6 +135,7 @@ namespace GISharp.Lib.GLib
             var b_ = (GISharp.Lib.GLib.Unichar)b;
             GISharp.Lib.GLib.Unichar ch_;
             var ret_ = g_unichar_compose(a_,b_,&ch_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ch = (GISharp.Lib.GLib.Unichar)ch_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -206,6 +209,7 @@ namespace GISharp.Lib.GLib
             GISharp.Lib.GLib.Unichar a_;
             GISharp.Lib.GLib.Unichar b_;
             var ret_ = g_unichar_decompose(ch_,&a_,&b_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             a = (GISharp.Lib.GLib.Unichar)a_;
             b = (GISharp.Lib.GLib.Unichar)b_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -238,6 +242,7 @@ namespace GISharp.Lib.GLib
             CheckDigitValueArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_digit_value(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -346,6 +351,7 @@ namespace GISharp.Lib.GLib
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
             GISharp.Lib.GLib.Unichar mirroredCh_;
             var ret_ = g_unichar_get_mirror_char(ch_,&mirroredCh_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             mirroredCh = (GISharp.Lib.GLib.Unichar)mirroredCh_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -386,6 +392,7 @@ namespace GISharp.Lib.GLib
             CheckGetScriptArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
             var ret_ = g_unichar_get_script(ch_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.UnicodeScript)ret_;
             return ret;
         }
@@ -416,6 +423,7 @@ namespace GISharp.Lib.GLib
             CheckIsAlphaNumericArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isalnum(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -446,6 +454,7 @@ namespace GISharp.Lib.GLib
             CheckIsAlphaArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isalpha(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -476,6 +485,7 @@ namespace GISharp.Lib.GLib
             CheckIsControlArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iscntrl(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -505,6 +515,7 @@ namespace GISharp.Lib.GLib
             CheckIsDefinedArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isdefined(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -535,6 +546,7 @@ namespace GISharp.Lib.GLib
             CheckIsDigitArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isdigit(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -567,6 +579,7 @@ namespace GISharp.Lib.GLib
             CheckIsGraphArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isgraph(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -597,6 +610,7 @@ namespace GISharp.Lib.GLib
             CheckIsLowerArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_islower(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -638,6 +652,7 @@ namespace GISharp.Lib.GLib
             CheckIsMarkArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_ismark(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -669,6 +684,7 @@ namespace GISharp.Lib.GLib
             CheckIsPrintableArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isprint(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -699,6 +715,7 @@ namespace GISharp.Lib.GLib
             CheckIsPunctuationArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_ispunct(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -736,6 +753,7 @@ namespace GISharp.Lib.GLib
             CheckIsSpaceArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isspace(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -769,6 +787,7 @@ namespace GISharp.Lib.GLib
             CheckIsTitleArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_istitle(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -797,6 +816,7 @@ namespace GISharp.Lib.GLib
             CheckIsUpperArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isupper(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -826,6 +846,7 @@ namespace GISharp.Lib.GLib
             CheckIsWideArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iswide(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -868,6 +889,7 @@ namespace GISharp.Lib.GLib
             CheckIsWideCjkArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iswide_cjk(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -896,6 +918,7 @@ namespace GISharp.Lib.GLib
             CheckIsHexDigitArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isxdigit(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -937,6 +960,7 @@ namespace GISharp.Lib.GLib
             CheckIsZeroWidthArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iszerowidth(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -992,6 +1016,7 @@ namespace GISharp.Lib.GLib
             CheckToLowerArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_tolower(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Unichar)ret_;
             return ret;
         }
@@ -1022,6 +1047,7 @@ namespace GISharp.Lib.GLib
             CheckToTitleArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_totitle(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Unichar)ret_;
             return ret;
         }
@@ -1052,6 +1078,7 @@ namespace GISharp.Lib.GLib
             CheckToUpperArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_toupper(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Unichar)ret_;
             return ret;
         }
@@ -1080,6 +1107,7 @@ namespace GISharp.Lib.GLib
             CheckTypeArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_type(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.UnicodeType)ret_;
             return ret;
         }
@@ -1110,6 +1138,7 @@ namespace GISharp.Lib.GLib
             CheckValidateArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
             var ret_ = g_unichar_validate(ch_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1140,6 +1169,7 @@ namespace GISharp.Lib.GLib
             CheckHexDigitValueArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_xdigit_value(c_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class ConstraintTests : Tests
+    public class ConstraintTests
     {
         [Test]
         public void ConstraintAttributeGType()

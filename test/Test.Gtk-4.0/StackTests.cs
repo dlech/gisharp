@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class StackTests : Tests
+    public class StackTests
     {
         [Test]
         public void StackTransitionTypeGType()

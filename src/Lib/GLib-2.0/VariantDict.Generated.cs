@@ -68,6 +68,7 @@ namespace GISharp.Lib.GLib
             CheckNewArgs(fromAsv);
             var fromAsv_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(fromAsv?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_variant_dict_new(fromAsv_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -115,6 +116,7 @@ namespace GISharp.Lib.GLib
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
             var key_ = (byte*)key.UnsafeHandle;
             var ret_ = g_variant_dict_contains(dict_,key_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -154,6 +156,7 @@ namespace GISharp.Lib.GLib
             CheckEndArgs();
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_dict_end(dict_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -200,6 +203,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             g_variant_dict_insert_value(dict_, key_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -257,6 +261,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var expectedType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(expectedType?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_variant_dict_lookup_value(dict_,key_,expectedType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -324,6 +329,7 @@ namespace GISharp.Lib.GLib
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
             var key_ = (byte*)key.UnsafeHandle;
             var ret_ = g_variant_dict_remove(dict_,key_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

@@ -52,6 +52,7 @@ namespace GISharp.Lib.GObject
             CheckRefArgs(gType);
             var gType_ = (GISharp.Runtime.GType)gType;
             var ret_ = g_type_default_interface_ref(gType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 

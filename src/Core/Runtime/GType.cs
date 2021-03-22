@@ -285,7 +285,9 @@ namespace GISharp.Runtime
         /// </summary>
         public static GType Type {
             get {
-                return g_gtype_get_type();
+                var ret = g_gtype_get_type();
+                GMarshal.PopUnhandledException();
+                return ret;
             }
         }
 
@@ -297,7 +299,9 @@ namespace GISharp.Runtime
         /// </summary>
         public static GType Checksum {
             get {
-                return g_checksum_get_type();
+                var ret = g_checksum_get_type();
+                GMarshal.PopUnhandledException();
+                return ret;
             }
         }
 
@@ -329,7 +333,9 @@ namespace GISharp.Runtime
         /// </remarks>
         public GType Fundamental {
             get {
-                return g_type_fundamental(this);
+                var ret = g_type_fundamental(this);
+                GMarshal.PopUnhandledException();
+                return ret;
             }
         }
 
@@ -394,6 +400,7 @@ namespace GISharp.Runtime
         public bool IsAbstract {
             get {
                 var ret_ = g_type_test_flags(this, TypeFlags.Abstract);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -421,7 +428,7 @@ namespace GISharp.Runtime
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern Runtime.Boolean g_type_check_is_value_type(
+        static extern Boolean g_type_check_is_value_type(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type);
@@ -432,6 +439,7 @@ namespace GISharp.Runtime
         public bool IsValueType {
             get {
                 var ret_ = g_type_check_is_value_type(this);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -443,6 +451,7 @@ namespace GISharp.Runtime
         public bool IsClassed {
             get {
                 var ret_ = g_type_test_flags(this, TypeFlags.Classed);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -458,6 +467,7 @@ namespace GISharp.Runtime
         public bool IsInstantiatable {
             get {
                 var ret_ = g_type_test_flags(this, TypeFlags.Instantiatable);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -473,6 +483,7 @@ namespace GISharp.Runtime
         public bool IsDerivable {
             get {
                 var ret_ = g_type_test_flags(this, TypeFlags.Derivable);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -488,6 +499,7 @@ namespace GISharp.Runtime
         public bool IsDeepDerivable {
             get {
                 var ret_ = g_type_test_flags(this, TypeFlags.DeepDerivable);
+                GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -506,7 +518,9 @@ namespace GISharp.Runtime
         /// </remarks>
         public bool IsInterface {
             get {
-                return g_type_fundamental(this) == Interface;
+                var ret = g_type_fundamental(this) == Interface;
+                GMarshal.PopUnhandledException();
+                return ret;
             }
         }
 
@@ -577,6 +591,7 @@ namespace GISharp.Runtime
         public string? Name {
             get {
                 var ret_ = g_type_name(this);
+                GMarshal.PopUnhandledException();
                 var ret = Marshal.PtrToStringUTF8(ret_);
                 return ret;
             }
@@ -611,6 +626,7 @@ namespace GISharp.Runtime
         public GType Parent {
             get {
                 var ret = g_type_parent(this);
+                GMarshal.PopUnhandledException();
                 return ret;
             }
         }
@@ -653,6 +669,7 @@ namespace GISharp.Runtime
             get {
                 uint nChildren_;
                 var ret_ = g_type_children(this, &nChildren_);
+                GMarshal.PopUnhandledException();
                 var ret = new CArrayMemoryManager<GType>(ret_, (int)nChildren_, Transfer.Full);
                 return ret.Memory;
             }
@@ -675,6 +692,7 @@ namespace GISharp.Runtime
         public bool IsA(GType type)
         {
             var ret_ = g_type_is_a(this, type);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -719,6 +737,7 @@ namespace GISharp.Runtime
             AssertGTypeName(name);
             var name_ = Marshal.StringToCoTaskMemUTF8(name);
             var ret = g_type_from_name(name_);
+            GMarshal.PopUnhandledException();
             Marshal.FreeCoTaskMem(name_);
             return ret;
         }

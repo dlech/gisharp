@@ -64,6 +64,7 @@ namespace GISharp.Lib.Gio
             CheckNewArgs(iconname);
             var iconname_ = (byte*)iconname.UnsafeHandle;
             var ret_ = g_themed_icon_new(iconname_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -102,6 +103,7 @@ namespace GISharp.Lib.Gio
                 var iconnames_ = (byte**)iconnamesData_;
                 var len_ = (int)iconnames.Length;
                 var ret_ = g_themed_icon_new_from_names(iconnames_,len_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 return ret_;
             }
         }
@@ -152,6 +154,7 @@ namespace GISharp.Lib.Gio
             CheckNewWithDefaultFallbacksArgs(iconname);
             var iconname_ = (byte*)iconname.UnsafeHandle;
             var ret_ = g_themed_icon_new_with_default_fallbacks(iconname_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -194,6 +197,7 @@ namespace GISharp.Lib.Gio
             var icon_ = (GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct*)UnsafeHandle;
             var iconname_ = (byte*)iconname.UnsafeHandle;
             g_themed_icon_append_name(icon_, iconname_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -221,6 +225,7 @@ namespace GISharp.Lib.Gio
             CheckGetNamesArgs();
             var icon_ = (GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_themed_icon_get_names(icon_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -261,6 +266,7 @@ namespace GISharp.Lib.Gio
             var icon_ = (GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct*)UnsafeHandle;
             var iconname_ = (byte*)iconname.UnsafeHandle;
             g_themed_icon_prepend_name(icon_, iconname_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         bool GISharp.Lib.Gio.IIcon.DoEqual(GISharp.Lib.Gio.IIcon? icon2)

@@ -8,7 +8,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.GLib
 {
-    public class VariantIterTests : Tests
+    public class VariantIterTests
     {
         [Test]
         public void TestNew()

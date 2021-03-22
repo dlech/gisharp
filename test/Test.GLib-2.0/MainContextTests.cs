@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class MainContextTests : Tests
+    public class MainContextTests
     {
         /// <summary>
         /// The main context lock.

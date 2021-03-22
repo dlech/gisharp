@@ -72,6 +72,7 @@ namespace GISharp.Lib.GIRepository
             var implementorGtype_ = (GISharp.Runtime.GType)implementorGtype;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_vfunc_info_get_address(info_,implementorGtype_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -106,6 +107,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetFlagsArgs();
             var info_ = (GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_vfunc_info_get_flags(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GIRepository.VFuncInfoFlags)ret_;
             return ret;
         }
@@ -140,6 +142,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetInvokerArgs();
             var info_ = (GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_vfunc_info_get_invoker(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -168,6 +171,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetOffsetArgs();
             var info_ = (GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_vfunc_info_get_offset(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -197,6 +201,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetSignalArgs();
             var info_ = (GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_vfunc_info_get_signal(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.SignalInfo.GetInstance<GISharp.Lib.GIRepository.SignalInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

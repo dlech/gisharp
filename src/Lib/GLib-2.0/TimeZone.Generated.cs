@@ -140,6 +140,7 @@ namespace GISharp.Lib.GLib
             CheckNewArgs(identifier);
             var identifier_ = (byte*)identifier.UnsafeHandle;
             var ret_ = g_time_zone_new(identifier_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -181,6 +182,7 @@ namespace GISharp.Lib.GLib
             CheckNewOffsetArgs(seconds);
             var seconds_ = (int)seconds;
             var ret_ = g_time_zone_new_offset(seconds_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -220,6 +222,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetLocalArgs();
             var ret_ = g_time_zone_new_local();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.TimeZone.GetInstance<GISharp.Lib.GLib.TimeZone>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -252,6 +255,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetUtcArgs();
             var ret_ = g_time_zone_new_utc();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.TimeZone.GetInstance<GISharp.Lib.GLib.TimeZone>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -322,6 +326,7 @@ namespace GISharp.Lib.GLib
                 var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;
                 var type_ = (GISharp.Lib.GLib.TimeType)type;
                 var ret_ = g_time_zone_adjust_time(tz_,type_,time_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = (int)ret_;
                 return ret;
             }
@@ -389,6 +394,7 @@ namespace GISharp.Lib.GLib
             var type_ = (GISharp.Lib.GLib.TimeType)type;
             var time_ = (long)time;
             var ret_ = g_time_zone_find_interval(tz_,type_,time_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -434,6 +440,7 @@ namespace GISharp.Lib.GLib
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;
             var interval_ = (int)interval;
             var ret_ = g_time_zone_get_abbreviation(tz_,interval_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -473,6 +480,7 @@ namespace GISharp.Lib.GLib
             CheckGetIdentifierArgs();
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_time_zone_get_identifier(tz_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -519,6 +527,7 @@ namespace GISharp.Lib.GLib
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;
             var interval_ = (int)interval;
             var ret_ = g_time_zone_get_offset(tz_,interval_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -557,6 +566,7 @@ namespace GISharp.Lib.GLib
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;
             var interval_ = (int)interval;
             var ret_ = g_time_zone_is_dst(tz_,interval_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

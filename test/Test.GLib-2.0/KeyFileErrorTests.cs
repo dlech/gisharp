@@ -9,7 +9,7 @@ using GISharp.Runtime;
 namespace GISharp.Test.GLib
 {
     [TestOf(typeof(KeyFileError))]
-    public class KeyFileErrorTests : Tests
+    public class KeyFileErrorTests
     {
         [Test]
         public void TestQuark()

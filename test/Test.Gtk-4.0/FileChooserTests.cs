@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class FileChooserTests : Tests
+    public class FileChooserTests
     {
         [Test]
         public void FileChooserActionGType()

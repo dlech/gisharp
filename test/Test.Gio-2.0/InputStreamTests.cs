@@ -12,7 +12,7 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Gio
 {
-    public class InputStreamTests : Tests
+    public class InputStreamTests
     {
         [Test]
         public void TestRead()

@@ -169,6 +169,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_initable_init(initable_, cancellable_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class SpinButtonTests : Tests
+    public class SpinButtonTests
     {
         [Test]
         public void SpinButtonUpdatePolicyGType()

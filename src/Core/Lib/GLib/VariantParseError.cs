@@ -158,6 +158,7 @@ namespace GISharp.Lib.GLib
             }
             var sourceStr_ = (byte*)sourceStr.UnsafeHandle;
             var ret_ = g_variant_parse_error_print_context(error_, sourceStr_);
+            GMarshal.PopUnhandledException();
             var ret = Opaque.GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
             return ret;
         }

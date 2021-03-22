@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class ErrorTests : Tests
+    public class ErrorTests
     {
         [Test]
         public void TestGType()

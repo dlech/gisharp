@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class PadControllerTests : Tests
+    public class PadControllerTests
     {
         [Test]
         public void PadActionTypeGType()

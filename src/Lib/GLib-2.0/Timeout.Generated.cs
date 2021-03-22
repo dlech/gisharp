@@ -90,6 +90,7 @@ namespace GISharp.Lib.GLib
             var notify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var priority_ = (int)priority;
             var ret_ = g_timeout_add_full(priority_,interval_,function_,data_,notify_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -197,6 +198,7 @@ namespace GISharp.Lib.GLib
             var notify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var priority_ = (int)priority;
             var ret_ = g_timeout_add_seconds_full(priority_,interval_,function_,data_,notify_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }

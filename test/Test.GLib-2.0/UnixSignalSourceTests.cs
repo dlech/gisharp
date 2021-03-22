@@ -9,7 +9,7 @@ using Mono.Unix.Native;
 
 namespace GISharp.Test.GLib
 {
-    public class UnixSignalSourceTests : Tests
+    public class UnixSignalSourceTests
     {
         [Test]
         public void TestNew()

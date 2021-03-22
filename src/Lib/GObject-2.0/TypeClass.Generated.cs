@@ -37,6 +37,7 @@ namespace GISharp.Lib.GObject
                 CheckAdjustPrivateOffsetArgs(gClass, ref privateSizeOrOffset);
                 var gClass_ = (System.IntPtr)gClass;
                 g_type_class_adjust_private_offset(gClass_, privateSizeOrOffset_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -111,6 +112,7 @@ namespace GISharp.Lib.GObject
             CheckRefArgs(type);
             var type_ = (GISharp.Runtime.GType)type;
             var ret_ = g_type_class_ref(type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.TypeClass.GetInstance<GISharp.Lib.GObject.TypeClass>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -228,6 +230,7 @@ namespace GISharp.Lib.GObject
             var gClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)UnsafeHandle;
             var privateSize_ = (nuint)privateSize;
             g_type_class_add_private(gClass_, privateSize_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -249,6 +252,7 @@ GISharp.Runtime.GType privateType);
             var klass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)UnsafeHandle;
             var privateType_ = (GISharp.Runtime.GType)privateType;
             var ret_ = g_type_class_get_private(klass_,privateType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (System.IntPtr)ret_;
             return ret;
         }

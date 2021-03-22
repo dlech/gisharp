@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class ComboBoxTests : Tests
+    public class ComboBoxTests
     {
         [Test]
         public void SensitivityTypeGType()

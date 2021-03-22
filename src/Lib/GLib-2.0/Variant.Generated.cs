@@ -191,6 +191,7 @@ namespace GISharp.Lib.GLib
                 var children_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct**)childrenData_;
                 var nChildren_ = (nuint)children.Length;
                 var ret_ = g_variant_new_array(childType_,children_,nChildren_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 return ret_;
             }
         }
@@ -226,6 +227,7 @@ namespace GISharp.Lib.GLib
             CheckNewBooleanArgs(value);
             var value_ = GISharp.Runtime.BooleanExtensions.ToBoolean(value);
             var ret_ = g_variant_new_boolean(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -260,6 +262,7 @@ namespace GISharp.Lib.GLib
             CheckNewByteArgs(value);
             var value_ = (byte)value;
             var ret_ = g_variant_new_byte(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -307,6 +310,7 @@ namespace GISharp.Lib.GLib
                 CheckNewBytestringArgs(@string);
                 var @string_ = (byte*)@stringData_;
                 var ret_ = g_variant_new_bytestring(@string_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 return ret_;
             }
         }
@@ -359,6 +363,7 @@ namespace GISharp.Lib.GLib
                 var strv_ = (byte**)strvData_;
                 var length_ = (nint)strv.Length;
                 var ret_ = g_variant_new_bytestring_array(strv_,length_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 return ret_;
             }
         }
@@ -408,6 +413,7 @@ namespace GISharp.Lib.GLib
             var key_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)key.UnsafeHandle;
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             var ret_ = g_variant_new_dict_entry(key_,value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -442,6 +448,7 @@ namespace GISharp.Lib.GLib
             CheckNewDoubleArgs(value);
             var value_ = (double)value;
             var ret_ = g_variant_new_double(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -514,6 +521,7 @@ namespace GISharp.Lib.GLib
             var nElements_ = (nuint)nElements;
             var elementSize_ = (nuint)elementSize;
             var ret_ = g_variant_new_fixed_array(elementType_,elements_,nElements_,elementSize_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -574,6 +582,7 @@ namespace GISharp.Lib.GLib
             var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)bytes.UnsafeHandle;
             var trusted_ = GISharp.Runtime.BooleanExtensions.ToBoolean(trusted);
             var ret_ = g_variant_new_from_bytes(type_,bytes_,trusted_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -701,6 +710,7 @@ namespace GISharp.Lib.GLib
             CheckNewHandleArgs(value);
             var value_ = (int)value;
             var ret_ = g_variant_new_handle(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -735,6 +745,7 @@ namespace GISharp.Lib.GLib
             CheckNewInt16Args(value);
             var value_ = (short)value;
             var ret_ = g_variant_new_int16(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -769,6 +780,7 @@ namespace GISharp.Lib.GLib
             CheckNewInt32Args(value);
             var value_ = (int)value;
             var ret_ = g_variant_new_int32(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -803,6 +815,7 @@ namespace GISharp.Lib.GLib
             CheckNewInt64Args(value);
             var value_ = (long)value;
             var ret_ = g_variant_new_int64(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -857,6 +870,7 @@ namespace GISharp.Lib.GLib
             var childType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(childType?.UnsafeHandle ?? System.IntPtr.Zero);
             var child_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(child?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_variant_new_maybe(childType_,child_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -893,6 +907,7 @@ namespace GISharp.Lib.GLib
             CheckNewObjectPathArgs(objectPath);
             var objectPath_ = (byte*)objectPath.UnsafeHandle;
             var ret_ = g_variant_new_object_path(objectPath_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -948,6 +963,7 @@ namespace GISharp.Lib.GLib
                 var strv_ = (byte**)strvData_;
                 var length_ = (nint)strv.Length;
                 var ret_ = g_variant_new_objv(strv_,length_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 return ret_;
             }
         }
@@ -985,6 +1001,7 @@ namespace GISharp.Lib.GLib
             CheckNewSignatureArgs(signature);
             var signature_ = (byte*)signature.UnsafeHandle;
             var ret_ = g_variant_new_signature(signature_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -1026,6 +1043,7 @@ namespace GISharp.Lib.GLib
             CheckNewStringArgs(@string);
             var @string_ = (byte*)@string.UnsafeHandle;
             var ret_ = g_variant_new_string(@string_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -1077,6 +1095,7 @@ namespace GISharp.Lib.GLib
                 var strv_ = (byte**)strvData_;
                 var length_ = (nint)strv.Length;
                 var ret_ = g_variant_new_strv(strv_,length_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 return ret_;
             }
         }
@@ -1134,6 +1153,7 @@ namespace GISharp.Lib.GLib
                 var children_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct**)childrenData_;
                 var nChildren_ = (nuint)children.Length;
                 var ret_ = g_variant_new_tuple(children_,nChildren_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 return ret_;
             }
         }
@@ -1169,6 +1189,7 @@ namespace GISharp.Lib.GLib
             CheckNewUint16Args(value);
             var value_ = (ushort)value;
             var ret_ = g_variant_new_uint16(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -1203,6 +1224,7 @@ namespace GISharp.Lib.GLib
             CheckNewUint32Args(value);
             var value_ = (uint)value;
             var ret_ = g_variant_new_uint32(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -1237,6 +1259,7 @@ namespace GISharp.Lib.GLib
             CheckNewUint64Args(value);
             var value_ = (ulong)value;
             var ret_ = g_variant_new_uint64(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -1278,6 +1301,7 @@ namespace GISharp.Lib.GLib
             CheckNewVariantArgs(value);
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             var ret_ = g_variant_new_variant(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -1346,6 +1370,7 @@ namespace GISharp.Lib.GLib
             var one_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)one.UnsafeHandle;
             var two_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)two.UnsafeHandle;
             var ret_ = g_variant_compare(one_,two_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -1417,6 +1442,7 @@ namespace GISharp.Lib.GLib
             CheckIsObjectPathArgs(@string);
             var @string_ = (byte*)@string.UnsafeHandle;
             var ret_ = g_variant_is_object_path(@string_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1455,6 +1481,7 @@ namespace GISharp.Lib.GLib
             CheckIsSignatureArgs(@string);
             var @string_ = (byte*)@string.UnsafeHandle;
             var ret_ = g_variant_is_signature(@string_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1556,6 +1583,7 @@ namespace GISharp.Lib.GLib
             var endptr_ = (byte*)endptr.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_variant_parse(type_,text_,limit_,endptr_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1636,6 +1664,7 @@ namespace GISharp.Lib.GLib
             var error_ = (GISharp.Lib.GLib.Error.UnmanagedStruct*)error.UnsafeHandle;
             var sourceStr_ = (byte*)sourceStr.UnsafeHandle;
             var ret_ = g_variant_parse_error_print_context(error_,sourceStr_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -1651,6 +1680,7 @@ namespace GISharp.Lib.GLib
         {
             CheckParseErrorQuarkArgs();
             var ret_ = g_variant_parse_error_quark();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Quark)ret_;
             return ret;
         }
@@ -1671,6 +1701,7 @@ namespace GISharp.Lib.GLib
         {
             CheckParserGetErrorQuarkArgs();
             var ret_ = g_variant_parser_get_error_quark();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Quark)ret_;
             return ret;
         }
@@ -1715,6 +1746,7 @@ namespace GISharp.Lib.GLib
             CheckByteswapArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_byteswap(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -1776,6 +1808,7 @@ namespace GISharp.Lib.GLib
             var formatString_ = (byte*)formatString.UnsafeHandle;
             var copyOnly_ = GISharp.Runtime.BooleanExtensions.ToBoolean(copyOnly);
             var ret_ = g_variant_check_format_string(value_,formatString_,copyOnly_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1806,6 +1839,7 @@ namespace GISharp.Lib.GLib
             CheckClassifyArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_classify(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.VariantClass)ret_;
             return ret;
         }
@@ -1853,6 +1887,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_dup_bytestring(value_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.CArray<byte>((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -1905,6 +1940,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_dup_bytestring_array(value_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -1957,6 +1993,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_dup_objv(value_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -2003,6 +2040,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_dup_string(value_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             length = (int)length_;
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -2056,6 +2094,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_dup_strv(value_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -2104,6 +2143,7 @@ namespace GISharp.Lib.GLib
             var one_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var two_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)two.UnsafeHandle;
             var ret_ = g_variant_equal(one_,two_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -2162,6 +2202,7 @@ namespace GISharp.Lib.GLib
             CheckGetBooleanArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_boolean(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -2197,6 +2238,7 @@ namespace GISharp.Lib.GLib
             CheckGetByteArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_byte(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (byte)ret_;
             return ret;
         }
@@ -2253,6 +2295,7 @@ namespace GISharp.Lib.GLib
             CheckGetBytestringArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_bytestring(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new System.ReadOnlySpan<byte>(ret_, -1);
             return ret;
         }
@@ -2304,6 +2347,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_get_bytestring_array(value_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
@@ -2370,6 +2414,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var index_ = (nuint)index;
             var ret_ = g_variant_get_child_value(value_,index_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -2428,6 +2473,7 @@ namespace GISharp.Lib.GLib
             CheckGetDataArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_data(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (System.IntPtr)ret_;
             return ret;
         }
@@ -2460,6 +2506,7 @@ namespace GISharp.Lib.GLib
             CheckGetDataAsBytesArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_data_as_bytes(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Bytes.GetInstance<GISharp.Lib.GLib.Bytes>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -2495,6 +2542,7 @@ namespace GISharp.Lib.GLib
             CheckGetDoubleArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_double(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (double)ret_;
             return ret;
         }
@@ -2535,6 +2583,7 @@ namespace GISharp.Lib.GLib
             CheckGetHandleArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_handle(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -2570,6 +2619,7 @@ namespace GISharp.Lib.GLib
             CheckGetInt16Args();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_int16(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (short)ret_;
             return ret;
         }
@@ -2605,6 +2655,7 @@ namespace GISharp.Lib.GLib
             CheckGetInt32Args();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_int32(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -2640,6 +2691,7 @@ namespace GISharp.Lib.GLib
             CheckGetInt64Args();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_int64(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (long)ret_;
             return ret;
         }
@@ -2670,6 +2722,7 @@ namespace GISharp.Lib.GLib
             CheckGetMaybeArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_maybe(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -2728,6 +2781,7 @@ namespace GISharp.Lib.GLib
             CheckGetNormalFormArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_normal_form(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -2779,6 +2833,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_get_objv(value_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
@@ -2822,6 +2877,7 @@ namespace GISharp.Lib.GLib
             CheckGetSizeArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_size(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -2883,6 +2939,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_get_string(value_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             length = (int)length_;
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
@@ -2935,6 +2992,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_get_strv(value_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
@@ -2970,6 +3028,7 @@ namespace GISharp.Lib.GLib
             CheckGetType_Args();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_type(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -3001,6 +3060,7 @@ namespace GISharp.Lib.GLib
             CheckGetTypeStringArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_type_string(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -3036,6 +3096,7 @@ namespace GISharp.Lib.GLib
             CheckGetUint16Args();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_uint16(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (ushort)ret_;
             return ret;
         }
@@ -3071,6 +3132,7 @@ namespace GISharp.Lib.GLib
             CheckGetUint32Args();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_uint32(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -3106,6 +3168,7 @@ namespace GISharp.Lib.GLib
             CheckGetUint64Args();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_uint64(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (ulong)ret_;
             return ret;
         }
@@ -3136,6 +3199,7 @@ namespace GISharp.Lib.GLib
             CheckGetVariantArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_get_variant(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -3178,6 +3242,7 @@ namespace GISharp.Lib.GLib
             CheckGetHashCodeArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_hash(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (System.Int32)ret_;
             return ret;
         }
@@ -3207,6 +3272,7 @@ namespace GISharp.Lib.GLib
             CheckGetIsContainerArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_is_container(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -3248,6 +3314,7 @@ namespace GISharp.Lib.GLib
             CheckGetIsFloatingArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_is_floating(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -3294,6 +3361,7 @@ namespace GISharp.Lib.GLib
             CheckGetIsNormalFormArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_is_normal_form(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -3331,6 +3399,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)type.UnsafeHandle;
             var ret_ = g_variant_is_of_type(value_,type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -3402,6 +3471,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var expectedType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(expectedType?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_variant_lookup_value(dictionary_,key_,expectedType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -3446,6 +3516,7 @@ namespace GISharp.Lib.GLib
             CheckNChildrenArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_n_children(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -3493,6 +3564,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var typeAnnotate_ = GISharp.Runtime.BooleanExtensions.ToBoolean(typeAnnotate);
             var ret_ = g_variant_print(value_,typeAnnotate_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -3573,6 +3645,7 @@ namespace GISharp.Lib.GLib
             CheckRefSinkArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_ref_sink(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -3623,6 +3696,7 @@ namespace GISharp.Lib.GLib
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var data_ = (System.IntPtr)data;
             g_variant_store(value_, data_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -3687,6 +3761,7 @@ namespace GISharp.Lib.GLib
             CheckTakeRefArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_take_ref(value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

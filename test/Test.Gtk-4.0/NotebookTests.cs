@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class NotebookTests : Tests
+    public class NotebookTests
     {
         [Test]
         public void NotebookTabGType()

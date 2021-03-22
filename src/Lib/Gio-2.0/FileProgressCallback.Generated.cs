@@ -41,6 +41,7 @@ namespace GISharp.Lib.Gio
                 var currentNumBytes_ = (long)currentNumBytes;
                 var totalNumBytes_ = (long)totalNumBytes;
                 callback_(currentNumBytes_, totalNumBytes_, userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;
@@ -66,7 +67,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
     }

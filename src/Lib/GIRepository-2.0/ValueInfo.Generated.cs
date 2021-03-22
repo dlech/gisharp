@@ -49,6 +49,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetValueArgs();
             var info_ = (GISharp.Lib.GIRepository.ValueInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_value_info_get_value(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (long)ret_;
             return ret;
         }

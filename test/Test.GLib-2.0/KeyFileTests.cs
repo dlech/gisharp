@@ -10,7 +10,7 @@ using static GISharp.TestHelpers;
 namespace GISharp.Test.GLib
 {
     [TestOf(typeof(KeyFile))]
-    public class KeyFileTests : Tests
+    public class KeyFileTests
     {
         static readonly Utf8 TestGroup = "TestGroup";
         static readonly Utf8 TestKey1 = "TestKey1";

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class GestureTests : Tests
+    public class GestureTests
     {
         [Test]
         public void EventSequenceStateGType()

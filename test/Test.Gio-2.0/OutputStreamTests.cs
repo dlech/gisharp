@@ -11,7 +11,7 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Gio
 {
-    public class OutputStreamTests : Tests
+    public class OutputStreamTests
     {
         [Test]
         public void TestWrite()

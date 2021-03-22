@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class EditableTests : Tests
+    public class EditableTests
     {
         [Test]
         public void EditablePropertiesGType()

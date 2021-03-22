@@ -44,6 +44,7 @@ namespace GISharp.Lib.GLib
             var zeroTerminated_ = zeroTerminated.ToBoolean();
             var clear_ = clear.ToBoolean();
             var ret_ = g_array_new(zeroTerminated_, clear_, (uint)elementSize);
+            GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -58,6 +59,7 @@ namespace GISharp.Lib.GLib
             var zeroTerminated_ = zeroTerminated.ToBoolean();
             var clear_ = clear.ToBoolean();
             var ret_ = g_array_sized_new(zeroTerminated_, clear_, (uint)elementSize, (uint)reservedSize);
+            GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -73,6 +75,7 @@ namespace GISharp.Lib.GLib
             fixed (void* data_ = data) {
                 var len_ = (uint)data.Length;
                 g_array_append_vals(array_, (IntPtr)data_, len_);
+                GMarshal.PopUnhandledException();
             }
         }
 
@@ -87,6 +90,7 @@ namespace GISharp.Lib.GLib
             get {
                 var array_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret = g_array_get_element_size(array_);
+                GMarshal.PopUnhandledException();
                 return (int)ret;
             }
         }
@@ -110,6 +114,7 @@ namespace GISharp.Lib.GLib
             fixed (void* data_ = data) {
                 var len_ = (uint)data.Length;
                 g_array_insert_vals(array_, index_, (IntPtr)data_, len_);
+                GMarshal.PopUnhandledException();
             }
         }
 
@@ -130,6 +135,7 @@ namespace GISharp.Lib.GLib
             fixed (void* data_ = data) {
                 var len_ = (uint)data.Length;
                 g_array_prepend_vals(array_, (IntPtr)data_, len_);
+                GMarshal.PopUnhandledException();
             }
         }
 
@@ -147,6 +153,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             g_array_remove_index(array_, (uint)index);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -165,6 +172,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             g_array_remove_index_fast(array_, (uint)index);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -189,6 +197,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
             g_array_remove_range(array_, (uint)index, (uint)length);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -206,6 +215,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
             g_array_set_size(array_, (uint)length);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -250,13 +260,14 @@ namespace GISharp.Lib.GLib
                     return compareFunc(a, b);
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             });
             var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)
                 Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
             g_array_sort(array_, compareFunc_);
+            GMarshal.PopUnhandledException();
             GC.KeepAlive(unmanagedCompareFunc);
         }
 

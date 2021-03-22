@@ -10,7 +10,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GObject
 {
-    public class CClosureTests : Tests
+    public class CClosureTests
     {
         [Test]
         public void TestNew()
@@ -30,7 +30,7 @@ namespace GISharp.Test.GObject
                 return ret;
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
                 return default;
             }
         }

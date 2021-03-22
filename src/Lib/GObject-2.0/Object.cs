@@ -52,6 +52,7 @@ namespace GISharp.Lib.GObject
             // If this is the last normal reference, ToggleNotifyCallback will be called immediately
             // to convert the strong reference to a weak reference
             g_object_unref((UnmanagedStruct*)handle);
+            GMarshal.PopUnhandledException();
 
             objectClass = (ObjectClass)GetTypeClass();
             var parentGType = GetGType().Parent;
@@ -70,6 +71,7 @@ namespace GISharp.Lib.GObject
                 g_object_set_qdata((UnmanagedStruct*)handle, toggleRefGCHandleQuark, IntPtr.Zero);
                 gcHandle.Free();
                 g_object_unref((UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
             base.Dispose(disposing);
         }
@@ -80,6 +82,7 @@ namespace GISharp.Lib.GObject
             try {
                 // free the existing GCHandle
                 var gcHandle = (GCHandle)g_object_get_qdata(object_, toggleRefGCHandleQuark);
+                GMarshal.PopUnhandledException();
                 var obj = (Object)gcHandle.Target!;
                 gcHandle.Free();
 
@@ -88,9 +91,10 @@ namespace GISharp.Lib.GObject
                 // alloc a new GCHandle with weak/strong reference depending on isLastRef
                 gcHandle = GCHandle.Alloc(obj, isLastRef ? GCHandleType.Weak : GCHandleType.Normal);
                 g_object_set_qdata(object_, toggleRefGCHandleQuark, (IntPtr)gcHandle);
+                GMarshal.PopUnhandledException();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -154,7 +158,7 @@ namespace GISharp.Lib.GObject
                 dataHandle.Free();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -168,7 +172,7 @@ namespace GISharp.Lib.GObject
                 obj.propertyChangedHandler?.Invoke(obj, new PropertyChangedEventArgs(propInfo.Name));
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -343,6 +347,7 @@ namespace GISharp.Lib.GObject
             var userData_ = (IntPtr)GCHandle.Alloc(userData);
             var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&BindPropertyNotify;
             var ret_ = g_object_bind_property_full(source_, sourceProperty_, target_, targetProperty_, flags, transformTo_, transformFrom_, userData_, notify_);
+            GMarshal.PopUnhandledException();
             var ret = GetInstance<Binding>((IntPtr)ret_, Transfer.None)!;
             return ret;
         }
@@ -366,7 +371,7 @@ namespace GISharp.Lib.GObject
                 return ret.ToBoolean();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
                 return default;
             }
         }
@@ -384,7 +389,7 @@ namespace GISharp.Lib.GObject
                 return ret.ToBoolean();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
                 return default;
             }
         }
@@ -397,7 +402,7 @@ namespace GISharp.Lib.GObject
                 gcHandle.Free();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -471,6 +476,7 @@ namespace GISharp.Lib.GObject
                 var object_ = (UnmanagedStruct*)UnsafeHandle;
                 var key_ = (byte*)GMarshal.StringToUtf8Ptr(key);
                 var data_ = g_object_get_data(object_, key_);
+                GMarshal.PopUnhandledException();
                 GMarshal.Free((IntPtr)key_);
                 if (data_ == IntPtr.Zero) {
                     return null;
@@ -483,11 +489,13 @@ namespace GISharp.Lib.GObject
                 var key_ = (byte*)GMarshal.StringToUtf8Ptr(key);
                 if (value is null) {
                     g_object_set_data(object_, key_, IntPtr.Zero);
+                    GMarshal.PopUnhandledException();
                 }
                 else {
                     var data_ = GCHandle.ToIntPtr(GCHandle.Alloc(value));
                     var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
                     g_object_set_data_full(object_, key_, data_, destroy_);
+                    GMarshal.PopUnhandledException();
                 }
                 GMarshal.Free((IntPtr)key_);
             }
@@ -503,6 +511,7 @@ namespace GISharp.Lib.GObject
             get {
                 var object_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_object_get_qdata(object_, quark);
+                GMarshal.PopUnhandledException();
                 var ret = GCHandle.FromIntPtr(ret_).Target;
                 return ret;
             }
@@ -510,11 +519,13 @@ namespace GISharp.Lib.GObject
                 var object_ = (UnmanagedStruct*)UnsafeHandle;
                 if (value is null) {
                     g_object_set_qdata(object_, quark, IntPtr.Zero);
+                    GMarshal.PopUnhandledException();
                 }
                 else {
                     var data = (IntPtr)GCHandle.Alloc(value);
                     var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
                     g_object_set_qdata_full(object_, quark, data, destroy_);
+                    GMarshal.PopUnhandledException();
                 }
             }
         }
@@ -552,6 +563,7 @@ namespace GISharp.Lib.GObject
 
             // see if the unmanaged object has a managed GC handle
             var ptr = g_object_get_qdata((UnmanagedStruct*)handle, toggleRefGCHandleQuark);
+            GMarshal.PopUnhandledException();
             if (ptr != IntPtr.Zero) {
                 var gcHandle = (GCHandle)ptr;
                 if (gcHandle.IsAllocated) {

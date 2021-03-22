@@ -56,6 +56,7 @@ namespace GISharp.Lib.GLib
                 var logLevel_ = (GISharp.Lib.GLib.LogLevelFlags)logLevel;
                 var message_ = (byte*)message.UnsafeHandle;
                 callback_(logDomain_, logLevel_, message_, userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;
@@ -82,7 +83,7 @@ namespace GISharp.Lib.GLib
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
     }

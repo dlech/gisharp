@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gio
 {
-    public class IconTests : Tests
+    public class IconTests
     {
         [Test]
         public void TestEverything()

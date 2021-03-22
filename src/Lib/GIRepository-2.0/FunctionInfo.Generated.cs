@@ -56,6 +56,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetFlagsArgs();
             var info_ = (GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_function_info_get_flags(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GIRepository.FunctionInfoFlags)ret_;
             return ret;
         }
@@ -87,6 +88,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetPropertyArgs();
             var info_ = (GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_function_info_get_property(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.PropertyInfo.GetInstance<GISharp.Lib.GIRepository.PropertyInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -116,6 +118,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetSymbolArgs();
             var info_ = (GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_function_info_get_symbol(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -146,6 +149,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetVFuncArgs();
             var info_ = (GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_function_info_get_vfunc(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.VFuncInfo.GetInstance<GISharp.Lib.GIRepository.VFuncInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

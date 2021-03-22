@@ -34,6 +34,7 @@ namespace GISharp.Lib.GLib
             {
                 var data_ = (System.IntPtr)data;
                 callback_(data_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;

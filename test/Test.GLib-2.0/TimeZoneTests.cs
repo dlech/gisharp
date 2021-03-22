@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class TimeZoneTests : Tests
+    public class TimeZoneTests
     {
         [Test]
         public void TestNew()

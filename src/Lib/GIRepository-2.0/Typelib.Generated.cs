@@ -57,6 +57,7 @@ GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
             CheckGetNamespaceArgs();
             var typelib_ = (GISharp.Lib.GIRepository.Typelib.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_typelib_get_namespace(typelib_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -85,6 +86,7 @@ System.IntPtr* symbol);
                 var typelib_ = (GISharp.Lib.GIRepository.Typelib.UnmanagedStruct*)UnsafeHandle;
                 var symbolName_ = (byte*)symbolName.UnsafeHandle;
                 var ret_ = g_typelib_symbol(typelib_,symbolName_,symbol_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }

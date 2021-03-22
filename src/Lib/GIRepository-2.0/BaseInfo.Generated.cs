@@ -128,6 +128,7 @@ namespace GISharp.Lib.GIRepository
             var info1_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var info2_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)info2.UnsafeHandle;
             var ret_ = g_base_info_equal(info1_,info2_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -186,6 +187,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_base_info_get_attribute(info_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -215,6 +217,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetContainerArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_get_container(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -244,6 +247,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNameArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_get_name(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -271,6 +275,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetNamespaceArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_get_namespace(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -298,6 +303,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetInfoTypeArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_get_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GIRepository.InfoType)ret_;
             return ret;
         }
@@ -325,6 +331,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetTypelibArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_get_typelib(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.Typelib.GetInstance<GISharp.Lib.GIRepository.Typelib>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -353,6 +360,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetIsDeprecatedArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_is_deprecated(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -431,6 +439,7 @@ namespace GISharp.Lib.GIRepository
                 byte* name_;
                 byte* value_;
                 var ret_ = g_base_info_iterate_attributes(info_,iterator_,&name_,&value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 name = new GISharp.Lib.GLib.UnownedUtf8(name_);
                 value = new GISharp.Lib.GLib.UnownedUtf8(value_);
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);

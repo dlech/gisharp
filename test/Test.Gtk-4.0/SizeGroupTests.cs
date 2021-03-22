@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class SizeGroupTests : Tests
+    public class SizeGroupTests
     {
         [Test]
         public void SizeGroupModeGType()

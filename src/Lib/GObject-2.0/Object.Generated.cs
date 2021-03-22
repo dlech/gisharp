@@ -83,6 +83,7 @@ namespace GISharp.Lib.GObject
                 var parameters_ = (GISharp.Lib.GObject.Parameter*)parametersData_;
                 var nParameters_ = (uint)parameters.Length;
                 var ret_ = g_object_newv(objectType_,nParameters_,parameters_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 return ret_;
             }
         }
@@ -114,7 +115,7 @@ namespace GISharp.Lib.GObject
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -137,6 +138,7 @@ System.IntPtr data);
             var what_ = (nuint)what;
             var data_ = (System.IntPtr)data;
             var ret_ = g_object_compat_control(what_,data_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -292,6 +294,7 @@ System.IntPtr data);
             var targetProperty_ = (byte*)targetProperty.UnsafeHandle;
             var flags_ = (GISharp.Lib.GObject.BindingFlags)flags;
             var ret_ = g_object_bind_property(source_,sourceProperty_,target_,targetProperty_,flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.Binding.GetInstance<GISharp.Lib.GObject.Binding>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -481,6 +484,7 @@ System.IntPtr data);
             var transformTo_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)transformTo.UnsafeHandle;
             var transformFrom_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)transformFrom.UnsafeHandle;
             var ret_ = g_object_bind_property_with_closures(source_,sourceProperty_,target_,targetProperty_,flags_,transformTo_,transformFrom_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.Binding.GetInstance<GISharp.Lib.GObject.Binding>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -649,6 +653,7 @@ System.IntPtr data);
             CheckFreezeNotifyArgs();
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             g_object_freeze_notify(@object_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -732,6 +737,7 @@ System.IntPtr data);
                 var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
                 var propertyName_ = (byte*)propertyName.UnsafeHandle;
                 g_object_get_property(@object_, propertyName_, value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -815,6 +821,7 @@ System.IntPtr data);
                     var values_ = (GISharp.Lib.GObject.Value*)valuesData_;
                     nProperties_ = nProperties_ == (uint)values.Length ? nProperties_ : throw new System.ArgumentException("Length length of values must be the same as names", nameof(values));
                     g_object_getv(@object_, nProperties_, names_, values_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                 }
             }
         }
@@ -844,6 +851,7 @@ System.IntPtr data);
             CheckGetIsFloatingArgs();
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_object_is_floating(@object_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -889,6 +897,7 @@ System.IntPtr data);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             var propertyName_ = (byte*)propertyName.UnsafeHandle;
             g_object_notify(@object_, propertyName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -967,6 +976,7 @@ System.IntPtr data);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
             g_object_notify_by_pspec(@object_, pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1223,6 +1233,7 @@ System.IntPtr data);
             CheckRunDisposeArgs();
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             g_object_run_dispose(@object_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1339,6 +1350,7 @@ System.IntPtr data);
                 var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
                 var propertyName_ = (byte*)propertyName.UnsafeHandle;
                 g_object_set_property(@object_, propertyName_, value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -1531,6 +1543,7 @@ System.IntPtr data);
             CheckThawNotifyArgs();
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             g_object_thaw_notify(@object_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1592,6 +1605,7 @@ System.IntPtr data);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             var closure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)closure.UnsafeHandle;
             g_object_watch_closure(@object_, closure_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoConstructed()']/*" />
@@ -1600,6 +1614,7 @@ System.IntPtr data);
         {
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedConstructed>(_GType)!(@object_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoDispatchPropertiesChanged(uint,GISharp.Lib.GObject.ParamSpec)']/*" />
@@ -1610,6 +1625,7 @@ System.IntPtr data);
             var nPspecs_ = (uint)nPspecs;
             var pspecs_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspecs.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedDispatchPropertiesChanged>(_GType)!(@object_, nPspecs_, pspecs_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoDispose()']/*" />
@@ -1618,6 +1634,7 @@ System.IntPtr data);
         {
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedDispose>(_GType)!(@object_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoFinalize()']/*" />
@@ -1626,6 +1643,7 @@ System.IntPtr data);
         {
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedFinalize>(_GType)!(@object_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoGetProperty(uint,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)']/*" />
@@ -1638,6 +1656,7 @@ System.IntPtr data);
                 var propertyId_ = (uint)propertyId;
                 var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
                 GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedGetProperty>(_GType)!(@object_, propertyId_, value_, pspec_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -1648,6 +1667,7 @@ System.IntPtr data);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedNotify>(_GType)!(@object_, pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoSetProperty(uint,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)']/*" />
@@ -1660,6 +1680,7 @@ System.IntPtr data);
                 var propertyId_ = (uint)propertyId;
                 var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
                 GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedSetProperty>(_GType)!(@object_, propertyId_, value_, pspec_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
     }

@@ -17,6 +17,7 @@ namespace GISharp.Lib.GLib
             var hashFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, uint>)CLibrary.GetSymbol("glib-2.0", "g_direct_hash");
             var keyEqualFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Runtime.Boolean>)CLibrary.GetSymbol("glib-2.0", "g_direct_equal");
             var ret = g_hash_table_new(hashFunc_, keyEqualFunc_);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -25,6 +26,7 @@ namespace GISharp.Lib.GLib
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_add(hashTable_, key_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -34,6 +36,7 @@ namespace GISharp.Lib.GLib
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_contains(hashTable_, key_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -46,6 +49,7 @@ namespace GISharp.Lib.GLib
             var userData_ = (IntPtr)userDataHandle;
             var ret_ = g_hash_table_find(hashTable_, predicate_, userData_);
             userDataHandle.Free();
+            GMarshal.PopUnhandledException();
             var ret = GetInstance<TValue>(ret_, Transfer.None);
             return ret;
         }
@@ -63,7 +67,7 @@ namespace GISharp.Lib.GLib
                 return ret.ToBoolean();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
                 return default;
             }
         }
@@ -76,6 +80,7 @@ namespace GISharp.Lib.GLib
             var userData_ = (IntPtr)userDataHandle;
             g_hash_table_foreach(hashTable_, func_, userData_);
             userDataHandle.Free();
+            GMarshal.PopUnhandledException();
         }
 
         private record ForeachUserData(Type TKey, Type TValue, Delegate Func);
@@ -90,7 +95,7 @@ namespace GISharp.Lib.GLib
                 userData.Func.DynamicInvoke(key, value);
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -102,6 +107,7 @@ namespace GISharp.Lib.GLib
             var userData_ = (IntPtr)userDataHandle;
             var ret_ = g_hash_table_foreach_remove(hashTable_, func_, userData_);
             userDataHandle.Free();
+            GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -119,7 +125,7 @@ namespace GISharp.Lib.GLib
                 return ret.ToBoolean();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
                 return default;
             }
         }
@@ -131,6 +137,7 @@ namespace GISharp.Lib.GLib
         public void RemoveAll()
         {
             g_hash_table_remove_all((UnmanagedStruct*)UnsafeHandle);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -142,6 +149,7 @@ namespace GISharp.Lib.GLib
         public int Size {
             get {
                 var ret = g_hash_table_size((UnmanagedStruct*)UnsafeHandle);
+                GMarshal.PopUnhandledException();
                 return (int)ret;
             }
         }
@@ -150,6 +158,7 @@ namespace GISharp.Lib.GLib
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_hash_table_get_keys(hashTable_);
+            GMarshal.PopUnhandledException();
             var ret = new WeakList<TKey>((IntPtr)ret_, Transfer.Container);
             return ret;
         }
@@ -158,6 +167,7 @@ namespace GISharp.Lib.GLib
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_hash_table_get_values(hashTable_);
+            GMarshal.PopUnhandledException();
             var ret = new WeakList<TValue>((IntPtr)ret_, Transfer.Container);
             return ret;
         }
@@ -170,6 +180,7 @@ namespace GISharp.Lib.GLib
             var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var value_ = value?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_insert(hashTable_, key_, value_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -181,6 +192,7 @@ namespace GISharp.Lib.GLib
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_lookup(hashTable_, key_);
+            GMarshal.PopUnhandledException();
             var ret = GetInstance<TValue>(ret_, Transfer.None);
             return ret;
         }
@@ -194,6 +206,7 @@ namespace GISharp.Lib.GLib
             var origKey_ = IntPtr.Zero;
             var value_ = IntPtr.Zero;
             var ret_ = g_hash_table_lookup_extended(hashTable_, lookupKey_, &origKey_, &value_);
+            GMarshal.PopUnhandledException();
             origKey = GetInstance<TKey>(origKey_, Transfer.None);
             value = GetInstance<TValue>(value_, Transfer.None);
             var ret = ret_.IsTrue();
@@ -205,6 +218,7 @@ namespace GISharp.Lib.GLib
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_remove(hashTable_, key_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -217,6 +231,7 @@ namespace GISharp.Lib.GLib
             var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var value_ = value?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_replace(hashTable_, key_, value_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }

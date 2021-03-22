@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class StyleContextTests : Tests
+    public class StyleContextTests
     {
         [Test]
         public void BorderStyleGType()

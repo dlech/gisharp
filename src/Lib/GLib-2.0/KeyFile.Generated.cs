@@ -157,6 +157,7 @@ namespace GISharp.Lib.GLib
         {
             CheckNewArgs();
             var ret_ = g_key_file_new();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -228,6 +229,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_boolean(keyFile_,groupName_,key_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -306,6 +308,7 @@ namespace GISharp.Lib.GLib
             nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_boolean_list(keyFile_,groupName_,key_,&length_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -373,6 +376,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_comment(keyFile_,groupName_,key_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -440,6 +444,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_double(keyFile_,groupName_,key_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -518,6 +523,7 @@ namespace GISharp.Lib.GLib
             nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_double_list(keyFile_,groupName_,key_,&length_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -565,6 +571,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_key_file_get_groups(keyFile_,&length_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -619,6 +626,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_int64(keyFile_,groupName_,key_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -687,6 +695,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_integer(keyFile_,groupName_,key_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -766,6 +775,7 @@ namespace GISharp.Lib.GLib
             nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_integer_list(keyFile_,groupName_,key_,&length_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -830,6 +840,7 @@ namespace GISharp.Lib.GLib
             nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_keys(keyFile_,groupName_,&length_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -899,6 +910,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var locale_ = (byte*)locale.UnsafeHandle;
             var ret_ = g_key_file_get_locale_for_key(keyFile_,groupName_,key_,locale_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -973,6 +985,7 @@ namespace GISharp.Lib.GLib
             var locale_ = (byte*)locale.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_locale_string(keyFile_,groupName_,key_,locale_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1065,6 +1078,7 @@ namespace GISharp.Lib.GLib
             nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_locale_string_list(keyFile_,groupName_,key_,locale_,&length_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1100,6 +1114,7 @@ namespace GISharp.Lib.GLib
             CheckGetStartGroupArgs();
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_key_file_get_start_group(keyFile_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -1162,6 +1177,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_string(keyFile_,groupName_,key_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1238,6 +1254,7 @@ namespace GISharp.Lib.GLib
             nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_string_list(keyFile_,groupName_,key_,&length_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1298,6 +1315,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_uint64(keyFile_,groupName_,key_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1365,6 +1383,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_value(keyFile_,groupName_,key_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1409,6 +1428,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             var groupName_ = (byte*)groupName.UnsafeHandle;
             var ret_ = g_key_file_has_group(keyFile_,groupName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1461,6 +1481,7 @@ namespace GISharp.Lib.GLib
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_load_from_bytes(keyFile_, bytes_, flags_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1523,6 +1544,7 @@ namespace GISharp.Lib.GLib
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_load_from_data(keyFile_, data_, length_, flags_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1589,6 +1611,7 @@ namespace GISharp.Lib.GLib
             byte* fullPath_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_load_from_data_dirs(keyFile_, file_, &fullPath_, flags_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1673,6 +1696,7 @@ namespace GISharp.Lib.GLib
             byte* fullPath_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_load_from_dirs(keyFile_, file_, searchDirs_, &fullPath_, flags_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1740,6 +1764,7 @@ namespace GISharp.Lib.GLib
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_load_from_file(keyFile_, file_, flags_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1821,6 +1846,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_remove_comment(keyFile_, groupName_, key_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1869,6 +1895,7 @@ namespace GISharp.Lib.GLib
             var groupName_ = (byte*)groupName.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_remove_group(keyFile_, groupName_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1923,6 +1950,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_remove_key(keyFile_, groupName_, key_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1979,6 +2007,7 @@ namespace GISharp.Lib.GLib
             var filename_ = (byte*)filename.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_save_to_file(keyFile_, filename_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2031,6 +2060,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var value_ = GISharp.Runtime.BooleanExtensions.ToBoolean(value);
             g_key_file_set_boolean(keyFile_, groupName_, key_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2090,6 +2120,7 @@ namespace GISharp.Lib.GLib
                 var list_ = (GISharp.Runtime.Boolean*)listData_;
                 var length_ = (nuint)list.Length;
                 g_key_file_set_boolean_list(keyFile_, groupName_, key_, list_, length_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -2158,6 +2189,7 @@ namespace GISharp.Lib.GLib
             var comment_ = (byte*)comment.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_set_comment(keyFile_, groupName_, key_, comment_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2210,6 +2242,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var value_ = (double)value;
             g_key_file_set_double(keyFile_, groupName_, key_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2268,6 +2301,7 @@ namespace GISharp.Lib.GLib
                 var list_ = (double*)listData_;
                 var length_ = (nuint)list.Length;
                 g_key_file_set_double_list(keyFile_, groupName_, key_, list_, length_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -2316,6 +2350,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var value_ = (long)value;
             g_key_file_set_int64(keyFile_, groupName_, key_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2363,6 +2398,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var value_ = (int)value;
             g_key_file_set_integer(keyFile_, groupName_, key_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2421,6 +2457,7 @@ namespace GISharp.Lib.GLib
                 var list_ = (int*)listData_;
                 var length_ = (nuint)list.Length;
                 g_key_file_set_integer_list(keyFile_, groupName_, key_, list_, length_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -2456,6 +2493,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             var separator_ = (sbyte)separator;
             g_key_file_set_list_separator(keyFile_, separator_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2510,6 +2548,7 @@ namespace GISharp.Lib.GLib
             var locale_ = (byte*)locale.UnsafeHandle;
             var @string_ = (byte*)@string.UnsafeHandle;
             g_key_file_set_locale_string(keyFile_, groupName_, key_, locale_, @string_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2576,6 +2615,7 @@ namespace GISharp.Lib.GLib
                 var list_ = (byte**)listData_;
                 var length_ = (nuint)list.Length;
                 g_key_file_set_locale_string_list(keyFile_, groupName_, key_, locale_, list_, length_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -2627,6 +2667,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var @string_ = (byte*)@string.UnsafeHandle;
             g_key_file_set_string(keyFile_, groupName_, key_, @string_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2686,6 +2727,7 @@ namespace GISharp.Lib.GLib
                 var list_ = (byte**)listData_;
                 var length_ = (nuint)list.Length;
                 g_key_file_set_string_list(keyFile_, groupName_, key_, list_, length_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -2734,6 +2776,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var value_ = (ulong)value;
             g_key_file_set_uint64(keyFile_, groupName_, key_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2788,6 +2831,7 @@ namespace GISharp.Lib.GLib
             var key_ = (byte*)key.UnsafeHandle;
             var value_ = (byte*)value.UnsafeHandle;
             g_key_file_set_value(keyFile_, groupName_, key_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2838,6 +2882,7 @@ namespace GISharp.Lib.GLib
             nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_to_data(keyFile_,&length_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);

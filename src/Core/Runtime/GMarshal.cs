@@ -79,7 +79,7 @@ namespace GISharp.Runtime
                 gcHandle.Free();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -303,6 +303,7 @@ namespace GISharp.Runtime
             var messagePtr = StringToUtf8Ptr(message);
             g_set_error_literal(error, domain, code, messagePtr);
             Free(messagePtr);
+            PopUnhandledException();
         }
 
         /// <summary>
@@ -335,6 +336,7 @@ namespace GISharp.Runtime
         {
             var src_ = (Error.UnmanagedStruct*)src.Take();
             g_propagate_error(dest, src_);
+            PopUnhandledException();
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -378,33 +380,30 @@ namespace GISharp.Runtime
             return managedCallback.MethodHandle.GetFunctionPointer();
         }
 
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void g_log(IntPtr logDomain, uint logLevel, IntPtr format, IntPtr arg);
-
-        private static readonly IntPtr logFormat = Marshal.StringToCoTaskMemUTF8("%s");
+        [ThreadStatic]
+        private static Exception? unhandledException;
 
         /// <summary>
-        /// Log an unhandled exception.
+        /// Push an exception the the thread-local storage. This is used to
+        /// persist exceptions across the managed/unmanaged code boundary.
         /// </summary>
-        /// <remarks>
-        /// This is to be used in callbacks from unmanaged code. Unmanaged C
-        /// code does not know about managed exceptions. So all exceptions in
-        /// callbacks need to be caught and this function should be called.
-        /// </remarks>
-        public static void LogUnhandledException(this Exception ex, [CallerMemberName] string caller = "")
+        /// <param name="ex">
+        /// the exception
+        /// </param>
+        public static void PushUnhandledException(Exception ex)
         {
-            try {
-                var logDomain = Marshal.StringToCoTaskMemUTF8(ex?.TargetSite?.Module?.Name);
-                var message = Marshal.StringToCoTaskMemUTF8($"Unhandled exception in {caller}: {ex?.Message}");
-                var stackTrace = Marshal.StringToCoTaskMemUTF8(ex?.StackTrace);
-                g_log(logDomain, 0x08 /* critical */, logFormat, message);
-                g_log(logDomain, 0x80 /* debug */, logFormat, stackTrace);
-                Marshal.FreeCoTaskMem(stackTrace);
-                Marshal.FreeCoTaskMem(message);
-                Marshal.FreeCoTaskMem(logDomain);
-            }
-            catch {
-                // This must absolutely not throw an exception
+            unhandledException = ex;
+        }
+
+        /// <summary>
+        /// Raises the excpetion set with <see cref="PushUnhandledException"/>
+        /// and clears the thread-local storage.
+        /// </summary>
+        public static void PopUnhandledException()
+        {
+            if (unhandledException is Exception ex) {
+                unhandledException = null;
+                throw new UnhandledException(ex);
             }
         }
     }

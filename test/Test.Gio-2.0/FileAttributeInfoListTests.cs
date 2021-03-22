@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gio
 {
-    public class FileAttributeInfoListTests : Tests
+    public class FileAttributeInfoListTests
     {
         [Test]
         public void TestNew()

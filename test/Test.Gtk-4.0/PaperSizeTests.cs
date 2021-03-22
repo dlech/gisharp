@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class PaperSizeTests : Tests
+    public class PaperSizeTests
     {
         [Test]
         public void UnitGType()

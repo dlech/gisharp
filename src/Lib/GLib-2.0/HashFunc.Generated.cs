@@ -68,6 +68,7 @@ namespace GISharp.Lib.GLib
             {
                 var key_ = (System.IntPtr)key;
                 var ret_ = callback_(key_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = (uint)ret_;
                 return ret;
             }

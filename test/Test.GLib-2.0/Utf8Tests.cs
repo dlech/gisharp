@@ -12,7 +12,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class Utf8Tests : Tests
+    public class Utf8Tests
     {
         const string testString = "test-string-with-ůŋįçøđê-😀";
         readonly byte[] testStringBytes = Encoding.UTF8.GetBytes(testString);

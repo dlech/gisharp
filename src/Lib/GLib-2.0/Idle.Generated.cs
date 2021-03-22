@@ -68,6 +68,7 @@ namespace GISharp.Lib.GLib
             var notify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var priority_ = (int)priority;
             var ret_ = g_idle_add_full(priority_,function_,data_,notify_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -96,6 +97,7 @@ namespace GISharp.Lib.GLib
             CheckRemoveByDataArgs(data);
             var data_ = (System.IntPtr)data;
             var ret_ = g_idle_remove_by_data(data_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

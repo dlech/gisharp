@@ -6,7 +6,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.Runtime
 {
-    public class BooleanTests : Tests
+    public class BooleanTests
     {
         [Test]
         public void TestSizeOf()

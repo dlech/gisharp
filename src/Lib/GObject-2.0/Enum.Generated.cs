@@ -70,6 +70,7 @@ namespace GISharp.Lib.GObject
                 var constValues_ = (GISharp.Lib.GObject.EnumValue*)constValuesData_;
                 GISharp.Lib.GObject.TypeInfo info_;
                 g_enum_complete_type_info(gEnumType_, &info_, constValues_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 info = (GISharp.Lib.GObject.TypeInfo)info_;
             }
         }
@@ -106,6 +107,7 @@ namespace GISharp.Lib.GObject
             var enumClass_ = (GISharp.Lib.GObject.EnumClass.UnmanagedStruct*)enumClass.UnsafeHandle;
             var value_ = (int)value;
             var ret_ = g_enum_get_value(enumClass_,value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.EnumValue>(ret_);
             return ref ret;
         }
@@ -143,6 +145,7 @@ namespace GISharp.Lib.GObject
             var enumClass_ = (GISharp.Lib.GObject.EnumClass.UnmanagedStruct*)enumClass.UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_enum_get_value_by_name(enumClass_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.EnumValue>(ret_);
             return ref ret;
         }
@@ -180,6 +183,7 @@ namespace GISharp.Lib.GObject
             var enumClass_ = (GISharp.Lib.GObject.EnumClass.UnmanagedStruct*)enumClass.UnsafeHandle;
             var nick_ = (byte*)nick.UnsafeHandle;
             var ret_ = g_enum_get_value_by_nick(enumClass_,nick_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.EnumValue>(ret_);
             return ref ret;
         }
@@ -229,6 +233,7 @@ namespace GISharp.Lib.GObject
                 var name_ = (byte*)name.UnsafeHandle;
                 var constStaticValues_ = (GISharp.Lib.GObject.EnumValue*)constStaticValuesData_;
                 var ret_ = g_enum_register_static(name_,constStaticValues_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = (GISharp.Runtime.GType)ret_;
                 return ret;
             }
@@ -273,6 +278,7 @@ namespace GISharp.Lib.GObject
             var gEnumType_ = (GISharp.Runtime.GType)gEnumType;
             var value_ = (int)value;
             var ret_ = g_enum_to_string(gEnumType_,value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

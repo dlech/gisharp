@@ -98,6 +98,7 @@ namespace GISharp.Lib.GIRepository
                 var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
                 var hashPointer_ = (System.IntPtr)hashPointer;
                 g_type_info_argument_from_hash_pointer(info_, hashPointer_, arg_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -125,6 +126,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetArrayFixedSizeArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_get_array_fixed_size(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -153,6 +155,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetArrayLengthArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_get_array_length(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -182,6 +185,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetArrayTypeArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_get_array_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GIRepository.ArrayType)ret_;
             return ret;
         }
@@ -213,6 +217,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetInterfaceArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_get_interface(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -248,6 +253,7 @@ namespace GISharp.Lib.GIRepository
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var n_ = (int)n;
             var ret_ = g_type_info_get_param_type(info_,n_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.TypeInfo.GetInstance<GISharp.Lib.GIRepository.TypeInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -279,6 +285,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetStorageTypeArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_get_storage_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GIRepository.TypeTag)ret_;
             return ret;
         }
@@ -307,6 +314,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetTagArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_get_tag(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GIRepository.TypeTag)ret_;
             return ret;
         }
@@ -359,6 +367,7 @@ namespace GISharp.Lib.GIRepository
                 CheckHashPointerFromArgumentArgs(ref arg);
                 var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_type_info_hash_pointer_from_argument(info_,arg_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = (System.IntPtr)ret_;
                 return ret;
             }
@@ -395,6 +404,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetIsPointerArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_is_pointer(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -423,6 +433,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetIsZeroTerminatedArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_is_zero_terminated(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

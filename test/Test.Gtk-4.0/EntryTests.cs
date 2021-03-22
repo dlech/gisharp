@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class EntryTests : Tests
+    public class EntryTests
     {
         [Test]
         public void EntryIconPositionGType()

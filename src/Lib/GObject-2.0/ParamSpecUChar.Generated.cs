@@ -100,6 +100,7 @@ namespace GISharp.Lib.GObject
             var defaultValue_ = (byte)defaultValue;
             var flags_ = (GISharp.Lib.GObject.ParamFlags)flags;
             var ret_ = g_param_spec_uchar(name_,nick_,blurb_,minimum_,maximum_,defaultValue_,flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 

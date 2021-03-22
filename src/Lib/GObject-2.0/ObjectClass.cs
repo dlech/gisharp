@@ -47,6 +47,7 @@ namespace GISharp.Lib.GObject
         {
             uint nProperties_;
             var ret_ = g_object_class_list_properties(oclass_, &nProperties_);
+            GMarshal.PopUnhandledException();
             var ret = new CPtrArray<ParamSpec>((IntPtr)ret_, (int)nProperties_, Transfer.Container);
             return ret;
         }
@@ -211,10 +212,12 @@ namespace GISharp.Lib.GObject
                         var name_ = (byte*)Marshal.StringToCoTaskMemUTF8(name);
                         g_object_class_override_property(gClass, propId, name_);
                         Marshal.FreeCoTaskMem((IntPtr)name_);
+                        GMarshal.PopUnhandledException();
                     }
                     else {
                         var pspec_ = (ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
                         g_object_class_install_property(gClass, propId, pspec_);
+                        GMarshal.PopUnhandledException();
                         GC.KeepAlive(pspec);
                     }
                     propId++;
@@ -305,7 +308,7 @@ namespace GISharp.Lib.GObject
                 }
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -322,8 +325,10 @@ namespace GISharp.Lib.GObject
                 // ManagedClassConstructor overload) and chain up to that constructor
                 // to create the new unmanaged object instance
                 var parentClass = (UnmanagedStruct*)g_type_class_peek(type_);
+                GMarshal.PopUnhandledException();
                 for (; ; ) {
                     parentClass = (UnmanagedStruct*)g_type_class_peek_parent(&parentClass->GTypeClass);
+                    GMarshal.PopUnhandledException();
 #pragma warning disable CS8909
                     if (parentClass->Constructor != managedClassConstructor) {
                         break;
@@ -341,7 +346,7 @@ namespace GISharp.Lib.GObject
                 return handle_;
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
                 return default;
             }
         }
@@ -357,7 +362,7 @@ namespace GISharp.Lib.GObject
                 propInfo.SetValue(obj, value->Get());
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -372,7 +377,7 @@ namespace GISharp.Lib.GObject
                 value->Set(propInfo.GetValue(obj));
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
     }

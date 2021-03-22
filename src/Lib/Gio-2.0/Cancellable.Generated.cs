@@ -68,6 +68,7 @@ namespace GISharp.Lib.Gio
         {
             CheckNewArgs();
             var ret_ = g_cancellable_new();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -95,7 +96,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -116,6 +117,7 @@ namespace GISharp.Lib.Gio
         {
             CheckGetCurrentArgs();
             var ret_ = g_cancellable_get_current();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -166,6 +168,7 @@ namespace GISharp.Lib.Gio
             CheckCancelArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_cancel(cancellable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -240,6 +243,7 @@ namespace GISharp.Lib.Gio
             var data_ = (System.IntPtr)callbackHandle;
             var dataDestroyFunc_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var ret_ = g_cancellable_connect(cancellable_,callback_,data_,dataDestroyFunc_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Runtime.CULong)ret_;
             return ret;
         }
@@ -291,6 +295,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var handlerId_ = (GISharp.Runtime.CULong)handlerId;
             g_cancellable_disconnect(cancellable_, handlerId_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -334,6 +339,7 @@ namespace GISharp.Lib.Gio
             CheckGetFdArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_cancellable_get_fd(cancellable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -362,6 +368,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsCancelledArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_cancellable_is_cancelled(cancellable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -422,6 +429,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GLib.PollFD pollfd_;
             var ret_ = g_cancellable_make_pollfd(cancellable_,&pollfd_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             pollfd = (GISharp.Lib.GLib.PollFD)pollfd_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -449,6 +457,7 @@ namespace GISharp.Lib.Gio
             CheckPopCurrentArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_pop_current(cancellable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -483,6 +492,7 @@ namespace GISharp.Lib.Gio
             CheckPushCurrentArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_push_current(cancellable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -519,6 +529,7 @@ namespace GISharp.Lib.Gio
             CheckReleaseFdArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_release_fd(cancellable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -556,6 +567,7 @@ namespace GISharp.Lib.Gio
             CheckResetArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_reset(cancellable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -590,6 +602,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_cancellable_set_error_if_cancelled(cancellable_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -603,6 +616,7 @@ namespace GISharp.Lib.Gio
         {
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<CancellableClass.UnmanagedCancelled>(_GType)!(cancellable_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

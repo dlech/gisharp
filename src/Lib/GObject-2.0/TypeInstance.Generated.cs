@@ -44,6 +44,7 @@ GISharp.Runtime.GType privateType);
             var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)UnsafeHandle;
             var privateType_ = (GISharp.Runtime.GType)privateType;
             var ret_ = g_type_instance_get_private(instance_,privateType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (System.IntPtr)ret_;
             return ret;
         }

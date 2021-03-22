@@ -30,6 +30,7 @@ namespace GISharp.Lib.GLib
         static void Log_(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
         {
             g_log(logDomain.UnsafeHandle, logLevel, stringFormat_, message.UnsafeHandle);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -169,6 +170,7 @@ namespace GISharp.Lib.GLib
             var logDomain_ = (byte*)logDomain.UnsafeHandle;
             var message_ = (byte*)message.UnsafeHandle;
             g_log_default_handler(logDomain_, logLevel, message_, IntPtr.Zero);
+            GMarshal.PopUnhandledException();
         }
 
         static GCHandle defaultHandler;
@@ -291,6 +293,7 @@ namespace GISharp.Lib.GLib
             if (logFunc == DefaultHandler) {
                 var logFunc_ = (delegate* unmanaged[Cdecl]<byte*, LogLevelFlags, byte*, IntPtr, void>)CLibrary.GetSymbol("glib-2.0", "g_log_default_handler");
                 g_log_set_default_handler(logFunc_, IntPtr.Zero);
+                GMarshal.PopUnhandledException();
                 defaultHandler = default;
             }
             else {
@@ -300,6 +303,7 @@ namespace GISharp.Lib.GLib
                 defaultHandler = GCHandle.Alloc((logFunc, CallbackScope.Unknown));
                 var userData_ = (IntPtr)defaultHandler;
                 g_log_set_default_handler(logFunc_, userData_);
+                GMarshal.PopUnhandledException();
             }
             if (oldHandler.IsAllocated) {
                 oldHandler.Free();
@@ -337,6 +341,7 @@ namespace GISharp.Lib.GLib
                 i++;
             }
             g_log_structured_array(logLevel, fields_, nFields_);
+            GMarshal.PopUnhandledException();
         }
 
         static void Structured(LogLevelFlags logLevel, string message, string codeFile, int codeLine, string codeFunc)

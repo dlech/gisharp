@@ -49,13 +49,16 @@ namespace GISharp.Lib.GObject
         {
             if (ownership == Transfer.None) {
                 this.handle = (IntPtr)g_param_spec_ref((UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
             g_param_spec_sink((UnmanagedStruct*)this.handle);
+            GMarshal.PopUnhandledException();
 
             // attach this managed instance to the unmanaged instanace
             var data_ = (IntPtr)GCHandle.Alloc(this, GCHandleType.Weak);
             var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
             g_param_spec_set_qdata_full((UnmanagedStruct*)this.handle, managedProxyGCHandleQuark, data_, destroy_);
+            GMarshal.PopUnhandledException();
         }
 
         /// <inheritdoc />
@@ -64,6 +67,7 @@ namespace GISharp.Lib.GObject
             if (handle != IntPtr.Zero) {
                 g_param_spec_set_qdata((UnmanagedStruct*)handle, managedProxyGCHandleQuark, IntPtr.Zero);
                 g_param_spec_unref((UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
             base.Dispose(disposing);
         }
@@ -92,6 +96,7 @@ namespace GISharp.Lib.GObject
             get {
                 var pspec_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret = g_param_spec_get_qdata(pspec_, quark);
+                GMarshal.PopUnhandledException();
                 if (ret == IntPtr.Zero) {
                     return null;
                 }
@@ -103,11 +108,13 @@ namespace GISharp.Lib.GObject
                 var pspec_ = (UnmanagedStruct*)UnsafeHandle;
                 if (value is null) {
                     g_param_spec_set_qdata(pspec_, quark, IntPtr.Zero);
+                    GMarshal.PopUnhandledException();
                 }
                 else {
                     var data_ = (IntPtr)GCHandle.Alloc(value);
                     var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
                     g_param_spec_set_qdata_full(pspec_, quark, data_, destroy_);
+                    GMarshal.PopUnhandledException();
                 }
             }
         }
@@ -145,6 +152,7 @@ namespace GISharp.Lib.GObject
 
             // see if the unmanaged object has a managed GC handle
             var ptr = g_param_spec_get_qdata((UnmanagedStruct*)handle, managedProxyGCHandleQuark);
+            GMarshal.PopUnhandledException();
             if (ptr != IntPtr.Zero) {
                 var gcHandle = (GCHandle)ptr;
                 if (gcHandle.IsAllocated) {

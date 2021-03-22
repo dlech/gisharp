@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -11,19 +11,26 @@ using static GISharp.Lib.GLib.LogLevelFlags;
 
 namespace GISharp.Test
 {
+    sealed class LogException : Exception
+    {
+        public LogException(string message) : base(message)
+        {
+        }
+    }
+
     [ExcludeFromCodeCoverage]
     [SetUpFixture]
     public class Setup
     {
-        static void LogToTestContext(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
+        static void HandleLog(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
         {
             // FIXME: messages on the GC finalizer thread are lost
             TestContext.Error.WriteLine(TestContext.CurrentContext?.Test?.FullName);
             TestContext.Error.WriteLine($"({logDomain}) {logLevel}: {message}");
             if (logLevel.HasFlag(LogLevelFlags.Error) || logLevel.HasFlag(Critical) || logLevel.HasFlag(Warning)) {
-                TestContext.Error.WriteLine(Environment.StackTrace);
+                // this will trigger GISharp.Runtime.UnhandledException and should cause test to fail
+                throw new LogException(message);
             }
-            TestExecutionContext.CurrentContext.CurrentTest.Properties.Set(logLevel.ToString(), message);
         }
 
         [OneTimeSetUp]
@@ -31,7 +38,7 @@ namespace GISharp.Test
         {
             Utility.ApplicationName = "GISharp.Test";
             Utility.ProgramName = "GISharp.Test";
-            Log.SetDefaultHandler(LogToTestContext);
+            Log.SetDefaultHandler(HandleLog);
         }
 
         [OneTimeSetUp]

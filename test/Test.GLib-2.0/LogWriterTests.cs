@@ -10,7 +10,7 @@ using static GISharp.Test.GLib.Helpers;
 
 namespace GISharp.Test.GLib
 {
-    public class LogWriterTests : Tests
+    public class LogWriterTests
     {
         [Test]
         public void TestFormatFields()

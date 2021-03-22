@@ -71,6 +71,7 @@ namespace GISharp.Lib.Gio
             CheckNameIsValidArgs(actionName);
             var actionName_ = (byte*)actionName.UnsafeHandle;
             var ret_ = g_action_name_is_valid(actionName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -151,6 +152,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GLib.Variant.UnmanagedStruct* targetValue_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_action_parse_detailed_name(detailedName_, &actionName_, &targetValue_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -208,6 +210,7 @@ namespace GISharp.Lib.Gio
             var actionName_ = (byte*)actionName.UnsafeHandle;
             var targetValue_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(targetValue?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_action_print_detailed_name(actionName_,targetValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -310,6 +313,7 @@ namespace GISharp.Lib.Gio
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var parameter_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(parameter?.UnsafeHandle ?? System.IntPtr.Zero);
             g_action_activate(action_, parameter_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -356,6 +360,7 @@ namespace GISharp.Lib.Gio
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             g_action_change_state(action_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -390,6 +395,7 @@ namespace GISharp.Lib.Gio
             CheckGetEnabledArgs(action);
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var ret_ = g_action_get_enabled(action_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -420,6 +426,7 @@ namespace GISharp.Lib.Gio
             CheckGetNameArgs(action);
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var ret_ = g_action_get_name(action_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -461,6 +468,7 @@ namespace GISharp.Lib.Gio
             CheckGetParameterTypeArgs(action);
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var ret_ = g_action_get_parameter_type(action_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -502,6 +510,7 @@ namespace GISharp.Lib.Gio
             CheckGetStateArgs(action);
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var ret_ = g_action_get_state(action_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -555,6 +564,7 @@ namespace GISharp.Lib.Gio
             CheckGetStateHintArgs(action);
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var ret_ = g_action_get_state_hint(action_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -600,6 +610,7 @@ namespace GISharp.Lib.Gio
             CheckGetStateTypeArgs(action);
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var ret_ = g_action_get_state_type(action_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }

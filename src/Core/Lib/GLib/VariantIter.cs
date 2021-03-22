@@ -34,6 +34,7 @@ namespace GISharp.Lib.GLib
         {
             if (ownership == Transfer.None) {
                 this.handle = (IntPtr)g_variant_iter_copy((UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
         }
 
@@ -45,6 +46,7 @@ namespace GISharp.Lib.GLib
         {
             if (handle != IntPtr.Zero) {
                 g_variant_iter_free((UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
             base.Dispose(disposing);
         }
@@ -62,6 +64,7 @@ namespace GISharp.Lib.GLib
             }
             var value_ = (Variant.UnmanagedStruct*)value.UnsafeHandle;
             var ret = g_variant_iter_new(value_);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -117,6 +120,7 @@ namespace GISharp.Lib.GLib
             var iter_ = (UnmanagedStruct*)UnsafeHandle;
             var value_ = (Variant.UnmanagedStruct*)value.UnsafeHandle;
             g_variant_iter_init(iter_, value_);
+            GMarshal.PopUnhandledException();
             current = null;
         }
 
@@ -159,6 +163,7 @@ namespace GISharp.Lib.GLib
             get {
                 var iter_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret = g_variant_iter_n_children(iter_);
+                GMarshal.PopUnhandledException();
                 return (int)ret;
             }
         }
@@ -215,6 +220,7 @@ namespace GISharp.Lib.GLib
         {
             var iter_ = (UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_iter_next_value(iter_);
+            GMarshal.PopUnhandledException();
             current = GetInstance<Variant>((IntPtr)ret_, Transfer.Full);
             return current;
         }

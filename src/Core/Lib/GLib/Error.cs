@@ -77,6 +77,7 @@ namespace GISharp.Lib.GLib
         {
             if (ownership == Transfer.None) {
                 this.handle = (IntPtr)g_error_copy((UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
         }
 
@@ -85,6 +86,7 @@ namespace GISharp.Lib.GLib
         {
             if (handle != IntPtr.Zero) {
                 g_error_free((UnmanagedStruct*)handle);
+                GMarshal.PopUnhandledException();
             }
             base.Dispose(disposing);
         }
@@ -103,6 +105,7 @@ namespace GISharp.Lib.GLib
             using var utf8 = new Utf8(message);
             var message_ = (byte*)utf8.UnsafeHandle;
             var ret = g_error_new_literal(domain, code, message_);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -127,7 +130,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
-        public Error(System.Enum code, string message)
+        public Error(Enum code, string message)
             : this((IntPtr)NewLiteral(code.GetGErrorDomain(), (int)(object)code, message), Transfer.Full)
         {
         }
@@ -155,7 +158,7 @@ namespace GISharp.Lib.GLib
         /// <param name="code">Error code.</param>
         /// <param name="format">Message format string.</param>
         /// <param name="args">Objects to format.</param>
-        public Error(System.Enum code, string format, params object[] args)
+        public Error(Enum code, string format, params object[] args)
             : this(code.GetGErrorDomain(), (int)(object)code, string.Format(format, args))
         {
         }
@@ -184,6 +187,7 @@ namespace GISharp.Lib.GLib
         public bool Matches(Quark domain, int code)
         {
             var ret_ = g_error_matches(UnsafeHandle, domain, code);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -202,9 +206,10 @@ namespace GISharp.Lib.GLib
         /// future to provide a more specific error code for a certain case, your
         /// code will still work.
         /// </remarks>
-        public bool Matches(System.Enum code)
+        public bool Matches(Enum code)
         {
             var ret_ = g_error_matches(UnsafeHandle, code.GetGErrorDomain(), Convert.ToInt32(code));
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }

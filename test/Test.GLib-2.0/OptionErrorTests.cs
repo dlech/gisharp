@@ -9,7 +9,7 @@ using GISharp.Runtime;
 namespace GISharp.Test.GLib
 {
     [TestOf(typeof(OptionError))]
-    public class OptionErrorTests : Tests
+    public class OptionErrorTests
     {
         [Test]
         public void TestQuark()

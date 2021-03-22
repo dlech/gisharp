@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class TextIterTests : Tests
+    public class TextIterTests
     {
         [Test]
         public void TextSearchFlagsGType()

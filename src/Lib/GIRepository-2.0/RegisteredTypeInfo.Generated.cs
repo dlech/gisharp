@@ -56,6 +56,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetGTypeArgs();
             var info_ = (GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_registered_type_info_get_g_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Runtime.GType)ret_;
             return ret;
         }
@@ -87,6 +88,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetTypeInitArgs();
             var info_ = (GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_registered_type_info_get_type_init(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -115,6 +117,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetTypeNameArgs();
             var info_ = (GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_registered_type_info_get_type_name(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }

@@ -65,6 +65,7 @@ namespace GISharp.Lib.Gio
             CheckClearPendingArgs();
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             g_output_stream_clear_pending(stream_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -141,6 +142,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_output_stream_close(stream_, cancellable_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -211,6 +213,7 @@ namespace GISharp.Lib.Gio
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&CloseFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_close_async(stream_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return completionSource.Task;
         }
 
@@ -264,7 +267,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -318,6 +321,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_output_stream_flush(stream_, cancellable_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -384,6 +388,7 @@ namespace GISharp.Lib.Gio
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&FlushFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_flush_async(stream_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return completionSource.Task;
         }
 
@@ -437,7 +442,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -465,6 +470,7 @@ namespace GISharp.Lib.Gio
             CheckHasPendingArgs();
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_output_stream_has_pending(stream_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -492,6 +498,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsClosedArgs();
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_output_stream_is_closed(stream_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -524,6 +531,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsClosingArgs();
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_output_stream_is_closing(stream_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -561,6 +569,7 @@ namespace GISharp.Lib.Gio
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_output_stream_set_pending(stream_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -624,6 +633,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_output_stream_splice(stream_,source_,flags_,cancellable_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -709,6 +719,7 @@ namespace GISharp.Lib.Gio
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&SpliceFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_splice_async(stream_, source_, flags_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return completionSource.Task;
         }
 
@@ -766,7 +777,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -851,6 +862,7 @@ namespace GISharp.Lib.Gio
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 var ret_ = g_output_stream_write(stream_,buffer_,count_,cancellable_,&error_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -950,6 +962,7 @@ namespace GISharp.Lib.Gio
                 nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_output_stream_write_all(stream_, buffer_, count_, &bytesWritten_, cancellable_, &error_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1050,6 +1063,7 @@ namespace GISharp.Lib.Gio
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&WriteAllFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_write_all_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return completionSource.Task;
         }
 
@@ -1124,7 +1138,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -1240,6 +1254,7 @@ namespace GISharp.Lib.Gio
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&WriteFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_write_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return completionSource.Task;
         }
 
@@ -1301,6 +1316,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_output_stream_write_bytes(stream_,bytes_,cancellable_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1386,6 +1402,7 @@ namespace GISharp.Lib.Gio
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&WriteBytesFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_write_bytes_async(stream_, bytes_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return completionSource.Task;
         }
 
@@ -1440,7 +1457,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -1495,7 +1512,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -1593,6 +1610,7 @@ namespace GISharp.Lib.Gio
                 nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_output_stream_writev(stream_, vectors_, nVectors_, &bytesWritten_, cancellable_, &error_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1697,6 +1715,7 @@ namespace GISharp.Lib.Gio
                 nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_output_stream_writev_all(stream_, vectors_, nVectors_, &bytesWritten_, cancellable_, &error_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1798,6 +1817,7 @@ namespace GISharp.Lib.Gio
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&WritevAllFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_writev_all_async(stream_, vectors_, nVectors_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return completionSource.Task;
         }
 
@@ -1872,7 +1892,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -1984,6 +2004,7 @@ namespace GISharp.Lib.Gio
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&WritevFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_writev_async(stream_, vectors_, nVectors_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return completionSource.Task;
         }
 
@@ -2046,7 +2067,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -2061,6 +2082,7 @@ namespace GISharp.Lib.Gio
             var userData_ = (System.IntPtr)callbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedCloseAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
@@ -2071,6 +2093,7 @@ namespace GISharp.Lib.Gio
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedCloseFinish>(_GType)!(stream_, result_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2086,6 +2109,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedCloseFn>(_GType)!(stream_, cancellable_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2101,6 +2125,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedFlush>(_GType)!(stream_, cancellable_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2119,6 +2144,7 @@ namespace GISharp.Lib.Gio
             var userData_ = (System.IntPtr)callbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedFlushAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoFlushFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
@@ -2129,6 +2155,7 @@ namespace GISharp.Lib.Gio
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedFlushFinish>(_GType)!(stream_, result_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2146,6 +2173,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedSplice>(_GType)!(stream_,source_,flags_,cancellable_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2169,6 +2197,7 @@ namespace GISharp.Lib.Gio
             var userData_ = (System.IntPtr)callbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedSpliceAsync>(_GType)!(stream_, source_, flags_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoSpliceFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
@@ -2179,6 +2208,7 @@ namespace GISharp.Lib.Gio
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedSpliceFinish>(_GType)!(stream_,result_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2204,6 +2234,7 @@ namespace GISharp.Lib.Gio
                 var userData_ = (System.IntPtr)callbackHandle;
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
                 GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWriteAsync>(_GType)!(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -2215,6 +2246,7 @@ namespace GISharp.Lib.Gio
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWriteFinish>(_GType)!(stream_,result_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2237,6 +2269,7 @@ namespace GISharp.Lib.Gio
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWriteFn>(_GType)!(stream_,buffer_,count_,cancellable_,&error_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2264,6 +2297,7 @@ namespace GISharp.Lib.Gio
                 var userData_ = (System.IntPtr)callbackHandle;
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
                 GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevAsync>(_GType)!(stream_, vectors_, nVectors_, ioPriority_, cancellable_, callback_, userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -2277,6 +2311,7 @@ namespace GISharp.Lib.Gio
             nuint bytesWritten_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFinish>(_GType)!(stream_, result_, &bytesWritten_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -2300,6 +2335,7 @@ namespace GISharp.Lib.Gio
                 nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFn>(_GType)!(stream_, vectors_, nVectors_, &bytesWritten_, cancellable_, &error_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);

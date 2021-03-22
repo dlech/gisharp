@@ -14,7 +14,7 @@ using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.GObject
 {
-    public class ValueTests : Tests
+    public class ValueTests
     {
         [Test]
         public void TestBoolean()

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class AccessibleTests : Tests
+    public class AccessibleTests
     {
         [Test]
         public void AccessibleAutocompleteGType()

@@ -166,6 +166,7 @@ namespace GISharp.Lib.Gio
             CheckFromErrnoArgs(errno);
             var errno_ = (int)errno;
             var ret_ = g_io_error_from_errno(errno_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gio.IOErrorEnum)ret_;
             return ret;
         }
@@ -186,6 +187,7 @@ namespace GISharp.Lib.Gio
         {
             CheckGetQuarkArgs();
             var ret_ = g_io_error_quark();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Quark)ret_;
             return ret;
         }

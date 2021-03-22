@@ -74,6 +74,7 @@ namespace GISharp.Lib.GLib
             var requiredMinor_ = (uint)requiredMinor;
             var requiredMicro_ = (uint)requiredMicro;
             var ret_ = glib_check_version(requiredMajor_,requiredMinor_,requiredMicro_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }

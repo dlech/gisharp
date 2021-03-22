@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class ShortcutActionTests : Tests
+    public class ShortcutActionTests
     {
         [Test]
         public void ShortcutActionFlagsGType()

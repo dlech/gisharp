@@ -13,7 +13,7 @@ using TimeZone = GISharp.Lib.GLib.TimeZone;
 namespace GISharp.Test.GLib
 {
     [TestOf(typeof(DateTime))]
-    public class DateTimeTests : Tests
+    public class DateTimeTests
     {
         [Test]
         public void TestNewNow()

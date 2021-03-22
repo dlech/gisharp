@@ -22,6 +22,7 @@ namespace GISharp.Lib.GLib
         {
             if (ownership != Transfer.Full) {
                 this.handle = (IntPtr)g_strdup((byte*)handle);
+                GMarshal.PopUnhandledException();
             }
         }
 
@@ -37,6 +38,7 @@ namespace GISharp.Lib.GLib
         {
             if (handle != IntPtr.Zero) {
                 g_free((void*)handle);
+                GMarshal.PopUnhandledException();
             }
             base.Dispose(disposing);
         }
@@ -95,6 +97,7 @@ namespace GISharp.Lib.GLib
         {
             var args_ = (byte**)args.UnsafeHandle;
             var ret_ = g_build_filenamev(args_);
+            GMarshal.PopUnhandledException();
             var ret = new Filename((IntPtr)ret_, Transfer.Full);
             return ret;
         }
@@ -161,6 +164,7 @@ namespace GISharp.Lib.GLib
             get {
                 var filename_ = (byte*)UnsafeHandle;
                 var ret_ = g_filename_display_basename(filename_);
+                GMarshal.PopUnhandledException();
                 var ret = GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
                 return ret;
             }
@@ -226,6 +230,7 @@ namespace GISharp.Lib.GLib
             get {
                 var filename_ = (byte*)UnsafeHandle;
                 var ret_ = g_filename_display_name(filename_);
+                GMarshal.PopUnhandledException();
                 var ret = GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
                 return ret;
             }
@@ -286,6 +291,7 @@ namespace GISharp.Lib.GLib
             byte* hostname_;
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_filename_from_uri(uri_, &hostname_, &error_);
+            GMarshal.PopUnhandledException();
             if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
@@ -313,6 +319,7 @@ namespace GISharp.Lib.GLib
             var uri_ = (byte*)uri.UnsafeHandle;
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_filename_from_uri(uri_, null, &error_);
+            GMarshal.PopUnhandledException();
             if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
@@ -398,6 +405,7 @@ namespace GISharp.Lib.GLib
             nuint bytesWritten_;
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_filename_from_utf8(utf8string_, -1, null, &bytesWritten_, &error_);
+            GMarshal.PopUnhandledException();
             if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
@@ -458,6 +466,7 @@ namespace GISharp.Lib.GLib
             var hostname_ = (byte*)(hostname?.UnsafeHandle ?? IntPtr.Zero);
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_filename_to_uri(filename_, hostname_, &error_);
+            GMarshal.PopUnhandledException();
             if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
@@ -540,6 +549,7 @@ namespace GISharp.Lib.GLib
             nuint bytesWritten_;
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_filename_to_utf8(opsysstring_, -1, 0, &bytesWritten_, &error_);
+            GMarshal.PopUnhandledException();
             if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
@@ -557,7 +567,9 @@ namespace GISharp.Lib.GLib
         {
             var str1_ = (byte*)UnsafeHandle;
             var str2_ = (byte*)(other?.UnsafeHandle ?? IntPtr.Zero);
-            return g_strcmp0(str1_, str2_) == 0;
+            var ret_ = g_strcmp0(str1_, str2_);
+            GMarshal.PopUnhandledException();
+            return ret_ == 0;
         }
 
         /// <inheritdoc/>

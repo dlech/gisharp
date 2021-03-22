@@ -46,6 +46,7 @@ namespace GISharp.Lib.Gio
                 var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero);
                 var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;
                 callback_(sourceObject_, res_, userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;
@@ -71,7 +72,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
     }

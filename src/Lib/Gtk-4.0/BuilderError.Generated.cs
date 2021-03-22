@@ -60,6 +60,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckGetQuarkArgs();
             var ret_ = gtk_builder_error_quark();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Quark)ret_;
             return ret;
         }

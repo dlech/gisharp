@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Runtime
 {
-    public class CULongTests : Tests
+    public class CULongTests
     {
         [Test]
         public void TestMinValue()

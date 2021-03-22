@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class RecentManagerTests : Tests
+    public class RecentManagerTests
     {
         [Test]
         public void RecentManagerErrorGType()

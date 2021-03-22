@@ -89,6 +89,7 @@ namespace GISharp.Lib.GObject
             var defaultValue_ = GISharp.Runtime.BooleanExtensions.ToBoolean(defaultValue);
             var flags_ = (GISharp.Lib.GObject.ParamFlags)flags;
             var ret_ = g_param_spec_boolean(name_,nick_,blurb_,defaultValue_,flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 

@@ -74,6 +74,7 @@ namespace GISharp.Lib.Gio
             CheckNewArgs(attributes);
             var attributes_ = (byte*)attributes.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_new(attributes_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -127,6 +128,7 @@ namespace GISharp.Lib.Gio
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var ns_ = (byte*)ns.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_enumerate_namespace(matcher_,ns_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -156,6 +158,7 @@ namespace GISharp.Lib.Gio
             CheckEnumerateNextArgs();
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_attribute_matcher_enumerate_next(matcher_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -193,6 +196,7 @@ namespace GISharp.Lib.Gio
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_matches(matcher_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -229,6 +233,7 @@ namespace GISharp.Lib.Gio
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_matches_only(matcher_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -298,6 +303,7 @@ namespace GISharp.Lib.Gio
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var subtract_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)subtract.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_subtract(matcher_,subtract_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.Gio.FileAttributeMatcher.GetInstance<GISharp.Lib.Gio.FileAttributeMatcher>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -332,6 +338,7 @@ namespace GISharp.Lib.Gio
             CheckToStringArgs();
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_attribute_matcher_to_string(matcher_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class TreeViewTests : Tests
+    public class TreeViewTests
     {
         [Test]
         public void TreeViewDropPositionGType()

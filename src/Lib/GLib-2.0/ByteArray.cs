@@ -204,12 +204,13 @@ namespace GISharp.Lib.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                     return default;
                 }
             });
             var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
             g_byte_array_sort(array_, compareFunc_);
+            GMarshal.PopUnhandledException();
             GC.KeepAlive(unmanagedCompareFunc);
         }
 

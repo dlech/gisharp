@@ -38,6 +38,7 @@ namespace GISharp.Lib.GLib
             var ret_ = g_option_group_new(name_, description_, helpDescription_, userData_, destroy_);
             var postParseFunc_ = (delegate* unmanaged[Cdecl]<OptionContext.UnmanagedStruct*, UnmanagedStruct*, IntPtr, Error.UnmanagedStruct**, Runtime.Boolean>)&OnParsed;
             g_option_group_set_parse_hooks(ret_, null, postParseFunc_);
+            GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -97,6 +98,7 @@ namespace GISharp.Lib.GLib
             using var array = new Array<OptionEntry>(true, false, 1) { entry };
             fixed (OptionEntry* entries_ = array.Data) {
                 g_option_group_add_entries(group_, entries_);
+                GMarshal.PopUnhandledException();
             }
         }
 
@@ -335,7 +337,7 @@ namespace GISharp.Lib.GLib
                     GMarshal.PropagateError(error_, ex.Error);
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                 }
 
                 return default;
@@ -371,7 +373,7 @@ namespace GISharp.Lib.GLib
                 }
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -390,7 +392,7 @@ namespace GISharp.Lib.GLib
             }
             catch (Exception ex) {
                 // FIXME: marshal Exception to Error
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
             return default;
         }

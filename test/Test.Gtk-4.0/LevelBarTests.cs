@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class LevelBarTests : Tests
+    public class LevelBarTests
     {
         [Test]
         public void LevelBarModeGType()

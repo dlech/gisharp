@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class UnixSignalTests : Tests
+    public class UnixSignalTests
     {
         [Test]
         public void TestAdd()

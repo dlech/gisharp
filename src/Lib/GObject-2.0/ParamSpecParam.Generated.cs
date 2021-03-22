@@ -83,6 +83,7 @@ namespace GISharp.Lib.GObject
             var paramType_ = (GISharp.Runtime.GType)paramType;
             var flags_ = (GISharp.Lib.GObject.ParamFlags)flags;
             var ret_ = g_param_spec_param(name_,nick_,blurb_,paramType_,flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 

@@ -53,6 +53,7 @@ namespace GISharp.Lib.GObject
             CheckNewArgs(typePrefixing);
             var typePrefixing_ = GISharp.Runtime.BooleanExtensions.ToBoolean(typePrefixing);
             var ret_ = g_param_spec_pool_new(typePrefixing_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.ParamSpecPool.GetInstance<GISharp.Lib.GObject.ParamSpecPool>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -92,6 +93,7 @@ namespace GISharp.Lib.GObject
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
             var ownerType_ = (GISharp.Runtime.GType)ownerType;
             g_param_spec_pool_insert(pool_, pspec_, ownerType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -137,6 +139,7 @@ namespace GISharp.Lib.GObject
             var ownerType_ = (GISharp.Runtime.GType)ownerType;
             uint nPspecsP_;
             var ret_ = g_param_spec_pool_list(pool_,ownerType_,&nPspecsP_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nPspecsP_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
@@ -177,6 +180,7 @@ namespace GISharp.Lib.GObject
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;
             var ownerType_ = (GISharp.Runtime.GType)ownerType;
             var ret_ = g_param_spec_pool_list_owned(pool_,ownerType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.WeakList<GISharp.Lib.GObject.ParamSpec>.GetInstance<GISharp.Lib.GLib.WeakList<GISharp.Lib.GObject.ParamSpec>>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Container)!;
             return ret;
         }
@@ -228,6 +232,7 @@ namespace GISharp.Lib.GObject
             var ownerType_ = (GISharp.Runtime.GType)ownerType;
             var walkAncestors_ = GISharp.Runtime.BooleanExtensions.ToBoolean(walkAncestors);
             var ret_ = g_param_spec_pool_lookup(pool_,paramName_,ownerType_,walkAncestors_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -260,6 +265,7 @@ namespace GISharp.Lib.GObject
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
             g_param_spec_pool_remove(pool_, pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

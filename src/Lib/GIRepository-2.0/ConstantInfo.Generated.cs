@@ -48,6 +48,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetType_Args();
             var info_ = (GISharp.Lib.GIRepository.ConstantInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_constant_info_get_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.TypeInfo.GetInstance<GISharp.Lib.GIRepository.TypeInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

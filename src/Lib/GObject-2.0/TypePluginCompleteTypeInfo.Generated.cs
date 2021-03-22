@@ -46,6 +46,7 @@ namespace GISharp.Lib.GObject
                         var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
                         var gType_ = (GISharp.Runtime.GType)gType;
                         callback_(plugin_, gType_, info_, valueTable_);
+                        GISharp.Runtime.GMarshal.PopUnhandledException();
                     }
                 }
             }

@@ -26,6 +26,7 @@ namespace GISharp.Lib.GObject
                 this.handle = (IntPtr)g_closure_ref((UnmanagedStruct*)handle);
             }
             g_closure_sink((UnmanagedStruct*)this.handle);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace GISharp.Lib.GObject
                 GCHandle.FromIntPtr(userData_).Free();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -124,7 +125,7 @@ namespace GISharp.Lib.GObject
                 }
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -138,6 +139,7 @@ namespace GISharp.Lib.GObject
             g_closure_add_finalize_notifier(closure_, data_, notifyFunc_);
             var metaMarshal_ = (delegate* unmanaged[Cdecl]<UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void>)&ManagedMetaMarshal;
             g_closure_set_meta_marshal(closure_, data_, metaMarshal_);
+            GMarshal.PopUnhandledException();
             return closure_;
         }
 

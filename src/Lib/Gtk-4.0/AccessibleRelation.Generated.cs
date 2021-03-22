@@ -76,6 +76,7 @@ GISharp.Lib.GObject.Value* value);
                 CheckInitValueArgs(relation, ref value);
                 var relation_ = (GISharp.Lib.Gtk.AccessibleRelation)relation;
                 gtk_accessible_relation_init_value(relation_, value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
     }

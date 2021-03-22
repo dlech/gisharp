@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class ApplicationTests : Tests
+    public class ApplicationTests
     {
         [Test]
         public void ApplicationInhibitFlagsGType()

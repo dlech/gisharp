@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class SettingsTests : Tests
+    public class SettingsTests
     {
         [Test]
         public void SystemSettingGType()

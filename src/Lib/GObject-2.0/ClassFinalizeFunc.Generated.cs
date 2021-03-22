@@ -42,6 +42,7 @@ namespace GISharp.Lib.GObject
                 var gClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)gClass.UnsafeHandle;
                 var classData_ = (System.IntPtr)classData;
                 callback_(gClass_, classData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;

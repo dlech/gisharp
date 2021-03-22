@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class SorterTests : Tests
+    public class SorterTests
     {
         [Test]
         public void SorterOrderGType()

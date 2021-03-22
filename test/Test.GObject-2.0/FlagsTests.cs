@@ -9,7 +9,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.GObject
 {
-    public class FlagsTests : Tests
+    public class FlagsTests
     {
         [Test]
         public void TestRegister1()

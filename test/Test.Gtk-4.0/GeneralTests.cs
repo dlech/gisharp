@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class GeneralTests : Tests
+    public class GeneralTests
     {
         [Test]
         public void DebugFlagsGType()

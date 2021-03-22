@@ -54,6 +54,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetFlagsArgs();
             var info_ = (GISharp.Lib.GIRepository.PropertyInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_property_info_get_flags(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GObject.ParamFlags)ret_;
             return ret;
         }
@@ -82,6 +83,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetOwnershipTransferArgs();
             var info_ = (GISharp.Lib.GIRepository.PropertyInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_property_info_get_ownership_transfer(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GIRepository.Transfer)ret_;
             return ret;
         }
@@ -110,6 +112,7 @@ namespace GISharp.Lib.GIRepository
             CheckGetType_Args();
             var info_ = (GISharp.Lib.GIRepository.PropertyInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_property_info_get_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.TypeInfo.GetInstance<GISharp.Lib.GIRepository.TypeInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }

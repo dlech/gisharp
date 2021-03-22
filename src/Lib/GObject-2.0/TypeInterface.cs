@@ -53,7 +53,7 @@ namespace GISharp.Lib.GObject
                 }
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -65,7 +65,7 @@ namespace GISharp.Lib.GObject
                 gcHandle.Free();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
 

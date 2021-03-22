@@ -14,7 +14,7 @@ using System.ComponentModel;
 
 namespace GISharp.Test.Gio
 {
-    public class AsyncResultTests : Tests
+    public class AsyncResultTests
     {
         [Test]
         public void TestGType()

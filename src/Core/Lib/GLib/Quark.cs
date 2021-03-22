@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
@@ -46,9 +47,9 @@ namespace GISharp.Lib.GLib
         public static explicit operator Quark(string? value)
         {
             if (value is null) {
-                return Quark.Zero;
+                return Zero;
             }
-            var ret = Quark.TryString(value);
+            var ret = TryString(value);
             if (ret == 0) {
                 var msg = $"Quark does not exist for \"{value}\"";
                 throw new InvalidCastException(msg);
@@ -89,6 +90,7 @@ namespace GISharp.Lib.GLib
         {
             var string_ = @string.UnsafeHandle;
             var ret = g_quark_from_string(string_);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -134,6 +136,7 @@ namespace GISharp.Lib.GLib
         {
             var string_ = @string.UnsafeHandle;
             var ret = g_quark_try_string(string_);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -163,6 +166,7 @@ namespace GISharp.Lib.GLib
         public override string? ToString()
         {
             var ret_ = g_quark_to_string(value);
+            GMarshal.PopUnhandledException();
             var ret = new NullableUnownedUtf8(ret_, -1);
             return ret;
         }

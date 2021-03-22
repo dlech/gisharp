@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class UnicharExtensionsTests : Tests
+    public class UnicharExtensionsTests
     {
         [Test]
         public void TestValidate()

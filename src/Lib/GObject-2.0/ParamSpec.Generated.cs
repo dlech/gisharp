@@ -110,6 +110,7 @@ namespace GISharp.Lib.GObject
             CheckIsValidNameArgs(name);
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_param_spec_is_valid_name(name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -137,6 +138,7 @@ namespace GISharp.Lib.GObject
             CheckGetBlurbArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_blurb(pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -171,6 +173,7 @@ namespace GISharp.Lib.GObject
             CheckGetDefaultValueArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_default_value(pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(ret_);
             return ref ret;
         }
@@ -204,6 +207,7 @@ namespace GISharp.Lib.GObject
             CheckGetNameArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_name(pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -233,6 +237,7 @@ namespace GISharp.Lib.GObject
             CheckGetNameQuarkArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_name_quark(pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Quark)ret_;
             return ret;
         }
@@ -260,6 +265,7 @@ namespace GISharp.Lib.GObject
             CheckGetNickArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_nick(pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -295,6 +301,7 @@ namespace GISharp.Lib.GObject
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var quark_ = (GISharp.Lib.GLib.Quark)quark;
             var ret_ = g_param_spec_get_qdata(pspec_,quark_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (System.IntPtr)ret_;
             return ret;
         }
@@ -331,6 +338,7 @@ namespace GISharp.Lib.GObject
             CheckGetRedirectTargetArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_redirect_target(pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -416,6 +424,7 @@ namespace GISharp.Lib.GObject
             var quark_ = (GISharp.Lib.GLib.Quark)quark;
             var data_ = (System.IntPtr)data;
             g_param_spec_set_qdata(pspec_, quark_, data_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -521,6 +530,7 @@ namespace GISharp.Lib.GObject
         {
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedFinalize>(_GType)!(pspec_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DoValueSetDefault(GISharp.Lib.GObject.Value)']/*" />
@@ -531,6 +541,7 @@ namespace GISharp.Lib.GObject
             {
                 var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
                 GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValueSetDefault>(_GType)!(pspec_, value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -542,6 +553,7 @@ namespace GISharp.Lib.GObject
             {
                 var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
                 var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValueValidate>(_GType)!(pspec_,value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }
@@ -557,6 +569,7 @@ namespace GISharp.Lib.GObject
                 {
                     var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
                     var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValuesCmp>(_GType)!(pspec_,value1_,value2_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                     var ret = (int)ret_;
                     return ret;
                 }

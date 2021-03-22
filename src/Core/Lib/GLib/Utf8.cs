@@ -707,7 +707,9 @@ namespace GISharp.Lib.GLib
                         if (current is null) {
                             throw new InvalidOperationException();
                         }
-                        return g_utf8_get_char(current);
+                        var ret = g_utf8_get_char(current);
+                        GMarshal.PopUnhandledException();
+                        return ret;
                     }
                 }
 
@@ -730,6 +732,7 @@ namespace GISharp.Lib.GLib
                         throw new ObjectDisposedException(null);
                     }
                     current = g_utf8_find_next_char(current, null);
+                    GMarshal.PopUnhandledException();
                     return *current != default;
                 }
 
@@ -799,6 +802,7 @@ namespace GISharp.Lib.GLib
             var error_ = default(Error.UnmanagedStruct*);
             fixed (char* value_ = value) {
                 var ret = g_utf16_to_utf8(value_, value.Length, null, null, &error_);
+                GMarshal.PopUnhandledException();
                 if (error_ is not null) {
                     var error = GetInstance<Error>((IntPtr)error_, Transfer.Full);
                     throw new GErrorException(error);
@@ -842,6 +846,7 @@ namespace GISharp.Lib.GLib
         {
             if (ownership == Transfer.None) {
                 this.handle = (IntPtr)g_strdup((byte*)handle);
+                GMarshal.PopUnhandledException();
             }
             _Value = new(GetValue);
         }
@@ -894,6 +899,7 @@ namespace GISharp.Lib.GLib
         {
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_utf8_to_utf16((byte*)UnsafeHandle, -1, null, null, &error_);
+            GMarshal.PopUnhandledException();
             if (error_ is not null) {
                 var error = GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
@@ -1012,6 +1018,7 @@ namespace GISharp.Lib.GLib
             get {
                 if (lengthInCharacters == -1) {
                     lengthInCharacters = (int)g_utf8_strlen((byte*)UnsafeHandle, -1);
+                    GMarshal.PopUnhandledException();
                 }
                 return lengthInCharacters;
             }
@@ -1088,6 +1095,7 @@ namespace GISharp.Lib.GLib
             var str1_ = (byte*)UnsafeHandle;
             var str2_ = (byte*)(other?.UnsafeHandle ?? IntPtr.Zero);
             var ret = g_strcmp0(str1_, str2_);
+            GMarshal.PopUnhandledException();
             return ret;
         }
 
@@ -1193,6 +1201,7 @@ namespace GISharp.Lib.GLib
             var this_ = (byte*)UnsafeHandle;
             var other_ = (byte*)other.UnsafeHandle;
             var ret_ = g_str_equal(this_, other_);
+            GMarshal.PopUnhandledException();
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -1229,6 +1238,7 @@ namespace GISharp.Lib.GLib
         {
             var v_ = (byte*)UnsafeHandle;
             var ret = g_str_hash(v_);
+            GMarshal.PopUnhandledException();
             return (int)ret;
         }
 

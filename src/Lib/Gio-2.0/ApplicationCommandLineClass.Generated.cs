@@ -98,7 +98,7 @@ byte* message);
             /// </summary>
             public static UnmanagedPrintLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedPrintLiteral(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_, byte* message_) { try { var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var message = new GISharp.Lib.GLib.UnownedUtf8(message_); var doPrintLiteral = (_PrintLiteral)methodInfo.CreateDelegate(typeof(_PrintLiteral), cmdline); doPrintLiteral(message); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedPrintLiteral(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_, byte* message_) { try { var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var message = new GISharp.Lib.GLib.UnownedUtf8(message_); var doPrintLiteral = (_PrintLiteral)methodInfo.CreateDelegate(typeof(_PrintLiteral), cmdline); doPrintLiteral(message); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } }
 
                 return unmanagedPrintLiteral;
             }
@@ -132,7 +132,7 @@ byte* message);
             /// </summary>
             public static UnmanagedPrinterrLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedPrinterrLiteral(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_, byte* message_) { try { var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var message = new GISharp.Lib.GLib.UnownedUtf8(message_); var doPrinterrLiteral = (_PrinterrLiteral)methodInfo.CreateDelegate(typeof(_PrinterrLiteral), cmdline); doPrinterrLiteral(message); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedPrinterrLiteral(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_, byte* message_) { try { var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var message = new GISharp.Lib.GLib.UnownedUtf8(message_); var doPrinterrLiteral = (_PrinterrLiteral)methodInfo.CreateDelegate(typeof(_PrinterrLiteral), cmdline); doPrinterrLiteral(message); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } }
 
                 return unmanagedPrinterrLiteral;
             }
@@ -163,7 +163,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
             /// </summary>
             public static UnmanagedGetStdin Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.Gio.InputStream.UnmanagedStruct* unmanagedGetStdin(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_) { try { var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var doGetStdin = (_GetStdin)methodInfo.CreateDelegate(typeof(_GetStdin), cmdline); var ret = doGetStdin(); var ret_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.InputStream.UnmanagedStruct*); }
+                GISharp.Lib.Gio.InputStream.UnmanagedStruct* unmanagedGetStdin(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_) { try { var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var doGetStdin = (_GetStdin)methodInfo.CreateDelegate(typeof(_GetStdin), cmdline); var ret = doGetStdin(); var ret_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.Gio.InputStream.UnmanagedStruct*); }
 
                 return unmanagedGetStdin;
             }

@@ -45,6 +45,7 @@ namespace GISharp.Lib.GObject
                     var instanceType_ = (GISharp.Runtime.GType)instanceType;
                     var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
                     callback_(plugin_, instanceType_, interfaceType_, info_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                 }
             }
 

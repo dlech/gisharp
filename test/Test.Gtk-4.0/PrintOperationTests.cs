@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class PrintOperationTests : Tests
+    public class PrintOperationTests
     {
         [Test]
         public void PrintStatusGType()

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class MainLoopTests : Tests
+    public class MainLoopTests
     {
         [Test]
         public void TestGetContext()

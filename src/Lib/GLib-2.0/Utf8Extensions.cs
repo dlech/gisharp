@@ -29,6 +29,7 @@ namespace GISharp.Lib.GLib
             var str_ = (byte*)str.UnsafeHandle;
             var len_ = (IntPtr)str.Length;
             var ret_ = g_utf8_casefold(str_, len_);
+            GMarshal.PopUnhandledException();
             var ret = Opaque.GetInstance<Utf8>((IntPtr)ret_, Transfer.Full)!;
             return ret;
         }

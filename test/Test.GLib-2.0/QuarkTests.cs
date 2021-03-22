@@ -8,7 +8,7 @@ using GISharp.Lib.GLib;
 
 namespace GISharp.Test.GLib
 {
-    public class QuarkTests : Tests
+    public class QuarkTests
     {
         const string testQuarkPrefix = "gisharp-glib-test-quark-";
 

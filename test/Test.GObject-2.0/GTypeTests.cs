@@ -15,7 +15,7 @@ using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Test.GObject
 {
-    public class GTypeTests : Tests
+    public class GTypeTests
     {
         [Test]
         public void TestNone()

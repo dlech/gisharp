@@ -8,7 +8,7 @@ using Version = GISharp.Lib.GLib.Version;
 
 namespace GISharp.Test.GLib
 {
-    public class VersionTests : Tests
+    public class VersionTests
     {
         [Test, Ignore("This depends on the system we are running on")]
         public void TestCompileTime()

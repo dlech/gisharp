@@ -10,7 +10,7 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.GLib
 {
-    public class FilenameTests : Tests
+    public class FilenameTests
     {
         [Test]
         public void TestDisplayBasename()

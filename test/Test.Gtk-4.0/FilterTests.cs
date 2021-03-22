@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class FilterTests : Tests
+    public class FilterTests
     {
         [Test]
         public void FilterMatchGType()

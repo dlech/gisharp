@@ -56,6 +56,7 @@ namespace GISharp.Lib.GObject
                         var paramValues_ = (GISharp.Lib.GObject.Value*)paramValuesData_;
                         var nParamValues_ = (uint)paramValues.Length;
                         var ret_ = callback_(ihint_,nParamValues_,paramValues_,data_);
+                        GISharp.Runtime.GMarshal.PopUnhandledException();
                         var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                         return ret;
                     }
@@ -88,7 +89,7 @@ namespace GISharp.Lib.GObject
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
 
             return default(GISharp.Runtime.Boolean);

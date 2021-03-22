@@ -96,6 +96,7 @@ namespace GISharp.Lib.GObject
             var defaultValue_ = (uint)defaultValue;
             var flags_ = (GISharp.Lib.GObject.ParamFlags)flags;
             var ret_ = g_param_spec_flags(name_,nick_,blurb_,flagsType_,defaultValue_,flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 

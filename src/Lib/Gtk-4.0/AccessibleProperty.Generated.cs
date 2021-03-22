@@ -78,6 +78,7 @@ GISharp.Lib.GObject.Value* value);
                 CheckInitValueArgs(property, ref value);
                 var property_ = (GISharp.Lib.Gtk.AccessibleProperty)property;
                 gtk_accessible_property_init_value(property_, value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
     }

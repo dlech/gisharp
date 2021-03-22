@@ -9,7 +9,7 @@ using GISharp.Runtime;
 namespace GISharp.Test.GLib
 {
     [TestOf(typeof(ConvertError))]
-    public class ConvertErrorTests : Tests
+    public class ConvertErrorTests
     {
         [Test]
         public void TestQuark()

@@ -2,6 +2,7 @@
 // Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System.Threading;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
@@ -24,6 +25,7 @@ namespace GISharp.Lib.GLib
                 var newSyncContext = Context.SynchronizationContext;
                 SynchronizationContext.SetSynchronizationContext(newSyncContext);
                 g_main_loop_run(loop_);
+                GMarshal.PopUnhandledException();
             }
             finally {
                 SynchronizationContext.SetSynchronizationContext(oldSyncContext);

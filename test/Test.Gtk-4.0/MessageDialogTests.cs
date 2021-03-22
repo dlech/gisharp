@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class MessageDialogTests : Tests
+    public class MessageDialogTests
     {
         [Test]
         public void MessageTypeGType()

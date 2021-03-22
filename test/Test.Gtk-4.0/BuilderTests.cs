@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class BuilderTests : Tests
+    public class BuilderTests
     {
         [Test]
         public void BuilderClosureFlagsGType()

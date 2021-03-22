@@ -93,6 +93,7 @@ namespace GISharp.Lib.Gio
         {
             CheckNewArgs();
             var ret_ = g_file_info_new();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -127,6 +128,7 @@ namespace GISharp.Lib.Gio
             CheckClearStatusArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             g_file_info_clear_status(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -158,6 +160,7 @@ namespace GISharp.Lib.Gio
             var srcInfo_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var destInfo_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)destInfo.UnsafeHandle;
             g_file_info_copy_into(srcInfo_, destInfo_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -184,6 +187,7 @@ namespace GISharp.Lib.Gio
             CheckDupArgs();
             var other_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_dup(other_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.Gio.FileInfo.GetInstance<GISharp.Lib.Gio.FileInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -223,6 +227,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_as_string(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -259,6 +264,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_boolean(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -296,6 +302,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_byte_string(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -354,6 +361,7 @@ namespace GISharp.Lib.Gio
             System.IntPtr valuePp_;
             GISharp.Lib.Gio.FileAttributeStatus status_;
             var ret_ = g_file_info_get_attribute_data(info_,attribute_,&type_,&valuePp_,&status_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             type = (GISharp.Lib.Gio.FileAttributeType)type_;
             valuePp = (System.IntPtr)valuePp_;
             status = (GISharp.Lib.Gio.FileAttributeStatus)status_;
@@ -394,6 +402,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_int32(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -431,6 +440,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_int64(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (long)ret_;
             return ret;
         }
@@ -468,6 +478,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_object(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -504,6 +515,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_status(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gio.FileAttributeStatus)ret_;
             return ret;
         }
@@ -541,6 +553,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_string(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -582,6 +595,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_stringv(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -618,6 +632,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_type(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gio.FileAttributeType)ret_;
             return ret;
         }
@@ -655,6 +670,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_uint32(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -692,6 +708,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_uint64(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (ulong)ret_;
             return ret;
         }
@@ -720,6 +737,7 @@ namespace GISharp.Lib.Gio
             CheckGetContentTypeArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_content_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -751,6 +769,7 @@ namespace GISharp.Lib.Gio
             CheckGetDeletionDateArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_deletion_date(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -778,6 +797,7 @@ namespace GISharp.Lib.Gio
             CheckGetDisplayNameArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_display_name(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -805,6 +825,7 @@ namespace GISharp.Lib.Gio
             CheckGetEditNameArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_edit_name(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -833,6 +854,7 @@ namespace GISharp.Lib.Gio
             CheckGetEtagArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_etag(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -861,6 +883,7 @@ namespace GISharp.Lib.Gio
             CheckGetFileTypeArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_file_type(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gio.FileType)ret_;
             return ret;
         }
@@ -888,6 +911,7 @@ namespace GISharp.Lib.Gio
             CheckGetIconArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_icon(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -915,6 +939,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsBackupArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_is_backup(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -942,6 +967,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsHiddenArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_is_hidden(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -969,6 +995,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsSymlinkArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_is_symlink(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1006,6 +1033,7 @@ namespace GISharp.Lib.Gio
             CheckGetModificationDateTimeArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_modification_date_time(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -1044,6 +1072,7 @@ namespace GISharp.Lib.Gio
                 CheckGetModificationTimeArgs();
                 var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
                 g_file_info_get_modification_time(info_, result_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -1070,6 +1099,7 @@ namespace GISharp.Lib.Gio
             CheckGetNameArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_name(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -1097,6 +1127,7 @@ namespace GISharp.Lib.Gio
             CheckGetSizeArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_size(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (long)ret_;
             return ret;
         }
@@ -1125,6 +1156,7 @@ namespace GISharp.Lib.Gio
             CheckGetSortOrderArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_sort_order(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -1154,6 +1186,7 @@ namespace GISharp.Lib.Gio
             CheckGetSymbolicIconArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_symbolic_icon(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -1181,6 +1214,7 @@ namespace GISharp.Lib.Gio
             CheckGetSymlinkTargetArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_symlink_target(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -1217,6 +1251,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_has_attribute(info_,attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1256,6 +1291,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var nameSpace_ = (byte*)nameSpace.UnsafeHandle;
             var ret_ = g_file_info_has_namespace(info_,nameSpace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1296,6 +1332,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var nameSpace_ = (byte*)nameSpace.UnsafeHandle;
             var ret_ = g_file_info_list_attributes(info_,nameSpace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -1328,6 +1365,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             g_file_info_remove_attribute(info_, attribute_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1373,6 +1411,7 @@ namespace GISharp.Lib.Gio
             var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
             var valueP_ = (System.IntPtr)valueP;
             g_file_info_set_attribute(info_, attribute_, type_, valueP_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1411,6 +1450,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var attrValue_ = GISharp.Runtime.BooleanExtensions.ToBoolean(attrValue);
             g_file_info_set_attribute_boolean(info_, attribute_, attrValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1449,6 +1489,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var attrValue_ = (byte*)attrValue.UnsafeHandle;
             g_file_info_set_attribute_byte_string(info_, attribute_, attrValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1487,6 +1528,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var attrValue_ = (int)attrValue;
             g_file_info_set_attribute_int32(info_, attribute_, attrValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1525,6 +1567,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var attrValue_ = (long)attrValue;
             g_file_info_set_attribute_int64(info_, attribute_, attrValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1555,6 +1598,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var mask_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)mask.UnsafeHandle;
             g_file_info_set_attribute_mask(info_, mask_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1593,6 +1637,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var attrValue_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)attrValue.UnsafeHandle;
             g_file_info_set_attribute_object(info_, attribute_, attrValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1643,6 +1688,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var status_ = (GISharp.Lib.Gio.FileAttributeStatus)status;
             var ret_ = g_file_info_set_attribute_status(info_,attribute_,status_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -1683,6 +1729,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var attrValue_ = (byte*)attrValue.UnsafeHandle;
             g_file_info_set_attribute_string(info_, attribute_, attrValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1729,6 +1776,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var attrValue_ = (byte**)attrValue.UnsafeHandle;
             g_file_info_set_attribute_stringv(info_, attribute_, attrValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1767,6 +1815,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var attrValue_ = (uint)attrValue;
             g_file_info_set_attribute_uint32(info_, attribute_, attrValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1805,6 +1854,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var attrValue_ = (ulong)attrValue;
             g_file_info_set_attribute_uint64(info_, attribute_, attrValue_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1835,6 +1885,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var contentType_ = (byte*)contentType.UnsafeHandle;
             g_file_info_set_content_type(info_, contentType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1865,6 +1916,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var displayName_ = (byte*)displayName.UnsafeHandle;
             g_file_info_set_display_name(info_, displayName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1895,6 +1947,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var editName_ = (byte*)editName.UnsafeHandle;
             g_file_info_set_edit_name(info_, editName_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1925,6 +1978,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var type_ = (GISharp.Lib.Gio.FileType)type;
             g_file_info_set_file_type(info_, type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1955,6 +2009,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
             g_file_info_set_icon(info_, icon_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -1985,6 +2040,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var isHidden_ = GISharp.Runtime.BooleanExtensions.ToBoolean(isHidden);
             g_file_info_set_is_hidden(info_, isHidden_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2015,6 +2071,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var isSymlink_ = GISharp.Runtime.BooleanExtensions.ToBoolean(isSymlink);
             g_file_info_set_is_symlink(info_, isSymlink_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2048,6 +2105,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var mtime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)mtime.UnsafeHandle;
             g_file_info_set_modification_date_time(info_, mtime_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2085,6 +2143,7 @@ namespace GISharp.Lib.Gio
                 CheckSetModificationTimeArgs(ref mtime);
                 var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
                 g_file_info_set_modification_time(info_, mtime_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -2116,6 +2175,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             g_file_info_set_name(info_, name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2146,6 +2206,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var size_ = (long)size;
             g_file_info_set_size(info_, size_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2176,6 +2237,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var sortOrder_ = (int)sortOrder;
             g_file_info_set_sort_order(info_, sortOrder_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2208,6 +2270,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
             g_file_info_set_symbolic_icon(info_, icon_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2238,6 +2301,7 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var symlinkTarget_ = (byte*)symlinkTarget.UnsafeHandle;
             g_file_info_set_symlink_target(info_, symlinkTarget_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -2262,6 +2326,7 @@ namespace GISharp.Lib.Gio
             CheckUnsetAttributeMaskArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             g_file_info_unset_attribute_mask(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

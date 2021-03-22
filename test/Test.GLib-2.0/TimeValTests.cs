@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class TimeValTests : Tests
+    public class TimeValTests
     {
         [Test]
         [Obsolete("TryFromIso8601 is deprecated upstream")]

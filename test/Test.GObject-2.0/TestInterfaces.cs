@@ -72,7 +72,7 @@ namespace GISharp.Test
                     }
                     catch (Exception ex) {
                         // FIXME: we should convert managed exception to GError
-                        ex.LogUnhandledException();
+                        GMarshal.PushUnhandledException(ex);
                     }
                     return false;
                 }
@@ -212,7 +212,7 @@ namespace GISharp.Test
                         doNetworkChanged(available);
                     }
                     catch (Exception ex) {
-                        ex.LogUnhandledException();
+                        GMarshal.PushUnhandledException(ex);
                     }
                 }
 
@@ -242,7 +242,7 @@ namespace GISharp.Test
                     }
                     catch (Exception ex) {
                         // FIXME: convert managed exception to GError
-                        ex.LogUnhandledException();
+                        GMarshal.PushUnhandledException(ex);
                     }
                     return false;
                 }
@@ -272,7 +272,7 @@ namespace GISharp.Test
                         });
                     }
                     catch (Exception ex) {
-                        ex.LogUnhandledException();
+                        GMarshal.PushUnhandledException(ex);
                     }
                 }
 
@@ -299,7 +299,7 @@ namespace GISharp.Test
                     }
                     catch (Exception ex) {
                         // FIXME: convert managed exception to GError
-                        ex.LogUnhandledException();
+                        GMarshal.PushUnhandledException(ex);
                     }
 
                     return default;
@@ -398,7 +398,7 @@ namespace GISharp.Test
                 }
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
     }
@@ -440,7 +440,7 @@ namespace GISharp.Test
                     callback(sourceObject, res);
                 }
                 catch (Exception ex) {
-                    ex.LogUnhandledException();
+                    GMarshal.PushUnhandledException(ex);
                 }
             }
 
@@ -500,7 +500,7 @@ namespace GISharp.Test
                         return ret;
                     }
                     catch (Exception ex) {
-                        ex.LogUnhandledException();
+                        GMarshal.PushUnhandledException(ex);
                     }
                     return default;
                 }
@@ -528,7 +528,7 @@ namespace GISharp.Test
                         return ret_;
                     }
                     catch (Exception ex) {
-                        ex.LogUnhandledException();
+                        GMarshal.PushUnhandledException(ex);
                     }
                     return default;
                 }
@@ -555,7 +555,7 @@ namespace GISharp.Test
                         return ret;
                     }
                     catch (Exception ex) {
-                        ex.LogUnhandledException();
+                        GMarshal.PushUnhandledException(ex);
                     }
                     return default;
                 }

@@ -19,6 +19,7 @@ namespace GISharp.Lib.GObject
             // Note: this releases a reference to handle
             var binding_ = (UnmanagedStruct*)UnsafeHandle;
             g_binding_unbind(binding_);
+            GMarshal.PopUnhandledException();
             handle = IntPtr.Zero;
             GC.SuppressFinalize(this);
         }

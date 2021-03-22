@@ -53,6 +53,7 @@ GISharp.Runtime.GType isAType);
             var gClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)gClass.UnsafeHandle;
             var isAType_ = (GISharp.Runtime.GType)isAType;
             var ret_ = g_type_check_class_is_a(gClass_,isAType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -82,6 +83,7 @@ GISharp.Runtime.GType isAType);
             CheckCheckInstanceArgs(instance);
             var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)instance.UnsafeHandle;
             var ret_ = g_type_check_instance(instance_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -105,6 +107,7 @@ GISharp.Runtime.GType ifaceType);
             var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)instance.UnsafeHandle;
             var ifaceType_ = (GISharp.Runtime.GType)ifaceType;
             var ret_ = g_type_check_instance_is_a(instance_,ifaceType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -128,6 +131,7 @@ GISharp.Runtime.GType fundamentalType);
             var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)instance.UnsafeHandle;
             var fundamentalType_ = (GISharp.Runtime.GType)fundamentalType;
             var ret_ = g_type_check_instance_is_fundamentally_a(instance_,fundamentalType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -148,6 +152,7 @@ GISharp.Lib.GObject.Value* value);
             {
                 CheckCheckValueArgs(value);
                 var ret_ = g_type_check_value(value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }
@@ -173,6 +178,7 @@ GISharp.Runtime.GType type);
                 CheckCheckValueHoldsArgs(value, type);
                 var type_ = (GISharp.Runtime.GType)type;
                 var ret_ = g_type_check_value_holds(value_,type_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }
@@ -206,6 +212,7 @@ GISharp.Runtime.GType type);
             CheckFreeInstanceArgs(instance);
             var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)instance.UnsafeHandle;
             g_type_free_instance(instance_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -229,6 +236,7 @@ GISharp.Runtime.GType type);
         {
             CheckFundamentalNextArgs();
             var ret_ = g_type_fundamental_next();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Runtime.GType)ret_;
             return ret;
         }
@@ -255,6 +263,7 @@ GISharp.Runtime.GType type);
         {
             CheckGetTypeRegistrationSerialArgs();
             var ret_ = g_type_get_type_registration_serial();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -279,6 +288,7 @@ GISharp.Runtime.GType type);
         {
             CheckInitArgs();
             g_type_init();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -315,6 +325,7 @@ GISharp.Runtime.GType type);
             CheckInitWithDebugFlagsArgs(debugFlags);
             var debugFlags_ = (GISharp.Lib.GObject.TypeDebugFlags)debugFlags;
             g_type_init_with_debug_flags(debugFlags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -332,6 +343,7 @@ GISharp.Lib.GObject.TypeClass.UnmanagedStruct* gClass);
             CheckNameFromClassArgs(gClass);
             var gClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)gClass.UnsafeHandle;
             var ret_ = g_type_name_from_class(gClass_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -351,6 +363,7 @@ GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance);
             CheckNameFromInstanceArgs(instance);
             var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)instance.UnsafeHandle;
             var ret_ = g_type_name_from_instance(instance_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -397,6 +410,7 @@ GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance);
             var classType_ = (GISharp.Runtime.GType)classType;
             var privateSize_ = (nuint)privateSize;
             g_type_add_class_private(classType_, privateSize_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -418,6 +432,7 @@ nuint privateSize);
             var classType_ = (GISharp.Runtime.GType)classType;
             var privateSize_ = (nuint)privateSize;
             var ret_ = g_type_add_instance_private(classType_,privateSize_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -476,6 +491,7 @@ nuint privateSize);
             CheckDepthArgs(type);
             var type_ = (GISharp.Runtime.GType)type;
             var ret_ = g_type_depth(type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -517,6 +533,7 @@ nuint privateSize);
             CheckEnsureArgs(type);
             var type_ = (GISharp.Runtime.GType)type;
             g_type_ensure(type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -549,6 +566,7 @@ nuint privateSize);
             CheckGetInstanceCountArgs(type);
             var type_ = (GISharp.Runtime.GType)type;
             var ret_ = g_type_get_instance_count(type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -592,6 +610,7 @@ nuint privateSize);
             var type_ = (GISharp.Runtime.GType)type;
             var quark_ = (GISharp.Lib.GLib.Quark)quark;
             var ret_ = g_type_get_qdata(type_,quark_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (System.IntPtr)ret_;
             return ret;
         }
@@ -632,6 +651,7 @@ nuint privateSize);
             var type_ = (GISharp.Runtime.GType)type;
             uint nInterfaces_;
             var ret_ = g_type_interfaces(type_,&nInterfaces_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.CArray<GISharp.Runtime.GType>((System.IntPtr)ret_, (int)nInterfaces_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -673,6 +693,7 @@ nuint privateSize);
             var leafType_ = (GISharp.Runtime.GType)leafType;
             var rootType_ = (GISharp.Runtime.GType)rootType;
             var ret_ = g_type_next_base(leafType_,rootType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Runtime.GType)ret_;
             return ret;
         }
@@ -701,6 +722,7 @@ nuint privateSize);
             CheckQNameArgs(type);
             var type_ = (GISharp.Runtime.GType)type;
             var ret_ = g_type_qname(type_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.Quark)ret_;
             return ret;
         }
@@ -740,6 +762,7 @@ nuint privateSize);
                 CheckQueryArgs(type);
                 var type_ = (GISharp.Runtime.GType)type;
                 g_type_query(type_, query_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -803,6 +826,7 @@ nuint privateSize);
                     var typeName_ = (byte*)typeName.UnsafeHandle;
                     var flags_ = (GISharp.Lib.GObject.TypeFlags)flags;
                     var ret_ = g_type_register_fundamental(typeId_,typeName_,info_,finfo_,flags_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                     var ret = (GISharp.Runtime.GType)ret_;
                     return ret;
                 }
@@ -883,6 +907,7 @@ nuint privateSize);
             var quark_ = (GISharp.Lib.GLib.Quark)quark;
             var data_ = (System.IntPtr)data;
             g_type_set_qdata(type_, quark_, data_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

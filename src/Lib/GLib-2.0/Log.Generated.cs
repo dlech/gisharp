@@ -114,6 +114,7 @@ namespace GISharp.Lib.GLib
             var logDomain_ = (byte*)logDomain.UnsafeHandle;
             var handlerId_ = (uint)handlerId;
             g_log_remove_handler(logDomain_, handlerId_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -161,6 +162,7 @@ namespace GISharp.Lib.GLib
             CheckSetAlwaysFatalArgs(fatalMask);
             var fatalMask_ = (GISharp.Lib.GLib.LogLevelFlags)fatalMask;
             var ret_ = g_log_set_always_fatal(fatalMask_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.LogLevelFlags)ret_;
             return ret;
         }
@@ -245,6 +247,7 @@ namespace GISharp.Lib.GLib
             var logDomain_ = (byte*)logDomain.UnsafeHandle;
             var fatalMask_ = (GISharp.Lib.GLib.LogLevelFlags)fatalMask;
             var ret_ = g_log_set_fatal_mask(logDomain_,fatalMask_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.LogLevelFlags)ret_;
             return ret;
         }
@@ -314,6 +317,7 @@ namespace GISharp.Lib.GLib
             var userData_ = (System.IntPtr)logFuncHandle;
             var destroy_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var ret_ = g_log_set_handler_full(logDomain_,logLevels_,logFunc_,userData_,destroy_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }
@@ -373,6 +377,7 @@ namespace GISharp.Lib.GLib
                 var fields_ = (GISharp.Lib.GLib.LogField*)fieldsData_;
                 var nFields_ = (nuint)fields.Length;
                 g_log_structured_array(logLevel_, fields_, nFields_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -433,6 +438,7 @@ namespace GISharp.Lib.GLib
             var logLevel_ = (GISharp.Lib.GLib.LogLevelFlags)logLevel;
             var fields_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)fields.UnsafeHandle;
             g_log_variant(logDomain_, logLevel_, fields_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

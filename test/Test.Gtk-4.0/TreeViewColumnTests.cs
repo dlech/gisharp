@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class TreeViewColumnTests : Tests
+    public class TreeViewColumnTests
     {
         [Test]
         public void TreeViewColumnSizingGType()

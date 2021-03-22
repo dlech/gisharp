@@ -52,6 +52,7 @@ namespace GISharp.Lib.GLib
                 CheckClearArgs();
                 var mutex_ = this_;
                 g_mutex_clear(mutex_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -111,6 +112,7 @@ namespace GISharp.Lib.GLib
                 CheckInitArgs();
                 var mutex_ = this_;
                 g_mutex_init(mutex_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -147,6 +149,7 @@ namespace GISharp.Lib.GLib
                 CheckLockArgs();
                 var mutex_ = this_;
                 g_mutex_lock(mutex_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
 
@@ -186,6 +189,7 @@ namespace GISharp.Lib.GLib
                 CheckTrylockArgs();
                 var mutex_ = this_;
                 var ret_ = g_mutex_trylock(mutex_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }
@@ -221,6 +225,7 @@ namespace GISharp.Lib.GLib
                 CheckUnlockArgs();
                 var mutex_ = this_;
                 g_mutex_unlock(mutex_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
         }
     }

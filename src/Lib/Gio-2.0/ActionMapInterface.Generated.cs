@@ -65,7 +65,7 @@ byte* actionName);
             /// </summary>
             public static UnmanagedLookupAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.Gio.Action.UnmanagedStruct* unmanagedLookupAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doLookupAction = (_LookupAction)methodInfo.CreateDelegate(typeof(_LookupAction), actionMap); var ret = doLookupAction(actionName); var ret_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.Action.UnmanagedStruct*); }
+                GISharp.Lib.Gio.Action.UnmanagedStruct* unmanagedLookupAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doLookupAction = (_LookupAction)methodInfo.CreateDelegate(typeof(_LookupAction), actionMap); var ret = doLookupAction(actionName); var ret_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.Gio.Action.UnmanagedStruct*); }
 
                 return unmanagedLookupAction;
             }
@@ -99,7 +99,7 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
             /// </summary>
             public static UnmanagedAddAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedAddAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doAddAction = (_AddAction)methodInfo.CreateDelegate(typeof(_AddAction), actionMap); doAddAction(action); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedAddAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doAddAction = (_AddAction)methodInfo.CreateDelegate(typeof(_AddAction), actionMap); doAddAction(action); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } }
 
                 return unmanagedAddAction;
             }
@@ -133,7 +133,7 @@ byte* actionName);
             /// </summary>
             public static UnmanagedRemoveAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedRemoveAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doRemoveAction = (_RemoveAction)methodInfo.CreateDelegate(typeof(_RemoveAction), actionMap); doRemoveAction(actionName); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedRemoveAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doRemoveAction = (_RemoveAction)methodInfo.CreateDelegate(typeof(_RemoveAction), actionMap); doRemoveAction(actionName); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } }
 
                 return unmanagedRemoveAction;
             }

@@ -46,6 +46,7 @@ namespace GISharp.Lib.GObject
             if (ownership == Transfer.None) {
                 var gtype = Marshal.PtrToStructure<GType>(handle);
                 g_type_class_ref(gtype);
+                GMarshal.PopUnhandledException();
             }
         }
 
@@ -72,6 +73,7 @@ namespace GISharp.Lib.GObject
                 throw new ArgumentException("GType is not classed", nameof(type));
             }
             var handle = g_type_class_ref(type);
+            GMarshal.PopUnhandledException();
             var ret = GetInstance<T>((IntPtr)handle, Transfer.Full)!;
             return ret;
         }
@@ -130,6 +132,7 @@ namespace GISharp.Lib.GObject
         public static T? GetUnmanagedVirtualMethod<T>(GType type) where T : Delegate
         {
             var class_ = g_type_class_ref(type);
+            GMarshal.PopUnhandledException();
             try {
                 var info = virtualMethods[typeof(T)];
                 var ptr = Marshal.ReadIntPtr((IntPtr)class_, info.Offset);

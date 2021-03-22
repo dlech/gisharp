@@ -9,7 +9,7 @@ using GISharp.Lib.GLib;
 
 namespace GISharp.Test.GLib
 {
-    public class VariantTypeTests : Tests
+    public class VariantTypeTests
     {
         [Test]
         public void TestIsMaybe()

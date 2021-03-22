@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class AboutDialogTests : Tests
+    public class AboutDialogTests
     {
         [Test]
         public void LicenseGType()

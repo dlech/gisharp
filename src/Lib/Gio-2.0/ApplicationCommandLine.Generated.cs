@@ -129,6 +129,7 @@ namespace GISharp.Lib.Gio
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var arg_ = (byte*)arg.UnsafeHandle;
             var ret_ = g_application_command_line_create_file_for_arg(cmdline_,arg_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -183,6 +184,7 @@ namespace GISharp.Lib.Gio
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             int argc_;
             var ret_ = g_application_command_line_get_arguments(cmdline_,&argc_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, (int)argc_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -223,6 +225,7 @@ namespace GISharp.Lib.Gio
             CheckGetCwdArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_cwd(cmdline_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -274,6 +277,7 @@ namespace GISharp.Lib.Gio
             CheckGetEnvironmentArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_environ(cmdline_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.FilenameArray((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -304,6 +308,7 @@ namespace GISharp.Lib.Gio
             CheckGetExitStatusArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_exit_status(cmdline_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -333,6 +338,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsRemoteArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_is_remote(cmdline_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -374,6 +380,7 @@ namespace GISharp.Lib.Gio
             CheckGetOptionsArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_options_dict(cmdline_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.VariantDict.GetInstance<GISharp.Lib.GLib.VariantDict>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -414,6 +421,7 @@ namespace GISharp.Lib.Gio
             CheckGetPlatformDataArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_platform_data(cmdline_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -456,6 +464,7 @@ namespace GISharp.Lib.Gio
             CheckGetStdinArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_stdin(cmdline_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.Gio.InputStream.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -507,6 +516,7 @@ namespace GISharp.Lib.Gio
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_application_command_line_getenv(cmdline_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -565,6 +575,7 @@ namespace GISharp.Lib.Gio
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var exitStatus_ = (int)exitStatus;
             g_application_command_line_set_exit_status(cmdline_, exitStatus_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoGetStdin()']/*" />
@@ -574,6 +585,7 @@ namespace GISharp.Lib.Gio
         {
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedGetStdin>(_GType)!(cmdline_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.Gio.InputStream.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -585,6 +597,7 @@ namespace GISharp.Lib.Gio
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var message_ = (byte*)message.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrintLiteral>(_GType)!(cmdline_, message_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -594,6 +607,7 @@ namespace GISharp.Lib.Gio
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var message_ = (byte*)message.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrinterrLiteral>(_GType)!(cmdline_, message_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

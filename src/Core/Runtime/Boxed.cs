@@ -82,7 +82,7 @@ namespace GISharp.Runtime
                 return GCHandle.ToIntPtr(GCHandle.Alloc(target));
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
                 return default;
             }
         }
@@ -97,7 +97,7 @@ namespace GISharp.Runtime
                 GCHandle.FromIntPtr(boxed).Free();
             }
             catch (Exception ex) {
-                ex.LogUnhandledException();
+                GMarshal.PushUnhandledException(ex);
             }
         }
     }
@@ -113,7 +113,9 @@ namespace GISharp.Runtime
             var name = typeof(Boxed<T>).GetGTypeName();
             GType.AssertGTypeName(name);
             using var utf8 = (Utf8)name;
-            return g_boxed_type_register_static((byte*)utf8.Take(), &CopyManagedType, &FreeManagedType);
+            var ret = g_boxed_type_register_static((byte*)utf8.Take(), &CopyManagedType, &FreeManagedType);
+            GMarshal.PopUnhandledException();
+            return ret;
         }
 
         static readonly GType _GType = GetGType();
@@ -126,6 +128,7 @@ namespace GISharp.Runtime
         {
             if (ownership == Transfer.None) {
                 this.handle = g_boxed_copy(_GType, handle);
+                GMarshal.PopUnhandledException();
             }
         }
 
@@ -149,6 +152,7 @@ namespace GISharp.Runtime
         {
             if (handle != IntPtr.Zero) {
                 g_boxed_free(_GType, handle);
+                GMarshal.PopUnhandledException();
             }
             base.Dispose(disposing);
         }

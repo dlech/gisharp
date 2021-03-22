@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class CellRendererTests : Tests
+    public class CellRendererTests
     {
         [Test]
         public void CellRendererStateGType()

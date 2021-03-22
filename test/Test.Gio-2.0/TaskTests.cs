@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gio
 {
-    public class TaskTests : Tests
+    public class TaskTests
     {
         [Test]
         public void TestNew()

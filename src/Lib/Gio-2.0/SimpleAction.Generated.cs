@@ -88,6 +88,7 @@ namespace GISharp.Lib.Gio
             var name_ = (byte*)name.UnsafeHandle;
             var parameterType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(parameterType?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_simple_action_new(name_,parameterType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -146,6 +147,7 @@ namespace GISharp.Lib.Gio
             var parameterType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(parameterType?.UnsafeHandle ?? System.IntPtr.Zero);
             var state_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)state.UnsafeHandle;
             var ret_ = g_simple_action_new_stateful(name_,parameterType_,state_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -176,7 +178,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -201,7 +203,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 
@@ -250,6 +252,7 @@ namespace GISharp.Lib.Gio
             var simple_ = (GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*)UnsafeHandle;
             var enabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(enabled);
             g_simple_action_set_enabled(simple_, enabled_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -296,6 +299,7 @@ namespace GISharp.Lib.Gio
             var simple_ = (GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*)UnsafeHandle;
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             g_simple_action_set_state(simple_, value_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -334,6 +338,7 @@ namespace GISharp.Lib.Gio
             var simple_ = (GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*)UnsafeHandle;
             var stateHint_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(stateHint?.UnsafeHandle ?? System.IntPtr.Zero);
             g_simple_action_set_state_hint(simple_, stateHint_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         void GISharp.Lib.Gio.IAction.DoActivate(GISharp.Lib.GLib.Variant? parameter)

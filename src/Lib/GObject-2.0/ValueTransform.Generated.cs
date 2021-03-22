@@ -44,6 +44,7 @@ namespace GISharp.Lib.GObject
                     fixed (GISharp.Lib.GObject.Value* srcValue_ = &srcValue)
                     {
                         callback_(srcValue_, destValue_);
+                        GISharp.Runtime.GMarshal.PopUnhandledException();
                     }
                 }
             }

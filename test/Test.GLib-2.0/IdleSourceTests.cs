@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class IdleSourceTests : Tests
+    public class IdleSourceTests
     {
         [Test]
         public void TestNew()

@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GIRepository
 {
-    public class TestBaseInfo : Tests
+    public class TestBaseInfo
     {
         IndexedCollection<BaseInfo> infos = default!;
 

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class Utf8ExtensionsTests : Tests
+    public class Utf8ExtensionsTests
     {
         [Test]
         public void TestCaseFold()

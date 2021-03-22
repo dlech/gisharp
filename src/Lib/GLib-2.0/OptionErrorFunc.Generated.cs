@@ -44,6 +44,7 @@ namespace GISharp.Lib.GLib
                 var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)group.UnsafeHandle;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 callback_(context_, group_, data_, &error_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -74,7 +75,7 @@ namespace GISharp.Lib.GLib
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
     }

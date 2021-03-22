@@ -171,6 +171,7 @@ namespace GISharp.Lib.GLib
                 var nFields_ = (nuint)fields.Length;
                 var useColor_ = GISharp.Runtime.BooleanExtensions.ToBoolean(useColor);
                 var ret_ = g_log_writer_format_fields(logLevel_,fields_,nFields_,useColor_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
                 return ret;
             }
@@ -213,6 +214,7 @@ namespace GISharp.Lib.GLib
             CheckIsJournaldArgs(outputFd);
             var outputFd_ = (int)outputFd;
             var ret_ = g_log_writer_is_journald(outputFd_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -353,6 +355,7 @@ namespace GISharp.Lib.GLib
             CheckSupportsColorArgs(outputFd);
             var outputFd_ = (int)outputFd;
             var ret_ = g_log_writer_supports_color(outputFd_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }

@@ -72,6 +72,7 @@ namespace GISharp.Lib.GObject
             var data_ = (IntPtr)dataHandle;
             var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, Closure.UnmanagedStruct*, void>)&Closure.ManagedDestroyNotify;
             var ret = g_signal_connect_data(instance_, detailedSignal_, handler_, data_, notify_, connectFlags);
+            GMarshal.PopUnhandledException();
             if (ret == default) {
                 dataHandle.Free();
                 data_ = IntPtr.Zero;
@@ -180,10 +181,12 @@ namespace GISharp.Lib.GObject
 
                 if (query.ReturnType == GType.None) {
                     g_signal_emitv(instanceAndParams, signalId, detail, null);
+                    GMarshal.PopUnhandledException();
                 }
                 else {
                     var returnValue = new Value(type.ToGType());
                     g_signal_emitv(instanceAndParams, signalId, detail, &returnValue);
+                    GMarshal.PopUnhandledException();
                     ret = returnValue.Get();
                     returnValue.Unset();
                 }
@@ -235,7 +238,7 @@ namespace GISharp.Lib.GObject
             fixed (GType* paramTypes_ = paramTypes) {
                 var ret = g_signal_newv(signalName_, itype, signalFlags, classClosure_, accumulator_,
                     accuData_, cMarshaller_, returnType, nParams_, paramTypes_);
-
+                GMarshal.PopUnhandledException();
                 return ret;
             }
         }
@@ -350,6 +353,7 @@ namespace GISharp.Lib.GObject
                 mask_ |= SignalMatchType.Unblocked;
             }
             var ret = g_signal_handler_find(instance_, mask_, signalId_, detail_, closure_, func_, data_);
+            GMarshal.PopUnhandledException();
             return ret;
         }
     }

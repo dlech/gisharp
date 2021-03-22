@@ -96,6 +96,7 @@ namespace GISharp.Lib.GLib
             CheckNewArgs(parameterString);
             var parameterString_ = (byte*)parameterString.UnsafeHandle;
             var ret_ = g_option_context_new(parameterString_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -131,6 +132,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)group.Take();
             g_option_context_add_group(context_, group_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -191,6 +193,7 @@ namespace GISharp.Lib.GLib
             CheckGetDescriptionArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_option_context_get_description(context_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -241,6 +244,7 @@ namespace GISharp.Lib.GLib
             var mainHelp_ = GISharp.Runtime.BooleanExtensions.ToBoolean(mainHelp);
             var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)(group?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_option_context_get_help(context_,mainHelp_,group_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -271,6 +275,7 @@ namespace GISharp.Lib.GLib
             CheckGetHelpEnabledArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_option_context_get_help_enabled(context_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -301,6 +306,7 @@ namespace GISharp.Lib.GLib
             CheckGetIgnoreUnknownOptionsArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_option_context_get_ignore_unknown_options(context_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -332,6 +338,7 @@ namespace GISharp.Lib.GLib
             CheckGetMainGroupArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_option_context_get_main_group(context_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.OptionGroup.GetInstance<GISharp.Lib.GLib.OptionGroup>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -366,6 +373,7 @@ namespace GISharp.Lib.GLib
             CheckGetStrictPosixArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_option_context_get_strict_posix(context_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -395,6 +403,7 @@ namespace GISharp.Lib.GLib
             CheckGetSummaryArgs();
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_option_context_get_summary(context_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -436,6 +445,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var description_ = (byte*)description.UnsafeHandle;
             g_option_context_set_description(context_, description_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -470,6 +480,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var helpEnabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(helpEnabled);
             g_option_context_set_help_enabled(context_, helpEnabled_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -511,6 +522,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var ignoreUnknown_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ignoreUnknown);
             g_option_context_set_ignore_unknown_options(context_, ignoreUnknown_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -545,6 +557,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)group.Take();
             g_option_context_set_main_group(context_, group_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -606,6 +619,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var strictPosix_ = GISharp.Runtime.BooleanExtensions.ToBoolean(strictPosix);
             g_option_context_set_strict_posix(context_, strictPosix_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -646,6 +660,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var summary_ = (byte*)summary.UnsafeHandle;
             g_option_context_set_summary(context_, summary_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -707,6 +722,7 @@ namespace GISharp.Lib.GLib
             var data_ = (System.IntPtr)funcHandle;
             var destroyNotify_ = func is null ? default : (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             g_option_context_set_translate_func(context_, func_, data_, destroyNotify_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -740,6 +756,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
             var domain_ = (byte*)domain.UnsafeHandle;
             g_option_context_set_translation_domain(context_, domain_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
     }
 }

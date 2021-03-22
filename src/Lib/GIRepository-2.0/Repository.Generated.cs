@@ -77,6 +77,7 @@ namespace GISharp.Lib.GIRepository
             var arg_ = (byte*)arg.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_irepository_dump(arg_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -112,6 +113,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckGetDefaultArgs();
             var ret_ = g_irepository_get_default();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.Repository.GetInstance<GISharp.Lib.GIRepository.Repository>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
@@ -136,6 +138,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckGetSearchPathArgs();
             var ret_ = g_irepository_get_search_path();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedSList<GISharp.Lib.GLib.Filename>(ret_);
             return ret;
         }
@@ -155,6 +158,7 @@ byte* directory);
             CheckPrependLibraryPathArgs(directory);
             var directory_ = (byte*)directory.UnsafeHandle;
             g_irepository_prepend_library_path(directory_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -184,6 +188,7 @@ byte* directory);
             CheckPrependSearchPathArgs(directory);
             var directory_ = (byte*)directory.UnsafeHandle;
             g_irepository_prepend_search_path(directory_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -226,6 +231,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_enumerate_versions(repository_,@namespace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GLib.List<GISharp.Lib.GLib.Utf8>.GetInstance<GISharp.Lib.GLib.List<GISharp.Lib.GLib.Utf8>>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -268,6 +274,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var domain_ = (GISharp.Lib.GLib.Quark)domain;
             var ret_ = g_irepository_find_by_error_domain(repository_,domain_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.EnumInfo.GetInstance<GISharp.Lib.GIRepository.EnumInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -309,6 +316,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var gtype_ = (GISharp.Runtime.GType)gtype;
             var ret_ = g_irepository_find_by_gtype(repository_,gtype_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -355,6 +363,7 @@ byte* directory);
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_irepository_find_by_name(repository_,@namespace_,name_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -399,6 +408,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_get_c_prefix(repository_,@namespace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -450,6 +460,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_get_dependencies(repository_,@namespace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -502,6 +513,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_get_immediate_dependencies(repository_,@namespace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -548,6 +560,7 @@ byte* directory);
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var index_ = (int)index;
             var ret_ = g_irepository_get_info(repository_,@namespace_,index_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.BaseInfo.GetInstance<GISharp.Lib.GIRepository.BaseInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
@@ -578,6 +591,7 @@ byte* directory);
             CheckGetLoadedNamespacesArgs();
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_irepository_get_loaded_namespaces(repository_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -615,6 +629,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_get_n_infos(repository_,@namespace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
         }
@@ -678,6 +693,7 @@ byte* directory);
             uint nInterfacesOut_;
             GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct** interfacesOut_;
             g_irepository_get_object_gtype_interfaces(repository_, gtype_, &nInterfacesOut_, &interfacesOut_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             interfacesOut = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GIRepository.InterfaceInfo>(interfacesOut_, (int)nInterfacesOut_);
         }
 
@@ -723,6 +739,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_get_shared_library(repository_,@namespace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
@@ -762,6 +779,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_get_typelib_path(repository_,@namespace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -805,6 +823,7 @@ byte* directory);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_get_version(repository_,@namespace_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
@@ -853,6 +872,7 @@ byte* directory);
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var version_ = (byte*)version.UnsafeHandle;
             var ret_ = g_irepository_is_registered(repository_,@namespace_,version_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -900,6 +920,7 @@ byte* directory);
             var flags_ = (GISharp.Lib.GIRepository.RepositoryLoadFlags)flags;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_irepository_load_typelib(repository_,typelib_,flags_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -967,6 +988,7 @@ byte* directory);
             var flags_ = (GISharp.Lib.GIRepository.RepositoryLoadFlags)flags;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_irepository_require(repository_, @namespace_, version_, flags_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1038,6 +1060,7 @@ byte* directory);
             var flags_ = (GISharp.Lib.GIRepository.RepositoryLoadFlags)flags;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_irepository_require_private(repository_, typelibDir_, @namespace_, version_, flags_, &error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);

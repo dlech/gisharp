@@ -458,6 +458,7 @@ namespace GISharp.Lib.GLib
             CheckFromIso15924Args(iso15924);
             var iso15924_ = (uint)iso15924;
             var ret_ = g_unicode_script_from_iso15924(iso15924_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.UnicodeScript)ret_;
             return ret;
         }
@@ -501,6 +502,7 @@ namespace GISharp.Lib.GLib
             CheckToIso15924Args(script);
             var script_ = (GISharp.Lib.GLib.UnicodeScript)script;
             var ret_ = g_unicode_script_to_iso15924(script_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (uint)ret_;
             return ret;
         }

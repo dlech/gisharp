@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class PrintSettingsTests : Tests
+    public class PrintSettingsTests
     {
         [Test]
         public void PageOrientationGType()

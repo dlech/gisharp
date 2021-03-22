@@ -64,6 +64,7 @@ namespace GISharp.Lib.GObject
             var sizeofClosure_ = (uint)sizeofClosure;
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)@object.UnsafeHandle;
             var ret_ = g_closure_new_object(sizeofClosure_,@object_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -142,6 +143,7 @@ namespace GISharp.Lib.GObject
             var sizeofClosure_ = (uint)sizeofClosure;
             var data_ = (System.IntPtr)data;
             var ret_ = g_closure_new_simple(sizeofClosure_,data_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
@@ -289,6 +291,7 @@ namespace GISharp.Lib.GObject
             CheckInvalidateArgs();
             var closure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)UnsafeHandle;
             g_closure_invalidate(closure_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -349,6 +352,7 @@ namespace GISharp.Lib.GObject
                     var nParamValues_ = (uint)paramValues.Length;
                     var invocationHint_ = (System.IntPtr)invocationHint;
                     g_closure_invoke(closure_, returnValue_, nParamValues_, paramValues_, invocationHint_);
+                    GISharp.Runtime.GMarshal.PopUnhandledException();
                 }
             }
         }

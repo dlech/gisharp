@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
-    public class BytesTests : Tests
+    public class BytesTests
     {
         [Test]
         public void TestNew()

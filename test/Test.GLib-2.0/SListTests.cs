@@ -10,7 +10,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.GLib
 {
-    public class SListTests : Tests
+    public class SListTests
     {
         [Test]
         public void TestConstructor()

@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class PanGestureTests : Tests
+    public class PanGestureTests
     {
         [Test]
         public void PanDirectionGType()

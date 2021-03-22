@@ -43,6 +43,7 @@ namespace GISharp.Lib.Gio
                 var fileContents_ = (byte*)fileContents.UnsafeHandle;
                 var fileSize_ = (long)fileSize;
                 var ret_ = callback_(fileContents_,fileSize_,callbackData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }
@@ -73,7 +74,7 @@ namespace GISharp.Lib.Gio
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
 
             return default(GISharp.Runtime.Boolean);

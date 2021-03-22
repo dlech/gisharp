@@ -38,6 +38,7 @@ namespace GISharp.Lib.GLib
             {
                 var data_ = (System.IntPtr)data;
                 var ret_ = callback_(data_,userData_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = (System.IntPtr)ret_;
                 return ret;
             }
@@ -67,7 +68,7 @@ namespace GISharp.Lib.GLib
             }
             catch (System.Exception ex)
             {
-                GISharp.Runtime.GMarshal.LogUnhandledException(ex);
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
 
             return default(System.IntPtr);

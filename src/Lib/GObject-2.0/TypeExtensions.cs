@@ -81,6 +81,7 @@ namespace GISharp.Lib.GObject
             var info_ = (TypeInfo*)Marshal.AllocCoTaskMem(Marshal.SizeOf<TypeInfo>());
             Marshal.StructureToPtr(info, (IntPtr)info_, false);
             var ret = g_type_register_static(parentType, typeName_, info_, flags);
+            GMarshal.PopUnhandledException();
 
             return ret;
         }
@@ -90,6 +91,7 @@ namespace GISharp.Lib.GObject
             // type registration has not been completed here, so have to get the
             // object class the hard way by not using our nice wrapper class
             var @class = (ObjectClass.UnmanagedStruct*)TypeClass.g_type_class_ref(gtype);
+            GMarshal.PopUnhandledException();
             try {
                 foreach (var pspec in ObjectClass.ListProperties(@class)) {
                     var prop = type.GetProperties(Public | NonPublic | Instance)
@@ -310,6 +312,7 @@ namespace GISharp.Lib.GObject
             lock (mapLock) {
                 var type = default(Type);
                 var data = g_type_get_qdata(gtype, managedTypeQuark);
+                GMarshal.PopUnhandledException();
 
                 if (data == IntPtr.Zero) {
                     foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
@@ -359,6 +362,7 @@ namespace GISharp.Lib.GObject
             Marshal.StructureToPtr(info, (IntPtr)info_, false);
 
             g_type_add_interface_static(instanceType, interfaceType, info_);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>

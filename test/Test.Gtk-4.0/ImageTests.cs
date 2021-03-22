@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Gtk
 {
-    public class ImageTests : Tests
+    public class ImageTests
     {
         [Test]
         public void ImageTypeGType()
