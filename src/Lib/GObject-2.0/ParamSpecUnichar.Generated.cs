@@ -17,7 +17,7 @@ namespace GISharp.Lib.GObject
             public readonly GISharp.Lib.GObject.ParamSpec.UnmanagedStruct ParentInstance;
 
             /// <include file="ParamSpecUnichar.xmldoc" path="declaration/member[@name='UnmanagedStruct.DefaultValue']/*" />
-            public readonly GISharp.Lib.GLib.Unichar DefaultValue;
+            public readonly uint DefaultValue;
 #pragma warning restore CS0169, CS0414, CS0649
         }
 
@@ -70,29 +70,29 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* blurb,
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar defaultValue,
+        uint defaultValue,
         /* <type name="ParamFlags" type="GParamFlags" managed-name="ParamFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamFlags flags);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Lib.GLib.Unichar defaultValue, GISharp.Lib.GObject.ParamFlags flags);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, System.Text.Rune defaultValue, GISharp.Lib.GObject.ParamFlags flags);
 
-        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Lib.GLib.Unichar defaultValue, GISharp.Lib.GObject.ParamFlags flags)
+        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, System.Text.Rune defaultValue, GISharp.Lib.GObject.ParamFlags flags)
         {
             CheckNewArgs(name, nick, blurb, defaultValue, flags);
             var name_ = (byte*)name.UnsafeHandle;
             var nick_ = (byte*)nick.UnsafeHandle;
             var blurb_ = (byte*)blurb.UnsafeHandle;
-            var defaultValue_ = (GISharp.Lib.GLib.Unichar)defaultValue;
+            var defaultValue_ = (uint)defaultValue.Value;
             var flags_ = (GISharp.Lib.GObject.ParamFlags)flags;
             var ret_ = g_param_spec_unichar(name_,nick_,blurb_,defaultValue_,flags_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
-        /// <include file="ParamSpecUnichar.xmldoc" path="declaration/member[@name='ParamSpecUnichar.ParamSpecUnichar(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Unichar,GISharp.Lib.GObject.ParamFlags)']/*" />
-        public ParamSpecUnichar(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Lib.GLib.Unichar defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, defaultValue, flags), GISharp.Runtime.Transfer.None)
+        /// <include file="ParamSpecUnichar.xmldoc" path="declaration/member[@name='ParamSpecUnichar.ParamSpecUnichar(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Text.Rune,GISharp.Lib.GObject.ParamFlags)']/*" />
+        public ParamSpecUnichar(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, System.Text.Rune defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, defaultValue, flags), GISharp.Runtime.Transfer.None)
         {
         }
     }

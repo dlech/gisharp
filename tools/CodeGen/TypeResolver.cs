@@ -70,7 +70,7 @@ namespace GISharp.CodeGen
                 var x when x == "gpointer" || x == "gconstpointer" => "System.IntPtr",
                 var x when x == "gssize" || x == "gintptr" || x == "goffset" => $"nint{pointer}",
                 var x when x == "gsize" || x == "guintptr" => $"nuint{pointer}",
-                "gunichar" => $"GISharp.Lib.GLib.Unichar{pointer}",
+                "gunichar" => $"uint{pointer}",
                 "gunichar2" => $"char{pointer}",
                 "GType" => $"GISharp.Runtime.GType{pointer}",
                 var x when x == "filename" || x == "utf8" => "byte*",
@@ -132,7 +132,7 @@ namespace GISharp.CodeGen
                 "guintptr" => "nuint",
                 // size/offset are cast to int to match .NET convention
                 var x when x == "gsize" || x == "gssize" || x == "goffset" => "int",
-                "gunichar" => "GISharp.Lib.GLib.Unichar",
+                "gunichar" => "System.Text.Rune",
                 "gunichar2" => "char",
                 "GType" => "GISharp.Runtime.GType",
                 "utf8" => "GISharp.Lib.GLib.Utf8",

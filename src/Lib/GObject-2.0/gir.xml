@@ -6469,7 +6469,7 @@ See g_param_spec_internal() for details on property names.</doc>
       </field>
       <field name="default_value" gs:managed-name="DefaultValue">
         <doc xml:space="preserve" filename="gparamspecs.h" line="762">default value for the property specified</doc>
-        <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+        <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
       </field>
       <constructor name="new" c:identifier="g_param_spec_unichar" gs:dll-name="gobject-2.0" gs:managed-name="New">
         <doc xml:space="preserve" filename="gobject-2.0.c" line="4145">Creates a new #GParamSpecUnichar instance specifying a %G_TYPE_UINT
@@ -6497,7 +6497,7 @@ See g_param_spec_internal() for details on property names.</doc>
           </parameter>
           <parameter name="default_value" transfer-ownership="none" gs:managed-name="defaultValue" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="4150">default value for the property specified</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </parameter>
           <parameter name="flags" transfer-ownership="none" gs:managed-name="flags" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="4151">flags for the property specified</doc>
@@ -6519,7 +6519,7 @@ See g_param_spec_internal() for details on property names.</doc>
           </parameter>
           <parameter name="default_value" transfer-ownership="none" gs:managed-name="defaultValue" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="4150">default value for the property specified</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </parameter>
           <parameter name="flags" transfer-ownership="none" gs:managed-name="flags" direction="in">
             <doc xml:space="preserve" filename="gobject-2.0.c" line="4151">flags for the property specified</doc>

@@ -676,30 +676,30 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Enumerator for iterating the unicode characters of a <see cref="Utf8"/> string.
         /// </summary>
-        public readonly struct UnicharEnumerable : IEnumerable<Unichar>, IEnumerable
+        public readonly struct RuneEnumerable : IEnumerable<Rune>, IEnumerable
         {
             private readonly Utf8 utf8;
 
-            internal UnicharEnumerable(Utf8 utf8) => this.utf8 = utf8;
+            internal RuneEnumerable(Utf8 utf8) => this.utf8 = utf8;
 
             /// <inheritdoc/>
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
             /// <inheritdoc/>
-            public IEnumerator<Unichar> GetEnumerator() => new UnicharEnumerator(utf8);
+            public IEnumerator<Rune> GetEnumerator() => new RuneEnumerator(utf8);
 
-            private struct UnicharEnumerator : IEnumerator<Unichar>
+            private struct RuneEnumerator : IEnumerator<Rune>
             {
                 private readonly Utf8 utf8;
                 private byte* current;
 
-                public UnicharEnumerator(Utf8 utf8)
+                public RuneEnumerator(Utf8 utf8)
                 {
                     this.utf8 = utf8;
                     current = null;
                 }
 
-                public Unichar Current {
+                public Rune Current {
                     get {
                         if (utf8.handle == IntPtr.Zero) {
                             throw new ObjectDisposedException(null);
@@ -707,8 +707,9 @@ namespace GISharp.Lib.GLib
                         if (current is null) {
                             throw new InvalidOperationException();
                         }
-                        var ret = g_utf8_get_char(current);
+                        var ret_ = g_utf8_get_char(current);
                         GMarshal.PopUnhandledException();
+                        var ret = (Rune)ret_;
                         return ret;
                     }
                 }
@@ -764,7 +765,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Gets an enumerator for iterating the unicode characters of this string.
         /// </summary>
-        public UnicharEnumerable Characters => new(this);
+        public RuneEnumerable Characters => new(this);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern byte* g_strdup(byte* str);
@@ -956,7 +957,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
         /* transfer-ownership:none */
-        static extern Unichar g_utf8_get_char(
+        static extern uint g_utf8_get_char(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             byte* p);

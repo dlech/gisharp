@@ -3,10 +3,10 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions']/*" />
-    public static unsafe partial class UnicharExtensions
+    /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar']/*" />
+    public static unsafe partial class Unichar
     {
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.maxDecompositionLength']/*" />
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.maxDecompositionLength']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         private const System.Int32 maxDecompositionLength = 18;
 
@@ -28,16 +28,16 @@ namespace GISharp.Lib.GLib
         /* <type name="UnicodeBreakType" type="GUnicodeBreakType" managed-name="UnicodeBreakType" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.UnicodeBreakType g_unichar_break_type(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckBreakTypeArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckBreakTypeArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.BreakType(GISharp.Lib.GLib.Unichar)']/*" />
-        public static GISharp.Lib.GLib.UnicodeBreakType BreakType(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.BreakType(System.Text.Rune)']/*" />
+        public static GISharp.Lib.GLib.UnicodeBreakType BreakType(this System.Text.Rune c)
         {
             CheckBreakTypeArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_break_type(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.UnicodeBreakType)ret_;
@@ -58,17 +58,17 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_unichar_combining_class(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar uc);
-        static partial void CheckCombiningClassArgs(this GISharp.Lib.GLib.Unichar uc);
+        uint uc);
+        static partial void CheckCombiningClassArgs(this System.Text.Rune uc);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.CombiningClass(GISharp.Lib.GLib.Unichar)']/*" />
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.CombiningClass(System.Text.Rune)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public static int CombiningClass(this GISharp.Lib.GLib.Unichar uc)
+        public static int CombiningClass(this System.Text.Rune uc)
         {
             CheckCombiningClassArgs(uc);
-            var uc_ = (GISharp.Lib.GLib.Unichar)uc;
+            var uc_ = (uint)uc.Value;
             var ret_ = g_unichar_combining_class(uc_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
@@ -115,28 +115,28 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_compose(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar a,
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        uint a,
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar b,
-        /* <type name="gunichar" type="gunichar*" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        uint b,
+        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
-        GISharp.Lib.GLib.Unichar* ch);
-        static partial void CheckTryComposeArgs(this GISharp.Lib.GLib.Unichar a, GISharp.Lib.GLib.Unichar b);
+        uint* ch);
+        static partial void CheckTryComposeArgs(this System.Text.Rune a, System.Text.Rune b);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.TryCompose(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)']/*" />
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.TryCompose(System.Text.Rune,System.Text.Rune,System.Text.Rune)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static bool TryCompose(this GISharp.Lib.GLib.Unichar a, GISharp.Lib.GLib.Unichar b, out GISharp.Lib.GLib.Unichar ch)
+        public static bool TryCompose(this System.Text.Rune a, System.Text.Rune b, out System.Text.Rune ch)
         {
             CheckTryComposeArgs(a, b);
-            var a_ = (GISharp.Lib.GLib.Unichar)a;
-            var b_ = (GISharp.Lib.GLib.Unichar)b;
-            GISharp.Lib.GLib.Unichar ch_;
+            var a_ = (uint)a.Value;
+            var b_ = (uint)b.Value;
+            uint ch_;
             var ret_ = g_unichar_compose(a_,b_,&ch_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            ch = (GISharp.Lib.GLib.Unichar)ch_;
+            ch = (System.Text.Rune)ch_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -189,29 +189,29 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_decompose(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar ch,
-        /* <type name="gunichar" type="gunichar*" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        uint ch,
+        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
-        GISharp.Lib.GLib.Unichar* a,
-        /* <type name="gunichar" type="gunichar*" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        uint* a,
+        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
-        GISharp.Lib.GLib.Unichar* b);
-        static partial void CheckTryDecomposeArgs(this GISharp.Lib.GLib.Unichar ch);
+        uint* b);
+        static partial void CheckTryDecomposeArgs(this System.Text.Rune ch);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.TryDecompose(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)']/*" />
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.TryDecompose(System.Text.Rune,System.Text.Rune,System.Text.Rune)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static bool TryDecompose(this GISharp.Lib.GLib.Unichar ch, out GISharp.Lib.GLib.Unichar a, out GISharp.Lib.GLib.Unichar b)
+        public static bool TryDecompose(this System.Text.Rune ch, out System.Text.Rune a, out System.Text.Rune b)
         {
             CheckTryDecomposeArgs(ch);
-            var ch_ = (GISharp.Lib.GLib.Unichar)ch;
-            GISharp.Lib.GLib.Unichar a_;
-            GISharp.Lib.GLib.Unichar b_;
+            var ch_ = (uint)ch.Value;
+            uint a_;
+            uint b_;
             var ret_ = g_unichar_decompose(ch_,&a_,&b_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            a = (GISharp.Lib.GLib.Unichar)a_;
-            b = (GISharp.Lib.GLib.Unichar)b_;
+            a = (System.Text.Rune)a_;
+            b = (System.Text.Rune)b_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -231,16 +231,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_unichar_digit_value(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckDigitValueArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckDigitValueArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.DigitValue(GISharp.Lib.GLib.Unichar)']/*" />
-        public static int DigitValue(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.DigitValue(System.Text.Rune)']/*" />
+        public static int DigitValue(this System.Text.Rune c)
         {
             CheckDigitValueArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_digit_value(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
@@ -292,17 +292,17 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         private static extern nuint g_unichar_fully_decompose(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar ch,
+        uint ch,
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean compat,
         /* <array length="2" zero-terminated="0" type="gunichar*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" />
+*   <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" />
 * </array> */
         /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
-        GISharp.Lib.GLib.Unichar* result,
+        uint* result,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint resultLen);
@@ -335,24 +335,24 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_get_mirror_char(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar ch,
-        /* <type name="gunichar" type="gunichar*" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        uint ch,
+        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:out */
-        GISharp.Lib.GLib.Unichar* mirroredCh);
-        static partial void CheckTryGetMirrorCharArgs(this GISharp.Lib.GLib.Unichar ch);
+        uint* mirroredCh);
+        static partial void CheckTryGetMirrorCharArgs(this System.Text.Rune ch);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.TryGetMirrorChar(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)']/*" />
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.TryGetMirrorChar(System.Text.Rune,System.Text.Rune)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
-        public static bool TryGetMirrorChar(this GISharp.Lib.GLib.Unichar ch, out GISharp.Lib.GLib.Unichar mirroredCh)
+        public static bool TryGetMirrorChar(this System.Text.Rune ch, out System.Text.Rune mirroredCh)
         {
             CheckTryGetMirrorCharArgs(ch);
-            var ch_ = (GISharp.Lib.GLib.Unichar)ch;
-            GISharp.Lib.GLib.Unichar mirroredCh_;
+            var ch_ = (uint)ch.Value;
+            uint mirroredCh_;
             var ret_ = g_unichar_get_mirror_char(ch_,&mirroredCh_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            mirroredCh = (GISharp.Lib.GLib.Unichar)mirroredCh_;
+            mirroredCh = (System.Text.Rune)mirroredCh_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -380,17 +380,17 @@ namespace GISharp.Lib.GLib
         /* <type name="UnicodeScript" type="GUnicodeScript" managed-name="UnicodeScript" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.UnicodeScript g_unichar_get_script(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar ch);
-        static partial void CheckGetScriptArgs(this GISharp.Lib.GLib.Unichar ch);
+        uint ch);
+        static partial void CheckGetScriptArgs(this System.Text.Rune ch);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.GetScript(GISharp.Lib.GLib.Unichar)']/*" />
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.GetScript(System.Text.Rune)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public static GISharp.Lib.GLib.UnicodeScript GetScript(this GISharp.Lib.GLib.Unichar ch)
+        public static GISharp.Lib.GLib.UnicodeScript GetScript(this System.Text.Rune ch)
         {
             CheckGetScriptArgs(ch);
-            var ch_ = (GISharp.Lib.GLib.Unichar)ch;
+            var ch_ = (uint)ch.Value;
             var ret_ = g_unichar_get_script(ch_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.UnicodeScript)ret_;
@@ -412,16 +412,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isalnum(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsAlphaNumericArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsAlphaNumericArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsAlphaNumeric(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsAlphaNumeric(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsAlphaNumeric(System.Text.Rune)']/*" />
+        public static bool IsAlphaNumeric(this System.Text.Rune c)
         {
             CheckIsAlphaNumericArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_isalnum(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -443,16 +443,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isalpha(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsAlphaArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsAlphaArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsAlpha(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsAlpha(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsAlpha(System.Text.Rune)']/*" />
+        public static bool IsAlpha(this System.Text.Rune c)
         {
             CheckIsAlphaArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_isalpha(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -474,16 +474,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_iscntrl(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsControlArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsControlArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsControl(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsControl(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsControl(System.Text.Rune)']/*" />
+        public static bool IsControl(this System.Text.Rune c)
         {
             CheckIsControlArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_iscntrl(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -504,16 +504,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isdefined(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsDefinedArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsDefinedArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsDefined(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsDefined(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsDefined(System.Text.Rune)']/*" />
+        public static bool IsDefined(this System.Text.Rune c)
         {
             CheckIsDefinedArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_isdefined(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -535,16 +535,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isdigit(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsDigitArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsDigitArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsDigit(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsDigit(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsDigit(System.Text.Rune)']/*" />
+        public static bool IsDigit(this System.Text.Rune c)
         {
             CheckIsDigitArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_isdigit(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -568,16 +568,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isgraph(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsGraphArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsGraphArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsGraph(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsGraph(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsGraph(System.Text.Rune)']/*" />
+        public static bool IsGraph(this System.Text.Rune c)
         {
             CheckIsGraphArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_isgraph(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -599,16 +599,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_islower(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsLowerArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsLowerArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsLower(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsLower(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsLower(System.Text.Rune)']/*" />
+        public static bool IsLower(this System.Text.Rune c)
         {
             CheckIsLowerArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_islower(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -640,17 +640,17 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_ismark(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsMarkArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsMarkArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsMark(GISharp.Lib.GLib.Unichar)']/*" />
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsMark(System.Text.Rune)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public static bool IsMark(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsMark(this System.Text.Rune c)
         {
             CheckIsMarkArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_ismark(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -673,16 +673,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isprint(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsPrintableArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsPrintableArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsPrintable(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsPrintable(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsPrintable(System.Text.Rune)']/*" />
+        public static bool IsPrintable(this System.Text.Rune c)
         {
             CheckIsPrintableArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_isprint(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -704,16 +704,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_ispunct(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsPunctuationArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsPunctuationArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsPunctuation(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsPunctuation(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsPunctuation(System.Text.Rune)']/*" />
+        public static bool IsPunctuation(this System.Text.Rune c)
         {
             CheckIsPunctuationArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_ispunct(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -742,16 +742,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isspace(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsSpaceArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsSpaceArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsSpace(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsSpace(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsSpace(System.Text.Rune)']/*" />
+        public static bool IsSpace(this System.Text.Rune c)
         {
             CheckIsSpaceArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_isspace(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -776,16 +776,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_istitle(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsTitleArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsTitleArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsTitle(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsTitle(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsTitle(System.Text.Rune)']/*" />
+        public static bool IsTitle(this System.Text.Rune c)
         {
             CheckIsTitleArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_istitle(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -805,16 +805,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isupper(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsUpperArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsUpperArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsUpper(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsUpper(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsUpper(System.Text.Rune)']/*" />
+        public static bool IsUpper(this System.Text.Rune c)
         {
             CheckIsUpperArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_isupper(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -835,16 +835,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_iswide(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsWideArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsWideArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsWide(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsWide(System.Text.Rune)']/*" />
+        public static bool IsWide(this System.Text.Rune c)
         {
             CheckIsWideArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_iswide(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -877,17 +877,17 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_iswide_cjk(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsWideCjkArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsWideCjkArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsWideCjk(GISharp.Lib.GLib.Unichar)']/*" />
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsWideCjk(System.Text.Rune)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public static bool IsWideCjk(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsWideCjk(this System.Text.Rune c)
         {
             CheckIsWideCjkArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_iswide_cjk(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -907,16 +907,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isxdigit(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsHexDigitArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsHexDigitArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsHexDigit(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool IsHexDigit(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsHexDigit(System.Text.Rune)']/*" />
+        public static bool IsHexDigit(this System.Text.Rune c)
         {
             CheckIsHexDigitArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_isxdigit(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -948,17 +948,17 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_iszerowidth(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckIsZeroWidthArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckIsZeroWidthArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsZeroWidth(GISharp.Lib.GLib.Unichar)']/*" />
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.IsZeroWidth(System.Text.Rune)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public static bool IsZeroWidth(this GISharp.Lib.GLib.Unichar c)
+        public static bool IsZeroWidth(this System.Text.Rune c)
         {
             CheckIsZeroWidthArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_iszerowidth(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -983,9 +983,9 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_unichar_to_utf8(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c,
+        uint c,
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
         byte* outbuf);
@@ -1002,22 +1002,22 @@ namespace GISharp.Lib.GLib
         ///               or has no lowercase equivalent @c is returned unchanged.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GLib.Unichar g_unichar_tolower(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        private static extern uint g_unichar_tolower(
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckToLowerArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckToLowerArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.ToLower(GISharp.Lib.GLib.Unichar)']/*" />
-        public static GISharp.Lib.GLib.Unichar ToLower(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.ToLower(System.Text.Rune)']/*" />
+        public static System.Text.Rune ToLower(this System.Text.Rune c)
         {
             CheckToLowerArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_tolower(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Lib.GLib.Unichar)ret_;
+            var ret = (System.Text.Rune)ret_;
             return ret;
         }
 
@@ -1033,22 +1033,22 @@ namespace GISharp.Lib.GLib
         ///               @c is returned unchanged.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GLib.Unichar g_unichar_totitle(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        private static extern uint g_unichar_totitle(
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckToTitleArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckToTitleArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.ToTitle(GISharp.Lib.GLib.Unichar)']/*" />
-        public static GISharp.Lib.GLib.Unichar ToTitle(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.ToTitle(System.Text.Rune)']/*" />
+        public static System.Text.Rune ToTitle(this System.Text.Rune c)
         {
             CheckToTitleArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_totitle(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Lib.GLib.Unichar)ret_;
+            var ret = (System.Text.Rune)ret_;
             return ret;
         }
 
@@ -1064,22 +1064,22 @@ namespace GISharp.Lib.GLib
         ///               or has no upper case equivalent @c is returned unchanged.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GLib.Unichar g_unichar_toupper(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        private static extern uint g_unichar_toupper(
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckToUpperArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckToUpperArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.ToUpper(GISharp.Lib.GLib.Unichar)']/*" />
-        public static GISharp.Lib.GLib.Unichar ToUpper(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.ToUpper(System.Text.Rune)']/*" />
+        public static System.Text.Rune ToUpper(this System.Text.Rune c)
         {
             CheckToUpperArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_toupper(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Lib.GLib.Unichar)ret_;
+            var ret = (System.Text.Rune)ret_;
             return ret;
         }
 
@@ -1096,16 +1096,16 @@ namespace GISharp.Lib.GLib
         /* <type name="UnicodeType" type="GUnicodeType" managed-name="UnicodeType" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.UnicodeType g_unichar_type(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckTypeArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckTypeArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.Type(GISharp.Lib.GLib.Unichar)']/*" />
-        public static GISharp.Lib.GLib.UnicodeType Type(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.Type(System.Text.Rune)']/*" />
+        public static GISharp.Lib.GLib.UnicodeType Type(this System.Text.Rune c)
         {
             CheckTypeArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_type(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.UnicodeType)ret_;
@@ -1127,16 +1127,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_validate(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar ch);
-        static partial void CheckValidateArgs(this GISharp.Lib.GLib.Unichar ch);
+        uint ch);
+        static partial void CheckValidateArgs(this System.Text.Rune ch);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.Validate(GISharp.Lib.GLib.Unichar)']/*" />
-        public static bool Validate(this GISharp.Lib.GLib.Unichar ch)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.Validate(System.Text.Rune)']/*" />
+        public static bool Validate(this System.Text.Rune ch)
         {
             CheckValidateArgs(ch);
-            var ch_ = (GISharp.Lib.GLib.Unichar)ch;
+            var ch_ = (uint)ch.Value;
             var ret_ = g_unichar_validate(ch_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -1158,16 +1158,16 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_unichar_xdigit_value(
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
-        static partial void CheckHexDigitValueArgs(this GISharp.Lib.GLib.Unichar c);
+        uint c);
+        static partial void CheckHexDigitValueArgs(this System.Text.Rune c);
 
-        /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.HexDigitValue(GISharp.Lib.GLib.Unichar)']/*" />
-        public static int HexDigitValue(this GISharp.Lib.GLib.Unichar c)
+        /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.HexDigitValue(System.Text.Rune)']/*" />
+        public static int HexDigitValue(this System.Text.Rune c)
         {
             CheckHexDigitValueArgs(c);
-            var c_ = (GISharp.Lib.GLib.Unichar)c;
+            var c_ = (uint)c.Value;
             var ret_ = g_unichar_xdigit_value(c_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;

@@ -3,6 +3,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -312,7 +313,7 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestParamSpecUnichar()
         {
-            var defaultValue = (Unichar)32;
+            var defaultValue = new Rune(' ');
 
             var param = TestParamSpec(GType.UInt, (name, nick, blurb, flags) =>
                                       new ParamSpecUnichar(name, nick, blurb, defaultValue, flags));

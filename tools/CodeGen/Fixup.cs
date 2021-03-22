@@ -1378,7 +1378,7 @@ namespace GISharp.CodeGen
             case "guintptr":
                 return "nuint";
             case "gunichar":
-                return "GISharp.Lib.GLib.Unichar";
+                return typeof(Rune).ToString();
             case "GType":
                 return "GISharp.Runtime.GType";
             case "filename":

@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='UnicharExtensions.maxDecompositionLength'>
+<member name='Unichar.maxDecompositionLength'>
 <summary>
 The maximum length (in codepoints) of a compatibility or canonical
 decomposition of a single Unicode character.
@@ -12,11 +12,11 @@ This is as defined by Unicode 6.1.
 </remarks>
 </member>
 
-<member name='UnicharExtensions.BreakType(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.BreakType(System.Text.Rune)'>
 <summary>
 Determines the break type of <paramref name="c"/>. <paramref name="c"/> should be a Unicode character
 (to derive a character from UTF-8 encoded text, use
-<see cref="Utf8.Characters"/>). The break type is used to find word and line
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>). The break type is used to find word and line
 breaks ("text boundaries"), Pango implements the Unicode boundary
 resolution algorithms and normally you would use a function such
 as pango_break() instead of caring about break types yourself.
@@ -29,7 +29,7 @@ the break type of <paramref name="c"/>
 </returns>
 </member>
 
-<member name='UnicharExtensions.CombiningClass(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.CombiningClass(System.Text.Rune)'>
 <summary>
 Determines the canonical combining class of a Unicode character.
 </summary>
@@ -41,7 +41,7 @@ the combining class of the character
 </returns>
 </member>
 
-<member name='UnicharExtensions.TryCompose(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.TryCompose(System.Text.Rune,System.Text.Rune,System.Text.Rune)'>
 <summary>
 Performs a single composition step of the
 Unicode canonical composition algorithm.
@@ -49,7 +49,7 @@ Unicode canonical composition algorithm.
 <remarks>
 <para>
 This function includes algorithmic Hangul Jamo composition,
-but it is not exactly the inverse of <see cref="UnicharExtensions.TryDecompose(GISharp.Lib.GLib.Unichar,out GISharp.Lib.GLib.Unichar,out GISharp.Lib.GLib.Unichar)"/>.
+but it is not exactly the inverse of <see cref="Unichar.TryDecompose(System.Text.Rune,out System.Text.Rune,out System.Text.Rune)"/>.
 No composition can have either of <paramref name="a"/> or <paramref name="b"/> equal to zero.
 To be precise, this function composes if and only if
 there exists a Primary Composite P which is canonically
@@ -79,7 +79,7 @@ return location for the composed character
 </returns>
 </member>
 
-<member name='UnicharExtensions.TryDecompose(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.TryDecompose(System.Text.Rune,System.Text.Rune,System.Text.Rune)'>
 <summary>
 Performs a single decomposition step of the
 Unicode canonical decomposition algorithm.
@@ -103,7 +103,7 @@ defined, it is guaranteed that <paramref name="b"/> would not decompose
 further, but <paramref name="a"/> may itself decompose.  To get the full
 canonical decomposition for <paramref name="ch"/>, one would need to
 recursively call this function on <paramref name="a"/>.  Or use
-<see cref="UnicharExtensions.FullyDecompose"/>.
+<see cref="Unichar.FullyDecompose(System.Text.Rune,bool,System.Span{uint})"/>.
 </para>
 <para>
 See
@@ -125,7 +125,7 @@ return location for the second component of <paramref name="ch"/>
 </returns>
 </member>
 
-<member name='UnicharExtensions.DigitValue(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.DigitValue(System.Text.Rune)'>
 <summary>
 Determines the numeric value of a character as a decimal
 digit.
@@ -135,11 +135,11 @@ a Unicode character
 </param>
 <returns>
 If <paramref name="c"/> is a decimal digit (according to
-<see cref="UnicharExtensions.IsDigit(GISharp.Lib.GLib.Unichar)"/>), its numeric value. Otherwise, -1.
+<see cref="Unichar.IsDigit(System.Text.Rune)"/>), its numeric value. Otherwise, -1.
 </returns>
 </member>
 
-<member name='UnicharExtensions.TryGetMirrorChar(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.TryGetMirrorChar(System.Text.Rune,System.Text.Rune)'>
 <summary>
 In Unicode, some characters are "mirrored". This means that their
 images are mirrored horizontally in text that is laid out from right
@@ -165,7 +165,7 @@ location to store the mirrored character
 </returns>
 </member>
 
-<member name='UnicharExtensions.GetScript(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.GetScript(System.Text.Rune)'>
 <summary>
 Looks up the <see cref="UnicodeScript"/> for a particular character (as defined
 by Unicode Standard Annex \#24). No check is made for <paramref name="ch"/> being a
@@ -186,11 +186,11 @@ the <see cref="UnicodeScript"/> for the character.
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsAlphaNumeric(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsAlphaNumeric(System.Text.Rune)'>
 <summary>
 Determines whether a character is alphanumeric.
 Given some UTF-8 text, obtain a character value
-with <see cref="Utf8.Characters"/>.
+with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -200,11 +200,11 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsAlpha(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsAlpha(System.Text.Rune)'>
 <summary>
 Determines whether a character is alphabetic (i.e. a letter).
 Given some UTF-8 text, obtain a character value with
-<see cref="Utf8.Characters"/>.
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -214,11 +214,11 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsControl(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsControl(System.Text.Rune)'>
 <summary>
 Determines whether a character is a control character.
 Given some UTF-8 text, obtain a character value with
-<see cref="Utf8.Characters"/>.
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -228,7 +228,7 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsDefined(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsDefined(System.Text.Rune)'>
 <summary>
 Determines if a given character is assigned in the Unicode
 standard.
@@ -241,11 +241,11 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsDigit(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsDigit(System.Text.Rune)'>
 <summary>
 Determines whether a character is numeric (i.e. a digit).  This
 covers ASCII 0-9 and also digits in other languages/scripts.  Given
-some UTF-8 text, obtain a character value with <see cref="Utf8.Characters"/>.
+some UTF-8 text, obtain a character value with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -255,13 +255,13 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsGraph(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsGraph(System.Text.Rune)'>
 <summary>
 Determines whether a character is printable and not a space
 (returns <c>false</c> for control characters, format characters, and
-spaces). <see cref="UnicharExtensions.IsPrintable(GISharp.Lib.GLib.Unichar)"/> is similar, but returns <c>true</c> for
+spaces). <see cref="Unichar.IsPrintable(System.Text.Rune)"/> is similar, but returns <c>true</c> for
 spaces. Given some UTF-8 text, obtain a character value with
-<see cref="Utf8.Characters"/>.
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -271,11 +271,11 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsLower(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsLower(System.Text.Rune)'>
 <summary>
 Determines whether a character is a lowercase letter.
 Given some UTF-8 text, obtain a character value with
-<see cref="Utf8.Characters"/>.
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -285,12 +285,12 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsMark(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsMark(System.Text.Rune)'>
 <summary>
 Determines whether a character is a mark (non-spacing mark,
 combining mark, or enclosing mark in Unicode speak).
 Given some UTF-8 text, obtain a character value
-with <see cref="Utf8.Characters"/>.
+with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
 <para>
@@ -308,12 +308,12 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsPrintable(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsPrintable(System.Text.Rune)'>
 <summary>
 Determines whether a character is printable.
-Unlike <see cref="UnicharExtensions.IsGraph(GISharp.Lib.GLib.Unichar)"/>, returns <c>true</c> for spaces.
+Unlike <see cref="Unichar.IsGraph(System.Text.Rune)"/>, returns <c>true</c> for spaces.
 Given some UTF-8 text, obtain a character value with
-<see cref="Utf8.Characters"/>.
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -323,11 +323,11 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsPunctuation(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsPunctuation(System.Text.Rune)'>
 <summary>
 Determines whether a character is punctuation or a symbol.
 Given some UTF-8 text, obtain a character value with
-<see cref="Utf8.Characters"/>.
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -337,11 +337,11 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsSpace(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsSpace(System.Text.Rune)'>
 <summary>
 Determines whether a character is a space, tab, or line separator
 (newline, carriage return, etc.).  Given some UTF-8 text, obtain a
-character value with <see cref="Utf8.Characters"/>.
+character value with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
 <para>
@@ -358,7 +358,7 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsTitle(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsTitle(System.Text.Rune)'>
 <summary>
 Determines if a character is titlecase. Some characters in
 Unicode which are composites, such as the DZ digraph
@@ -375,7 +375,7 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsUpper(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsUpper(System.Text.Rune)'>
 <summary>
 Determines if a character is uppercase.
 </summary>
@@ -387,7 +387,7 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsWide(System.Text.Rune)'>
 <summary>
 Determines if a character is typically rendered in a double-width
 cell.
@@ -400,20 +400,20 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsWideCjk(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsWideCjk(System.Text.Rune)'>
 <summary>
 Determines if a character is typically rendered in a double-width
 cell under legacy East Asian locales.  If a character is wide according to
-<see cref="UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)"/>, then it is also reported wide with this function, but
+<see cref="Unichar.IsWide(System.Text.Rune)"/>, then it is also reported wide with this function, but
 the converse is not necessarily true. See the
 [Unicode Standard Annex #11](http://www.unicode.org/reports/tr11/)
 for details.
 </summary>
 <remarks>
 <para>
-If a character passes the <see cref="UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)"/> test then it will also pass
+If a character passes the <see cref="Unichar.IsWide(System.Text.Rune)"/> test then it will also pass
 this test, but not the other way around.  Note that some characters may
-pass both this test and <see cref="UnicharExtensions.IsZeroWidth(GISharp.Lib.GLib.Unichar)"/>.
+pass both this test and <see cref="Unichar.IsZeroWidth(System.Text.Rune)"/>.
 </para>
 </remarks>
 <param name="c">
@@ -424,7 +424,7 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsHexDigit(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsHexDigit(System.Text.Rune)'>
 <summary>
 Determines if a character is a hexadecimal digit.
 </summary>
@@ -436,7 +436,7 @@ a Unicode character.
 </returns>
 </member>
 
-<member name='UnicharExtensions.IsZeroWidth(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.IsZeroWidth(System.Text.Rune)'>
 <summary>
 Determines if a given character typically takes zero width when rendered.
 The return value is <c>true</c> for all non-spacing and enclosing marks
@@ -445,8 +445,8 @@ space, but not U+00AD SOFT HYPHEN.
 </summary>
 <remarks>
 <para>
-A typical use of this function is with one of <see cref="UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)"/> or
-<see cref="UnicharExtensions.IsWideCjk(GISharp.Lib.GLib.Unichar)"/> to determine the number of cells a string occupies
+A typical use of this function is with one of <see cref="Unichar.IsWide(System.Text.Rune)"/> or
+<see cref="Unichar.IsWideCjk(System.Text.Rune)"/> to determine the number of cells a string occupies
 when displayed on a grid display (terminals).  However, note that not all
 terminals support zero-width rendering of zero-width marks.
 </para>
@@ -459,7 +459,7 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.ToLower(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.ToLower(System.Text.Rune)'>
 <summary>
 Converts a character to lower case.
 </summary>
@@ -473,7 +473,7 @@ the result of converting <paramref name="c"/> to lower case.
 </returns>
 </member>
 
-<member name='UnicharExtensions.ToTitle(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.ToTitle(System.Text.Rune)'>
 <summary>
 Converts a character to the titlecase.
 </summary>
@@ -487,7 +487,7 @@ the result of converting <paramref name="c"/> to titlecase.
 </returns>
 </member>
 
-<member name='UnicharExtensions.ToUpper(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.ToUpper(System.Text.Rune)'>
 <summary>
 Converts a character to uppercase.
 </summary>
@@ -501,7 +501,7 @@ the result of converting <paramref name="c"/> to uppercase.
 </returns>
 </member>
 
-<member name='UnicharExtensions.Type(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.Type(System.Text.Rune)'>
 <summary>
 Classifies a Unicode character by type.
 </summary>
@@ -513,7 +513,7 @@ the type of the character.
 </returns>
 </member>
 
-<member name='UnicharExtensions.Validate(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.Validate(System.Text.Rune)'>
 <summary>
 Checks whether <paramref name="ch"/> is a valid Unicode character. Some possible
 integer values of <paramref name="ch"/> will not be valid. 0 is considered a valid
@@ -527,7 +527,7 @@ a Unicode character
 </returns>
 </member>
 
-<member name='UnicharExtensions.HexDigitValue(GISharp.Lib.GLib.Unichar)'>
+<member name='Unichar.HexDigitValue(System.Text.Rune)'>
 <summary>
 Determines the numeric value of a character as a hexadecimal
 digit.
@@ -537,32 +537,11 @@ a Unicode character
 </param>
 <returns>
 If <paramref name="c"/> is a hex digit (according to
-<see cref="UnicharExtensions.IsHexDigit(GISharp.Lib.GLib.Unichar)"/>), its numeric value. Otherwise, -1.
+<see cref="Unichar.IsHexDigit(System.Text.Rune)"/>), its numeric value. Otherwise, -1.
 </returns>
 </member>
 
-<member name='UnicharExtensions.FullyDecompose(GISharp.Lib.GLib.Unichar,System.Boolean)'>
-<summary>
-Computes the canonical or compatibility decomposition of a
-Unicode character.  For compatibility decomposition,
-pass <c>true</c> for <paramref name="compat"/>; for canonical decomposition
-pass <c>false</c> for <paramref name="compat"/>;.
-</summary>
-<param name="ch">
-a Unicode character.
-</param>
-<param name="compat">
-whether perform canonical or compatibility decomposition
-</param>
-<returns>
-the decomposed result
-</returns>
-</member>
-
-<member name='UnicharExtensions'>
-<summary>
-Extension methods for <see cref="Unichar"/>.
-</summary>
+<member name='Unichar'>
 </member>
 
 </declaration>

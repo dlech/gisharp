@@ -235,9 +235,9 @@ namespace GISharp.Lib.GLib
         /// the resulting character
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GLib.Unichar g_utf8_get_char(
+        private static extern uint g_utf8_get_char(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* p);
@@ -269,9 +269,9 @@ namespace GISharp.Lib.GLib
         ///     Unicode character, returns (gunichar)-1.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GLib.Unichar g_utf8_get_char_validated(
+        private static extern uint g_utf8_get_char_validated(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* p,
@@ -497,9 +497,9 @@ namespace GISharp.Lib.GLib
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len,
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
+        uint c);
 
         /// <summary>
         /// Converts all Unicode characters in the string that have a case
@@ -624,9 +624,9 @@ namespace GISharp.Lib.GLib
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len,
-        /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
+        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.Unichar c);
+        uint c);
 
         /// <summary>
         /// Reverses a UTF-8 string. @str must be valid UTF-8 encoded text.
@@ -778,9 +778,9 @@ namespace GISharp.Lib.GLib
         ///     %NULL will be returned and @error set.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar*" managed-name="GISharp.Lib.GLib.Unichar" is-pointer="1" /> */
+        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GLib.Unichar* g_utf8_to_ucs4(
+        private static extern uint* g_utf8_to_ucs4(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* str,
@@ -820,9 +820,9 @@ namespace GISharp.Lib.GLib
         ///     This value must be freed with g_free().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar*" managed-name="GISharp.Lib.GLib.Unichar" is-pointer="1" /> */
+        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern GISharp.Lib.GLib.Unichar* g_utf8_to_ucs4_fast(
+        private static extern uint* g_utf8_to_ucs4_fast(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* str,

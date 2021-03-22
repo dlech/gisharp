@@ -322,6 +322,10 @@ namespace GISharp.CodeGen.Syntax
                 else if (arg.Type.GirName == "gboolean") {
                     expressions.Add(ParseExpression($"{@var}{unmanagedName} = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.ToBoolean)}({arg.ManagedName})"));
                 }
+                else if (arg.Type.GirName == "gunichar") {
+                    // System.Text.Rune doesn't have cast from Rune operators
+                    expressions.Add(ParseExpression($"{@var}{unmanagedName} = {unmanagedCast}{arg.ManagedName}.Value"));
+                }
                 else {
                     expressions.Add(ParseExpression($"{@var}{unmanagedName} = {unmanagedCast}{arg.ManagedName}"));
                 }

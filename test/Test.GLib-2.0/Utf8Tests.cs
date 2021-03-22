@@ -16,13 +16,13 @@ namespace GISharp.Test.GLib
     {
         const string testString = "test-string-with-ůŋįçøđê-😀";
         readonly byte[] testStringBytes = Encoding.UTF8.GetBytes(testString);
-        readonly int[] testStringCodePoints = GetCodePoints(testString).ToArray();
+        readonly Rune[] testStringCodePoints = GetCodePoints(testString).ToArray();
         readonly Utf8 testUtf8 = new(testString);
 
-        static IEnumerable<int> GetCodePoints(string str)
+        static IEnumerable<Rune> GetCodePoints(string str)
         {
             for (var i = 0; i < str.Length; i += char.IsSurrogatePair(str, i) ? 2 : 1) {
-                yield return char.ConvertToUtf32(str, i);
+                yield return new Rune(char.ConvertToUtf32(str, i));
             }
         }
 

@@ -2,7 +2,7 @@
 
 <member name='UnicodeScript.InvalidCode'>
 <summary>
-a value never returned from <see cref="UnicharExtensions.GetScript(GISharp.Lib.GLib.Unichar)"/>
+a value never returned from <see cref="Unichar.GetScript(System.Text.Rune)"/>
 </summary>
 </member>
 

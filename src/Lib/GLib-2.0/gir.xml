@@ -25310,7 +25310,7 @@ have a default priority of %G_PRIORITY_DEFAULT.</doc>
         <gs:managed-parameters />
       </function>
     </gs:static-class>
-    <gs:static-class name="UnicharExtensions" gs:managed-name="UnicharExtensions">
+    <gs:static-class name="Unichar" gs:managed-name="Unichar">
       <constant name="MAX_DECOMPOSITION_LENGTH" value="18" c:type="G_UNICHAR_MAX_DECOMPOSITION_LENGTH" version="2.32" gs:access-modifiers="private" gs:managed-name="maxDecompositionLength">
         <doc xml:space="preserve" filename="gunicode.h" line="729">The maximum length (in codepoints) of a compatibility or canonical
 decomposition of a single Unicode character.
@@ -25334,13 +25334,13 @@ as pango_break() instead of caring about break types yourself.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35139">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35139">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25354,13 +25354,13 @@ as pango_break() instead of caring about break types yourself.</doc>
         <parameters>
           <instance-parameter name="uc" transfer-ownership="none" gs:managed-name="uc" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35154">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="uc" transfer-ownership="none" gs:managed-name="uc" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35154">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25389,29 +25389,29 @@ for details.</doc>
         <parameters>
           <instance-parameter name="a" transfer-ownership="none" gs:managed-name="a" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35165">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="b" transfer-ownership="none" gs:managed-name="b" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35166">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </parameter>
           <parameter name="ch" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="ch">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35167">return location for the composed character</doc>
-            <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="a" transfer-ownership="none" gs:managed-name="a" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35165">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="b" transfer-ownership="none" gs:managed-name="b" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35166">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </parameter>
           <parameter name="ch" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="ch">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35167">return location for the composed character</doc>
-            <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -25447,29 +25447,29 @@ for details.</doc>
         <parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35193">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="a" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="a">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35194">return location for the first component of @ch</doc>
-            <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" />
           </parameter>
           <parameter name="b" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="b">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35195">return location for the second component of @ch</doc>
-            <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35193">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="a" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="a">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35194">return location for the first component of @ch</doc>
-            <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" />
           </parameter>
           <parameter name="b" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="b">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35195">return location for the second component of @ch</doc>
-            <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -25485,13 +25485,13 @@ g_unichar_isdigit()), its numeric value. Otherwise, -1.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35228">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35228">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25523,7 +25523,7 @@ for details.</doc>
         <parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35240">a Unicode character.</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="compat" transfer-ownership="none" gs:managed-name="compat" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35241">whether perform canonical or compatibility decomposition</doc>
@@ -25532,7 +25532,7 @@ for details.</doc>
           <parameter name="result" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="result">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35242">location to store decomposed result, or %NULL</doc>
             <array length="2" zero-terminated="0" c:type="gunichar*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
-              <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+              <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
             </array>
           </parameter>
           <parameter name="result_len" transfer-ownership="none" gs:managed-name="resultLen" direction="in">
@@ -25543,7 +25543,7 @@ for details.</doc>
         <gs:managed-parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35240">a Unicode character.</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="compat" transfer-ownership="none" gs:managed-name="compat" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35241">whether perform canonical or compatibility decomposition</doc>
@@ -25552,7 +25552,7 @@ for details.</doc>
           <parameter name="result" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="result">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35242">location to store decomposed result, or %NULL</doc>
             <array length="2" zero-terminated="0" c:type="gunichar*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
-              <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+              <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
             </array>
           </parameter>
         </gs:managed-parameters>
@@ -25575,21 +25575,21 @@ pointed to by @mirrored_ch.  Otherwise the original character is put.</doc>
         <parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35272">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="mirrored_ch" transfer-ownership="none" direction="out" gs:managed-name="mirroredCh">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35273">location to store the mirrored character</doc>
-            <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35272">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="mirrored_ch" transfer-ownership="none" direction="out" gs:managed-name="mirroredCh">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35273">location to store the mirrored character</doc>
-            <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -25609,13 +25609,13 @@ two are interchangeable.</doc>
         <parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35292">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35292">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25631,13 +25631,13 @@ with g_utf8_get_char().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35309">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35309">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25653,13 +25653,13 @@ g_utf8_get_char().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35321">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35321">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25675,13 +25675,13 @@ g_utf8_get_char().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35333">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35333">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25696,13 +25696,13 @@ standard.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35345">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35345">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25718,13 +25718,13 @@ some UTF-8 text, obtain a character value with g_utf8_get_char().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35356">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35356">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25742,13 +25742,13 @@ g_utf8_get_char().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35368">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35368">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25764,13 +25764,13 @@ g_utf8_get_char().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35382">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35382">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25792,13 +25792,13 @@ scripts.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35394">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35394">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25815,13 +25815,13 @@ g_utf8_get_char().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35413">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35413">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25837,13 +25837,13 @@ g_utf8_get_char().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35426">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35426">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25863,13 +25863,13 @@ is fairly complex.)</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35438">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35438">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25888,13 +25888,13 @@ digraph is U+01F2 LATIN CAPITAL LETTTER D WITH SMALL LETTER Z.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35454">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35454">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25908,13 +25908,13 @@ digraph is U+01F2 LATIN CAPITAL LETTTER D WITH SMALL LETTER Z.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35469">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35469">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25929,13 +25929,13 @@ cell.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35479">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35479">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25958,13 +25958,13 @@ pass both this test and g_unichar_iszerowidth().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35490">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35490">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -25978,13 +25978,13 @@ pass both this test and g_unichar_iszerowidth().</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35510">a Unicode character.</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35510">a Unicode character.</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -26006,13 +26006,13 @@ terminals support zero-width rendering of zero-width marks.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35520">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35520">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -26026,7 +26026,7 @@ terminals support zero-width rendering of zero-width marks.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35539">a Unicode character code</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="outbuf" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="outbuf">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35540">output buffer, must have at
@@ -26038,7 +26038,7 @@ terminals support zero-width rendering of zero-width marks.</doc>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35539">a Unicode character code</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
           <parameter name="outbuf" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="outbuf">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35540">output buffer, must have at
@@ -26055,18 +26055,18 @@ terminals support zero-width rendering of zero-width marks.</doc>
           <doc xml:space="preserve" filename="glib-2.0.c" line="35556">the result of converting @c to lower case.
               If @c is not an upperlower or titlecase character,
               or has no lowercase equivalent @c is returned unchanged.</doc>
-          <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+          <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
         </return-value>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35552">a Unicode character.</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35552">a Unicode character.</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -26077,18 +26077,18 @@ terminals support zero-width rendering of zero-width marks.</doc>
           <doc xml:space="preserve" filename="glib-2.0.c" line="35568">the result of converting @c to titlecase.
               If @c is not an uppercase or lowercase character,
               @c is returned unchanged.</doc>
-          <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+          <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
         </return-value>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35564">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35564">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -26099,18 +26099,18 @@ terminals support zero-width rendering of zero-width marks.</doc>
           <doc xml:space="preserve" filename="glib-2.0.c" line="35580">the result of converting @c to uppercase.
               If @c is not a lowercase or titlecase character,
               or has no upper case equivalent @c is returned unchanged.</doc>
-          <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+          <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
         </return-value>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35576">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35576">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -26124,13 +26124,13 @@ terminals support zero-width rendering of zero-width marks.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35588">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35588">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -26146,13 +26146,13 @@ character, though it's normally a string terminator.</doc>
         <parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35598">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="ch" transfer-ownership="none" gs:managed-name="ch" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35598">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -26168,13 +26168,13 @@ g_unichar_isxdigit()), its numeric value. Otherwise, -1.</doc>
         <parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35610">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters>
           <instance-parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="35610">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </instance-parameter>
         </gs:managed-parameters>
       </method>
@@ -27372,7 +27372,7 @@ instead.</doc>
         <source-position filename="gunicode.h" line="771" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="36924">the resulting character</doc>
-          <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+          <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
         </return-value>
         <parameters>
           <instance-parameter name="p" transfer-ownership="none" gs:managed-name="p" direction="in">
@@ -27403,7 +27403,7 @@ sequence are nul.</doc>
     character (or if @max_len is zero), returns (gunichar)-2;
     otherwise, if @p does not point to a valid UTF-8 encoded
     Unicode character, returns (gunichar)-1.</doc>
-          <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+          <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
         </return-value>
         <parameters>
           <instance-parameter name="p" transfer-ownership="none" gs:managed-name="p" direction="in">
@@ -27645,7 +27645,7 @@ If @len is -1, allow unbounded search.</doc>
           </parameter>
           <parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="37066">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
@@ -27659,7 +27659,7 @@ If @len is -1, allow unbounded search.</doc>
           </parameter>
           <parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="37066">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -27797,7 +27797,7 @@ If @len is -1, allow unbounded search.</doc>
           </parameter>
           <parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="37132">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
@@ -27811,7 +27811,7 @@ If @len is -1, allow unbounded search.</doc>
           </parameter>
           <parameter name="c" transfer-ownership="none" gs:managed-name="c" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="37132">a Unicode character</doc>
-            <type name="gunichar" c:type="gunichar" gs:managed-name="GISharp.Lib.GLib.Unichar" />
+            <type name="gunichar" c:type="gunichar" gs:managed-name="System.Text.Rune" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -27937,7 +27937,7 @@ string after the converted text.</doc>
           <doc xml:space="preserve" filename="glib-2.0.c" line="37222">a pointer to a newly allocated UCS-4 string.
     This value must be freed with g_free(). If an error occurs,
     %NULL will be returned and @error set.</doc>
-          <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" gs:is-pointer="1" />
+          <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="str" transfer-ownership="none" gs:managed-name="str" direction="in">
@@ -28006,7 +28006,7 @@ will be added to the string after the converted text.</doc>
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="37242">a pointer to a newly allocated UCS-4 string.
     This value must be freed with g_free().</doc>
-          <type name="gunichar" c:type="gunichar*" gs:managed-name="GISharp.Lib.GLib.Unichar" gs:is-pointer="1" />
+          <type name="gunichar" c:type="gunichar*" gs:managed-name="System.Text.Rune" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="str" transfer-ownership="none" gs:managed-name="str" direction="in">
