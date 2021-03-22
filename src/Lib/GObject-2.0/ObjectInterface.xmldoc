@@ -1,12 +1,10 @@
 <declaration>
 
-<member name='ObjectInterface.InterfaceFindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ObjectInterface.FindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Find the <see cref="ParamSpec"/> with the given name for an
 interface. Generally, the interface vtable passed in as <paramref name="gIface"/>
-will be the default vtable from g_type_default_interface_ref(), or,
-if you know the interface has already been loaded,
-g_type_default_interface_peek().
+will be the default vtable from <see cref="TypeDefaultInterface.TypeDefaultInterface(GISharp.Runtime.GType)"/>.
 </summary>
 <param name="gIface">
 any interface vtable for the
@@ -22,7 +20,7 @@ the <see cref="ParamSpec"/> for the property of the
 </returns>
 </member>
 
-<member name='ObjectInterface.InterfaceInstallProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GObject.ParamSpec)'>
+<member name='ObjectInterface.InstallProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GObject.ParamSpec)'>
 <summary>
 Add a property to an interface; this is only useful for interfaces
 that are added to GObject-derived types. Adding a property to an
@@ -55,12 +53,11 @@ the <see cref="ParamSpec"/> for the new property
 </param>
 </member>
 
-<member name='ObjectInterface.InterfaceListProperties(GISharp.Lib.GObject.TypeInterface)'>
+<member name='ObjectInterface.ListProperties(GISharp.Lib.GObject.TypeInterface)'>
 <summary>
 Lists the properties of an interface.Generally, the interface
 vtable passed in as <paramref name="gIface"/> will be the default vtable from
-g_type_default_interface_ref(), or, if you know the interface has
-already been loaded, g_type_default_interface_peek().
+<see cref="TypeDefaultInterface.TypeDefaultInterface(GISharp.Runtime.GType)"/>.
 </summary>
 <param name="gIface">
 any interface vtable for the

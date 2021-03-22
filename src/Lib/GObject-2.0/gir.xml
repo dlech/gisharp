@@ -10103,85 +10103,6 @@ The first approach is recommended, as the second approach can result in
 effective memory leaks of the user data if the signal handler is never
 disconnected for some reason.</doc>
     </docsection>
-    <function name="type_default_interface_peek" c:identifier="g_type_default_interface_peek" version="2.4" gs:dll-name="gobject-2.0" gs:managed-name="TypeDefaultInterfacePeek">
-      <doc xml:space="preserve" filename="gobject-2.0.c" line="5438">If the interface type @g_type is currently in use, returns its
-default interface vtable.</doc>
-      <source-position filename="gtype.h" line="731" />
-      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-        <doc xml:space="preserve" filename="gobject-2.0.c" line="5446">the default
-    vtable for the interface, or %NULL if the type is not currently
-    in use</doc>
-        <type name="TypeInterface" c:type="gpointer" gs:managed-name="TypeInterface" gs:is-pointer="1" />
-      </return-value>
-      <parameters>
-        <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
-          <doc xml:space="preserve" filename="gobject-2.0.c" line="5440">an interface type</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
-        </parameter>
-      </parameters>
-      <gs:managed-parameters>
-        <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
-          <doc xml:space="preserve" filename="gobject-2.0.c" line="5440">an interface type</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
-        </parameter>
-      </gs:managed-parameters>
-    </function>
-    <function name="type_default_interface_ref" c:identifier="g_type_default_interface_ref" version="2.4" gs:dll-name="gobject-2.0" gs:managed-name="TypeDefaultInterfaceRef">
-      <doc xml:space="preserve" filename="gobject-2.0.c" line="5452">Increments the reference count for the interface type @g_type,
-and returns the default interface vtable for the type.
-
-If the type is not currently in use, then the default vtable
-for the type will be created and initialized by calling
-the base interface init and default vtable init functions for
-the type (the @base_init and @class_init members of #GTypeInfo).
-Calling g_type_default_interface_ref() is useful when you
-want to make sure that signals and properties for an interface
-have been installed.</doc>
-      <source-position filename="gtype.h" line="729" />
-      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-        <doc xml:space="preserve" filename="gobject-2.0.c" line="5468">the default
-    vtable for the interface; call g_type_default_interface_unref()
-    when you are done using the interface.</doc>
-        <type name="TypeInterface" c:type="gpointer" gs:managed-name="TypeInterface" gs:is-pointer="1" />
-      </return-value>
-      <parameters>
-        <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
-          <doc xml:space="preserve" filename="gobject-2.0.c" line="5454">an interface type</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
-        </parameter>
-      </parameters>
-      <gs:managed-parameters>
-        <parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in">
-          <doc xml:space="preserve" filename="gobject-2.0.c" line="5454">an interface type</doc>
-          <type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" />
-        </parameter>
-      </gs:managed-parameters>
-    </function>
-    <function name="type_default_interface_unref" c:identifier="g_type_default_interface_unref" version="2.4" gs:dll-name="gobject-2.0" gs:managed-name="TypeDefaultInterfaceUnref">
-      <doc xml:space="preserve" filename="gobject-2.0.c" line="5474">Decrements the reference count for the type corresponding to the
-interface default vtable @g_iface. If the type is dynamic, then
-when no one is using the interface and all references have
-been released, the finalize function for the interface's default
-vtable (the @class_finalize member of #GTypeInfo) will be called.</doc>
-      <source-position filename="gtype.h" line="733" />
-      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-        <type name="none" c:type="void" gs:managed-name="System.Void" />
-      </return-value>
-      <parameters>
-        <parameter name="g_iface" transfer-ownership="none" gs:managed-name="gIface" direction="in">
-          <doc xml:space="preserve" filename="gobject-2.0.c" line="5476">the default vtable
-    structure for an interface, as returned by g_type_default_interface_ref()</doc>
-          <type name="TypeInterface" c:type="gpointer" gs:managed-name="TypeInterface" gs:is-pointer="1" />
-        </parameter>
-      </parameters>
-      <gs:managed-parameters>
-        <parameter name="g_iface" transfer-ownership="none" gs:managed-name="gIface" direction="in">
-          <doc xml:space="preserve" filename="gobject-2.0.c" line="5476">the default vtable
-    structure for an interface, as returned by g_type_default_interface_ref()</doc>
-          <type name="TypeInterface" c:type="gpointer" gs:managed-name="TypeInterface" gs:is-pointer="1" />
-        </parameter>
-      </gs:managed-parameters>
-    </function>
     <docsection name="value_arrays" gs:managed-name="ValueArrays">
       <doc xml:space="preserve" filename="gobject-2.0.c" line="779">The prime purpose of a #GValueArray is for it to be used as an
 object property that holds an array of values. A #GValueArray wraps
@@ -12185,6 +12106,28 @@ identified by @itype.</doc>
         </gs:managed-parameters>
       </function>
     </gs:static-class>
+    <alias name="TypeDefaultInterface" c:type="GTypeInterface" gs:custom-default-constructor="1" gs:custom-dispose="1" gs:managed-name="TypeDefaultInterface">
+  <type name="TypeInterface" c:type="GTypeInterface" gs:managed-name="TypeInterface" />
+<method name="peek" c:identifier="g_type_default_interface_peek" version="2.4" gs:pinvoke-only="1" gs:dll-name="gobject-2.0" gs:managed-name="Peek"><doc xml:space="preserve" filename="gobject-2.0.c" line="5438">If the interface type @g_type is currently in use, returns its
+default interface vtable.</doc><source-position filename="gtype.h" line="731" /><return-value transfer-ownership="none" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="gobject-2.0.c" line="5446">the default
+    vtable for the interface, or %NULL if the type is not currently
+    in use</doc><type name="TypeInterface" c:type="gpointer" gs:managed-name="TypeInterface" gs:is-pointer="1" /></return-value><parameters><instance-parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in"><doc xml:space="preserve" filename="gobject-2.0.c" line="5440">an interface type</doc><type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" /></instance-parameter></parameters><gs:managed-parameters /></method><constructor name="ref" c:identifier="g_type_default_interface_ref" version="2.4" gs:dll-name="gobject-2.0" gs:managed-name="Ref"><doc xml:space="preserve" filename="gobject-2.0.c" line="5452">Increments the reference count for the interface type @g_type,
+and returns the default interface vtable for the type.
+
+If the type is not currently in use, then the default vtable
+for the type will be created and initialized by calling
+the base interface init and default vtable init functions for
+the type (the @base_init and @class_init members of #GTypeInfo).
+Calling g_type_default_interface_ref() is useful when you
+want to make sure that signals and properties for an interface
+have been installed.</doc><source-position filename="gtype.h" line="729" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="gobject-2.0.c" line="5468">the default
+    vtable for the interface; call g_type_default_interface_unref()
+    when you are done using the interface.</doc><type name="TypeInterface" c:type="gpointer" gs:managed-name="TypeInterface" gs:is-pointer="1" /></return-value><parameters><parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in"><doc xml:space="preserve" filename="gobject-2.0.c" line="5454">an interface type</doc><type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" /></parameter></parameters><gs:managed-parameters><parameter name="g_type" transfer-ownership="none" gs:managed-name="gType" direction="in"><doc xml:space="preserve" filename="gobject-2.0.c" line="5454">an interface type</doc><type name="GType" c:type="GType" gs:managed-name="GISharp.Runtime.GType" /></parameter></gs:managed-parameters></constructor><method name="unref" c:identifier="g_type_default_interface_unref" version="2.4" gs:dll-name="gobject-2.0" gs:managed-name="Unref" gs:special-func="unref" gs:pinvoke-only="1"><doc xml:space="preserve" filename="gobject-2.0.c" line="5474">Decrements the reference count for the type corresponding to the
+interface default vtable @g_iface. If the type is dynamic, then
+when no one is using the interface and all references have
+been released, the finalize function for the interface's default
+vtable (the @class_finalize member of #GTypeInfo) will be called.</doc><source-position filename="gtype.h" line="733" /><return-value transfer-ownership="none" gs:managed-name="ret" direction="in"><type name="none" c:type="void" gs:managed-name="System.Void" /></return-value><parameters><instance-parameter name="g_iface" transfer-ownership="none" gs:managed-name="gIface" direction="in"><doc xml:space="preserve" filename="gobject-2.0.c" line="5476">the default vtable
+    structure for an interface, as returned by g_type_default_interface_ref()</doc><type name="TypeInterface" c:type="gpointer" gs:managed-name="TypeInterface" gs:is-pointer="1" /></instance-parameter></parameters><gs:managed-parameters /></method></alias>
     <gs:static-class name="TypeExtensions" gs:managed-name="TypeExtensions">
       <method name="add_class_private" c:identifier="g_type_add_class_private" version="2.24" gs:dll-name="gobject-2.0" gs:managed-name="AddClassPrivate" gs:extension-method="1">
         <doc xml:space="preserve" filename="gobject-2.0.c" line="5145">Registers a private class structure for a classed type;

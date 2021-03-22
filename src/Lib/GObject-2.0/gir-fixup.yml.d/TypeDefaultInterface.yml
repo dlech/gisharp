@@ -1,0 +1,53 @@
+
+### TypeDefaultInterface ###
+
+# create alias
+- !add-element
+  xml: |
+    <gi:alias name='TypeDefaultInterface' c:type='GTypeInterface'>
+      <type name='TypeInterface' c:type='GTypeInterface'/>
+    </gi:alias>
+  xpath: gi:repository/gi:namespace
+
+# move functions
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'type_default_interface_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='TypeDefaultInterface']
+- !change-attribute
+  name: name
+  regex: type_default_interface_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeDefaultInterface']/gi:function
+
+# make ref a constructor since it is non-standard
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeDefaultInterface']/gi:function[@name='ref']
+- !set-attribute
+  name: transfer-ownership
+  value: full
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeDefaultInterface']/gi:constructor/gi:return-value
+
+# every thing else is methods
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeDefaultInterface']/gi:function
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeDefaultInterface']/gi:method/gi:parameters/gi:parameter[1]
+
+# everything requires special handling
+- !set-attribute
+  name: gs:custom-default-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeDefaultInterface']
+- !set-attribute
+  name: gs:custom-dispose
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeDefaultInterface']
+
+# peeking is only for unmanaged code
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeDefaultInterface']/gi:method[@name='peek']

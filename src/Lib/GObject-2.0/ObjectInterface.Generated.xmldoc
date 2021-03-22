@@ -4,9 +4,9 @@
 <summary>
 Find the <see cref="ParamSpec"/> with the given name for an
 interface. Generally, the interface vtable passed in as <paramref name="gIface"/>
-will be the default vtable from g_type_default_interface_ref(), or,
+will be the default vtable from <see cref="TypeDefaultInterface.TypeDefaultInterface(GISharp.Runtime.GType)"/>, or,
 if you know the interface has already been loaded,
-g_type_default_interface_peek().
+<see cref="TypeDefaultInterface.Peek()"/>.
 </summary>
 <param name="gIface">
 any interface vtable for the
@@ -59,8 +59,8 @@ the <see cref="ParamSpec"/> for the new property
 <summary>
 Lists the properties of an interface.Generally, the interface
 vtable passed in as <paramref name="gIface"/> will be the default vtable from
-g_type_default_interface_ref(), or, if you know the interface has
-already been loaded, g_type_default_interface_peek().
+<see cref="TypeDefaultInterface.TypeDefaultInterface(GISharp.Runtime.GType)"/>, or, if you know the interface has
+already been loaded, <see cref="TypeDefaultInterface.Peek()"/>.
 </summary>
 <param name="gIface">
 any interface vtable for the

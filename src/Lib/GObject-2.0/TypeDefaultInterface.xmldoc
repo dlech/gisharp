@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='TypeDefaultInterface.TypeDefaultInterface(GISharp.Runtime.GType)'>
+<summary>
+Increments the reference count for the interface type <paramref name="gType"/>,
+and returns the default interface vtable for the type.
+</summary>
+<remarks>
+<para>
+If the type is not currently in use, then the default vtable
+for the type will be created and initialized by calling
+the base interface init and default vtable init functions for
+the type (the <c>baseInit</c> and <c>classInit</c> members of <see cref="TypeInfo"/>).
+Calling <see cref="TypeDefaultInterface.TypeDefaultInterface(GISharp.Runtime.GType)"/> is useful when you
+want to make sure that signals and properties for an interface
+have been installed.
+</para>
+</remarks>
+<param name="gType">
+an interface type
+</param>
+</member>
+
+<member name='TypeDefaultInterface'>
+</member>
+
+</declaration>
