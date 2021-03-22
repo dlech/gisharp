@@ -1,0 +1,8 @@
+
+### Binding ###
+
+# needs special handling since unbind releases reference
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Binding']/gi:method[@name='unbind']

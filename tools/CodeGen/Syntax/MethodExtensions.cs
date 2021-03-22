@@ -81,7 +81,7 @@ namespace GISharp.CodeGen.Syntax
                     yield return takeOverride;
                 }
 
-                if (method.IsUnref || method.IsFree) {
+                if ((method.IsUnref || method.IsFree) && !method.Ancestors.OfType<GIRegisteredType>().Single().IsCustomDispose) {
                     var disposeMethod = MethodDeclaration(PredefinedType(Token(VoidKeyword)), "Dispose")
                         .AddParameterListParameters(Parameter(Identifier("disposing"))
                             .WithType(PredefinedType(Token(BoolKeyword))))

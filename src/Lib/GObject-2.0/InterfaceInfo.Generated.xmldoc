@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='InterfaceInfo.InterfaceInit'>
+<member name='InterfaceInfo.interfaceInit'>
 <summary>
 location of the interface initialization function
 </summary>
 </member>
 
-<member name='InterfaceInfo.InterfaceFinalize'>
+<member name='InterfaceInfo.interfaceFinalize'>
 <summary>
 location of the interface finalization function
 </summary>
 </member>
 
-<member name='InterfaceInfo.InterfaceData'>
+<member name='InterfaceInfo.interfaceData'>
 <summary>
 user-supplied data passed to the interface init/finalize functions
 </summary>

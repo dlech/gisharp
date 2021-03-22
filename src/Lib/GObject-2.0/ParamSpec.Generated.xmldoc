@@ -26,7 +26,7 @@ the <see cref="Value"/> type for this parameter
 
 <member name='UnmanagedStruct.OwnerType'>
 <summary>
-<see cref="Type"/> type that uses (introduces) this parameter
+#GType type that uses (introduces) this parameter
 </summary>
 </member>
 
@@ -43,6 +43,30 @@ the <see cref="Value"/> type for this parameter
 </member>
 
 <member name='UnmanagedStruct.ParamId'>
+</member>
+
+<member name='ParamSpec.mask'>
+<summary>
+Mask containing the bits of <see cref="ParamSpec"/>.flags which are reserved for GLib.
+</summary>
+</member>
+
+<member name='ParamSpec.staticStrings'>
+<summary>
+<see cref="ParamFlags"/> value alias for <see cref="ParamFlags.StaticName"/> | <see cref="ParamFlags.StaticNick"/> | <see cref="ParamFlags.StaticBlurb"/>.
+</summary>
+<remarks>
+<para>
+Since 2.13.0
+</para>
+</remarks>
+</member>
+
+<member name='ParamSpec.userShift'>
+<summary>
+Minimum shift count to be used for user defined flags, to be stored in
+<see cref="ParamSpec"/>.flags. The maximum allowed is 10.
+</summary>
 </member>
 
 <member name='ParamSpec.Blurb'>
@@ -93,7 +117,7 @@ returns that paramspec. Redirect is used typically for
 providing a new implementation of a property in a derived
 type while preserving all the properties from the parent
 type. Redirection is established by creating a property
-of type #GParamSpecOverride. See <see cref="ObjectClass.OverrideProperty(uint,GISharp.Lib.GLib.UnownedUtf8)"/>
+of type <see cref="ParamSpecOverride"/>. See <see cref="ObjectClass.OverrideProperty(uint,GISharp.Lib.GLib.UnownedUtf8)"/>
 for an example of the use of this capability.
 </summary>
 </member>
@@ -145,33 +169,6 @@ a #GQuark, naming the user data pointer
 <param name="data">
 an opaque user data pointer
 </param>
-</member>
-
-<member name='ParamSpec.Sink()'>
-<summary>
-The initial reference count of a newly created <see cref="ParamSpec"/> is 1,
-even though no one has explicitly called g_param_spec_ref() on it
-yet. So the initial reference count is flagged as "floating", until
-someone calls `g_param_spec_ref (pspec); g_param_spec_sink
-(pspec);` in sequence on it, taking over the initial
-reference count (thus ending up with a this instance that has a reference
-count of 1 still, but is not flagged "floating" anymore).
-</summary>
-</member>
-
-<member name='ParamSpec.StealQdata(GISharp.Lib.GLib.Quark)'>
-<summary>
-Gets back user data pointers stored via <see cref="ParamSpec.SetQdata(GISharp.Lib.GLib.Quark,System.IntPtr)"/>
-and removes the <c>data</c> from this instance without invoking its destroy()
-function (if any was set).  Usually, calling this function is only
-required to update user data pointers with a destroy notifier.
-</summary>
-<param name="quark">
-a #GQuark, naming the user data pointer
-</param>
-<returns>
-the user data pointer set, or <c>null</c>
-</returns>
 </member>
 
 <member name='ParamSpec.DoFinalize()'>

@@ -27,12 +27,22 @@ namespace GISharp.CodeGen.Syntax
                     .WithLeadingTrivia(TriviaList(x.GetGirXmlTrivia(), EndOfLine("\n"),
                         x.GetAnnotationTrivia(), EndOfLine("\n"))))));
 
+            var modifiers = TokenList();
+            if (function.PinvokeAccessModifiers is string m) {
+                modifiers = modifiers.AddRange(ParseTokens(m));
+            }
+            else {
+                modifiers = modifiers.Add(Token(PrivateKeyword));
+            }
+            modifiers = modifiers.Add(Token(StaticKeyword)).Add(Token(ExternKeyword));
+
+            // adding girTrivia here makes it appear before the method declaration
+            // but after the attribute lists
+            modifiers = modifiers.Replace(modifiers.First(), modifiers.First().WithLeadingTrivia(girTrivia));
+
             var returnType = ParseTypeName(function.ReturnValue.Type.GetUnmanagedType());
             var syntax = MethodDeclaration(returnType, function.CIdentifier)
-                // adding girTrivia here makes it appear before the method declaration
-                // but after the attribute lists
-                .AddModifiers(Token(PrivateKeyword).WithLeadingTrivia(girTrivia),
-                    Token(StaticKeyword), Token(ExternKeyword))
+                .WithModifiers(modifiers)
                 .WithAttributeLists(function.GetCommonAttributeLists())
                 .AddAttributeLists(function.GetDllImportAttributeList())
                 .WithParameterList(parameterList)

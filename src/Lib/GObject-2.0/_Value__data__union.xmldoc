@@ -1,33 +1,33 @@
 <declaration>
 
-<member name='ValueDataUnion.VInt'>
+<member name='_Value__data__union.vInt'>
 </member>
 
-<member name='ValueDataUnion.VUint'>
+<member name='_Value__data__union.vUint'>
 </member>
 
-<member name='ValueDataUnion.VLong'>
+<member name='_Value__data__union.vLong'>
 </member>
 
-<member name='ValueDataUnion.VUlong'>
+<member name='_Value__data__union.vUlong'>
 </member>
 
-<member name='ValueDataUnion.VInt64'>
+<member name='_Value__data__union.vInt64'>
 </member>
 
-<member name='ValueDataUnion.VUint64'>
+<member name='_Value__data__union.vUint64'>
 </member>
 
-<member name='ValueDataUnion.VFloat'>
+<member name='_Value__data__union.vFloat'>
 </member>
 
-<member name='ValueDataUnion.VDouble'>
+<member name='_Value__data__union.vDouble'>
 </member>
 
-<member name='ValueDataUnion.VPointer'>
+<member name='_Value__data__union.vPointer'>
 </member>
 
-<member name='ValueDataUnion'>
+<member name='_Value__data__union'>
 </member>
 
 </declaration>

@@ -1,21 +1,21 @@
 <declaration>
 
-<member name='TypePluginClass.BaseIface'>
+<member name='TypePluginClass.baseIface'>
 </member>
 
-<member name='TypePluginClass.UsePlugin'>
+<member name='TypePluginClass.usePlugin'>
 <summary>
 Increases the use count of the plugin.
 </summary>
 </member>
 
-<member name='TypePluginClass.UnusePlugin'>
+<member name='TypePluginClass.unusePlugin'>
 <summary>
 Decreases the use count of the plugin.
 </summary>
 </member>
 
-<member name='TypePluginClass.CompleteTypeInfo'>
+<member name='TypePluginClass.completeTypeInfo'>
 <summary>
 Fills in the <see cref="TypeInfo"/> and
  <see cref="TypeValueTable"/> structs for the type. The structs are initialized
@@ -23,7 +23,7 @@ Fills in the <see cref="TypeInfo"/> and
 </summary>
 </member>
 
-<member name='TypePluginClass.CompleteInterfaceInfo'>
+<member name='TypePluginClass.completeInterfaceInfo'>
 <summary>
 Fills in missing parts of the <see cref="InterfaceInfo"/>
  for the interface. The structs is initialized with

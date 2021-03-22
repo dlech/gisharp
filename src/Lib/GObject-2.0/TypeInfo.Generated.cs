@@ -6,36 +6,36 @@ namespace GISharp.Lib.GObject
     /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo']/*" />
     public unsafe partial struct TypeInfo
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ClassSize']/*" />
-        public readonly ushort ClassSize;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.classSize']/*" />
+        private readonly ushort classSize;
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.BaseInit']/*" />
-        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, void> BaseInit;
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.baseInit']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, void> baseInit;
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.BaseFinalize']/*" />
-        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, void> BaseFinalize;
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.baseFinalize']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, void> baseFinalize;
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ClassInit']/*" />
-        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, System.IntPtr, void> ClassInit;
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.classInit']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, System.IntPtr, void> classInit;
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ClassFinalize']/*" />
-        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, System.IntPtr, void> ClassFinalize;
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.classFinalize']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, System.IntPtr, void> classFinalize;
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ClassData']/*" />
-        public readonly System.IntPtr ClassData;
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.classData']/*" />
+        private readonly System.IntPtr classData;
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.InstanceSize']/*" />
-        public readonly ushort InstanceSize;
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.instanceSize']/*" />
+        private readonly ushort instanceSize;
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.NPreallocs']/*" />
-        public readonly ushort NPreallocs;
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.nPreallocs']/*" />
+        private readonly ushort nPreallocs;
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.InstanceInit']/*" />
-        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*, GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, void> InstanceInit;
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.instanceInit']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*, GISharp.Lib.GObject.TypeClass.UnmanagedStruct*, void> instanceInit;
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ValueTable']/*" />
-        public readonly GISharp.Lib.GObject.TypeValueTable* ValueTable;
-#pragma warning restore CS0169, CS0649
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.valueTable']/*" />
+        private readonly GISharp.Lib.GObject.TypeValueTable* valueTable;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

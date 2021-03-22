@@ -6,30 +6,30 @@ namespace GISharp.Lib.GObject
     /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable']/*" />
     public unsafe partial struct TypeValueTable
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.ValueInit']/*" />
-        public readonly System.IntPtr ValueInit;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.valueInit']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Value*, void> valueInit;
 
-        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.ValueFree']/*" />
-        public readonly System.IntPtr ValueFree;
+        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.valueFree']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Value*, void> valueFree;
 
-        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.ValueCopy']/*" />
-        public readonly System.IntPtr ValueCopy;
+        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.valueCopy']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Value*, GISharp.Lib.GObject.Value*, void> valueCopy;
 
-        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.ValuePeekPointer']/*" />
-        public readonly System.IntPtr ValuePeekPointer;
+        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.valuePeekPointer']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Value*, System.IntPtr> valuePeekPointer;
 
-        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.CollectFormat']/*" />
-        public readonly byte* CollectFormat;
+        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.collectFormat']/*" />
+        private readonly byte* collectFormat;
 
-        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.CollectValue']/*" />
-        public readonly System.IntPtr CollectValue;
+        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.collectValue']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Value*, uint, GISharp.Lib.GObject.TypeCValue*, uint, byte*> collectValue;
 
-        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.LcopyFormat']/*" />
-        public readonly byte* LcopyFormat;
+        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.lcopyFormat']/*" />
+        private readonly byte* lcopyFormat;
 
-        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.LcopyValue']/*" />
-        public readonly System.IntPtr LcopyValue;
-#pragma warning restore CS0169, CS0649
+        /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.lcopyValue']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Value*, uint, GISharp.Lib.GObject.TypeCValue*, uint, byte*> lcopyValue;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

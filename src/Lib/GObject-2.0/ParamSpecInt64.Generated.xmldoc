@@ -1,0 +1,65 @@
+<declaration>
+
+<member name='UnmanagedStruct.ParentInstance'>
+<summary>
+private <see cref="ParamSpec"/> portion
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Minimum'>
+<summary>
+minimum value for the property specified
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Maximum'>
+<summary>
+maximum value for the property specified
+</summary>
+</member>
+
+<member name='UnmanagedStruct.DefaultValue'>
+<summary>
+default value for the property specified
+</summary>
+</member>
+
+<member name='ParamSpecInt64.ParamSpecInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,long,long,long,GISharp.Lib.GObject.ParamFlags)'>
+<summary>
+Creates a new <see cref="ParamSpecInt64"/> instance specifying a %G_TYPE_INT64 property.
+</summary>
+<remarks>
+<para>
+See g_param_spec_internal() for details on property names.
+</para>
+</remarks>
+<param name="name">
+canonical name of the property specified
+</param>
+<param name="nick">
+nick name for the property specified
+</param>
+<param name="blurb">
+description of the property specified
+</param>
+<param name="minimum">
+minimum value for the property specified
+</param>
+<param name="maximum">
+maximum value for the property specified
+</param>
+<param name="defaultValue">
+default value for the property specified
+</param>
+<param name="flags">
+flags for the property specified
+</param>
+</member>
+
+<member name='ParamSpecInt64'>
+<summary>
+A <see cref="ParamSpec"/> derived structure that contains the meta data for 64bit integer properties.
+</summary>
+</member>
+
+</declaration>

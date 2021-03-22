@@ -1,0 +1,82 @@
+<declaration>
+
+<member name='UnmanagedStruct.ParentInstance'>
+<summary>
+private <see cref="ParamSpec"/> portion
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Type'>
+<summary>
+a #GVariantType, or <c>null</c>
+</summary>
+</member>
+
+<member name='UnmanagedStruct.DefaultValue'>
+<summary>
+a #GVariant, or <c>null</c>
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Padding0'>
+</member>
+
+<member name='UnmanagedStruct.Padding1'>
+</member>
+
+<member name='UnmanagedStruct.Padding2'>
+</member>
+
+<member name='UnmanagedStruct.Padding3'>
+</member>
+
+<member name='ParamSpecVariant.ParamSpecVariant(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant?,GISharp.Lib.GObject.ParamFlags)'>
+<summary>
+Creates a new <see cref="ParamSpecVariant"/> instance specifying a #GVariant
+property.
+</summary>
+<remarks>
+<para>
+If <paramref name="defaultValue"/> is floating, it is consumed.
+</para>
+<para>
+See g_param_spec_internal() for details on property names.
+</para>
+</remarks>
+<param name="name">
+canonical name of the property specified
+</param>
+<param name="nick">
+nick name for the property specified
+</param>
+<param name="blurb">
+description of the property specified
+</param>
+<param name="type">
+a #GVariantType
+</param>
+<param name="defaultValue">
+a #GVariant of type <paramref name="type"/> to
+                use as the default value, or <c>null</c>
+</param>
+<param name="flags">
+flags for the property specified
+</param>
+</member>
+
+<member name='ParamSpecVariant'>
+<summary>
+A <see cref="ParamSpec"/> derived structure that contains the meta data for #GVariant properties.
+</summary>
+<remarks>
+<para>
+When comparing values with g_param_values_cmp(), scalar values with the same
+type will be compared with g_variant_compare(). Other non-<c>null</c> variants will
+be checked for equality with g_variant_equal(), and their sort order is
+otherwise undefined. <c>null</c> is ordered before non-<c>null</c> variants. Two <c>null</c>
+values compare equal.
+</para>
+</remarks>
+</member>
+
+</declaration>

@@ -8,12 +8,12 @@ namespace GISharp.Lib.GObject
     [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
     public unsafe partial struct Parameter
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="Parameter.xmldoc" path="declaration/member[@name='Parameter.Name']/*" />
-        public readonly byte* Name;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="Parameter.xmldoc" path="declaration/member[@name='Parameter.name']/*" />
+        private readonly byte* name;
 
-        /// <include file="Parameter.xmldoc" path="declaration/member[@name='Parameter.Value']/*" />
-        public readonly GISharp.Lib.GObject.Value Value;
-#pragma warning restore CS0169, CS0649
+        /// <include file="Parameter.xmldoc" path="declaration/member[@name='Parameter.value']/*" />
+        private readonly GISharp.Lib.GObject.Value value;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

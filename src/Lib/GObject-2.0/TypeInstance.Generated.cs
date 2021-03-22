@@ -4,17 +4,17 @@
 namespace GISharp.Lib.GObject
 {
     /// <include file="TypeInstance.xmldoc" path="declaration/member[@name='TypeInstance']/*" />
-    public sealed unsafe partial class TypeInstance : GISharp.Runtime.Opaque
+    public abstract unsafe partial class TypeInstance : GISharp.Runtime.Opaque
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
         public struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="TypeInstance.xmldoc" path="declaration/member[@name='UnmanagedStruct.GClass']/*" />
-            private readonly GISharp.Lib.GObject.TypeClass.UnmanagedStruct* GClass;
-#pragma warning restore CS0169, CS0649
+            internal readonly GISharp.Lib.GObject.TypeClass.UnmanagedStruct* GClass;
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         /// <summary>

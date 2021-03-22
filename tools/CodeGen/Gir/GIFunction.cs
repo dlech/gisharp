@@ -20,6 +20,11 @@ namespace GISharp.CodeGen.Gir
         public bool IsPInvokeOnly { get; }
 
         /// <summary>
+        /// Custom access modifiers for PInvoke method, if any.
+        /// </summary>
+        public string PinvokeAccessModifiers { get; }
+
+        /// <summary>
         /// Gets the dll name to use for PInvoke
         /// </summary>
         public string DllName { get; }
@@ -34,6 +39,7 @@ namespace GISharp.CodeGen.Gir
         {
             CIdentifier = Element.Attribute(c + "identifier").AsString();
             IsPInvokeOnly = Element.Attribute(gs + "pinvoke-only").AsBool();
+            PinvokeAccessModifiers = element.Attribute(gs + "pinvoke-access-modifiers").AsString();
             DllName = Element.Attribute(gs + "dll-name").AsString();
             ManagedPropertyName = Element.Attribute(gs + "property").AsString();
         }

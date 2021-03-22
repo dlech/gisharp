@@ -28,7 +28,7 @@ Inserts a <see cref="ParamSpec"/> in the pool.
 the <see cref="ParamSpec"/> to insert
 </param>
 <param name="ownerType">
-a <see cref="Type"/> identifying the owner of <paramref name="pspec"/>
+a #GType identifying the owner of <paramref name="pspec"/>
 </param>
 </member>
 

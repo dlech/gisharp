@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup']/*" />
     [GISharp.Runtime.GTypeAttribute("GActionGroup", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionGroupInterface))]
-    public unsafe partial interface IActionGroup : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IActionGroup : GISharp.Lib.GObject.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Runtime.GType _GType = g_action_group_get_type();
 

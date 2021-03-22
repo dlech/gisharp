@@ -370,7 +370,7 @@ namespace GISharp.Runtime
             }
 
             var type = handler.GetType();
-            var declaringType = type.DeclaringType ?? throw new ArgumentException($"expecting {type} to be nested");
+            var declaringType = type.DeclaringType ?? throw new ArgumentException($"expecting signal handler delegate '{type}' to be a nested type");
 
             var managedCallback = declaringType.GetMethod($"Managed{type.Name}", BindingFlags.Static | BindingFlags.NonPublic) ??
                 throw new ArgumentException($"missing Managed{type.Name} in {type.DeclaringType}");

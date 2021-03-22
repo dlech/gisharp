@@ -318,238 +318,238 @@ a boolean that indicates whether the <see cref="IFile"/> implementation supports
 <member name='UnmanagedStruct.MeasureDiskUsageFinish'>
 </member>
 
-<member name='Dup'>
+<member name='_Dup'>
 </member>
 
-<member name='Hash'>
+<member name='_Hash'>
 </member>
 
-<member name='Equal'>
+<member name='_Equal'>
 </member>
 
-<member name='IsNative'>
+<member name='_IsNative'>
 </member>
 
-<member name='HasUriScheme'>
+<member name='_HasUriScheme'>
 </member>
 
-<member name='GetUriScheme'>
+<member name='_GetUriScheme'>
 </member>
 
-<member name='GetBasename'>
+<member name='_GetBasename'>
 </member>
 
-<member name='GetPath'>
+<member name='_GetPath'>
 </member>
 
-<member name='GetUri'>
+<member name='_GetUri'>
 </member>
 
-<member name='GetParseName'>
+<member name='_GetParseName'>
 </member>
 
-<member name='GetParent'>
+<member name='_GetParent'>
 </member>
 
-<member name='PrefixMatches'>
+<member name='_PrefixMatches'>
 </member>
 
-<member name='GetRelativePath'>
+<member name='_GetRelativePath'>
 </member>
 
-<member name='ResolveRelativePath'>
+<member name='_ResolveRelativePath'>
 </member>
 
-<member name='GetChildForDisplayName'>
+<member name='_GetChildForDisplayName'>
 </member>
 
-<member name='EnumerateChildrenAsync'>
+<member name='_EnumerateChildrenAsync'>
 </member>
 
-<member name='QueryInfo'>
+<member name='_QueryInfo'>
 </member>
 
-<member name='QueryInfoAsync'>
+<member name='_QueryInfoAsync'>
 </member>
 
-<member name='QueryInfoFinish'>
+<member name='_QueryInfoFinish'>
 </member>
 
-<member name='QueryFilesystemInfo'>
+<member name='_QueryFilesystemInfo'>
 </member>
 
-<member name='QueryFilesystemInfoAsync'>
+<member name='_QueryFilesystemInfoAsync'>
 </member>
 
-<member name='QueryFilesystemInfoFinish'>
+<member name='_QueryFilesystemInfoFinish'>
 </member>
 
-<member name='FindEnclosingMountAsync'>
+<member name='_FindEnclosingMountAsync'>
 </member>
 
-<member name='SetDisplayName'>
+<member name='_SetDisplayName'>
 </member>
 
-<member name='SetDisplayNameAsync'>
+<member name='_SetDisplayNameAsync'>
 </member>
 
-<member name='SetDisplayNameFinish'>
+<member name='_SetDisplayNameFinish'>
 </member>
 
-<member name='QuerySettableAttributes'>
+<member name='_QuerySettableAttributes'>
 </member>
 
-<member name='QueryWritableNamespaces'>
+<member name='_QueryWritableNamespaces'>
 </member>
 
-<member name='SetAttribute'>
+<member name='_SetAttribute'>
 </member>
 
-<member name='SetAttributesFromInfo'>
+<member name='_SetAttributesFromInfo'>
 </member>
 
-<member name='SetAttributesAsync'>
+<member name='_SetAttributesAsync'>
 </member>
 
-<member name='SetAttributesFinish'>
+<member name='_SetAttributesFinish'>
 </member>
 
-<member name='ReadFn'>
+<member name='_ReadFn'>
 </member>
 
-<member name='ReadAsync'>
+<member name='_ReadAsync'>
 </member>
 
-<member name='ReadFinish'>
+<member name='_ReadFinish'>
 </member>
 
-<member name='AppendTo'>
+<member name='_AppendTo'>
 </member>
 
-<member name='AppendToAsync'>
+<member name='_AppendToAsync'>
 </member>
 
-<member name='AppendToFinish'>
+<member name='_AppendToFinish'>
 </member>
 
-<member name='Create'>
+<member name='_Create'>
 </member>
 
-<member name='CreateAsync'>
+<member name='_CreateAsync'>
 </member>
 
-<member name='CreateFinish'>
+<member name='_CreateFinish'>
 </member>
 
-<member name='Replace'>
+<member name='_Replace'>
 </member>
 
-<member name='ReplaceAsync'>
+<member name='_ReplaceAsync'>
 </member>
 
-<member name='ReplaceFinish'>
+<member name='_ReplaceFinish'>
 </member>
 
-<member name='DeleteFile'>
+<member name='_DeleteFile'>
 </member>
 
-<member name='DeleteFileAsync'>
+<member name='_DeleteFileAsync'>
 </member>
 
-<member name='DeleteFileFinish'>
+<member name='_DeleteFileFinish'>
 </member>
 
-<member name='Trash'>
+<member name='_Trash'>
 </member>
 
-<member name='TrashAsync'>
+<member name='_TrashAsync'>
 </member>
 
-<member name='TrashFinish'>
+<member name='_TrashFinish'>
 </member>
 
-<member name='MakeDirectory'>
+<member name='_MakeDirectory'>
 </member>
 
-<member name='MakeDirectoryAsync'>
+<member name='_MakeDirectoryAsync'>
 </member>
 
-<member name='MakeDirectoryFinish'>
+<member name='_MakeDirectoryFinish'>
 </member>
 
-<member name='MakeSymbolicLink'>
+<member name='_MakeSymbolicLink'>
 </member>
 
-<member name='Copy'>
+<member name='_Copy'>
 </member>
 
-<member name='CopyAsync'>
+<member name='_CopyAsync'>
 </member>
 
-<member name='CopyFinish'>
+<member name='_CopyFinish'>
 </member>
 
-<member name='Move'>
+<member name='_Move'>
 </member>
 
-<member name='MountMountableFinish'>
+<member name='_MountMountableFinish'>
 </member>
 
-<member name='UnmountMountableFinish'>
+<member name='_UnmountMountableFinish'>
 </member>
 
-<member name='EjectMountableFinish'>
+<member name='_EjectMountableFinish'>
 </member>
 
-<member name='MountEnclosingVolumeFinish'>
+<member name='_MountEnclosingVolumeFinish'>
 </member>
 
-<member name='OpenReadwrite'>
+<member name='_OpenReadwrite'>
 </member>
 
-<member name='OpenReadwriteAsync'>
+<member name='_OpenReadwriteAsync'>
 </member>
 
-<member name='OpenReadwriteFinish'>
+<member name='_OpenReadwriteFinish'>
 </member>
 
-<member name='CreateReadwrite'>
+<member name='_CreateReadwrite'>
 </member>
 
-<member name='CreateReadwriteAsync'>
+<member name='_CreateReadwriteAsync'>
 </member>
 
-<member name='CreateReadwriteFinish'>
+<member name='_CreateReadwriteFinish'>
 </member>
 
-<member name='ReplaceReadwrite'>
+<member name='_ReplaceReadwrite'>
 </member>
 
-<member name='ReplaceReadwriteAsync'>
+<member name='_ReplaceReadwriteAsync'>
 </member>
 
-<member name='ReplaceReadwriteFinish'>
+<member name='_ReplaceReadwriteFinish'>
 </member>
 
-<member name='StartMountableFinish'>
+<member name='_StartMountableFinish'>
 </member>
 
-<member name='StopMountableFinish'>
+<member name='_StopMountableFinish'>
 </member>
 
-<member name='UnmountMountableWithOperationFinish'>
+<member name='_UnmountMountableWithOperationFinish'>
 </member>
 
-<member name='EjectMountableWithOperationFinish'>
+<member name='_EjectMountableWithOperationFinish'>
 </member>
 
-<member name='PollMountable'>
+<member name='_PollMountable'>
 </member>
 
-<member name='PollMountableFinish'>
+<member name='_PollMountableFinish'>
 </member>
 
-<member name='MeasureDiskUsageFinish'>
+<member name='_MeasureDiskUsageFinish'>
 </member>
 
 <member name='FileIface'>

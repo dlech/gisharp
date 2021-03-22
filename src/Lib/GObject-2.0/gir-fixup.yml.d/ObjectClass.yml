@@ -1,0 +1,12 @@
+
+### ObjectClass ###
+
+# make constructor field introspectable
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ObjectClass']/gi:field[@name='constructor']
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ObjectClass']/gi:field[@name='constructor']/gi:callback

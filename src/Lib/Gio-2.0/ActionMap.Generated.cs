@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.32")]
     [GISharp.Runtime.GTypeAttribute("GActionMap", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionMapInterface))]
-    public unsafe partial interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IActionMap : GISharp.Lib.GObject.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Runtime.GType _GType = g_action_map_get_type();
 

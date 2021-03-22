@@ -6,24 +6,24 @@ namespace GISharp.Lib.GLib
     /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs']/*" />
     public unsafe partial struct SourceFuncs
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.Prepare']/*" />
-        public readonly System.IntPtr Prepare;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.prepare']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GLib.Source.UnmanagedStruct*, int*, GISharp.Runtime.Boolean> prepare;
 
-        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.Check']/*" />
-        public readonly System.IntPtr Check;
+        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.check']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GLib.Source.UnmanagedStruct*, GISharp.Runtime.Boolean> check;
 
-        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.Dispatch']/*" />
-        public readonly System.IntPtr Dispatch;
+        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.dispatch']/*" />
+        private readonly System.IntPtr dispatch;
 
-        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.Finalize']/*" />
-        public readonly System.IntPtr Finalize;
+        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.finalize']/*" />
+        private readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GLib.Source.UnmanagedStruct*, void> finalize;
 
-        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.ClosureCallback']/*" />
-        public readonly delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> ClosureCallback;
+        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.closureCallback']/*" />
+        private readonly delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> closureCallback;
 
-        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.ClosureMarshal']/*" />
-        public readonly delegate* unmanaged[Cdecl]<void> ClosureMarshal;
-#pragma warning restore CS0169, CS0649
+        /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.closureMarshal']/*" />
+        private readonly delegate* unmanaged[Cdecl]<void> closureMarshal;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

@@ -6,39 +6,6 @@
 <member name='TypeClass.AdjustPrivateOffset(System.IntPtr,int)'>
 </member>
 
-<member name='TypeClass.Peek(GISharp.Runtime.GType)'>
-<summary>
-This function is essentially the same as <see cref="TypeClass.Ref(GISharp.Runtime.GType)"/>,
-except that the classes reference count isn't incremented.
-As a consequence, this function may return <c>null</c> if the class
-of the type passed in does not currently exist (hasn't been
-referenced before).
-</summary>
-<param name="type">
-type ID of a classed type
-</param>
-<returns>
-the <see cref="TypeClass"/>
-    structure for the given type ID or <c>null</c> if the class does not
-    currently exist
-</returns>
-</member>
-
-<member name='TypeClass.PeekStatic(GISharp.Runtime.GType)'>
-<summary>
-A more efficient version of <see cref="TypeClass.Peek(GISharp.Runtime.GType)"/> which works only for
-static types.
-</summary>
-<param name="type">
-type ID of a classed type
-</param>
-<returns>
-the <see cref="TypeClass"/>
-    structure for the given type ID or <c>null</c> if the class does not
-    currently exist or is dynamically loaded
-</returns>
-</member>
-
 <member name='TypeClass.Ref(GISharp.Runtime.GType)'>
 <summary>
 Increments the reference count of the class structure belonging to
@@ -142,26 +109,6 @@ size of private structure
 </member>
 
 <member name='TypeClass.GetPrivate(GISharp.Runtime.GType)'>
-</member>
-
-<member name='TypeClass.PeekParent()'>
-<summary>
-This is a convenience function often needed in class initializers.
-It returns the class structure of the immediate parent type of the
-class passed in.  Since derived classes hold a reference count on
-their parent classes as long as they are instantiated, the returned
-class will always exist.
-</summary>
-<remarks>
-<para>
-This function is essentially equivalent to:
-g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
-</para>
-</remarks>
-<returns>
-the parent class
-    of this instance
-</returns>
 </member>
 
 <member name='TypeClass'>

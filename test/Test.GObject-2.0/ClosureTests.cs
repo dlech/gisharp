@@ -13,7 +13,7 @@ namespace GISharp.Test.GObject
         {
             var callbackInvoked = false;
 
-            object callback(object[] arg)
+            object? callback(object?[] arg)
             {
                 Assert.That(arg.Length, Is.EqualTo(2));
                 Assert.That(arg[0], Is.EqualTo(1));

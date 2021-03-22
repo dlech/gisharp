@@ -205,6 +205,14 @@ namespace GISharp.CodeGen.Syntax
                             if (arg.Direction == "inout") {
                                 result = "ref " + result;
                             }
+                            if (arg.Direction == "in" && arg.IsByRefValueType()) {
+                                if (arg.Type.CType.Contains("const")) {
+                                    result = "in " + result;
+                                }
+                                else {
+                                    result = "ref " + result;
+                                }
+                            }
                             // fix generics
                             result = result.Replace("<", "{").Replace(">", "}");
                             return result;

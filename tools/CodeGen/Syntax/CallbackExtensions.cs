@@ -21,10 +21,10 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# delegate declaration for the managed version of a GIR callback
         /// </summary>
-        public static DelegateDeclarationSyntax GetManagedDeclaration(this Callback callback)
+        public static DelegateDeclarationSyntax GetManagedDeclaration(this Callback callback, string name = null)
         {
             var returnType = callback.ReturnValue.GetManagedTypeName();
-            var identifier = callback.ManagedName;
+            var identifier = name ?? callback.ManagedName;
             var parameterList = callback.ManagedParameters.GetParameterList();
             if (callback.ParentNode is Field) {
                 // The first parameter is the instance parameter for a virtual
@@ -42,10 +42,10 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# delegate declaration for the unmanaged version of a GIR callback
         /// </summary>
-        public static DelegateDeclarationSyntax GetUnmanagedDeclaration(this Callback callback)
+        public static DelegateDeclarationSyntax GetUnmanagedDeclaration(this Callback callback, string name = null)
         {
             var returnType = ParseTypeName(callback.ReturnValue.Type.GetUnmanagedType());
-            var identifier = "Unmanaged" + callback.ManagedName;
+            var identifier = "Unmanaged" + (name ?? callback.ManagedName);
 
             var girTrivia = TriviaList(callback.ReturnValue.GetGirXmlTrivia(),
                 EndOfLine("\n"), callback.ReturnValue.GetAnnotationTrivia());
@@ -94,7 +94,7 @@ namespace GISharp.CodeGen.Syntax
             }
 
             var invokeMethod = $"do{callback.ManagedName}";
-            var getDelegate = string.Format("var {0} = ({1})methodInfo.CreateDelegate(typeof({1}), {2})",
+            var getDelegate = string.Format("var {0} = (_{1})methodInfo.CreateDelegate(typeof(_{1}), {2})",
                 invokeMethod,
                 callback.ManagedName,
                 callback.ManagedParameters.First().ManagedName);
@@ -351,12 +351,12 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# class declaration for the factory class of a GIR callback
         /// </summary>
-        public static ClassDeclarationSyntax GetDelegateMarshalDeclaration(this Callback callback)
+        public static ClassDeclarationSyntax GetDelegateMarshalDeclaration(this Callback callback, string name = null)
         {
-            var identifier = callback.ManagedName + "Marshal";
+            var identifier = (name ?? callback.ManagedName) + "Marshal";
             var syntax = ClassDeclaration(identifier)
                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
-               .WithLeadingTrivia(callback.GetDelegateMarshalDocumentationCommentTrivia());
+               .WithLeadingTrivia(callback.GetDelegateMarshalDocumentationCommentTrivia(name));
             return syntax;
         }
 
@@ -399,19 +399,19 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# delegate factory class members for a GIR callback
         /// </summary>
-        public static SyntaxList<MemberDeclarationSyntax> GetCallbackDelegateMarshalClassMembers(this Callback callback)
+        public static SyntaxList<MemberDeclarationSyntax> GetCallbackDelegateMarshalClassMembers(this Callback callback, string name = null)
         {
             var list = List<MemberDeclarationSyntax>();
 
             // emit FromPointer() method for unmanged>managed
 
-            var fromPointerMethod = MethodDeclaration(callback.GetQualifiedName(), "FromPointer")
+            var fromPointerMethod = MethodDeclaration(name is null ? callback.GetQualifiedName() : ParseTypeName(name), "FromPointer")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(
                     $"({callback.GetUnmanagedType()} callback_, System.IntPtr userData_)"
                 ))
                 .WithBody(Block(callback.GetMarshalFromPointerMethodStatements()))
-                .WithLeadingTrivia(callback.GetMarshalFromPointerMethodDocumentationCommentTrivia());
+                .WithLeadingTrivia(callback.GetMarshalFromPointerMethodDocumentationCommentTrivia(name));
             list = list.Add(fromPointerMethod);
 
             // if there is user data, then we can make an unmanged-callers-only callback
@@ -617,27 +617,27 @@ namespace GISharp.CodeGen.Syntax
             yield return ReturnStatement(ParseExpression(returnExpression));
         }
 
-        static SyntaxTriviaList GetDelegateMarshalDocumentationCommentTrivia(this Callback callback)
+        static SyntaxTriviaList GetDelegateMarshalDocumentationCommentTrivia(this Callback callback, string name = null)
         {
-            const string template = @"/// <summary>
-/// Class for marshalling <see cref=""{0}""/> methods.
+            var fieldPrefix = callback.ParentNode is Field ? "_" : "";
+            var comments = $@"/// <summary>
+/// Class for marshalling <see cref=""{fieldPrefix}{name ?? callback.ManagedName}""/> methods.
 /// </summary>
 ";
-            var comments = string.Format(template, callback.ManagedName);
             return ParseLeadingTrivia(comments);
         }
 
-        static SyntaxTriviaList GetMarshalFromPointerMethodDocumentationCommentTrivia(this Callback callback)
+        static SyntaxTriviaList GetMarshalFromPointerMethodDocumentationCommentTrivia(this Callback callback, string name = null)
         {
             const string template = @"/// <summary>
 /// Marshals an unmanaged pointer to a <see cref=""{0}""/>.
 /// </summary>
 ";
-            var comments = string.Format(template, callback.ManagedName);
+            var comments = string.Format(template, name ?? callback.ManagedName);
             return ParseLeadingTrivia(comments);
         }
 
-        static SyntaxTriviaList GetMarshalToPointerMethodDocumentationCommentTrivia(this Callback callback)
+        static SyntaxTriviaList GetMarshalToPointerMethodDocumentationCommentTrivia(this Callback callback, string name = null)
         {
             const string template = @"/// <summary>
 /// Wraps a <see cref=""{0}""/> in an anonymous method that can
@@ -659,7 +659,7 @@ namespace GISharp.CodeGen.Syntax
 /// </remarks>
 ";
             var comments = string.Format(template,
-                callback.ManagedName,
+                name ?? callback.ManagedName,
                 typeof(CallbackScope),
                 nameof(CallbackScope.Call),
                 nameof(CallbackScope.Async));

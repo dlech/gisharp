@@ -86,17 +86,19 @@ namespace GISharp.Lib.GIRepository
         /* <type name="Argument" type="GIArgument*" managed-name="Argument" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.Argument* arg);
-        partial void CheckArgumentFromHashPointerArgs(System.IntPtr hashPointer, GISharp.Lib.GIRepository.Argument arg);
+        partial void CheckArgumentFromHashPointerArgs(System.IntPtr hashPointer, ref GISharp.Lib.GIRepository.Argument arg);
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ArgumentFromHashPointer(System.IntPtr,GISharp.Lib.GIRepository.Argument)']/*" />
         [GISharp.Runtime.SinceAttribute("1.66")]
-        public void ArgumentFromHashPointer(System.IntPtr hashPointer, GISharp.Lib.GIRepository.Argument arg)
+        public void ArgumentFromHashPointer(System.IntPtr hashPointer, ref GISharp.Lib.GIRepository.Argument arg)
         {
-            CheckArgumentFromHashPointerArgs(hashPointer, arg);
-            var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
-            var hashPointer_ = (System.IntPtr)hashPointer;
-            var arg_ = &arg;
-            g_type_info_argument_from_hash_pointer(info_, hashPointer_, arg_);
+            fixed (GISharp.Lib.GIRepository.Argument* arg_ = &arg)
+            {
+                CheckArgumentFromHashPointerArgs(hashPointer, ref arg);
+                var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
+                var hashPointer_ = (System.IntPtr)hashPointer;
+                g_type_info_argument_from_hash_pointer(info_, hashPointer_, arg_);
+            }
         }
 
         /// <summary>
@@ -346,18 +348,20 @@ namespace GISharp.Lib.GIRepository
         /* <type name="Argument" type="GIArgument*" managed-name="Argument" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.Argument* arg);
-        partial void CheckHashPointerFromArgumentArgs(GISharp.Lib.GIRepository.Argument arg);
+        partial void CheckHashPointerFromArgumentArgs(ref GISharp.Lib.GIRepository.Argument arg);
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.HashPointerFromArgument(GISharp.Lib.GIRepository.Argument)']/*" />
         [GISharp.Runtime.SinceAttribute("1.66")]
-        public System.IntPtr HashPointerFromArgument(GISharp.Lib.GIRepository.Argument arg)
+        public System.IntPtr HashPointerFromArgument(ref GISharp.Lib.GIRepository.Argument arg)
         {
-            CheckHashPointerFromArgumentArgs(arg);
-            var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
-            var arg_ = &arg;
-            var ret_ = g_type_info_hash_pointer_from_argument(info_,arg_);
-            var ret = (System.IntPtr)ret_;
-            return ret;
+            fixed (GISharp.Lib.GIRepository.Argument* arg_ = &arg)
+            {
+                CheckHashPointerFromArgumentArgs(ref arg);
+                var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
+                var ret_ = g_type_info_hash_pointer_from_argument(info_,arg_);
+                var ret = (System.IntPtr)ret_;
+                return ret;
+            }
         }
 
         /// <summary>

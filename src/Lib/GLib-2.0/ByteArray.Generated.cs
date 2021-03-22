@@ -14,13 +14,13 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="ByteArray.xmldoc" path="declaration/member[@name='UnmanagedStruct.Data']/*" />
             public readonly byte* Data;
 
             /// <include file="ByteArray.xmldoc" path="declaration/member[@name='UnmanagedStruct.Len']/*" />
             public readonly uint Len;
-#pragma warning restore CS0169, CS0649
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace GISharp.Lib.GLib
             var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)UnsafeHandle;
             var freeSegment_ = GISharp.Runtime.BooleanExtensions.ToBoolean(freeSegment);
             var ret_ = g_byte_array_free(array_,freeSegment_);
-            ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<byte>(ret_);
+            ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<byte>(ret_);
             return ref ret;
         }
 

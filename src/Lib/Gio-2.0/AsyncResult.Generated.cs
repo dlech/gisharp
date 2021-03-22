@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IAsyncResult']/*" />
     [GISharp.Runtime.GTypeAttribute("GAsyncResult", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncResultIface))]
-    public unsafe partial interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IAsyncResult : GISharp.Lib.GObject.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Runtime.GType _GType = g_async_result_get_type();
 

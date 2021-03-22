@@ -8,23 +8,18 @@ namespace GISharp.Lib.GObject
     public unsafe partial struct Value
     {
         private static readonly GISharp.Runtime.GType _GType = g_value_get_type();
-#pragma warning disable CS0169, CS0649
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.GType']/*" />
-        public readonly GISharp.Runtime.GType GType;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.gType']/*" />
+        private readonly GISharp.Runtime.GType gType;
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Data']/*" />
-        public fixed long Data[2];
-#pragma warning restore CS0169, CS0649
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.data0']/*" />
+        private readonly GISharp.Lib.GObject._Value__data__union data0;
+
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.data1']/*" />
+        private readonly GISharp.Lib.GObject._Value__data__union data1;
+#pragma warning restore CS0169, CS0414, CS0649
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Boolean']/*" />
         public bool Boolean { get => GetBoolean(); set => SetBoolean(value); }
-
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Boxed']/*" />
-        public System.IntPtr Boxed { get => GetBoxed(); set => SetBoxed(value); }
-
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Char']/*" />
-        [System.ObsoleteAttribute("This function's return type is broken, see g_value_get_schar()")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.32")]
-        public sbyte Char { get => GetChar(); set => SetChar(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Double']/*" />
         public double Double { get => GetDouble(); set => SetDouble(value); }
@@ -38,9 +33,9 @@ namespace GISharp.Lib.GObject
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Float']/*" />
         public float Float { get => GetFloat(); set => SetFloat(value); }
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Gtype']/*" />
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.GType']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public GISharp.Runtime.GType Gtype { get => GetGtype(); set => SetGtype(value); }
+        public GISharp.Runtime.GType GType { get => GetGType(); set => SetGType(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Int']/*" />
         public int Int { get => GetInt(); set => SetInt(value); }
@@ -53,47 +48,67 @@ namespace GISharp.Lib.GObject
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Object']/*" />
         [System.Diagnostics.CodeAnalysis.AllowNullAttribute]
-        /// <summary>
-        /// Get the contents of a %G_TYPE_OBJECT derived <see cref="Value"/>.
-        /// </summary>
         public GISharp.Lib.GObject.Object Object { get => GetObject(); set => SetObject(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Param']/*" />
         [System.Diagnostics.CodeAnalysis.AllowNullAttribute]
-        /// <summary>
-        /// Get the contents of a %G_TYPE_PARAM <see cref="Value"/>.
-        /// </summary>
         public GISharp.Lib.GObject.ParamSpec Param { get => GetParam(); set => SetParam(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Pointer']/*" />
         public System.IntPtr Pointer { get => GetPointer(); set => SetPointer(value); }
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Schar']/*" />
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Char']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public sbyte Schar { get => GetSchar(); set => SetSchar(value); }
+        public sbyte Char { get => GetChar(); set => SetChar(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.String']/*" />
         [System.Diagnostics.CodeAnalysis.AllowNullAttribute]
-        /// <summary>
-        /// Get the contents of a %G_TYPE_STRING <see cref="Value"/>.
-        /// </summary>
         public GISharp.Lib.GLib.UnownedUtf8 String { get => GetString(); set => SetString(value); }
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Uchar']/*" />
-        public byte Uchar { get => GetUchar(); set => SetUchar(value); }
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.UChar']/*" />
+        public byte UChar { get => GetUChar(); set => SetUChar(value); }
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Uint']/*" />
-        public uint Uint { get => GetUint(); set => SetUint(value); }
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.UInt']/*" />
+        public uint UInt { get => GetUInt(); set => SetUInt(value); }
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Uint64']/*" />
-        public ulong Uint64 { get => GetUint64(); set => SetUint64(value); }
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.UInt64']/*" />
+        public ulong UInt64 { get => GetUInt64(); set => SetUInt64(value); }
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Ulong']/*" />
-        public GISharp.Runtime.CULong Ulong { get => GetUlong(); set => SetUlong(value); }
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.ULong']/*" />
+        public GISharp.Runtime.CULong ULong { get => GetULong(); set => SetULong(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Variant']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public GISharp.Lib.GLib.Variant? Variant { get => GetVariant(); set => SetVariant(value); }
+
+        /// <summary>
+        /// Registers a value transformation function for use in g_value_transform().
+        /// A previously registered transformation function for @src_type and @dest_type
+        /// will be replaced.
+        /// </summary>
+        /// <param name="srcType">
+        /// Source type.
+        /// </param>
+        /// <param name="destType">
+        /// Target type.
+        /// </param>
+        /// <param name="transformFunc">
+        /// a function which transforms values of type @src_type
+        ///  into value of type @dest_type
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_value_register_transform_func(
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Runtime.GType srcType,
+        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Runtime.GType destType,
+        /* <type name="ValueTransform" type="GValueTransform" managed-name="ValueTransform" /> */
+        /* transfer-ownership:none direction:in */
+        delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Value*, GISharp.Lib.GObject.Value*, void> transformFunc);
 
         /// <summary>
         /// Returns whether a #GValue of type @src_type can be copied into
@@ -169,6 +184,25 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
+        /// <summary>
+        /// Return a newly allocated string, which describes the contents of a
+        /// #GValue.  The main purpose of this function is to describe #GValue
+        /// contents for debugging output, the way in which the contents are
+        /// described may change between different GLib versions.
+        /// </summary>
+        /// <param name="value">
+        /// #GValue which contents are to be described.
+        /// </param>
+        /// <returns>
+        /// Newly allocated string.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        private static extern byte* g_strdup_value_contents(
+        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GObject.Value* value);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */
@@ -193,17 +227,19 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* destValue);
-        partial void CheckCopyArgs(GISharp.Lib.GObject.Value destValue);
+        partial void CheckCopyArgs(ref GISharp.Lib.GObject.Value destValue);
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Copy(GISharp.Lib.GObject.Value)']/*" />
-        public void Copy(GISharp.Lib.GObject.Value destValue)
+        public void Copy(ref GISharp.Lib.GObject.Value destValue)
         {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
+            fixed (GISharp.Lib.GObject.Value* destValue_ = &destValue)
             {
-                CheckCopyArgs(destValue);
-                var srcValue_ = this_;
-                var destValue_ = &destValue;
-                g_value_copy(srcValue_, destValue_);
+                fixed (GISharp.Lib.GObject.Value* this_ = &this)
+                {
+                    CheckCopyArgs(ref destValue);
+                    var srcValue_ = this_;
+                    g_value_copy(srcValue_, destValue_);
+                }
             }
         }
 
@@ -385,59 +421,6 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckGetBoxedArgs();
-
-        private System.IntPtr GetBoxed()
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckGetBoxedArgs();
-                var value_ = this_;
-                var ret_ = g_value_get_boxed(value_);
-                var ret = (System.IntPtr)ret_;
-                return ret;
-            }
-        }
-
-        /// <summary>
-        /// Do not use this function; it is broken on platforms where the %char
-        /// type is unsigned, such as ARM and PowerPC.  See g_value_get_schar().
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// Get the contents of a %G_TYPE_CHAR #GValue.
-        /// </para>
-        /// </remarks>
-        /// <param name="value">
-        /// a valid #GValue of type %G_TYPE_CHAR
-        /// </param>
-        /// <returns>
-        /// character contents of @value
-        /// </returns>
-        [System.ObsoleteAttribute("This function's return type is broken, see g_value_get_schar()")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.32")]
-        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gchar" type="gchar" managed-name="System.SByte" /> */
-        /* transfer-ownership:none direction:in */
-        private static extern sbyte g_value_get_char(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.Value* value);
-        partial void CheckGetCharArgs();
-
-        [System.ObsoleteAttribute("This function's return type is broken, see g_value_get_schar()")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.32")]
-        private sbyte GetChar()
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckGetCharArgs();
-                var value_ = this_;
-                var ret_ = g_value_get_char(value_);
-                var ret = (sbyte)ret_;
-                return ret;
-            }
-        }
 
         /// <summary>
         /// Get the contents of a %G_TYPE_DOUBLE #GValue.
@@ -576,14 +559,14 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckGetGtypeArgs();
+        partial void CheckGetGTypeArgs();
 
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private GISharp.Runtime.GType GetGtype()
+        private GISharp.Runtime.GType GetGType()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckGetGtypeArgs();
+                CheckGetGTypeArgs();
                 var value_ = this_;
                 var ret_ = g_value_get_gtype(value_);
                 var ret = (GISharp.Runtime.GType)ret_;
@@ -788,14 +771,14 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckGetScharArgs();
+        partial void CheckGetCharArgs();
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        private sbyte GetSchar()
+        private sbyte GetChar()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckGetScharArgs();
+                CheckGetCharArgs();
                 var value_ = this_;
                 var ret_ = g_value_get_schar(value_);
                 var ret = (sbyte)ret_;
@@ -849,13 +832,13 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckGetUcharArgs();
+        partial void CheckGetUCharArgs();
 
-        private byte GetUchar()
+        private byte GetUChar()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckGetUcharArgs();
+                CheckGetUCharArgs();
                 var value_ = this_;
                 var ret_ = g_value_get_uchar(value_);
                 var ret = (byte)ret_;
@@ -879,13 +862,13 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckGetUintArgs();
+        partial void CheckGetUIntArgs();
 
-        private uint GetUint()
+        private uint GetUInt()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckGetUintArgs();
+                CheckGetUIntArgs();
                 var value_ = this_;
                 var ret_ = g_value_get_uint(value_);
                 var ret = (uint)ret_;
@@ -909,13 +892,13 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckGetUint64Args();
+        partial void CheckGetUInt64Args();
 
-        private ulong GetUint64()
+        private ulong GetUInt64()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckGetUint64Args();
+                CheckGetUInt64Args();
                 var value_ = this_;
                 var ret_ = g_value_get_uint64(value_);
                 var ret = (ulong)ret_;
@@ -939,13 +922,13 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckGetUlongArgs();
+        partial void CheckGetULongArgs();
 
-        private GISharp.Runtime.CULong GetUlong()
+        private GISharp.Runtime.CULong GetULong()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckGetUlongArgs();
+                CheckGetULongArgs();
                 var value_ = this_;
                 var ret_ = g_value_get_ulong(value_);
                 var ret = (GISharp.Runtime.CULong)ret_;
@@ -1018,7 +1001,7 @@ namespace GISharp.Lib.GObject
                 var value_ = this_;
                 var gType_ = (GISharp.Runtime.GType)gType;
                 var ret_ = g_value_init(value_,gType_);
-                ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(ret_);
+                ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(ret_);
                 return ref ret;
             }
         }
@@ -1052,15 +1035,15 @@ namespace GISharp.Lib.GObject
         /* <type name="TypeInstance" type="gpointer" managed-name="TypeInstance" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance);
-        partial void CheckInitFromInstanceArgs(GISharp.Lib.GObject.TypeInstance instance);
+        partial void CheckInitArgs(GISharp.Lib.GObject.TypeInstance instance);
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.InitFromInstance(GISharp.Lib.GObject.TypeInstance)']/*" />
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Init(GISharp.Lib.GObject.TypeInstance)']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
-        public void InitFromInstance(GISharp.Lib.GObject.TypeInstance instance)
+        public void Init(GISharp.Lib.GObject.TypeInstance instance)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckInitFromInstanceArgs(instance);
+                CheckInitArgs(instance);
                 var value_ = this_;
                 var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)instance.UnsafeHandle;
                 g_value_init_from_instance(value_, instance_);
@@ -1085,20 +1068,6 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckPeekPointerArgs();
-
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.PeekPointer()']/*" />
-        public System.IntPtr PeekPointer()
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckPeekPointerArgs();
-                var value_ = this_;
-                var ret_ = g_value_peek_pointer(value_);
-                var ret = (System.IntPtr)ret_;
-                return ret;
-            }
-        }
 
         /// <summary>
         /// Clears the current value in @value and resets it to the default value
@@ -1127,7 +1096,7 @@ namespace GISharp.Lib.GObject
                 CheckResetArgs();
                 var value_ = this_;
                 var ret_ = g_value_reset(value_);
-                ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(ret_);
+                ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(ret_);
                 return ref ret;
             }
         }
@@ -1183,18 +1152,6 @@ namespace GISharp.Lib.GObject
         /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr vBoxed);
-        partial void CheckSetBoxedArgs(System.IntPtr vBoxed);
-
-        private void SetBoxed(System.IntPtr vBoxed)
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckSetBoxedArgs(vBoxed);
-                var value_ = this_;
-                var vBoxed_ = (System.IntPtr)vBoxed;
-                g_value_set_boxed(value_, vBoxed_);
-            }
-        }
 
         /// <summary>
         /// This is an internal function introduced mainly for C marshallers.
@@ -1217,57 +1174,6 @@ namespace GISharp.Lib.GObject
         /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr vBoxed);
-        partial void CheckSetBoxedTakeOwnershipArgs(System.IntPtr vBoxed);
-
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.SetBoxedTakeOwnership(System.IntPtr)']/*" />
-        [System.ObsoleteAttribute("Use g_value_take_boxed() instead.")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.4")]
-        public void SetBoxedTakeOwnership(System.IntPtr vBoxed)
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckSetBoxedTakeOwnershipArgs(vBoxed);
-                var value_ = this_;
-                var vBoxed_ = (System.IntPtr)vBoxed;
-                g_value_set_boxed_take_ownership(value_, vBoxed_);
-            }
-        }
-
-        /// <summary>
-        /// Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
-        /// </summary>
-        /// <param name="value">
-        /// a valid #GValue of type %G_TYPE_CHAR
-        /// </param>
-        /// <param name="vChar">
-        /// character value to be set
-        /// </param>
-        [System.ObsoleteAttribute("This function's input type is broken, see g_value_set_schar()")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.32")]
-        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:in */
-        private static extern void g_value_set_char(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.Value* value,
-        /* <type name="gchar" type="gchar" managed-name="System.SByte" /> */
-        /* transfer-ownership:none direction:in */
-        sbyte vChar);
-        partial void CheckSetCharArgs(sbyte vChar);
-
-        [System.ObsoleteAttribute("This function's input type is broken, see g_value_set_schar()")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.32")]
-        private void SetChar(sbyte vChar)
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckSetCharArgs(vChar);
-                var value_ = this_;
-                var vChar_ = (sbyte)vChar;
-                g_value_set_char(value_, vChar_);
-            }
-        }
 
         /// <summary>
         /// Set the contents of a %G_TYPE_DOUBLE #GValue to @v_double.
@@ -1417,14 +1323,14 @@ namespace GISharp.Lib.GObject
         /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType vGtype);
-        partial void CheckSetGtypeArgs(GISharp.Runtime.GType vGtype);
+        partial void CheckSetGTypeArgs(GISharp.Runtime.GType vGtype);
 
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private void SetGtype(GISharp.Runtime.GType vGtype)
+        private void SetGType(GISharp.Runtime.GType vGtype)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckSetGtypeArgs(vGtype);
+                CheckSetGTypeArgs(vGtype);
                 var value_ = this_;
                 var vGtype_ = (GISharp.Runtime.GType)vGtype;
                 g_value_set_gtype(value_, vGtype_);
@@ -1448,19 +1354,19 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="TypeInstance" type="gpointer" managed-name="TypeInstance" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr instance);
-        partial void CheckSetInstanceArgs(System.IntPtr instance);
+        GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance);
+        partial void CheckSetArgs(GISharp.Lib.GObject.TypeInstance? instance);
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.SetInstance(System.IntPtr)']/*" />
-        public void SetInstance(System.IntPtr instance)
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Set(GISharp.Lib.GObject.TypeInstance?)']/*" />
+        public void Set(GISharp.Lib.GObject.TypeInstance? instance)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckSetInstanceArgs(instance);
+                CheckSetArgs(instance);
                 var value_ = this_;
-                var instance_ = (System.IntPtr)instance;
+                var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)(instance?.UnsafeHandle ?? System.IntPtr.Zero);
                 g_value_set_instance(value_, instance_);
             }
         }
@@ -1728,14 +1634,14 @@ namespace GISharp.Lib.GObject
         /* <type name="gint8" type="gint8" managed-name="System.SByte" /> */
         /* transfer-ownership:none direction:in */
         sbyte vChar);
-        partial void CheckSetScharArgs(sbyte vChar);
+        partial void CheckSetCharArgs(sbyte vChar);
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        private void SetSchar(sbyte vChar)
+        private void SetChar(sbyte vChar)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckSetScharArgs(vChar);
+                CheckSetCharArgs(vChar);
                 var value_ = this_;
                 var vChar_ = (sbyte)vChar;
                 g_value_set_schar(value_, vChar_);
@@ -1763,19 +1669,6 @@ namespace GISharp.Lib.GObject
         /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr vBoxed);
-        partial void CheckSetStaticBoxedArgs(System.IntPtr vBoxed);
-
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.SetStaticBoxed(System.IntPtr)']/*" />
-        public void SetStaticBoxed(System.IntPtr vBoxed)
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckSetStaticBoxedArgs(vBoxed);
-                var value_ = this_;
-                var vBoxed_ = (System.IntPtr)vBoxed;
-                g_value_set_static_boxed(value_, vBoxed_);
-            }
-        }
 
         /// <summary>
         /// Set the contents of a %G_TYPE_STRING #GValue to @v_string.
@@ -1871,21 +1764,6 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
-        partial void CheckSetStringTakeOwnershipArgs(GISharp.Lib.GLib.NullableUnownedUtf8 vString);
-
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.SetStringTakeOwnership(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
-        [System.ObsoleteAttribute("Use g_value_take_string() instead.")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.4")]
-        public void SetStringTakeOwnership(GISharp.Lib.GLib.NullableUnownedUtf8 vString)
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckSetStringTakeOwnershipArgs(vString);
-                var value_ = this_;
-                var vString_ = (byte*)vString.UnsafeHandle;
-                g_value_set_string_take_ownership(value_, vString_);
-            }
-        }
 
         /// <summary>
         /// Set the contents of a %G_TYPE_UCHAR #GValue to @v_uchar.
@@ -1906,13 +1784,13 @@ namespace GISharp.Lib.GObject
         /* <type name="guint8" type="guchar" managed-name="System.Byte" /> */
         /* transfer-ownership:none direction:in */
         byte vUchar);
-        partial void CheckSetUcharArgs(byte vUchar);
+        partial void CheckSetUCharArgs(byte vUchar);
 
-        private void SetUchar(byte vUchar)
+        private void SetUChar(byte vUchar)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckSetUcharArgs(vUchar);
+                CheckSetUCharArgs(vUchar);
                 var value_ = this_;
                 var vUchar_ = (byte)vUchar;
                 g_value_set_uchar(value_, vUchar_);
@@ -1938,13 +1816,13 @@ namespace GISharp.Lib.GObject
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint vUint);
-        partial void CheckSetUintArgs(uint vUint);
+        partial void CheckSetUIntArgs(uint vUint);
 
-        private void SetUint(uint vUint)
+        private void SetUInt(uint vUint)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckSetUintArgs(vUint);
+                CheckSetUIntArgs(vUint);
                 var value_ = this_;
                 var vUint_ = (uint)vUint;
                 g_value_set_uint(value_, vUint_);
@@ -1970,13 +1848,13 @@ namespace GISharp.Lib.GObject
         /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
         /* transfer-ownership:none direction:in */
         ulong vUint64);
-        partial void CheckSetUint64Args(ulong vUint64);
+        partial void CheckSetUInt64Args(ulong vUint64);
 
-        private void SetUint64(ulong vUint64)
+        private void SetUInt64(ulong vUint64)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckSetUint64Args(vUint64);
+                CheckSetUInt64Args(vUint64);
                 var value_ = this_;
                 var vUint64_ = (ulong)vUint64;
                 g_value_set_uint64(value_, vUint64_);
@@ -2002,13 +1880,13 @@ namespace GISharp.Lib.GObject
         /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CULong vUlong);
-        partial void CheckSetUlongArgs(GISharp.Runtime.CULong vUlong);
+        partial void CheckSetULongArgs(GISharp.Runtime.CULong vUlong);
 
-        private void SetUlong(GISharp.Runtime.CULong vUlong)
+        private void SetULong(GISharp.Runtime.CULong vUlong)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
-                CheckSetUlongArgs(vUlong);
+                CheckSetULongArgs(vUlong);
                 var value_ = this_;
                 var vUlong_ = (GISharp.Runtime.CULong)vUlong;
                 g_value_set_ulong(value_, vUlong_);
@@ -2072,20 +1950,6 @@ namespace GISharp.Lib.GObject
         /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr vBoxed);
-        partial void CheckTakeBoxedArgs(System.IntPtr vBoxed);
-
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TakeBoxed(System.IntPtr)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.4")]
-        public void TakeBoxed(System.IntPtr vBoxed)
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckTakeBoxedArgs(vBoxed);
-                var value_ = this_;
-                var vBoxed_ = (System.IntPtr)vBoxed;
-                g_value_take_boxed(value_, vBoxed_);
-            }
-        }
 
         /// <summary>
         /// Sets the contents of a %G_TYPE_STRING #GValue to @v_string.
@@ -2107,20 +1971,6 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
-        partial void CheckTakeStringArgs(GISharp.Lib.GLib.NullableUnownedUtf8 vString);
-
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TakeString(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.4")]
-        public void TakeString(GISharp.Lib.GLib.NullableUnownedUtf8 vString)
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckTakeStringArgs(vString);
-                var value_ = this_;
-                var vString_ = (byte*)vString.UnsafeHandle;
-                g_value_take_string(value_, vString_);
-            }
-        }
 
         /// <summary>
         /// Set the contents of a variant #GValue to @variant, and takes over
@@ -2158,20 +2008,6 @@ namespace GISharp.Lib.GObject
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* variant);
-        partial void CheckTakeVariantArgs(GISharp.Lib.GLib.Variant? variant);
-
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TakeVariant(GISharp.Lib.GLib.Variant?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.26")]
-        public void TakeVariant(GISharp.Lib.GLib.Variant? variant)
-        {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
-            {
-                CheckTakeVariantArgs(variant);
-                var value_ = this_;
-                var variant_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(variant?.Take() ?? System.IntPtr.Zero);
-                g_value_take_variant(value_, variant_);
-            }
-        }
 
         /// <summary>
         /// Tries to cast the contents of @src_value into a type appropriate
@@ -2202,19 +2038,21 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* destValue);
-        partial void CheckTransformArgs(GISharp.Lib.GObject.Value destValue);
+        partial void CheckTransformArgs(ref GISharp.Lib.GObject.Value destValue);
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Transform(GISharp.Lib.GObject.Value)']/*" />
-        public bool Transform(GISharp.Lib.GObject.Value destValue)
+        public bool Transform(ref GISharp.Lib.GObject.Value destValue)
         {
-            fixed (GISharp.Lib.GObject.Value* this_ = &this)
+            fixed (GISharp.Lib.GObject.Value* destValue_ = &destValue)
             {
-                CheckTransformArgs(destValue);
-                var srcValue_ = this_;
-                var destValue_ = &destValue;
-                var ret_ = g_value_transform(srcValue_,destValue_);
-                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-                return ret;
+                fixed (GISharp.Lib.GObject.Value* this_ = &this)
+                {
+                    CheckTransformArgs(ref destValue);
+                    var srcValue_ = this_;
+                    var ret_ = g_value_transform(srcValue_,destValue_);
+                    var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+                    return ret;
+                }
             }
         }
 

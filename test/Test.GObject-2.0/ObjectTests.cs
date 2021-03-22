@@ -220,9 +220,9 @@ namespace GISharp.Test.GObject
         public void TestEventSignal()
         {
             using var obj = new Object();
-            var id = Signal.TryLookup<Object>("notify");
+            var id = Signal.Lookup<Object>("notify");
             Assume.That(id, Is.Not.Zero);
-            Assume.That(() => SignalHandler.Find(obj, id), Throws.Exception);
+            Assume.That(() => Signal.HandlerFind(obj, id), Throws.Exception);
 
             static void notify(Object gobject, ParamSpec pspec)
             {
@@ -230,11 +230,11 @@ namespace GISharp.Test.GObject
 
             // adding event handler should connect signal
             obj.NotifySignal += notify;
-            Assert.That(SignalHandler.Find(obj, id), Is.Not.Null);
+            Assert.That(Signal.HandlerFind(obj, id), Is.Not.Null);
 
             // removing event handler should disconnect signal
             obj.NotifySignal -= notify;
-            Assert.That(() => SignalHandler.Find(obj, id), Throws.Exception);
+            Assert.That(() => Signal.HandlerFind(obj, id), Throws.Exception);
 
             // removing non-added event should throw
             Assert.That(() => obj.NotifySignal -= notify, Throws.Exception);
@@ -366,7 +366,7 @@ namespace GISharp.Test.GObject
             [EditorBrowsable(EditorBrowsableState.Never)]
             public TestObjectSignal(IntPtr handle, Transfer ownership) : base(handle, ownership)
             {
-                eventHappendSignalId = Signal.TryLookup<TestObjectSignal>(nameof(EventHappened));
+                eventHappendSignalId = Signal.Lookup<TestObjectSignal>(nameof(EventHappened));
             }
         }
 

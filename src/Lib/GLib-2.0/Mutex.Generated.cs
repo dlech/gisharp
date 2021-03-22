@@ -7,15 +7,15 @@ namespace GISharp.Lib.GLib
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Explicit)]
     public unsafe partial struct Mutex
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="Mutex.xmldoc" path="declaration/member[@name='Mutex.P']/*" />
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="Mutex.xmldoc" path="declaration/member[@name='Mutex.p']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.IntPtr P;
+        private readonly System.IntPtr p;
 
-        /// <include file="Mutex.xmldoc" path="declaration/member[@name='Mutex.I']/*" />
+        /// <include file="Mutex.xmldoc" path="declaration/member[@name='Mutex.i']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public fixed uint I[2];
-#pragma warning restore CS0169, CS0649
+        private fixed uint i[2];
+#pragma warning restore CS0169, CS0414, CS0649
         /// <summary>
         /// Frees the resources allocated to a mutex with g_mutex_init().
         /// </summary>

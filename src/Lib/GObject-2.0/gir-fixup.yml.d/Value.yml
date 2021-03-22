@@ -6,3 +6,81 @@
   name: transfer-ownership
   value: none
   xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[@name='reset']/gi:return-value
+
+# skip take methods
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[contains(@name,'take')]
+
+# requires special handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[contains(@name,'boxed')]
+
+# fix char type
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[@name='get_char' or @name='set_char']
+- !change-attribute
+  name: name
+  regex: (schar)
+  replace: char
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[contains(@name,'schar')]
+
+# fix type
+- !set-attribute
+  name: name
+  value: TypeInstance
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[@name='set_instance']/gi:parameters/gi:parameter[@name='instance']/gi:type
+
+# fix U prefix
+- !change-attribute
+  name: name
+  regex: (_u)
+  replace: _u_
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[contains(@name,'_u')]
+
+# fix casing
+- !change-attribute
+  name: name
+  regex: gtype
+  replace: g_type
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[contains(@name,'gtype')]
+
+# rename as overloads
+- !set-attribute
+  name: name
+  value: init
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[@name='init_from_instance']
+- !set-attribute
+  name: name
+  value: set
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[@name='set_instance']
+
+# peeking is for unmanaged code only
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[contains(@name,'peek')]
+
+# requires special handling
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:function[@name='register_transform_func']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:function[@name='register_transform_func']
+
+# extra function
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strdup_value_contents']
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='strdup_value_contents']
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='Value']

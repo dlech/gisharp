@@ -21,7 +21,16 @@
 <member name='UnmanagedStruct.Dummy7'>
 </member>
 
-<member name='UnmanagedStruct.Padding'>
+<member name='UnmanagedStruct.Padding0'>
+</member>
+
+<member name='UnmanagedStruct.Padding1'>
+</member>
+
+<member name='UnmanagedStruct.Padding2'>
+</member>
+
+<member name='UnmanagedStruct.Padding3'>
 </member>
 
 <member name='BaseInfo.Container'>

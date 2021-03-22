@@ -245,15 +245,5 @@ namespace GISharp.Lib.GObject
         /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
-        partial void CheckUnbindArgs();
-
-        /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.Unbind()']/*" />
-        [GISharp.Runtime.SinceAttribute("2.38")]
-        public void Unbind()
-        {
-            CheckUnbindArgs();
-            var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
-            g_binding_unbind(binding_);
-        }
     }
 }

@@ -4,7 +4,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="FileInfoClass.xmldoc" path="declaration/member[@name='FileInfoClass']/*" />
-    public unsafe class FileInfoClass : GISharp.Lib.GObject.ObjectClass
+    public unsafe partial class FileInfoClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
         /// The unmanaged data structure.

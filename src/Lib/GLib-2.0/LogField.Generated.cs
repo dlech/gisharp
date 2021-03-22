@@ -7,15 +7,15 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.SinceAttribute("2.50")]
     public unsafe partial struct LogField
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="LogField.xmldoc" path="declaration/member[@name='LogField.Key']/*" />
-        public readonly byte* Key;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="LogField.xmldoc" path="declaration/member[@name='LogField.key']/*" />
+        private readonly byte* key;
 
-        /// <include file="LogField.xmldoc" path="declaration/member[@name='LogField.Value']/*" />
-        public readonly System.IntPtr Value;
+        /// <include file="LogField.xmldoc" path="declaration/member[@name='LogField.value']/*" />
+        private readonly System.IntPtr value;
 
-        /// <include file="LogField.xmldoc" path="declaration/member[@name='LogField.Length']/*" />
-        public readonly nint Length;
-#pragma warning restore CS0169, CS0649
+        /// <include file="LogField.xmldoc" path="declaration/member[@name='LogField.length']/*" />
+        private readonly nint length;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

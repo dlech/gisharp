@@ -33,7 +33,7 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestParseName()
         {
-            var id = Signal.TryLookup("notify", GType.Object);
+            var id = Signal.Lookup("notify", GType.Object);
             Assume.That(id, Is.Not.Zero);
 
             // try a real signal name
@@ -67,16 +67,16 @@ namespace GISharp.Test.GObject
             int handler2Count = 0;
 
             using var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
-                false, ParamFlags.Readwrite | ParamFlags.StaticStrings);
+                false, ParamFlags.Readwrite);
             using var obj = new Object();
-            var id = Signal.TryLookup("notify", GType.Object);
+            var id = Signal.Lookup("notify", GType.Object);
             Assume.That(id, Is.Not.EqualTo(0));
 
             void handler1(Object o, ParamSpec p)
             {
                 handler1Count++;
                 if (stopEmission) {
-                    obj.StopEmission(id);
+                    Signal.StopEmission(obj, id);
                 }
             }
 
@@ -106,14 +106,14 @@ namespace GISharp.Test.GObject
             int handler2Count = 0;
 
             using var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
-                false, ParamFlags.Readwrite | ParamFlags.StaticStrings);
+                false, ParamFlags.Readwrite);
             using var obj = new Object();
 
             void handler1(Object o, ParamSpec p)
             {
                 handler1Count++;
                 if (stopEmission) {
-                    obj.StopEmissionByName("notify::test-param");
+                    Signal.StopEmission(obj, "notify::test-param");
                 }
             }
 
@@ -138,11 +138,11 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestEmissionHook()
         {
-            var signalId = Signal.TryLookup<TestNetworkMonitor>("network-changed");
+            var signalId = Signal.Lookup<TestNetworkMonitor>("network-changed");
             Assume.That(signalId, Is.Not.Zero);
             var callbackCount = 0;
-            var hookId = Signal.AddEmissionHook(signalId, Quark.Zero,
-                (in SignalInvocationHint ihint, Span<Value> paramValues) => {
+            var hookId = Signal.AddEmissionHook(signalId,
+                (ref SignalInvocationHint ihint, ReadOnlySpan<Value> paramValues) => {
                     Assert.That(ihint.SignalId, Is.EqualTo(signalId));
                     Assert.That(paramValues[0].ValueGType, Is.EqualTo(typeof(TestNetworkMonitor).ToGType()));
                     Assert.That((bool)paramValues[1], Is.True);

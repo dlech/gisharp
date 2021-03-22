@@ -283,7 +283,7 @@ source functions and user data. If multiple sources exist with the
 same source functions and user data, only one will be destroyed.
 </summary>
 <param name="funcs">
-The <c>sourceFuncs</c> passed to <see cref="Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)"/>
+The <c>sourceFuncs</c> passed to <see cref="Source.Source(ref GISharp.Lib.GLib.SourceFuncs,uint)"/>
 </param>
 <param name="userData">
 the user data for the callback
@@ -372,7 +372,7 @@ a second <see cref="Source"/> that this instance should "poll"
 <member name='Source.AddPoll(GISharp.Lib.GLib.PollFD)'>
 <summary>
 Adds a file descriptor to the set of file descriptors polled for
-this source. This is usually combined with <see cref="Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)"/> to add an
+this source. This is usually combined with <see cref="Source.Source(ref GISharp.Lib.GLib.SourceFuncs,uint)"/> to add an
 event source. The event source's check function will typically test
 the <c>revents</c> field in the <see cref="PollFD"/> struct and return <c>true</c> if events need
 to be processed.
@@ -558,7 +558,7 @@ Do not call this API on a <see cref="Source"/> that you did not create.
 </para>
 </remarks>
 <param name="fd">
-a <see cref="PollFD"/> structure previously passed to <see cref="Source.AddPoll(GISharp.Lib.GLib.PollFD)"/>.
+a <see cref="PollFD"/> structure previously passed to <see cref="Source.AddPoll(ref GISharp.Lib.GLib.PollFD)"/>.
 </param>
 </member>
 
@@ -620,7 +620,7 @@ a callback function
 <summary>
 Sets the callback function storing the data as a refcounted callback
 "object". This is used internally. Note that calling
-<see cref="Source.SetCallbackIndirect(System.IntPtr,GISharp.Lib.GLib.SourceCallbackFuncs)"/> assumes
+<see cref="Source.SetCallbackIndirect(System.IntPtr,ref GISharp.Lib.GLib.SourceCallbackFuncs)"/> assumes
 an initial reference count on <paramref name="callbackData"/>, and thus
 <paramref name="callbackFuncs"/>-&gt;unref will eventually be called once more
 than <paramref name="callbackFuncs"/>-&gt;ref.

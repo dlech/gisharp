@@ -1,0 +1,30 @@
+<declaration>
+
+<member name='SignalInvocationHint.signalId'>
+<summary>
+The signal id of the signal invoking the callback
+</summary>
+</member>
+
+<member name='SignalInvocationHint.detail'>
+<summary>
+The detail passed on for this emission
+</summary>
+</member>
+
+<member name='SignalInvocationHint.runType'>
+<summary>
+The stage the signal emission is currently in, this
+ field will contain one of <see cref="SignalFlags.RunFirst"/>,
+ <see cref="SignalFlags.RunLast"/> or <see cref="SignalFlags.RunCleanup"/>.
+</summary>
+</member>
+
+<member name='SignalInvocationHint'>
+<summary>
+The <see cref="SignalInvocationHint"/> structure is used to pass on additional information
+to callbacks during a signal emission.
+</summary>
+</member>
+
+</declaration>

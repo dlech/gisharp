@@ -1,0 +1,20 @@
+
+### ParamSpecChar ###
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='param_spec_char']
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecChar']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecChar']/gi:function[@name='param_spec_char']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecChar']/gi:constructor[@name='param_spec_char']
+
+# return value is floating reference
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecChar']/gi:constructor/gi:return-value

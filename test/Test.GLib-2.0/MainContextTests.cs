@@ -197,8 +197,8 @@ namespace GISharp.Test.GLib
         public void TestPollFD()
         {
             using var mc = new MainContext();
-            mc.AddPoll(testPollFD);
-            mc.RemovePoll(testPollFD);
+            mc.AddPoll(ref testPollFD);
+            mc.RemovePoll(ref testPollFD);
         }
     }
 }

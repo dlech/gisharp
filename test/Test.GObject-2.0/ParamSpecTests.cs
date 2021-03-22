@@ -27,7 +27,7 @@ namespace GISharp.Test.GObject
 
         static T TestParamSpec<T>(GType type, Func<string, string, string, ParamFlags, T> instantiate) where T : ParamSpec
         {
-            const ParamFlags flags = ParamFlags.Readwrite | ParamFlags.StaticStrings;
+            const ParamFlags flags = ParamFlags.Readwrite;
 
             var param = instantiate("name", "nick", "blurb", flags);
             Assert.That<string>(param.Name, Is.EqualTo("name"));
@@ -312,7 +312,7 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestParamSpecUnichar()
         {
-            const int defaultValue = 2;
+            var defaultValue = (Unichar)32;
 
             var param = TestParamSpec(GType.UInt, (name, nick, blurb, flags) =>
                                       new ParamSpecUnichar(name, nick, blurb, defaultValue, flags));

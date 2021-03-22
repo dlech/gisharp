@@ -3,46 +3,46 @@
 #nullable enable
 namespace GISharp.Lib.GObject
 {
-    /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion']/*" />
+    /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union']/*" />
     [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Explicit)]
-    public unsafe partial struct ValueDataUnion
+    public unsafe partial struct _Value__data__union
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VInt']/*" />
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vInt']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly int VInt;
+        private readonly int vInt;
 
-        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VUint']/*" />
+        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vUint']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly uint VUint;
+        private readonly uint vUint;
 
-        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VLong']/*" />
+        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vLong']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly GISharp.Runtime.CLong VLong;
+        private readonly GISharp.Runtime.CLong vLong;
 
-        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VUlong']/*" />
+        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vUlong']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly GISharp.Runtime.CULong VUlong;
+        private readonly GISharp.Runtime.CULong vUlong;
 
-        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VInt64']/*" />
+        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vInt64']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly long VInt64;
+        private readonly long vInt64;
 
-        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VUint64']/*" />
+        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vUint64']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly ulong VUint64;
+        private readonly ulong vUint64;
 
-        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VFloat']/*" />
+        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vFloat']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly float VFloat;
+        private readonly float vFloat;
 
-        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VDouble']/*" />
+        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vDouble']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly double VDouble;
+        private readonly double vDouble;
 
-        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VPointer']/*" />
+        /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vPointer']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.IntPtr VPointer;
-#pragma warning restore CS0169, CS0649
+        private readonly System.IntPtr vPointer;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

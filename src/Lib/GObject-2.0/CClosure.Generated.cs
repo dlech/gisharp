@@ -11,13 +11,13 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public new struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="CClosure.xmldoc" path="declaration/member[@name='UnmanagedStruct.Closure']/*" />
             public readonly GISharp.Lib.GObject.Closure.UnmanagedStruct Closure;
 
             /// <include file="CClosure.xmldoc" path="declaration/member[@name='UnmanagedStruct.Callback']/*" />
             public readonly System.IntPtr Callback;
-#pragma warning restore CS0169, CS0649
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         /// <summary>

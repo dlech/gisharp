@@ -6,27 +6,27 @@ namespace GISharp.Lib.GLib
     /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry']/*" />
     public unsafe partial struct OptionEntry
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.LongName']/*" />
-        public readonly byte* LongName;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.longName']/*" />
+        private readonly byte* longName;
 
-        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.ShortName']/*" />
-        public readonly sbyte ShortName;
+        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.shortName']/*" />
+        private readonly sbyte shortName;
 
-        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.Flags']/*" />
-        public readonly int Flags;
+        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.flags']/*" />
+        private readonly int flags;
 
-        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.Arg']/*" />
-        public readonly GISharp.Lib.GLib.OptionArg Arg;
+        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.arg']/*" />
+        private readonly GISharp.Lib.GLib.OptionArg arg;
 
-        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.ArgData']/*" />
-        public readonly System.IntPtr ArgData;
+        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.argData']/*" />
+        private readonly System.IntPtr argData;
 
-        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.Description']/*" />
-        public readonly byte* Description;
+        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.description']/*" />
+        private readonly byte* description;
 
-        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.ArgDescription']/*" />
-        public readonly byte* ArgDescription;
-#pragma warning restore CS0169, CS0649
+        /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.argDescription']/*" />
+        private readonly byte* argDescription;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

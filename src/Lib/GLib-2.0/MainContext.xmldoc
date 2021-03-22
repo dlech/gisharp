@@ -280,7 +280,7 @@ multiple sources exist with the same source function and user data,
 the first one found will be returned.
 </summary>
 <param name="funcs">
-the <c>sourceFuncs</c> passed to <see cref="Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)"/>.
+the <c>sourceFuncs</c> passed to <see cref="Source.Source(ref GISharp.Lib.GLib.SourceFuncs,uint)"/>.
 </param>
 <param name="userData">
 the user data from the callback.
@@ -489,7 +489,7 @@ Removes file descriptor from the set of file descriptors to be
 polled for a particular context.
 </summary>
 <param name="fd">
-a <see cref="PollFD"/> descriptor previously added with <see cref="MainContext.AddPoll(GISharp.Lib.GLib.PollFD,int)"/>
+a <see cref="PollFD"/> descriptor previously added with <see cref="MainContext.AddPoll(ref GISharp.Lib.GLib.PollFD,int)"/>
 </param>
 </member>
 

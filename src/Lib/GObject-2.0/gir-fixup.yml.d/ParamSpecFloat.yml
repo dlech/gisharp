@@ -1,0 +1,20 @@
+
+### ParamSpecFloat ###
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='param_spec_float']
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecFloat']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecFloat']/gi:function[@name='param_spec_float']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecFloat']/gi:constructor[@name='param_spec_float']
+
+# return value is floating reference
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecFloat']/gi:constructor/gi:return-value

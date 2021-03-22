@@ -15,48 +15,11 @@ interface derivation (which GType doesn't support). An interface can have
 at most one instantiatable prerequisite type.
 </summary>
 <param name="interfaceType">
-<see cref="Type"/> value of an interface type
+#GType value of an interface type
 </param>
 <param name="prerequisiteType">
-<see cref="Type"/> value of an interface or instantiatable type
+#GType value of an interface or instantiatable type
 </param>
-</member>
-
-<member name='TypeInterface.GetPlugin(GISharp.Runtime.GType,GISharp.Runtime.GType)'>
-<summary>
-Returns the <see cref="ITypePlugin"/> structure for the dynamic interface
-<paramref name="interfaceType"/> which has been added to <paramref name="instanceType"/>, or <c>null</c>
-if <paramref name="interfaceType"/> has not been added to <paramref name="instanceType"/> or does
-not have a <see cref="ITypePlugin"/> structure. See g_type_add_interface_dynamic().
-</summary>
-<param name="instanceType">
-<see cref="Type"/> of an instantiatable type
-</param>
-<param name="interfaceType">
-<see cref="Type"/> of an interface type
-</param>
-<returns>
-the <see cref="ITypePlugin"/> for the dynamic
-    interface <paramref name="interfaceType"/> of <paramref name="instanceType"/>
-</returns>
-</member>
-
-<member name='TypeInterface.Peek(GISharp.Lib.GObject.TypeClass,GISharp.Runtime.GType)'>
-<summary>
-Returns the <see cref="TypeInterface"/> structure of an interface to which the
-passed in class conforms.
-</summary>
-<param name="instanceClass">
-a <see cref="TypeClass"/> structure
-</param>
-<param name="ifaceType">
-an interface ID which this class conforms to
-</param>
-<returns>
-the <see cref="TypeInterface"/>
-    structure of <paramref name="ifaceType"/> if implemented by <paramref name="instanceClass"/>, <c>null</c>
-    otherwise
-</returns>
 </member>
 
 <member name='TypeInterface.Prerequisites(GISharp.Runtime.GType)'>
@@ -68,23 +31,8 @@ an interface type
 </param>
 <returns>
 a
-    newly-allocated zero-terminated array of <see cref="Type"/> containing
+    newly-allocated zero-terminated array of #GType containing
     the prerequisites of <paramref name="interfaceType"/>
-</returns>
-</member>
-
-<member name='TypeInterface.PeekParent()'>
-<summary>
-Returns the corresponding <see cref="TypeInterface"/> structure of the parent type
-of the instance type to which this instance belongs. This is useful when
-deriving the implementation of an interface from the parent type and
-then possibly overriding some methods.
-</summary>
-<returns>
-the
-    corresponding <see cref="TypeInterface"/> structure of the parent type of the
-    instance type to which this instance belongs, or <c>null</c> if the parent
-    type doesn't conform to the interface
 </returns>
 </member>
 

@@ -28,17 +28,17 @@ of dynamically loaded types. It goes as follows:
 </para>
 <para>
 3. This causes the type system to load the type's implementation by
-   calling <see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/>
+   calling <see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,ref GISharp.Lib.GObject.TypeInfo,ref GISharp.Lib.GObject.TypeValueTable)"/>
    on <c>newTypePlugin</c>.
 </para>
 <para>
 4. At some point the type's implementation isn't required anymore,
-   e.g. after <see cref="TypeClass.Unref()"/> or g_type_free_instance() (called
+   e.g. after <see cref="TypeClass.Unref()"/> or <see cref="TypeExtensions.FreeInstance(GISharp.Lib.GObject.TypeInstance)"/> (called
    when the reference count of an instance drops to zero).
 </para>
 <para>
 5. This causes the type system to throw away the information retrieved
-   from <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> and then it calls
+   from <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,ref GISharp.Lib.GObject.TypeInfo,ref GISharp.Lib.GObject.TypeValueTable)"/> and then it calls
    <see cref="TypePlugin.Unuse(GISharp.Lib.GObject.ITypePlugin)"/> on <c>newTypePlugin</c>.
 </para>
 <para>
@@ -48,10 +48,10 @@ of dynamically loaded types. It goes as follows:
 So basically, you need to implement a <see cref="ITypePlugin"/> type that
 carries a use_count, once use_count goes from zero to one, you need
 to load the implementation to successfully handle the upcoming
-<see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> call. Later, maybe after
+<see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,ref GISharp.Lib.GObject.TypeInfo,ref GISharp.Lib.GObject.TypeValueTable)"/> call. Later, maybe after
 succeeding use/unuse calls, once use_count drops to zero, you can
 unload the implementation again. The type system makes sure to call
-<see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/> again
+<see cref="TypePlugin.Use(GISharp.Lib.GObject.ITypePlugin)"/> and <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,ref GISharp.Lib.GObject.TypeInfo,ref GISharp.Lib.GObject.TypeValueTable)"/> again
 when the type is needed again.
 </para>
 <para>
@@ -72,11 +72,11 @@ function outside of the GObject type system itself.
 the <see cref="ITypePlugin"/>
 </param>
 <param name="instanceType">
-the <see cref="Type"/> of an instantiable type to which the interface
+the #GType of an instantiable type to which the interface
  is added
 </param>
 <param name="interfaceType">
-the <see cref="Type"/> of the interface whose info is completed
+the #GType of the interface whose info is completed
 </param>
 <param name="info">
 the <see cref="InterfaceInfo"/> to fill in
@@ -93,7 +93,7 @@ type system itself.
 a <see cref="ITypePlugin"/>
 </param>
 <param name="gType">
-the <see cref="Type"/> whose info is completed
+the #GType whose info is completed
 </param>
 <param name="info">
 the <see cref="TypeInfo"/> struct to fill in

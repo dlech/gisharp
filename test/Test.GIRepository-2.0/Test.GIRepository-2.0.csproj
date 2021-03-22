@@ -25,6 +25,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\Lib\GLib-2.0\GLib-2.0.csproj" />
+    <ProjectReference Include="..\..\src\Lib\GObject-2.0\GObject-2.0.csproj" />
     <ProjectReference Include="..\..\src\Lib\GIRepository-2.0\GIRepository-2.0.csproj" />
     <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>

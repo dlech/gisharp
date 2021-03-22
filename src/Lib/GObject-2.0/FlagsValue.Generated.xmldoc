@@ -1,0 +1,28 @@
+<declaration>
+
+<member name='FlagsValue.value'>
+<summary>
+the flags value
+</summary>
+</member>
+
+<member name='FlagsValue.valueName'>
+<summary>
+the name of the value
+</summary>
+</member>
+
+<member name='FlagsValue.valueNick'>
+<summary>
+the nickname of the value
+</summary>
+</member>
+
+<member name='FlagsValue'>
+<summary>
+A structure which contains a single flags value, its name, and its
+nickname.
+</summary>
+</member>
+
+</declaration>

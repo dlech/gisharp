@@ -15,10 +15,6 @@ namespace GISharp.Runtime
         /// The glib type struct that is used to declare this class in unmanaged
         /// code.
         /// </summary>
-        /// <remarks>
-        /// This type must be a derivative of <see cref="Lib.GObject.TypeClass"/>
-        /// for objects or <see cref="Lib.GObject.TypeInterface"/> for interfaces.
-        /// </remarks>
         public Type GTypeStruct { get; }
 
         /// <summary>

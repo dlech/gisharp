@@ -9,15 +9,15 @@ namespace GISharp.Runtime
     public enum EmissionStage
     {
         /// <summary>
-        /// See <see cref="Lib.GObject.SignalFlags.RunFirst"/>
+        /// Invoke the object method handler in the first emission stage.
         /// </summary>
         First,
         /// <summary>
-        /// See <see cref="Lib.GObject.SignalFlags.RunLast"/>
+        /// Invoke the object method handler in the third emission stage.
         /// </summary>
         Last,
         /// <summary>
-        /// See <see cref="Lib.GObject.SignalFlags.RunCleanup"/>
+        /// Invoke the object method handler in the last emission stage.
         /// </summary>
         Cleanup,
     }

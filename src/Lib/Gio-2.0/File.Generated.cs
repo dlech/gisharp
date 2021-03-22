@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="File.xmldoc" path="declaration/member[@name='IFile']/*" />
     [GISharp.Runtime.GTypeAttribute("GFile", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileIface))]
-    public unsafe partial interface IFile : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IFile : GISharp.Lib.GObject.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Runtime.GType _GType = g_file_get_type();
 

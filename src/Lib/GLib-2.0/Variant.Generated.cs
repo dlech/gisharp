@@ -8,8 +8,6 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.GTypeAttribute("GVariant", IsProxyForUnmanagedType = true)]
     public sealed unsafe partial class Variant : GISharp.Runtime.Boxed, System.IComparable<Variant>, System.IEquatable<Variant>
     {
-        private static readonly GISharp.Runtime.GType _GType = intern();
-
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>

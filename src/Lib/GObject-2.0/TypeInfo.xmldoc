@@ -1,24 +1,24 @@
 <declaration>
 
-<member name='TypeInfo.ClassSize'>
+<member name='TypeInfo.classSize'>
 <summary>
 Size of the class structure (required for interface, classed and instantiatable types)
 </summary>
 </member>
 
-<member name='TypeInfo.BaseInit'>
+<member name='TypeInfo.baseInit'>
 <summary>
 Location of the base initialization function (optional)
 </summary>
 </member>
 
-<member name='TypeInfo.BaseFinalize'>
+<member name='TypeInfo.baseFinalize'>
 <summary>
 Location of the base finalization function (optional)
 </summary>
 </member>
 
-<member name='TypeInfo.ClassInit'>
+<member name='TypeInfo.classInit'>
 <summary>
 Location of the class initialization function for
  classed and instantiatable types. Location of the default vtable
@@ -29,7 +29,7 @@ Location of the class initialization function for
 </summary>
 </member>
 
-<member name='TypeInfo.ClassFinalize'>
+<member name='TypeInfo.classFinalize'>
 <summary>
 Location of the class finalization function for
  classed and instantiatable types. Location of the default vtable
@@ -37,31 +37,31 @@ Location of the class finalization function for
 </summary>
 </member>
 
-<member name='TypeInfo.ClassData'>
+<member name='TypeInfo.classData'>
 <summary>
 User-supplied data passed to the class init/finalize functions
 </summary>
 </member>
 
-<member name='TypeInfo.InstanceSize'>
+<member name='TypeInfo.instanceSize'>
 <summary>
 Size of the instance (object) structure (required for instantiatable types only)
 </summary>
 </member>
 
-<member name='TypeInfo.NPreallocs'>
+<member name='TypeInfo.nPreallocs'>
 <summary>
 Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are allocated with the [slice allocator][glib-Memory-Slices] now.
 </summary>
 </member>
 
-<member name='TypeInfo.InstanceInit'>
+<member name='TypeInfo.instanceInit'>
 <summary>
 Location of the instance initialization function (optional, for instantiatable types only)
 </summary>
 </member>
 
-<member name='TypeInfo.ValueTable'>
+<member name='TypeInfo.valueTable'>
 <summary>
 A <see cref="TypeValueTable"/> function table for generic handling of GValues
  of this type (usually only useful for fundamental types)
@@ -74,15 +74,6 @@ This structure is used to provide the type system with the information
 required to initialize and destruct (finalize) a type's class and
 its instances.
 </summary>
-<remarks>
-<para>
-The initialized structure is passed to the g_type_register_static() function
-(or is copied into the provided <see cref="TypeInfo"/> structure in the
-<see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeValueTable)"/>). The type system will perform a deep
-copy of this structure, so its memory does not need to be persistent
-across invocation of g_type_register_static().
-</para>
-</remarks>
 </member>
 
 </declaration>

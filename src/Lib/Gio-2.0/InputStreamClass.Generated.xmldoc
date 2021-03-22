@@ -45,31 +45,31 @@
 <member name='UnmanagedStruct.GReserved5'>
 </member>
 
-<member name='ReadFn'>
+<member name='_ReadFn'>
 </member>
 
-<member name='Skip'>
+<member name='_Skip'>
 </member>
 
-<member name='CloseFn'>
+<member name='_CloseFn'>
 </member>
 
-<member name='ReadAsync'>
+<member name='_ReadAsync'>
 </member>
 
-<member name='ReadFinish'>
+<member name='_ReadFinish'>
 </member>
 
-<member name='SkipAsync'>
+<member name='_SkipAsync'>
 </member>
 
-<member name='SkipFinish'>
+<member name='_SkipFinish'>
 </member>
 
-<member name='CloseAsync'>
+<member name='_CloseAsync'>
 </member>
 
-<member name='CloseFinish'>
+<member name='_CloseFinish'>
 </member>
 
 <member name='InputStreamClass'>

@@ -45,43 +45,43 @@
 <member name='UnmanagedStruct.QueryAction'>
 </member>
 
-<member name='HasAction'>
+<member name='_HasAction'>
 </member>
 
-<member name='ListActions'>
+<member name='_ListActions'>
 </member>
 
-<member name='GetActionEnabled'>
+<member name='_GetActionEnabled'>
 </member>
 
-<member name='GetActionParameterType'>
+<member name='_GetActionParameterType'>
 </member>
 
-<member name='GetActionStateType'>
+<member name='_GetActionStateType'>
 </member>
 
-<member name='GetActionStateHint'>
+<member name='_GetActionStateHint'>
 </member>
 
-<member name='GetActionState'>
+<member name='_GetActionState'>
 </member>
 
-<member name='ChangeActionState'>
+<member name='_ChangeActionState'>
 </member>
 
-<member name='ActivateAction'>
+<member name='_ActivateAction'>
 </member>
 
-<member name='ActionAdded'>
+<member name='_ActionAdded'>
 </member>
 
-<member name='ActionRemoved'>
+<member name='_ActionRemoved'>
 </member>
 
-<member name='ActionEnabledChanged'>
+<member name='_ActionEnabledChanged'>
 </member>
 
-<member name='ActionStateChanged'>
+<member name='_ActionStateChanged'>
 </member>
 
 <member name='ActionGroupInterface'>

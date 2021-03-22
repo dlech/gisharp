@@ -182,7 +182,12 @@ namespace GISharp.CodeGen
                     }
                     foreach (var element in setAttrElements) {
                         var attribute = element.Attribute(setAttrNamespace + setAttrLocalName);
-                        element.SetAttributeValue(setAttrNamespace + setAttrLocalName, setAttr.Value);
+                        if (setAttr.Value is null) {
+                            attribute.Remove();
+                        }
+                        else {
+                            element.SetAttributeValue(setAttrNamespace + setAttrLocalName, setAttr.Value);
+                        }
                     }
                     break;
                 case ChangeAttribute changeAttr:
@@ -324,17 +329,85 @@ namespace GISharp.CodeGen
             // all fields must be included for proper struct sizes
 
             foreach (var element in document.Descendants(gi + "field")
-                .Where(x => !x.Attribute("introspectable").AsBool(true))) {
+                .Where(x => !x.Attribute("introspectable").AsBool(true))
+                .ToList()
+            ) {
                 element.SetAttributeValue("introspectable", "1");
 
-                // if it is a callback, change it to an IntPtr
-                var callbackElement = element.Element(gi + "callback");
-                if (callbackElement is not null) {
-                    callbackElement.Name = gi + "type";
-                    callbackElement.SetAttributeValue("name", "gpointer");
-                    // sometimes, the callback node also has introspectable="0"
-                    callbackElement.SetAttributeValue("introspectable", "1");
+                // replace non-introspectable callbacks with IntPtr
+                if (element.Element(gi + "callback") is XElement callbackElement) {
+                    callbackElement.Remove();
+                    element.Add(new XElement(gi + "type",
+                        new XAttribute("name", "gpointer"),
+                        new XAttribute(c + "type", "gpointer")
+                    ));
                 }
+            }
+
+            // combine bits under single field
+            foreach (var element in document.Descendants().Where(x => x.Elements(gi + "field").Any()).ToList()) {
+                var combinedElement = default(XElement);
+                var size = 0;
+
+                foreach (var (fieldElement, i) in element.Elements(gi + "field").Select((x, i) => (x, i)).ToList()) {
+                    var bitsAttr = fieldElement.Attribute("bits");
+                    if (bitsAttr is null) {
+                        // we have reached the end
+                        combinedElement = default;
+                        continue;
+                    }
+
+                    if (combinedElement is null) {
+                        // this is the start of a new group of bits
+                        var typeElement = fieldElement.Element(gi + "type");
+                        // create a new field with a copy of the type
+                        combinedElement = new XElement(gi + "field",
+                            new XAttribute("name", $"bits{i}"),
+                            new XElement(typeElement)
+                        );
+                        fieldElement.AddBeforeSelf(combinedElement);
+                        size = typeElement.Attribute("name").Value == "guint" ? 32 : throw new NotImplementedException();
+                    }
+
+                    // move the bits field so that it is a child of the combined element
+                    fieldElement.Remove();
+                    fieldElement.Name = gs + "bits";
+                    combinedElement.Add(fieldElement);
+                    size -= bitsAttr.AsInt();
+
+                    // if we ran out of room for bits, it is time to start a new element
+                    if (size == 0) {
+                        combinedElement = null;
+                    }
+                }
+            }
+
+            // split fixed array fields
+
+            foreach (var element in document.Descendants(gi + "field")
+                .Where(x => x.Element(gi + "array") is XElement a &&
+                    a.Attribute("fixed-size").AsInt() > 0 &&
+                    !a.Element(gi + "type").Attribute(c + "type").AsString().IsAllowedInFixedSizeBuffers())
+                .ToList()
+            ) {
+                var count = element.Element(gi + "array").Attribute("fixed-size").AsInt();
+
+                IEnumerable<XElement> generate()
+                {
+                    for (int i = 0; i < count; i++) {
+                        var newElement = new XElement(element);
+                        newElement.Attribute("name").SetValue(newElement.Attribute("name").Value + i);
+                        var array = newElement.Element(gi + "array");
+                        var type = array.Element(gi + "type");
+                        type.Remove();
+                        array.Remove();
+                        newElement.Add(type);
+                        yield return newElement;
+                    }
+                }
+
+                element.AddAfterSelf(generate().ToArray());
+                element.Remove();
             }
 
             // flag records ending in "Private" as not introspectable
@@ -924,16 +997,6 @@ namespace GISharp.CodeGen
                 }
             }
 
-            // add a <type> node for fields with <callback>
-
-            foreach (var element in document.Descendants(gi + "callback")
-                .Where(x => x.Parent.Name == gi + "field")) {
-                var typeElement = new XElement(element);
-                typeElement.RemoveNodes();
-                typeElement.Name = gi + "type";
-                element.AddBeforeSelf(typeElement);
-            }
-
             // flag getters as properties
 
             var getters = document.Descendants()
@@ -1137,6 +1200,23 @@ namespace GISharp.CodeGen
             }
 
             return list;
+        }
+
+        private static bool IsAllowedInFixedSizeBuffers(this string cType)
+        {
+            // see https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/unsafe-code-pointers/fixed-size-buffers
+            // intptr/uintptr, clong/culong, nint/nuint are not allowed
+            return cType switch {
+                "gchar" or "guchar" => true,
+                "gshort" or "gushort" => true,
+                "gint" or "guint" => true,
+                "gint8" or "guint8" => true,
+                "gint16" or "guint16" => true,
+                "gint32" or "guint32" => true,
+                "gint64" or "guint64" => true,
+                "gdouble" or "gfloat" => true,
+                _ => false,
+            };
         }
 
         public static IEnumerable<XName> ElementsThatDefineAType {

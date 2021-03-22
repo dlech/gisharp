@@ -1,0 +1,34 @@
+<declaration>
+
+<member name='TypeQuery.type'>
+<summary>
+the #GType value of the type
+</summary>
+</member>
+
+<member name='TypeQuery.typeName'>
+<summary>
+the name of the type
+</summary>
+</member>
+
+<member name='TypeQuery.classSize'>
+<summary>
+the size of the class structure
+</summary>
+</member>
+
+<member name='TypeQuery.instanceSize'>
+<summary>
+the size of the instance structure
+</summary>
+</member>
+
+<member name='TypeQuery'>
+<summary>
+A structure holding information for a specific type.
+It is filled in by the <see cref="TypeExtensions.Query(GISharp.Runtime.GType,out GISharp.Lib.GObject.TypeQuery)"/> function.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,34 @@
+<declaration>
+
+<member name='TypeFundamentalFlags.Classed'>
+<summary>
+Indicates a classed type
+</summary>
+</member>
+
+<member name='TypeFundamentalFlags.Instantiatable'>
+<summary>
+Indicates an instantiable type (implies classed)
+</summary>
+</member>
+
+<member name='TypeFundamentalFlags.Derivable'>
+<summary>
+Indicates a flat derivable type
+</summary>
+</member>
+
+<member name='TypeFundamentalFlags.DeepDerivable'>
+<summary>
+Indicates a deep derivable type (implies derivable)
+</summary>
+</member>
+
+<member name='TypeFundamentalFlags'>
+<summary>
+Bit masks used to check or determine specific characteristics of a
+fundamental type.
+</summary>
+</member>
+
+</declaration>

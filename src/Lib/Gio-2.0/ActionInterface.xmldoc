@@ -27,28 +27,28 @@
 <member name='UnmanagedStruct.Activate'>
 </member>
 
-<member name='GetName'>
+<member name='_GetName'>
 </member>
 
-<member name='GetParameterType'>
+<member name='_GetParameterType'>
 </member>
 
-<member name='GetStateType'>
+<member name='_GetStateType'>
 </member>
 
-<member name='GetStateHint'>
+<member name='_GetStateHint'>
 </member>
 
-<member name='GetEnabled'>
+<member name='_GetEnabled'>
 </member>
 
-<member name='GetState'>
+<member name='_GetState'>
 </member>
 
-<member name='ChangeState'>
+<member name='_ChangeState'>
 </member>
 
-<member name='Activate'>
+<member name='_Activate'>
 </member>
 
 <member name='ActionInterface'>

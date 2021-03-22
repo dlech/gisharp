@@ -1,9 +1,9 @@
 <declaration>
 
-<member name='Mutex.P'>
+<member name='Mutex.p'>
 </member>
 
-<member name='Mutex.I'>
+<member name='Mutex.i'>
 </member>
 
 <member name='Mutex.Clear()'>

@@ -9,7 +9,7 @@ The parent interface.
 <member name='UnmanagedStruct.Init'>
 </member>
 
-<member name='Init'>
+<member name='_Init'>
 </member>
 
 <member name='InitableIface'>

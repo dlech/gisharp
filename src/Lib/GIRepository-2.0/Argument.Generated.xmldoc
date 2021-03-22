@@ -1,126 +1,126 @@
 <declaration>
 
-<member name='Argument.VBoolean'>
+<member name='Argument.vBoolean'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VInt8'>
+<member name='Argument.vInt8'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VUInt8'>
+<member name='Argument.vUInt8'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VInt16'>
+<member name='Argument.vInt16'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VUInt16'>
+<member name='Argument.vUInt16'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VInt32'>
+<member name='Argument.vInt32'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VUInt32'>
+<member name='Argument.vUInt32'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VInt64'>
+<member name='Argument.vInt64'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VUInt64'>
+<member name='Argument.vUInt64'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VFloat'>
+<member name='Argument.vFloat'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VDouble'>
+<member name='Argument.vDouble'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VShort'>
+<member name='Argument.vShort'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VUShort'>
+<member name='Argument.vUShort'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VInt'>
+<member name='Argument.vInt'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VUInt'>
+<member name='Argument.vUInt'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VLong'>
+<member name='Argument.vLong'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VULong'>
+<member name='Argument.vULong'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VSSize'>
+<member name='Argument.vSSize'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VSize'>
+<member name='Argument.vSize'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VString'>
+<member name='Argument.vString'>
 <summary>
 TODO
 </summary>
 </member>
 
-<member name='Argument.VPointer'>
+<member name='Argument.vPointer'>
 <summary>
 TODO
 </summary>

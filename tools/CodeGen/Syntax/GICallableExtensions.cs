@@ -96,7 +96,9 @@ namespace GISharp.CodeGen.Syntax
                 var expression = ParseExpression($"Check{callable.ManagedName}Args");
                 var invocation = InvocationExpression(expression);
                 foreach (var arg in callable.ManagedParameters.Where(x => x.Direction != "out")) {
-                    var @ref = arg.Direction == "inout" ? "ref " : "";
+                    var @ref = arg.Direction == "inout" ||
+                        (arg.Direction == "in" && arg.IsByRefValueType() && !arg.Type.CType.Contains("const"))
+                        ? "ref " : "";
                     var item = Argument(ParseExpression($"{@ref}{arg.ManagedName}"));
                     invocation = invocation.AddArgumentListArguments(item);
                 }
@@ -229,7 +231,7 @@ namespace GISharp.CodeGen.Syntax
 
             // marshal out args back to managed args
 
-            foreach (var p in callable.ManagedParameters.RegularParameters.Where(x => x.Direction != "in" && !x.IsCallerAllocates)) {
+            foreach (var p in callable.ManagedParameters.RegularParameters.Where(x => x.Direction != "in" && !x.IsCallerAllocates && !(x.Direction == "inout" && x.Type.IsValueType()))) {
                 block = block.AddStatements(p.GetMarshalUnmanagedToManagedStatements(false));
             }
 

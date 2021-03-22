@@ -1,9 +1,9 @@
 <declaration>
 
-<member name='Cond.P'>
+<member name='Cond.p'>
 </member>
 
-<member name='Cond.I'>
+<member name='Cond.i'>
 </member>
 
 <member name='Cond.Broadcast()'>
@@ -70,15 +70,15 @@ calling thread.
 <remarks>
 <para>
 When using condition variables, it is possible that a spurious wakeup
-may occur (ie: <see cref="Cond.Wait(GISharp.Lib.GLib.Mutex)"/> returns even though <see cref="Cond.Signal()"/> was
+may occur (ie: <see cref="Cond.Wait(ref GISharp.Lib.GLib.Mutex)"/> returns even though <see cref="Cond.Signal()"/> was
 not called).  It's also possible that a stolen wakeup may occur.
 This is when <see cref="Cond.Signal()"/> is called, but another thread acquires
 <paramref name="mutex"/> before this thread and modifies the state of the program in
-such a way that when <see cref="Cond.Wait(GISharp.Lib.GLib.Mutex)"/> is able to return, the expected
+such a way that when <see cref="Cond.Wait(ref GISharp.Lib.GLib.Mutex)"/> is able to return, the expected
 condition is no longer met.
 </para>
 <para>
-For this reason, <see cref="Cond.Wait(GISharp.Lib.GLib.Mutex)"/> must always be used in a loop.  See
+For this reason, <see cref="Cond.Wait(ref GISharp.Lib.GLib.Mutex)"/> must always be used in a loop.  See
 the documentation for <see cref="Cond"/> for a complete example.
 </para>
 </remarks>
@@ -93,7 +93,7 @@ Waits until either this instance is signalled or <paramref name="endTime"/> has 
 </summary>
 <remarks>
 <para>
-As with <see cref="Cond.Wait(GISharp.Lib.GLib.Mutex)"/> it is possible that a spurious or stolen wakeup
+As with <see cref="Cond.Wait(ref GISharp.Lib.GLib.Mutex)"/> it is possible that a spurious or stolen wakeup
 could occur.  For that reason, waiting on a condition variable should
 always be in a loop, based on an explicitly-checked predicate.
 </para>
@@ -227,9 +227,9 @@ specifically useful for its ability to release the mutex and go
 to sleep atomically.
 </para>
 <para>
-It is also important to use the <see cref="Cond.Wait(GISharp.Lib.GLib.Mutex)"/> and <see cref="Cond.WaitUntil(GISharp.Lib.GLib.Mutex,long)"/>
+It is also important to use the <see cref="Cond.Wait(ref GISharp.Lib.GLib.Mutex)"/> and <see cref="Cond.WaitUntil(ref GISharp.Lib.GLib.Mutex,long)"/>
 functions only inside a loop which checks for the condition to be
-true.  See <see cref="Cond.Wait(GISharp.Lib.GLib.Mutex)"/> for an explanation of why the condition may
+true.  See <see cref="Cond.Wait(ref GISharp.Lib.GLib.Mutex)"/> for an explanation of why the condition may
 not be true even after it returns.
 </para>
 <para>

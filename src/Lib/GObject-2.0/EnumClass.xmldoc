@@ -1,0 +1,41 @@
+<declaration>
+
+<member name='UnmanagedStruct.GTypeClass'>
+<summary>
+the parent class
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Minimum'>
+<summary>
+the smallest possible value.
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Maximum'>
+<summary>
+the largest possible value.
+</summary>
+</member>
+
+<member name='UnmanagedStruct.NValues'>
+<summary>
+the number of possible values.
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Values'>
+<summary>
+an array of <see cref="EnumValue"/> structs describing the
+ individual values.
+</summary>
+</member>
+
+<member name='EnumClass'>
+<summary>
+The class of an enumeration type holds information about its
+possible values.
+</summary>
+</member>
+
+</declaration>

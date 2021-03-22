@@ -14,8 +14,8 @@ namespace GISharp.Test.GLib
         public void TestFromIso6801()
         {
             Assert.That(TimeVal.TryFromIso8601("1970-01-01T00:00:00Z", out var tv), Is.True);
-            Assert.That(tv.TvSec, Is.EqualTo(0));
-            Assert.That(tv.TvUsec, Is.EqualTo(0));
+            Assert.That(tv.Seconds, Is.EqualTo(0));
+            Assert.That(tv.Microseconds, Is.EqualTo(0));
         }
 
         [Test]
@@ -24,8 +24,8 @@ namespace GISharp.Test.GLib
         {
             var tv = default(TimeVal);
             tv.Add(1234567890);
-            Assert.That(tv.TvSec, Is.EqualTo(1234));
-            Assert.That(tv.TvUsec, Is.EqualTo(567890));
+            Assert.That(tv.Seconds, Is.EqualTo(1234));
+            Assert.That(tv.Microseconds, Is.EqualTo(567890));
         }
 
         [Test]

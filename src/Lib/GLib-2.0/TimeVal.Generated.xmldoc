@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='TimeVal.TvSec'>
+<member name='TimeVal.tvSec'>
 <summary>
 seconds
 </summary>
 </member>
 
-<member name='TimeVal.TvUsec'>
+<member name='TimeVal.tvUsec'>
 <summary>
 microseconds
 </summary>

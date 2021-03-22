@@ -6,13 +6,13 @@ namespace GISharp.Lib.GLib
     /// <include file="Cond.xmldoc" path="declaration/member[@name='Cond']/*" />
     public unsafe partial struct Cond
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="Cond.xmldoc" path="declaration/member[@name='Cond.P']/*" />
-        public readonly System.IntPtr P;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="Cond.xmldoc" path="declaration/member[@name='Cond.p']/*" />
+        private readonly System.IntPtr p;
 
-        /// <include file="Cond.xmldoc" path="declaration/member[@name='Cond.I']/*" />
-        public fixed uint I[2];
-#pragma warning restore CS0169, CS0649
+        /// <include file="Cond.xmldoc" path="declaration/member[@name='Cond.i']/*" />
+        private fixed uint i[2];
+#pragma warning restore CS0169, CS0414, CS0649
         /// <summary>
         /// If threads are waiting for @cond, all of them are unblocked.
         /// If no threads are waiting for @cond, this function has no effect.
@@ -188,17 +188,19 @@ namespace GISharp.Lib.GLib
         /* <type name="Mutex" type="GMutex*" managed-name="Mutex" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Mutex* mutex);
-        partial void CheckWaitArgs(GISharp.Lib.GLib.Mutex mutex);
+        partial void CheckWaitArgs(ref GISharp.Lib.GLib.Mutex mutex);
 
         /// <include file="Cond.xmldoc" path="declaration/member[@name='Cond.Wait(GISharp.Lib.GLib.Mutex)']/*" />
-        public void Wait(GISharp.Lib.GLib.Mutex mutex)
+        public void Wait(ref GISharp.Lib.GLib.Mutex mutex)
         {
-            fixed (GISharp.Lib.GLib.Cond* this_ = &this)
+            fixed (GISharp.Lib.GLib.Mutex* mutex_ = &mutex)
             {
-                CheckWaitArgs(mutex);
-                var cond_ = this_;
-                var mutex_ = &mutex;
-                g_cond_wait(cond_, mutex_);
+                fixed (GISharp.Lib.GLib.Cond* this_ = &this)
+                {
+                    CheckWaitArgs(ref mutex);
+                    var cond_ = this_;
+                    g_cond_wait(cond_, mutex_);
+                }
             }
         }
 
@@ -290,21 +292,23 @@ namespace GISharp.Lib.GLib
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
         long endTime);
-        partial void CheckWaitUntilArgs(GISharp.Lib.GLib.Mutex mutex, long endTime);
+        partial void CheckWaitUntilArgs(ref GISharp.Lib.GLib.Mutex mutex, long endTime);
 
         /// <include file="Cond.xmldoc" path="declaration/member[@name='Cond.WaitUntil(GISharp.Lib.GLib.Mutex,long)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public bool WaitUntil(GISharp.Lib.GLib.Mutex mutex, long endTime)
+        public bool WaitUntil(ref GISharp.Lib.GLib.Mutex mutex, long endTime)
         {
-            fixed (GISharp.Lib.GLib.Cond* this_ = &this)
+            fixed (GISharp.Lib.GLib.Mutex* mutex_ = &mutex)
             {
-                CheckWaitUntilArgs(mutex, endTime);
-                var cond_ = this_;
-                var mutex_ = &mutex;
-                var endTime_ = (long)endTime;
-                var ret_ = g_cond_wait_until(cond_,mutex_,endTime_);
-                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-                return ret;
+                fixed (GISharp.Lib.GLib.Cond* this_ = &this)
+                {
+                    CheckWaitUntilArgs(ref mutex, endTime);
+                    var cond_ = this_;
+                    var endTime_ = (long)endTime;
+                    var ret_ = g_cond_wait_until(cond_,mutex_,endTime_);
+                    var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+                    return ret;
+                }
             }
         }
     }

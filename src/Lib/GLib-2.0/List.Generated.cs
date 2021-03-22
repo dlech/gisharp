@@ -11,7 +11,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="List.xmldoc" path="declaration/member[@name='UnmanagedStruct.Data']/*" />
             public readonly System.IntPtr Data;
 
@@ -20,7 +20,7 @@ namespace GISharp.Lib.GLib
 
             /// <include file="List.xmldoc" path="declaration/member[@name='UnmanagedStruct.Prev']/*" />
             public readonly GISharp.Lib.GLib.List.UnmanagedStruct* Prev;
-#pragma warning restore CS0169, CS0649
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='OptionEntry.LongName'>
+<member name='OptionEntry.longName'>
 <summary>
 The long name of an option can be used to specify it
     in a commandline as `--long_name`. Every option must have a
@@ -10,34 +10,34 @@ The long name of an option can be used to specify it
 </summary>
 </member>
 
-<member name='OptionEntry.ShortName'>
+<member name='OptionEntry.shortName'>
 <summary>
 If an option has a short name, it can be specified
-    `-short_name` in a commandline. <see cref="ShortName"/> must be a printable
+    `-short_name` in a commandline. <see cref="shortName"/> must be a printable
     ASCII character different from '-', or zero if the option has no
     short name.
 </summary>
 </member>
 
-<member name='OptionEntry.Flags'>
+<member name='OptionEntry.flags'>
 <summary>
 Flags from <see cref="OptionFlags"/>
 </summary>
 </member>
 
-<member name='OptionEntry.Arg'>
+<member name='OptionEntry.arg'>
 <summary>
 The type of the option, as a <see cref="OptionArg"/>
 </summary>
 </member>
 
-<member name='OptionEntry.ArgData'>
+<member name='OptionEntry.argData'>
 <summary>
-If the <see cref="Arg"/> type is <see cref="OptionArg.Callback"/>, then <see cref="ArgData"/>
+If the <see cref="arg"/> type is <see cref="OptionArg.Callback"/>, then <see cref="argData"/>
     must point to a <see cref="OptionArgFunc"/> callback function, which will be
-    called to handle the extra argument. Otherwise, <see cref="ArgData"/> is a
+    called to handle the extra argument. Otherwise, <see cref="argData"/> is a
     pointer to a location to store the value, the required type of
-    the location depends on the <see cref="Arg"/> type:
+    the location depends on the <see cref="arg"/> type:
     - <see cref="OptionArg.None"/>: %gboolean
     - <see cref="OptionArg.String"/>: %gchar*
     - <see cref="OptionArg.Int"/>: %gint
@@ -45,26 +45,26 @@ If the <see cref="Arg"/> type is <see cref="OptionArg.Callback"/>, then <see cre
     - <see cref="OptionArg.StringArray"/>: %gchar**
     - <see cref="OptionArg.FilenameArray"/>: %gchar**
     - <see cref="OptionArg.Double"/>: %gdouble
-    If <see cref="Arg"/> type is <see cref="OptionArg.String"/> or <see cref="OptionArg.Filename"/>,
+    If <see cref="arg"/> type is <see cref="OptionArg.String"/> or <see cref="OptionArg.Filename"/>,
     the location will contain a newly allocated string if the option
     was given. That string needs to be freed by the callee using g_free().
-    Likewise if <see cref="Arg"/> type is <see cref="OptionArg.StringArray"/> or
+    Likewise if <see cref="arg"/> type is <see cref="OptionArg.StringArray"/> or
     <see cref="OptionArg.FilenameArray"/>, the data should be freed using g_strfreev().
 </summary>
 </member>
 
-<member name='OptionEntry.Description'>
+<member name='OptionEntry.description'>
 <summary>
 the description for the option in `--help`
-    output. The <see cref="Description"/> is translated using the <see cref="TranslateFunc"/>
+    output. The <see cref="description"/> is translated using the <see cref="TranslateFunc"/>
     of the group, see <see cref="OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 </member>
 
-<member name='OptionEntry.ArgDescription'>
+<member name='OptionEntry.argDescription'>
 <summary>
 The placeholder to use for the extra argument parsed
-    by the option in `--help` output. The <see cref="ArgDescription"/> is translated
+    by the option in `--help` output. The <see cref="argDescription"/> is translated
     using the <see cref="TranslateFunc"/> of the group, see
     <see cref="OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>

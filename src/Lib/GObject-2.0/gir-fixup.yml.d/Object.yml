@@ -1,0 +1,87 @@
+
+### Object ###
+
+# requires special handling
+- !set-attribute
+  name: gs:custom-default-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']
+- !set-attribute
+  name: gs:custom-dispose
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']
+
+# overloads
+- !set-attribute
+  name: name
+  value: notify
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:method[@name='notify_by_pspec']
+- !set-attribute
+  name: shadows
+  value: bind_property
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:method[@name='bind_property_with_closures']
+
+# unmanaged-only methods
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:method[contains(@name,'sink') or contains(@name,'steal') or @name='force_floating']
+
+# better name
+- !set-attribute
+  name: name
+  value: get_properties
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:method[@name='getv']
+
+# expose bind_property_full
+- !set-attribute
+  name: shadowed-by
+  value: null
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:method[@name='bind_property_full']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:method[@name='bind_property_full']
+
+# expose more methods
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:method[contains(@name,'data') or contains(@name,'toggle')]
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:method[contains(@name,'data') or contains(@name,'toggle')]
+
+# create static class for interface functions
+- !add-element
+  xml: <gs:static-class name="ObjectInterface"/>
+  xpath: gi:repository/gi:namespace
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:function[@name='interface_find_property']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='ObjectInterface']
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:function[@name='interface_install_property']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='ObjectInterface']
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:class[@name='Object']/gi:function[@name='interface_list_properties']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='ObjectInterface']
+- !change-attribute
+  name: name
+  regex: interface_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='ObjectInterface']/gi:function
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='ObjectInterface']/gi:function
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='ObjectInterface']/gi:method/gi:parameters/gi:parameter[1]
+- !set-attribute
+  name: length
+  value: 0
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='ObjectInterface']/gi:method/gi:return-value/gi:array
+- !set-attribute
+  name: nullable
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='ObjectInterface']/gi:method[@name='find_property']/gi:return-value

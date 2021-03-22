@@ -8,14 +8,12 @@ namespace GISharp.Lib.GObject
     [GISharp.Runtime.GTypeStructAttribute(typeof(ParamSpecClass))]
     public abstract unsafe partial class ParamSpec : GISharp.Lib.GObject.TypeInstance
     {
-        private static readonly GISharp.Runtime.GType _GType = intern();
-
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
         public new struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.GTypeInstance']/*" />
             public readonly GISharp.Lib.GObject.TypeInstance.UnmanagedStruct GTypeInstance;
 
@@ -32,28 +30,37 @@ namespace GISharp.Lib.GObject
             public readonly GISharp.Runtime.GType OwnerType;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.Nick']/*" />
-            private readonly byte* Nick;
+            internal readonly byte* Nick;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.Blurb']/*" />
-            private readonly byte* Blurb;
+            internal readonly byte* Blurb;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.Qdata']/*" />
-            private readonly GISharp.Lib.GLib.Data.UnmanagedStruct* Qdata;
+            internal readonly GISharp.Lib.GLib.Data.UnmanagedStruct* Qdata;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.RefCount']/*" />
-            private readonly uint RefCount;
+            internal readonly uint RefCount;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParamId']/*" />
-            private readonly uint ParamId;
-#pragma warning restore CS0169, CS0649
+            internal readonly uint ParamId;
+#pragma warning restore CS0169, CS0414, CS0649
         }
+
+        /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.mask']/*" />
+        private const System.Int32 mask = 255;
+
+        /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.staticStrings']/*" />
+        private const System.Int32 staticStrings = 224;
+
+        /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.userShift']/*" />
+        private const System.Int32 userShift = 8;
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.Blurb']/*" />
         public GISharp.Lib.GLib.UnownedUtf8 Blurb { get => GetBlurb(); }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DefaultValue']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public ref readonly GISharp.Lib.GObject.Value DefaultValue { get => GetDefaultValue(); }
+        public ref readonly GISharp.Lib.GObject.Value DefaultValue { get => ref GetDefaultValue(); }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.Name']/*" />
         public GISharp.Lib.GLib.UnownedUtf8 Name { get => GetName(); }
@@ -68,14 +75,6 @@ namespace GISharp.Lib.GObject
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.RedirectTarget']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
         public GISharp.Lib.GObject.ParamSpec RedirectTarget { get => GetRedirectTarget(); }
-
-        /// <summary>
-        /// For internal runtime use only.
-        /// </summary>
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        protected ParamSpec(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
-        {
-        }
 
         /// <summary>
         /// Validate a property name for a #GParamSpec. This can be useful for
@@ -172,7 +171,7 @@ namespace GISharp.Lib.GObject
             CheckGetDefaultValueArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_default_value(pspec_);
-            ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(ret_);
+            ref var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(ret_);
             return ref ret;
         }
 
@@ -337,6 +336,47 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
+        /// Increments the reference count of @pspec.
+        /// </summary>
+        /// <param name="pspec">
+        /// a valid #GParamSpec
+        /// </param>
+        /// <returns>
+        /// the #GParamSpec that was passed into this function
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* g_param_spec_ref(
+        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
+
+        /// <summary>
+        /// Takes ownership of the unmanaged pointer without freeing it.
+        /// The managed object can no longer be used (will throw disposed exception).
+        /// </summary>
+        public override System.IntPtr Take() => (System.IntPtr)g_param_spec_ref((GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle);
+
+        /// <summary>
+        /// Convenience function to ref and sink a #GParamSpec.
+        /// </summary>
+        /// <param name="pspec">
+        /// a valid #GParamSpec
+        /// </param>
+        /// <returns>
+        /// the #GParamSpec that was passed into this function
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.10")]
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* g_param_spec_ref_sink(
+        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
+
+        /// <summary>
         /// Sets an opaque, named pointer on a #GParamSpec. The name is
         /// specified through a #GQuark (retrieved e.g. via
         /// g_quark_from_static_string()), and the pointer can be gotten back
@@ -379,6 +419,43 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
+        /// This function works like g_param_spec_set_qdata(), but in addition,
+        /// a `void (*destroy) (gpointer)` function may be
+        /// specified which is called with @data as argument when the @pspec is
+        /// finalized, or the data is being overwritten by a call to
+        /// g_param_spec_set_qdata() with the same @quark.
+        /// </summary>
+        /// <param name="pspec">
+        /// the #GParamSpec to set store a user data pointer
+        /// </param>
+        /// <param name="quark">
+        /// a #GQuark, naming the user data pointer
+        /// </param>
+        /// <param name="data">
+        /// an opaque user data pointer
+        /// </param>
+        /// <param name="destroy">
+        /// function to invoke with @data as argument, when @data needs to
+        ///  be freed
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_param_spec_set_qdata_full(
+        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec,
+        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.Quark quark,
+        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr data,
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
+        /* transfer-ownership:none scope:async direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> destroy);
+
+        /// <summary>
         /// The initial reference count of a newly created #GParamSpec is 1,
         /// even though no one has explicitly called g_param_spec_ref() on it
         /// yet. So the initial reference count is flagged as "floating", until
@@ -397,15 +474,6 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
-        partial void CheckSinkArgs();
-
-        /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.Sink()']/*" />
-        public void Sink()
-        {
-            CheckSinkArgs();
-            var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
-            g_param_spec_sink(pspec_);
-        }
 
         /// <summary>
         /// Gets back user data pointers stored via g_param_spec_set_qdata()
@@ -432,18 +500,20 @@ namespace GISharp.Lib.GObject
         /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark quark);
-        partial void CheckStealQdataArgs(GISharp.Lib.GLib.Quark quark);
 
-        /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.StealQdata(GISharp.Lib.GLib.Quark)']/*" />
-        public System.IntPtr StealQdata(GISharp.Lib.GLib.Quark quark)
-        {
-            CheckStealQdataArgs(quark);
-            var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
-            var quark_ = (GISharp.Lib.GLib.Quark)quark;
-            var ret_ = g_param_spec_steal_qdata(pspec_,quark_);
-            var ret = (System.IntPtr)ret_;
-            return ret;
-        }
+        /// <summary>
+        /// Decrements the reference count of a @pspec.
+        /// </summary>
+        /// <param name="pspec">
+        /// a valid #GParamSpec
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_param_spec_unref(
+        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DoFinalize()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ParamSpecClass.UnmanagedFinalize))]
@@ -455,34 +525,42 @@ namespace GISharp.Lib.GObject
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DoValueSetDefault(GISharp.Lib.GObject.Value)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ParamSpecClass.UnmanagedValueSetDefault))]
-        protected virtual void DoValueSetDefault(GISharp.Lib.GObject.Value value)
+        protected virtual void DoValueSetDefault(ref GISharp.Lib.GObject.Value value)
         {
-            var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
-            var value_ = &value;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValueSetDefault>(_GType)!(pspec_, value_);
+            fixed (GISharp.Lib.GObject.Value* value_ = &value)
+            {
+                var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
+                GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValueSetDefault>(_GType)!(pspec_, value_);
+            }
         }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DoValueValidate(GISharp.Lib.GObject.Value)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ParamSpecClass.UnmanagedValueValidate))]
-        protected virtual bool DoValueValidate(GISharp.Lib.GObject.Value value)
+        protected virtual bool DoValueValidate(ref GISharp.Lib.GObject.Value value)
         {
-            var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
-            var value_ = &value;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValueValidate>(_GType)!(pspec_,value_);
-            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-            return ret;
+            fixed (GISharp.Lib.GObject.Value* value_ = &value)
+            {
+                var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
+                var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValueValidate>(_GType)!(pspec_,value_);
+                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+                return ret;
+            }
         }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DoValuesCmp(GISharp.Lib.GObject.Value,GISharp.Lib.GObject.Value)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ParamSpecClass.UnmanagedValuesCmp))]
-        protected virtual int DoValuesCmp(GISharp.Lib.GObject.Value value1, GISharp.Lib.GObject.Value value2)
+        protected virtual int DoValuesCmp(in GISharp.Lib.GObject.Value value1, in GISharp.Lib.GObject.Value value2)
         {
-            var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
-            var value1_ = &value1;
-            var value2_ = &value2;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValuesCmp>(_GType)!(pspec_,value1_,value2_);
-            var ret = (int)ret_;
-            return ret;
+            fixed (GISharp.Lib.GObject.Value* value2_ = &value2)
+            {
+                fixed (GISharp.Lib.GObject.Value* value1_ = &value1)
+                {
+                    var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
+                    var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValuesCmp>(_GType)!(pspec_,value1_,value2_);
+                    var ret = (int)ret_;
+                    return ret;
+                }
+            }
         }
     }
 }

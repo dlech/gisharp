@@ -1,0 +1,35 @@
+<declaration>
+
+<member name='UnmanagedStruct.GTypeClass'>
+<summary>
+the parent class
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Mask'>
+<summary>
+a mask covering all possible values.
+</summary>
+</member>
+
+<member name='UnmanagedStruct.NValues'>
+<summary>
+the number of possible values.
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Values'>
+<summary>
+an array of <see cref="FlagsValue"/> structs describing the
+ individual values.
+</summary>
+</member>
+
+<member name='FlagsClass'>
+<summary>
+The class of a flags type holds information about its
+possible values.
+</summary>
+</member>
+
+</declaration>

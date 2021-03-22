@@ -4,20 +4,20 @@
 namespace GISharp.Lib.GObject
 {
     /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='TypeInterface']/*" />
-    public sealed unsafe partial class TypeInterface : GISharp.Runtime.Opaque
+    public abstract unsafe partial class TypeInterface : GISharp.Runtime.Opaque
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
         public struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GType']/*" />
-            private readonly GISharp.Runtime.GType GType;
+            internal readonly GISharp.Runtime.GType GType;
 
             /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GInstanceType']/*" />
-            private readonly GISharp.Runtime.GType GInstanceType;
-#pragma warning restore CS0169, CS0649
+            internal readonly GISharp.Runtime.GType GInstanceType;
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         /// <summary>
@@ -63,45 +63,6 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Returns the #GTypePlugin structure for the dynamic interface
-        /// @interface_type which has been added to @instance_type, or %NULL
-        /// if @interface_type has not been added to @instance_type or does
-        /// not have a #GTypePlugin structure. See g_type_add_interface_dynamic().
-        /// </summary>
-        /// <param name="instanceType">
-        /// #GType of an instantiatable type
-        /// </param>
-        /// <param name="interfaceType">
-        /// #GType of an interface type
-        /// </param>
-        /// <returns>
-        /// the #GTypePlugin for the dynamic
-        ///     interface @interface_type of @instance_type
-        /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypePlugin" type="GTypePlugin*" managed-name="TypePlugin" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GObject.TypePlugin.UnmanagedStruct* g_type_interface_get_plugin(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Runtime.GType instanceType,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Runtime.GType interfaceType);
-        static partial void CheckGetPluginArgs(GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType);
-
-        /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='TypeInterface.GetPlugin(GISharp.Runtime.GType,GISharp.Runtime.GType)']/*" />
-        public static GISharp.Lib.GObject.ITypePlugin GetPlugin(GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType)
-        {
-            CheckGetPluginArgs(instanceType, interfaceType);
-            var instanceType_ = (GISharp.Runtime.GType)instanceType;
-            var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
-            var ret_ = g_type_interface_get_plugin(instanceType_,interfaceType_);
-            var ret = (GISharp.Lib.GObject.ITypePlugin)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
-            return ret;
-        }
-
-        /// <summary>
         /// Returns the #GTypeInterface structure of an interface to which the
         /// passed in class conforms.
         /// </summary>
@@ -126,18 +87,6 @@ namespace GISharp.Lib.GObject
         /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType ifaceType);
-        static partial void CheckPeekArgs(GISharp.Lib.GObject.TypeClass instanceClass, GISharp.Runtime.GType ifaceType);
-
-        /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='TypeInterface.Peek(GISharp.Lib.GObject.TypeClass,GISharp.Runtime.GType)']/*" />
-        public static GISharp.Lib.GObject.TypeInterface Peek(GISharp.Lib.GObject.TypeClass instanceClass, GISharp.Runtime.GType ifaceType)
-        {
-            CheckPeekArgs(instanceClass, ifaceType);
-            var instanceClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)instanceClass.UnsafeHandle;
-            var ifaceType_ = (GISharp.Runtime.GType)ifaceType;
-            var ret_ = g_type_interface_peek(instanceClass_,ifaceType_);
-            var ret = GISharp.Lib.GObject.TypeInterface.GetInstance<GISharp.Lib.GObject.TypeInterface>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
-            return ret;
-        }
 
         /// <summary>
         /// Returns the prerequisites of an interfaces type.
@@ -203,16 +152,5 @@ namespace GISharp.Lib.GObject
         /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* gIface);
-        partial void CheckPeekParentArgs();
-
-        /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='TypeInterface.PeekParent()']/*" />
-        public GISharp.Lib.GObject.TypeInterface PeekParent()
-        {
-            CheckPeekParentArgs();
-            var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)UnsafeHandle;
-            var ret_ = g_type_interface_peek_parent(gIface_);
-            var ret = GISharp.Lib.GObject.TypeInterface.GetInstance<GISharp.Lib.GObject.TypeInterface>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
-            return ret;
-        }
     }
 }

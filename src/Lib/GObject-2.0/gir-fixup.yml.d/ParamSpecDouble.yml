@@ -1,0 +1,20 @@
+
+### ParamSpecDouble ###
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='param_spec_double']
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecDouble']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecDouble']/gi:function[@name='param_spec_double']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecDouble']/gi:constructor[@name='param_spec_double']
+
+# return value is floating reference
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecDouble']/gi:constructor/gi:return-value

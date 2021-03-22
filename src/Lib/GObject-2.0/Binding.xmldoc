@@ -76,21 +76,6 @@ of the binding.
 </summary>
 </member>
 
-<member name='Binding.Unbind()'>
-<summary>
-Explicitly releases the binding between the source and the target
-property expressed by this instance.
-</summary>
-<remarks>
-<para>
-This function will release the reference that is being held on
-the this instance instance; if you want to hold on to the <see cref="Binding"/> instance
-after calling <see cref="Binding.Unbind()"/>, you will need to hold a reference
-to it.
-</para>
-</remarks>
-</member>
-
 <member name='Binding'>
 <summary>
 <see cref="Binding"/> is the representation of a binding between a property on a
@@ -170,8 +155,8 @@ might lead to an infinite loop. The loop, in this particular case,
 can be avoided if the objects emit the <see cref="Object"/>::notify signal only
 if the value has effectively been changed. A binding is implemented
 using the <see cref="Object"/>::notify signal, so it is susceptible to all the
-various ways of blocking a signal emission, like g_signal_stop_emission()
-or g_signal_handler_block().
+various ways of blocking a signal emission, like <see cref="Signal.StopEmission(GISharp.Lib.GObject.Object,uint,GISharp.Lib.GLib.Quark)"/>
+or <see cref="Signal.HandlerBlock(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)"/>.
 </para>
 <para>
 A binding will be severed, and the resources it allocates freed, whenever

@@ -42,6 +42,12 @@ namespace GISharp.CodeGen.Gir
         public bool IsCustomDefaultConstructor { get; }
 
         /// <summary>
+        /// Gets if the dispose method should not be emtted so that a custom
+        /// one can be used instead.
+        /// </summary>
+        public bool IsCustomDispose { get; }
+
+        /// <summary>
         /// Gets the GIR node for the GType struct, if any
         /// </summary>
         public Record GTypeStructNode => _GTypeStructNode.Value;
@@ -110,6 +116,7 @@ namespace GISharp.CodeGen.Gir
             GTypeGetter = element.Attribute(glib + "get-type").AsString();
             GTypeStruct = element.Attribute(glib + "type-struct").AsString();
             IsCustomDefaultConstructor = element.Attribute(gs + "custom-default-constructor").AsBool();
+            IsCustomDispose = element.Attribute(gs + "custom-dispose").AsBool();
             _GTypeStructNode = new(LazyGetGTypeStructNode, false);
             _Constants = new(() => LazyGetConstants().ToList(), false);
             _Fields = new(() => LazyGetFields().ToList(), false);

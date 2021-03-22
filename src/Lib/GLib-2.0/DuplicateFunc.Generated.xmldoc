@@ -1,0 +1,12 @@
+<declaration>
+
+<member name='DuplicateFunc'>
+<summary>
+The type of functions that are used to 'duplicate' an object.
+What this means depends on the context, it could just be
+incrementing the reference count, if <paramref name="data"/> is a ref-counted
+object.
+</summary>
+</member>
+
+</declaration>

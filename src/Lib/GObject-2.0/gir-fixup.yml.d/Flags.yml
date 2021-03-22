@@ -1,0 +1,44 @@
+
+### Flags ###
+
+# make static class
+- !add-element
+  xml: <gs:static-class name="Flags"/>
+  xpath: gi:repository/gi:namespace
+
+# move flags functions
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'flags_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']
+
+# remove prefix
+- !change-attribute
+  name: name
+  regex: flags_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function
+
+# fix array type
+- !add-element
+  xml: <gi:array zero-terminated="1" c:type="const GFlagsValue*"/>
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function[@name='complete_type_info']/gi:parameters/gi:parameter[@name='const_values']
+- !move-element
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function[@name='complete_type_info']/gi:parameters/gi:parameter[@name='const_values']/gi:type
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function[@name='complete_type_info']/gi:parameters/gi:parameter[@name='const_values']/gi:array
+- !set-attribute
+  name: c:type
+  value: "const GFlagsValue"
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function[@name='complete_type_info']/gi:parameters/gi:parameter[@name='const_values']/gi:array/gi:type
+
+# fix array type
+- !add-element
+  xml: <gi:array zero-terminated="1" c:type="const GFlagsValue*"/>
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function[@name='register_static']/gi:parameters/gi:parameter[@name='const_static_values']
+- !move-element
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function[@name='register_static']/gi:parameters/gi:parameter[@name='const_static_values']/gi:type
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function[@name='register_static']/gi:parameters/gi:parameter[@name='const_static_values']/gi:array
+- !set-attribute
+  name: c:type
+  value: "const GFlagsValue"
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function[@name='register_static']/gi:parameters/gi:parameter[@name='const_static_values']/gi:array/gi:type
+

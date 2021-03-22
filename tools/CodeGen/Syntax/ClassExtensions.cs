@@ -79,7 +79,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(@class.VirtualMethods.GetMemberDeclarations())
                 .AddRange(@class.Implements.GetVirtualMethodMemberDeclarations());
 
-            if (@class.GTypeName is not null) {
+            if (@class.GTypeName is not null && @class.GTypeGetter != "intern") {
                 members = members.Insert(0, @class.GetGTypeFieldDeclaration());
             }
 

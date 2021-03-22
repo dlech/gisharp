@@ -14,46 +14,46 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.CallbackData']/*" />
-            private readonly System.IntPtr CallbackData;
+            internal readonly System.IntPtr CallbackData;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.CallbackFuncs']/*" />
-            private readonly GISharp.Lib.GLib.SourceCallbackFuncs* CallbackFuncs;
+            internal readonly GISharp.Lib.GLib.SourceCallbackFuncs* CallbackFuncs;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.SourceFuncs']/*" />
-            private readonly GISharp.Lib.GLib.SourceFuncs* SourceFuncs;
+            internal readonly GISharp.Lib.GLib.SourceFuncs* SourceFuncs;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.RefCount']/*" />
-            private readonly uint RefCount;
+            internal readonly uint RefCount;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Context']/*" />
-            private readonly GISharp.Lib.GLib.MainContext.UnmanagedStruct* Context;
+            internal readonly GISharp.Lib.GLib.MainContext.UnmanagedStruct* Context;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Priority']/*" />
-            private readonly int Priority;
+            internal readonly int Priority;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Flags']/*" />
-            private readonly uint Flags;
+            internal readonly uint Flags;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.SourceId']/*" />
-            private readonly uint SourceId;
+            internal readonly uint SourceId;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.PollFds']/*" />
-            private readonly GISharp.Lib.GLib.SList.UnmanagedStruct* PollFds;
+            internal readonly GISharp.Lib.GLib.SList.UnmanagedStruct* PollFds;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Prev']/*" />
-            private readonly GISharp.Lib.GLib.Source.UnmanagedStruct* Prev;
+            internal readonly GISharp.Lib.GLib.Source.UnmanagedStruct* Prev;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Next']/*" />
-            private readonly GISharp.Lib.GLib.Source.UnmanagedStruct* Next;
+            internal readonly GISharp.Lib.GLib.Source.UnmanagedStruct* Next;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Name']/*" />
-            private readonly byte* Name;
+            internal readonly byte* Name;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Priv']/*" />
-            private readonly System.IntPtr Priv;
-#pragma warning restore CS0169, CS0649
+            internal readonly System.IntPtr Priv;
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Continue']/*" />
@@ -140,19 +140,21 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint structSize);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize);
+        static partial void CheckNewArgs(ref GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize);
 
-        static GISharp.Lib.GLib.Source.UnmanagedStruct* New(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize)
+        static GISharp.Lib.GLib.Source.UnmanagedStruct* New(ref GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize)
         {
-            CheckNewArgs(sourceFuncs, structSize);
-            var sourceFuncs_ = &sourceFuncs;
-            var structSize_ = (uint)structSize;
-            var ret_ = g_source_new(sourceFuncs_,structSize_);
-            return ret_;
+            fixed (GISharp.Lib.GLib.SourceFuncs* sourceFuncs_ = &sourceFuncs)
+            {
+                CheckNewArgs(ref sourceFuncs, structSize);
+                var structSize_ = (uint)structSize;
+                var ret_ = g_source_new(sourceFuncs_,structSize_);
+                return ret_;
+            }
         }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)']/*" />
-        public Source(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize) : this((System.IntPtr)New(sourceFuncs, structSize), GISharp.Runtime.Transfer.Full)
+        public Source(ref GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize) : this((System.IntPtr)New(ref sourceFuncs, structSize), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -231,17 +233,19 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        static partial void CheckRemoveByFuncsUserDataArgs(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData);
+        static partial void CheckRemoveByFuncsUserDataArgs(ref GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.RemoveByFuncsUserData(GISharp.Lib.GLib.SourceFuncs,System.IntPtr)']/*" />
-        public static bool RemoveByFuncsUserData(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData)
+        public static bool RemoveByFuncsUserData(ref GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData)
         {
-            CheckRemoveByFuncsUserDataArgs(funcs, userData);
-            var funcs_ = &funcs;
-            var userData_ = (System.IntPtr)userData;
-            var ret_ = g_source_remove_by_funcs_user_data(funcs_,userData_);
-            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-            return ret;
+            fixed (GISharp.Lib.GLib.SourceFuncs* funcs_ = &funcs)
+            {
+                CheckRemoveByFuncsUserDataArgs(ref funcs, userData);
+                var userData_ = (System.IntPtr)userData;
+                var ret_ = g_source_remove_by_funcs_user_data(funcs_,userData_);
+                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+                return ret;
+            }
         }
 
         /// <summary>
@@ -441,15 +445,17 @@ namespace GISharp.Lib.GLib
         /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PollFD* fd);
-        partial void CheckAddPollArgs(GISharp.Lib.GLib.PollFD fd);
+        partial void CheckAddPollArgs(ref GISharp.Lib.GLib.PollFD fd);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.AddPoll(GISharp.Lib.GLib.PollFD)']/*" />
-        public void AddPoll(GISharp.Lib.GLib.PollFD fd)
+        public void AddPoll(ref GISharp.Lib.GLib.PollFD fd)
         {
-            CheckAddPollArgs(fd);
-            var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var fd_ = &fd;
-            g_source_add_poll(source_, fd_);
+            fixed (GISharp.Lib.GLib.PollFD* fd_ = &fd)
+            {
+                CheckAddPollArgs(ref fd);
+                var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
+                g_source_add_poll(source_, fd_);
+            }
         }
 
         /// <summary>
@@ -682,17 +688,19 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* timeval);
-        partial void CheckGetCurrentTimeArgs(GISharp.Lib.GLib.TimeVal timeval);
+        partial void CheckGetCurrentTimeArgs(ref GISharp.Lib.GLib.TimeVal timeval);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.GetCurrentTime(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("use g_source_get_time() instead")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.28")]
-        public void GetCurrentTime(GISharp.Lib.GLib.TimeVal timeval)
+        public void GetCurrentTime(ref GISharp.Lib.GLib.TimeVal timeval)
         {
-            CheckGetCurrentTimeArgs(timeval);
-            var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var timeval_ = &timeval;
-            g_source_get_current_time(source_, timeval_);
+            fixed (GISharp.Lib.GLib.TimeVal* timeval_ = &timeval)
+            {
+                CheckGetCurrentTimeArgs(ref timeval);
+                var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
+                g_source_get_current_time(source_, timeval_);
+            }
         }
 
         /// <summary>
@@ -1157,15 +1165,17 @@ namespace GISharp.Lib.GLib
         /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PollFD* fd);
-        partial void CheckRemovePollArgs(GISharp.Lib.GLib.PollFD fd);
+        partial void CheckRemovePollArgs(ref GISharp.Lib.GLib.PollFD fd);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.RemovePoll(GISharp.Lib.GLib.PollFD)']/*" />
-        public void RemovePoll(GISharp.Lib.GLib.PollFD fd)
+        public void RemovePoll(ref GISharp.Lib.GLib.PollFD fd)
         {
-            CheckRemovePollArgs(fd);
-            var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var fd_ = &fd;
-            g_source_remove_poll(source_, fd_);
+            fixed (GISharp.Lib.GLib.PollFD* fd_ = &fd)
+            {
+                CheckRemovePollArgs(ref fd);
+                var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
+                g_source_remove_poll(source_, fd_);
+            }
         }
 
         /// <summary>
@@ -1319,16 +1329,18 @@ namespace GISharp.Lib.GLib
         /* <type name="SourceCallbackFuncs" type="GSourceCallbackFuncs*" managed-name="SourceCallbackFuncs" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SourceCallbackFuncs* callbackFuncs);
-        partial void CheckSetCallbackIndirectArgs(System.IntPtr callbackData, GISharp.Lib.GLib.SourceCallbackFuncs callbackFuncs);
+        partial void CheckSetCallbackIndirectArgs(System.IntPtr callbackData, ref GISharp.Lib.GLib.SourceCallbackFuncs callbackFuncs);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.SetCallbackIndirect(System.IntPtr,GISharp.Lib.GLib.SourceCallbackFuncs)']/*" />
-        public void SetCallbackIndirect(System.IntPtr callbackData, GISharp.Lib.GLib.SourceCallbackFuncs callbackFuncs)
+        public void SetCallbackIndirect(System.IntPtr callbackData, ref GISharp.Lib.GLib.SourceCallbackFuncs callbackFuncs)
         {
-            CheckSetCallbackIndirectArgs(callbackData, callbackFuncs);
-            var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var callbackData_ = (System.IntPtr)callbackData;
-            var callbackFuncs_ = &callbackFuncs;
-            g_source_set_callback_indirect(source_, callbackData_, callbackFuncs_);
+            fixed (GISharp.Lib.GLib.SourceCallbackFuncs* callbackFuncs_ = &callbackFuncs)
+            {
+                CheckSetCallbackIndirectArgs(callbackData, ref callbackFuncs);
+                var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
+                var callbackData_ = (System.IntPtr)callbackData;
+                g_source_set_callback_indirect(source_, callbackData_, callbackFuncs_);
+            }
         }
 
         /// <summary>
@@ -1384,16 +1396,18 @@ namespace GISharp.Lib.GLib
         /* <type name="SourceFuncs" type="GSourceFuncs*" managed-name="SourceFuncs" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SourceFuncs* funcs);
-        partial void CheckSetFuncsArgs(GISharp.Lib.GLib.SourceFuncs funcs);
+        partial void CheckSetFuncsArgs(ref GISharp.Lib.GLib.SourceFuncs funcs);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.SetFuncs(GISharp.Lib.GLib.SourceFuncs)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public void SetFuncs(GISharp.Lib.GLib.SourceFuncs funcs)
+        public void SetFuncs(ref GISharp.Lib.GLib.SourceFuncs funcs)
         {
-            CheckSetFuncsArgs(funcs);
-            var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var funcs_ = &funcs;
-            g_source_set_funcs(source_, funcs_);
+            fixed (GISharp.Lib.GLib.SourceFuncs* funcs_ = &funcs)
+            {
+                CheckSetFuncsArgs(ref funcs);
+                var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
+                g_source_set_funcs(source_, funcs_);
+            }
         }
 
         /// <summary>

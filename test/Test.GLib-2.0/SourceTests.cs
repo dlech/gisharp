@@ -63,14 +63,14 @@ namespace GISharp.Test.GLib
             }
         }
 
-        static readonly PollFD testPollFD = default;
+        static PollFD testPollFD = default;
 
         [Test]
         public void TestPollFD()
         {
             using var s = IdleSource.New();
-            s.AddPoll(testPollFD);
-            s.RemovePoll(testPollFD);
+            s.AddPoll(ref testPollFD);
+            s.RemovePoll(ref testPollFD);
         }
     }
 }

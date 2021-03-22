@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='Parameter.Name'>
+<member name='Parameter.name'>
 <summary>
 the parameter name
 </summary>
 </member>
 
-<member name='Parameter.Value'>
+<member name='Parameter.value'>
 <summary>
 the parameter value
 </summary>

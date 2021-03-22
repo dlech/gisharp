@@ -137,8 +137,15 @@ namespace GISharp.CodeGen.Syntax
                 else if (arg is InstanceParameter && !(arg.ParentNode.ParentNode is Signal)) {
                     yield return Token(ThisKeyword);
                 }
-
-                // TODO: consider "in" keyword for large struct
+                else if (arg.Direction == "in" && arg.IsByRefValueType()) {
+                    // TODO: make const and attribute on its own so it can be overridden
+                    if (arg.Type.CType.Contains("const")) {
+                        yield return Token(InKeyword);
+                    }
+                    else {
+                        yield return Token(RefKeyword);
+                    }
+                }
             }
 
             var syntax = Parameter(identifier)
@@ -166,16 +173,21 @@ namespace GISharp.CodeGen.Syntax
 
             if (arg.ParentNode is ManagedParameters) {
                 if (arg.Direction == "inout") {
-                    expression = "ref " + expression;
+                    expression = $"ref {expression}";
                 }
                 else if (arg.Direction == "out" && !arg.IsCallerAllocatesBuffer()) {
                     var @var = declareOutVars ? "var " : "";
-                    expression = $"out {@var}" + expression;
+                    expression = $"out {@var}{expression}";
+                }
+                else if (arg.Direction == "in" && arg.IsByRefValueType()) {
+                    if (!arg.Type.CType.Contains("const")) {
+                        expression = $"ref {expression}";
+                    }
                 }
             }
 
             if (arg.ParentNode is Parameters) {
-                if (arg.Direction != "in" && !arg.IsCallerAllocates) {
+                if (arg.Direction != "in" && !arg.IsCallerAllocates && !(arg.Direction == "inout" && arg.Type.IsValueType())) {
                     expression = "&" + expression;
                 }
             }
@@ -252,7 +264,26 @@ namespace GISharp.CodeGen.Syntax
                     if (takeData) {
                         lengthGetter = $"{arg.ManagedName}Length_";
                     }
-                    expressions.Add(ParseExpression($"{@var}{lengthIdentifier}_ = ({lengthType}){lengthGetter}"));
+
+                    // if there is another parameter before this one that shares the
+                    // same length arg, then verify that the length of this arg
+                    // matches the first
+                    if (arg.Callable.ManagedParameters.TakeWhile(x => x != arg)
+                        .Where(x => x.Type is Gir.Array a && a.LengthIndex == array.LengthIndex)
+                        .FirstOrDefault() is GIArg first
+                    ) {
+                        // TODO: change expressions list to statements list so we
+                        // can have a proper if statement
+                        var exception = $"System.ArgumentException(\"Length length of {arg.ManagedName} must be the same as {first.ManagedName}\", nameof({arg.ManagedName}))";
+                        expressions.Add(ParseExpression(
+                            $"{lengthIdentifier}_ = {lengthIdentifier}_ == ({lengthType}){lengthGetter} ? {lengthIdentifier}_ : throw new {exception}"
+                        ));
+                    }
+                    else {
+                        expressions.Add(ParseExpression(
+                            $"{@var}{lengthIdentifier}_ = ({lengthType}){lengthGetter}"
+                        ));
+                    }
                 }
             }
             else if (arg.Type.IsOpaque()) {
@@ -268,9 +299,18 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (arg.Type.IsValueType()) {
                 // value types are used directly
-                if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                if ((arg.Direction == "out" && arg.IsCallerAllocates) || arg.Direction == "inout") {
                     fixedStatement = FixedStatement(
                         VariableDeclaration(ParseTypeName($"{unmanagedType}*"))
+                            .AddVariables(VariableDeclarator(unmanagedName)
+                                .WithInitializer(EqualsValueClause(ParseExpression($"&{arg.ManagedName}")))
+                        ),
+                        Block());
+                }
+                else if (arg.Direction == "in" && arg.IsByRefValueType()) {
+                    // basically same as above without "*" added to unmanaged type
+                    fixedStatement = FixedStatement(
+                        VariableDeclaration(ParseTypeName($"{unmanagedType}"))
                             .AddVariables(VariableDeclarator(unmanagedName)
                                 .WithInitializer(EqualsValueClause(ParseExpression($"&{arg.ManagedName}")))
                         ),
@@ -363,8 +403,9 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (arg.Type.IsValueType()) {
                 // value types are used directly
-                if (arg is ReturnValue returnValue && returnValue.IsRefReturn()) {
-                    expressions.Add(ParseExpression($"ref readonly {@var}{arg.ManagedName} = ref System.Runtime.CompilerServices.Unsafe.AsRef<{type}>({arg.ManagedName}_)"));
+                if ((arg is ReturnValue returnValue && returnValue.IsRefReturn()) || (arg.Direction == "in" && arg.IsByRefValueType())) {
+                    // TODO: consider "readonly" here if arg type is const
+                    expressions.Add(ParseExpression($"ref {@var}{arg.ManagedName} = ref System.Runtime.CompilerServices.Unsafe.AsRef<{type}>({arg.ManagedName}_)"));
                 }
                 else if (arg.Type.GirName == "gboolean") {
                     expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.IsTrue)}({arg.ManagedName}_)"));
@@ -461,6 +502,27 @@ namespace GISharp.CodeGen.Syntax
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Tests if arg managed type is a value type and it is passed by reference
+        /// to unmanaged code.
+        /// </summary>
+        public static bool IsByRefValueType(this GIArg arg)
+        {
+            if (!arg.Type.IsValueType()) {
+                return false;
+            }
+
+            if (!arg.Type.IsPointer) {
+                return false;
+            }
+
+            if (arg.Type.GetUnmanagedType() == "System.IntPtr") {
+                return false;
+            }
+
+            return true;
         }
     }
 }

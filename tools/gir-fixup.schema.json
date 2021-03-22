@@ -16,10 +16,11 @@
                         "type": "string"
                     },
                     "value": {
-                        "description": "The new value for the attribute.",
+                        "description": "The new value for the attribute or null to remove the attribute.",
                         "type": [
                             "string",
-                            "integer"
+                            "integer",
+                            "null"
                         ]
                     },
                     "xpath": {

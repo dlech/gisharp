@@ -21,7 +21,7 @@
 <member name='UnmanagedStruct.GReserved5'>
 </member>
 
-<member name='Cancelled'>
+<member name='_Cancelled'>
 </member>
 
 <member name='CancellableClass'>

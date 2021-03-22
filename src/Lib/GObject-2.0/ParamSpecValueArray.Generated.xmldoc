@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='UnmanagedStruct.ParentInstance'>
+<summary>
+private <see cref="ParamSpec"/> portion
+</summary>
+</member>
+
+<member name='UnmanagedStruct.ElementSpec'>
+<summary>
+a <see cref="ParamSpec"/> describing the elements contained in arrays of this property, may be <c>null</c>
+</summary>
+</member>
+
+<member name='UnmanagedStruct.FixedNElements'>
+<summary>
+if greater than 0, arrays of this property will always have this many elements
+</summary>
+</member>
+
+<member name='ParamSpecValueArray'>
+<summary>
+A <see cref="ParamSpec"/> derived structure that contains the meta data for #GValueArray properties.
+</summary>
+</member>
+
+</declaration>

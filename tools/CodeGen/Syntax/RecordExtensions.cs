@@ -20,7 +20,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static StructDeclarationSyntax GetStructDeclaration(this Record record)
         {
-            var identifier = record.ManagedName;
+            var identifier = record.GirName;
             return StructDeclaration(identifier)
                 .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
                 .WithAttributeLists(record.GetGTypeAttributeLists())
@@ -34,7 +34,8 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetStructMembers(this Record record)
         {
             var members = List<MemberDeclarationSyntax>()
-                .AddIf(record.GTypeName is not null, () => record.GetGTypeFieldDeclaration())
+                .AddIf(record.GTypeName is not null && record.GTypeGetter != "intern",
+                    () => record.GetGTypeFieldDeclaration())
                 .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.Fields.GetStructDeclaration(forUnmanagedStruct: false).Members)
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
@@ -49,7 +50,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static ClassDeclarationSyntax GetClassDeclaration(this Record record)
         {
-            var identifier = record.ManagedName;
+            var identifier = record.GirName;
 
             var syntax = ClassDeclaration(identifier)
                 .WithModifiers(TokenList(
@@ -86,7 +87,8 @@ namespace GISharp.CodeGen.Syntax
             }
 
             var members = List<MemberDeclarationSyntax>()
-                .AddIf(record.GTypeName is not null, () => record.GetGTypeFieldDeclaration())
+                .AddIf(record.GTypeName is not null && record.GTypeGetter != "intern",
+                    () => record.GetGTypeFieldDeclaration())
                 .Add(record.Fields.GetStructDeclaration().AddModifiers(fieldStructModifiers.ToArray()))
                 .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
@@ -100,7 +102,7 @@ namespace GISharp.CodeGen.Syntax
 
         public static ClassDeclarationSyntax GetGTypeStructClassDeclaration(this Record record)
         {
-            var syntax = ClassDeclaration(record.ManagedName)
+            var syntax = ClassDeclaration(record.GirName)
                 .WithAttributeLists(record.GetGTypeAttributeLists())
                 .WithModifiers(record.GetGTypeStructModifiers())
                 .WithBaseList(record.GetGTypeStructBaseList())
@@ -122,6 +124,7 @@ namespace GISharp.CodeGen.Syntax
             }
 
             list = list.Add(Token(UnsafeKeyword));
+            list = list.Add(Token(PartialKeyword));
 
             return list;
         }
@@ -149,7 +152,7 @@ namespace GISharp.CodeGen.Syntax
 
             foreach (var f in record.Fields.Where(x => x.Callback is not null)) {
                 try {
-                    list = list.Add(f.Callback.GetManagedDeclaration())
+                    list = list.Add(f.Callback.GetManagedDeclaration($"_{f.Callback.ManagedName}"))
                         .Add(f.Callback.GetUnmanagedDeclaration())
                         .Add(f.Callback.GetDelegateMarshalDeclaration()
                             .WithMembers(f.Callback.GetVirtualMethodDelegateMarshalMembers()));
@@ -165,12 +168,17 @@ namespace GISharp.CodeGen.Syntax
                 list = list.Add(record.GetDefaultConstructor());
             }
 
+            list = list
+                .AddRange(record.Constructors.GetMemberDeclarations())
+                .AddRange(record.Functions.GetMemberDeclarations())
+                .AddRange(record.Methods.GetMemberDeclarations());
+
             return list;
         }
 
         static ConstructorDeclarationSyntax GetGTypeStructStaticConstructor(this Record record)
         {
-            var constructor = ConstructorDeclaration(record.ManagedName)
+            var constructor = ConstructorDeclaration(record.GirName)
                 .AddModifiers(Token(StaticKeyword));
 
             constructor = constructor.AddBodyStatements(record.Fields

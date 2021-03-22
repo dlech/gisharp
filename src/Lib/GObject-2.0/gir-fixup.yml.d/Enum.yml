@@ -1,0 +1,44 @@
+
+### Enum ###
+
+# make static class
+- !add-element
+  xml: <gs:static-class name="Enum"/>
+  xpath: gi:repository/gi:namespace
+
+# move enum functions
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'enum_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']
+
+# remove prefix
+- !change-attribute
+  name: name
+  regex: enum_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function
+
+# fix array type
+- !add-element
+  xml: <gi:array zero-terminated="1" c:type="const GEnumValue*"/>
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function[@name='complete_type_info']/gi:parameters/gi:parameter[@name='const_values']
+- !move-element
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function[@name='complete_type_info']/gi:parameters/gi:parameter[@name='const_values']/gi:type
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function[@name='complete_type_info']/gi:parameters/gi:parameter[@name='const_values']/gi:array
+- !set-attribute
+  name: c:type
+  value: "const GEnumValue"
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function[@name='complete_type_info']/gi:parameters/gi:parameter[@name='const_values']/gi:array/gi:type
+
+# fix array type
+- !add-element
+  xml: <gi:array zero-terminated="1" c:type="const GEnumValue*"/>
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function[@name='register_static']/gi:parameters/gi:parameter[@name='const_static_values']
+- !move-element
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function[@name='register_static']/gi:parameters/gi:parameter[@name='const_static_values']/gi:type
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function[@name='register_static']/gi:parameters/gi:parameter[@name='const_static_values']/gi:array
+- !set-attribute
+  name: c:type
+  value: "const GEnumValue"
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function[@name='register_static']/gi:parameters/gi:parameter[@name='const_static_values']/gi:array/gi:type
+

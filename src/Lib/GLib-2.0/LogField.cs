@@ -16,9 +16,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         public LogField(UnownedUtf8 key, UnownedUtf8 value)
         {
-            Key = (byte*)key.UnsafeHandle;
-            Value = value.UnsafeHandle;
-            Length = -1;
+            this.key = (byte*)key.UnsafeHandle;
+            this.value = value.UnsafeHandle;
+            length = -1;
         }
     }
 }

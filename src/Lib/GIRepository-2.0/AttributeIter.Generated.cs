@@ -6,18 +6,18 @@ namespace GISharp.Lib.GIRepository
     /// <include file="AttributeIter.xmldoc" path="declaration/member[@name='AttributeIter']/*" />
     public unsafe partial struct AttributeIter
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="AttributeIter.xmldoc" path="declaration/member[@name='AttributeIter.Data']/*" />
-        public readonly System.IntPtr Data;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="AttributeIter.xmldoc" path="declaration/member[@name='AttributeIter.data']/*" />
+        private readonly System.IntPtr data;
 
-        /// <include file="AttributeIter.xmldoc" path="declaration/member[@name='AttributeIter.Data2']/*" />
-        public readonly System.IntPtr Data2;
+        /// <include file="AttributeIter.xmldoc" path="declaration/member[@name='AttributeIter.data2']/*" />
+        private readonly System.IntPtr data2;
 
-        /// <include file="AttributeIter.xmldoc" path="declaration/member[@name='AttributeIter.Data3']/*" />
-        public readonly System.IntPtr Data3;
+        /// <include file="AttributeIter.xmldoc" path="declaration/member[@name='AttributeIter.data3']/*" />
+        private readonly System.IntPtr data3;
 
-        /// <include file="AttributeIter.xmldoc" path="declaration/member[@name='AttributeIter.Data4']/*" />
-        public readonly System.IntPtr Data4;
-#pragma warning restore CS0169, CS0649
+        /// <include file="AttributeIter.xmldoc" path="declaration/member[@name='AttributeIter.data4']/*" />
+        private readonly System.IntPtr data4;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

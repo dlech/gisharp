@@ -36,28 +36,209 @@ the parent class
 <member name='UnmanagedStruct.Flags'>
 </member>
 
-<member name='UnmanagedStruct.Pdummy'>
+<member name='UnmanagedStruct.Pdummy0'>
 </member>
 
-<member name='SetProperty'>
+<member name='UnmanagedStruct.Pdummy1'>
 </member>
 
-<member name='GetProperty'>
+<member name='UnmanagedStruct.Pdummy2'>
 </member>
 
-<member name='Dispose'>
+<member name='UnmanagedStruct.Pdummy3'>
 </member>
 
-<member name='Finalize'>
+<member name='UnmanagedStruct.Pdummy4'>
 </member>
 
-<member name='DispatchPropertiesChanged'>
+<member name='UnmanagedStruct.Pdummy5'>
 </member>
 
-<member name='Notify'>
+<member name='_Constructor'>
 </member>
 
-<member name='Constructed'>
+<member name='_SetProperty'>
+</member>
+
+<member name='_GetProperty'>
+</member>
+
+<member name='_Dispose'>
+</member>
+
+<member name='_Finalize'>
+</member>
+
+<member name='_DispatchPropertiesChanged'>
+</member>
+
+<member name='_Notify'>
+</member>
+
+<member name='_Constructed'>
+</member>
+
+<member name='ObjectClass.FindProperty(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Looks up the <see cref="ParamSpec"/> for a property of a class.
+</summary>
+<param name="propertyName">
+the name of the property to look up
+</param>
+<returns>
+the <see cref="ParamSpec"/> for the property, or
+         <c>null</c> if the class doesn't have a property of that name
+</returns>
+</member>
+
+<member name='ObjectClass.InstallProperties(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GObject.ParamSpec&gt;)'>
+<summary>
+Installs new properties from an array of <see cref="ParamSpec"/>s.
+</summary>
+<remarks>
+<para>
+All properties should be installed during the class initializer.  It
+is possible to install properties after that, but doing so is not
+recommend, and specifically, is not guaranteed to be thread-safe vs.
+use of properties on the same type on other threads.
+</para>
+<para>
+The property id of each property is the index of each <see cref="ParamSpec"/> in
+the <paramref name="pspecs"/> array.
+</para>
+<para>
+The property id of 0 is treated specially by <see cref="Object"/> and it should not
+be used to store a <see cref="ParamSpec"/>.
+</para>
+<para>
+This function should be used if you plan to use a static array of
+<see cref="ParamSpec"/>s and <see cref="Object.Notify(GISharp.Lib.GObject.ParamSpec)"/>. For instance, this
+class initialization:
+</para>
+<para>
+|[&lt;!-- language="C" --&gt;
+enum {
+  PROP_0, PROP_FOO, PROP_BAR, N_PROPERTIES
+};
+</para>
+<para>
+static GParamSpec *obj_properties[N_PROPERTIES] = { NULL, };
+</para>
+<para>
+static void
+my_object_class_init (MyObjectClass *klass)
+{
+  GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
+</para>
+<para>
+  obj_properties[PROP_FOO] =
+    g_param_spec_int ("foo", "Foo", "Foo",
+                      -1, G_MAXINT,
+                      0,
+                      G_PARAM_READWRITE);
+</para>
+<para>
+  obj_properties[PROP_BAR] =
+    g_param_spec_string ("bar", "Bar", "Bar",
+                         NULL,
+                         G_PARAM_READWRITE);
+</para>
+<para>
+  gobject_class-&gt;set_property = my_object_set_property;
+  gobject_class-&gt;get_property = my_object_get_property;
+  g_object_class_install_properties (gobject_class,
+                                     N_PROPERTIES,
+                                     obj_properties);
+}
+]|
+</para>
+<para>
+allows calling <see cref="Object.Notify(GISharp.Lib.GObject.ParamSpec)"/> to notify of property changes:
+</para>
+<para>
+|[&lt;!-- language="C" --&gt;
+void
+my_object_set_foo (MyObject *self, gint foo)
+{
+  if (self-&gt;foo != foo)
+    {
+      self-&gt;foo = foo;
+      g_object_notify_by_pspec (G_OBJECT (self), obj_properties[PROP_FOO]);
+    }
+ }
+]|
+</para>
+</remarks>
+<param name="pspecs">
+the #GParamSpecs array
+  defining the new properties
+</param>
+</member>
+
+<member name='ObjectClass.InstallProperty(uint,GISharp.Lib.GObject.ParamSpec)'>
+<summary>
+Installs a new property.
+</summary>
+<remarks>
+<para>
+All properties should be installed during the class initializer.  It
+is possible to install properties after that, but doing so is not
+recommend, and specifically, is not guaranteed to be thread-safe vs.
+use of properties on the same type on other threads.
+</para>
+<para>
+Note that it is possible to redefine a property in a derived class,
+by installing a property with the same name. This can be useful at times,
+e.g. to change the range of allowed values or the default value.
+</para>
+</remarks>
+<param name="propertyId">
+the id for the new property
+</param>
+<param name="pspec">
+the <see cref="ParamSpec"/> for the new property
+</param>
+</member>
+
+<member name='ObjectClass.ListProperties()'>
+<summary>
+Get an array of <see cref="ParamSpec"/>* for all properties of a class.
+</summary>
+<returns>
+an array of
+         <see cref="ParamSpec"/>* which should be freed after use
+</returns>
+</member>
+
+<member name='ObjectClass.OverrideProperty(uint,GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Registers <paramref name="propertyId"/> as referring to a property with the name
+<paramref name="name"/> in a parent class or in an interface implemented by this instance.
+This allows this class to "override" a property implementation in
+a parent class or to provide the implementation of a property from
+an interface.
+</summary>
+<remarks>
+<para>
+Internally, overriding is implemented by creating a property of type
+<see cref="ParamSpecOverride"/>; generally operations that query the properties of
+the object class, such as <see cref="ObjectClass.FindProperty(GISharp.Lib.GLib.UnownedUtf8)"/> or
+<see cref="ObjectClass.ListProperties()"/> will return the overridden
+property. However, in one case, the <c>constructProperties</c> argument of
+the <c>constructor</c> virtual function, the <see cref="ParamSpecOverride"/> is passed
+instead, so that the <c>paramId</c> field of the <see cref="ParamSpec"/> will be
+correct.  For virtually all uses, this makes no difference. If you
+need to get the overridden property, you can call
+<see cref="ParamSpec.GetRedirectTarget()"/>.
+</para>
+</remarks>
+<param name="propertyId">
+the new property ID
+</param>
+<param name="name">
+the name of a property registered in a parent class or
+ in an interface of this class.
+</param>
 </member>
 
 <member name='ObjectClass'>

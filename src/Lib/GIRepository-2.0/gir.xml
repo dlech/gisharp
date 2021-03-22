@@ -4449,10 +4449,17 @@ g_irepository_find_by_name(), g_irepository_find_by_gtype() or g_irepository_get
       <field name="dummy7" readable="0" private="1" gs:managed-name="Dummy7">
         <type name="guint32" c:type="guint32" gs:managed-name="System.UInt32" />
       </field>
-      <field name="padding" readable="0" private="1" gs:managed-name="Padding">
-        <array zero-terminated="0" fixed-size="4" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
-          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
-        </array>
+      <field name="padding0" readable="0" private="1" gs:managed-name="Padding0">
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+      </field>
+      <field name="padding1" readable="0" private="1" gs:managed-name="Padding1">
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+      </field>
+      <field name="padding2" readable="0" private="1" gs:managed-name="Padding2">
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+      </field>
+      <field name="padding3" readable="0" private="1" gs:managed-name="Padding3">
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
       </field>
       <method name="equal" c:identifier="g_base_info_equal" gs:dll-name="girepository-1.0" gs:managed-name="Equals" gs:equal="1">
         <doc xml:space="preserve" filename="girepository/gibaseinfo.c" line="653">Compare two #GIBaseInfo.

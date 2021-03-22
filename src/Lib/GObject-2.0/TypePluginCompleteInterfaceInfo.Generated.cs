@@ -25,7 +25,7 @@ namespace GISharp.Lib.GObject
     GISharp.Lib.GObject.InterfaceInfo* info);
 
     /// <include file="TypePluginCompleteInterfaceInfo.xmldoc" path="declaration/member[@name='TypePluginCompleteInterfaceInfo']/*" />
-    public delegate void TypePluginCompleteInterfaceInfo(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info);
+    public delegate void TypePluginCompleteInterfaceInfo(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType, ref GISharp.Lib.GObject.InterfaceInfo info);
 
     /// <summary>
     /// Class for marshalling <see cref="TypePluginCompleteInterfaceInfo"/> methods.
@@ -37,13 +37,15 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GISharp.Lib.GObject.TypePluginCompleteInterfaceInfo FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Runtime.GType, GISharp.Runtime.GType, GISharp.Lib.GObject.InterfaceInfo*, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType, GISharp.Lib.GObject.InterfaceInfo info)
+            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType instanceType, GISharp.Runtime.GType interfaceType, ref GISharp.Lib.GObject.InterfaceInfo info)
             {
-                var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
-                var instanceType_ = (GISharp.Runtime.GType)instanceType;
-                var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
-                var info_ = &info;
-                callback_(plugin_, instanceType_, interfaceType_, info_);
+                fixed (GISharp.Lib.GObject.InterfaceInfo* info_ = &info)
+                {
+                    var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
+                    var instanceType_ = (GISharp.Runtime.GType)instanceType;
+                    var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
+                    callback_(plugin_, instanceType_, interfaceType_, info_);
+                }
             }
 
             return managedCallback;

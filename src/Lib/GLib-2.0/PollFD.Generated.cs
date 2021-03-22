@@ -8,16 +8,16 @@ namespace GISharp.Lib.GLib
     public unsafe partial struct PollFD
     {
         private static readonly GISharp.Runtime.GType _GType = g_pollfd_get_type();
-#pragma warning disable CS0169, CS0649
-        /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.Fd']/*" />
-        public readonly int Fd;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.fd']/*" />
+        private readonly int fd;
 
-        /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.Events']/*" />
-        public readonly ushort Events;
+        /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.events']/*" />
+        private readonly ushort events;
 
-        /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.Revents']/*" />
-        public readonly ushort Revents;
-#pragma warning restore CS0169, CS0649
+        /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.revents']/*" />
+        private readonly ushort revents;
+#pragma warning restore CS0169, CS0414, CS0649
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
         /* transfer-ownership:full direction:in */

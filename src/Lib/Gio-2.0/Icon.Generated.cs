@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon']/*" />
     [GISharp.Runtime.GTypeAttribute("GIcon", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(IconIface))]
-    public unsafe partial interface IIcon : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IIcon : GISharp.Lib.GObject.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Runtime.GType _GType = g_icon_get_type();
 

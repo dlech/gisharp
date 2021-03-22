@@ -14,7 +14,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="Error.xmldoc" path="declaration/member[@name='UnmanagedStruct.Domain']/*" />
             public readonly GISharp.Lib.GLib.Quark Domain;
 
@@ -23,7 +23,7 @@ namespace GISharp.Lib.GLib
 
             /// <include file="Error.xmldoc" path="declaration/member[@name='UnmanagedStruct.Message']/*" />
             public readonly byte* Message;
-#pragma warning restore CS0169, CS0649
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         /// <summary>

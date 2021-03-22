@@ -54,7 +54,8 @@ namespace GISharp.Test.GLib
         public void TestAdjustTime()
         {
             using var tz = new TimeZone(Utf8.Null);
-            Assert.That(tz.AdjustTime(TimeType.Universal, 1), Is.GreaterThan(0));
+            long time = 1;
+            Assert.That(tz.AdjustTime(TimeType.Universal, ref time), Is.GreaterThan(0));
         }
 
         [Test]

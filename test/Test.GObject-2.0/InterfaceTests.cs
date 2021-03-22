@@ -56,7 +56,7 @@ namespace GISharp.Test.GObject
             var callbackCount = 0;
             obj.NetworkChanged += available => callbackCount++;
 
-            var id = Signal.TryLookup<TestNetworkMonitor>("network-changed");
+            var id = Signal.Lookup<TestNetworkMonitor>("network-changed");
             Assume.That(id, Is.Not.EqualTo(0));
             obj.Emit(id, Quark.Zero, true);
 

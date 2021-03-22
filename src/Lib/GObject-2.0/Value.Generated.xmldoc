@@ -1,33 +1,18 @@
 <declaration>
 
-<member name='Value.GType'>
+<member name='Value.gType'>
 </member>
 
-<member name='Value.Data'>
+<member name='Value.data0'>
+</member>
+
+<member name='Value.data1'>
 </member>
 
 <member name='Value.Boolean'>
 <summary>
 Get the contents of a %G_TYPE_BOOLEAN <see cref="Value"/>.
 </summary>
-</member>
-
-<member name='Value.Boxed'>
-<summary>
-Get the contents of a %G_TYPE_BOXED derived <see cref="Value"/>.
-</summary>
-</member>
-
-<member name='Value.Char'>
-<summary>
-Do not use this function; it is broken on platforms where the %char
-type is unsigned, such as ARM and PowerPC.  See <see cref="Value.GetSchar()"/>.
-</summary>
-<remarks>
-<para>
-Get the contents of a %G_TYPE_CHAR <see cref="Value"/>.
-</para>
-</remarks>
 </member>
 
 <member name='Value.Double'>
@@ -54,7 +39,7 @@ Get the contents of a %G_TYPE_FLOAT <see cref="Value"/>.
 </summary>
 </member>
 
-<member name='Value.Gtype'>
+<member name='Value.GType'>
 <summary>
 Get the contents of a %G_TYPE_GTYPE <see cref="Value"/>.
 </summary>
@@ -79,9 +64,15 @@ Get the contents of a %G_TYPE_LONG <see cref="Value"/>.
 </member>
 
 <member name='Value.Object'>
+<summary>
+Get the contents of a %G_TYPE_OBJECT derived <see cref="Value"/>.
+</summary>
 </member>
 
 <member name='Value.Param'>
+<summary>
+Get the contents of a %G_TYPE_PARAM <see cref="Value"/>.
+</summary>
 </member>
 
 <member name='Value.Pointer'>
@@ -90,34 +81,37 @@ Get the contents of a pointer <see cref="Value"/>.
 </summary>
 </member>
 
-<member name='Value.Schar'>
+<member name='Value.Char'>
 <summary>
 Get the contents of a %G_TYPE_CHAR <see cref="Value"/>.
 </summary>
 </member>
 
 <member name='Value.String'>
+<summary>
+Get the contents of a %G_TYPE_STRING <see cref="Value"/>.
+</summary>
 </member>
 
-<member name='Value.Uchar'>
+<member name='Value.UChar'>
 <summary>
 Get the contents of a %G_TYPE_UCHAR <see cref="Value"/>.
 </summary>
 </member>
 
-<member name='Value.Uint'>
+<member name='Value.UInt'>
 <summary>
 Get the contents of a %G_TYPE_UINT <see cref="Value"/>.
 </summary>
 </member>
 
-<member name='Value.Uint64'>
+<member name='Value.UInt64'>
 <summary>
 Get the contents of a %G_TYPE_UINT64 <see cref="Value"/>.
 </summary>
 </member>
 
-<member name='Value.Ulong'>
+<member name='Value.ULong'>
 <summary>
 Get the contents of a %G_TYPE_ULONG <see cref="Value"/>.
 </summary>
@@ -141,13 +135,13 @@ source type to be copied.
 destination type for copying.
 </param>
 <returns>
-<c>true</c> if <see cref="Value.Copy(GISharp.Lib.GObject.Value)"/> is possible with <paramref name="srcType"/> and <paramref name="destType"/>.
+<c>true</c> if <see cref="Value.Copy(ref GISharp.Lib.GObject.Value)"/> is possible with <paramref name="srcType"/> and <paramref name="destType"/>.
 </returns>
 </member>
 
 <member name='Value.TypeTransformable(GISharp.Runtime.GType,GISharp.Runtime.GType)'>
 <summary>
-Check whether <see cref="Value.Transform(GISharp.Lib.GObject.Value)"/> is able to transform values
+Check whether <see cref="Value.Transform(ref GISharp.Lib.GObject.Value)"/> is able to transform values
 of type <paramref name="srcType"/> into values of type <paramref name="destType"/>. Note that for
 the types to be transformable, they must be compatible or a
 transformation function must be registered.
@@ -226,7 +220,7 @@ the <see cref="Value"/> structure that has been passed in
 </returns>
 </member>
 
-<member name='Value.InitFromInstance(GISharp.Lib.GObject.TypeInstance)'>
+<member name='Value.Init(GISharp.Lib.GObject.TypeInstance)'>
 <summary>
 Initializes and sets this instance from an instantiatable type via the
 value_table's collect_value() function.
@@ -236,23 +230,12 @@ value_table's collect_value() function.
 Note: The this instance will be initialised with the exact type of
 <paramref name="instance"/>.  If you wish to set the this instance's type to a different GType
 (such as a parent class GType), you need to manually call
-<see cref="Value.Init(GISharp.Runtime.GType)"/> and <see cref="Value.SetInstance(System.IntPtr)"/>.
+<see cref="Value.Init(GISharp.Runtime.GType)"/> and <see cref="Value.Set(GISharp.Lib.GObject.TypeInstance)"/>.
 </para>
 </remarks>
 <param name="instance">
 the instance
 </param>
-</member>
-
-<member name='Value.PeekPointer()'>
-<summary>
-Returns the value contents as pointer. This function asserts that
-<see cref="Value.FitsPointer()"/> returned <c>true</c> for the passed in value.
-This is an internal function introduced mainly for C marshallers.
-</summary>
-<returns>
-the value contents as pointer
-</returns>
 </member>
 
 <member name='Value.Reset()'>
@@ -265,16 +248,7 @@ the <see cref="Value"/> structure that has been passed in
 </returns>
 </member>
 
-<member name='Value.SetBoxedTakeOwnership(System.IntPtr)'>
-<summary>
-This is an internal function introduced mainly for C marshallers.
-</summary>
-<param name="vBoxed">
-duplicated unowned boxed value to be set
-</param>
-</member>
-
-<member name='Value.SetInstance(System.IntPtr)'>
+<member name='Value.Set(GISharp.Lib.GObject.TypeInstance?)'>
 <summary>
 Sets this instance from an instantiatable type via the
 value_table's collect_value() function.
@@ -295,17 +269,6 @@ static string to be set
 </param>
 </member>
 
-<member name='Value.SetStaticBoxed(System.IntPtr)'>
-<summary>
-Set the contents of a %G_TYPE_BOXED derived <see cref="Value"/> to <paramref name="vBoxed"/>.
-The boxed value is assumed to be static, and is thus not duplicated
-when setting the <see cref="Value"/>.
-</summary>
-<param name="vBoxed">
-static boxed value to be set
-</param>
-</member>
-
 <member name='Value.SetStaticString(GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Set the contents of a %G_TYPE_STRING <see cref="Value"/> to <paramref name="vString"/>.
@@ -320,60 +283,6 @@ is more appropriate.
 </remarks>
 <param name="vString">
 static string to be set
-</param>
-</member>
-
-<member name='Value.SetStringTakeOwnership(GISharp.Lib.GLib.NullableUnownedUtf8)'>
-<summary>
-This is an internal function introduced mainly for C marshallers.
-</summary>
-<param name="vString">
-duplicated unowned string to be set
-</param>
-</member>
-
-<member name='Value.TakeBoxed(System.IntPtr)'>
-<summary>
-Sets the contents of a %G_TYPE_BOXED derived <see cref="Value"/> to <paramref name="vBoxed"/>
-and takes over the ownership of the caller’s reference to <paramref name="vBoxed"/>;
-the caller doesn’t have to unref it any more.
-</summary>
-<param name="vBoxed">
-duplicated unowned boxed value to be set
-</param>
-</member>
-
-<member name='Value.TakeString(GISharp.Lib.GLib.NullableUnownedUtf8)'>
-<summary>
-Sets the contents of a %G_TYPE_STRING <see cref="Value"/> to <paramref name="vString"/>.
-</summary>
-<param name="vString">
-string to take ownership of
-</param>
-</member>
-
-<member name='Value.TakeVariant(GISharp.Lib.GLib.Variant?)'>
-<summary>
-Set the contents of a variant <see cref="Value"/> to <paramref name="variant"/>, and takes over
-the ownership of the caller's reference to <paramref name="variant"/>;
-the caller doesn't have to unref it any more (i.e. the reference
-count of the variant is not increased).
-</summary>
-<remarks>
-<para>
-If <paramref name="variant"/> was floating then its floating reference is converted to
-a hard reference.
-</para>
-<para>
-If you want the <see cref="Value"/> to hold its own reference to <paramref name="variant"/>, use
-<see cref="Value.SetVariant(GISharp.Lib.GLib.Variant)"/> instead.
-</para>
-<para>
-This is an internal function introduced mainly for C marshallers.
-</para>
-</remarks>
-<param name="variant">
-a #GVariant, or <c>null</c>
 </param>
 </member>
 
@@ -413,7 +322,7 @@ to functions within a <see cref="TypeValueTable"/> structure, or implementations
 the g_value_*() API. That is, code portions which implement new fundamental
 types.
 <see cref="Value"/> users cannot make any assumptions about how data is stored
-within the 2 element <see cref="Data"/> union, and the <see cref="GType"/> member should
+within the 2 element <c>data</c> union, and the <see cref="GType"/> member should
 only be accessed through the G_VALUE_TYPE() macro.
 </summary>
 </member>

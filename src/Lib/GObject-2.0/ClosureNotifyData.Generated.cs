@@ -6,12 +6,12 @@ namespace GISharp.Lib.GObject
     /// <include file="ClosureNotifyData.xmldoc" path="declaration/member[@name='ClosureNotifyData']/*" />
     public unsafe partial struct ClosureNotifyData
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="ClosureNotifyData.xmldoc" path="declaration/member[@name='ClosureNotifyData.Data']/*" />
-        public readonly System.IntPtr Data;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="ClosureNotifyData.xmldoc" path="declaration/member[@name='ClosureNotifyData.data']/*" />
+        private readonly System.IntPtr data;
 
-        /// <include file="ClosureNotifyData.xmldoc" path="declaration/member[@name='ClosureNotifyData.Notify']/*" />
-        public readonly delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> Notify;
-#pragma warning restore CS0169, CS0649
+        /// <include file="ClosureNotifyData.xmldoc" path="declaration/member[@name='ClosureNotifyData.notify']/*" />
+        private readonly delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> notify;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

@@ -14,31 +14,40 @@ namespace GISharp.Lib.GIRepository
         /// </summary>
         public struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy1']/*" />
-            private readonly int Dummy1;
+            internal readonly int Dummy1;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy2']/*" />
-            private readonly int Dummy2;
+            internal readonly int Dummy2;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy3']/*" />
-            private readonly System.IntPtr Dummy3;
+            internal readonly System.IntPtr Dummy3;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy4']/*" />
-            private readonly System.IntPtr Dummy4;
+            internal readonly System.IntPtr Dummy4;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy5']/*" />
-            private readonly System.IntPtr Dummy5;
+            internal readonly System.IntPtr Dummy5;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy6']/*" />
-            private readonly uint Dummy6;
+            internal readonly uint Dummy6;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy7']/*" />
-            private readonly uint Dummy7;
+            internal readonly uint Dummy7;
 
-            /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding']/*" />
-            private fixed long Padding[4];
-#pragma warning restore CS0169, CS0649
+            /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding0']/*" />
+            internal readonly System.IntPtr Padding0;
+
+            /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding1']/*" />
+            internal readonly System.IntPtr Padding1;
+
+            /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding2']/*" />
+            internal readonly System.IntPtr Padding2;
+
+            /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding3']/*" />
+            internal readonly System.IntPtr Padding3;
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo.Container']/*" />
@@ -415,17 +424,18 @@ namespace GISharp.Lib.GIRepository
 
         private bool TryIterateAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
         {
-            CheckTryIterateAttributesArgs(ref iterator);
-            var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
-            var iterator_ = (GISharp.Lib.GIRepository.AttributeIter)iterator;
-            byte* name_;
-            byte* value_;
-            var ret_ = g_base_info_iterate_attributes(info_,&iterator_,&name_,&value_);
-            iterator = (GISharp.Lib.GIRepository.AttributeIter)iterator_;
-            name = new GISharp.Lib.GLib.UnownedUtf8(name_);
-            value = new GISharp.Lib.GLib.UnownedUtf8(value_);
-            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-            return ret;
+            fixed (GISharp.Lib.GIRepository.AttributeIter* iterator_ = &iterator)
+            {
+                CheckTryIterateAttributesArgs(ref iterator);
+                var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
+                byte* name_;
+                byte* value_;
+                var ret_ = g_base_info_iterate_attributes(info_,iterator_,&name_,&value_);
+                name = new GISharp.Lib.GLib.UnownedUtf8(name_);
+                value = new GISharp.Lib.GLib.UnownedUtf8(value_);
+                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+                return ret;
+            }
         }
 
         /// <summary>

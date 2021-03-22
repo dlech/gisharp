@@ -18,29 +18,34 @@ namespace GISharp.Runtime
         public string? Name { get; }
 
         /// <summary>
-        /// See <see cref="Lib.GObject.SignalFlags.RunFirst"/>,
-        /// <see cref="Lib.GObject.SignalFlags.RunLast"/> and
-        /// <see cref="Lib.GObject.SignalFlags.RunCleanup"/>
+        /// Specifies the stage of a signal emission.
         /// </summary>
         public EmissionStage When { get; init; }
 
         /// <summary>
-        /// See <see cref="Lib.GObject.SignalFlags.NoRecurse"/>
+        /// Signals being emitted for an object while currently being in emission
+        /// for this very object will not be emitted recursively, but instead cause
+        /// the first emission to be restarted.
         /// </summary>
         public bool IsNoRecurse { get; init; }
 
         /// <summary>
-        /// See <see cref="Lib.GObject.SignalFlags.Detailed"/>
+        /// This signal supports "::detail" appendices to the signal name upon
+        /// handler connections and emissions.
         /// </summary>
         public bool IsDetailed { get; init; }
 
         /// <summary>
-        /// See <see cref="Lib.GObject.SignalFlags.Action"/>
+        /// Action signals are signals that may freely be emitted on alive objects
+        /// from user code via g_signal_emit() and friends, without the need of
+        /// being embedded into extra code that performs pre or post emission
+        /// adjustments on the object. They can also be thought of as object
+        /// methods which can be called generically by third-party code.
         /// </summary>
         public bool IsAction { get; init; }
 
         /// <summary>
-        /// See <see cref="Lib.GObject.SignalFlags.NoHooks"/>
+        /// No emissions hooks are supported for this signal.
         /// </summary>
         public bool IsNoHooks { get; init; }
 

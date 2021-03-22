@@ -17,13 +17,13 @@ namespace GISharp.Lib.GLib
             byte* argDescription
         )
         {
-            LongName = longName;
-            ShortName = (sbyte)shortName;
-            Flags = (int)flags;
-            Arg = arg;
-            ArgData = argData;
-            Description = description;
-            ArgDescription = argDescription;
+            this.longName = longName;
+            this.shortName = (sbyte)shortName;
+            this.flags = (int)flags;
+            this.arg = arg;
+            this.argData = argData;
+            this.description = description;
+            this.argDescription = argDescription;
         }
     }
 }

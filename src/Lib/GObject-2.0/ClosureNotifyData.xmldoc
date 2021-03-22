@@ -1,9 +1,9 @@
 <declaration>
 
-<member name='ClosureNotifyData.Data'>
+<member name='ClosureNotifyData.data'>
 </member>
 
-<member name='ClosureNotifyData.Notify'>
+<member name='ClosureNotifyData.notify'>
 </member>
 
 <member name='ClosureNotifyData'>

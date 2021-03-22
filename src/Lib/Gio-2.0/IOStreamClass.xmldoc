@@ -48,19 +48,19 @@
 <member name='UnmanagedStruct.GReserved10'>
 </member>
 
-<member name='GetInputStream'>
+<member name='_GetInputStream'>
 </member>
 
-<member name='GetOutputStream'>
+<member name='_GetOutputStream'>
 </member>
 
-<member name='CloseFn'>
+<member name='_CloseFn'>
 </member>
 
-<member name='CloseAsync'>
+<member name='_CloseAsync'>
 </member>
 
-<member name='CloseFinish'>
+<member name='_CloseFinish'>
 </member>
 
 <member name='IOStreamClass'>

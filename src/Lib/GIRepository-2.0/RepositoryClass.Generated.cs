@@ -4,17 +4,17 @@
 namespace GISharp.Lib.GIRepository
 {
     /// <include file="RepositoryClass.xmldoc" path="declaration/member[@name='RepositoryClass']/*" />
-    public unsafe class RepositoryClass : GISharp.Lib.GObject.ObjectClass
+    public unsafe partial class RepositoryClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
         public new struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="RepositoryClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Parent']/*" />
-            private readonly GISharp.Lib.GObject.ObjectClass.UnmanagedStruct Parent;
-#pragma warning restore CS0169, CS0649
+            internal readonly GISharp.Lib.GObject.ObjectClass.UnmanagedStruct Parent;
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         static RepositoryClass()

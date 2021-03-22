@@ -1,3 +1,32 @@
 <declaration>
 
+<member name='PollFD.fd'>
+<summary>
+the file descriptor to poll (or a HANDLE on Win32)
+</summary>
+</member>
+
+<member name='PollFD.events'>
+<summary>
+a bitwise combination from <see cref="IOCondition"/>, specifying which
+    events should be polled for. Typically for reading from a file
+    descriptor you would use <see cref="IOCondition.In"/> | <see cref="IOCondition.Hup"/> | <see cref="IOCondition.Err"/>, and
+    for writing you would use <see cref="IOCondition.Out"/> | <see cref="IOCondition.Err"/>.
+</summary>
+</member>
+
+<member name='PollFD.revents'>
+<summary>
+a bitwise combination of flags from <see cref="IOCondition"/>, returned
+    from the poll() function to indicate which events occurred.
+</summary>
+</member>
+
+<member name='PollFD'>
+<summary>
+Represents a file descriptor, which events to poll for, and which events
+occurred.
+</summary>
+</member>
+
 </declaration>

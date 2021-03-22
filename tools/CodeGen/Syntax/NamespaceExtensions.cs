@@ -30,7 +30,16 @@ namespace GISharp.CodeGen.Syntax
 
             switch (type) {
             case Alias alias:
-                if (alias.Type.IsValueType()) {
+                if (alias.Type.Interface is Callback aliasCallback) {
+                    yield return aliasCallback.GetUnmanagedDeclaration(alias.GirName);
+                    if (!aliasCallback.IsPInvokeOnly) {
+                        yield return aliasCallback.GetManagedDeclaration(alias.GirName);
+                        // TODO: how to replace the doc comment summary with alias doc element?
+                        yield return aliasCallback.GetDelegateMarshalDeclaration(alias.GirName)
+                            .WithMembers(aliasCallback.GetCallbackDelegateMarshalClassMembers(alias.GirName));
+                    }
+                }
+                else if (alias.Type.IsValueType()) {
                     yield return alias.GetStructDeclaration()
                         .WithMembers(alias.GetStructMembers());
                 }

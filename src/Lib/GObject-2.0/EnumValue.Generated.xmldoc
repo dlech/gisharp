@@ -1,0 +1,28 @@
+<declaration>
+
+<member name='EnumValue.value'>
+<summary>
+the enum value
+</summary>
+</member>
+
+<member name='EnumValue.valueName'>
+<summary>
+the name of the value
+</summary>
+</member>
+
+<member name='EnumValue.valueNick'>
+<summary>
+the nickname of the value
+</summary>
+</member>
+
+<member name='EnumValue'>
+<summary>
+A structure which contains a single enum value, its name, and its
+nickname.
+</summary>
+</member>
+
+</declaration>

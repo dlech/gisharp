@@ -63,49 +63,49 @@
 <member name='UnmanagedStruct.GReserved8'>
 </member>
 
-<member name='WriteFn'>
+<member name='_WriteFn'>
 </member>
 
-<member name='Splice'>
+<member name='_Splice'>
 </member>
 
-<member name='Flush'>
+<member name='_Flush'>
 </member>
 
-<member name='CloseFn'>
+<member name='_CloseFn'>
 </member>
 
-<member name='WriteAsync'>
+<member name='_WriteAsync'>
 </member>
 
-<member name='WriteFinish'>
+<member name='_WriteFinish'>
 </member>
 
-<member name='SpliceAsync'>
+<member name='_SpliceAsync'>
 </member>
 
-<member name='SpliceFinish'>
+<member name='_SpliceFinish'>
 </member>
 
-<member name='FlushAsync'>
+<member name='_FlushAsync'>
 </member>
 
-<member name='FlushFinish'>
+<member name='_FlushFinish'>
 </member>
 
-<member name='CloseAsync'>
+<member name='_CloseAsync'>
 </member>
 
-<member name='CloseFinish'>
+<member name='_CloseFinish'>
 </member>
 
-<member name='WritevFn'>
+<member name='_WritevFn'>
 </member>
 
-<member name='WritevAsync'>
+<member name='_WritevAsync'>
 </member>
 
-<member name='WritevFinish'>
+<member name='_WritevFinish'>
 </member>
 
 <member name='OutputStreamClass'>

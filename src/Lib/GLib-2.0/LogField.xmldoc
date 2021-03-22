@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='LogField.Key'>
+<member name='LogField.key'>
 <summary>
 field name (UTF-8 string)
 </summary>
 </member>
 
-<member name='LogField.Value'>
+<member name='LogField.value'>
 <summary>
 field value (arbitrary bytes)
 </summary>
 </member>
 
-<member name='LogField.Length'>
+<member name='LogField.length'>
 <summary>
 length of <c>value</c>, in bytes, or -1 if it is nul-terminated
 </summary>
@@ -27,7 +27,7 @@ g_log_structured() for details.
 <para>
 Log fields may contain arbitrary values, including binary with embedded nul
 bytes. If the field contains a string, the string must be UTF-8 encoded and
-have a trailing nul byte. Otherwise, <see cref="Length"/> must be set to a non-negative
+have a trailing nul byte. Otherwise, <see cref="length"/> must be set to a non-negative
 value.
 </para>
 </remarks>

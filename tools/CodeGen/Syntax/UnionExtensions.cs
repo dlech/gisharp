@@ -18,7 +18,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static StructDeclarationSyntax GetStructDeclaration(this Union union)
         {
-            var identifier = union.ManagedName;
+            var identifier = union.GirName;
             return StructDeclaration(identifier)
                 .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
                 .AddAttributeLists(AttributeList()

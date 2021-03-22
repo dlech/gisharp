@@ -5,41 +5,12 @@
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)../Lib.props"/>
   <ItemGroup>
-    <!-- Items currently maintained in Core. -->
-    <Compile Remove="_Value__data__union.Generated.cs" />
-    <Compile Remove="BaseFinalizeFunc.Generated.cs" />
-    <Compile Remove="BaseInitFunc.Generated.cs" />
-    <Compile Remove="Binding.Generated.cs" />
-    <Compile Remove="BindingFlags.Generated.cs" />
-    <Compile Remove="ClassFinalizeFunc.Generated.cs" />
-    <Compile Remove="ClassInitFunc.Generated.cs" />
-    <Compile Remove="Closure.Generated.cs" />
-    <Compile Remove="ClosureNotify.Generated.cs" />
-    <Compile Remove="ClosureNotifyData.Generated.cs" />
-    <Compile Remove="InstanceInitFunc.Generated.cs" />
-    <Compile Remove="InterfaceFinalizeFunc.Generated.cs" />
-    <Compile Remove="InterfaceInfo.Generated.cs" />
-    <Compile Remove="InterfaceInitFunc.Generated.cs" />
-    <Compile Remove="Object.Generated.cs" />
-    <Compile Remove="ObjectClass.Generated.cs" />
-    <Compile Remove="Parameter.Generated.cs" />
-    <Compile Remove="ParamFlags.Generated.cs" />
-    <Compile Remove="ParamSpec.Generated.cs" />
-    <Compile Remove="ParamSpecClass.Generated.cs" />
-    <Compile Remove="SignalFlags.Generated.cs" />
-    <Compile Remove="Type.Generated.cs" />
-    <Compile Remove="TypeClass.Generated.cs" />
-    <Compile Remove="TypeCValue.Generated.cs" />
-    <Compile Remove="TypeInfo.Generated.cs" />
-    <Compile Remove="TypeInstance.Generated.cs" />
-    <Compile Remove="TypeInterface.Generated.cs" />
+    <!-- Unused types. -->
     <Compile Remove="TypePlugin.Generated.cs" />
     <Compile Remove="TypePluginClass.Generated.cs" />
     <Compile Remove="TypePluginCompleteInterfaceInfo.Generated.cs" />
     <Compile Remove="TypePluginCompleteTypeInfo.Generated.cs" />
     <Compile Remove="TypePluginUnuse.Generated.cs" />
     <Compile Remove="TypePluginUse.Generated.cs" />
-    <Compile Remove="TypeValueTable.Generated.cs" />
-    <Compile Remove="Value.Generated.cs" />
   </ItemGroup>
 </Project>

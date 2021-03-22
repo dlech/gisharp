@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='TypeValueTable.ValueInit'>
+<member name='TypeValueTable.valueInit'>
 </member>
 
-<member name='TypeValueTable.ValueFree'>
+<member name='TypeValueTable.valueFree'>
 </member>
 
-<member name='TypeValueTable.ValueCopy'>
+<member name='TypeValueTable.valueCopy'>
 </member>
 
-<member name='TypeValueTable.ValuePeekPointer'>
+<member name='TypeValueTable.valuePeekPointer'>
 </member>
 
-<member name='TypeValueTable.CollectFormat'>
+<member name='TypeValueTable.collectFormat'>
 <summary>
 A string format describing how to collect the contents of
  this value bit-by-bit. Each character in the format represents
@@ -29,10 +29,10 @@ A string format describing how to collect the contents of
 </summary>
 </member>
 
-<member name='TypeValueTable.CollectValue'>
+<member name='TypeValueTable.collectValue'>
 </member>
 
-<member name='TypeValueTable.LcopyFormat'>
+<member name='TypeValueTable.lcopyFormat'>
 <summary>
 Format description of the arguments to collect for <c>lcopyValue</c>,
  analogous to <c>collectFormat</c>. Usually, <c>lcopyFormat</c> string consists
@@ -40,7 +40,7 @@ Format description of the arguments to collect for <c>lcopyValue</c>,
 </summary>
 </member>
 
-<member name='TypeValueTable.LcopyValue'>
+<member name='TypeValueTable.lcopyValue'>
 </member>
 
 <member name='TypeValueTable'>

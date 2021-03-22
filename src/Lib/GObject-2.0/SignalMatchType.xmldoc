@@ -1,0 +1,47 @@
+<declaration>
+
+<member name='SignalMatchType.Id'>
+<summary>
+The signal id must be equal.
+</summary>
+</member>
+
+<member name='SignalMatchType.Detail'>
+<summary>
+The signal detail must be equal.
+</summary>
+</member>
+
+<member name='SignalMatchType.Closure'>
+<summary>
+The closure must be the same.
+</summary>
+</member>
+
+<member name='SignalMatchType.Func'>
+<summary>
+The C closure callback must be the same.
+</summary>
+</member>
+
+<member name='SignalMatchType.Data'>
+<summary>
+The closure data must be the same.
+</summary>
+</member>
+
+<member name='SignalMatchType.Unblocked'>
+<summary>
+Only unblocked signals may be matched.
+</summary>
+</member>
+
+<member name='SignalMatchType'>
+<summary>
+The match types specify what <see cref="M:Signal.HandlersBlockMatched(GISharp.Lib.GObject.Object,GISharp.Lib.GObject.SignalMatchType,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Closure,System.IntPtr,System.IntPtr)"/>,
+<see cref="M:Signal.HandlersUnblockMatched(GISharp.Lib.GObject.Object,GISharp.Lib.GObject.SignalMatchType,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Closure,System.IntPtr,System.IntPtr)"/> and <see cref="M:Signal.HandlersDisconnectMatched(GISharp.Lib.GObject.Object,GISharp.Lib.GObject.SignalMatchType,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Closure,System.IntPtr,System.IntPtr)"/>
+match signals by.
+</summary>
+</member>
+
+</declaration>

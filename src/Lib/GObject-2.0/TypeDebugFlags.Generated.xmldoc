@@ -1,0 +1,46 @@
+<declaration>
+
+<member name='TypeDebugFlags.None'>
+<summary>
+Print no messages
+</summary>
+</member>
+
+<member name='TypeDebugFlags.Objects'>
+<summary>
+Print messages about object bookkeeping
+</summary>
+</member>
+
+<member name='TypeDebugFlags.Signals'>
+<summary>
+Print messages about signal emissions
+</summary>
+</member>
+
+<member name='TypeDebugFlags.InstanceCount'>
+<summary>
+Keep a count of instances of each type
+</summary>
+</member>
+
+<member name='TypeDebugFlags.Mask'>
+<summary>
+Mask covering all debug flags
+</summary>
+</member>
+
+<member name='TypeDebugFlags'>
+<summary>
+These flags used to be passed to <see cref="TypeExtensions.InitWithDebugFlags(GISharp.Lib.GObject.TypeDebugFlags)"/> which
+is now deprecated.
+</summary>
+<remarks>
+<para>
+If you need to enable debugging features, use the GOBJECT_DEBUG
+environment variable.
+</para>
+</remarks>
+</member>
+
+</declaration>

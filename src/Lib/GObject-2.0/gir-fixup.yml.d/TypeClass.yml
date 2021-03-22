@@ -6,3 +6,43 @@
   name: disguised
   value: 1
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']
+
+# make abstract
+- !set-attribute
+  name: gs:inheritance-modifiers
+  value: abstract
+  xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']
+
+# requires special handling for ref
+- !set-attribute
+  name: gs:custom-default-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']
+
+# share internally
+- !set-attribute
+  name: gs:pinvoke-access-modifiers
+  value: internal
+  xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']/gi:function[@name='ref']
+- !set-attribute
+  name: gs:pinvoke-access-modifiers
+  value: internal
+  xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']/gi:method[@name='unref']
+
+# peek is just for unmanaged code
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']/gi:function[contains(@name,'peek')]
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']/gi:method[contains(@name,'peek')]
+- !set-attribute
+  name: gs:pinvoke-access-modifiers
+  value: private protected
+  xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']/gi:function[contains(@name,'peek')]
+- !set-attribute
+  name: gs:pinvoke-access-modifiers
+  value: private protected
+  xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']/gi:method[contains(@name,'peek')]

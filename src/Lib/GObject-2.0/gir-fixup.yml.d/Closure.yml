@@ -1,0 +1,38 @@
+
+### Closure ###
+
+# not sealed
+- !set-attribute
+  name: gs:inheritance-modifiers
+  value: ""
+  xpath: gi:repository/gi:namespace/gi:record[@name='Closure']
+
+# requires special handling for sink
+- !set-attribute
+  name: gs:custom-default-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Closure']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Closure']/gi:method[@name='sink']
+
+# constructors are special
+- !set-attribute
+  name: gs:custom-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Closure']/gi:constructor
+
+# expose set methods
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Closure']/gi:method[contains(@name,'set') or contains(@name,'add') or contains(@name,'remove')]
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Closure']/gi:method[contains(@name,'set') or contains(@name,'add') or contains(@name,'remove')]
+- !set-attribute
+  name: gs:pinvoke-access-modifiers
+  value: private protected
+  xpath: gi:repository/gi:namespace/gi:record[@name='Closure']/gi:method[contains(@name,'set') or contains(@name,'add') or contains(@name,'remove')]

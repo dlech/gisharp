@@ -1,0 +1,20 @@
+
+### ParamSpecPointer ###
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='param_spec_pointer']
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecPointer']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecPointer']/gi:function[@name='param_spec_pointer']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecPointer']/gi:constructor[@name='param_spec_pointer']
+
+# return value is floating reference
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecPointer']/gi:constructor/gi:return-value

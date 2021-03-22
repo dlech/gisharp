@@ -1,0 +1,9 @@
+<declaration>
+
+<member name='ClosureMarshal'>
+<summary>
+The type used for marshaller functions.
+</summary>
+</member>
+
+</declaration>

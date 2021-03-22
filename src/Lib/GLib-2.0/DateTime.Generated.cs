@@ -341,19 +341,21 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeVal" type="const GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* tv);
-        static partial void CheckFromTimevalLocalArgs(GISharp.Lib.GLib.TimeVal tv);
+        static partial void CheckFromTimevalLocalArgs(in GISharp.Lib.GLib.TimeVal tv);
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromTimevalLocal(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_unix_local() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static GISharp.Lib.GLib.DateTime? FromTimevalLocal(GISharp.Lib.GLib.TimeVal tv)
+        public static GISharp.Lib.GLib.DateTime? FromTimevalLocal(in GISharp.Lib.GLib.TimeVal tv)
         {
-            CheckFromTimevalLocalArgs(tv);
-            var tv_ = &tv;
-            var ret_ = g_date_time_new_from_timeval_local(tv_);
-            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
-            return ret;
+            fixed (GISharp.Lib.GLib.TimeVal* tv_ = &tv)
+            {
+                CheckFromTimevalLocalArgs(tv);
+                var ret_ = g_date_time_new_from_timeval_local(tv_);
+                var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+                return ret;
+            }
         }
 
         /// <summary>
@@ -389,19 +391,21 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeVal" type="const GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* tv);
-        static partial void CheckFromTimevalUtcArgs(GISharp.Lib.GLib.TimeVal tv);
+        static partial void CheckFromTimevalUtcArgs(in GISharp.Lib.GLib.TimeVal tv);
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromTimevalUtc(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_unix_utc() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static GISharp.Lib.GLib.DateTime? FromTimevalUtc(GISharp.Lib.GLib.TimeVal tv)
+        public static GISharp.Lib.GLib.DateTime? FromTimevalUtc(in GISharp.Lib.GLib.TimeVal tv)
         {
-            CheckFromTimevalUtcArgs(tv);
-            var tv_ = &tv;
-            var ret_ = g_date_time_new_from_timeval_utc(tv_);
-            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
-            return ret;
+            fixed (GISharp.Lib.GLib.TimeVal* tv_ = &tv)
+            {
+                CheckFromTimevalUtcArgs(tv);
+                var ret_ = g_date_time_new_from_timeval_utc(tv_);
+                var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+                return ret;
+            }
         }
 
         /// <summary>
@@ -2108,20 +2112,22 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* tv);
-        partial void CheckToTimevalArgs(GISharp.Lib.GLib.TimeVal tv);
+        partial void CheckToTimevalArgs(ref GISharp.Lib.GLib.TimeVal tv);
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.ToTimeval(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_to_unix() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public bool ToTimeval(GISharp.Lib.GLib.TimeVal tv)
+        public bool ToTimeval(ref GISharp.Lib.GLib.TimeVal tv)
         {
-            CheckToTimevalArgs(tv);
-            var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var tv_ = &tv;
-            var ret_ = g_date_time_to_timeval(datetime_,tv_);
-            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-            return ret;
+            fixed (GISharp.Lib.GLib.TimeVal* tv_ = &tv)
+            {
+                CheckToTimevalArgs(ref tv);
+                var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
+                var ret_ = g_date_time_to_timeval(datetime_,tv_);
+                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+                return ret;
+            }
         }
 
         /// <summary>

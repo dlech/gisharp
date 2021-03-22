@@ -24,19 +24,28 @@ the <see cref="Value"/> type for this parameter
 <member name='UnmanagedStruct.ValuesCmp'>
 </member>
 
-<member name='UnmanagedStruct.Dummy'>
+<member name='UnmanagedStruct.Dummy0'>
 </member>
 
-<member name='Finalize'>
+<member name='UnmanagedStruct.Dummy1'>
 </member>
 
-<member name='ValueSetDefault'>
+<member name='UnmanagedStruct.Dummy2'>
 </member>
 
-<member name='ValueValidate'>
+<member name='UnmanagedStruct.Dummy3'>
 </member>
 
-<member name='ValuesCmp'>
+<member name='_Finalize'>
+</member>
+
+<member name='_ValueSetDefault'>
+</member>
+
+<member name='_ValueValidate'>
+</member>
+
+<member name='_ValuesCmp'>
 </member>
 
 <member name='ParamSpecClass'>

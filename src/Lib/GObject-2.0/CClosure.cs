@@ -2,7 +2,6 @@
 // Copyright (c) 2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -23,30 +22,15 @@ namespace GISharp.Lib.GObject
             return ret_;
         }
 
-        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void g_closure_set_marshal(
-            IntPtr closure,
-            delegate* unmanaged[Cdecl]<Closure.UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void> marshal);
-
         /// <summary>
         /// Creates a new closure which invokes <paramref name="callbackFunc"/>
         /// </summary>
         public CClosure(Delegate callbackFunc) : this((IntPtr)New(callbackFunc), Transfer.None)
         {
-            var marshalGeneric = (delegate* unmanaged[Cdecl]<Closure.UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void>)
+            var closure_ = (Closure.UnmanagedStruct*)UnsafeHandle;
+            var marshalGeneric_ = (delegate* unmanaged[Cdecl]<Closure.UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void>)
                 CLibrary.GetSymbol("gobject-2.0", "g_cclosure_marshal_generic");
-            g_closure_set_marshal(handle, marshalGeneric);
-        }
-
-        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private static void ManagedDestroyNotify(IntPtr userData_, Closure.UnmanagedStruct* closure_)
-        {
-            try {
-                GCHandle.FromIntPtr(userData_).Free();
-            }
-            catch (Exception ex) {
-                ex.LogUnhandledException();
-            }
+            g_closure_set_marshal(closure_, marshalGeneric_);
         }
     }
 }

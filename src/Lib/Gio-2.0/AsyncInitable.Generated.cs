@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.22")]
     [GISharp.Runtime.GTypeAttribute("GAsyncInitable", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncInitableIface))]
-    public unsafe partial interface IAsyncInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IAsyncInitable : GISharp.Lib.GObject.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Runtime.GType _GType = g_async_initable_get_type();
 
@@ -74,25 +74,27 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        static partial void CheckNewAsyncArgs(GISharp.Runtime.GType objectType, uint nParameters, GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        static partial void CheckNewAsyncArgs(GISharp.Runtime.GType objectType, uint nParameters, ref GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.NewAsync(GISharp.Runtime.GType,uint,GISharp.Lib.GObject.Parameter,int,GISharp.Lib.Gio.Cancellable?)']/*" />
         [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_async_initable_init_async() instead. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public static System.Threading.Tasks.Task<GISharp.Lib.GObject.Object> NewAsync(GISharp.Runtime.GType objectType, uint nParameters, GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public static System.Threading.Tasks.Task<GISharp.Lib.GObject.Object> NewAsync(GISharp.Runtime.GType objectType, uint nParameters, ref GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            CheckNewAsyncArgs(objectType, nParameters, parameters, ioPriority, cancellable);
-            var objectType_ = (GISharp.Runtime.GType)objectType;
-            var nParameters_ = (uint)nParameters;
-            var parameters_ = &parameters;
-            var ioPriority_ = (int)ioPriority;
-            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GObject.Object>();
-            var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&NewFinish;
-            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
-            g_async_initable_newv_async(objectType_, nParameters_, parameters_, ioPriority_, cancellable_, callback_, userData_);
-            return completionSource.Task;
+            fixed (GISharp.Lib.GObject.Parameter* parameters_ = &parameters)
+            {
+                CheckNewAsyncArgs(objectType, nParameters, ref parameters, ioPriority, cancellable);
+                var objectType_ = (GISharp.Runtime.GType)objectType;
+                var nParameters_ = (uint)nParameters;
+                var ioPriority_ = (int)ioPriority;
+                var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
+                var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GObject.Object>();
+                var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&NewFinish;
+                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
+                g_async_initable_newv_async(objectType_, nParameters_, parameters_, ioPriority_, cancellable_, callback_, userData_);
+                return completionSource.Task;
+            }
         }
 
         /// <summary>

@@ -81,12 +81,16 @@ namespace GISharp.CodeGen
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported"),
                 var x when x is not null && x.EndsWith("Private") => "System.IntPtr",
-                var x when x is not null && x.Contains(".") => type.IsValueType() ?
-                    $"GISharp.Lib.{type.GirName}{pointer}" :
-                    $"GISharp.Lib.{type.GirName}.UnmanagedStruct{pointer}",
+                var x when x is not null && x.Contains(".") => type switch {
+                    var t when t.Interface is Alias alias && alias.Type.Interface is Callback callback => callback.GetUnmanagedType(),
+                    var t when t.Interface is Callback callback => callback.GetUnmanagedType(),
+                    var t when t.IsValueType() => $"GISharp.Lib.{type.GirName}{pointer}",
+                    _ => $"GISharp.Lib.{type.GirName}.UnmanagedStruct{pointer}",
+                },
                 var x when x is null && type is Gir.Array array =>
                     $"{array.TypeParameters.Single().GetUnmanagedType()}*",
                 _ => type switch {
+                    var x when x.Interface is Alias alias && alias.Type.Interface is Callback callback => callback.GetUnmanagedType(),
                     var x when x.Interface is Callback callback => callback.GetUnmanagedType(),
                     var x when x.IsValueType() =>
                         $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}{pointer}",

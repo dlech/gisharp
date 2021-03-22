@@ -15,13 +15,13 @@
 <member name='UnmanagedStruct.Padding'>
 </member>
 
-<member name='PrintLiteral'>
+<member name='_PrintLiteral'>
 </member>
 
-<member name='PrinterrLiteral'>
+<member name='_PrinterrLiteral'>
 </member>
 
-<member name='GetStdin'>
+<member name='_GetStdin'>
 </member>
 
 <member name='ApplicationCommandLineClass'>

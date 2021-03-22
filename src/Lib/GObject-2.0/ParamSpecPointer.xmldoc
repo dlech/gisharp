@@ -1,0 +1,40 @@
+<declaration>
+
+<member name='UnmanagedStruct.ParentInstance'>
+<summary>
+private <see cref="ParamSpec"/> portion
+</summary>
+</member>
+
+<member name='ParamSpecPointer.ParamSpecPointer(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.ParamFlags)'>
+<summary>
+Creates a new <see cref="ParamSpecPointer"/> instance specifying a pointer property.
+Where possible, it is better to use g_param_spec_object() or
+g_param_spec_boxed() to expose memory management information.
+</summary>
+<remarks>
+<para>
+See g_param_spec_internal() for details on property names.
+</para>
+</remarks>
+<param name="name">
+canonical name of the property specified
+</param>
+<param name="nick">
+nick name for the property specified
+</param>
+<param name="blurb">
+description of the property specified
+</param>
+<param name="flags">
+flags for the property specified
+</param>
+</member>
+
+<member name='ParamSpecPointer'>
+<summary>
+A <see cref="ParamSpec"/> derived structure that contains the meta data for pointer properties.
+</summary>
+</member>
+
+</declaration>

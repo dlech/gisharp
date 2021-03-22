@@ -12,10 +12,10 @@ The parent interface.
 <member name='UnmanagedStruct.InitFinish'>
 </member>
 
-<member name='InitAsync'>
+<member name='_InitAsync'>
 </member>
 
-<member name='InitFinish'>
+<member name='_InitFinish'>
 </member>
 
 <member name='AsyncInitableIface'>

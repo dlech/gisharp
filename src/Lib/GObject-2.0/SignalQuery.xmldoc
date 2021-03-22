@@ -1,0 +1,59 @@
+<declaration>
+
+<member name='SignalQuery.signalId'>
+<summary>
+The signal id of the signal being queried, or 0 if the
+ signal to be queried was unknown.
+</summary>
+</member>
+
+<member name='SignalQuery.signalName'>
+<summary>
+The signal name.
+</summary>
+</member>
+
+<member name='SignalQuery.itype'>
+<summary>
+The interface/instance type that this signal can be emitted for.
+</summary>
+</member>
+
+<member name='SignalQuery.signalFlags'>
+<summary>
+The signal flags as passed in to g_signal_new().
+</summary>
+</member>
+
+<member name='SignalQuery.returnType'>
+<summary>
+The return type for user callbacks.
+</summary>
+</member>
+
+<member name='SignalQuery.nParams'>
+<summary>
+The number of parameters that user callbacks take.
+</summary>
+</member>
+
+<member name='SignalQuery.paramTypes'>
+<summary>
+The individual parameter types for
+ user callbacks, note that the effective callback signature is:
+ |[&lt;!-- language="C" --&gt;
+ <c>returnType</c> callback (#gpointer     data1,
+ [param_types param_names,]
+ gpointer     data2);
+ ]|
+</summary>
+</member>
+
+<member name='SignalQuery'>
+<summary>
+A structure holding in-depth information for a specific signal. It is
+filled in by the <see cref="Signal.Query(uint,out GISharp.Lib.GObject.SignalQuery)"/> function.
+</summary>
+</member>
+
+</declaration>

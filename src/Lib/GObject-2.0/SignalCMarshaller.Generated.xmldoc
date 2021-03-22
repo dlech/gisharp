@@ -1,0 +1,9 @@
+<declaration>
+
+<member name='SignalCMarshaller'>
+<summary>
+The type used for marshaller functions.
+</summary>
+</member>
+
+</declaration>

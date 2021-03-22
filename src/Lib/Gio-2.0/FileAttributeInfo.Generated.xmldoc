@@ -6,13 +6,13 @@ the name of the attribute.
 </summary>
 </member>
 
-<member name='FileAttributeInfo.Type'>
+<member name='FileAttributeInfo.type'>
 <summary>
 the <see cref="FileAttributeType"/> type of the attribute.
 </summary>
 </member>
 
-<member name='FileAttributeInfo.Flags'>
+<member name='FileAttributeInfo.flags'>
 <summary>
 a set of <see cref="FileAttributeInfoFlags"/>.
 </summary>

@@ -6,3 +6,9 @@
   name: disguised
   value: 1
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeInstance']
+
+# make abstract
+- !set-attribute
+  name: gs:inheritance-modifiers
+  value: abstract
+  xpath: gi:repository/gi:namespace/gi:record[@name='TypeInstance']

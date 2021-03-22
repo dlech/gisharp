@@ -1,0 +1,20 @@
+
+### ParamSpecBoolean ###
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='param_spec_boolean']
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecBoolean']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecBoolean']/gi:function[@name='param_spec_boolean']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecBoolean']/gi:constructor[@name='param_spec_boolean']
+
+# return value is floating reference
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecBoolean']/gi:constructor/gi:return-value

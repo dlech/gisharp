@@ -52,7 +52,7 @@ namespace GISharp.CodeGen.Syntax
             var fieldStructModifiers = new List<SyntaxToken>();
 
             var members = List<MemberDeclarationSyntax>()
-                .Add(boxed.GetGTypeFieldDeclaration())
+                .AddIf(boxed.GTypeGetter != "intern", () => boxed.GetGTypeFieldDeclaration())
                 .Add(boxed.Fields.GetStructDeclaration().AddModifiers(fieldStructModifiers.ToArray()))
                 .AddRange(boxed.Constants.GetMemberDeclarations())
                 .AddRange(boxed.ManagedProperties.GetMemberDeclarations())

@@ -1,47 +1,12 @@
 <declaration>
 
-<member name='Closure.RefCount'>
+<member name='UnmanagedStruct.Bits0'>
 </member>
 
-<member name='Closure.MetaMarshalNouse'>
+<member name='UnmanagedStruct.Marshal'>
 </member>
 
-<member name='Closure.NGuards'>
-</member>
-
-<member name='Closure.NFnotifiers'>
-</member>
-
-<member name='Closure.NInotifiers'>
-</member>
-
-<member name='Closure.InInotify'>
-</member>
-
-<member name='Closure.Floating'>
-</member>
-
-<member name='Closure.DerivativeFlag'>
-</member>
-
-<member name='Closure.InMarshal'>
-<summary>
-Indicates whether the closure is currently being invoked with
- <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GObject.Value},System.IntPtr)"/>
-</summary>
-</member>
-
-<member name='Closure.IsInvalid'>
-<summary>
-Indicates whether the closure has been invalidated by
- <see cref="Closure.Invalidate()"/>
-</summary>
-</member>
-
-<member name='Closure.Marshal'>
-</member>
-
-<member name='Closure.Data'>
+<member name='UnmanagedStruct.Data'>
 </member>
 
 <member name='UnmanagedStruct.Notifiers'>
@@ -125,13 +90,9 @@ data to store in the <paramref name="data"/> field of the newly allocated <see c
 <summary>
 Sets a flag on the closure to indicate that its calling
 environment has become invalid, and thus causes any future
-invocations of <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GObject.Value},System.IntPtr)"/> on this this instance to be
+invocations of <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/> on this this instance to be
 ignored. Also, invalidation notifiers installed on the closure will
-be called at this point. Note that unless you are holding a
-reference to the closure yourself, the invalidation notifiers may
-unref the closure and cause it to be destroyed, so if you need to
-access the closure after calling <see cref="Closure.Invalidate()"/>, make sure
-that you've previously called <see cref="Closure.Ref()"/>.
+be called at this point.
 </summary>
 <remarks>
 <para>
@@ -142,7 +103,7 @@ been invalidated before).
 </remarks>
 </member>
 
-<member name='Closure.Invoke(GISharp.Lib.GObject.Value,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GObject.Value&gt;,System.IntPtr)'>
+<member name='Closure.Invoke(GISharp.Lib.GObject.Value,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;,System.IntPtr)'>
 <summary>
 Invokes the closure, i.e. executes the callback represented by the this instance.
 </summary>
@@ -159,55 +120,6 @@ an array of
 <param name="invocationHint">
 a context-dependent invocation hint
 </param>
-</member>
-
-<member name='Closure.Sink()'>
-<summary>
-Takes over the initial ownership of a closure.  Each closure is
-initially created in a "floating" state, which means that the initial
-reference count is not owned by any caller. <see cref="Closure.Sink()"/> checks
-to see if the object is still floating, and if so, unsets the
-floating state and decreases the reference count. If the closure
-is not floating, <see cref="Closure.Sink()"/> does nothing. The reason for the
-existence of the floating state is to prevent cumbersome code
-sequences like:
-|[&lt;!-- language="C" --&gt;
-closure = g_cclosure_new (cb_func, cb_data);
-g_source_set_closure (source, closure);
-g_closure_unref (closure); // GObject doesn't really need this
-]|
-Because g_source_set_closure() (and similar functions) take ownership of the
-initial reference count, if it is unowned, we instead can write:
-|[&lt;!-- language="C" --&gt;
-g_source_set_closure (source, g_cclosure_new (cb_func, cb_data));
-]|
-</summary>
-<remarks>
-<para>
-Generally, this function is used together with <see cref="Closure.Ref()"/>. An example
-of storing a closure for later notification looks like:
-|[&lt;!-- language="C" --&gt;
-static GClosure *notify_closure = NULL;
-void
-foo_notify_set_closure (GClosure *closure)
-{
-  if (notify_closure)
-    g_closure_unref (notify_closure);
-  notify_closure = closure;
-  if (notify_closure)
-    {
-      g_closure_ref (notify_closure);
-      g_closure_sink (notify_closure);
-    }
-}
-]|
-</para>
-<para>
-Because <see cref="Closure.Sink()"/> may decrement the reference count of a closure
-(if it hasn't been called on this instance yet) just like <see cref="Closure.Unref()"/>,
-<see cref="Closure.Ref()"/> should be called prior to this function.
-</para>
-</remarks>
 </member>
 
 <member name='Closure'>
@@ -240,7 +152,7 @@ signal. GObject provides a number of C marshallers for this
 purpose, see the g_cclosure_marshal_*() functions. Additional C
 marshallers can be generated with the [glib-genmarshal][glib-genmarshal]
 utility.  Closures can be explicitly connected to signals with
-g_signal_connect_closure(), but it usually more convenient to let
+<see cref="Signal.Connect(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)"/>, but it usually more convenient to let
 GObject create a closure automatically by using one of the
 g_signal_connect_*() functions which take a callback function/user
 data pair.

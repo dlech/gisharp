@@ -422,17 +422,18 @@ namespace GISharp.Lib.GIRepository
 
         private bool TryIterateReturnAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
         {
-            CheckTryIterateReturnAttributesArgs(ref iterator);
-            var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
-            var iterator_ = (GISharp.Lib.GIRepository.AttributeIter)iterator;
-            byte* name_;
-            byte* value_;
-            var ret_ = g_callable_info_iterate_return_attributes(info_,&iterator_,&name_,&value_);
-            iterator = (GISharp.Lib.GIRepository.AttributeIter)iterator_;
-            name = new GISharp.Lib.GLib.UnownedUtf8(name_);
-            value = new GISharp.Lib.GLib.UnownedUtf8(value_);
-            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-            return ret;
+            fixed (GISharp.Lib.GIRepository.AttributeIter* iterator_ = &iterator)
+            {
+                CheckTryIterateReturnAttributesArgs(ref iterator);
+                var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
+                byte* name_;
+                byte* value_;
+                var ret_ = g_callable_info_iterate_return_attributes(info_,iterator_,&name_,&value_);
+                name = new GISharp.Lib.GLib.UnownedUtf8(name_);
+                value = new GISharp.Lib.GLib.UnownedUtf8(value_);
+                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+                return ret;
+            }
         }
 
         /// <summary>

@@ -1,0 +1,20 @@
+
+### ParamSpecGType ###
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='param_spec_gtype']
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecGType']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecGType']/gi:function[@name='param_spec_gtype']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecGType']/gi:constructor[@name='param_spec_gtype']
+
+# return value is floating reference
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecGType']/gi:constructor/gi:return-value

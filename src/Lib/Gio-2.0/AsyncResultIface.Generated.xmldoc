@@ -15,13 +15,13 @@ The parent interface.
 <member name='UnmanagedStruct.IsTagged'>
 </member>
 
-<member name='GetUserData'>
+<member name='_GetUserData'>
 </member>
 
-<member name='GetSourceObject'>
+<member name='_GetSourceObject'>
 </member>
 
-<member name='IsTagged'>
+<member name='_IsTagged'>
 </member>
 
 <member name='AsyncResultIface'>

@@ -260,7 +260,7 @@ On error
 <member name='Task.PropagateValue(GISharp.Lib.GObject.Value)'>
 <summary>
 Gets the result of this instance as a #GValue, and transfers ownership of
-that value to the caller. As with <see cref="Task.ReturnValue(GISharp.Lib.GObject.Value)"/>, this is
+that value to the caller. As with <see cref="Task.ReturnValue(ref GISharp.Lib.GObject.Value)"/>, this is
 a generic low-level method; <see cref="Task.PropagatePointer()"/> and the like
 will usually be more useful for C code.
 </summary>

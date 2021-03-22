@@ -1,0 +1,369 @@
+<declaration>
+
+<member name='TypeExtensions.flagReservedIdBit'>
+<summary>
+A bit in the type number that's supposed to be left untouched.
+</summary>
+</member>
+
+<member name='TypeExtensions.fundamentalMax'>
+<summary>
+An integer constant that represents the number of identifiers reserved
+for types that are assigned at compile-time.
+</summary>
+</member>
+
+<member name='TypeExtensions.fundamentalShift'>
+<summary>
+Shift value used in converting numbers to type IDs.
+</summary>
+</member>
+
+<member name='TypeExtensions.reservedBseFirst'>
+<summary>
+First fundamental type number to create a new fundamental type id with
+G_TYPE_MAKE_FUNDAMENTAL() reserved for BSE.
+</summary>
+</member>
+
+<member name='TypeExtensions.reservedBseLast'>
+<summary>
+Last fundamental type number reserved for BSE.
+</summary>
+</member>
+
+<member name='TypeExtensions.reservedGlibFirst'>
+<summary>
+First fundamental type number to create a new fundamental type id with
+G_TYPE_MAKE_FUNDAMENTAL() reserved for GLib.
+</summary>
+</member>
+
+<member name='TypeExtensions.reservedGlibLast'>
+<summary>
+Last fundamental type number reserved for GLib.
+</summary>
+</member>
+
+<member name='TypeExtensions.reservedUserFirst'>
+<summary>
+First available fundamental type number to create new fundamental
+type id with G_TYPE_MAKE_FUNDAMENTAL().
+</summary>
+</member>
+
+<member name='TypeExtensions.TypeRegistrationSerial'>
+<summary>
+Returns an opaque serial number that represents the state of the set
+of registered types. Any time a type is registered this serial changes,
+which means you can cache information based on type lookups (such as
+g_type_from_name()) and know if the cache is still valid at a later
+time by comparing the current serial with the one at the type lookup.
+</summary>
+</member>
+
+<member name='TypeExtensions.CheckClassIsA(GISharp.Lib.GObject.TypeClass,GISharp.Runtime.GType)'>
+</member>
+
+<member name='TypeExtensions.CheckInstance(GISharp.Lib.GObject.TypeInstance)'>
+<summary>
+Private helper function to aid implementation of the
+G_TYPE_CHECK_INSTANCE() macro.
+</summary>
+<param name="instance">
+a valid <see cref="TypeInstance"/> structure
+</param>
+<returns>
+<c>true</c> if <paramref name="instance"/> is valid, <c>false</c> otherwise
+</returns>
+</member>
+
+<member name='TypeExtensions.CheckInstanceIsA(GISharp.Lib.GObject.TypeInstance,GISharp.Runtime.GType)'>
+</member>
+
+<member name='TypeExtensions.CheckInstanceIsFundamentallyA(GISharp.Lib.GObject.TypeInstance,GISharp.Runtime.GType)'>
+</member>
+
+<member name='TypeExtensions.CheckValue(GISharp.Lib.GObject.Value)'>
+</member>
+
+<member name='TypeExtensions.CheckValueHolds(GISharp.Lib.GObject.Value,GISharp.Runtime.GType)'>
+</member>
+
+<member name='TypeExtensions.FreeInstance(GISharp.Lib.GObject.TypeInstance)'>
+<summary>
+Frees an instance of a type, returning it to the instance pool for
+the type, if there is one.
+</summary>
+<remarks>
+<para>
+Like g_type_create_instance(), this function is reserved for
+implementors of fundamental types.
+</para>
+</remarks>
+<param name="instance">
+an instance of a type
+</param>
+</member>
+
+<member name='TypeExtensions.FundamentalNext()'>
+<summary>
+Returns the next free fundamental type id which can be used to
+register a new fundamental type with <see cref="TypeExtensions.RegisterFundamental(GISharp.Runtime.GType,GISharp.Lib.GLib.UnownedUtf8,in GISharp.Lib.GObject.TypeInfo,in GISharp.Lib.GObject.TypeFundamentalInfo,GISharp.Lib.GObject.TypeFlags)"/>.
+The returned type ID represents the highest currently registered
+fundamental type identifier.
+</summary>
+<returns>
+the next available fundamental type ID to be registered,
+    or 0 if the type system ran out of fundamental type IDs
+</returns>
+</member>
+
+<member name='TypeExtensions.Init()'>
+<summary>
+This function used to initialise the type system.  Since GLib 2.36,
+the type system is initialised automatically and this function does
+nothing.
+</summary>
+</member>
+
+<member name='TypeExtensions.InitWithDebugFlags(GISharp.Lib.GObject.TypeDebugFlags)'>
+<summary>
+This function used to initialise the type system with debugging
+flags.  Since GLib 2.36, the type system is initialised automatically
+and this function does nothing.
+</summary>
+<remarks>
+<para>
+If you need to enable debugging features, use the GOBJECT_DEBUG
+environment variable.
+</para>
+</remarks>
+<param name="debugFlags">
+bitwise combination of <see cref="TypeDebugFlags"/> values for
+    debugging purposes
+</param>
+</member>
+
+<member name='TypeExtensions.NameFromClass(GISharp.Lib.GObject.TypeClass)'>
+</member>
+
+<member name='TypeExtensions.NameFromInstance(GISharp.Lib.GObject.TypeInstance)'>
+</member>
+
+<member name='TypeExtensions.AddClassPrivate(GISharp.Runtime.GType,int)'>
+<summary>
+Registers a private class structure for a classed type;
+when the class is allocated, the private structures for
+the class and all of its parent types are allocated
+sequentially in the same memory block as the public
+structures, and are zero-filled.
+</summary>
+<remarks>
+<para>
+This function should be called in the
+type's get_type() function after the type is registered.
+The private structure can be retrieved using the
+G_TYPE_CLASS_GET_PRIVATE() macro.
+</para>
+</remarks>
+<param name="classType">
+GType of a classed type
+</param>
+<param name="privateSize">
+size of private structure
+</param>
+</member>
+
+<member name='TypeExtensions.AddInstancePrivate(GISharp.Runtime.GType,int)'>
+</member>
+
+<member name='TypeExtensions.Depth(GISharp.Runtime.GType)'>
+<summary>
+Returns the length of the ancestry of the passed in type. This
+includes the type itself, so that e.g. a fundamental type has depth 1.
+</summary>
+<param name="type">
+a #GType
+</param>
+<returns>
+the depth of <paramref name="type"/>
+</returns>
+</member>
+
+<member name='TypeExtensions.Ensure(GISharp.Runtime.GType)'>
+<summary>
+Ensures that the indicated <paramref name="type"/> has been registered with the
+type system, and its _class_init() method has been run.
+</summary>
+<remarks>
+<para>
+In theory, simply calling the type's _get_type() method (or using
+the corresponding macro) is supposed take care of this. However,
+_get_type() methods are often marked %G_GNUC_CONST for performance
+reasons, even though this is technically incorrect (since
+%G_GNUC_CONST requires that the function not have side effects,
+which _get_type() methods do on the first call). As a result, if
+you write a bare call to a _get_type() macro, it may get optimized
+out by the compiler. Using <see cref="TypeExtensions.Ensure(GISharp.Runtime.GType)"/> guarantees that the
+type's _get_type() method is called.
+</para>
+</remarks>
+<param name="type">
+a #GType
+</param>
+</member>
+
+<member name='TypeExtensions.GetInstanceCount(GISharp.Runtime.GType)'>
+<summary>
+Returns the number of instances allocated of the particular type;
+this is only available if GLib is built with debugging support and
+the instance_count debug flag is set (by setting the GOBJECT_DEBUG
+variable to include instance-count).
+</summary>
+<param name="type">
+a #GType
+</param>
+<returns>
+the number of instances allocated of the given type;
+  if instance counts are not available, returns 0.
+</returns>
+</member>
+
+<member name='TypeExtensions.GetQData(GISharp.Runtime.GType,GISharp.Lib.GLib.Quark)'>
+<summary>
+Obtains data which has previously been attached to <paramref name="type"/>
+with <see cref="TypeExtensions.SetQData(GISharp.Runtime.GType,GISharp.Lib.GLib.Quark,System.IntPtr)"/>.
+</summary>
+<remarks>
+<para>
+Note that this does not take subtyping into account; data
+attached to one type with <see cref="TypeExtensions.SetQData(GISharp.Runtime.GType,GISharp.Lib.GLib.Quark,System.IntPtr)"/> cannot
+be retrieved from a subtype using <see cref="TypeExtensions.GetQData(GISharp.Runtime.GType,GISharp.Lib.GLib.Quark)"/>.
+</para>
+</remarks>
+<param name="type">
+a #GType
+</param>
+<param name="quark">
+a #GQuark id to identify the data
+</param>
+<returns>
+the data, or <c>null</c> if no data was found
+</returns>
+</member>
+
+<member name='TypeExtensions.Interfaces(GISharp.Runtime.GType)'>
+<summary>
+Return a newly allocated and 0-terminated array of type IDs, listing
+the interface types that <paramref name="type"/> conforms to.
+</summary>
+<param name="type">
+the type to list interface types for
+</param>
+<returns>
+Newly allocated
+    and 0-terminated array of interface types, free with g_free()
+</returns>
+</member>
+
+<member name='TypeExtensions.NextBase(GISharp.Runtime.GType,GISharp.Runtime.GType)'>
+<summary>
+Given a <paramref name="leafType"/> and a <paramref name="rootType"/> which is contained in its
+anchestry, return the type that <paramref name="rootType"/> is the immediate parent
+of. In other words, this function determines the type that is
+derived directly from <paramref name="rootType"/> which is also a base class of
+<paramref name="leafType"/>.  Given a root type and a leaf type, this function can
+be used to determine the types and order in which the leaf type is
+descended from the root type.
+</summary>
+<param name="leafType">
+descendant of <paramref name="rootType"/> and the type to be returned
+</param>
+<param name="rootType">
+immediate parent of the returned type
+</param>
+<returns>
+immediate child of <paramref name="rootType"/> and anchestor of <paramref name="leafType"/>
+</returns>
+</member>
+
+<member name='TypeExtensions.QName(GISharp.Runtime.GType)'>
+<summary>
+Get the corresponding quark of the type IDs name.
+</summary>
+<param name="type">
+type to return quark of type name for
+</param>
+<returns>
+the type names quark or 0
+</returns>
+</member>
+
+<member name='TypeExtensions.Query(GISharp.Runtime.GType,GISharp.Lib.GObject.TypeQuery)'>
+<summary>
+Queries the type system for information about a specific type.
+This function will fill in a user-provided structure to hold
+type-specific information. If an invalid #GType is passed in, the
+<paramref name="type"/> member of the <see cref="TypeQuery"/> is 0. All members filled into the
+<see cref="TypeQuery"/> structure should be considered constant and have to be
+left untouched.
+</summary>
+<param name="type">
+#GType of a static, classed type
+</param>
+<param name="query">
+a user provided structure that is
+    filled in with constant values upon success
+</param>
+</member>
+
+<member name='TypeExtensions.RegisterFundamental(GISharp.Runtime.GType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeFundamentalInfo,GISharp.Lib.GObject.TypeFlags)'>
+<summary>
+Registers <paramref name="typeId"/> as the predefined identifier and <paramref name="typeName"/> as the
+name of a fundamental type. If <paramref name="typeId"/> is already registered, or a
+type named <paramref name="typeName"/> is already registered, the behaviour is undefined.
+The type system uses the information contained in the <see cref="TypeInfo"/> structure
+pointed to by <paramref name="info"/> and the <see cref="TypeFundamentalInfo"/> structure pointed to by
+<paramref name="finfo"/> to manage the type and its instances. The value of <paramref name="flags"/> determines
+additional characteristics of the fundamental type.
+</summary>
+<param name="typeId">
+a predefined type identifier
+</param>
+<param name="typeName">
+0-terminated string used as the name of the new type
+</param>
+<param name="info">
+<see cref="TypeInfo"/> structure for this type
+</param>
+<param name="finfo">
+<see cref="TypeFundamentalInfo"/> structure for this type
+</param>
+<param name="flags">
+bitwise combination of <see cref="TypeFlags"/> values
+</param>
+<returns>
+the predefined type identifier
+</returns>
+</member>
+
+<member name='TypeExtensions.SetQData(GISharp.Runtime.GType,GISharp.Lib.GLib.Quark,System.IntPtr)'>
+<summary>
+Attaches arbitrary data to a type.
+</summary>
+<param name="type">
+a #GType
+</param>
+<param name="quark">
+a #GQuark id to identify the data
+</param>
+<param name="data">
+the data
+</param>
+</member>
+
+<member name='TypeExtensions'>
+</member>
+
+</declaration>

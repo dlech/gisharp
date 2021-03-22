@@ -1,0 +1,20 @@
+
+### ParamSpecULong ###
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='param_spec_ulong']
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecULong']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecULong']/gi:function[@name='param_spec_ulong']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecULong']/gi:constructor[@name='param_spec_ulong']
+
+# return value is floating reference
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecULong']/gi:constructor/gi:return-value

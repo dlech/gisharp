@@ -1,0 +1,20 @@
+
+### ParamSpecEnum ###
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='param_spec_enum']
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecEnum']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecEnum']/gi:function[@name='param_spec_enum']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecEnum']/gi:constructor[@name='param_spec_enum']
+
+# return value is floating reference
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecEnum']/gi:constructor/gi:return-value

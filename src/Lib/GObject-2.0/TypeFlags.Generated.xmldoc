@@ -1,0 +1,24 @@
+<declaration>
+
+<member name='TypeFlags.Abstract'>
+<summary>
+Indicates an abstract type. No instances can be
+ created for an abstract type
+</summary>
+</member>
+
+<member name='TypeFlags.ValueAbstract'>
+<summary>
+Indicates an abstract value type, i.e. a type
+ that introduces a value table, but can't be used for
+ <see cref="Value.Init(GISharp.Runtime.GType)"/>
+</summary>
+</member>
+
+<member name='TypeFlags'>
+<summary>
+Bit masks used to check or determine characteristics of a type.
+</summary>
+</member>
+
+</declaration>

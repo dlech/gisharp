@@ -1,0 +1,54 @@
+
+### ParamSpec ###
+
+# move constants
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'PARAM_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']
+- !change-attribute
+  name: name
+  regex: PARAM_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']/gi:constant
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']/gi:constant
+
+# expose ref/unref
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']/gi:method[contains(@name,'ref')]
+
+# sink is special method
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']/gi:method[contains(@name,'sink')]
+
+# stealing is for unmanaged code
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']/gi:method[contains(@name,'steal')]
+
+# default constructor and dispose require special handling
+- !set-attribute
+  name: gs:custom-default-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']
+- !set-attribute
+  name: gs:custom-dispose
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']
+
+# requires special handling
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']/gi:method[@name='set_qdata_full']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']/gi:method[@name='set_qdata_full']

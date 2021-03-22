@@ -5,23 +5,23 @@ namespace GISharp.Lib.Gio
 {
     /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='AsyncInitableIface']/*" />
     [GISharp.Runtime.SinceAttribute("2.22")]
-    public sealed unsafe class AsyncInitableIface : GISharp.Lib.GObject.TypeInterface
+    public sealed unsafe partial class AsyncInitableIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
         public new struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
             public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.InitAsync']/*" />
-            public readonly System.IntPtr InitAsync;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct*, int, GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>, System.IntPtr, void> InitAsync;
 
             /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.InitFinish']/*" />
-            public readonly System.IntPtr InitFinish;
-#pragma warning restore CS0169, CS0649
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, GISharp.Lib.GLib.Error.UnmanagedStruct**, GISharp.Runtime.Boolean> InitFinish;
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         static AsyncInitableIface()
@@ -32,8 +32,8 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(initFinishOffset, InitFinishMarshal.Create);
         }
 
-        /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='InitAsync']/*" />
-        public delegate void InitAsync(int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='_InitAsync']/*" />
+        public delegate void _InitAsync(int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -60,7 +60,7 @@ delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.
 System.IntPtr userData);
 
         /// <summary>
-        /// Class for marshalling <see cref="InitAsync"/> methods.
+        /// Class for marshalling <see cref="_InitAsync"/> methods.
         /// </summary>
         public static unsafe class InitAsyncMarshal
         {
@@ -69,14 +69,14 @@ System.IntPtr userData);
             /// </summary>
             public static UnmanagedInitAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedInitAsync(GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable_, int ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback_, System.IntPtr userData_) { try { var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!; var ioPriority = (int)ioPriority_; var callback = callback_ is null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doInitAsync = (InitAsync)methodInfo.CreateDelegate(typeof(InitAsync), initable); doInitAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedInitAsync(GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable_, int ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback_, System.IntPtr userData_) { try { var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!; var ioPriority = (int)ioPriority_; var callback = callback_ is null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doInitAsync = (_InitAsync)methodInfo.CreateDelegate(typeof(_InitAsync), initable); doInitAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedInitAsync;
             }
         }
 
-        /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='InitFinish']/*" />
-        public delegate void InitFinish(GISharp.Lib.Gio.IAsyncResult res);
+        /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='_InitFinish']/*" />
+        public delegate void _InitFinish(GISharp.Lib.Gio.IAsyncResult res);
 
         /// <summary>
         /// Unmanaged callback
@@ -97,7 +97,7 @@ GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
-        /// Class for marshalling <see cref="InitFinish"/> methods.
+        /// Class for marshalling <see cref="_InitFinish"/> methods.
         /// </summary>
         public static unsafe class InitFinishMarshal
         {
@@ -106,7 +106,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedInitFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedInitFinish(GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doInitFinish = (InitFinish)methodInfo.CreateDelegate(typeof(InitFinish), initable); doInitFinish(res); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedInitFinish(GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doInitFinish = (_InitFinish)methodInfo.CreateDelegate(typeof(_InitFinish), initable); doInitFinish(res); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedInitFinish;
             }

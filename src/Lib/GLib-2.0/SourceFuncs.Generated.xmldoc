@@ -1,21 +1,21 @@
 <declaration>
 
-<member name='SourceFuncs.Prepare'>
+<member name='SourceFuncs.prepare'>
 </member>
 
-<member name='SourceFuncs.Check'>
+<member name='SourceFuncs.check'>
 </member>
 
-<member name='SourceFuncs.Dispatch'>
+<member name='SourceFuncs.dispatch'>
 </member>
 
-<member name='SourceFuncs.Finalize'>
+<member name='SourceFuncs.finalize'>
 </member>
 
-<member name='SourceFuncs.ClosureCallback'>
+<member name='SourceFuncs.closureCallback'>
 </member>
 
-<member name='SourceFuncs.ClosureMarshal'>
+<member name='SourceFuncs.closureMarshal'>
 </member>
 
 <member name='SourceFuncs'>

@@ -7,12 +7,12 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.22")]
     public unsafe partial struct OutputVector
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector.Buffer']/*" />
-        public readonly System.IntPtr Buffer;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector.buffer']/*" />
+        private readonly System.IntPtr buffer;
 
-        /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector.Size']/*" />
-        public readonly nuint Size;
-#pragma warning restore CS0169, CS0649
+        /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector.size']/*" />
+        private readonly nuint size;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

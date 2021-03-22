@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='SourceCallbackFuncs.Ref'>
+<member name='SourceCallbackFuncs.@ref'>
 </member>
 
-<member name='SourceCallbackFuncs.Unref'>
+<member name='SourceCallbackFuncs.unref'>
 </member>
 
-<member name='SourceCallbackFuncs.Get'>
+<member name='SourceCallbackFuncs.get'>
 </member>
 
 <member name='SourceCallbackFuncs'>

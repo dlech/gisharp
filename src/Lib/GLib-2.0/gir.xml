@@ -4038,6 +4038,34 @@ should free any memory and resources allocated for it.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
+    <callback name="DuplicateFunc" c:type="GDuplicateFunc" gs:dll-name="glib-2.0" gs:managed-name="DuplicateFunc">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="371">The type of functions that are used to 'duplicate' an object.
+What this means depends on the context, it could just be
+incrementing the reference count, if @data is a ref-counted
+object.</doc>
+      <source-position filename="gdataset.h" line="57" />
+      <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="382">a duplicate of data</doc>
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+      </return-value>
+      <parameters>
+        <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="373">the data to duplicate</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="1" gs:managed-name="userData" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="374">user data that was specified in
+            g_datalist_id_dup_data()</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="373">the data to duplicate</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
     <callback name="EqualFunc" c:type="GEqualFunc" gs:dll-name="glib-2.0" gs:managed-name="EqualFunc">
       <doc xml:space="preserve" filename="glib-2.0.c" line="386">Specifies the type of a function used to test two values for
 equality. The function should return %TRUE if both values are equal
@@ -15200,7 +15228,6 @@ the #GSource from the main loop.</doc>
 functions for managing callback objects.</doc>
       <source-position filename="gmain.h" line="254" />
       <field name="ref" gs:managed-name="Ref">
-        <type name="ref" gs:dll-name="glib-2.0" gs:managed-name="Ref" />
         <callback name="ref" gs:dll-name="glib-2.0" gs:managed-name="Ref">
           <source-position filename="gmain.h" line="248" />
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -15219,7 +15246,6 @@ functions for managing callback objects.</doc>
         </callback>
       </field>
       <field name="unref" gs:managed-name="Unref">
-        <type name="unref" gs:dll-name="glib-2.0" gs:managed-name="Unref" />
         <callback name="unref" gs:dll-name="glib-2.0" gs:managed-name="Unref">
           <source-position filename="gmain.h" line="249" />
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -15238,37 +15264,7 @@ functions for managing callback objects.</doc>
         </callback>
       </field>
       <field name="get" introspectable="1" gs:managed-name="Get">
-        <type name="gpointer" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="System.IntPtr">
-          <source-position filename="gmain.h" line="250" />
-          <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-            <type name="none" c:type="void" gs:managed-name="System.Void" />
-          </return-value>
-          <parameters>
-            <parameter name="cb_data" transfer-ownership="none" gs:managed-name="cbData" direction="in">
-              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
-            </parameter>
-            <parameter name="source" transfer-ownership="none" gs:managed-name="source" direction="in">
-              <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
-            </parameter>
-            <parameter name="func" transfer-ownership="none" closure="3" gs:managed-name="func" direction="in">
-              <type name="SourceFunc" c:type="GSourceFunc*" gs:managed-name="SourceFunc" gs:is-pointer="1" />
-            </parameter>
-            <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
-              <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
-            </parameter>
-          </parameters>
-          <gs:managed-parameters>
-            <parameter name="cb_data" transfer-ownership="none" gs:managed-name="cbData" direction="in">
-              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
-            </parameter>
-            <parameter name="source" transfer-ownership="none" gs:managed-name="source" direction="in">
-              <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
-            </parameter>
-            <parameter name="func" transfer-ownership="none" closure="3" gs:managed-name="func" direction="in">
-              <type name="SourceFunc" c:type="GSourceFunc*" gs:managed-name="SourceFunc" gs:is-pointer="1" />
-            </parameter>
-          </gs:managed-parameters>
-        </type>
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
       </field>
     </record>
     <callback name="SourceDummyMarshal" c:type="GSourceDummyMarshal" gs:dll-name="glib-2.0" gs:managed-name="SourceDummyMarshal">
@@ -15326,7 +15322,6 @@ check function, it tests the results of the poll() call to see if the
 required condition has been met, and returns %TRUE if so.</doc>
       <source-position filename="gmain.h" line="278" />
       <field name="prepare" gs:managed-name="Prepare">
-        <type name="prepare" gs:dll-name="glib-2.0" gs:managed-name="Prepare" />
         <callback name="prepare" gs:dll-name="glib-2.0" gs:managed-name="Prepare">
           <source-position filename="gmain.h" line="266" />
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -15351,7 +15346,6 @@ required condition has been met, and returns %TRUE if so.</doc>
         </callback>
       </field>
       <field name="check" gs:managed-name="Check">
-        <type name="check" gs:dll-name="glib-2.0" gs:managed-name="Check" />
         <callback name="check" gs:dll-name="glib-2.0" gs:managed-name="Check">
           <source-position filename="gmain.h" line="268" />
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -15370,34 +15364,9 @@ required condition has been met, and returns %TRUE if so.</doc>
         </callback>
       </field>
       <field name="dispatch" introspectable="1" gs:managed-name="Dispatch">
-        <type name="gpointer" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="System.IntPtr">
-          <source-position filename="gmain.h" line="269" />
-          <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
-          </return-value>
-          <parameters>
-            <parameter name="source" transfer-ownership="none" gs:managed-name="source" direction="in">
-              <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
-            </parameter>
-            <parameter name="callback" transfer-ownership="none" closure="2" gs:managed-name="callback" direction="in">
-              <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
-            </parameter>
-            <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="2" gs:managed-name="userData" direction="in">
-              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
-            </parameter>
-          </parameters>
-          <gs:managed-parameters>
-            <parameter name="source" transfer-ownership="none" gs:managed-name="source" direction="in">
-              <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
-            </parameter>
-            <parameter name="callback" transfer-ownership="none" closure="2" gs:managed-name="callback" direction="in">
-              <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
-            </parameter>
-          </gs:managed-parameters>
-        </type>
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
       </field>
       <field name="finalize" gs:managed-name="Finalize">
-        <type name="finalize" gs:dll-name="glib-2.0" gs:managed-name="Finalize" />
         <callback name="finalize" gs:dll-name="glib-2.0" gs:managed-name="Finalize">
           <source-position filename="gmain.h" line="272" />
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -19885,16 +19854,96 @@ access it from more than one thread.</doc>
           <field name="type" writable="1" gs:managed-name="Type">
             <type name="VariantType" c:type="const GVariantType*" gs:managed-name="VariantType" gs:is-pointer="1" />
           </field>
-          <field name="y" writable="1" gs:managed-name="Y">
-            <array zero-terminated="0" fixed-size="14" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
-              <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
-            </array>
+          <field name="y0" writable="1" gs:managed-name="Y0">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y1" writable="1" gs:managed-name="Y1">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y2" writable="1" gs:managed-name="Y2">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y3" writable="1" gs:managed-name="Y3">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y4" writable="1" gs:managed-name="Y4">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y5" writable="1" gs:managed-name="Y5">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y6" writable="1" gs:managed-name="Y6">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y7" writable="1" gs:managed-name="Y7">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y8" writable="1" gs:managed-name="Y8">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y9" writable="1" gs:managed-name="Y9">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y10" writable="1" gs:managed-name="Y10">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y11" writable="1" gs:managed-name="Y11">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y12" writable="1" gs:managed-name="Y12">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y13" writable="1" gs:managed-name="Y13">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
           </field>
         </record>
-        <field name="x" writable="1" gs:managed-name="X">
-          <array zero-terminated="0" fixed-size="16" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
-            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
-          </array>
+        <field name="x0" writable="1" gs:managed-name="X0">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x1" writable="1" gs:managed-name="X1">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x2" writable="1" gs:managed-name="X2">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x3" writable="1" gs:managed-name="X3">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x4" writable="1" gs:managed-name="X4">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x5" writable="1" gs:managed-name="X5">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x6" writable="1" gs:managed-name="X6">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x7" writable="1" gs:managed-name="X7">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x8" writable="1" gs:managed-name="X8">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x9" writable="1" gs:managed-name="X9">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x10" writable="1" gs:managed-name="X10">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x11" writable="1" gs:managed-name="X11">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x12" writable="1" gs:managed-name="X12">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x13" writable="1" gs:managed-name="X13">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x14" writable="1" gs:managed-name="X14">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x15" writable="1" gs:managed-name="X15">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
         </field>
       </union>
       <constructor name="new" c:identifier="g_variant_builder_new" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="New">
@@ -20272,16 +20321,96 @@ key is not found.  Each returns the new dictionary as a floating
           <field name="partial_magic" writable="1" gs:managed-name="PartialMagic">
             <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
           </field>
-          <field name="y" writable="1" gs:managed-name="Y">
-            <array zero-terminated="0" fixed-size="14" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
-              <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
-            </array>
+          <field name="y0" writable="1" gs:managed-name="Y0">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y1" writable="1" gs:managed-name="Y1">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y2" writable="1" gs:managed-name="Y2">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y3" writable="1" gs:managed-name="Y3">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y4" writable="1" gs:managed-name="Y4">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y5" writable="1" gs:managed-name="Y5">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y6" writable="1" gs:managed-name="Y6">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y7" writable="1" gs:managed-name="Y7">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y8" writable="1" gs:managed-name="Y8">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y9" writable="1" gs:managed-name="Y9">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y10" writable="1" gs:managed-name="Y10">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y11" writable="1" gs:managed-name="Y11">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y12" writable="1" gs:managed-name="Y12">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </field>
+          <field name="y13" writable="1" gs:managed-name="Y13">
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
           </field>
         </record>
-        <field name="x" writable="1" gs:managed-name="X">
-          <array zero-terminated="0" fixed-size="16" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
-            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
-          </array>
+        <field name="x0" writable="1" gs:managed-name="X0">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x1" writable="1" gs:managed-name="X1">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x2" writable="1" gs:managed-name="X2">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x3" writable="1" gs:managed-name="X3">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x4" writable="1" gs:managed-name="X4">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x5" writable="1" gs:managed-name="X5">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x6" writable="1" gs:managed-name="X6">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x7" writable="1" gs:managed-name="X7">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x8" writable="1" gs:managed-name="X8">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x9" writable="1" gs:managed-name="X9">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x10" writable="1" gs:managed-name="X10">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x11" writable="1" gs:managed-name="X11">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x12" writable="1" gs:managed-name="X12">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x13" writable="1" gs:managed-name="X13">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x14" writable="1" gs:managed-name="X14">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </field>
+        <field name="x15" writable="1" gs:managed-name="X15">
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
         </field>
       </union>
       <constructor name="new" c:identifier="g_variant_dict_new" version="2.40" gs:dll-name="glib-2.0" gs:managed-name="New">

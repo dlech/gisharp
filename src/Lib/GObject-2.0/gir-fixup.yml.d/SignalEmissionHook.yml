@@ -1,0 +1,8 @@
+
+### SignalEmissionHook ###
+
+# fix closure data arg
+- !set-attribute
+  name: closure
+  value: 3
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SignalEmissionHook']/gi:parameters/gi:parameter[4]

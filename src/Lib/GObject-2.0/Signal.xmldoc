@@ -1,0 +1,479 @@
+<declaration>
+
+<member name='Signal.AddEmissionHook(uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.SignalEmissionHook)'>
+<summary>
+Adds an emission hook for a signal, which will get called for any emission
+of that signal, independent of the instance. This is possible only
+for signals which don't have #G_SIGNAL_NO_HOOKS flag set.
+</summary>
+<param name="signalId">
+the signal identifier, as returned by <see cref="Signal.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType)"/>.
+</param>
+<param name="detail">
+the detail on which to call the hook.
+</param>
+<param name="hookFunc">
+a <see cref="SignalEmissionHook"/> function.
+</param>
+<returns>
+the hook id, for later use with <see cref="Signal.RemoveEmissionHook(uint,GISharp.Runtime.CULong)"/>.
+</returns>
+</member>
+
+<member name='Signal.ChainFromOverridden(System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;,GISharp.Lib.GObject.Value)'>
+<summary>
+Calls the original class closure of a signal. This function should only
+be called from an overridden class closure; see
+<see cref="Signal.OverrideClassClosure(uint,GISharp.Runtime.GType,GISharp.Lib.GObject.Closure)"/> and
+g_signal_override_class_handler().
+</summary>
+<param name="instanceAndParams">
+the argument list of the signal emission.
+ The first element in the array is a <see cref="Value"/> for the instance the signal
+ is being emitted on. The rest are any arguments to be passed to the signal.
+</param>
+<param name="returnValue">
+Location for the return value.
+</param>
+</member>
+
+<member name='Signal.Connect(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)'>
+<summary>
+Connects a closure to a signal for a particular object.
+</summary>
+<param name="instance">
+the instance to connect to.
+</param>
+<param name="detailedSignal">
+a string of the form "signal-name::detail".
+</param>
+<param name="closure">
+the closure to connect.
+</param>
+<param name="after">
+whether the handler should be called before or after the
+ default handler of the signal.
+</param>
+<returns>
+the handler ID (always greater than 0 for successful connections)
+</returns>
+</member>
+
+<member name='Signal.Connect(GISharp.Lib.GObject.Object,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Closure,bool)'>
+<summary>
+Connects a closure to a signal for a particular object.
+</summary>
+<param name="instance">
+the instance to connect to.
+</param>
+<param name="signalId">
+the id of the signal.
+</param>
+<param name="detail">
+the detail.
+</param>
+<param name="closure">
+the closure to connect.
+</param>
+<param name="after">
+whether the handler should be called before or after the
+ default handler of the signal.
+</param>
+<returns>
+the handler ID (always greater than 0 for successful connections)
+</returns>
+</member>
+
+<member name='Signal.Emitv(System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Value)'>
+<summary>
+Emits a signal.
+</summary>
+<remarks>
+<para>
+Note that <see cref="Signal.Emitv(System.ReadOnlySpan{GISharp.Lib.GObject.Value},uint,GISharp.Lib.GLib.Quark,ref GISharp.Lib.GObject.Value)"/> doesn't change <paramref name="returnValue"/> if no handlers are
+connected, in contrast to g_signal_emit() and g_signal_emit_valist().
+</para>
+</remarks>
+<param name="instanceAndParams">
+argument list for the signal emission.
+ The first element in the array is a <see cref="Value"/> for the instance the signal
+ is being emitted on. The rest are any arguments to be passed to the signal.
+</param>
+<param name="signalId">
+the signal id
+</param>
+<param name="detail">
+the detail
+</param>
+<param name="returnValue">
+Location to
+store the return value of the signal emission. This must be provided if the
+specified signal returns a value, but may be ignored otherwise.
+</param>
+</member>
+
+<member name='Signal.GetInvocationHint(GISharp.Lib.GObject.Object)'>
+<summary>
+Returns the invocation hint of the innermost signal emission of instance.
+</summary>
+<param name="instance">
+the instance to query
+</param>
+<returns>
+the invocation hint of the innermost signal  emission.
+</returns>
+</member>
+
+<member name='Signal.HandlerBlock(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)'>
+<summary>
+Blocks a handler of an instance so it will not be called during any
+signal emissions unless it is unblocked again. Thus "blocking" a
+signal handler means to temporarily deactivate it, a signal handler
+has to be unblocked exactly the same amount of times it has been
+blocked before to become active again.
+</summary>
+<remarks>
+<para>
+The <paramref name="handlerId"/> has to be a valid signal handler id, connected to a
+signal of <paramref name="instance"/>.
+</para>
+</remarks>
+<param name="instance">
+The instance to block the signal handler of.
+</param>
+<param name="handlerId">
+Handler id of the handler to be blocked.
+</param>
+</member>
+
+<member name='Signal.HandlerDisconnect(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)'>
+<summary>
+Disconnects a handler from an instance so it will not be called during
+any future or currently ongoing emissions of the signal it has been
+connected to. The <paramref name="handlerId"/> becomes invalid and may be reused.
+</summary>
+<remarks>
+<para>
+The <paramref name="handlerId"/> has to be a valid signal handler id, connected to a
+signal of <paramref name="instance"/>.
+</para>
+</remarks>
+<param name="instance">
+The instance to remove the signal handler from.
+</param>
+<param name="handlerId">
+Handler id of the handler to be disconnected.
+</param>
+</member>
+
+<member name='Signal.HandlerIsConnected(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)'>
+<summary>
+Returns whether <paramref name="handlerId"/> is the ID of a handler connected to <paramref name="instance"/>.
+</summary>
+<param name="instance">
+The instance where a signal handler is sought.
+</param>
+<param name="handlerId">
+the handler ID.
+</param>
+<returns>
+whether <paramref name="handlerId"/> identifies a handler connected to <paramref name="instance"/>.
+</returns>
+</member>
+
+<member name='Signal.HandlerUnblock(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)'>
+<summary>
+Undoes the effect of a previous <see cref="Signal.HandlerBlock(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)"/> call.  A
+blocked handler is skipped during signal emissions and will not be
+invoked, unblocking it (for exactly the amount of times it has been
+blocked before) reverts its "blocked" state, so the handler will be
+recognized by the signal system and is called upon future or
+currently ongoing signal emissions (since the order in which
+handlers are called during signal emissions is deterministic,
+whether the unblocked handler in question is called as part of a
+currently ongoing emission depends on how far that emission has
+proceeded yet).
+</summary>
+<remarks>
+<para>
+The <paramref name="handlerId"/> has to be a valid id of a signal handler that is
+connected to a signal of <paramref name="instance"/> and is currently blocked.
+</para>
+</remarks>
+<param name="instance">
+The instance to unblock the signal handler of.
+</param>
+<param name="handlerId">
+Handler id of the handler to be unblocked.
+</param>
+</member>
+
+<member name='Signal.HasHandlerPending(GISharp.Lib.GObject.Object,uint,GISharp.Lib.GLib.Quark,bool)'>
+<summary>
+Returns whether there are any handlers connected to <paramref name="instance"/> for the
+given signal id and detail.
+</summary>
+<remarks>
+<para>
+If <paramref name="detail"/> is 0 then it will only match handlers that were connected
+without detail.  If <paramref name="detail"/> is non-zero then it will match handlers
+connected both without detail and with the given detail.  This is
+consistent with how a signal emitted with <paramref name="detail"/> would be delivered
+to those handlers.
+</para>
+<para>
+Since 2.46 this also checks for a non-default class closure being
+installed, as this is basically always what you want.
+</para>
+<para>
+One example of when you might use this is when the arguments to the
+signal are difficult to compute. A class implementor may opt to not
+emit the signal if no one is attached anyway, thus saving the cost
+of building the arguments.
+</para>
+</remarks>
+<param name="instance">
+the object whose signal handlers are sought.
+</param>
+<param name="signalId">
+the signal id.
+</param>
+<param name="detail">
+the detail.
+</param>
+<param name="mayBeBlocked">
+whether blocked handlers should count as match.
+</param>
+<returns>
+<c>true</c> if a handler is connected to the signal, <c>false</c>
+         otherwise.
+</returns>
+</member>
+
+<member name='Signal.IsValidName(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Validate a signal name. This can be useful for dynamically-generated signals
+which need to be validated at run-time before actually trying to create them.
+</summary>
+<remarks>
+<para>
+See [canonical parameter names][canonical-parameter-names] for details of
+the rules for valid names. The rules for signal names are the same as those
+for property names.
+</para>
+</remarks>
+<param name="name">
+the canonical name of the signal
+</param>
+<returns>
+<c>true</c> if <paramref name="name"/> is a valid signal name, <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='Signal.ListIds(GISharp.Runtime.GType)'>
+<summary>
+Lists the signals by id that a certain instance or interface type
+created. Further information about the signals can be acquired through
+<see cref="Signal.Query(uint,out GISharp.Lib.GObject.SignalQuery)"/>.
+</summary>
+<param name="itype">
+Instance or interface type.
+</param>
+<returns>
+Newly allocated array of signal IDs.
+</returns>
+</member>
+
+<member name='Signal.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType)'>
+<summary>
+Given the name of the signal and the type of object it connects to, gets
+the signal's identifying integer. Emitting the signal by number is
+somewhat faster than using the name each time.
+</summary>
+<remarks>
+<para>
+Also tries the ancestors of the given type.
+</para>
+<para>
+The type class passed as <paramref name="itype"/> must already have been instantiated (for
+example, using <see cref="TypeClass.Ref(GISharp.Runtime.GType)"/>) for this function to work, as signals are
+always installed during class initialization.
+</para>
+<para>
+See g_signal_new() for details on allowed signal names.
+</para>
+</remarks>
+<param name="name">
+the signal's name.
+</param>
+<param name="itype">
+the type that the signal operates on.
+</param>
+<returns>
+the signal's identifying number, or 0 if no signal was found.
+</returns>
+</member>
+
+<member name='Signal.Name(uint)'>
+<summary>
+Given the signal's identifier, finds its name.
+</summary>
+<remarks>
+<para>
+Two different signals may have the same name, if they have differing types.
+</para>
+</remarks>
+<param name="signalId">
+the signal's identifying number.
+</param>
+<returns>
+the signal name, or <c>null</c> if the signal number was invalid.
+</returns>
+</member>
+
+<member name='Signal.OverrideClassClosure(uint,GISharp.Runtime.GType,GISharp.Lib.GObject.Closure)'>
+<summary>
+Overrides the class closure (i.e. the default handler) for the given signal
+for emissions on instances of <paramref name="instanceType"/>. <paramref name="instanceType"/> must be derived
+from the type to which the signal belongs.
+</summary>
+<remarks>
+<para>
+See <see cref="Signal.ChainFromOverridden(System.ReadOnlySpan{GISharp.Lib.GObject.Value},ref GISharp.Lib.GObject.Value)"/> and
+g_signal_chain_from_overridden_handler() for how to chain up to the
+parent class closure from inside the overridden one.
+</para>
+</remarks>
+<param name="signalId">
+the signal id
+</param>
+<param name="instanceType">
+the instance type on which to override the class closure
+ for the signal.
+</param>
+<param name="classClosure">
+the closure.
+</param>
+</member>
+
+<member name='Signal.TryParseName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GLib.Quark,bool)'>
+<summary>
+Internal function to parse a signal name into its <c>signalId</c>
+and <c>detail</c> quark.
+</summary>
+<param name="detailedSignal">
+a string of the form "signal-name::detail".
+</param>
+<param name="itype">
+The interface/instance type that introduced "signal-name".
+</param>
+<param name="signalIdP">
+Location to store the signal id.
+</param>
+<param name="detailP">
+Location to store the detail quark.
+</param>
+<param name="forceDetailQuark">
+<c>true</c> forces creation of a #GQuark for the detail.
+</param>
+<returns>
+Whether the signal name could successfully be parsed and <paramref name="signalIdP"/> and <paramref name="detailP"/> contain valid return values.
+</returns>
+</member>
+
+<member name='Signal.Query(uint,GISharp.Lib.GObject.SignalQuery)'>
+<summary>
+Queries the signal system for in-depth information about a
+specific signal. This function will fill in a user-provided
+structure to hold signal-specific information. If an invalid
+signal id is passed in, the <paramref name="signalId"/> member of the <see cref="SignalQuery"/>
+is 0. All members filled into the <see cref="SignalQuery"/> structure should
+be considered constant and have to be left untouched.
+</summary>
+<param name="signalId">
+The signal id of the signal to query information for.
+</param>
+<param name="query">
+A user provided structure that is
+ filled in with constant values upon success.
+</param>
+</member>
+
+<member name='Signal.RemoveEmissionHook(uint,GISharp.Runtime.CULong)'>
+<summary>
+Deletes an emission hook.
+</summary>
+<param name="signalId">
+the id of the signal
+</param>
+<param name="hookId">
+the id of the emission hook, as returned by
+ <see cref="Signal.AddEmissionHook(uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.SignalEmissionHook)"/>
+</param>
+</member>
+
+<member name='Signal.StopEmission(GISharp.Lib.GObject.Object,uint,GISharp.Lib.GLib.Quark)'>
+<summary>
+Stops a signal's current emission.
+</summary>
+<remarks>
+<para>
+This will prevent the default method from running, if the signal was
+<see cref="SignalFlags.RunLast"/> and you connected normally (i.e. without the "after"
+flag).
+</para>
+<para>
+Prints a warning if used on a signal which isn't being emitted.
+</para>
+</remarks>
+<param name="instance">
+the object whose signal handlers you wish to stop.
+</param>
+<param name="signalId">
+the signal identifier, as returned by <see cref="Signal.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType)"/>.
+</param>
+<param name="detail">
+the detail which the signal was emitted with.
+</param>
+</member>
+
+<member name='Signal.StopEmission(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Stops a signal's current emission.
+</summary>
+<remarks>
+<para>
+This is just like <see cref="Signal.StopEmission(GISharp.Lib.GObject.Object,uint,GISharp.Lib.GLib.Quark)"/> except it will look up the
+signal id for you.
+</para>
+</remarks>
+<param name="instance">
+the object whose signal handlers you wish to stop.
+</param>
+<param name="detailedSignal">
+a string of the form "signal-name::detail".
+</param>
+</member>
+
+<member name='Signal.TypeCclosureNew(GISharp.Runtime.GType,uint)'>
+<summary>
+Creates a new closure which invokes the function found at the offset
+<paramref name="structOffset"/> in the class structure of the interface or classed type
+identified by <paramref name="itype"/>.
+</summary>
+<param name="itype">
+the #GType identifier of an interface or classed type
+</param>
+<param name="structOffset">
+the offset of the member function of <paramref name="itype"/>'s class
+ structure which is to be invoked by the new closure
+</param>
+<returns>
+a floating reference to a new <see cref="CClosure"/>
+</returns>
+</member>
+
+<member name='Signal'>
+</member>
+
+</declaration>

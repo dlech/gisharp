@@ -24,16 +24,15 @@ namespace GISharp.CodeGen.Syntax
 
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithModifiers(property.GetCommonAccessModifiers())
-                .WithAttributeLists(property.GetCommonAttributeLists())
-                .WithLeadingTrivia(property.Doc.GetDocCommentTrivia())
-                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
+                .WithAttributeLists(property.GetCommonAttributeLists());
 
             var getter = property.Getter;
             if (getter is Function) {
                 syntax = syntax.AddModifiers(Token(StaticKeyword));
             }
 
-            var getterExpression = ParseExpression($"{getter.ManagedName}()");
+            var @ref = getter.ReturnValue.IsRefReturn() ? "ref " : "";
+            var getterExpression = ParseExpression($"{@ref}{getter.ManagedName}()");
             var getAccessor = AccessorDeclaration(GetAccessorDeclaration)
                 .WithExpressionBody(ArrowExpressionClause(getterExpression))
                 .WithSemicolonToken(Token(SemicolonToken));
@@ -65,6 +64,9 @@ namespace GISharp.CodeGen.Syntax
                 // TODO: it is possible that setter might have different access modifier
                 syntax = syntax.AddAccessorListAccessors(setAccessor);
             }
+
+            syntax = syntax.WithLeadingTrivia(property.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
         }

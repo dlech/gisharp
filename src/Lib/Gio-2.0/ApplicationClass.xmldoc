@@ -51,43 +51,43 @@
 <member name='UnmanagedStruct.Padding'>
 </member>
 
-<member name='Startup'>
+<member name='_Startup'>
 </member>
 
-<member name='Activate'>
+<member name='_Activate'>
 </member>
 
-<member name='Open'>
+<member name='_Open'>
 </member>
 
-<member name='CommandLine'>
+<member name='_CommandLine'>
 </member>
 
-<member name='TryLocalCommandLine'>
+<member name='_TryLocalCommandLine'>
 </member>
 
-<member name='BeforeEmit'>
+<member name='_BeforeEmit'>
 </member>
 
-<member name='AfterEmit'>
+<member name='_AfterEmit'>
 </member>
 
-<member name='AddPlatformData'>
+<member name='_AddPlatformData'>
 </member>
 
-<member name='QuitMainloop'>
+<member name='_QuitMainloop'>
 </member>
 
-<member name='RunMainloop'>
+<member name='_RunMainloop'>
 </member>
 
-<member name='Shutdown'>
+<member name='_Shutdown'>
 </member>
 
-<member name='HandleLocalOptions'>
+<member name='_HandleLocalOptions'>
 </member>
 
-<member name='NameLost'>
+<member name='_NameLost'>
 </member>
 
 <member name='ApplicationClass'>

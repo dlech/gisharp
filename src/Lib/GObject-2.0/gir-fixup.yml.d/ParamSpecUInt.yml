@@ -1,0 +1,20 @@
+
+### ParamSpecUInt ###
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='param_spec_uint']
+  new-parent-xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecUInt']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecUInt']/gi:function[@name='param_spec_uint']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecUInt']/gi:constructor[@name='param_spec_uint']
+
+# return value is floating reference
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecUInt']/gi:constructor/gi:return-value

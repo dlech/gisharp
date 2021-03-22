@@ -1,0 +1,69 @@
+<declaration>
+
+<member name='UnmanagedStruct.ParentInstance'>
+<summary>
+private <see cref="ParamSpec"/> portion
+</summary>
+</member>
+
+<member name='UnmanagedStruct.DefaultValue'>
+<summary>
+default value for the property specified
+</summary>
+</member>
+
+<member name='UnmanagedStruct.CsetFirst'>
+<summary>
+a string containing the allowed values for the first byte
+</summary>
+</member>
+
+<member name='UnmanagedStruct.CsetNth'>
+<summary>
+a string containing the allowed values for the subsequent bytes
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Substitutor'>
+<summary>
+the replacement byte for bytes which don't match <c>csetFirst</c> or <c>csetNth</c>.
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Bits5'>
+</member>
+
+<member name='ParamSpecString.ParamSpecString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GObject.ParamFlags)'>
+<summary>
+Creates a new <see cref="ParamSpecString"/> instance.
+</summary>
+<remarks>
+<para>
+See g_param_spec_internal() for details on property names.
+</para>
+</remarks>
+<param name="name">
+canonical name of the property specified
+</param>
+<param name="nick">
+nick name for the property specified
+</param>
+<param name="blurb">
+description of the property specified
+</param>
+<param name="defaultValue">
+default value for the property specified
+</param>
+<param name="flags">
+flags for the property specified
+</param>
+</member>
+
+<member name='ParamSpecString'>
+<summary>
+A <see cref="ParamSpec"/> derived structure that contains the meta data for string
+properties.
+</summary>
+</member>
+
+</declaration>

@@ -5,20 +5,20 @@ namespace GISharp.Lib.Gio
 {
     /// <include file="InitableIface.xmldoc" path="declaration/member[@name='InitableIface']/*" />
     [GISharp.Runtime.SinceAttribute("2.22")]
-    public sealed unsafe class InitableIface : GISharp.Lib.GObject.TypeInterface
+    public sealed unsafe partial class InitableIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
         public new struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="InitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
             public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="InitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Init']/*" />
-            public readonly System.IntPtr Init;
-#pragma warning restore CS0169, CS0649
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Initable.UnmanagedStruct*, GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, GISharp.Lib.GLib.Error.UnmanagedStruct**, GISharp.Runtime.Boolean> Init;
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         static InitableIface()
@@ -27,8 +27,8 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(initOffset, InitMarshal.Create);
         }
 
-        /// <include file="InitableIface.xmldoc" path="declaration/member[@name='Init']/*" />
-        public delegate void Init(GISharp.Lib.Gio.Cancellable? cancellable = null);
+        /// <include file="InitableIface.xmldoc" path="declaration/member[@name='_Init']/*" />
+        public delegate void _Init(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -49,7 +49,7 @@ GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
-        /// Class for marshalling <see cref="Init"/> methods.
+        /// Class for marshalling <see cref="_Init"/> methods.
         /// </summary>
         public static unsafe class InitMarshal
         {
@@ -58,7 +58,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedInit Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedInit(GISharp.Lib.Gio.Initable.UnmanagedStruct* initable_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var initable = (GISharp.Lib.Gio.IInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doInit = (Init)methodInfo.CreateDelegate(typeof(Init), initable); doInit(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedInit(GISharp.Lib.Gio.Initable.UnmanagedStruct* initable_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var initable = (GISharp.Lib.Gio.IInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doInit = (_Init)methodInfo.CreateDelegate(typeof(_Init), initable); doInit(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedInit;
             }

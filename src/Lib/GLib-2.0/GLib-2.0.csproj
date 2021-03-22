@@ -6,7 +6,6 @@
   <ItemGroup>
     <!-- Ignore generated files for types that are maintained in Core. -->
     <Compile Remove="Cond.Generated.cs" />
-    <Compile Remove="Data.Generated.cs" />
     <Compile Remove="DestroyNotify.Generated.cs" />
     <Compile Remove="Error.Generated.cs" />
     <Compile Remove="Mutex.Generated.cs" />

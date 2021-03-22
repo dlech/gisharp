@@ -1,0 +1,23 @@
+<declaration>
+
+<member name='ObjectConstructParam.pspec'>
+<summary>
+the <see cref="ParamSpec"/> of the construct parameter
+</summary>
+</member>
+
+<member name='ObjectConstructParam.value'>
+<summary>
+the value to set the parameter to
+</summary>
+</member>
+
+<member name='ObjectConstructParam'>
+<summary>
+The GObjectConstructParam struct is an auxiliary
+structure used to hand <see cref="ParamSpec"/>/<see cref="Value"/> pairs to the <c>constructor</c> of
+a <see cref="ObjectClass"/>.
+</summary>
+</member>
+
+</declaration>

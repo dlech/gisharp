@@ -1,0 +1,49 @@
+<declaration>
+
+<member name='UnmanagedStruct.ParentInstance'>
+<summary>
+private <see cref="ParamSpec"/> portion
+</summary>
+</member>
+
+<member name='UnmanagedStruct.IsAType'>
+<summary>
+a #GType whose subtypes can occur as values
+</summary>
+</member>
+
+<member name='ParamSpecGType.ParamSpecGType(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)'>
+<summary>
+Creates a new <see cref="ParamSpecGType"/> instance specifying a
+%G_TYPE_GTYPE property.
+</summary>
+<remarks>
+<para>
+See g_param_spec_internal() for details on property names.
+</para>
+</remarks>
+<param name="name">
+canonical name of the property specified
+</param>
+<param name="nick">
+nick name for the property specified
+</param>
+<param name="blurb">
+description of the property specified
+</param>
+<param name="isAType">
+a #GType whose subtypes are allowed as values
+ of the property (use %G_TYPE_NONE for any type)
+</param>
+<param name="flags">
+flags for the property specified
+</param>
+</member>
+
+<member name='ParamSpecGType'>
+<summary>
+A <see cref="ParamSpec"/> derived structure that contains the meta data for #GType properties.
+</summary>
+</member>
+
+</declaration>

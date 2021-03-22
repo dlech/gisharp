@@ -25,7 +25,7 @@ namespace GISharp.Lib.GObject
     GISharp.Lib.GObject.TypeValueTable* valueTable);
 
     /// <include file="TypePluginCompleteTypeInfo.xmldoc" path="declaration/member[@name='TypePluginCompleteTypeInfo']/*" />
-    public delegate void TypePluginCompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable);
+    public delegate void TypePluginCompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType gType, ref GISharp.Lib.GObject.TypeInfo info, ref GISharp.Lib.GObject.TypeValueTable valueTable);
 
     /// <summary>
     /// Class for marshalling <see cref="TypePluginCompleteTypeInfo"/> methods.
@@ -37,13 +37,17 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GISharp.Lib.GObject.TypePluginCompleteTypeInfo FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Runtime.GType, GISharp.Lib.GObject.TypeInfo*, GISharp.Lib.GObject.TypeValueTable*, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable)
+            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Runtime.GType gType, ref GISharp.Lib.GObject.TypeInfo info, ref GISharp.Lib.GObject.TypeValueTable valueTable)
             {
-                var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
-                var gType_ = (GISharp.Runtime.GType)gType;
-                var info_ = &info;
-                var valueTable_ = &valueTable;
-                callback_(plugin_, gType_, info_, valueTable_);
+                fixed (GISharp.Lib.GObject.TypeValueTable* valueTable_ = &valueTable)
+                {
+                    fixed (GISharp.Lib.GObject.TypeInfo* info_ = &info)
+                    {
+                        var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle;
+                        var gType_ = (GISharp.Runtime.GType)gType;
+                        callback_(plugin_, gType_, info_, valueTable_);
+                    }
+                }
             }
 
             return managedCallback;

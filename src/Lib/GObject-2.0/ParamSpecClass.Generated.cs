@@ -4,14 +4,14 @@
 namespace GISharp.Lib.GObject
 {
     /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='ParamSpecClass']/*" />
-    public unsafe class ParamSpecClass : GISharp.Lib.GObject.TypeClass
+    public unsafe partial class ParamSpecClass : GISharp.Lib.GObject.TypeClass
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
         public new struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GTypeClass']/*" />
             public readonly GISharp.Lib.GObject.TypeClass.UnmanagedStruct GTypeClass;
 
@@ -19,20 +19,29 @@ namespace GISharp.Lib.GObject
             public readonly GISharp.Runtime.GType ValueType;
 
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Finalize']/*" />
-            public readonly System.IntPtr Finalize;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*, void> Finalize;
 
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ValueSetDefault']/*" />
-            public readonly System.IntPtr ValueSetDefault;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*, GISharp.Lib.GObject.Value*, void> ValueSetDefault;
 
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ValueValidate']/*" />
-            public readonly System.IntPtr ValueValidate;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*, GISharp.Lib.GObject.Value*, GISharp.Runtime.Boolean> ValueValidate;
 
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ValuesCmp']/*" />
-            public readonly System.IntPtr ValuesCmp;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*, GISharp.Lib.GObject.Value*, GISharp.Lib.GObject.Value*, int> ValuesCmp;
 
-            /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy']/*" />
-            private fixed long Dummy[4];
-#pragma warning restore CS0169, CS0649
+            /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy0']/*" />
+            internal readonly System.IntPtr Dummy0;
+
+            /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy1']/*" />
+            internal readonly System.IntPtr Dummy1;
+
+            /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy2']/*" />
+            internal readonly System.IntPtr Dummy2;
+
+            /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy3']/*" />
+            internal readonly System.IntPtr Dummy3;
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         static ParamSpecClass()
@@ -47,8 +56,8 @@ namespace GISharp.Lib.GObject
             RegisterVirtualMethod(valuesCmpOffset, ValuesCmpMarshal.Create);
         }
 
-        /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='Finalize']/*" />
-        public delegate void Finalize();
+        /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='_Finalize']/*" />
+        public delegate void _Finalize();
 
         /// <summary>
         /// Unmanaged callback
@@ -63,7 +72,7 @@ namespace GISharp.Lib.GObject
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
 
         /// <summary>
-        /// Class for marshalling <see cref="Finalize"/> methods.
+        /// Class for marshalling <see cref="_Finalize"/> methods.
         /// </summary>
         public static unsafe class FinalizeMarshal
         {
@@ -72,14 +81,14 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
             /// </summary>
             public static UnmanagedFinalize Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedFinalize(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doFinalize = (Finalize)methodInfo.CreateDelegate(typeof(Finalize), pspec); doFinalize(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedFinalize(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doFinalize = (_Finalize)methodInfo.CreateDelegate(typeof(_Finalize), pspec); doFinalize(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedFinalize;
             }
         }
 
-        /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='ValueSetDefault']/*" />
-        public delegate void ValueSetDefault(GISharp.Lib.GObject.Value value);
+        /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='_ValueSetDefault']/*" />
+        public delegate void _ValueSetDefault(ref GISharp.Lib.GObject.Value value);
 
         /// <summary>
         /// Unmanaged callback
@@ -97,7 +106,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec,
 GISharp.Lib.GObject.Value* value);
 
         /// <summary>
-        /// Class for marshalling <see cref="ValueSetDefault"/> methods.
+        /// Class for marshalling <see cref="_ValueSetDefault"/> methods.
         /// </summary>
         public static unsafe class ValueSetDefaultMarshal
         {
@@ -106,14 +115,14 @@ GISharp.Lib.GObject.Value* value);
             /// </summary>
             public static UnmanagedValueSetDefault Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedValueSetDefault(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value = (GISharp.Lib.GObject.Value)value_; var doValueSetDefault = (ValueSetDefault)methodInfo.CreateDelegate(typeof(ValueSetDefault), pspec); doValueSetDefault(value); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedValueSetDefault(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; ref var value = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(value_); var doValueSetDefault = (_ValueSetDefault)methodInfo.CreateDelegate(typeof(_ValueSetDefault), pspec); doValueSetDefault(ref value); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedValueSetDefault;
             }
         }
 
-        /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='ValueValidate']/*" />
-        public delegate bool ValueValidate(GISharp.Lib.GObject.Value value);
+        /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='_ValueValidate']/*" />
+        public delegate bool _ValueValidate(ref GISharp.Lib.GObject.Value value);
 
         /// <summary>
         /// Unmanaged callback
@@ -131,7 +140,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec,
 GISharp.Lib.GObject.Value* value);
 
         /// <summary>
-        /// Class for marshalling <see cref="ValueValidate"/> methods.
+        /// Class for marshalling <see cref="_ValueValidate"/> methods.
         /// </summary>
         public static unsafe class ValueValidateMarshal
         {
@@ -140,14 +149,14 @@ GISharp.Lib.GObject.Value* value);
             /// </summary>
             public static UnmanagedValueValidate Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedValueValidate(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value = (GISharp.Lib.GObject.Value)value_; var doValueValidate = (ValueValidate)methodInfo.CreateDelegate(typeof(ValueValidate), pspec); var ret = doValueValidate(value); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedValueValidate(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; ref var value = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(value_); var doValueValidate = (_ValueValidate)methodInfo.CreateDelegate(typeof(_ValueValidate), pspec); var ret = doValueValidate(ref value); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedValueValidate;
             }
         }
 
-        /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='ValuesCmp']/*" />
-        public delegate int ValuesCmp(GISharp.Lib.GObject.Value value1, GISharp.Lib.GObject.Value value2);
+        /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='_ValuesCmp']/*" />
+        public delegate int _ValuesCmp(in GISharp.Lib.GObject.Value value1, in GISharp.Lib.GObject.Value value2);
 
         /// <summary>
         /// Unmanaged callback
@@ -168,7 +177,7 @@ GISharp.Lib.GObject.Value* value1,
 GISharp.Lib.GObject.Value* value2);
 
         /// <summary>
-        /// Class for marshalling <see cref="ValuesCmp"/> methods.
+        /// Class for marshalling <see cref="_ValuesCmp"/> methods.
         /// </summary>
         public static unsafe class ValuesCmpMarshal
         {
@@ -177,7 +186,7 @@ GISharp.Lib.GObject.Value* value2);
             /// </summary>
             public static UnmanagedValuesCmp Create(System.Reflection.MethodInfo methodInfo)
             {
-                int unmanagedValuesCmp(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value1_, GISharp.Lib.GObject.Value* value2_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value1 = (GISharp.Lib.GObject.Value)value1_; var value2 = (GISharp.Lib.GObject.Value)value2_; var doValuesCmp = (ValuesCmp)methodInfo.CreateDelegate(typeof(ValuesCmp), pspec); var ret = doValuesCmp(value1, value2); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(int); }
+                int unmanagedValuesCmp(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value1_, GISharp.Lib.GObject.Value* value2_) { try { var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; ref var value1 = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(value1_); ref var value2 = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(value2_); var doValuesCmp = (_ValuesCmp)methodInfo.CreateDelegate(typeof(_ValuesCmp), pspec); var ret = doValuesCmp(value1, value2); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(int); }
 
                 return unmanagedValuesCmp;
             }

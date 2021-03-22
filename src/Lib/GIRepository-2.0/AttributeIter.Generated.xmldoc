@@ -1,15 +1,15 @@
 <declaration>
 
-<member name='AttributeIter.Data'>
+<member name='AttributeIter.data'>
 </member>
 
-<member name='AttributeIter.Data2'>
+<member name='AttributeIter.data2'>
 </member>
 
-<member name='AttributeIter.Data3'>
+<member name='AttributeIter.data3'>
 </member>
 
-<member name='AttributeIter.Data4'>
+<member name='AttributeIter.data4'>
 </member>
 
 <member name='AttributeIter'>

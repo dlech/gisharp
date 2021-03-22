@@ -1,0 +1,14 @@
+<declaration>
+
+<member name='BindingTransformFunc'>
+<summary>
+A function to be called to transform <paramref name="fromValue"/> to <paramref name="toValue"/>. If
+this is the <c>transformTo</c> function of a binding, then <paramref name="fromValue"/>
+is the <c>sourceProperty</c> on the <c>source</c> object, and <paramref name="toValue"/> is the
+<c>targetProperty</c> on the <c>target</c> object. If this is the
+<c>transformFrom</c> function of a <see cref="BindingFlags.Bidirectional"/> binding,
+then those roles are reversed.
+</summary>
+</member>
+
+</declaration>

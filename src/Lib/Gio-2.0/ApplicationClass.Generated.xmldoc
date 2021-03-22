@@ -48,46 +48,64 @@
 <member name='UnmanagedStruct.NameLost'>
 </member>
 
-<member name='UnmanagedStruct.Padding'>
+<member name='UnmanagedStruct.Padding0'>
 </member>
 
-<member name='Startup'>
+<member name='UnmanagedStruct.Padding1'>
 </member>
 
-<member name='Activate'>
+<member name='UnmanagedStruct.Padding2'>
 </member>
 
-<member name='Open'>
+<member name='UnmanagedStruct.Padding3'>
 </member>
 
-<member name='CommandLine'>
+<member name='UnmanagedStruct.Padding4'>
 </member>
 
-<member name='TryLocalCommandLine'>
+<member name='UnmanagedStruct.Padding5'>
 </member>
 
-<member name='BeforeEmit'>
+<member name='UnmanagedStruct.Padding6'>
 </member>
 
-<member name='AfterEmit'>
+<member name='_Startup'>
 </member>
 
-<member name='AddPlatformData'>
+<member name='_Activate'>
 </member>
 
-<member name='QuitMainloop'>
+<member name='_Open'>
 </member>
 
-<member name='RunMainloop'>
+<member name='_CommandLine'>
 </member>
 
-<member name='Shutdown'>
+<member name='_TryLocalCommandLine'>
 </member>
 
-<member name='HandleLocalOptions'>
+<member name='_BeforeEmit'>
 </member>
 
-<member name='NameLost'>
+<member name='_AfterEmit'>
+</member>
+
+<member name='_AddPlatformData'>
+</member>
+
+<member name='_QuitMainloop'>
+</member>
+
+<member name='_RunMainloop'>
+</member>
+
+<member name='_Shutdown'>
+</member>
+
+<member name='_HandleLocalOptions'>
+</member>
+
+<member name='_NameLost'>
 </member>
 
 <member name='ApplicationClass'>

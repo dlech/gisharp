@@ -1,0 +1,15 @@
+<declaration>
+
+<member name='ValueTransform'>
+<summary>
+The type of value transformation functions which can be registered with
+<see cref="Value.RegisterTransformFunc(GISharp.Runtime.GType,GISharp.Runtime.GType,GISharp.Lib.GObject.ValueTransform)"/>.
+</summary>
+<remarks>
+<para>
+<paramref name="destValue"/> will be initialized to the correct destination type.
+</para>
+</remarks>
+</member>
+
+</declaration>

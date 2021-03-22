@@ -21,19 +21,19 @@ The parent interface.
 <member name='UnmanagedStruct.TruncateFn'>
 </member>
 
-<member name='Tell'>
+<member name='_Tell'>
 </member>
 
-<member name='CanSeek'>
+<member name='_CanSeek'>
 </member>
 
-<member name='Seek'>
+<member name='_Seek'>
 </member>
 
-<member name='CanTruncate'>
+<member name='_CanTruncate'>
 </member>
 
-<member name='TruncateFn'>
+<member name='_TruncateFn'>
 </member>
 
 <member name='SeekableIface'>

@@ -5,59 +5,59 @@ namespace GISharp.Lib.Gio
 {
     /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionGroupInterface']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
-    public sealed unsafe class ActionGroupInterface : GISharp.Lib.GObject.TypeInterface
+    public sealed unsafe partial class ActionGroupInterface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
         public new struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
             public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.HasAction']/*" />
-            public readonly System.IntPtr HasAction;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Runtime.Boolean> HasAction;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ListActions']/*" />
-            public readonly System.IntPtr ListActions;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte**> ListActions;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionEnabled']/*" />
-            public readonly System.IntPtr GetActionEnabled;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Runtime.Boolean> GetActionEnabled;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionParameterType']/*" />
-            public readonly System.IntPtr GetActionParameterType;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Lib.GLib.VariantType.UnmanagedStruct*> GetActionParameterType;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionStateType']/*" />
-            public readonly System.IntPtr GetActionStateType;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Lib.GLib.VariantType.UnmanagedStruct*> GetActionStateType;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionStateHint']/*" />
-            public readonly System.IntPtr GetActionStateHint;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Lib.GLib.Variant.UnmanagedStruct*> GetActionStateHint;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionState']/*" />
-            public readonly System.IntPtr GetActionState;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Lib.GLib.Variant.UnmanagedStruct*> GetActionState;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ChangeActionState']/*" />
-            public readonly System.IntPtr ChangeActionState;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Lib.GLib.Variant.UnmanagedStruct*, void> ChangeActionState;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActivateAction']/*" />
-            public readonly System.IntPtr ActivateAction;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Lib.GLib.Variant.UnmanagedStruct*, void> ActivateAction;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionAdded']/*" />
-            public readonly System.IntPtr ActionAdded;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, void> ActionAdded;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionRemoved']/*" />
-            public readonly System.IntPtr ActionRemoved;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, void> ActionRemoved;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionEnabledChanged']/*" />
-            public readonly System.IntPtr ActionEnabledChanged;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Runtime.Boolean, void> ActionEnabledChanged;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionStateChanged']/*" />
-            public readonly System.IntPtr ActionStateChanged;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, byte*, GISharp.Lib.GLib.Variant.UnmanagedStruct*, void> ActionStateChanged;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryAction']/*" />
             public readonly System.IntPtr QueryAction;
-#pragma warning restore CS0169, CS0649
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         static ActionGroupInterface()
@@ -90,8 +90,8 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(actionStateChangedOffset, ActionStateChangedMarshal.Create);
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='HasAction']/*" />
-        public delegate bool HasAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_HasAction']/*" />
+        public delegate bool _HasAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -109,7 +109,7 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
 byte* actionName);
 
         /// <summary>
-        /// Class for marshalling <see cref="HasAction"/> methods.
+        /// Class for marshalling <see cref="_HasAction"/> methods.
         /// </summary>
         public static unsafe class HasActionMarshal
         {
@@ -118,14 +118,14 @@ byte* actionName);
             /// </summary>
             public static UnmanagedHasAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedHasAction(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doHasAction = (HasAction)methodInfo.CreateDelegate(typeof(HasAction), actionGroup); var ret = doHasAction(actionName); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedHasAction(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doHasAction = (_HasAction)methodInfo.CreateDelegate(typeof(_HasAction), actionGroup); var ret = doHasAction(actionName); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedHasAction;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ListActions']/*" />
-        public delegate GISharp.Lib.GLib.Strv ListActions();
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_ListActions']/*" />
+        public delegate GISharp.Lib.GLib.Strv _ListActions();
 
         /// <summary>
         /// Unmanaged callback
@@ -142,7 +142,7 @@ byte* actionName);
 GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup);
 
         /// <summary>
-        /// Class for marshalling <see cref="ListActions"/> methods.
+        /// Class for marshalling <see cref="_ListActions"/> methods.
         /// </summary>
         public static unsafe class ListActionsMarshal
         {
@@ -151,14 +151,14 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup);
             /// </summary>
             public static UnmanagedListActions Create(System.Reflection.MethodInfo methodInfo)
             {
-                byte** unmanagedListActions(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var doListActions = (ListActions)methodInfo.CreateDelegate(typeof(ListActions), actionGroup); var ret = doListActions(); var ret_ = (byte**)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(byte**); }
+                byte** unmanagedListActions(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var doListActions = (_ListActions)methodInfo.CreateDelegate(typeof(_ListActions), actionGroup); var ret = doListActions(); var ret_ = (byte**)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(byte**); }
 
                 return unmanagedListActions;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionEnabled']/*" />
-        public delegate bool GetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_GetActionEnabled']/*" />
+        public delegate bool _GetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -176,7 +176,7 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
 byte* actionName);
 
         /// <summary>
-        /// Class for marshalling <see cref="GetActionEnabled"/> methods.
+        /// Class for marshalling <see cref="_GetActionEnabled"/> methods.
         /// </summary>
         public static unsafe class GetActionEnabledMarshal
         {
@@ -185,14 +185,14 @@ byte* actionName);
             /// </summary>
             public static UnmanagedGetActionEnabled Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedGetActionEnabled(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionEnabled = (GetActionEnabled)methodInfo.CreateDelegate(typeof(GetActionEnabled), actionGroup); var ret = doGetActionEnabled(actionName); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedGetActionEnabled(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionEnabled = (_GetActionEnabled)methodInfo.CreateDelegate(typeof(_GetActionEnabled), actionGroup); var ret = doGetActionEnabled(actionName); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedGetActionEnabled;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionParameterType']/*" />
-        public delegate GISharp.Lib.GLib.VariantType? GetActionParameterType(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_GetActionParameterType']/*" />
+        public delegate GISharp.Lib.GLib.VariantType? _GetActionParameterType(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -210,7 +210,7 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
 byte* actionName);
 
         /// <summary>
-        /// Class for marshalling <see cref="GetActionParameterType"/> methods.
+        /// Class for marshalling <see cref="_GetActionParameterType"/> methods.
         /// </summary>
         public static unsafe class GetActionParameterTypeMarshal
         {
@@ -219,14 +219,14 @@ byte* actionName);
             /// </summary>
             public static UnmanagedGetActionParameterType Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.GLib.VariantType.UnmanagedStruct* unmanagedGetActionParameterType(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionParameterType = (GetActionParameterType)methodInfo.CreateDelegate(typeof(GetActionParameterType), actionGroup); var ret = doGetActionParameterType(actionName); var ret_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(ret?.UnsafeHandle ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.VariantType.UnmanagedStruct*); }
+                GISharp.Lib.GLib.VariantType.UnmanagedStruct* unmanagedGetActionParameterType(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionParameterType = (_GetActionParameterType)methodInfo.CreateDelegate(typeof(_GetActionParameterType), actionGroup); var ret = doGetActionParameterType(actionName); var ret_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(ret?.UnsafeHandle ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.VariantType.UnmanagedStruct*); }
 
                 return unmanagedGetActionParameterType;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionStateType']/*" />
-        public delegate GISharp.Lib.GLib.VariantType? GetActionStateType(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_GetActionStateType']/*" />
+        public delegate GISharp.Lib.GLib.VariantType? _GetActionStateType(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -244,7 +244,7 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
 byte* actionName);
 
         /// <summary>
-        /// Class for marshalling <see cref="GetActionStateType"/> methods.
+        /// Class for marshalling <see cref="_GetActionStateType"/> methods.
         /// </summary>
         public static unsafe class GetActionStateTypeMarshal
         {
@@ -253,14 +253,14 @@ byte* actionName);
             /// </summary>
             public static UnmanagedGetActionStateType Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.GLib.VariantType.UnmanagedStruct* unmanagedGetActionStateType(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionStateType = (GetActionStateType)methodInfo.CreateDelegate(typeof(GetActionStateType), actionGroup); var ret = doGetActionStateType(actionName); var ret_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(ret?.UnsafeHandle ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.VariantType.UnmanagedStruct*); }
+                GISharp.Lib.GLib.VariantType.UnmanagedStruct* unmanagedGetActionStateType(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionStateType = (_GetActionStateType)methodInfo.CreateDelegate(typeof(_GetActionStateType), actionGroup); var ret = doGetActionStateType(actionName); var ret_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(ret?.UnsafeHandle ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.VariantType.UnmanagedStruct*); }
 
                 return unmanagedGetActionStateType;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionStateHint']/*" />
-        public delegate GISharp.Lib.GLib.Variant? GetActionStateHint(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_GetActionStateHint']/*" />
+        public delegate GISharp.Lib.GLib.Variant? _GetActionStateHint(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -278,7 +278,7 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
 byte* actionName);
 
         /// <summary>
-        /// Class for marshalling <see cref="GetActionStateHint"/> methods.
+        /// Class for marshalling <see cref="_GetActionStateHint"/> methods.
         /// </summary>
         public static unsafe class GetActionStateHintMarshal
         {
@@ -287,14 +287,14 @@ byte* actionName);
             /// </summary>
             public static UnmanagedGetActionStateHint Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedGetActionStateHint(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionStateHint = (GetActionStateHint)methodInfo.CreateDelegate(typeof(GetActionStateHint), actionGroup); var ret = doGetActionStateHint(actionName); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
+                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedGetActionStateHint(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionStateHint = (_GetActionStateHint)methodInfo.CreateDelegate(typeof(_GetActionStateHint), actionGroup); var ret = doGetActionStateHint(actionName); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
 
                 return unmanagedGetActionStateHint;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionState']/*" />
-        public delegate GISharp.Lib.GLib.Variant? GetActionState(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_GetActionState']/*" />
+        public delegate GISharp.Lib.GLib.Variant? _GetActionState(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -312,7 +312,7 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
 byte* actionName);
 
         /// <summary>
-        /// Class for marshalling <see cref="GetActionState"/> methods.
+        /// Class for marshalling <see cref="_GetActionState"/> methods.
         /// </summary>
         public static unsafe class GetActionStateMarshal
         {
@@ -321,14 +321,14 @@ byte* actionName);
             /// </summary>
             public static UnmanagedGetActionState Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedGetActionState(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionState = (GetActionState)methodInfo.CreateDelegate(typeof(GetActionState), actionGroup); var ret = doGetActionState(actionName); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
+                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedGetActionState(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doGetActionState = (_GetActionState)methodInfo.CreateDelegate(typeof(_GetActionState), actionGroup); var ret = doGetActionState(actionName); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
 
                 return unmanagedGetActionState;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ChangeActionState']/*" />
-        public delegate void ChangeActionState(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant value);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_ChangeActionState']/*" />
+        public delegate void _ChangeActionState(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant value);
 
         /// <summary>
         /// Unmanaged callback
@@ -349,7 +349,7 @@ byte* actionName,
 GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
 
         /// <summary>
-        /// Class for marshalling <see cref="ChangeActionState"/> methods.
+        /// Class for marshalling <see cref="_ChangeActionState"/> methods.
         /// </summary>
         public static unsafe class ChangeActionStateMarshal
         {
@@ -358,14 +358,14 @@ GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
             /// </summary>
             public static UnmanagedChangeActionState Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedChangeActionState(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_, GISharp.Lib.GLib.Variant.UnmanagedStruct* value_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var value = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)value_, GISharp.Runtime.Transfer.None)!; var doChangeActionState = (ChangeActionState)methodInfo.CreateDelegate(typeof(ChangeActionState), actionGroup); doChangeActionState(actionName, value); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedChangeActionState(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_, GISharp.Lib.GLib.Variant.UnmanagedStruct* value_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var value = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)value_, GISharp.Runtime.Transfer.None)!; var doChangeActionState = (_ChangeActionState)methodInfo.CreateDelegate(typeof(_ChangeActionState), actionGroup); doChangeActionState(actionName, value); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedChangeActionState;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActivateAction']/*" />
-        public delegate void ActivateAction(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? parameter);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_ActivateAction']/*" />
+        public delegate void _ActivateAction(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? parameter);
 
         /// <summary>
         /// Unmanaged callback
@@ -386,7 +386,7 @@ byte* actionName,
 GISharp.Lib.GLib.Variant.UnmanagedStruct* parameter);
 
         /// <summary>
-        /// Class for marshalling <see cref="ActivateAction"/> methods.
+        /// Class for marshalling <see cref="_ActivateAction"/> methods.
         /// </summary>
         public static unsafe class ActivateActionMarshal
         {
@@ -395,14 +395,14 @@ GISharp.Lib.GLib.Variant.UnmanagedStruct* parameter);
             /// </summary>
             public static UnmanagedActivateAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedActivateAction(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_, GISharp.Lib.GLib.Variant.UnmanagedStruct* parameter_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var parameter = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)parameter_, GISharp.Runtime.Transfer.None); var doActivateAction = (ActivateAction)methodInfo.CreateDelegate(typeof(ActivateAction), actionGroup); doActivateAction(actionName, parameter); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedActivateAction(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_, GISharp.Lib.GLib.Variant.UnmanagedStruct* parameter_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var parameter = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)parameter_, GISharp.Runtime.Transfer.None); var doActivateAction = (_ActivateAction)methodInfo.CreateDelegate(typeof(_ActivateAction), actionGroup); doActivateAction(actionName, parameter); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedActivateAction;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionAdded']/*" />
-        public delegate void ActionAdded(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_ActionAdded']/*" />
+        public delegate void _ActionAdded(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -420,7 +420,7 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
 byte* actionName);
 
         /// <summary>
-        /// Class for marshalling <see cref="ActionAdded"/> methods.
+        /// Class for marshalling <see cref="_ActionAdded"/> methods.
         /// </summary>
         public static unsafe class ActionAddedMarshal
         {
@@ -429,14 +429,14 @@ byte* actionName);
             /// </summary>
             public static UnmanagedActionAdded Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedActionAdded(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doActionAdded = (ActionAdded)methodInfo.CreateDelegate(typeof(ActionAdded), actionGroup); doActionAdded(actionName); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedActionAdded(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doActionAdded = (_ActionAdded)methodInfo.CreateDelegate(typeof(_ActionAdded), actionGroup); doActionAdded(actionName); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedActionAdded;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionRemoved']/*" />
-        public delegate void ActionRemoved(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_ActionRemoved']/*" />
+        public delegate void _ActionRemoved(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -454,7 +454,7 @@ GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
 byte* actionName);
 
         /// <summary>
-        /// Class for marshalling <see cref="ActionRemoved"/> methods.
+        /// Class for marshalling <see cref="_ActionRemoved"/> methods.
         /// </summary>
         public static unsafe class ActionRemovedMarshal
         {
@@ -463,14 +463,14 @@ byte* actionName);
             /// </summary>
             public static UnmanagedActionRemoved Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedActionRemoved(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doActionRemoved = (ActionRemoved)methodInfo.CreateDelegate(typeof(ActionRemoved), actionGroup); doActionRemoved(actionName); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedActionRemoved(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doActionRemoved = (_ActionRemoved)methodInfo.CreateDelegate(typeof(_ActionRemoved), actionGroup); doActionRemoved(actionName); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedActionRemoved;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionEnabledChanged']/*" />
-        public delegate void ActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, bool enabled);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_ActionEnabledChanged']/*" />
+        public delegate void _ActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, bool enabled);
 
         /// <summary>
         /// Unmanaged callback
@@ -491,7 +491,7 @@ byte* actionName,
 GISharp.Runtime.Boolean enabled);
 
         /// <summary>
-        /// Class for marshalling <see cref="ActionEnabledChanged"/> methods.
+        /// Class for marshalling <see cref="_ActionEnabledChanged"/> methods.
         /// </summary>
         public static unsafe class ActionEnabledChangedMarshal
         {
@@ -500,14 +500,14 @@ GISharp.Runtime.Boolean enabled);
             /// </summary>
             public static UnmanagedActionEnabledChanged Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedActionEnabledChanged(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_, GISharp.Runtime.Boolean enabled_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var enabled = GISharp.Runtime.BooleanExtensions.IsTrue(enabled_); var doActionEnabledChanged = (ActionEnabledChanged)methodInfo.CreateDelegate(typeof(ActionEnabledChanged), actionGroup); doActionEnabledChanged(actionName, enabled); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedActionEnabledChanged(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_, GISharp.Runtime.Boolean enabled_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var enabled = GISharp.Runtime.BooleanExtensions.IsTrue(enabled_); var doActionEnabledChanged = (_ActionEnabledChanged)methodInfo.CreateDelegate(typeof(_ActionEnabledChanged), actionGroup); doActionEnabledChanged(actionName, enabled); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedActionEnabledChanged;
             }
         }
 
-        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionStateChanged']/*" />
-        public delegate void ActionStateChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant state);
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_ActionStateChanged']/*" />
+        public delegate void _ActionStateChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant state);
 
         /// <summary>
         /// Unmanaged callback
@@ -528,7 +528,7 @@ byte* actionName,
 GISharp.Lib.GLib.Variant.UnmanagedStruct* state);
 
         /// <summary>
-        /// Class for marshalling <see cref="ActionStateChanged"/> methods.
+        /// Class for marshalling <see cref="_ActionStateChanged"/> methods.
         /// </summary>
         public static unsafe class ActionStateChangedMarshal
         {
@@ -537,7 +537,7 @@ GISharp.Lib.GLib.Variant.UnmanagedStruct* state);
             /// </summary>
             public static UnmanagedActionStateChanged Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedActionStateChanged(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_, GISharp.Lib.GLib.Variant.UnmanagedStruct* state_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var state = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)state_, GISharp.Runtime.Transfer.None)!; var doActionStateChanged = (ActionStateChanged)methodInfo.CreateDelegate(typeof(ActionStateChanged), actionGroup); doActionStateChanged(actionName, state); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedActionStateChanged(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, byte* actionName_, GISharp.Lib.GLib.Variant.UnmanagedStruct* state_) { try { var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var state = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)state_, GISharp.Runtime.Transfer.None)!; var doActionStateChanged = (_ActionStateChanged)methodInfo.CreateDelegate(typeof(_ActionStateChanged), actionGroup); doActionStateChanged(actionName, state); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedActionStateChanged;
             }

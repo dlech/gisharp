@@ -23,6 +23,9 @@ namespace GISharp.CodeGen.Syntax
             if (type.GTypeName is null) {
                 throw new InvalidOperationException("Type is not a GType");
             }
+            if (type.GTypeGetter == "intern") {
+                throw new InvalidOperationException("intern requires special handling");
+            }
             // emits: static readonly GType _GType = xxx_get_type();
             var typeName = ParseTypeName("GISharp.Runtime.GType");
             var identifier = ParseToken("_GType");

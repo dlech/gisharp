@@ -224,7 +224,7 @@ parsing using <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GI
 </para>
 <para>
 Signal handlers can inspect <paramref name="options"/> (along with values pointed to
-from the <see cref="GLib.OptionEntry.ArgData"/> of an installed <see cref="GLib.OptionEntry"/>s) in order to
+from the <c>argData</c> of an installed <see cref="GLib.OptionEntry"/>s) in order to
 decide to perform certain actions, including direct local handling
 (which may be useful for options like --version).
 </para>
@@ -489,12 +489,12 @@ This function is comparable to g_option_context_add_main_entries().
 <para>
 After the commandline arguments are parsed, the
 <see cref="Application"/>::handle-local-options signal will be emitted.  At this
-point, the application can inspect the values pointed to by <see cref="GLib.OptionEntry.ArgData"/>
+point, the application can inspect the values pointed to by <c>argData</c>
 in the given <see cref="GLib.OptionEntry"/>s.
 </para>
 <para>
 Unlike <see cref="GLib.OptionContext"/>, <see cref="Application"/> supports giving a <c>null</c>
-<see cref="GLib.OptionEntry.ArgData"/> for a non-callback <see cref="GLib.OptionEntry"/>.  This results in the
+<c>argData</c> for a non-callback <see cref="GLib.OptionEntry"/>.  This results in the
 argument in question being packed into a <see cref="GLib.VariantDict"/> which is also
 passed to <see cref="Application"/>::handle-local-options, where it can be
 inspected and modified.  If <see cref="ApplicationFlags.HandlesCommandLine"/> is
@@ -510,7 +510,7 @@ In general, it is recommended that all commandline arguments are
 parsed locally.  The options dictionary should then be used to
 transmit the result of the parsing to the primary instance, where
 g_variant_dict_lookup() can be used.  For local options, it is
-possible to either use <see cref="GLib.OptionEntry.ArgData"/> in the usual way, or to consult (and
+possible to either use <c>argData</c> in the usual way, or to consult (and
 potentially remove) the option from the options dictionary.
 </para>
 <para>
@@ -525,7 +525,7 @@ treated as errors.  Unrecognised options have never been ignored when
 <para>
 If <see cref="Application"/>::handle-local-options needs to see the list of
 filenames, then the use of %G_OPTION_REMAINING is recommended.  If
-<see cref="GLib.OptionEntry.ArgData"/> is <c>null</c> then %G_OPTION_REMAINING can be used as a key into
+<c>argData</c> is <c>null</c> then %G_OPTION_REMAINING can be used as a key into
 the options dictionary.  If you do use %G_OPTION_REMAINING then you
 need to handle these arguments for yourself because once they are
 consumed, they will no longer be visible to the default handling
@@ -560,7 +560,7 @@ This function is comparable to <see cref="GLib.OptionContext.AddGroup"/>.
 </para>
 <para>
 Unlike <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/>, this function does
-not deal with <c>null</c> <see cref="GLib.OptionEntry.ArgData"/> and never transmits options to the
+not deal with <c>null</c> <c>argData</c> and never transmits options to the
 primary instance.
 </para>
 <para>

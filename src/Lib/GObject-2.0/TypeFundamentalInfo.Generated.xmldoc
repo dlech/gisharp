@@ -1,0 +1,16 @@
+<declaration>
+
+<member name='TypeFundamentalInfo.typeFlags'>
+<summary>
+<see cref="TypeFundamentalFlags"/> describing the characteristics of the fundamental type
+</summary>
+</member>
+
+<member name='TypeFundamentalInfo'>
+<summary>
+A structure that provides information to the type system which is
+used specifically for managing fundamental types.
+</summary>
+</member>
+
+</declaration>

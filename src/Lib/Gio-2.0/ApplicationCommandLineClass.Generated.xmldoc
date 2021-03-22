@@ -12,16 +12,46 @@
 <member name='UnmanagedStruct.GetStdin'>
 </member>
 
-<member name='UnmanagedStruct.Padding'>
+<member name='UnmanagedStruct.Padding0'>
 </member>
 
-<member name='PrintLiteral'>
+<member name='UnmanagedStruct.Padding1'>
 </member>
 
-<member name='PrinterrLiteral'>
+<member name='UnmanagedStruct.Padding2'>
 </member>
 
-<member name='GetStdin'>
+<member name='UnmanagedStruct.Padding3'>
+</member>
+
+<member name='UnmanagedStruct.Padding4'>
+</member>
+
+<member name='UnmanagedStruct.Padding5'>
+</member>
+
+<member name='UnmanagedStruct.Padding6'>
+</member>
+
+<member name='UnmanagedStruct.Padding7'>
+</member>
+
+<member name='UnmanagedStruct.Padding8'>
+</member>
+
+<member name='UnmanagedStruct.Padding9'>
+</member>
+
+<member name='UnmanagedStruct.Padding10'>
+</member>
+
+<member name='_PrintLiteral'>
+</member>
+
+<member name='_PrinterrLiteral'>
+</member>
+
+<member name='_GetStdin'>
 </member>
 
 <member name='ApplicationCommandLineClass'>

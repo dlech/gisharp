@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable']/*" />
     [GISharp.Runtime.GTypeAttribute("GSeekable", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(SeekableIface))]
-    public unsafe partial interface ISeekable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface ISeekable : GISharp.Lib.GObject.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Runtime.GType _GType = g_seekable_get_type();
 

@@ -45,31 +45,31 @@
 <member name='UnmanagedStruct.GReserved5'>
 </member>
 
-<member name='Tell'>
+<member name='_Tell'>
 </member>
 
-<member name='CanSeek'>
+<member name='_CanSeek'>
 </member>
 
-<member name='Seek'>
+<member name='_Seek'>
 </member>
 
-<member name='CanTruncate'>
+<member name='_CanTruncate'>
 </member>
 
-<member name='TruncateFn'>
+<member name='_TruncateFn'>
 </member>
 
-<member name='QueryInfo'>
+<member name='_QueryInfo'>
 </member>
 
-<member name='QueryInfoAsync'>
+<member name='_QueryInfoAsync'>
 </member>
 
-<member name='QueryInfoFinish'>
+<member name='_QueryInfoFinish'>
 </member>
 
-<member name='GetEtag'>
+<member name='_GetEtag'>
 </member>
 
 <member name='FileOutputStreamClass'>

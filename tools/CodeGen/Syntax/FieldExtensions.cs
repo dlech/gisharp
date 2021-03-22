@@ -20,21 +20,16 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static FieldDeclarationSyntax GetDeclaration(this Field field, bool forUnmanagedStruct)
         {
-            var type = field.Type.GetUnmanagedType();
-            var variable = VariableDeclarator(field.ManagedName);
-
-            if (field.Callback is not null) {
-                type = "System.IntPtr";
+            var type = field.Type?.GetUnmanagedType() ?? field.Callback?.GetUnmanagedType()
+                ?? throw new ArgumentException($"field '{field.GirName}' is missing type or callback", nameof(field));
+            var name = field.ManagedName;
+            if (!forUnmanagedStruct) {
+                name = name.ToCamelCase();
             }
-            else if (field.Type is Gir.Array array && array.FixedSize >= 0) {
-                var elementType = array.TypeParameters.Single().GetUnmanagedType();
+            var variable = VariableDeclarator(name);
 
-                // FIXME: this won't work on 32-bit systems.
-                // Need to return multiple field declarations if type can't
-                // be used be used with fixed keyword
-                if (elementType == "System.IntPtr" || elementType == "GISharp.Lib.GObject._Value__data__union") {
-                    elementType = "long";
-                }
+            if (field.Type is Gir.Array array && array.FixedSize >= 0) {
+                var elementType = array.TypeParameters.Single().GetUnmanagedType();
 
                 var allowedTypes = new[] {
                     "bool",
@@ -78,14 +73,14 @@ namespace GISharp.CodeGen.Syntax
 
             if (forUnmanagedStruct) {
                 if (field.IsPrivate) {
-                    list = list.Add(Token(PrivateKeyword));
+                    list = list.Add(Token(InternalKeyword));
                 }
                 else {
                     list = list.Add(Token(PublicKeyword));
                 }
             }
             else {
-                list = list.AddRange(field.GetCommonAccessModifiers());
+                list = list.Add(Token(PrivateKeyword));
             }
 
             if (field.Type is Gir.Array array && array.FixedSize >= 0) {
@@ -144,7 +139,7 @@ namespace GISharp.CodeGen.Syntax
             if (structMembers.Any()) {
                 var firstMember = structMembers.First();
                 var warningDisable = PragmaWarningDirectiveTrivia(Token(DisableKeyword), true)
-                    .AddErrorCodes(ParseExpression("CS0169"), ParseExpression("CS0649"));
+                    .AddErrorCodes(ParseExpression("CS0169"), ParseExpression("CS0414"), ParseExpression("CS0649"));
                 structMembers = structMembers.Replace(firstMember, firstMember
                     .WithLeadingTrivia(firstMember.GetLeadingTrivia()
                         .Prepend(EndOfLine("\n"))

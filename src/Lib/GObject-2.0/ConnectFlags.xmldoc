@@ -1,0 +1,24 @@
+<declaration>
+
+<member name='ConnectFlags.After'>
+<summary>
+whether the handler should be called before or after the
+ default handler of the signal.
+</summary>
+</member>
+
+<member name='ConnectFlags.Swapped'>
+<summary>
+whether the instance and data should be swapped when
+ calling the handler; see g_signal_connect_swapped() for an example.
+</summary>
+</member>
+
+<member name='ConnectFlags'>
+<summary>
+The connection flags are used to specify the behaviour of a signal's
+connection.
+</summary>
+</member>
+
+</declaration>

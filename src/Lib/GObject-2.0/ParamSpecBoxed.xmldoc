@@ -1,0 +1,42 @@
+<declaration>
+
+<member name='UnmanagedStruct.ParentInstance'>
+<summary>
+private <see cref="ParamSpec"/> portion
+</summary>
+</member>
+
+<member name='ParamSpecBoxed.ParamSpecBoxed(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)'>
+<summary>
+Creates a new <see cref="ParamSpecBoxed"/> instance specifying a %G_TYPE_BOXED
+derived property.
+</summary>
+<remarks>
+<para>
+See g_param_spec_internal() for details on property names.
+</para>
+</remarks>
+<param name="name">
+canonical name of the property specified
+</param>
+<param name="nick">
+nick name for the property specified
+</param>
+<param name="blurb">
+description of the property specified
+</param>
+<param name="boxedType">
+%G_TYPE_BOXED derived type of this property
+</param>
+<param name="flags">
+flags for the property specified
+</param>
+</member>
+
+<member name='ParamSpecBoxed'>
+<summary>
+A <see cref="ParamSpec"/> derived structure that contains the meta data for boxed properties.
+</summary>
+</member>
+
+</declaration>

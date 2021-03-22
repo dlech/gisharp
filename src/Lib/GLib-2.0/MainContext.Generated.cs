@@ -401,16 +401,18 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         int priority);
-        partial void CheckAddPollArgs(GISharp.Lib.GLib.PollFD fd, int priority = GISharp.Lib.GLib.Priority.Default);
+        partial void CheckAddPollArgs(ref GISharp.Lib.GLib.PollFD fd, int priority = GISharp.Lib.GLib.Priority.Default);
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.AddPoll(GISharp.Lib.GLib.PollFD,int)']/*" />
-        public void AddPoll(GISharp.Lib.GLib.PollFD fd, int priority = GISharp.Lib.GLib.Priority.Default)
+        public void AddPoll(ref GISharp.Lib.GLib.PollFD fd, int priority = GISharp.Lib.GLib.Priority.Default)
         {
-            CheckAddPollArgs(fd, priority);
-            var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-            var fd_ = &fd;
-            var priority_ = (int)priority;
-            g_main_context_add_poll(context_, fd_, priority_);
+            fixed (GISharp.Lib.GLib.PollFD* fd_ = &fd)
+            {
+                CheckAddPollArgs(ref fd, priority);
+                var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
+                var priority_ = (int)priority;
+                g_main_context_add_poll(context_, fd_, priority_);
+            }
         }
 
         /// <summary>
@@ -533,18 +535,20 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        partial void CheckFindSourceByFuncsUserDataArgs(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData);
+        partial void CheckFindSourceByFuncsUserDataArgs(ref GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData);
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.FindSourceByFuncsUserData(GISharp.Lib.GLib.SourceFuncs,System.IntPtr)']/*" />
-        public GISharp.Lib.GLib.Source FindSourceByFuncsUserData(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData)
+        public GISharp.Lib.GLib.Source FindSourceByFuncsUserData(ref GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData)
         {
-            CheckFindSourceByFuncsUserDataArgs(funcs, userData);
-            var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-            var funcs_ = &funcs;
-            var userData_ = (System.IntPtr)userData;
-            var ret_ = g_main_context_find_source_by_funcs_user_data(context_,funcs_,userData_);
-            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
-            return ret;
+            fixed (GISharp.Lib.GLib.SourceFuncs* funcs_ = &funcs)
+            {
+                CheckFindSourceByFuncsUserDataArgs(ref funcs, userData);
+                var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
+                var userData_ = (System.IntPtr)userData;
+                var ret_ = g_main_context_find_source_by_funcs_user_data(context_,funcs_,userData_);
+                var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+                return ret;
+            }
         }
 
         /// <summary>
@@ -1087,15 +1091,17 @@ namespace GISharp.Lib.GLib
         /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PollFD* fd);
-        partial void CheckRemovePollArgs(GISharp.Lib.GLib.PollFD fd);
+        partial void CheckRemovePollArgs(ref GISharp.Lib.GLib.PollFD fd);
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.RemovePoll(GISharp.Lib.GLib.PollFD)']/*" />
-        public void RemovePoll(GISharp.Lib.GLib.PollFD fd)
+        public void RemovePoll(ref GISharp.Lib.GLib.PollFD fd)
         {
-            CheckRemovePollArgs(fd);
-            var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-            var fd_ = &fd;
-            g_main_context_remove_poll(context_, fd_);
+            fixed (GISharp.Lib.GLib.PollFD* fd_ = &fd)
+            {
+                CheckRemovePollArgs(ref fd);
+                var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
+                g_main_context_remove_poll(context_, fd_);
+            }
         }
 
         /// <summary>

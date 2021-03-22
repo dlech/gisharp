@@ -4,19 +4,19 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='CancellableClass']/*" />
-    public unsafe class CancellableClass : GISharp.Lib.GObject.ObjectClass
+    public unsafe partial class CancellableClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
         public new struct UnmanagedStruct
         {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
             public readonly GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Cancelled']/*" />
-            public readonly System.IntPtr Cancelled;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, void> Cancelled;
 
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
             public readonly System.IntPtr GReserved1;
@@ -32,7 +32,7 @@ namespace GISharp.Lib.Gio
 
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
             public readonly System.IntPtr GReserved5;
-#pragma warning restore CS0169, CS0649
+#pragma warning restore CS0169, CS0414, CS0649
         }
 
         static CancellableClass()
@@ -41,8 +41,8 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(cancelledOffset, CancelledMarshal.Create);
         }
 
-        /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Cancelled']/*" />
-        public delegate void Cancelled();
+        /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='_Cancelled']/*" />
+        public delegate void _Cancelled();
 
         /// <summary>
         /// Unmanaged callback
@@ -57,7 +57,7 @@ namespace GISharp.Lib.Gio
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
 
         /// <summary>
-        /// Class for marshalling <see cref="Cancelled"/> methods.
+        /// Class for marshalling <see cref="_Cancelled"/> methods.
         /// </summary>
         public static unsafe class CancelledMarshal
         {
@@ -66,7 +66,7 @@ GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
             /// </summary>
             public static UnmanagedCancelled Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCancelled(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_) { try { var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCancelled = (Cancelled)methodInfo.CreateDelegate(typeof(Cancelled), cancellable); doCancelled(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
+                void unmanagedCancelled(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_) { try { var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCancelled = (_Cancelled)methodInfo.CreateDelegate(typeof(_Cancelled), cancellable); doCancelled(); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.LogUnhandledException(ex); } }
 
                 return unmanagedCancelled;
             }

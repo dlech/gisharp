@@ -6,15 +6,15 @@ namespace GISharp.Lib.Gio
     /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo']/*" />
     public unsafe partial struct FileAttributeInfo
     {
-#pragma warning disable CS0169, CS0649
+#pragma warning disable CS0169, CS0414, CS0649
         /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.name']/*" />
         private readonly byte* name;
 
-        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.Type']/*" />
-        public readonly GISharp.Lib.Gio.FileAttributeType Type;
+        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.type']/*" />
+        private readonly GISharp.Lib.Gio.FileAttributeType type;
 
-        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.Flags']/*" />
-        public readonly GISharp.Lib.Gio.FileAttributeInfoFlags Flags;
-#pragma warning restore CS0169, CS0649
+        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.flags']/*" />
+        private readonly GISharp.Lib.Gio.FileAttributeInfoFlags flags;
+#pragma warning restore CS0169, CS0414, CS0649
     }
 }

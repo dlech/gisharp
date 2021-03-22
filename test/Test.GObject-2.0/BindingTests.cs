@@ -19,7 +19,7 @@ namespace GISharp.Test.GObject
             using var obj1 = TestObject.New();
             using var obj2 = TestObject.New();
             using var binding = obj1.BindProperty(
-                nameof(TestObject.IntValue), obj2, nameof(TestObject.IntValue));
+                nameof(TestObject.IntValue), obj2, nameof(TestObject.IntValue), BindingFlags.Default);
             Assume.That(obj1.IntValue, Is.EqualTo(0));
             Assume.That(obj2.IntValue, Is.EqualTo(0));
 
@@ -33,7 +33,7 @@ namespace GISharp.Test.GObject
             Assert.That(obj2.IntValue, Is.EqualTo(1));
         }
 
-        static bool Plus5(Binding binding, ref Value fromValue, ref Value toValue)
+        static bool Plus5(Binding binding, in Value fromValue, ref Value toValue)
         {
             toValue.Set((int)fromValue + 5);
             return true;

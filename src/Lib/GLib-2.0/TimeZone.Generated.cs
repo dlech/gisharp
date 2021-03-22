@@ -310,19 +310,21 @@ namespace GISharp.Lib.GLib
         /* <type name="gint64" type="gint64*" managed-name="System.Int64" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         long* time);
-        partial void CheckAdjustTimeArgs(GISharp.Lib.GLib.TimeType type, long time);
+        partial void CheckAdjustTimeArgs(GISharp.Lib.GLib.TimeType type, ref long time);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.AdjustTime(GISharp.Lib.GLib.TimeType,long)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public int AdjustTime(GISharp.Lib.GLib.TimeType type, long time)
+        public int AdjustTime(GISharp.Lib.GLib.TimeType type, ref long time)
         {
-            CheckAdjustTimeArgs(type, time);
-            var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;
-            var type_ = (GISharp.Lib.GLib.TimeType)type;
-            var time_ = &time;
-            var ret_ = g_time_zone_adjust_time(tz_,type_,time_);
-            var ret = (int)ret_;
-            return ret;
+            fixed (long* time_ = &time)
+            {
+                CheckAdjustTimeArgs(type, ref time);
+                var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;
+                var type_ = (GISharp.Lib.GLib.TimeType)type;
+                var ret_ = g_time_zone_adjust_time(tz_,type_,time_);
+                var ret = (int)ret_;
+                return ret;
+            }
         }
 
         /// <summary>

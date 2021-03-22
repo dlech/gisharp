@@ -1,0 +1,75 @@
+
+### Signal ###
+
+# make static class
+- !add-element
+  xml: <gs:static-class name="Signal"/>
+  xpath: gi:repository/gi:namespace
+
+# move signal functions
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']
+
+# remove prefix
+- !change-attribute
+  name: name
+  regex: signal_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function
+
+# hide internal function
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[@name='handlers_destroy']
+
+# hide pre-defined accumulator functions
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[starts-with(@name,'accumulator_')]
+
+# make pinvokable
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[@name='newv' or @name='connect_data']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[@name='newv' or @name='connect_data']
+
+# va_list not allowed
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[gi:parameters/gi:parameter[@name='va_marshaller']]
+
+# default parameter value for detail quark
+- !set-attribute
+  name: gs:default
+  value: default
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[@name='has_handler_pending' or @name='stop_emission']/gi:parameters/gi:parameter[gi:type[@name='GLib.Quark']]
+
+# default parameter value for bool
+- !set-attribute
+  name: gs:default
+  value: "false"
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function/gi:parameters/gi:parameter[gi:type[@name='gboolean']]
+
+# special handling for match functions
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[gi:parameters/gi:parameter/gi:type[@name='SignalMatchType']]
+
+# overloads
+- !set-attribute
+  name: shadows
+  value: connect
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[starts-with(@name,'connect_')]
+- !set-attribute
+  name: shadows
+  value: stop_emission
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[starts-with(@name,'stop_emission_')]

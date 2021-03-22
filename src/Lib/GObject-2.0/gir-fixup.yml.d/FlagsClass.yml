@@ -1,0 +1,12 @@
+
+### FlagsClass ###
+
+# don't treat as struct
+- !set-attribute
+  name: disguised
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FlagsClass']
+- !set-attribute
+  name: gs:has-parent
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FlagsClass']

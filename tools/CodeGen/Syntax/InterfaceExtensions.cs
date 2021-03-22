@@ -21,7 +21,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (!baseTypes.Any(x => x.ToString().Contains("GInterface"))) {
                 // if there was not an instantiatable prerequisite, use GObject
-                var type = $"GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>";
+                var type = $"GISharp.Lib.GObject.GInterface<GISharp.Lib.GObject.Object>";
                 baseTypes = baseTypes.Add(SimpleBaseType(ParseTypeName(type)));
             }
 

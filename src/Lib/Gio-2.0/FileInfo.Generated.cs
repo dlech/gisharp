@@ -2073,17 +2073,19 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.TimeVal" type="GTimeVal*" managed-name="GISharp.Lib.GLib.TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* mtime);
-        partial void CheckSetModificationTimeArgs(GISharp.Lib.GLib.TimeVal mtime);
+        partial void CheckSetModificationTimeArgs(ref GISharp.Lib.GLib.TimeVal mtime);
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetModificationTime(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("Use g_file_info_set_modification_date_time() instead, as\n   #GTimeVal is deprecated due to the year 2038 problem.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
-        public void SetModificationTime(GISharp.Lib.GLib.TimeVal mtime)
+        public void SetModificationTime(ref GISharp.Lib.GLib.TimeVal mtime)
         {
-            CheckSetModificationTimeArgs(mtime);
-            var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
-            var mtime_ = &mtime;
-            g_file_info_set_modification_time(info_, mtime_);
+            fixed (GISharp.Lib.GLib.TimeVal* mtime_ = &mtime)
+            {
+                CheckSetModificationTimeArgs(ref mtime);
+                var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
+                g_file_info_set_modification_time(info_, mtime_);
+            }
         }
 
         /// <summary>

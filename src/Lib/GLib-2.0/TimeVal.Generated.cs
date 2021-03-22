@@ -8,13 +8,13 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
     public unsafe partial struct TimeVal
     {
-#pragma warning disable CS0169, CS0649
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TvSec']/*" />
-        public readonly GISharp.Runtime.CLong TvSec;
+#pragma warning disable CS0169, CS0414, CS0649
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.tvSec']/*" />
+        private readonly GISharp.Runtime.CLong tvSec;
 
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TvUsec']/*" />
-        public readonly GISharp.Runtime.CLong TvUsec;
-#pragma warning restore CS0169, CS0649
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.tvUsec']/*" />
+        private readonly GISharp.Runtime.CLong tvUsec;
+#pragma warning restore CS0169, CS0414, CS0649
         /// <summary>
         /// Converts a string containing an ISO 8601 encoded date and time
         /// to a #GTimeVal and puts it into @time_.
