@@ -67,7 +67,7 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
-        /// Gets unmanaged function for <see cref="DestroyNotify"/>
+        /// Gets unmanaged function for <c>GDestroyNotify</c> callbacks
         /// that expects the user data to be a <see cref="GCHandle"/> and
         /// frees it.
         /// </summary>
@@ -79,7 +79,7 @@ namespace GISharp.Runtime
                 gcHandle.Free();
             }
             catch (Exception ex) {
-                GMarshal.PushUnhandledException(ex);
+                PushUnhandledException(ex);
             }
         }
 

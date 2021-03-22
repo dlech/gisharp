@@ -143,7 +143,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes the first occurrence of the given pointer from the pointer
         /// array. The following elements are moved down one place. If this array
-        /// has a non-<c>null</c> <see cref="DestroyNotify"/>  function it is called for the
+        /// has a non-<c>null</c> <c>GDestroyNotify</c>  function it is called for the
         /// removed element.
         /// </summary>
         /// <remarks>
@@ -171,7 +171,7 @@ namespace GISharp.Lib.GLib
         /// array. The last element in the array is used to fill in the space,
         /// so this function does not preserve the order of the array. But it
         /// is faster than g_ptr_array_remove(). If this array has a non-<c>null</c>
-        /// <see cref="DestroyNotify"/> function it is called for the removed element.
+        /// <c>GDestroyNotify</c> function it is called for the removed element.
         /// </summary>
         /// <remarks>
         /// It returns <c>true</c> if the pointer was removed, or <c>false</c> if the
@@ -195,7 +195,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes the pointer at the given index from the pointer array.
         /// The following elements are moved down one place. If this array has
-        /// a non-<c>null</c> <see cref="DestroyNotify"/> function it is called for the removed
+        /// a non-<c>null</c> <c>GDestroyNotify</c> function it is called for the removed
         /// element.
         /// </summary>
         /// <param name="index">
@@ -220,7 +220,7 @@ namespace GISharp.Lib.GLib
         /// The last element in the array is used to fill in the space, so
         /// this function does not preserve the order of the array. But it
         /// is faster than g_ptr_array_remove_index(). If this array has a non-<c>null</c>
-        /// <see cref="DestroyNotify"/> function it is called for the removed element.
+        /// <c>GDestroyNotify</c> function it is called for the removed element.
         /// </summary>
         /// <param name="index">
         /// the index of the pointer to remove
@@ -241,7 +241,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes the given number of pointers starting at the given index
         /// from a <see cref="PtrArray{T}"/>. The following elements are moved to close the
-        /// gap. If this array has a non-<c>null</c> <see cref="DestroyNotify"/> function it is
+        /// gap. If this array has a non-<c>null</c> <c>GDestroyNotify</c> function it is
         /// called for the removed elements.
         /// </summary>
         /// <param name="index">
@@ -286,7 +286,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Sets the size of the array. When making the array larger,
         /// newly-added elements will be set to <c>null</c>. When making it smaller,
-        /// if this array has a non-<c>null</c> <see cref="DestroyNotify"/> function then it will be
+        /// if this array has a non-<c>null</c> <c>GDestroyNotify</c> function then it will be
         /// called for the removed elements.
         /// </summary>
         /// <param name="length">
@@ -503,7 +503,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes the first occurrence of the given pointer from the pointer
         /// array. The following elements are moved down one place. If this array
-        /// has a non-<c>null</c> <see cref="DestroyNotify"/>  function it is called for the
+        /// has a non-<c>null</c> <c>GDestroyNotify</c>  function it is called for the
         /// removed element.
         /// </summary>
         /// <remarks>
@@ -526,7 +526,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes the pointer at the given index from the pointer array.
         /// The following elements are moved down one place. If this array has
-        /// a non-<c>null</c> <see cref="DestroyNotify"/> function it is called for the removed
+        /// a non-<c>null</c> <c>GDestroyNotify</c> function it is called for the removed
         /// element.
         /// </summary>
         /// <param name="index">
@@ -539,7 +539,7 @@ namespace GISharp.Lib.GLib
         /// array. The last element in the array is used to fill in the space,
         /// so this function does not preserve the order of the array. But it
         /// is faster than g_ptr_array_remove(). If this array has a non-<c>null</c>
-        /// <see cref="DestroyNotify"/> function it is called for the removed element.
+        /// <c>GDestroyNotify</c> function it is called for the removed element.
         /// </summary>
         /// <remarks>
         /// It returns <c>true</c> if the pointer was removed, or <c>false</c> if the
@@ -562,7 +562,7 @@ namespace GISharp.Lib.GLib
         /// The last element in the array is used to fill in the space, so
         /// this function does not preserve the order of the array. But it
         /// is faster than <see cref="RemoveAt"/>. If this array has a non-<c>null</c>
-        /// <see cref="DestroyNotify"/> function it is called for the removed element.
+        /// <c>GDestroyNotify</c> function it is called for the removed element.
         /// </summary>
         /// <param name="index">
         /// the index of the pointer to remove
