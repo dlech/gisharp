@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp5.0</TargetFramework>
@@ -12,7 +11,7 @@
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
     <CoverletOutput>../../.coverage/gobject-2.0.info</CoverletOutput>
-    <Include>[GISharp.Lib.GObject.2.0]*,[GISharp.Runtime]*</Include> 
+    <Include>[GISharp.Lib.GObject.2.0]*</Include> 
   </PropertyGroup>
 
   <ItemGroup>
