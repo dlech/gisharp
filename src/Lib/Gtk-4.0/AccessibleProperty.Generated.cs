@@ -55,17 +55,17 @@ namespace GISharp.Lib.Gtk
         private static readonly GISharp.Runtime.GType _GType = gtk_accessible_property_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType gtk_accessible_property_get_type();
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void gtk_accessible_property_init_value(
-/* <type name="AccessibleProperty" type="GtkAccessibleProperty" managed-name="AccessibleProperty" /> */
+/* <type name="AccessibleProperty" type="GtkAccessibleProperty" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gtk.AccessibleProperty property,
-/* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
+/* <type name="GObject.Value" type="GValue*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value* value);
         static partial void CheckInitValueArgs(this GISharp.Lib.Gtk.AccessibleProperty property, ref GISharp.Lib.GObject.Value value);

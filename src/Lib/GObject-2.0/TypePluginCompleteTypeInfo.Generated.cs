@@ -8,19 +8,19 @@ namespace GISharp.Lib.GObject
     /// </summary>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="none" type="void" managed-name="System.Void" /> */
+    /* <type name="none" type="void" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedTypePluginCompleteTypeInfo(
-    /* <type name="TypePlugin" type="GTypePlugin*" managed-name="TypePlugin" is-pointer="1" /> */
+    /* <type name="TypePlugin" type="GTypePlugin*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypePlugin.UnmanagedStruct* plugin,
-    /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+    /* <type name="GType" type="GType" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Runtime.GType gType,
-    /* <type name="TypeInfo" type="GTypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
+    /* <type name="TypeInfo" type="GTypeInfo*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypeInfo* info,
-    /* <type name="TypeValueTable" type="GTypeValueTable*" managed-name="TypeValueTable" is-pointer="1" /> */
+    /* <type name="TypeValueTable" type="GTypeValueTable*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypeValueTable* valueTable);
 

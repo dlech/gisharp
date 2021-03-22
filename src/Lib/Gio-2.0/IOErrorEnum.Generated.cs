@@ -152,10 +152,10 @@ namespace GISharp.Lib.Gio
         /// #GIOErrorEnum value for the given errno.h error number.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="IOErrorEnum" type="GIOErrorEnum" managed-name="IOErrorEnum" /> */
+        /* <type name="IOErrorEnum" type="GIOErrorEnum" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.Gio.IOErrorEnum g_io_error_from_errno(
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int errno);
         static partial void CheckFromErrnoArgs(int errno);
@@ -178,7 +178,7 @@ namespace GISharp.Lib.Gio
         /// a #GQuark.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Quark g_io_error_quark();
         static partial void CheckGetQuarkArgs();
@@ -193,7 +193,7 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_io_error_enum_get_type();
     }

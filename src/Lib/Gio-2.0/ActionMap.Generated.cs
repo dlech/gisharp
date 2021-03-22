@@ -12,7 +12,7 @@ namespace GISharp.Lib.Gio
         private static readonly GISharp.Runtime.GType _GType = g_action_map_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_action_map_get_type();
 
@@ -64,13 +64,13 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_action_map_add_action(
-        /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
+        /* <type name="ActionMap" type="GActionMap*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
-        /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+        /* <type name="Action" type="GAction*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         static partial void CheckAddActionArgs(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.Gio.IAction action);
@@ -105,13 +105,13 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+        /* <type name="Action" type="GAction*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.Gio.Action.UnmanagedStruct* g_action_map_lookup_action(
-        /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
+        /* <type name="ActionMap" type="GActionMap*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* actionName);
         static partial void CheckLookupActionArgs(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName);
@@ -145,13 +145,13 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_action_map_remove_action(
-        /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
+        /* <type name="ActionMap" type="GActionMap*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* actionName);
         static partial void CheckRemoveActionArgs(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName);

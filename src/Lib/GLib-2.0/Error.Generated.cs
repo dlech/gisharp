@@ -57,16 +57,16 @@ namespace GISharp.Lib.GLib
         /// a new #GError
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Error" type="GError*" managed-name="Error" is-pointer="1" /> */
+        /* <type name="Error" type="GError*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Error.UnmanagedStruct* g_error_new_literal(
-        /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
+        /* <type name="Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark domain,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int code,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* message);
         static partial void CheckNewLiteralArgs(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message);
@@ -88,7 +88,7 @@ namespace GISharp.Lib.GLib
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_error_get_type();
 
@@ -102,10 +102,10 @@ namespace GISharp.Lib.GLib
         /// a new #GError
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Error" type="GError*" managed-name="Error" is-pointer="1" /> */
+        /* <type name="Error" type="GError*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Error.UnmanagedStruct* g_error_copy(
-        /* <type name="Error" type="const GError*" managed-name="Error" is-pointer="1" /> */
+        /* <type name="Error" type="const GError*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Error.UnmanagedStruct* error);
 
@@ -116,10 +116,10 @@ namespace GISharp.Lib.GLib
         /// a #GError
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_error_free(
-        /* <type name="Error" type="GError*" managed-name="Error" is-pointer="1" /> */
+        /* <type name="Error" type="GError*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Error.UnmanagedStruct* error);
 
@@ -162,16 +162,16 @@ namespace GISharp.Lib.GLib
         /// whether @error has @domain and @code
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_error_matches(
-        /* <type name="Error" type="const GError*" managed-name="Error" is-pointer="1" /> */
+        /* <type name="Error" type="const GError*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Error.UnmanagedStruct* error,
-        /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
+        /* <type name="Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark domain,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int code);
         partial void CheckMatchesArgs(GISharp.Lib.GLib.Quark domain, int code);

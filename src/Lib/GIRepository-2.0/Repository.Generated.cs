@@ -59,13 +59,13 @@ namespace GISharp.Lib.GIRepository
         /// return location for a #GError
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
         private static extern GISharp.Runtime.Boolean g_irepository_dump(
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* arg,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckDumpArgs(GISharp.Lib.GLib.UnownedUtf8 arg);
@@ -104,7 +104,7 @@ namespace GISharp.Lib.GIRepository
         /// The global singleton #GIRepository
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GIRepository.Repository.UnmanagedStruct* g_irepository_get_default();
         static partial void CheckGetDefaultArgs();
@@ -127,8 +127,8 @@ namespace GISharp.Lib.GIRepository
         /// #GSList of strings
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="filename" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_irepository_get_search_path();
@@ -144,10 +144,10 @@ namespace GISharp.Lib.GIRepository
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_irepository_prepend_library_path(
-/* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+/* <type name="utf8" type="const char*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 byte* directory);
         static partial void CheckPrependLibraryPathArgs(GISharp.Lib.GLib.UnownedUtf8 directory);
@@ -174,10 +174,10 @@ byte* directory);
         ///   search path
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_irepository_prepend_search_path(
-        /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* <type name="filename" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* directory);
         static partial void CheckPrependSearchPathArgs(GISharp.Lib.GLib.Filename directory);
@@ -192,7 +192,7 @@ byte* directory);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_irepository_get_type();
 
@@ -211,15 +211,15 @@ byte* directory);
         /// the array of versions.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.List" type="GList*" managed-name="GISharp.Lib.GLib.List" is-pointer="1">
-*   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
+        /* <type name="GLib.List" type="GList*" is-pointer="1">
+*   <type name="utf8" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.List.UnmanagedStruct* g_irepository_enumerate_versions(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace);
         partial void CheckEnumerateVersionsArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace);
@@ -255,13 +255,13 @@ byte* directory);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("1.30")]
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="EnumInfo" type="GIEnumInfo*" managed-name="EnumInfo" is-pointer="1" /> */
+        /* <type name="EnumInfo" type="GIEnumInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct* g_irepository_find_by_error_domain(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark domain);
         partial void CheckFindByErrorDomainArgs(GISharp.Lib.GLib.Quark domain);
@@ -298,13 +298,13 @@ byte* directory);
         /// #GIBaseInfo representing metadata about @type, or %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="BaseInfo" type="GIBaseInfo*" managed-name="BaseInfo" is-pointer="1" /> */
+        /* <type name="BaseInfo" type="GIBaseInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* g_irepository_find_by_gtype(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType gtype);
         partial void CheckFindByGtypeArgs(GISharp.Runtime.GType gtype);
@@ -341,16 +341,16 @@ byte* directory);
         /// #GIBaseInfo representing metadata about @name, or %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="BaseInfo" type="GIBaseInfo*" managed-name="BaseInfo" is-pointer="1" /> */
+        /* <type name="BaseInfo" type="GIBaseInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* g_irepository_find_by_name(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         partial void CheckFindByNameArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace, GISharp.Lib.GLib.UnownedUtf8 name);
@@ -390,13 +390,13 @@ byte* directory);
         /// C namespace prefix, or %NULL if none associated
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_irepository_get_c_prefix(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace);
         partial void CheckGetCPrefixArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace);
@@ -440,15 +440,15 @@ byte* directory);
         ///   dependencies
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
-*   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
+        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+*   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern byte** g_irepository_get_dependencies(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace);
         partial void CheckGetDependenciesArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace);
@@ -492,15 +492,15 @@ byte* directory);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("1.44")]
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
-*   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
+        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+*   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern byte** g_irepository_get_immediate_dependencies(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace);
         partial void CheckGetImmediateDependenciesArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace);
@@ -539,16 +539,16 @@ byte* directory);
         /// #GIBaseInfo containing metadata
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="BaseInfo" type="GIBaseInfo*" managed-name="BaseInfo" is-pointer="1" /> */
+        /* <type name="BaseInfo" type="GIBaseInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* g_irepository_get_info(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int index);
         partial void CheckGetInfoArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace, int index);
@@ -576,12 +576,12 @@ byte* directory);
         /// List of namespaces
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
-*   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
+        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+*   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern byte** g_irepository_get_loaded_namespaces(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository);
         partial void CheckGetLoadedNamespacesArgs();
@@ -612,13 +612,13 @@ byte* directory);
         /// number of metadata entries
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_irepository_get_n_infos(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace);
         partial void CheckGetNInfosArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace);
@@ -664,20 +664,20 @@ byte* directory);
         /// </param>
         [GISharp.Runtime.SinceAttribute("1.62")]
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_irepository_get_object_gtype_interfaces(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType gtype,
-        /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* nInterfacesOut,
-        /* <array length="1" zero-terminated="0" type="GIInterfaceInfo***" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="InterfaceInfo" type="GIInterfaceInfo**" managed-name="InterfaceInfo" is-pointer="1" />
+        /* <array length="1" zero-terminated="0" type="GIInterfaceInfo***" is-pointer="1">
+*   <type name="InterfaceInfo" type="GIInterfaceInfo**" is-pointer="1" />
 * </array> */
         /* direction:out caller-allocates:0 transfer-ownership:none */
         GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct*** interfacesOut);
@@ -721,13 +721,13 @@ byte* directory);
         ///   or %NULL if none are associated
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_irepository_get_shared_library(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace);
         partial void CheckGetSharedLibraryArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace);
@@ -761,13 +761,13 @@ byte* directory);
         /// Filesystem path (or $lt;builtin$gt;) if successful, %NULL if namespace is not loaded
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_irepository_get_typelib_path(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace);
         partial void CheckGetTypelibPathArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace);
@@ -805,13 +805,13 @@ byte* directory);
         /// Loaded version
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_irepository_get_version(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace);
         partial void CheckGetVersionArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace);
@@ -850,16 +850,16 @@ byte* directory);
         /// %TRUE if namespace-version is loaded, %FALSE otherwise
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_irepository_is_registered(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* version);
         partial void CheckIsRegisteredArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace, GISharp.Lib.GLib.NullableUnownedUtf8 version);
@@ -894,19 +894,19 @@ byte* directory);
         /// return location for a #GError
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_irepository_load_typelib(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="Typelib" type="GITypelib*" managed-name="Typelib" is-pointer="1" /> */
+        /* <type name="Typelib" type="GITypelib*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib,
-        /* <type name="RepositoryLoadFlags" type="GIRepositoryLoadFlags" managed-name="RepositoryLoadFlags" /> */
+        /* <type name="RepositoryLoadFlags" type="GIRepositoryLoadFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.RepositoryLoadFlags flags,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         partial void CheckLoadTypelibArgs(GISharp.Lib.GIRepository.Typelib typelib, GISharp.Lib.GIRepository.RepositoryLoadFlags flags);
@@ -958,22 +958,22 @@ byte* directory);
         /// a pointer to the #GITypelib if successful, %NULL otherwise
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Typelib" type="GITypelib*" managed-name="Typelib" is-pointer="1" /> */
+        /* <type name="Typelib" type="GITypelib*" is-pointer="1" /> */
         /* transfer-ownership:none skip:1 direction:in */
         private static extern GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* g_irepository_require(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* version,
-        /* <type name="RepositoryLoadFlags" type="GIRepositoryLoadFlags" managed-name="RepositoryLoadFlags" /> */
+        /* <type name="RepositoryLoadFlags" type="GIRepositoryLoadFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.RepositoryLoadFlags flags,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         partial void CheckRequireArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace, GISharp.Lib.GLib.NullableUnownedUtf8 version, GISharp.Lib.GIRepository.RepositoryLoadFlags flags = default);
@@ -1026,25 +1026,25 @@ byte* directory);
         /// a pointer to the #GITypelib if successful, %NULL otherwise
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Typelib" type="GITypelib*" managed-name="Typelib" is-pointer="1" /> */
+        /* <type name="Typelib" type="GITypelib*" is-pointer="1" /> */
         /* transfer-ownership:none skip:1 direction:in */
         private static extern GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* g_irepository_require_private(
-        /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
+        /* <type name="Repository" type="GIRepository*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* typelibDir,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @namespace,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* version,
-        /* <type name="RepositoryLoadFlags" type="GIRepositoryLoadFlags" managed-name="RepositoryLoadFlags" /> */
+        /* <type name="RepositoryLoadFlags" type="GIRepositoryLoadFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.RepositoryLoadFlags flags,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         partial void CheckRequirePrivateArgs(GISharp.Lib.GLib.UnownedUtf8 typelibDir, GISharp.Lib.GLib.UnownedUtf8 @namespace, GISharp.Lib.GLib.NullableUnownedUtf8 version, GISharp.Lib.GIRepository.RepositoryLoadFlags flags = default);

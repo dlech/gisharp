@@ -10,13 +10,13 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.28")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+    /* <type name="gboolean" type="gboolean" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate GISharp.Runtime.Boolean UnmanagedCancellableSourceFunc(
-    /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+    /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
     System.IntPtr userData);
 

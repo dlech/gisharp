@@ -52,7 +52,7 @@ namespace GISharp.Lib.GLib
         /// the new #GMainContext
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_new();
         static partial void CheckNewArgs();
@@ -80,7 +80,7 @@ namespace GISharp.Lib.GLib
         /// the global default main context.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_default();
         static partial void CheckGetDefaultArgs();
@@ -108,7 +108,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_ref_thread_default();
         static partial void CheckGetThreadDefaultArgs();
@@ -244,7 +244,7 @@ namespace GISharp.Lib.GLib
         /// The main loop recursion level in the current thread
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_main_depth();
         static partial void CheckGetDepthArgs();
@@ -297,18 +297,18 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.20")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_poll(
-        /* <array type="GPollFD*" length="1" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="PollFD" type="GPollFD" managed-name="PollFD" />
+        /* <array type="GPollFD*" length="1" is-pointer="1">
+*   <type name="PollFD" type="GPollFD" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PollFD* fds,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint nfds,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int timeout);
         static partial void CheckPollArgs(System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds, int timeout = -1);
@@ -331,7 +331,7 @@ namespace GISharp.Lib.GLib
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_main_context_get_type();
 
@@ -358,10 +358,10 @@ namespace GISharp.Lib.GLib
         ///   this thread is now the owner of @context.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_acquire(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckAcquireArgs();
@@ -395,16 +395,16 @@ namespace GISharp.Lib.GLib
         ///      file descriptor is polled whenever the results may be needed.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_add_poll(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" is-pointer="1" /> */
+        /* <type name="PollFD" type="GPollFD*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PollFD* fd,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int priority);
         partial void CheckAddPollArgs(ref GISharp.Lib.GLib.PollFD fd, int priority = GISharp.Lib.GLib.Priority.Default);
@@ -448,21 +448,21 @@ namespace GISharp.Lib.GLib
         /// %TRUE if some sources are ready to be dispatched.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_check(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int maxPriority,
-        /* <array length="2" zero-terminated="0" type="GPollFD*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="PollFD" type="GPollFD" managed-name="PollFD" />
+        /* <array length="2" zero-terminated="0" type="GPollFD*" is-pointer="1">
+*   <type name="PollFD" type="GPollFD" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PollFD* fds,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int nFds);
         partial void CheckCheckArgs(int maxPriority, System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds);
@@ -497,10 +497,10 @@ namespace GISharp.Lib.GLib
         /// a #GMainContext
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_dispatch(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckDispatchArgs();
@@ -532,16 +532,16 @@ namespace GISharp.Lib.GLib
         /// the source, if one was found, otherwise %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_main_context_find_source_by_funcs_user_data(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="SourceFuncs" type="GSourceFuncs*" managed-name="SourceFuncs" is-pointer="1" /> */
+        /* <type name="SourceFuncs" type="GSourceFuncs*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SourceFuncs* funcs,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
         partial void CheckFindSourceByFuncsUserDataArgs(ref GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData);
@@ -589,13 +589,13 @@ namespace GISharp.Lib.GLib
         /// the #GSource
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_main_context_find_source_by_id(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint sourceId);
         partial void CheckFindSourceByIdArgs(uint sourceId);
@@ -627,13 +627,13 @@ namespace GISharp.Lib.GLib
         /// the source, if one was found, otherwise %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_main_context_find_source_by_user_data(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
         partial void CheckFindSourceByUserDataArgs(System.IntPtr userData);
@@ -682,22 +682,22 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_invoke_full(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int priority,
-        /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
+        /* <type name="SourceFunc" type="GSourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:2 destroy:3 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> function,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> notify);
         partial void CheckInvokeArgs(GISharp.Lib.GLib.SourceFunc function, int priority = GISharp.Lib.GLib.Priority.Default);
@@ -731,10 +731,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.10")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_is_owner(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckGetIsOwnerArgs();
@@ -777,13 +777,13 @@ namespace GISharp.Lib.GLib
         /// %TRUE if events were dispatched.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_iteration(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean mayBlock);
         partial void CheckIterationArgs(bool mayBlock);
@@ -810,10 +810,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if events are pending.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_pending(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckGetIsPendingArgs();
@@ -837,10 +837,10 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_pop_thread_default(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckPopThreadDefaultArgs();
@@ -877,13 +877,13 @@ namespace GISharp.Lib.GLib
         ///               prior to polling.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_prepare(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="gint" type="gint*" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         int* priority);
         partial void CheckTryPrepareArgs();
@@ -952,10 +952,10 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_push_thread_default(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckPushThreadDefaultArgs();
@@ -1001,24 +1001,24 @@ namespace GISharp.Lib.GLib
         ///   of records that need to be stored.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_main_context_query(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int maxPriority,
-        /* <type name="gint" type="gint*" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         int* timeout,
-        /* <array length="3" zero-terminated="0" type="GPollFD*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="PollFD" type="GPollFD" managed-name="PollFD" />
+        /* <array length="3" zero-terminated="0" type="GPollFD*" is-pointer="1">
+*   <type name="PollFD" type="GPollFD" />
 * </array> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
         GISharp.Lib.GLib.PollFD* fds,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int nFds);
         partial void CheckQueryArgs(int maxPriority);
@@ -1052,10 +1052,10 @@ namespace GISharp.Lib.GLib
         /// the @context that was passed in (since 2.6)
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_ref(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
 
@@ -1075,10 +1075,10 @@ namespace GISharp.Lib.GLib
         /// a #GMainContext
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_release(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckReleaseArgs();
@@ -1103,13 +1103,13 @@ namespace GISharp.Lib.GLib
         /// a #GPollFD descriptor previously added with g_main_context_add_poll()
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_remove_poll(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" is-pointer="1" /> */
+        /* <type name="PollFD" type="GPollFD*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PollFD* fd);
         partial void CheckRemovePollArgs(ref GISharp.Lib.GLib.PollFD fd);
@@ -1134,10 +1134,10 @@ namespace GISharp.Lib.GLib
         /// a #GMainContext
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_unref(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
 
@@ -1192,10 +1192,10 @@ namespace GISharp.Lib.GLib
         /// a #GMainContext
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_wakeup(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckWakeUpArgs();

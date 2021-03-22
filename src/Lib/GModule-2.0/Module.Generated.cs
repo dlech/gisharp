@@ -62,13 +62,13 @@ namespace GISharp.Lib.GModule
         ///     prefix and suffix. This should be freed when no longer needed
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern byte* g_module_build_path(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* directory,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* moduleName);
         static partial void CheckBuildPathArgs(GISharp.Lib.GLib.NullableUnownedUtf8 directory, GISharp.Lib.GLib.UnownedUtf8 moduleName);
@@ -92,7 +92,7 @@ namespace GISharp.Lib.GModule
         /// a string describing the last module error
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_module_error();
         static partial void CheckGetErrorArgs();
@@ -135,13 +135,13 @@ namespace GISharp.Lib.GModule
         /// a #GModule on success, or %NULL on failure
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Module" type="GModule*" managed-name="Module" is-pointer="1" /> */
+        /* <type name="Module" type="GModule*" is-pointer="1" /> */
         /* nullable:1 transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GModule.Module.UnmanagedStruct* g_module_open(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* fileName,
-        /* <type name="ModuleFlags" type="GModuleFlags" managed-name="ModuleFlags" /> */
+        /* <type name="ModuleFlags" type="GModuleFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.ModuleFlags flags);
         static partial void CheckOpenArgs(GISharp.Lib.GLib.NullableUnownedUtf8 fileName, GISharp.Lib.GModule.ModuleFlags flags = default);
@@ -165,7 +165,7 @@ namespace GISharp.Lib.GModule
         /// %TRUE if modules are supported
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_module_supported();
         static partial void CheckGetSupportedArgs();
@@ -189,10 +189,10 @@ namespace GISharp.Lib.GModule
         /// %TRUE on success
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_module_close(
-        /* <type name="Module" type="GModule*" managed-name="Module" is-pointer="1" /> */
+        /* <type name="Module" type="GModule*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.Module.UnmanagedStruct* module);
         partial void CheckCloseArgs();
@@ -218,10 +218,10 @@ namespace GISharp.Lib.GModule
         /// a #GModule to make permanently resident
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_module_make_resident(
-        /* <type name="Module" type="GModule*" managed-name="Module" is-pointer="1" /> */
+        /* <type name="Module" type="GModule*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.Module.UnmanagedStruct* module);
         partial void CheckMakeResidentArgs();
@@ -250,10 +250,10 @@ namespace GISharp.Lib.GModule
         /// the filename of the module
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_module_name(
-        /* <type name="Module" type="GModule*" managed-name="Module" is-pointer="1" /> */
+        /* <type name="Module" type="GModule*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.Module.UnmanagedStruct* module);
         partial void CheckGetNameArgs();
@@ -285,16 +285,16 @@ namespace GISharp.Lib.GModule
         /// %TRUE on success
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_module_symbol(
-        /* <type name="Module" type="GModule*" managed-name="Module" is-pointer="1" /> */
+        /* <type name="Module" type="GModule*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.Module.UnmanagedStruct* module,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* symbolName,
-        /* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 */
         System.IntPtr* symbol);
         partial void CheckTrySymbolArgs(GISharp.Lib.GLib.UnownedUtf8 symbolName);

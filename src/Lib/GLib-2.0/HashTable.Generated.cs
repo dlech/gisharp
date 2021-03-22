@@ -61,16 +61,16 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_hash_table_add(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
         System.IntPtr key);
 
@@ -88,16 +88,16 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_hash_table_contains(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr key);
 
@@ -113,12 +113,12 @@ namespace GISharp.Lib.GLib
         /// a #GHashTable
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_hash_table_destroy(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
@@ -157,19 +157,19 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_hash_table_find(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="HRFunc" type="GHRFunc" managed-name="HRFunc" /> */
+        /* <type name="HRFunc" type="GHRFunc" /> */
         /* transfer-ownership:none closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, GISharp.Runtime.Boolean> predicate,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -201,19 +201,19 @@ namespace GISharp.Lib.GLib
         /// user data to pass to the function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_hash_table_foreach(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="HFunc" type="GHFunc" managed-name="HFunc" /> */
+        /* <type name="HFunc" type="GHFunc" /> */
         /* transfer-ownership:none closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void> func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -243,19 +243,19 @@ namespace GISharp.Lib.GLib
         /// the number of key/value pairs removed
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_hash_table_foreach_remove(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="HRFunc" type="GHRFunc" managed-name="HRFunc" /> */
+        /* <type name="HRFunc" type="GHRFunc" /> */
         /* transfer-ownership:none closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, GISharp.Runtime.Boolean> func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -284,19 +284,19 @@ namespace GISharp.Lib.GLib
         /// the number of key/value pairs removed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_hash_table_foreach_steal(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="HRFunc" type="GHRFunc" managed-name="HRFunc" /> */
+        /* <type name="HRFunc" type="GHRFunc" /> */
         /* transfer-ownership:none closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, GISharp.Runtime.Boolean> func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -322,14 +322,14 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.14")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.List" type="GList*" managed-name="GISharp.Lib.GLib.List" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.List" type="GList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:container direction:in */
         private static extern GISharp.Lib.GLib.List.UnmanagedStruct* g_hash_table_get_keys(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
@@ -371,18 +371,18 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="1" zero-terminated="0" type="gpointer*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <array length="1" zero-terminated="0" type="gpointer*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:container direction:in */
         private static extern System.IntPtr* g_hash_table_get_keys_as_array(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* length);
 
@@ -408,14 +408,14 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.14")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.List" type="GList*" managed-name="GISharp.Lib.GLib.List" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.List" type="GList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:container direction:in */
         private static extern GISharp.Lib.GLib.List.UnmanagedStruct* g_hash_table_get_values(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
@@ -451,19 +451,19 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the key did not exist yet
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_hash_table_insert(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr key,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr value);
 
@@ -483,16 +483,16 @@ namespace GISharp.Lib.GLib
         /// the associated value, or %NULL if the key is not found
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_hash_table_lookup(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr key);
 
@@ -526,22 +526,22 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the key was found in the #GHashTable
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_hash_table_lookup_extended(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr lookupKey,
-        /* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         System.IntPtr* origKey,
-        /* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         System.IntPtr* value);
 
@@ -577,16 +577,16 @@ namespace GISharp.Lib.GLib
         /// a new #GHashTable
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.HashTable.UnmanagedStruct* g_hash_table_new(
-        /* <type name="HashFunc" type="GHashFunc" managed-name="HashFunc" /> */
+        /* <type name="HashFunc" type="GHashFunc" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, uint> hashFunc,
-        /* <type name="EqualFunc" type="GEqualFunc" managed-name="EqualFunc" /> */
+        /* <type name="EqualFunc" type="GEqualFunc" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, GISharp.Runtime.Boolean> keyEqualFunc);
 
@@ -626,22 +626,22 @@ namespace GISharp.Lib.GLib
         /// a new #GHashTable
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.HashTable.UnmanagedStruct* g_hash_table_new_full(
-        /* <type name="HashFunc" type="GHashFunc" managed-name="HashFunc" /> */
+        /* <type name="HashFunc" type="GHashFunc" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, uint> hashFunc,
-        /* <type name="EqualFunc" type="GEqualFunc" managed-name="EqualFunc" /> */
+        /* <type name="EqualFunc" type="GEqualFunc" /> */
         /* transfer-ownership:none scope:notified destroy:3 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, GISharp.Runtime.Boolean> keyEqualFunc,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> keyDestroyFunc,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> valueDestroyFunc);
 
@@ -666,16 +666,16 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the key was found and removed from the #GHashTable
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_hash_table_remove(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr key);
 
@@ -695,12 +695,12 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_hash_table_remove_all(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
@@ -734,19 +734,19 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the key did not exist yet
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_hash_table_replace(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr key,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr value);
 
@@ -760,12 +760,12 @@ namespace GISharp.Lib.GLib
         /// the number of key/value pairs in the #GHashTable.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_hash_table_size(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
@@ -784,16 +784,16 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the key was found and removed from the #GHashTable
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_hash_table_steal(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr key);
 
@@ -806,12 +806,12 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_hash_table_steal_all(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
@@ -851,26 +851,26 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.58")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_hash_table_steal_extended(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr lookupKey,
-        /* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         System.IntPtr* stolenKey,
-        /* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         System.IntPtr* stolenValue);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_hash_table_get_type();
 
@@ -886,15 +886,15 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.10")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.HashTable.UnmanagedStruct* g_hash_table_ref(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
@@ -916,12 +916,12 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.10")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_hash_table_unref(
-        /* <type name="GLib.HashTable" type="GHashTable*" managed-name="GISharp.Lib.GLib.HashTable" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);

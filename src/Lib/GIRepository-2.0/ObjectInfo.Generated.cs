@@ -87,13 +87,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FunctionInfo" type="GIFunctionInfo*" managed-name="FunctionInfo" is-pointer="1" /> */
+        /* <type name="FunctionInfo" type="GIFunctionInfo*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* g_object_info_find_method(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         partial void CheckFindMethodArgs(GISharp.Lib.GLib.UnownedUtf8 name);
@@ -135,16 +135,16 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FunctionInfo" type="GIFunctionInfo*" managed-name="FunctionInfo" is-pointer="1" /> */
+        /* <type name="FunctionInfo" type="GIFunctionInfo*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* g_object_info_find_method_using_interfaces(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name,
-        /* <type name="ObjectInfo" type="GIObjectInfo**" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo**" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct** implementor);
         partial void CheckFindMethodUsingInterfacesArgs(GISharp.Lib.GLib.UnownedUtf8 name);
@@ -176,13 +176,13 @@ namespace GISharp.Lib.GIRepository
         /// Info for the signal with name @name in @info, or %NULL on failure.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="SignalInfo" type="GISignalInfo*" managed-name="SignalInfo" is-pointer="1" /> */
+        /* <type name="SignalInfo" type="GISignalInfo*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct* g_object_info_find_signal(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         partial void CheckFindSignalArgs(GISharp.Lib.GLib.UnownedUtf8 name);
@@ -219,13 +219,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
+        /* <type name="VFuncInfo" type="GIVFuncInfo*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* g_object_info_find_vfunc(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         partial void CheckFindVFuncArgs(GISharp.Lib.GLib.UnownedUtf8 name);
@@ -270,16 +270,16 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
+        /* <type name="VFuncInfo" type="GIVFuncInfo*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* g_object_info_find_vfunc_using_interfaces(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name,
-        /* <type name="ObjectInfo" type="GIObjectInfo**" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo**" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct** implementor);
         partial void CheckFindVFuncUsingInterfacesArgs(GISharp.Lib.GLib.UnownedUtf8 name);
@@ -309,10 +309,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if the object type is abstract
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_object_info_get_abstract(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetAbstractArgs();
@@ -339,10 +339,10 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="StructInfo" type="GIStructInfo*" managed-name="StructInfo" is-pointer="1" /> */
+        /* <type name="StructInfo" type="GIStructInfo*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* g_object_info_get_class_struct(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetClassStructArgs();
@@ -371,13 +371,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ConstantInfo" type="GIConstantInfo*" managed-name="ConstantInfo" is-pointer="1" /> */
+        /* <type name="ConstantInfo" type="GIConstantInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.ConstantInfo.UnmanagedStruct* g_object_info_get_constant(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetConstantArgs(int n);
@@ -407,13 +407,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FieldInfo" type="GIFieldInfo*" managed-name="FieldInfo" is-pointer="1" /> */
+        /* <type name="FieldInfo" type="GIFieldInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct* g_object_info_get_field(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetFieldArgs(int n);
@@ -440,10 +440,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if the object type is a fundamental type
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_object_info_get_fundamental(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetFundamentalArgs();
@@ -472,10 +472,10 @@ namespace GISharp.Lib.GIRepository
         /// the symbol or %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_object_info_get_get_value_function(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetGetValueFunctionArgs();
@@ -504,13 +504,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="InterfaceInfo" type="GIInterfaceInfo*" managed-name="InterfaceInfo" is-pointer="1" /> */
+        /* <type name="InterfaceInfo" type="GIInterfaceInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.InterfaceInfo.UnmanagedStruct* g_object_info_get_interface(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetInterfaceArgs(int n);
@@ -540,13 +540,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FunctionInfo" type="GIFunctionInfo*" managed-name="FunctionInfo" is-pointer="1" /> */
+        /* <type name="FunctionInfo" type="GIFunctionInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* g_object_info_get_method(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetMethodArgs(int n);
@@ -572,10 +572,10 @@ namespace GISharp.Lib.GIRepository
         /// number of constants
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_object_info_get_n_constants(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetNConstantsArgs();
@@ -600,10 +600,10 @@ namespace GISharp.Lib.GIRepository
         /// number of fields
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_object_info_get_n_fields(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetNFieldsArgs();
@@ -628,10 +628,10 @@ namespace GISharp.Lib.GIRepository
         /// number of interfaces
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_object_info_get_n_interfaces(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetNInterfacesArgs();
@@ -656,10 +656,10 @@ namespace GISharp.Lib.GIRepository
         /// number of methods
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_object_info_get_n_methods(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetNMethodsArgs();
@@ -684,10 +684,10 @@ namespace GISharp.Lib.GIRepository
         /// number of properties
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_object_info_get_n_properties(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetNPropertiesArgs();
@@ -712,10 +712,10 @@ namespace GISharp.Lib.GIRepository
         /// number of signals
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_object_info_get_n_signals(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetNSignalsArgs();
@@ -740,10 +740,10 @@ namespace GISharp.Lib.GIRepository
         /// number of virtual functions
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_object_info_get_n_vfuncs(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetNVFuncsArgs();
@@ -769,10 +769,10 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* g_object_info_get_parent(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetParentArgs();
@@ -801,13 +801,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="PropertyInfo" type="GIPropertyInfo*" managed-name="PropertyInfo" is-pointer="1" /> */
+        /* <type name="PropertyInfo" type="GIPropertyInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.PropertyInfo.UnmanagedStruct* g_object_info_get_property(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetPropertyArgs(int n);
@@ -836,10 +836,10 @@ namespace GISharp.Lib.GIRepository
         /// the symbol or %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_object_info_get_ref_function(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetRefFunctionArgs();
@@ -868,10 +868,10 @@ namespace GISharp.Lib.GIRepository
         /// the symbol or %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_object_info_get_set_value_function(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetSetValueFunctionArgs();
@@ -900,13 +900,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="SignalInfo" type="GISignalInfo*" managed-name="SignalInfo" is-pointer="1" /> */
+        /* <type name="SignalInfo" type="GISignalInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct* g_object_info_get_signal(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetSignalArgs(int n);
@@ -933,10 +933,10 @@ namespace GISharp.Lib.GIRepository
         /// the type init function
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_object_info_get_type_init(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetTypeInitArgs();
@@ -961,10 +961,10 @@ namespace GISharp.Lib.GIRepository
         /// name of the objects type
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_object_info_get_type_name(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetTypeNameArgs();
@@ -992,10 +992,10 @@ namespace GISharp.Lib.GIRepository
         /// the symbol or %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_object_info_get_unref_function(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetUnrefFunctionArgs();
@@ -1024,13 +1024,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
+        /* <type name="VFuncInfo" type="GIVFuncInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* g_object_info_get_vfunc(
-        /* <type name="ObjectInfo" type="GIObjectInfo*" managed-name="ObjectInfo" is-pointer="1" /> */
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetVFuncArgs(int n);

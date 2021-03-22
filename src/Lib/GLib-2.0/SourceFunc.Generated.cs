@@ -16,10 +16,10 @@ namespace GISharp.Lib.GLib
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+    /* <type name="gboolean" type="gboolean" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate GISharp.Runtime.Boolean UnmanagedSourceFunc(
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:0 direction:in */
     System.IntPtr userData);
 

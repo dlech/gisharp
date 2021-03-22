@@ -58,11 +58,11 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Continue']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public const System.Boolean Continue = true;
+        public const bool Continue = true;
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Remove']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public const System.Boolean Remove = false;
+        public const bool Remove = false;
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.CanRecurse']/*" />
         public bool CanRecurse { get => GetCanRecurse(); set => SetCanRecurse(value); }
@@ -131,13 +131,13 @@ namespace GISharp.Lib.GLib
         /// the newly-created #GSource.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_source_new(
-        /* <type name="SourceFuncs" type="GSourceFuncs*" managed-name="SourceFuncs" is-pointer="1" /> */
+        /* <type name="SourceFuncs" type="GSourceFuncs*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SourceFuncs* sourceFuncs,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint structSize);
         static partial void CheckNewArgs(ref GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize);
@@ -192,10 +192,10 @@ namespace GISharp.Lib.GLib
         /// For historical reasons, this function always returns %TRUE
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_source_remove(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint tag);
         static partial void CheckRemoveByIdArgs(uint tag);
@@ -226,13 +226,13 @@ namespace GISharp.Lib.GLib
         /// %TRUE if a source was found and removed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_source_remove_by_funcs_user_data(
-        /* <type name="SourceFuncs" type="GSourceFuncs*" managed-name="SourceFuncs" is-pointer="1" /> */
+        /* <type name="SourceFuncs" type="GSourceFuncs*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SourceFuncs* funcs,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
         static partial void CheckRemoveByFuncsUserDataArgs(ref GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData);
@@ -263,10 +263,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if a source was found and removed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_source_remove_by_user_data(
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
         static partial void CheckRemoveByUserDataArgs(System.IntPtr userData);
@@ -313,13 +313,13 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_set_name_by_id(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint tag,
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         static partial void CheckSetNameByIdArgs(uint tag, GISharp.Lib.GLib.UnownedUtf8 name);
@@ -343,7 +343,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_main_current_source();
         static partial void CheckGetCurrentArgs();
@@ -359,7 +359,7 @@ namespace GISharp.Lib.GLib
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_source_get_type();
 
@@ -395,13 +395,13 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_add_child_source(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* childSource);
         partial void CheckAddChildSourceArgs(GISharp.Lib.GLib.Source childSource);
@@ -443,13 +443,13 @@ namespace GISharp.Lib.GLib
         ///      descriptor to watch.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_add_poll(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" is-pointer="1" /> */
+        /* <type name="PollFD" type="GPollFD*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PollFD* fd);
         partial void CheckAddPollArgs(ref GISharp.Lib.GLib.PollFD fd);
@@ -501,16 +501,16 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern System.IntPtr g_source_add_unix_fd(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int fd,
-        /* <type name="IOCondition" type="GIOCondition" managed-name="IOCondition" /> */
+        /* <type name="IOCondition" type="GIOCondition" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.IOCondition events);
         partial void CheckAddUnixFdArgs(int fd, GISharp.Lib.GLib.IOCondition events);
@@ -550,13 +550,13 @@ namespace GISharp.Lib.GLib
         ///   #GMainContext.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_source_attach(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckAttachArgs(GISharp.Lib.GLib.MainContext? context);
@@ -593,10 +593,10 @@ namespace GISharp.Lib.GLib
         /// a #GSource
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_destroy(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckDestroyArgs();
@@ -621,10 +621,10 @@ namespace GISharp.Lib.GLib
         /// whether recursion is allowed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_source_get_can_recurse(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetCanRecurseArgs();
@@ -661,10 +661,10 @@ namespace GISharp.Lib.GLib
         ///               yet been added to a source.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_source_get_context(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetContextArgs();
@@ -692,13 +692,13 @@ namespace GISharp.Lib.GLib
         [System.ObsoleteAttribute("use g_source_get_time() instead")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_get_current_time(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
+        /* <type name="TimeVal" type="GTimeVal*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* timeval);
         partial void CheckGetCurrentTimeArgs(ref GISharp.Lib.GLib.TimeVal timeval);
@@ -738,10 +738,10 @@ namespace GISharp.Lib.GLib
         /// the ID (greater than 0) for the source
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_source_get_id(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetIdArgs();
@@ -768,10 +768,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_source_get_name(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetNameArgs();
@@ -797,10 +797,10 @@ namespace GISharp.Lib.GLib
         /// the priority of the source
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_source_get_priority(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetPriorityArgs();
@@ -832,10 +832,10 @@ namespace GISharp.Lib.GLib
         /// the monotonic ready time, -1 for "never"
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="gint64" /> */
         /* transfer-ownership:none direction:in */
         private static extern long g_source_get_ready_time(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetReadyTimeArgs();
@@ -870,10 +870,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="gint64" /> */
         /* transfer-ownership:none direction:in */
         private static extern long g_source_get_time(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetTimeArgs();
@@ -972,10 +972,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_source_is_destroyed(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetIsDestroyedArgs();
@@ -1021,16 +1021,16 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_modify_unix_fd(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr tag,
-        /* <type name="IOCondition" type="GIOCondition" managed-name="IOCondition" /> */
+        /* <type name="IOCondition" type="GIOCondition" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.IOCondition newEvents);
         partial void CheckModifyUnixFdArgs(System.IntPtr tag, GISharp.Lib.GLib.IOCondition newEvents);
@@ -1075,13 +1075,13 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="IOCondition" type="GIOCondition" managed-name="IOCondition" /> */
+        /* <type name="IOCondition" type="GIOCondition" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.IOCondition g_source_query_unix_fd(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr tag);
         partial void CheckQueryUnixFdArgs(System.IntPtr tag);
@@ -1109,10 +1109,10 @@ namespace GISharp.Lib.GLib
         /// @source
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_source_ref(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
 
@@ -1140,13 +1140,13 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_remove_child_source(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* childSource);
         partial void CheckRemoveChildSourceArgs(GISharp.Lib.GLib.Source childSource);
@@ -1179,13 +1179,13 @@ namespace GISharp.Lib.GLib
         /// a #GPollFD structure previously passed to g_source_add_poll().
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_remove_poll(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" is-pointer="1" /> */
+        /* <type name="PollFD" type="GPollFD*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PollFD* fd);
         partial void CheckRemovePollArgs(ref GISharp.Lib.GLib.PollFD fd);
@@ -1227,13 +1227,13 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_remove_unix_fd(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr tag);
         partial void CheckRemoveUnixFdArgs(System.IntPtr tag);
@@ -1287,19 +1287,19 @@ namespace GISharp.Lib.GLib
         /// a function to call when @data is no longer in use, or %NULL.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_set_callback(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
+        /* <type name="SourceFunc" type="GSourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:1 destroy:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> notify);
         partial void CheckSetCallbackArgs(GISharp.Lib.GLib.SourceFunc func);
@@ -1343,16 +1343,16 @@ namespace GISharp.Lib.GLib
         ///                  and getting the callback and data
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_set_callback_indirect(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr callbackData,
-        /* <type name="SourceCallbackFuncs" type="GSourceCallbackFuncs*" managed-name="SourceCallbackFuncs" is-pointer="1" /> */
+        /* <type name="SourceCallbackFuncs" type="GSourceCallbackFuncs*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SourceCallbackFuncs* callbackFuncs);
         partial void CheckSetCallbackIndirectArgs(System.IntPtr callbackData, ref GISharp.Lib.GLib.SourceCallbackFuncs callbackFuncs);
@@ -1383,13 +1383,13 @@ namespace GISharp.Lib.GLib
         /// whether recursion is allowed for this source
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_set_can_recurse(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean canRecurse);
         partial void CheckSetCanRecurseArgs(bool canRecurse);
@@ -1415,13 +1415,13 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_set_funcs(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="SourceFuncs" type="GSourceFuncs*" managed-name="SourceFuncs" is-pointer="1" /> */
+        /* <type name="SourceFuncs" type="GSourceFuncs*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SourceFuncs* funcs);
         partial void CheckSetFuncsArgs(ref GISharp.Lib.GLib.SourceFuncs funcs);
@@ -1470,13 +1470,13 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_set_name(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         partial void CheckSetNameArgs(GISharp.Lib.GLib.UnownedUtf8 name);
@@ -1511,13 +1511,13 @@ namespace GISharp.Lib.GLib
         /// the new priority.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_set_priority(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int priority);
         partial void CheckSetPriorityArgs(int priority);
@@ -1571,13 +1571,13 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_set_ready_time(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
-        /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="gint64" /> */
         /* transfer-ownership:none direction:in */
         long readyTime);
         partial void CheckSetReadyTimeArgs(long readyTime);
@@ -1601,10 +1601,10 @@ namespace GISharp.Lib.GLib
         /// a #GSource
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_source_unref(
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
 

@@ -74,10 +74,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_new(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* typeString);
         static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 typeString);
@@ -116,10 +116,10 @@ namespace GISharp.Lib.GLib
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_new_array(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* element);
         static partial void CheckNewArrayArgs(GISharp.Lib.GLib.VariantType element);
@@ -159,13 +159,13 @@ namespace GISharp.Lib.GLib
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_new_dict_entry(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* key,
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* value);
         static partial void CheckNewDictEntryArgs(GISharp.Lib.GLib.VariantType key, GISharp.Lib.GLib.VariantType value);
@@ -203,10 +203,10 @@ namespace GISharp.Lib.GLib
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_new_maybe(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* element);
         static partial void CheckNewMaybeArgs(GISharp.Lib.GLib.VariantType element);
@@ -249,15 +249,15 @@ namespace GISharp.Lib.GLib
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_new_tuple(
-        /* <array length="1" zero-terminated="0" type="const GVariantType* const*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="VariantType" type="GVariantType*" managed-name="VariantType" is-pointer="1" />
+        /* <array length="1" zero-terminated="0" type="const GVariantType* const*" is-pointer="1">
+*   <type name="VariantType" type="GVariantType*" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct** items,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int length);
         static partial void CheckNewTupleArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.VariantType> items);
@@ -281,10 +281,10 @@ namespace GISharp.Lib.GLib
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_checked_(
-/* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+/* <type name="utf8" type="const gchar*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 byte* arg0);
         static partial void CheckCheckedArgs(GISharp.Lib.GLib.UnownedUtf8 arg0);
@@ -301,10 +301,10 @@ byte* arg0);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         private static extern nuint g_variant_type_string_get_depth_(
-/* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+/* <type name="utf8" type="const gchar*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 byte* typeString);
         static partial void CheckStringGetDepthArgs(GISharp.Lib.GLib.UnownedUtf8 typeString);
@@ -334,10 +334,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_string_is_valid(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* typeString);
         static partial void CheckStringIsValidArgs(GISharp.Lib.GLib.UnownedUtf8 typeString);
@@ -387,16 +387,16 @@ byte* typeString);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_string_scan(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @string,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* limit,
-        /* <type name="utf8" type="const gchar**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar**" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         byte** endptr);
         static partial void CheckTryStringScanArgs(GISharp.Lib.GLib.UnownedUtf8 @string, GISharp.Lib.GLib.NullableUnownedUtf8 limit);
@@ -417,7 +417,7 @@ byte* typeString);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_variant_type_get_gtype();
 
@@ -434,10 +434,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_copy(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
 
@@ -455,10 +455,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern byte* g_variant_type_dup_string(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckDupStringArgs();
@@ -491,10 +491,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_element(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckElementArgs();
@@ -538,13 +538,13 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_equal(
-        /* <type name="VariantType" type="gconstpointer" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type1,
-        /* <type name="VariantType" type="gconstpointer" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type2);
         partial void CheckEqualsArgs(GISharp.Lib.GLib.VariantType type2);
@@ -620,10 +620,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_first(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckFirstArgs();
@@ -656,10 +656,10 @@ byte* typeString);
         /// a #GVariantType, or %NULL
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_variant_type_free(
-        /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
 
@@ -688,10 +688,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         private static extern nuint g_variant_type_get_string_length(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetStringLengthArgs();
@@ -728,7 +728,7 @@ byte* typeString);
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_variant_type_hash(
-        /* <type name="VariantType" type="gconstpointer" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetHashCodeArgs();
@@ -764,10 +764,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_is_array(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsArrayArgs();
@@ -807,10 +807,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_is_basic(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsBasicArgs();
@@ -848,10 +848,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_is_container(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsContainerArgs();
@@ -891,10 +891,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_is_definite(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsDefiniteArgs();
@@ -929,10 +929,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_is_dict_entry(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsDictEntryArgs();
@@ -967,10 +967,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_is_maybe(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsMaybeArgs();
@@ -1007,13 +1007,13 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_is_subtype_of(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type,
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* supertype);
         partial void CheckIsSubtypeOfArgs(GISharp.Lib.GLib.VariantType supertype);
@@ -1051,10 +1051,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_is_tuple(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsTupleArgs();
@@ -1081,10 +1081,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_variant_type_is_variant(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetIsVariantArgs();
@@ -1118,10 +1118,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_key(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckKeyArgs();
@@ -1161,10 +1161,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         private static extern nuint g_variant_type_n_items(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckNItemsArgs();
@@ -1207,10 +1207,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_next(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckNextArgs();
@@ -1243,10 +1243,10 @@ byte* typeString);
         /// Since 2.24
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_value(
-        /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckValueArgs();

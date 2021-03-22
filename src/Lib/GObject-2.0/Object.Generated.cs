@@ -56,17 +56,17 @@ namespace GISharp.Lib.GObject
         [System.ObsoleteAttribute("Use g_object_new_with_properties() instead.\ndeprecated. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_object_newv(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType objectType,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint nParameters,
-        /* <array length="1" zero-terminated="0" type="GParameter*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="Parameter" type="GParameter" managed-name="Parameter" />
+        /* <array length="1" zero-terminated="0" type="GParameter*" is-pointer="1">
+*   <type name="Parameter" type="GParameter" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Parameter* parameters);
@@ -120,13 +120,13 @@ namespace GISharp.Lib.GObject
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         private static extern nuint g_object_compat_control(
-/* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+/* <type name="gsize" type="gsize" /> */
 /* transfer-ownership:none direction:in */
 nuint what,
-/* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+/* <type name="gpointer" type="gpointer" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr data);
         static partial void CheckCompatControlArgs(int what, System.IntPtr data);
@@ -144,7 +144,7 @@ System.IntPtr data);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_object_get_type();
 
@@ -197,16 +197,16 @@ System.IntPtr data);
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.8")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_add_toggle_ref(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="ToggleNotify" type="GToggleNotify" managed-name="ToggleNotify" /> */
+        /* <type name="ToggleNotify" type="GToggleNotify" /> */
         /* transfer-ownership:none closure:1 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Runtime.Boolean, void> notify,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -263,22 +263,22 @@ System.IntPtr data);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Binding.UnmanagedStruct* g_object_bind_property(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* source,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* sourceProperty,
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* target,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* targetProperty,
-        /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
+        /* <type name="BindingFlags" type="GBindingFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.BindingFlags flags);
         partial void CheckBindPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Lib.GLib.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags);
@@ -372,34 +372,34 @@ System.IntPtr data);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Binding.UnmanagedStruct* g_object_bind_property_full(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* source,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* sourceProperty,
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* target,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* targetProperty,
-        /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
+        /* <type name="BindingFlags" type="GBindingFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.BindingFlags flags,
-        /* <type name="BindingTransformFunc" type="GBindingTransformFunc" managed-name="BindingTransformFunc" /> */
+        /* <type name="BindingTransformFunc" type="GBindingTransformFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Binding.UnmanagedStruct*, GISharp.Lib.GObject.Value*, GISharp.Lib.GObject.Value*, System.IntPtr, GISharp.Runtime.Boolean> transformTo,
-        /* <type name="BindingTransformFunc" type="GBindingTransformFunc" managed-name="BindingTransformFunc" /> */
+        /* <type name="BindingTransformFunc" type="GBindingTransformFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:6 destroy:7 direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Binding.UnmanagedStruct*, GISharp.Lib.GObject.Value*, GISharp.Lib.GObject.Value*, System.IntPtr, GISharp.Runtime.Boolean> transformFrom,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> notify);
 
@@ -445,28 +445,28 @@ System.IntPtr data);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Binding.UnmanagedStruct* g_object_bind_property_with_closures(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* source,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* sourceProperty,
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* target,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* targetProperty,
-        /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
+        /* <type name="BindingFlags" type="GBindingFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.BindingFlags flags,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* transformTo,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* transformFrom);
         partial void CheckBindPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Lib.GLib.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags, GISharp.Lib.GObject.Closure transformTo, GISharp.Lib.GObject.Closure transformFrom);
@@ -530,19 +530,19 @@ System.IntPtr data);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_object_dup_data(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* key,
-        /* <type name="GLib.DuplicateFunc" type="GDuplicateFunc" managed-name="GISharp.Lib.GLib.DuplicateFunc" /> */
+        /* <type name="GLib.DuplicateFunc" type="GDuplicateFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr> dupFunc,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -587,19 +587,19 @@ System.IntPtr data);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_object_dup_qdata(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark quark,
-        /* <type name="GLib.DuplicateFunc" type="GDuplicateFunc" managed-name="GISharp.Lib.GLib.DuplicateFunc" /> */
+        /* <type name="GLib.DuplicateFunc" type="GDuplicateFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr> dupFunc,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -614,10 +614,10 @@ System.IntPtr data);
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.10")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_force_floating(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
@@ -639,10 +639,10 @@ System.IntPtr data);
         /// a #GObject
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_freeze_notify(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         partial void CheckFreezeNotifyArgs();
@@ -670,13 +670,13 @@ System.IntPtr data);
         ///          or %NULL if no such data exists.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_object_get_data(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* key);
 
@@ -714,16 +714,16 @@ System.IntPtr data);
         /// return location for the property value
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_get_property(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* propertyName,
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 propertyName, ref GISharp.Lib.GObject.Value value);
@@ -755,13 +755,13 @@ System.IntPtr data);
         /// The user data pointer set, or %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_object_get_qdata(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark quark);
 
@@ -785,22 +785,22 @@ System.IntPtr data);
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.54")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_getv(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint nProperties,
-        /* <array length="0" zero-terminated="0" type="const gchar**" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
+        /* <array length="0" zero-terminated="0" type="const gchar**" is-pointer="1">
+*   <type name="utf8" type="gchar*" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
         byte** names,
-        /* <array length="0" zero-terminated="0" type="GValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="Value" type="GValue" managed-name="Value" />
+        /* <array length="0" zero-terminated="0" type="GValue*" is-pointer="1">
+*   <type name="Value" type="GValue" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* values);
@@ -837,10 +837,10 @@ System.IntPtr data);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.10")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_object_is_floating(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         partial void CheckGetIsFloatingArgs();
@@ -879,13 +879,13 @@ System.IntPtr data);
         /// the name of a property installed on the class of @object.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_notify(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* propertyName);
         partial void CheckNotifyArgs(GISharp.Lib.GLib.UnownedUtf8 propertyName);
@@ -957,13 +957,13 @@ System.IntPtr data);
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_notify_by_pspec(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         partial void CheckNotifyArgs(GISharp.Lib.GObject.ParamSpec pspec);
@@ -997,10 +997,10 @@ System.IntPtr data);
         /// the same @object
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_object_ref(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
@@ -1035,10 +1035,10 @@ System.IntPtr data);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.10")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_object_ref_sink(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
@@ -1059,16 +1059,16 @@ System.IntPtr data);
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.8")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_remove_toggle_ref(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="ToggleNotify" type="GToggleNotify" managed-name="ToggleNotify" /> */
+        /* <type name="ToggleNotify" type="GToggleNotify" /> */
         /* transfer-ownership:none closure:1 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Runtime.Boolean, void> notify,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -1119,25 +1119,25 @@ System.IntPtr data);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_object_replace_data(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* key,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr oldval,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr newval,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> destroy,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify*" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none optional:1 allow-none:1 scope:async */
         delegate* unmanaged[Cdecl]<System.IntPtr, void>* oldDestroy);
 
@@ -1184,25 +1184,25 @@ System.IntPtr data);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_object_replace_qdata(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark quark,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr oldval,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr newval,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> destroy,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify*" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none optional:1 allow-none:1 scope:async */
         delegate* unmanaged[Cdecl]<System.IntPtr, void>* oldDestroy);
 
@@ -1219,10 +1219,10 @@ System.IntPtr data);
         /// a #GObject
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_run_dispose(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         partial void CheckRunDisposeArgs();
@@ -1262,16 +1262,16 @@ System.IntPtr data);
         /// data to associate with that key
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_set_data(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* key,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -1298,19 +1298,19 @@ System.IntPtr data);
         /// function to call when the association is destroyed
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_set_data_full(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* key,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> destroy);
 
@@ -1327,16 +1327,16 @@ System.IntPtr data);
         /// the value
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_set_property(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* propertyName,
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckSetPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 propertyName, in GISharp.Lib.GObject.Value value);
@@ -1374,16 +1374,16 @@ System.IntPtr data);
         /// An opaque user data pointer
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_set_qdata(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark quark,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -1408,19 +1408,19 @@ System.IntPtr data);
         ///           needs to be freed
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_set_qdata_full(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark quark,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> destroy);
 
@@ -1439,13 +1439,13 @@ System.IntPtr data);
         ///          if no such data exists.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern System.IntPtr g_object_steal_data(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* key);
 
@@ -1500,13 +1500,13 @@ System.IntPtr data);
         /// The user data pointer set, or %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern System.IntPtr g_object_steal_qdata(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark quark);
 
@@ -1529,10 +1529,10 @@ System.IntPtr data);
         /// a #GObject
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_thaw_notify(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         partial void CheckThawNotifyArgs();
@@ -1562,10 +1562,10 @@ System.IntPtr data);
         /// a #GObject
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_unref(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
@@ -1587,13 +1587,13 @@ System.IntPtr data);
         /// #GClosure to watch
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_watch_closure(
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure);
         partial void CheckWatchClosureArgs(GISharp.Lib.GObject.Closure closure);

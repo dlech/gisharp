@@ -8,19 +8,19 @@ namespace GISharp.Lib.GLib
     /// </summary>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="none" type="void" managed-name="System.Void" /> */
+    /* <type name="none" type="void" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedOptionErrorFunc(
-    /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+    /* <type name="OptionContext" type="GOptionContext*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context,
-    /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+    /* <type name="OptionGroup" type="GOptionGroup*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group,
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr data,
-    /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+    /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
     /* direction:inout transfer-ownership:full */
     GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 

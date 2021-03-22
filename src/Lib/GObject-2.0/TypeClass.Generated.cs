@@ -18,13 +18,13 @@ namespace GISharp.Lib.GObject
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_type_class_adjust_private_offset(
-       /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+       /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
        System.IntPtr gClass,
-       /* <type name="gint" type="gint*" managed-name="System.Int32" is-pointer="1" /> */
+       /* <type name="gint" type="gint*" is-pointer="1" /> */
        /* transfer-ownership:none direction:in */
        int* privateSizeOrOffset);
         static partial void CheckAdjustPrivateOffsetArgs(System.IntPtr gClass, ref int privateSizeOrOffset);
@@ -57,10 +57,10 @@ namespace GISharp.Lib.GObject
         ///     currently exist
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
+        /* <type name="TypeClass" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern GISharp.Lib.GObject.TypeClass.UnmanagedStruct* g_type_class_peek(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType type);
 
@@ -78,10 +78,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
+        /* <type name="TypeClass" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern GISharp.Lib.GObject.TypeClass.UnmanagedStruct* g_type_class_peek_static(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType type);
 
@@ -98,10 +98,10 @@ namespace GISharp.Lib.GObject
         ///     structure for the given type ID
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
+        /* <type name="TypeClass" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         internal static extern GISharp.Lib.GObject.TypeClass.UnmanagedStruct* g_type_class_ref(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType type);
         static partial void CheckRefArgs(GISharp.Runtime.GType type);
@@ -209,13 +209,13 @@ namespace GISharp.Lib.GObject
         [GISharp.Runtime.DeprecatedSinceAttribute("2.58")]
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_type_class_add_private(
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
+        /* <type name="TypeClass" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeClass.UnmanagedStruct* gClass,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint privateSize);
         partial void CheckAddPrivateArgs(int privateSize);
@@ -234,13 +234,13 @@ namespace GISharp.Lib.GObject
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_type_class_get_private(
-/* <type name="TypeClass" type="GTypeClass*" managed-name="TypeClass" is-pointer="1" /> */
+/* <type name="TypeClass" type="GTypeClass*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.TypeClass.UnmanagedStruct* klass,
-/* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+/* <type name="GType" type="GType" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Runtime.GType privateType);
         partial void CheckGetPrivateArgs(GISharp.Runtime.GType privateType);
@@ -279,10 +279,10 @@ GISharp.Runtime.GType privateType);
         ///     of @g_class
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
+        /* <type name="TypeClass" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern GISharp.Lib.GObject.TypeClass.UnmanagedStruct* g_type_class_peek_parent(
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
+        /* <type name="TypeClass" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeClass.UnmanagedStruct* gClass);
 
@@ -296,10 +296,10 @@ GISharp.Runtime.GType privateType);
         /// a #GTypeClass structure to unref
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         internal static extern void g_type_class_unref(
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
+        /* <type name="TypeClass" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeClass.UnmanagedStruct* gClass);
 

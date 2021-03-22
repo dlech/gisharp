@@ -12,7 +12,7 @@ namespace GISharp.Lib.GObject
     /// </summary>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="none" type="void" managed-name="System.Void" /> */
+    /* <type name="none" type="void" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedCallback();
 

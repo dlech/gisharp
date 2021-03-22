@@ -14,13 +14,13 @@ namespace GISharp.Lib.GObject
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="none" type="void" managed-name="System.Void" /> */
+    /* <type name="none" type="void" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedValueTransform(
-    /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+    /* <type name="Value" type="const GValue*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.Value* srcValue,
-    /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+    /* <type name="Value" type="GValue*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.Value* destValue);
 

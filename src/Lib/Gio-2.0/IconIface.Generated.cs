@@ -50,10 +50,10 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate uint UnmanagedHash(
-/* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+/* <type name="Icon" type="GIcon*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
 
@@ -81,13 +81,13 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedEqual(
-/* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+/* <type name="Icon" type="GIcon*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Icon.UnmanagedStruct* icon1,
-/* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+/* <type name="Icon" type="GIcon*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2);
 
@@ -115,10 +115,10 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         public unsafe delegate GISharp.Lib.GLib.Variant.UnmanagedStruct* UnmanagedSerialize(
-/* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+/* <type name="Icon" type="GIcon*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
 

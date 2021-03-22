@@ -44,17 +44,17 @@ namespace GISharp.Lib.GObject
         ///  members being 0.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_enum_complete_type_info(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType gEnumType,
-        /* <type name="TypeInfo" type="GTypeInfo*" managed-name="TypeInfo" /> */
+        /* <type name="TypeInfo" type="GTypeInfo*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         GISharp.Lib.GObject.TypeInfo* info,
-        /* <array zero-terminated="1" type="const GEnumValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="EnumValue" type="const GEnumValue" managed-name="EnumValue" />
+        /* <array zero-terminated="1" type="const GEnumValue*" is-pointer="1">
+*   <type name="EnumValue" type="const GEnumValue" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.EnumValue* constValues);
@@ -89,13 +89,13 @@ namespace GISharp.Lib.GObject
         ///          if @value is not a member of the enumeration
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="EnumValue" type="GEnumValue*" managed-name="EnumValue" is-pointer="1" /> */
+        /* <type name="EnumValue" type="GEnumValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.EnumValue* g_enum_get_value(
-        /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" is-pointer="1" /> */
+        /* <type name="EnumClass" type="GEnumClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.EnumClass.UnmanagedStruct* enumClass,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int value);
         static partial void CheckGetValueArgs(GISharp.Lib.GObject.EnumClass enumClass, int value);
@@ -127,13 +127,13 @@ namespace GISharp.Lib.GObject
         ///          with that name
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="EnumValue" type="GEnumValue*" managed-name="EnumValue" is-pointer="1" /> */
+        /* <type name="EnumValue" type="GEnumValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.EnumValue* g_enum_get_value_by_name(
-        /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" is-pointer="1" /> */
+        /* <type name="EnumClass" type="GEnumClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.EnumClass.UnmanagedStruct* enumClass,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         static partial void CheckGetValueByNameArgs(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Lib.GLib.UnownedUtf8 name);
@@ -165,13 +165,13 @@ namespace GISharp.Lib.GObject
         ///          with that nickname
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="EnumValue" type="GEnumValue*" managed-name="EnumValue" is-pointer="1" /> */
+        /* <type name="EnumValue" type="GEnumValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.EnumValue* g_enum_get_value_by_nick(
-        /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" is-pointer="1" /> */
+        /* <type name="EnumClass" type="GEnumClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.EnumClass.UnmanagedStruct* enumClass,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* nick);
         static partial void CheckGetValueByNickArgs(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Lib.GLib.UnownedUtf8 nick);
@@ -211,14 +211,14 @@ namespace GISharp.Lib.GObject
         /// The new type identifier.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.GType g_enum_register_static(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name,
-        /* <array zero-terminated="1" type="const GEnumValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="EnumValue" type="const GEnumValue" managed-name="EnumValue" />
+        /* <array zero-terminated="1" type="const GEnumValue*" is-pointer="1">
+*   <type name="EnumValue" type="const GEnumValue" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.EnumValue* constStaticValues);
@@ -259,13 +259,13 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.54")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern byte* g_enum_to_string(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType gEnumType,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int value);
         static partial void CheckToStringArgs(GISharp.Runtime.GType gEnumType, int value);

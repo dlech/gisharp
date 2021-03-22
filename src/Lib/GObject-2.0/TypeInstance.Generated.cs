@@ -26,13 +26,13 @@ namespace GISharp.Lib.GObject
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_type_instance_get_private(
-/* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" is-pointer="1" /> */
+/* <type name="TypeInstance" type="GTypeInstance*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance,
-/* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+/* <type name="GType" type="GType" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Runtime.GType privateType);
         partial void CheckGetPrivateArgs(GISharp.Runtime.GType privateType);

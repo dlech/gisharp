@@ -23,7 +23,7 @@ namespace GISharp.Lib.Gtk
         /// </para>
         /// </remarks>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void gtk_disable_setlocale();
         static partial void CheckDisableSetlocaleArgs();
@@ -63,7 +63,7 @@ namespace GISharp.Lib.Gtk
         /// </para>
         /// </remarks>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void gtk_init();
         static partial void CheckInitArgs();
@@ -93,7 +93,7 @@ namespace GISharp.Lib.Gtk
         ///     initialized, %FALSE otherwise
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean gtk_init_check();
         static partial void CheckTryInitArgs();
@@ -116,7 +116,7 @@ namespace GISharp.Lib.Gtk
         /// the initialization status
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean gtk_is_initialized();
         static partial void CheckGetIsInitializedArgs();

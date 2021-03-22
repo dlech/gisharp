@@ -35,7 +35,7 @@ namespace GISharp.Lib.Gtk
         /// The error quark used for #GtkFileChooser errors.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Quark gtk_file_chooser_error_quark();
         static partial void CheckGetQuarkArgs();
@@ -50,7 +50,7 @@ namespace GISharp.Lib.Gtk
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType gtk_file_chooser_error_get_type();
     }

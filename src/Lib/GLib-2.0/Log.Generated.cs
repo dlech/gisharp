@@ -7,13 +7,13 @@ namespace GISharp.Lib.GLib
     public static unsafe partial class Log
     {
         /// <include file="Log.xmldoc" path="declaration/member[@name='Log.domain']/*" />
-        private const System.SByte domain = 0;
+        private const sbyte domain = 0;
 
         /// <include file="Log.xmldoc" path="declaration/member[@name='Log.fatalMask']/*" />
-        private const System.Int32 fatalMask = 5;
+        private const int fatalMask = 5;
 
         /// <include file="Log.xmldoc" path="declaration/member[@name='Log.levelUserShift']/*" />
-        private const System.Int32 levelUserShift = 8;
+        private const int levelUserShift = 8;
 
         /// <summary>
         /// The default log handler set up by GLib; g_log_set_default_handler()
@@ -63,19 +63,19 @@ namespace GISharp.Lib.GLib
         /// data passed from g_log() which is unused
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_log_default_handler(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* logDomain,
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags logLevel,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* message,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr unusedData);
 
@@ -96,13 +96,13 @@ namespace GISharp.Lib.GLib
         ///     in g_log_set_handler()
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_log_remove_handler(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* logDomain,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint handlerId);
         static partial void CheckRemoveHandlerArgs(GISharp.Lib.GLib.UnownedUtf8 logDomain, uint handlerId);
@@ -148,10 +148,10 @@ namespace GISharp.Lib.GLib
         /// the old fatal mask
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.LogLevelFlags g_log_set_always_fatal(
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags fatalMask);
         static partial void CheckSetAlwaysFatalArgs(GISharp.Lib.GLib.LogLevelFlags fatalMask);
@@ -190,13 +190,13 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
+        /* <type name="LogFunc" type="GLogFunc" /> */
         /* transfer-ownership:full direction:in */
         private static extern delegate* unmanaged[Cdecl]<byte*, GISharp.Lib.GLib.LogLevelFlags, byte*, System.IntPtr, void> g_log_set_default_handler(
-        /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
+        /* <type name="LogFunc" type="GLogFunc" /> */
         /* transfer-ownership:none closure:1 direction:in */
         delegate* unmanaged[Cdecl]<byte*, GISharp.Lib.GLib.LogLevelFlags, byte*, System.IntPtr, void> logFunc,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -229,13 +229,13 @@ namespace GISharp.Lib.GLib
         /// the old fatal mask for the log domain
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.LogLevelFlags g_log_set_fatal_mask(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* logDomain,
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags fatalMask);
         static partial void CheckSetFatalMaskArgs(GISharp.Lib.GLib.UnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags fatalMask);
@@ -285,22 +285,22 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.46")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_log_set_handler_full(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* logDomain,
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags logLevels,
-        /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
+        /* <type name="LogFunc" type="GLogFunc" /> */
         /* transfer-ownership:none scope:notified closure:3 destroy:4 direction:in */
         delegate* unmanaged[Cdecl]<byte*, GISharp.Lib.GLib.LogLevelFlags, byte*, System.IntPtr, void> logFunc,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> destroy);
         static partial void CheckSetHandlerArgs(GISharp.Lib.GLib.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevels, GISharp.Lib.GLib.LogFunc logFunc);
@@ -350,18 +350,18 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_log_structured_array(
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags logLevel,
-        /* <array length="2" zero-terminated="0" type="const GLogField*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="LogField" type="GLogField" managed-name="LogField" />
+        /* <array length="2" zero-terminated="0" type="const GLogField*" is-pointer="1">
+*   <type name="LogField" type="GLogField" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogField* fields,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint nFields);
         static partial void CheckStructuredArgs(GISharp.Lib.GLib.LogLevelFlags logLevel, System.ReadOnlySpan<GISharp.Lib.GLib.LogField> fields);
@@ -415,16 +415,16 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_log_variant(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* logDomain,
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags logLevel,
-        /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
+        /* <type name="Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* fields);
         static partial void CheckVariantArgs(GISharp.Lib.GLib.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Lib.GLib.Variant fields);

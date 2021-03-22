@@ -615,7 +615,7 @@ namespace GISharp.CodeGen
                     continue;
                 }
 
-                // C arrays don't have a name attribute
+                // Identify Strv arrays (TODO: move this out of managed-name loop)
 
                 if (element.Name == gi + "array" && element.Attribute("name") is null) {
                     // special case for null-terminated arrays of strings
@@ -623,15 +623,13 @@ namespace GISharp.CodeGen
                         var elementType = element.Element(gi + "type").Attribute("name").AsString();
                         if (elementType == "utf8") {
                             element.SetAttributeValue("name", "GLib.Strv");
-                            element.SetAttributeValue(gs + "managed-name", "GISharp.Lib.GLib.Strv");
-                            continue;
-                        }
-                        if (elementType == "filename") {
-                            element.SetAttributeValue(gs + "managed-name", typeof(FilenameArray));
                             continue;
                         }
                     }
-                    element.SetAttributeValue(gs + "managed-name", typeof(CArray));
+                }
+
+                if (element.Name == gi + "type" || element.Name == gi + "array") {
+                    // type elements don't get gs:managed-name attribute
                     continue;
                 }
 
@@ -644,12 +642,6 @@ namespace GISharp.CodeGen
                 // interfaces get an "I" prefix
                 if (element.Name == gi + "interface") {
                     name = "I" + name;
-                }
-
-                // fix up type names
-
-                if (element.Name == gi + "type" || element.Name == gi + "array") {
-                    name = GetManagedTypeName(name);
                 }
 
                 // replace name by shadows if it exists (i.e. drop _full suffix)
@@ -1058,10 +1050,10 @@ namespace GISharp.CodeGen
                 }
                 var returnValue = matchingGetter.Element(gi + "return-value");
                 var getterReturnType = returnValue.Element(gi + "type") ?? returnValue.Element(gi + "array");
-                var getterReturnTypeName = getterReturnType.Attribute(gs + "managed-name").Value;
+                var getterReturnTypeName = getterReturnType.Attribute("name").Value;
                 var setterParameter = element.Element(gs + "managed-parameters").Element(gi + "parameter");
                 var setterParameterType = setterParameter.Element(gi + "type") ?? setterParameter.Element(gi + "array");
-                var setterParameterTypeName = setterParameterType.Attribute(gs + "managed-name").Value;
+                var setterParameterTypeName = setterParameterType.Attribute("name").Value;
                 if (getterReturnTypeName != setterParameterTypeName) {
                     // this isn't the setter if the types don't match
                     continue;
@@ -1323,82 +1315,6 @@ namespace GISharp.CodeGen
             }
 
             return builder.ToString();
-        }
-
-        static string GetManagedTypeName(string name)
-        {
-            switch (name) {
-            // basic/fundamental types
-            case "none":
-                return typeof(void).ToString();
-            case "gboolean":
-                return typeof(bool).ToString();
-            case "gchar":
-            case "gint8":
-                return typeof(sbyte).ToString();
-            case "guchar":
-            case "guint8":
-                return typeof(byte).ToString();
-            case "gshort":
-            case "gint16":
-                return typeof(short).ToString();
-            case "gushort":
-            case "guint16":
-                return typeof(ushort).ToString();
-            case "gunichar2":
-                return typeof(char).ToString();
-            case "gint":
-            case "gint32":
-            // size/offset are cast to int to match .NET convention
-            case "gsize":
-            case "gssize":
-                return typeof(int).ToString();
-            case "guint":
-            case "guint32":
-                return typeof(uint).ToString();
-            case "gint64":
-                return typeof(long).ToString();
-            case "guint64":
-                return typeof(ulong).ToString();
-            case "glong":
-                return typeof(CLong).ToString();
-            case "gulong":
-                return typeof(CULong).ToString();
-            case "gfloat":
-                return typeof(float).ToString();
-            case "gdouble":
-                return typeof(double).ToString();
-            case "gpointer":
-            case "gconstpointer":
-                return typeof(IntPtr).ToString();
-            case "gintptr":
-                return "nint";
-            case "guintptr":
-                return "nuint";
-            case "gunichar":
-                return typeof(Rune).ToString();
-            case "GType":
-                return "GISharp.Runtime.GType";
-            case "filename":
-                return "GISharp.Lib.GLib.Filename";
-            case "utf8":
-                return "GISharp.Lib.GLib.Utf8";
-            case "GObject.Callback":
-                return typeof(Delegate).ToString();
-            case "va_list":
-                // va_list should be filtered out, but just in case...
-                throw new NotSupportedException("va_list is not supported");
-            }
-
-            if (name.EndsWith("Private")) {
-                return typeof(IntPtr).ToString();
-            }
-
-            if (name.Contains('.')) {
-                return "GISharp.Lib." + name;
-            }
-
-            return name;
         }
 
         public static bool AsBool(this XAttribute attr, bool defaultValue = false)

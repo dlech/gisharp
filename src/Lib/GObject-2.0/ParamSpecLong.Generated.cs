@@ -68,28 +68,28 @@ namespace GISharp.Lib.GObject
         /// a newly created parameter specification
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* g_param_spec_long(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* nick,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* blurb,
-        /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
+        /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong minimum,
-        /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
+        /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong maximum,
-        /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
+        /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong defaultValue,
-        /* <type name="ParamFlags" type="GParamFlags" managed-name="ParamFlags" /> */
+        /* <type name="ParamFlags" type="GParamFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamFlags flags);
         static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Runtime.CLong minimum, GISharp.Runtime.CLong maximum, GISharp.Runtime.CLong defaultValue, GISharp.Lib.GObject.ParamFlags flags);

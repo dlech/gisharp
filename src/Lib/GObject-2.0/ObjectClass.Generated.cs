@@ -93,16 +93,16 @@ namespace GISharp.Lib.GObject
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         public unsafe delegate GISharp.Lib.GObject.Object.UnmanagedStruct* UnmanagedConstructor(
-/* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+/* <type name="GType" type="GType" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Runtime.GType type,
-/* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+/* <type name="guint" type="guint" /> */
 /* transfer-ownership:none direction:in */
 uint nConstructProperties,
-/* <type name="ObjectConstructParam" type="GObjectConstructParam*" managed-name="ObjectConstructParam" is-pointer="1" /> */
+/* <type name="ObjectConstructParam" type="GObjectConstructParam*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ObjectConstructParam* constructProperties);
 
@@ -130,19 +130,19 @@ GISharp.Lib.GObject.ObjectConstructParam* constructProperties);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedSetProperty(
-/* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+/* <type name="Object" type="GObject*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-/* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+/* <type name="guint" type="guint" /> */
 /* transfer-ownership:none direction:in */
 uint propertyId,
-/* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+/* <type name="Value" type="const GValue*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value* value,
-/* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+/* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
 
@@ -170,19 +170,19 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedGetProperty(
-/* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+/* <type name="Object" type="GObject*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-/* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+/* <type name="guint" type="guint" /> */
 /* transfer-ownership:none direction:in */
 uint propertyId,
-/* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+/* <type name="Value" type="GValue*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value* value,
-/* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+/* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
 
@@ -210,10 +210,10 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedDispose(
-/* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+/* <type name="Object" type="GObject*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
@@ -241,10 +241,10 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedFinalize(
-/* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+/* <type name="Object" type="GObject*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
@@ -272,16 +272,16 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedDispatchPropertiesChanged(
-/* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+/* <type name="Object" type="GObject*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-/* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+/* <type name="guint" type="guint" /> */
 /* transfer-ownership:none direction:in */
 uint nPspecs,
-/* <type name="ParamSpec" type="GParamSpec**" managed-name="ParamSpec" is-pointer="1" /> */
+/* <type name="ParamSpec" type="GParamSpec**" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspecs);
 
@@ -309,13 +309,13 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspecs);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedNotify(
-/* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+/* <type name="Object" type="GObject*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-/* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+/* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
 
@@ -343,10 +343,10 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedConstructed(
-/* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+/* <type name="Object" type="GObject*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
@@ -388,13 +388,13 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         ///          %NULL if the class doesn't have a property of that name
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* g_object_class_find_property(
-        /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" is-pointer="1" /> */
+        /* <type name="ObjectClass" type="GObjectClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ObjectClass.UnmanagedStruct* oclass,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* propertyName);
         partial void CheckFindPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 propertyName);
@@ -500,17 +500,17 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_class_install_properties(
-        /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" is-pointer="1" /> */
+        /* <type name="ObjectClass" type="GObjectClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ObjectClass.UnmanagedStruct* oclass,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint nPspecs,
-        /* <array length="0" zero-terminated="0" type="GParamSpec**" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" />
+        /* <array length="0" zero-terminated="0" type="GParamSpec**" is-pointer="1">
+*   <type name="ParamSpec" type="GParamSpec*" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct** pspecs);
@@ -557,16 +557,16 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         /// the #GParamSpec for the new property
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_class_install_property(
-        /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" is-pointer="1" /> */
+        /* <type name="ObjectClass" type="GObjectClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ObjectClass.UnmanagedStruct* oclass,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint propertyId,
-        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         partial void CheckInstallPropertyArgs(uint propertyId, GISharp.Lib.GObject.ParamSpec pspec);
@@ -596,15 +596,15 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         ///          #GParamSpec* which should be freed after use
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="0" zero-terminated="0" type="GParamSpec**" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" />
+        /* <array length="0" zero-terminated="0" type="GParamSpec**" is-pointer="1">
+*   <type name="ParamSpec" type="GParamSpec*" is-pointer="1" />
 * </array> */
         /* transfer-ownership:container direction:in */
         private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct** g_object_class_list_properties(
-        /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" is-pointer="1" /> */
+        /* <type name="ObjectClass" type="GObjectClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ObjectClass.UnmanagedStruct* oclass,
-        /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* nProperties);
         partial void CheckListPropertiesArgs();
@@ -654,16 +654,16 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_class_override_property(
-        /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" is-pointer="1" /> */
+        /* <type name="ObjectClass" type="GObjectClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ObjectClass.UnmanagedStruct* oclass,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint propertyId,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         partial void CheckOverridePropertyArgs(uint propertyId, GISharp.Lib.GLib.UnownedUtf8 name);

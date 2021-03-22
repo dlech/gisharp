@@ -11,16 +11,16 @@ namespace GISharp.Lib.Gio
     /// </summary>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+    /* <type name="gboolean" type="gboolean" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate GISharp.Runtime.Boolean UnmanagedFileReadMoreCallback(
-    /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+    /* <type name="utf8" type="const char*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     byte* fileContents,
-    /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
+    /* <type name="gint64" type="goffset" /> */
     /* transfer-ownership:none direction:in */
     long fileSize,
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr callbackData);
 

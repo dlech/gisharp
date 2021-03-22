@@ -43,10 +43,10 @@ namespace GISharp.Lib.GIRepository
         /// the #GType.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.GType g_registered_type_info_get_g_type(
-        /* <type name="RegisteredTypeInfo" type="GIRegisteredTypeInfo*" managed-name="RegisteredTypeInfo" is-pointer="1" /> */
+        /* <type name="RegisteredTypeInfo" type="GIRegisteredTypeInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct* info);
         partial void CheckGetGTypeArgs();
@@ -75,10 +75,10 @@ namespace GISharp.Lib.GIRepository
         /// passing into g_module_symbol().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_registered_type_info_get_type_init(
-        /* <type name="RegisteredTypeInfo" type="GIRegisteredTypeInfo*" managed-name="RegisteredTypeInfo" is-pointer="1" /> */
+        /* <type name="RegisteredTypeInfo" type="GIRegisteredTypeInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct* info);
         partial void CheckGetTypeInitArgs();
@@ -104,10 +104,10 @@ namespace GISharp.Lib.GIRepository
         /// the type name
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_registered_type_info_get_type_name(
-        /* <type name="RegisteredTypeInfo" type="GIRegisteredTypeInfo*" managed-name="RegisteredTypeInfo" is-pointer="1" /> */
+        /* <type name="RegisteredTypeInfo" type="GIRegisteredTypeInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct* info);
         partial void CheckGetTypeNameArgs();

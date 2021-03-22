@@ -11,10 +11,10 @@ namespace GISharp.Lib.GObject
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.internedString']/*" />
         [GISharp.Runtime.SinceAttribute("2.66")]
-        private const System.Int32 internedString = 268435456;
+        private const int internedString = 268435456;
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.nocopyContents']/*" />
-        private const System.Int32 nocopyContents = 134217728;
+        private const int nocopyContents = 134217728;
 #pragma warning disable CS0169, CS0414, CS0649
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.gType']/*" />
         private readonly GISharp.Runtime.GType gType;
@@ -104,16 +104,16 @@ namespace GISharp.Lib.GObject
         ///  into value of type @dest_type
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_register_transform_func(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType srcType,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType destType,
-        /* <type name="ValueTransform" type="GValueTransform" managed-name="ValueTransform" /> */
+        /* <type name="ValueTransform" type="GValueTransform" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Value*, GISharp.Lib.GObject.Value*, void> transformFunc);
 
@@ -131,13 +131,13 @@ namespace GISharp.Lib.GObject
         /// %TRUE if g_value_copy() is possible with @src_type and @dest_type.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_value_type_compatible(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType srcType,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType destType);
         static partial void CheckTypeCompatibleArgs(GISharp.Runtime.GType srcType, GISharp.Runtime.GType destType);
@@ -170,13 +170,13 @@ namespace GISharp.Lib.GObject
         /// %TRUE if the transformation is possible, %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_value_type_transformable(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType srcType,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType destType);
         static partial void CheckTypeTransformableArgs(GISharp.Runtime.GType srcType, GISharp.Runtime.GType destType);
@@ -206,14 +206,14 @@ namespace GISharp.Lib.GObject
         /// Newly allocated string.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern byte* g_strdup_value_contents(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_value_get_type();
 
@@ -227,13 +227,13 @@ namespace GISharp.Lib.GObject
         /// An initialized #GValue structure of the same type as @src_value.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_copy(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* srcValue,
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* destValue);
         partial void CheckCopyArgs(ref GISharp.Lib.GObject.Value destValue);
@@ -266,10 +266,10 @@ namespace GISharp.Lib.GObject
         ///          should be unreferenced when no longer needed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_value_dup_object(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckDupObjectArgs();
@@ -298,10 +298,10 @@ namespace GISharp.Lib.GObject
         /// a newly allocated copy of the string content of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern byte* g_value_dup_string(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckDupStringArgs();
@@ -333,10 +333,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_value_dup_variant(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckDupVariantArgs();
@@ -367,10 +367,10 @@ namespace GISharp.Lib.GObject
         /// %TRUE if @value will fit inside a pointer value.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_value_fits_pointer(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckFitsPointerArgs();
@@ -399,10 +399,10 @@ namespace GISharp.Lib.GObject
         /// boolean contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_value_get_boolean(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetBooleanArgs();
@@ -430,10 +430,10 @@ namespace GISharp.Lib.GObject
         /// boxed contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_value_get_boxed(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
 
@@ -447,10 +447,10 @@ namespace GISharp.Lib.GObject
         /// double contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
+        /* <type name="gdouble" type="gdouble" /> */
         /* transfer-ownership:none direction:in */
         private static extern double g_value_get_double(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetDoubleArgs();
@@ -478,10 +478,10 @@ namespace GISharp.Lib.GObject
         /// enum contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_value_get_enum(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetEnumArgs();
@@ -509,10 +509,10 @@ namespace GISharp.Lib.GObject
         /// flags contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_value_get_flags(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetFlagsArgs();
@@ -540,10 +540,10 @@ namespace GISharp.Lib.GObject
         /// float contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gfloat" type="gfloat" managed-name="System.Single" /> */
+        /* <type name="gfloat" type="gfloat" /> */
         /* transfer-ownership:none direction:in */
         private static extern float g_value_get_float(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetFloatArgs();
@@ -572,10 +572,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.GType g_value_get_gtype(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetGTypeArgs();
@@ -604,10 +604,10 @@ namespace GISharp.Lib.GObject
         /// integer contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_value_get_int(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetIntArgs();
@@ -635,10 +635,10 @@ namespace GISharp.Lib.GObject
         /// 64bit integer contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="gint64" /> */
         /* transfer-ownership:none direction:in */
         private static extern long g_value_get_int64(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetInt64Args();
@@ -666,10 +666,10 @@ namespace GISharp.Lib.GObject
         /// long integer contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
+        /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.CLong g_value_get_long(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetLongArgs();
@@ -697,10 +697,10 @@ namespace GISharp.Lib.GObject
         /// object contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_value_get_object(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetObjectArgs();
@@ -728,10 +728,10 @@ namespace GISharp.Lib.GObject
         /// #GParamSpec content of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* g_value_get_param(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetParamArgs();
@@ -759,10 +759,10 @@ namespace GISharp.Lib.GObject
         /// pointer contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_value_get_pointer(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetPointerArgs();
@@ -791,10 +791,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint8" type="gint8" managed-name="System.SByte" /> */
+        /* <type name="gint8" type="gint8" /> */
         /* transfer-ownership:none direction:in */
         private static extern sbyte g_value_get_schar(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetCharArgs();
@@ -823,10 +823,10 @@ namespace GISharp.Lib.GObject
         /// string content of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_value_get_string(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetStringArgs();
@@ -854,10 +854,10 @@ namespace GISharp.Lib.GObject
         /// unsigned character contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint8" type="guchar" managed-name="System.Byte" /> */
+        /* <type name="guint8" type="guchar" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte g_value_get_uchar(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetUCharArgs();
@@ -885,10 +885,10 @@ namespace GISharp.Lib.GObject
         /// unsigned integer contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_value_get_uint(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetUIntArgs();
@@ -916,10 +916,10 @@ namespace GISharp.Lib.GObject
         /// unsigned 64bit integer contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
+        /* <type name="guint64" type="guint64" /> */
         /* transfer-ownership:none direction:in */
         private static extern ulong g_value_get_uint64(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetUInt64Args();
@@ -947,10 +947,10 @@ namespace GISharp.Lib.GObject
         /// unsigned long integer contents of @value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.CULong g_value_get_ulong(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetULongArgs();
@@ -979,10 +979,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_value_get_variant(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetVariantArgs();
@@ -1014,13 +1014,13 @@ namespace GISharp.Lib.GObject
         /// the #GValue structure that has been passed in
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Value* g_value_init(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType gType);
         partial void CheckInitArgs(GISharp.Runtime.GType gType);
@@ -1060,13 +1060,13 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.42")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_init_from_instance(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="TypeInstance" type="gpointer" managed-name="TypeInstance" is-pointer="1" /> */
+        /* <type name="TypeInstance" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance);
         partial void CheckInitArgs(GISharp.Lib.GObject.TypeInstance instance);
@@ -1097,10 +1097,10 @@ namespace GISharp.Lib.GObject
         /// the value contents as pointer
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_value_peek_pointer(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
 
@@ -1115,10 +1115,10 @@ namespace GISharp.Lib.GObject
         /// the #GValue structure that has been passed in
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Value* g_value_reset(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckResetArgs();
@@ -1147,13 +1147,13 @@ namespace GISharp.Lib.GObject
         /// boolean value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_boolean(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean vBoolean);
         partial void CheckSetBooleanArgs(bool vBoolean);
@@ -1180,13 +1180,13 @@ namespace GISharp.Lib.GObject
         /// boxed value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_boxed(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr vBoxed);
 
@@ -1202,13 +1202,13 @@ namespace GISharp.Lib.GObject
         [System.ObsoleteAttribute("Use g_value_take_boxed() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_boxed_take_ownership(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr vBoxed);
 
@@ -1222,13 +1222,13 @@ namespace GISharp.Lib.GObject
         /// double value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_double(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
+        /* <type name="gdouble" type="gdouble" /> */
         /* transfer-ownership:none direction:in */
         double vDouble);
         partial void CheckSetDoubleArgs(double vDouble);
@@ -1255,13 +1255,13 @@ namespace GISharp.Lib.GObject
         /// enum value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_enum(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int vEnum);
         partial void CheckSetEnumArgs(int vEnum);
@@ -1288,13 +1288,13 @@ namespace GISharp.Lib.GObject
         /// flags value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_flags(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint vFlags);
         partial void CheckSetFlagsArgs(uint vFlags);
@@ -1321,13 +1321,13 @@ namespace GISharp.Lib.GObject
         /// float value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_float(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gfloat" type="gfloat" managed-name="System.Single" /> */
+        /* <type name="gfloat" type="gfloat" /> */
         /* transfer-ownership:none direction:in */
         float vFloat);
         partial void CheckSetFloatArgs(float vFloat);
@@ -1355,13 +1355,13 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_gtype(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType vGtype);
         partial void CheckSetGTypeArgs(GISharp.Runtime.GType vGtype);
@@ -1390,13 +1390,13 @@ namespace GISharp.Lib.GObject
         /// the instance
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_instance(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="TypeInstance" type="gpointer" managed-name="TypeInstance" is-pointer="1" /> */
+        /* <type name="TypeInstance" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance);
         partial void CheckSetArgs(GISharp.Lib.GObject.TypeInstance? instance);
@@ -1424,13 +1424,13 @@ namespace GISharp.Lib.GObject
         /// integer value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_int(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int vInt);
         partial void CheckSetIntArgs(int vInt);
@@ -1457,13 +1457,13 @@ namespace GISharp.Lib.GObject
         /// 64bit integer value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_int64(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="gint64" /> */
         /* transfer-ownership:none direction:in */
         long vInt64);
         partial void CheckSetInt64Args(long vInt64);
@@ -1493,13 +1493,13 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.66")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_interned_string(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
         partial void CheckSetInternedStringArgs(GISharp.Lib.GLib.NullableUnownedUtf8 vString);
@@ -1528,13 +1528,13 @@ namespace GISharp.Lib.GObject
         /// long integer value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_long(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
+        /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong vLong);
         partial void CheckSetLongArgs(GISharp.Runtime.CLong vLong);
@@ -1575,13 +1575,13 @@ namespace GISharp.Lib.GObject
         /// object value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_object(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* vObject);
         partial void CheckSetObjectArgs(GISharp.Lib.GObject.Object? vObject);
@@ -1608,13 +1608,13 @@ namespace GISharp.Lib.GObject
         /// the #GParamSpec to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_param(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* param);
         partial void CheckSetParamArgs(GISharp.Lib.GObject.ParamSpec? param);
@@ -1641,13 +1641,13 @@ namespace GISharp.Lib.GObject
         /// pointer value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_pointer(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr vPointer);
         partial void CheckSetPointerArgs(System.IntPtr vPointer);
@@ -1675,13 +1675,13 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_schar(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gint8" type="gint8" managed-name="System.SByte" /> */
+        /* <type name="gint8" type="gint8" /> */
         /* transfer-ownership:none direction:in */
         sbyte vChar);
         partial void CheckSetCharArgs(sbyte vChar);
@@ -1711,13 +1711,13 @@ namespace GISharp.Lib.GObject
         /// static boxed value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_static_boxed(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr vBoxed);
 
@@ -1739,13 +1739,13 @@ namespace GISharp.Lib.GObject
         /// static string to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_static_string(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
         partial void CheckSetStaticStringArgs(GISharp.Lib.GLib.NullableUnownedUtf8 vString);
@@ -1773,13 +1773,13 @@ namespace GISharp.Lib.GObject
         /// caller-owned string to be duplicated for the #GValue
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_string(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
         partial void CheckSetStringArgs(GISharp.Lib.GLib.NullableUnownedUtf8 vString);
@@ -1808,13 +1808,13 @@ namespace GISharp.Lib.GObject
         [System.ObsoleteAttribute("Use g_value_take_string() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_string_take_ownership(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
 
@@ -1828,13 +1828,13 @@ namespace GISharp.Lib.GObject
         /// unsigned character value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_uchar(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="guint8" type="guchar" managed-name="System.Byte" /> */
+        /* <type name="guint8" type="guchar" /> */
         /* transfer-ownership:none direction:in */
         byte vUchar);
         partial void CheckSetUCharArgs(byte vUchar);
@@ -1861,13 +1861,13 @@ namespace GISharp.Lib.GObject
         /// unsigned integer value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_uint(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint vUint);
         partial void CheckSetUIntArgs(uint vUint);
@@ -1894,13 +1894,13 @@ namespace GISharp.Lib.GObject
         /// unsigned 64bit integer value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_uint64(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
+        /* <type name="guint64" type="guint64" /> */
         /* transfer-ownership:none direction:in */
         ulong vUint64);
         partial void CheckSetUInt64Args(ulong vUint64);
@@ -1927,13 +1927,13 @@ namespace GISharp.Lib.GObject
         /// unsigned long integer value to be set
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_ulong(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CULong vUlong);
         partial void CheckSetULongArgs(GISharp.Runtime.CULong vUlong);
@@ -1962,13 +1962,13 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_set_variant(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* variant);
         partial void CheckSetVariantArgs(GISharp.Lib.GLib.Variant? variant);
@@ -1999,13 +1999,13 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_take_boxed(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr vBoxed);
 
@@ -2020,13 +2020,13 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_take_string(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
 
@@ -2057,13 +2057,13 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_take_variant(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
-        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* variant);
 
@@ -2087,13 +2087,13 @@ namespace GISharp.Lib.GObject
         ///  Upon failing transformations, @dest_value is left untouched.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_value_transform(
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* srcValue,
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* destValue);
         partial void CheckTransformArgs(ref GISharp.Lib.GObject.Value destValue);
@@ -2125,10 +2125,10 @@ namespace GISharp.Lib.GObject
         /// An initialized #GValue structure.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_value_unset(
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckUnsetArgs();

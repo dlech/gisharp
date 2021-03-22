@@ -38,19 +38,19 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_signal_accumulator_first_wins(
-        /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" is-pointer="1" /> */
+        /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.SignalInvocationHint* ihint,
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* returnAccu,
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* handlerReturn,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr dummy);
 
@@ -80,19 +80,19 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_signal_accumulator_true_handled(
-        /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" is-pointer="1" /> */
+        /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.SignalInvocationHint* ihint,
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* returnAccu,
-        /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* handlerReturn,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr dummy);
 
@@ -120,22 +120,22 @@ namespace GISharp.Lib.GObject
         /// the hook id, for later use with g_signal_remove_emission_hook().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.CULong g_signal_add_emission_hook(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark detail,
-        /* <type name="SignalEmissionHook" type="GSignalEmissionHook" managed-name="SignalEmissionHook" /> */
+        /* <type name="SignalEmissionHook" type="GSignalEmissionHook" /> */
         /* transfer-ownership:none scope:notified closure:3 destroy:4 direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.SignalInvocationHint*, uint, GISharp.Lib.GObject.Value*, System.IntPtr, GISharp.Runtime.Boolean> hookFunc,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr hookData,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> dataDestroy);
         static partial void CheckAddEmissionHookArgs(uint signalId, GISharp.Lib.GLib.Quark detail, GISharp.Lib.GObject.SignalEmissionHook hookFunc);
@@ -171,15 +171,15 @@ namespace GISharp.Lib.GObject
         /// Location for the return value.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_chain_from_overridden(
-        /* <array zero-terminated="1" type="const GValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="Value" type="GValue" managed-name="Value" />
+        /* <array zero-terminated="1" type="const GValue*" is-pointer="1">
+*   <type name="Value" type="GValue" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* instanceAndParams,
-        /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+        /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* returnValue);
         static partial void CheckChainFromOverriddenArgs(System.ReadOnlySpan<GISharp.Lib.GObject.Value> instanceAndParams, ref GISharp.Lib.GObject.Value returnValue);
@@ -219,19 +219,19 @@ namespace GISharp.Lib.GObject
         /// the handler ID (always greater than 0 for successful connections)
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.CULong g_signal_connect_closure(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* detailedSignal,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean after);
         static partial void CheckConnectArgs(GISharp.Lib.GObject.Object instance, GISharp.Lib.GLib.UnownedUtf8 detailedSignal, GISharp.Lib.GObject.Closure closure, bool after = false);
@@ -273,22 +273,22 @@ namespace GISharp.Lib.GObject
         /// the handler ID (always greater than 0 for successful connections)
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.CULong g_signal_connect_closure_by_id(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark detail,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean after);
         static partial void CheckConnectArgs(GISharp.Lib.GObject.Object instance, uint signalId, GISharp.Lib.GLib.Quark detail, GISharp.Lib.GObject.Closure closure, bool after = false);
@@ -337,25 +337,25 @@ namespace GISharp.Lib.GObject
         /// the handler ID (always greater than 0 for successful connections)
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.CULong g_signal_connect_data(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* detailedSignal,
-        /* <type name="Callback" type="GCallback" managed-name="Callback" /> */
+        /* <type name="Callback" type="GCallback" /> */
         /* transfer-ownership:none closure:3 direction:in */
         delegate* unmanaged[Cdecl]<void> cHandler,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
+        /* <type name="ClosureNotify" type="GClosureNotify" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> destroyData,
-        /* <type name="ConnectFlags" type="GConnectFlags" managed-name="ConnectFlags" /> */
+        /* <type name="ConnectFlags" type="GConnectFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ConnectFlags connectFlags);
 
@@ -385,21 +385,21 @@ namespace GISharp.Lib.GObject
         /// specified signal returns a value, but may be ignored otherwise.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_emitv(
-        /* <array zero-terminated="1" type="const GValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="Value" type="GValue" managed-name="Value" />
+        /* <array zero-terminated="1" type="const GValue*" is-pointer="1">
+*   <type name="Value" type="GValue" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* instanceAndParams,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark detail,
-        /* <type name="Value" type="GValue*" managed-name="Value" /> */
+        /* <type name="Value" type="GValue*" /> */
         /* direction:inout caller-allocates:0 transfer-ownership:full optional:1 */
         GISharp.Lib.GObject.Value* returnValue);
         static partial void CheckEmitvArgs(System.ReadOnlySpan<GISharp.Lib.GObject.Value> instanceAndParams, uint signalId, GISharp.Lib.GLib.Quark detail, ref GISharp.Lib.GObject.Value returnValue);
@@ -431,10 +431,10 @@ namespace GISharp.Lib.GObject
         /// the invocation hint of the innermost signal  emission.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" is-pointer="1" /> */
+        /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.SignalInvocationHint* g_signal_get_invocation_hint(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance);
         static partial void CheckGetInvocationHintArgs(GISharp.Lib.GObject.Object instance);
@@ -470,13 +470,13 @@ namespace GISharp.Lib.GObject
         /// Handler id of the handler to be blocked.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_handler_block(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CULong handlerId);
         static partial void CheckHandlerBlockArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId);
@@ -509,13 +509,13 @@ namespace GISharp.Lib.GObject
         /// Handler id of the handler to be disconnected.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_handler_disconnect(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CULong handlerId);
         static partial void CheckHandlerDisconnectArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId);
@@ -563,28 +563,28 @@ namespace GISharp.Lib.GObject
         /// A valid non-0 signal handler id for a successful match.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.CULong g_signal_handler_find(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="SignalMatchType" type="GSignalMatchType" managed-name="SignalMatchType" /> */
+        /* <type name="SignalMatchType" type="GSignalMatchType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.SignalMatchType mask,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark detail,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -601,13 +601,13 @@ namespace GISharp.Lib.GObject
         /// whether @handler_id identifies a handler connected to @instance.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_signal_handler_is_connected(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CULong handlerId);
         static partial void CheckHandlerIsConnectedArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId);
@@ -649,13 +649,13 @@ namespace GISharp.Lib.GObject
         /// Handler id of the handler to be unblocked.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_handler_unblock(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CULong handlerId);
         static partial void CheckHandlerUnblockArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId);
@@ -705,28 +705,28 @@ namespace GISharp.Lib.GObject
         /// The number of handlers that matched.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_signal_handlers_block_matched(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="SignalMatchType" type="GSignalMatchType" managed-name="SignalMatchType" /> */
+        /* <type name="SignalMatchType" type="GSignalMatchType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.SignalMatchType mask,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark detail,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -739,10 +739,10 @@ namespace GISharp.Lib.GObject
         /// The instance whose signal handlers are destroyed
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_handlers_destroy(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance);
 
@@ -782,28 +782,28 @@ namespace GISharp.Lib.GObject
         /// The number of handlers that matched.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_signal_handlers_disconnect_matched(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="SignalMatchType" type="GSignalMatchType" managed-name="SignalMatchType" /> */
+        /* <type name="SignalMatchType" type="GSignalMatchType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.SignalMatchType mask,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark detail,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -843,28 +843,28 @@ namespace GISharp.Lib.GObject
         /// The number of handlers that matched.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_signal_handlers_unblock_matched(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="SignalMatchType" type="GSignalMatchType" managed-name="SignalMatchType" /> */
+        /* <type name="SignalMatchType" type="GSignalMatchType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.SignalMatchType mask,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark detail,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -908,19 +908,19 @@ namespace GISharp.Lib.GObject
         ///          otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_signal_has_handler_pending(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark detail,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean mayBeBlocked);
         static partial void CheckHasHandlerPendingArgs(GISharp.Lib.GObject.Object instance, uint signalId, GISharp.Lib.GLib.Quark detail = default, bool mayBeBlocked = false);
@@ -958,10 +958,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.66")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_signal_is_valid_name(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         static partial void CheckIsValidNameArgs(GISharp.Lib.GLib.UnownedUtf8 name);
@@ -993,15 +993,15 @@ namespace GISharp.Lib.GObject
         /// Newly allocated array of signal IDs.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="1" zero-terminated="0" type="guint*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="guint" type="guint" managed-name="System.UInt32" />
+        /* <array length="1" zero-terminated="0" type="guint*" is-pointer="1">
+*   <type name="guint" type="guint" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern uint* g_signal_list_ids(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType itype,
-        /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* nIds);
         static partial void CheckListIdsArgs(GISharp.Runtime.GType itype);
@@ -1046,13 +1046,13 @@ namespace GISharp.Lib.GObject
         /// the signal's identifying number, or 0 if no signal was found.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_signal_lookup(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType itype);
         static partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.GType itype);
@@ -1084,10 +1084,10 @@ namespace GISharp.Lib.GObject
         /// the signal name, or %NULL if the signal number was invalid.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_signal_name(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId);
         static partial void CheckNameArgs(uint signalId);
@@ -1157,38 +1157,38 @@ namespace GISharp.Lib.GObject
         /// the signal id
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_signal_newv(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* signalName,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType itype,
-        /* <type name="SignalFlags" type="GSignalFlags" managed-name="SignalFlags" /> */
+        /* <type name="SignalFlags" type="GSignalFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.SignalFlags signalFlags,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* classClosure,
-        /* <type name="SignalAccumulator" type="GSignalAccumulator" managed-name="SignalAccumulator" /> */
+        /* <type name="SignalAccumulator" type="GSignalAccumulator" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.SignalInvocationHint*, GISharp.Lib.GObject.Value*, GISharp.Lib.GObject.Value*, System.IntPtr, GISharp.Runtime.Boolean> accumulator,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr accuData,
-        /* <type name="SignalCMarshaller" type="GSignalCMarshaller" managed-name="SignalCMarshaller" /> */
+        /* <type name="SignalCMarshaller" type="GSignalCMarshaller" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Closure.UnmanagedStruct*, GISharp.Lib.GObject.Value*, uint, GISharp.Lib.GObject.Value*, System.IntPtr, System.IntPtr, void> cMarshaller,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType returnType,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint nParams,
-        /* <array length="8" zero-terminated="0" type="GType*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" />
+        /* <array length="8" zero-terminated="0" type="GType*" is-pointer="1">
+*   <type name="GType" type="GType" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType* paramTypes);
@@ -1216,16 +1216,16 @@ namespace GISharp.Lib.GObject
         /// the closure.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_override_class_closure(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType instanceType,
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* classClosure);
         static partial void CheckOverrideClassClosureArgs(uint signalId, GISharp.Runtime.GType instanceType, GISharp.Lib.GObject.Closure classClosure);
@@ -1264,22 +1264,22 @@ namespace GISharp.Lib.GObject
         /// Whether the signal name could successfully be parsed and @signal_id_p and @detail_p contain valid return values.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_signal_parse_name(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* detailedSignal,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType itype,
-        /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* signalIdP,
-        /* <type name="GLib.Quark" type="GQuark*" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         GISharp.Lib.GLib.Quark* detailP,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean forceDetailQuark);
         static partial void CheckTryParseNameArgs(GISharp.Lib.GLib.UnownedUtf8 detailedSignal, GISharp.Runtime.GType itype, bool forceDetailQuark = false);
@@ -1317,13 +1317,13 @@ namespace GISharp.Lib.GObject
         ///  filled in with constant values upon success.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_query(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="SignalQuery" type="GSignalQuery*" managed-name="SignalQuery" /> */
+        /* <type name="SignalQuery" type="GSignalQuery*" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
         GISharp.Lib.GObject.SignalQuery* query);
         static partial void CheckQueryArgs(uint signalId);
@@ -1351,13 +1351,13 @@ namespace GISharp.Lib.GObject
         ///  g_signal_add_emission_hook()
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_remove_emission_hook(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
+        /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CULong hookId);
         static partial void CheckRemoveEmissionHookArgs(uint signalId, GISharp.Runtime.CULong hookId);
@@ -1395,16 +1395,16 @@ namespace GISharp.Lib.GObject
         /// the detail which the signal was emitted with.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_stop_emission(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Quark detail);
         static partial void CheckStopEmissionArgs(GISharp.Lib.GObject.Object instance, uint signalId, GISharp.Lib.GLib.Quark detail = default);
@@ -1436,13 +1436,13 @@ namespace GISharp.Lib.GObject
         /// a string of the form "signal-name::detail".
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_signal_stop_emission_by_name(
-        /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* detailedSignal);
         static partial void CheckStopEmissionArgs(GISharp.Lib.GObject.Object instance, GISharp.Lib.GLib.UnownedUtf8 detailedSignal);
@@ -1473,13 +1473,13 @@ namespace GISharp.Lib.GObject
         /// a floating reference to a new #GCClosure
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_signal_type_cclosure_new(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType itype,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint structOffset);
         static partial void CheckTypeCclosureNewArgs(GISharp.Runtime.GType itype, uint structOffset);

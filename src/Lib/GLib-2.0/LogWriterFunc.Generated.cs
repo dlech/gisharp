@@ -31,21 +31,21 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.SinceAttribute("2.50")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
+    /* <type name="LogWriterOutput" type="GLogWriterOutput" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate GISharp.Lib.GLib.LogWriterOutput UnmanagedLogWriterFunc(
-    /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+    /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GLib.LogLevelFlags logLevel,
-    /* <array length="2" zero-terminated="0" type="const GLogField*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="LogField" type="GLogField" managed-name="LogField" />
+    /* <array length="2" zero-terminated="0" type="const GLogField*" is-pointer="1">
+*   <type name="LogField" type="GLogField" />
 * </array> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GLib.LogField* fields,
-    /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+    /* <type name="gsize" type="gsize" /> */
     /* transfer-ownership:none direction:in */
     nuint nFields,
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:3 direction:in */
     System.IntPtr userData);
 

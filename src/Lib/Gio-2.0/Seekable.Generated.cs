@@ -11,7 +11,7 @@ namespace GISharp.Lib.Gio
         private static readonly GISharp.Runtime.GType _GType = g_seekable_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_seekable_get_type();
 
@@ -58,10 +58,10 @@ namespace GISharp.Lib.Gio
         /// %TRUE if @seekable can be seeked. %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_seekable_can_seek(
-        /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
+        /* <type name="Seekable" type="GSeekable*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable);
         static partial void CheckCanSeekArgs(this GISharp.Lib.Gio.ISeekable seekable);
@@ -88,10 +88,10 @@ namespace GISharp.Lib.Gio
         /// %TRUE if the stream can be truncated, %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_seekable_can_truncate(
-        /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
+        /* <type name="Seekable" type="GSeekable*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable);
         static partial void CheckCanTruncateArgs(this GISharp.Lib.Gio.ISeekable seekable);
@@ -149,22 +149,22 @@ namespace GISharp.Lib.Gio
         ///     appropriately if present.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
         private static extern GISharp.Runtime.Boolean g_seekable_seek(
-        /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
+        /* <type name="Seekable" type="GSeekable*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable,
-        /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="goffset" /> */
         /* transfer-ownership:none direction:in */
         long offset,
-        /* <type name="GLib.SeekType" type="GSeekType" managed-name="GISharp.Lib.GLib.SeekType" /> */
+        /* <type name="GLib.SeekType" type="GSeekType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SeekType type,
-        /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+        /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckSeekArgs(this GISharp.Lib.Gio.ISeekable seekable, long offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
@@ -197,10 +197,10 @@ namespace GISharp.Lib.Gio
         /// the offset from the beginning of the buffer.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="goffset" /> */
         /* transfer-ownership:none direction:in */
         private static extern long g_seekable_tell(
-        /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
+        /* <type name="Seekable" type="GSeekable*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable);
         static partial void CheckTellArgs(this GISharp.Lib.Gio.ISeekable seekable);
@@ -248,19 +248,19 @@ namespace GISharp.Lib.Gio
         ///     appropriately if present.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
         private static extern GISharp.Runtime.Boolean g_seekable_truncate(
-        /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
+        /* <type name="Seekable" type="GSeekable*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable,
-        /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="goffset" /> */
         /* transfer-ownership:none direction:in */
         long offset,
-        /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+        /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckTruncateArgs(this GISharp.Lib.Gio.ISeekable seekable, long offset, GISharp.Lib.Gio.Cancellable? cancellable = null);

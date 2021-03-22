@@ -443,10 +443,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="UnicodeScript" type="GUnicodeScript" managed-name="UnicodeScript" /> */
+        /* <type name="UnicodeScript" type="GUnicodeScript" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.UnicodeScript g_unicode_script_from_iso15924(
-        /* <type name="guint32" type="guint32" managed-name="System.UInt32" /> */
+        /* <type name="guint32" type="guint32" /> */
         /* transfer-ownership:none direction:in */
         uint iso15924);
         static partial void CheckFromIso15924Args(uint iso15924);
@@ -487,10 +487,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint32" type="guint32" managed-name="System.UInt32" /> */
+        /* <type name="guint32" type="guint32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_unicode_script_to_iso15924(
-        /* <type name="UnicodeScript" type="GUnicodeScript" managed-name="UnicodeScript" /> */
+        /* <type name="UnicodeScript" type="GUnicodeScript" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.UnicodeScript script);
         static partial void CheckToIso15924Args(this GISharp.Lib.GLib.UnicodeScript script);

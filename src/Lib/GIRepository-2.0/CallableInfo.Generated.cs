@@ -59,10 +59,10 @@ namespace GISharp.Lib.GIRepository
         /// </returns>
         [GISharp.Runtime.SinceAttribute("1.34")]
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_callable_info_can_throw_gerror(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetCanThrowGErrorArgs();
@@ -92,13 +92,13 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* g_callable_info_get_arg(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetArgArgs(int n);
@@ -125,10 +125,10 @@ namespace GISharp.Lib.GIRepository
         /// the transfer mode for the return value of the callable
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Transfer" type="GITransfer" managed-name="Transfer" /> */
+        /* <type name="Transfer" type="GITransfer" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GIRepository.Transfer g_callable_info_get_caller_owns(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetCallerOwnsArgs();
@@ -155,10 +155,10 @@ namespace GISharp.Lib.GIRepository
         /// </returns>
         [GISharp.Runtime.SinceAttribute("1.42")]
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Transfer" type="GITransfer" managed-name="Transfer" /> */
+        /* <type name="Transfer" type="GITransfer" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GIRepository.Transfer g_callable_info_get_instance_ownership_transfer(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetInstanceOwnershipTransferArgs();
@@ -184,10 +184,10 @@ namespace GISharp.Lib.GIRepository
         /// The number of arguments this callable expects.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_callable_info_get_n_args(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetNArgsArgs();
@@ -215,13 +215,13 @@ namespace GISharp.Lib.GIRepository
         /// The value of the attribute, or %NULL if no such attribute exists
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_callable_info_get_return_attribute(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         partial void CheckGetReturnAttributeArgs(GISharp.Lib.GLib.UnownedUtf8 name);
@@ -249,10 +249,10 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeInfo" type="GITypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
+        /* <type name="TypeInfo" type="GITypeInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* g_callable_info_get_return_type(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetReturnTypeArgs();
@@ -301,41 +301,41 @@ namespace GISharp.Lib.GIRepository
         /// return location for a #GError
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
         private static extern GISharp.Runtime.Boolean g_callable_info_invoke(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr function,
-        /* <array length="3" zero-terminated="0" type="const GIArgument*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="Argument" type="GIArgument" managed-name="Argument" />
+        /* <array length="3" zero-terminated="0" type="const GIArgument*" is-pointer="1">
+*   <type name="Argument" type="GIArgument" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.Argument* inArgs,
-        /* <type name="gint" type="int" managed-name="System.Int32" /> */
+        /* <type name="gint" type="int" /> */
         /* transfer-ownership:none direction:in */
         int nInArgs,
-        /* <array length="5" zero-terminated="0" type="const GIArgument*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="Argument" type="GIArgument" managed-name="Argument" />
+        /* <array length="5" zero-terminated="0" type="const GIArgument*" is-pointer="1">
+*   <type name="Argument" type="GIArgument" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.Argument* outArgs,
-        /* <type name="gint" type="int" managed-name="System.Int32" /> */
+        /* <type name="gint" type="int" /> */
         /* transfer-ownership:none direction:in */
         int nOutArgs,
-        /* <type name="Argument" type="GIArgument*" managed-name="Argument" is-pointer="1" /> */
+        /* <type name="Argument" type="GIArgument*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.Argument* returnValue,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean isMethod,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean throws,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
@@ -361,10 +361,10 @@ namespace GISharp.Lib.GIRepository
         /// </returns>
         [GISharp.Runtime.SinceAttribute("1.34")]
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_callable_info_is_method(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetIsMethodArgs();
@@ -411,19 +411,19 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if there are more attributes
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_callable_info_iterate_return_attributes(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info,
-        /* <type name="AttributeIter" type="GIAttributeIter*" managed-name="AttributeIter" /> */
+        /* <type name="AttributeIter" type="GIAttributeIter*" /> */
         /* direction:inout caller-allocates:0 transfer-ownership:full */
         GISharp.Lib.GIRepository.AttributeIter* iterator,
-        /* <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="char**" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none */
         byte** name,
-        /* <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="char**" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none */
         byte** value);
         partial void CheckTryIterateReturnAttributesArgs(ref GISharp.Lib.GIRepository.AttributeIter iterator);
@@ -465,16 +465,16 @@ namespace GISharp.Lib.GIRepository
         /// Initialize with argument number @n
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_callable_info_load_arg(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n,
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* arg);
 
@@ -495,13 +495,13 @@ namespace GISharp.Lib.GIRepository
         /// Initialized with return type of @info
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_callable_info_load_return_type(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info,
-        /* <type name="TypeInfo" type="GITypeInfo*" managed-name="TypeInfo" /> */
+        /* <type name="TypeInfo" type="GITypeInfo*" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
         GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* type);
 
@@ -515,10 +515,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if callable could return %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_callable_info_may_return_null(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetMayReturnNullArgs();
@@ -543,10 +543,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if return value is only useful in C.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_callable_info_skip_return(
-        /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
+        /* <type name="CallableInfo" type="GICallableInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetIsSkipReturnArgs();

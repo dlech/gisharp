@@ -27,7 +27,7 @@ namespace GISharp.Lib.GObject
         private static readonly GISharp.Runtime.GType _GType = g_binding_flags_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_binding_flags_get_type();
     }

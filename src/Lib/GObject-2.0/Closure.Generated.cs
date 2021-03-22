@@ -47,13 +47,13 @@ namespace GISharp.Lib.GObject
         /// a newly allocated #GClosure
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_closure_new_object(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint sizeofClosure,
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         static partial void CheckNewObjectArgs(uint sizeofClosure, GISharp.Lib.GObject.Object @object);
@@ -126,13 +126,13 @@ namespace GISharp.Lib.GObject
         /// a floating reference to a new #GClosure
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_closure_new_simple(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint sizeofClosure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
         static partial void CheckNewSimpleArgs(uint sizeofClosure, System.IntPtr data);
@@ -148,7 +148,7 @@ namespace GISharp.Lib.GObject
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_closure_get_type();
 
@@ -170,16 +170,16 @@ namespace GISharp.Lib.GObject
         /// the callback function to register
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern void g_closure_add_finalize_notifier(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr notifyData,
-        /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
+        /* <type name="ClosureNotify" type="GClosureNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> notifyFunc);
 
@@ -199,16 +199,16 @@ namespace GISharp.Lib.GObject
         /// the callback function to register
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern void g_closure_add_invalidate_notifier(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr notifyData,
-        /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
+        /* <type name="ClosureNotify" type="GClosureNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> notifyFunc);
 
@@ -236,22 +236,22 @@ namespace GISharp.Lib.GObject
         /// a function to call after the closure callback
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern void g_closure_add_marshal_guards(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr preMarshalData,
-        /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
+        /* <type name="ClosureNotify" type="GClosureNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> preMarshalNotify,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr postMarshalData,
-        /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
+        /* <type name="ClosureNotify" type="GClosureNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> postMarshalNotify);
 
@@ -277,10 +277,10 @@ namespace GISharp.Lib.GObject
         /// #GClosure to invalidate
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_closure_invalidate(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure);
         partial void CheckInvalidateArgs();
@@ -317,24 +317,24 @@ namespace GISharp.Lib.GObject
         /// a context-dependent invocation hint
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_closure_invoke(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="Value" type="GValue*" managed-name="Value" /> */
+        /* <type name="Value" type="GValue*" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
         GISharp.Lib.GObject.Value* returnValue,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint nParamValues,
-        /* <array length="1" zero-terminated="0" type="const GValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="Value" type="GValue" managed-name="Value" />
+        /* <array length="1" zero-terminated="0" type="const GValue*" is-pointer="1">
+*   <type name="Value" type="GValue" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* paramValues,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr invocationHint);
         partial void CheckInvokeArgs(System.ReadOnlySpan<GISharp.Lib.GObject.Value> paramValues, System.IntPtr invocationHint);
@@ -368,10 +368,10 @@ namespace GISharp.Lib.GObject
         /// The @closure passed in, for convenience
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_closure_ref(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure);
 
@@ -400,16 +400,16 @@ namespace GISharp.Lib.GObject
         /// the callback function to remove
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern void g_closure_remove_finalize_notifier(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr notifyData,
-        /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
+        /* <type name="ClosureNotify" type="GClosureNotify" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> notifyFunc);
 
@@ -432,16 +432,16 @@ namespace GISharp.Lib.GObject
         /// the callback function to remove
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern void g_closure_remove_invalidate_notifier(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr notifyData,
-        /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
+        /* <type name="ClosureNotify" type="GClosureNotify" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> notifyFunc);
 
@@ -460,13 +460,13 @@ namespace GISharp.Lib.GObject
         /// a #GClosureMarshal function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern void g_closure_set_marshal(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
+        /* <type name="ClosureMarshal" type="GClosureMarshal" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Closure.UnmanagedStruct*, GISharp.Lib.GObject.Value*, uint, GISharp.Lib.GObject.Value*, System.IntPtr, System.IntPtr, void> marshal);
 
@@ -500,16 +500,16 @@ namespace GISharp.Lib.GObject
         /// a #GClosureMarshal function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private protected static extern void g_closure_set_meta_marshal(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr marshalData,
-        /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
+        /* <type name="ClosureMarshal" type="GClosureMarshal" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Closure.UnmanagedStruct*, GISharp.Lib.GObject.Value*, uint, GISharp.Lib.GObject.Value*, System.IntPtr, System.IntPtr, void> metaMarshal);
 
@@ -564,10 +564,10 @@ namespace GISharp.Lib.GObject
         ///           still being held
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_closure_sink(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure);
 
@@ -580,10 +580,10 @@ namespace GISharp.Lib.GObject
         /// #GClosure to decrement the reference count on
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_closure_unref(
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* closure);
 

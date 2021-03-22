@@ -36,10 +36,10 @@ namespace GISharp.Lib.GIRepository
         ///   return type is to allow both.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="gint64" /> */
         /* transfer-ownership:none direction:in */
         private static extern long g_value_info_get_value(
-        /* <type name="ValueInfo" type="GIValueInfo*" managed-name="ValueInfo" is-pointer="1" /> */
+        /* <type name="ValueInfo" type="GIValueInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ValueInfo.UnmanagedStruct* info);
         partial void CheckGetValueArgs();

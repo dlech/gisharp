@@ -7,18 +7,18 @@ namespace GISharp.Lib.GLib
     public static unsafe partial class Priority
     {
         /// <include file="Priority.xmldoc" path="declaration/member[@name='Priority.Default']/*" />
-        public const System.Int32 Default = 0;
+        public const int Default = 0;
 
         /// <include file="Priority.xmldoc" path="declaration/member[@name='Priority.DefaultIdle']/*" />
-        public const System.Int32 DefaultIdle = 200;
+        public const int DefaultIdle = 200;
 
         /// <include file="Priority.xmldoc" path="declaration/member[@name='Priority.High']/*" />
-        public const System.Int32 High = -100;
+        public const int High = -100;
 
         /// <include file="Priority.xmldoc" path="declaration/member[@name='Priority.HighIdle']/*" />
-        public const System.Int32 HighIdle = 100;
+        public const int HighIdle = 100;
 
         /// <include file="Priority.xmldoc" path="declaration/member[@name='Priority.Low']/*" />
-        public const System.Int32 Low = 300;
+        public const int Low = 300;
     }
 }

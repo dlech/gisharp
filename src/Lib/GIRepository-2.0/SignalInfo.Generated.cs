@@ -42,10 +42,10 @@ namespace GISharp.Lib.GIRepository
         /// the class closure or %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
+        /* <type name="VFuncInfo" type="GIVFuncInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* g_signal_info_get_class_closure(
-        /* <type name="SignalInfo" type="GISignalInfo*" managed-name="SignalInfo" is-pointer="1" /> */
+        /* <type name="SignalInfo" type="GISignalInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct* info);
         partial void CheckGetClassClosureArgs();
@@ -71,10 +71,10 @@ namespace GISharp.Lib.GIRepository
         /// the flags
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GObject.SignalFlags" type="GSignalFlags" managed-name="GISharp.Lib.GObject.SignalFlags" /> */
+        /* <type name="GObject.SignalFlags" type="GSignalFlags" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.SignalFlags g_signal_info_get_flags(
-        /* <type name="SignalInfo" type="GISignalInfo*" managed-name="SignalInfo" is-pointer="1" /> */
+        /* <type name="SignalInfo" type="GISignalInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct* info);
         partial void CheckGetFlagsArgs();
@@ -100,10 +100,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if returning true stops the signal emission
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_signal_info_true_stops_emit(
-        /* <type name="SignalInfo" type="GISignalInfo*" managed-name="SignalInfo" is-pointer="1" /> */
+        /* <type name="SignalInfo" type="GISignalInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct* info);
         partial void CheckGetTrueStopsEmitArgs();

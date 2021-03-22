@@ -9,16 +9,16 @@ namespace GISharp.Lib.GObject
     /// </summary>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="none" type="void" managed-name="System.Void" /> */
+    /* <type name="none" type="void" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedToggleNotify(
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr data,
-    /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+    /* <type name="Object" type="GObject*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
-    /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+    /* <type name="gboolean" type="gboolean" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Runtime.Boolean isLastRef);
 

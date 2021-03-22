@@ -14,19 +14,19 @@ namespace GISharp.Lib.GObject
     [GISharp.Runtime.SinceAttribute("2.26")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+    /* <type name="gboolean" type="gboolean" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate GISharp.Runtime.Boolean UnmanagedBindingTransformFunc(
-    /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+    /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.Binding.UnmanagedStruct* binding,
-    /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+    /* <type name="Value" type="const GValue*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.Value* fromValue,
-    /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+    /* <type name="Value" type="GValue*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.Value* toValue,
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:3 direction:in */
     System.IntPtr userData);
 

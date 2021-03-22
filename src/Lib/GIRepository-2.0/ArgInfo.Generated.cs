@@ -66,10 +66,10 @@ namespace GISharp.Lib.GIRepository
         /// index of the user data argument or -1 if there is none
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_arg_info_get_closure(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetClosureArgs();
@@ -95,10 +95,10 @@ namespace GISharp.Lib.GIRepository
         /// index of the #GDestroyNotify argument or -1 if there is none
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_arg_info_get_destroy(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetDestroyArgs();
@@ -124,10 +124,10 @@ namespace GISharp.Lib.GIRepository
         /// the direction
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Direction" type="GIDirection" managed-name="Direction" /> */
+        /* <type name="Direction" type="GIDirection" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GIRepository.Direction g_arg_info_get_direction(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetDirectionArgs();
@@ -153,10 +153,10 @@ namespace GISharp.Lib.GIRepository
         /// the transfer
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Transfer" type="GITransfer" managed-name="Transfer" /> */
+        /* <type name="Transfer" type="GITransfer" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GIRepository.Transfer g_arg_info_get_ownership_transfer(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetOwnershipTransferArgs();
@@ -184,10 +184,10 @@ namespace GISharp.Lib.GIRepository
         /// the scope type
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ScopeType" type="GIScopeType" managed-name="ScopeType" /> */
+        /* <type name="ScopeType" type="GIScopeType" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GIRepository.ScopeType g_arg_info_get_scope(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetScopeArgs();
@@ -214,10 +214,10 @@ namespace GISharp.Lib.GIRepository
         ///   when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeInfo" type="GITypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
+        /* <type name="TypeInfo" type="GITypeInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* g_arg_info_get_type(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetType_Args();
@@ -245,10 +245,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if caller is required to have allocated the argument
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_arg_info_is_caller_allocates(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetIsCallerAllocatesArgs();
@@ -274,10 +274,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if it is an optional argument
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_arg_info_is_optional(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetIsOptionalArgs();
@@ -303,10 +303,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if it is a return value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_arg_info_is_return_value(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetIsReturnValueArgs();
@@ -332,10 +332,10 @@ namespace GISharp.Lib.GIRepository
         /// </returns>
         [GISharp.Runtime.SinceAttribute("1.30")]
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_arg_info_is_skip(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetIsSkipArgs();
@@ -368,13 +368,13 @@ namespace GISharp.Lib.GIRepository
         /// Initialized with information about type of @info
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_arg_info_load_type(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info,
-        /* <type name="TypeInfo" type="GITypeInfo*" managed-name="TypeInfo" /> */
+        /* <type name="TypeInfo" type="GITypeInfo*" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
         GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* type);
 
@@ -395,10 +395,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if the value may be %NULL
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_arg_info_may_be_null(
-        /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
+        /* <type name="ArgInfo" type="GIArgInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetMayBeNullArgs();

@@ -25,10 +25,10 @@ namespace GISharp.Lib.GIRepository
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_typelib_free(
-/* <type name="Typelib" type="GITypelib*" managed-name="Typelib" is-pointer="1" /> */
+/* <type name="Typelib" type="GITypelib*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
 
@@ -44,10 +44,10 @@ GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_typelib_get_namespace(
-/* <type name="Typelib" type="GITypelib*" managed-name="Typelib" is-pointer="1" /> */
+/* <type name="Typelib" type="GITypelib*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
         partial void CheckGetNamespaceArgs();
@@ -63,16 +63,16 @@ GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_typelib_symbol(
-/* <type name="Typelib" type="GITypelib*" managed-name="Typelib" is-pointer="1" /> */
+/* <type name="Typelib" type="GITypelib*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib,
-/* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+/* <type name="utf8" type="const gchar*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 byte* symbolName,
-/* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
+/* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:out caller-allocates:1 */
 System.IntPtr* symbol);
         partial void CheckTrySymbolArgs(GISharp.Lib.GLib.UnownedUtf8 symbolName);

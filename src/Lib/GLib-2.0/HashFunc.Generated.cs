@@ -44,10 +44,10 @@ namespace GISharp.Lib.GLib
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+    /* <type name="guint" type="guint" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate uint UnmanagedHashFunc(
-    /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr key);
 

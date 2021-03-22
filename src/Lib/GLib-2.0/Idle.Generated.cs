@@ -41,19 +41,19 @@ namespace GISharp.Lib.GLib
         /// the ID (greater than 0) of the event source.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_idle_add_full(
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int priority,
-        /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
+        /* <type name="SourceFunc" type="GSourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:2 destroy:3 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> function,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> notify);
         static partial void CheckAddArgs(GISharp.Lib.GLib.SourceFunc function, int priority = GISharp.Lib.GLib.Priority.DefaultIdle);
@@ -83,10 +83,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if an idle source was found and removed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_idle_remove_by_data(
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
         static partial void CheckRemoveByDataArgs(System.IntPtr data);

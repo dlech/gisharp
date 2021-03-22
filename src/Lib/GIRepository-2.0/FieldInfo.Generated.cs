@@ -44,10 +44,10 @@ namespace GISharp.Lib.GIRepository
         /// the flags
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FieldInfoFlags" type="GIFieldInfoFlags" managed-name="FieldInfoFlags" /> */
+        /* <type name="FieldInfoFlags" type="GIFieldInfoFlags" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GIRepository.FieldInfoFlags g_field_info_get_flags(
-        /* <type name="FieldInfo" type="GIFieldInfo*" managed-name="FieldInfo" is-pointer="1" /> */
+        /* <type name="FieldInfo" type="GIFieldInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct* info);
         partial void CheckGetFlagsArgs();
@@ -73,10 +73,10 @@ namespace GISharp.Lib.GIRepository
         /// the field offset
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_field_info_get_offset(
-        /* <type name="FieldInfo" type="GIFieldInfo*" managed-name="FieldInfo" is-pointer="1" /> */
+        /* <type name="FieldInfo" type="GIFieldInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct* info);
         partial void CheckGetOffsetArgs();
@@ -102,10 +102,10 @@ namespace GISharp.Lib.GIRepository
         /// the field size
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_field_info_get_size(
-        /* <type name="FieldInfo" type="GIFieldInfo*" managed-name="FieldInfo" is-pointer="1" /> */
+        /* <type name="FieldInfo" type="GIFieldInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct* info);
         partial void CheckGetSizeArgs();
@@ -131,10 +131,10 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeInfo" type="GITypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
+        /* <type name="TypeInfo" type="GITypeInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* g_field_info_get_type(
-        /* <type name="FieldInfo" type="GIFieldInfo*" managed-name="FieldInfo" is-pointer="1" /> */
+        /* <type name="FieldInfo" type="GIFieldInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct* info);
         partial void CheckGetType_Args();

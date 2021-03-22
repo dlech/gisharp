@@ -23,17 +23,17 @@ namespace GISharp.Lib.GObject
         ///  members being 0.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_flags_complete_type_info(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType gFlagsType,
-        /* <type name="TypeInfo" type="GTypeInfo*" managed-name="TypeInfo" /> */
+        /* <type name="TypeInfo" type="GTypeInfo*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         GISharp.Lib.GObject.TypeInfo* info,
-        /* <array zero-terminated="1" type="const GFlagsValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="FlagsValue" type="const GFlagsValue" managed-name="FlagsValue" />
+        /* <array zero-terminated="1" type="const GFlagsValue*" is-pointer="1">
+*   <type name="FlagsValue" type="const GFlagsValue" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.FlagsValue* constValues);
@@ -68,13 +68,13 @@ namespace GISharp.Lib.GObject
         ///          @value, or %NULL if none is set
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" is-pointer="1" /> */
+        /* <type name="FlagsValue" type="GFlagsValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.FlagsValue* g_flags_get_first_value(
-        /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" is-pointer="1" /> */
+        /* <type name="FlagsClass" type="GFlagsClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.FlagsClass.UnmanagedStruct* flagsClass,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint value);
         static partial void CheckGetFirstValueArgs(GISharp.Lib.GObject.FlagsClass flagsClass, uint value);
@@ -105,13 +105,13 @@ namespace GISharp.Lib.GObject
         ///          or %NULL if there is no flag with that name
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" is-pointer="1" /> */
+        /* <type name="FlagsValue" type="GFlagsValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.FlagsValue* g_flags_get_value_by_name(
-        /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" is-pointer="1" /> */
+        /* <type name="FlagsClass" type="GFlagsClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.FlagsClass.UnmanagedStruct* flagsClass,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         static partial void CheckGetValueByNameArgs(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Lib.GLib.UnownedUtf8 name);
@@ -142,13 +142,13 @@ namespace GISharp.Lib.GObject
         ///          or %NULL if there is no flag with that nickname
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" is-pointer="1" /> */
+        /* <type name="FlagsValue" type="GFlagsValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.FlagsValue* g_flags_get_value_by_nick(
-        /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" is-pointer="1" /> */
+        /* <type name="FlagsClass" type="GFlagsClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.FlagsClass.UnmanagedStruct* flagsClass,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* nick);
         static partial void CheckGetValueByNickArgs(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Lib.GLib.UnownedUtf8 nick);
@@ -187,14 +187,14 @@ namespace GISharp.Lib.GObject
         /// The new type identifier.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.GType g_flags_register_static(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name,
-        /* <array zero-terminated="1" type="const GFlagsValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="FlagsValue" type="const GFlagsValue" managed-name="FlagsValue" />
+        /* <array zero-terminated="1" type="const GFlagsValue*" is-pointer="1">
+*   <type name="FlagsValue" type="const GFlagsValue" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.FlagsValue* constStaticValues);
@@ -236,13 +236,13 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.54")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern byte* g_flags_to_string(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType flagsType,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint value);
         static partial void CheckToStringArgs(GISharp.Runtime.GType flagsType, uint value);

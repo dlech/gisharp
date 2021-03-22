@@ -78,13 +78,13 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedPrintLiteral(
-/* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
+/* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline,
-/* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+/* <type name="utf8" type="const gchar*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 byte* message);
 
@@ -112,13 +112,13 @@ byte* message);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedPrinterrLiteral(
-/* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
+/* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline,
-/* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+/* <type name="utf8" type="const gchar*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 byte* message);
 
@@ -146,10 +146,10 @@ byte* message);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+        /* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         public unsafe delegate GISharp.Lib.Gio.InputStream.UnmanagedStruct* UnmanagedGetStdin(
-/* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
+/* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
 

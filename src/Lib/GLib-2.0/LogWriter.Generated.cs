@@ -33,16 +33,16 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_log_set_writer_func(
-        /* <type name="LogWriterFunc" type="GLogWriterFunc" managed-name="LogWriterFunc" /> */
+        /* <type name="LogWriterFunc" type="GLogWriterFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GLib.LogLevelFlags, GISharp.Lib.GLib.LogField*, nuint, System.IntPtr, GISharp.Lib.GLib.LogWriterOutput> func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none scope:async destroy:0 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> userDataFree);
 
@@ -87,21 +87,21 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
+        /* <type name="LogWriterOutput" type="GLogWriterOutput" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.LogWriterOutput g_log_writer_default(
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags logLevel,
-        /* <array length="2" zero-terminated="0" type="const GLogField*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="LogField" type="GLogField" managed-name="LogField" />
+        /* <array length="2" zero-terminated="0" type="const GLogField*" is-pointer="1">
+*   <type name="LogField" type="GLogField" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogField* fields,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint nFields,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -140,21 +140,21 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern byte* g_log_writer_format_fields(
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags logLevel,
-        /* <array length="2" zero-terminated="0" type="const GLogField*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="LogField" type="GLogField" managed-name="LogField" />
+        /* <array length="2" zero-terminated="0" type="const GLogField*" is-pointer="1">
+*   <type name="LogField" type="GLogField" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogField* fields,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint nFields,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean useColor);
         static partial void CheckFormatFieldsArgs(GISharp.Lib.GLib.LogLevelFlags logLevel, System.ReadOnlySpan<GISharp.Lib.GLib.LogField> fields, bool useColor);
@@ -199,10 +199,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_log_writer_is_journald(
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int outputFd);
         static partial void CheckIsJournaldArgs(int outputFd);
@@ -253,21 +253,21 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
+        /* <type name="LogWriterOutput" type="GLogWriterOutput" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.LogWriterOutput g_log_writer_journald(
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags logLevel,
-        /* <array length="2" zero-terminated="0" type="const GLogField*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="LogField" type="GLogField" managed-name="LogField" />
+        /* <array length="2" zero-terminated="0" type="const GLogField*" is-pointer="1">
+*   <type name="LogField" type="GLogField" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogField* fields,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint nFields,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -309,21 +309,21 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
+        /* <type name="LogWriterOutput" type="GLogWriterOutput" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.LogWriterOutput g_log_writer_standard_streams(
-        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags logLevel,
-        /* <array length="2" zero-terminated="0" type="const GLogField*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="LogField" type="GLogField" managed-name="LogField" />
+        /* <array length="2" zero-terminated="0" type="const GLogField*" is-pointer="1">
+*   <type name="LogField" type="GLogField" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogField* fields,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint nFields,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -340,10 +340,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_log_writer_supports_color(
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int outputFd);
         static partial void CheckSupportsColorArgs(int outputFd);

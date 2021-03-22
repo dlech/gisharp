@@ -7,6 +7,6 @@ namespace GISharp.Lib.Gtk
     public static unsafe partial class Priority
     {
         /// <include file="Priority.xmldoc" path="declaration/member[@name='Priority.Resize']/*" />
-        public const System.Int32 Resize = 110;
+        public const int Resize = 110;
     }
 }

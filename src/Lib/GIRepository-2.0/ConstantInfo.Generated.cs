@@ -35,10 +35,10 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeInfo" type="GITypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
+        /* <type name="TypeInfo" type="GITypeInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* g_constant_info_get_type(
-        /* <type name="ConstantInfo" type="GIConstantInfo*" managed-name="ConstantInfo" is-pointer="1" /> */
+        /* <type name="ConstantInfo" type="GIConstantInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ConstantInfo.UnmanagedStruct* info);
         partial void CheckGetType_Args();

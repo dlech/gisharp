@@ -35,16 +35,16 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedInit(
-/* <type name="Initable" type="GInitable*" managed-name="Initable" is-pointer="1" /> */
+/* <type name="Initable" type="GInitable*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Initable.UnmanagedStruct* initable,
-/* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+/* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+/* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 

@@ -8,7 +8,7 @@ namespace GISharp.Lib.GLib
     {
         /// <include file="Unichar.xmldoc" path="declaration/member[@name='Unichar.maxDecompositionLength']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        private const System.Int32 maxDecompositionLength = 18;
+        private const int maxDecompositionLength = 18;
 
         /// <summary>
         /// Determines the break type of @c. @c should be a Unicode character
@@ -25,10 +25,10 @@ namespace GISharp.Lib.GLib
         /// the break type of @c
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="UnicodeBreakType" type="GUnicodeBreakType" managed-name="UnicodeBreakType" /> */
+        /* <type name="UnicodeBreakType" type="GUnicodeBreakType" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.UnicodeBreakType g_unichar_break_type(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckBreakTypeArgs(this System.Text.Rune c);
@@ -55,10 +55,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.14")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_unichar_combining_class(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint uc);
         static partial void CheckCombiningClassArgs(this System.Text.Rune uc);
@@ -112,16 +112,16 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_compose(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint a,
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint b,
-        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* ch);
         static partial void CheckTryComposeArgs(this System.Text.Rune a, System.Text.Rune b);
@@ -186,16 +186,16 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_decompose(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint ch,
-        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* a,
-        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* b);
         static partial void CheckTryDecomposeArgs(this System.Text.Rune ch);
@@ -228,10 +228,10 @@ namespace GISharp.Lib.GLib
         /// g_unichar_isdigit()), its numeric value. Otherwise, -1.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_unichar_digit_value(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckDigitValueArgs(this System.Text.Rune c);
@@ -289,21 +289,21 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         private static extern nuint g_unichar_fully_decompose(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint ch,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean compat,
-        /* <array length="2" zero-terminated="0" type="gunichar*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" />
+        /* <array length="2" zero-terminated="0" type="gunichar*" is-pointer="1">
+*   <type name="gunichar" type="gunichar" />
 * </array> */
         /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
         uint* result,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint resultLen);
 
@@ -332,13 +332,13 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_get_mirror_char(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint ch,
-        /* <type name="gunichar" type="gunichar*" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar*" /> */
         /* transfer-ownership:none direction:out */
         uint* mirroredCh);
         static partial void CheckTryGetMirrorCharArgs(this System.Text.Rune ch);
@@ -377,10 +377,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.14")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="UnicodeScript" type="GUnicodeScript" managed-name="UnicodeScript" /> */
+        /* <type name="UnicodeScript" type="GUnicodeScript" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.UnicodeScript g_unichar_get_script(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint ch);
         static partial void CheckGetScriptArgs(this System.Text.Rune ch);
@@ -409,10 +409,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is an alphanumeric character
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isalnum(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsAlphaNumericArgs(this System.Text.Rune c);
@@ -440,10 +440,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is an alphabetic character
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isalpha(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsAlphaArgs(this System.Text.Rune c);
@@ -471,10 +471,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is a control character
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_iscntrl(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsControlArgs(this System.Text.Rune c);
@@ -501,10 +501,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the character has an assigned value
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isdefined(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsDefinedArgs(this System.Text.Rune c);
@@ -532,10 +532,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is a digit
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isdigit(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsDigitArgs(this System.Text.Rune c);
@@ -565,10 +565,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is printable unless it's a space
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isgraph(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsGraphArgs(this System.Text.Rune c);
@@ -596,10 +596,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is a lowercase letter
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_islower(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsLowerArgs(this System.Text.Rune c);
@@ -637,10 +637,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.14")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_ismark(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsMarkArgs(this System.Text.Rune c);
@@ -670,10 +670,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is printable
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isprint(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsPrintableArgs(this System.Text.Rune c);
@@ -701,10 +701,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is a punctuation or symbol character
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_ispunct(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsPunctuationArgs(this System.Text.Rune c);
@@ -739,10 +739,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is a space character
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isspace(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsSpaceArgs(this System.Text.Rune c);
@@ -773,10 +773,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the character is titlecase
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_istitle(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsTitleArgs(this System.Text.Rune c);
@@ -802,10 +802,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @c is an uppercase character
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isupper(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsUpperArgs(this System.Text.Rune c);
@@ -832,10 +832,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the character is wide
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_iswide(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsWideArgs(this System.Text.Rune c);
@@ -874,10 +874,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_iswide_cjk(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsWideCjkArgs(this System.Text.Rune c);
@@ -904,10 +904,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the character is a hexadecimal digit
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_isxdigit(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsHexDigitArgs(this System.Text.Rune c);
@@ -945,10 +945,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.14")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_iszerowidth(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckIsZeroWidthArgs(this System.Text.Rune c);
@@ -980,13 +980,13 @@ namespace GISharp.Lib.GLib
         /// number of bytes written
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_unichar_to_utf8(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c,
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
         byte* outbuf);
 
@@ -1002,10 +1002,10 @@ namespace GISharp.Lib.GLib
         ///               or has no lowercase equivalent @c is returned unchanged.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_unichar_tolower(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckToLowerArgs(this System.Text.Rune c);
@@ -1033,10 +1033,10 @@ namespace GISharp.Lib.GLib
         ///               @c is returned unchanged.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_unichar_totitle(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckToTitleArgs(this System.Text.Rune c);
@@ -1064,10 +1064,10 @@ namespace GISharp.Lib.GLib
         ///               or has no upper case equivalent @c is returned unchanged.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_unichar_toupper(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckToUpperArgs(this System.Text.Rune c);
@@ -1093,10 +1093,10 @@ namespace GISharp.Lib.GLib
         /// the type of the character.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="UnicodeType" type="GUnicodeType" managed-name="UnicodeType" /> */
+        /* <type name="UnicodeType" type="GUnicodeType" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.UnicodeType g_unichar_type(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckTypeArgs(this System.Text.Rune c);
@@ -1124,10 +1124,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @ch is a valid Unicode character
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_unichar_validate(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint ch);
         static partial void CheckValidateArgs(this System.Text.Rune ch);
@@ -1155,10 +1155,10 @@ namespace GISharp.Lib.GLib
         /// g_unichar_isxdigit()), its numeric value. Otherwise, -1.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_unichar_xdigit_value(
-        /* <type name="gunichar" type="gunichar" managed-name="System.Text.Rune" /> */
+        /* <type name="gunichar" type="gunichar" /> */
         /* transfer-ownership:none direction:in */
         uint c);
         static partial void CheckHexDigitValueArgs(this System.Text.Rune c);

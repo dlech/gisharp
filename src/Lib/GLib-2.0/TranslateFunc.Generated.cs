@@ -9,13 +9,13 @@ namespace GISharp.Lib.GLib
     /// </summary>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+    /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate byte* UnmanagedTranslateFunc(
-    /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+    /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     byte* str,
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
     System.IntPtr data);
 

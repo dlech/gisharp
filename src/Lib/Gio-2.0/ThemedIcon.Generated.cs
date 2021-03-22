@@ -51,10 +51,10 @@ namespace GISharp.Lib.Gio
         /// a new #GThemedIcon.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ThemedIcon" type="GIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* <type name="ThemedIcon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* g_themed_icon_new(
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
         static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
@@ -82,15 +82,15 @@ namespace GISharp.Lib.Gio
         /// a new #GThemedIcon
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ThemedIcon" type="GIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* <type name="ThemedIcon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* g_themed_icon_new_from_names(
-        /* <array length="1" zero-terminated="0" type="char**" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
+        /* <array length="1" zero-terminated="0" type="char**" is-pointer="1">
+*   <type name="utf8" type="char*" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
         byte** iconnames,
-        /* <type name="gint" type="int" managed-name="System.Int32" /> */
+        /* <type name="gint" type="int" /> */
         /* transfer-ownership:none direction:in */
         int len);
         static partial void CheckNewFromNamesArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames);
@@ -141,10 +141,10 @@ namespace GISharp.Lib.Gio
         /// a new #GThemedIcon.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ThemedIcon" type="GIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* <type name="ThemedIcon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* g_themed_icon_new_with_default_fallbacks(
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
         static partial void CheckNewWithDefaultFallbacksArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
@@ -159,7 +159,7 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_themed_icon_get_type();
 
@@ -179,13 +179,13 @@ namespace GISharp.Lib.Gio
         /// name of icon to append to list of icons from within @icon.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_themed_icon_append_name(
-        /* <type name="ThemedIcon" type="GThemedIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* <type name="ThemedIcon" type="GThemedIcon*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* icon,
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
         partial void CheckAppendNameArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
@@ -210,12 +210,12 @@ namespace GISharp.Lib.Gio
         /// a list of icon names.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="const gchar* const*" zero-terminated="1" name="GLib.Strv" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
-*   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
+        /* <array type="const gchar* const*" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+*   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
         private static extern byte** g_themed_icon_get_names(
-        /* <type name="ThemedIcon" type="GThemedIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* <type name="ThemedIcon" type="GThemedIcon*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* icon);
         partial void CheckGetNamesArgs();
@@ -247,13 +247,13 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.18")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_themed_icon_prepend_name(
-        /* <type name="ThemedIcon" type="GThemedIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* <type name="ThemedIcon" type="GThemedIcon*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* icon,
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
         partial void CheckPrependNameArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);

@@ -63,10 +63,10 @@ namespace GISharp.Lib.GIRepository
         /// the string
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_info_type_to_string(
-        /* <type name="InfoType" type="GIInfoType" managed-name="InfoType" /> */
+        /* <type name="InfoType" type="GIInfoType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.InfoType type);
         static partial void CheckToStringArgs(this GISharp.Lib.GIRepository.InfoType type);

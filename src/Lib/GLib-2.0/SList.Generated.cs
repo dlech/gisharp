@@ -29,8 +29,8 @@ namespace GISharp.Lib.GLib
         /// a pointer to the newly-allocated #GSList element.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_alloc();
@@ -76,17 +76,17 @@ namespace GISharp.Lib.GLib
         /// the new start of the #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_append(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -105,18 +105,18 @@ namespace GISharp.Lib.GLib
         /// the start of the new #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_concat(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list1,
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list2);
@@ -139,13 +139,13 @@ namespace GISharp.Lib.GLib
         /// a copy of @list
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_copy(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list);
@@ -192,20 +192,20 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_copy_deep(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="CopyFunc" type="GCopyFunc" managed-name="CopyFunc" /> */
+        /* <type name="CopyFunc" type="GCopyFunc" /> */
         /* transfer-ownership:none closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr> func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -233,18 +233,18 @@ namespace GISharp.Lib.GLib
         /// the new head of @list
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_delete_link(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* link);
@@ -264,17 +264,17 @@ namespace GISharp.Lib.GLib
         ///     or %NULL if it is not found
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_find(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -300,20 +300,20 @@ namespace GISharp.Lib.GLib
         /// the found #GSList element, or %NULL if it is not found
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_find_custom(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="CompareFunc" type="GCompareFunc" managed-name="CompareFunc" /> */
+        /* <type name="CompareFunc" type="GCompareFunc" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, int> func);
 
@@ -336,18 +336,18 @@ namespace GISharp.Lib.GLib
         /// user data to pass to the function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_slist_foreach(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="Func" type="GFunc" managed-name="Func" /> */
+        /* <type name="Func" type="GFunc" /> */
         /* transfer-ownership:none closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, void> func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -374,11 +374,11 @@ namespace GISharp.Lib.GLib
         /// the first link of a #GSList
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_slist_free(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list);
@@ -391,11 +391,11 @@ namespace GISharp.Lib.GLib
         /// a #GSList element
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_slist_free_1(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list);
@@ -428,15 +428,15 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_slist_free_full(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> freeFunc);
 
@@ -455,15 +455,15 @@ namespace GISharp.Lib.GLib
         ///     or -1 if the data is not found
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_slist_index(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -486,20 +486,20 @@ namespace GISharp.Lib.GLib
         /// the new start of the #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_insert(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int position);
 
@@ -519,22 +519,22 @@ namespace GISharp.Lib.GLib
         /// the new head of the list.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_insert_before(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* slist,
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* sibling,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -557,20 +557,20 @@ namespace GISharp.Lib.GLib
         /// the new start of the #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_insert_sorted(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="CompareFunc" type="GCompareFunc" managed-name="CompareFunc" /> */
+        /* <type name="CompareFunc" type="GCompareFunc" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, int> func);
 
@@ -597,23 +597,23 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.10")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_insert_sorted_with_data(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="CompareDataFunc" type="GCompareDataFunc" managed-name="CompareDataFunc" /> */
+        /* <type name="CompareDataFunc" type="GCompareDataFunc" /> */
         /* transfer-ownership:none closure:3 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, int> func,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -633,13 +633,13 @@ namespace GISharp.Lib.GLib
         ///     or %NULL if the #GSList has no elements
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_last(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list);
@@ -661,11 +661,11 @@ namespace GISharp.Lib.GLib
         /// the number of elements in the #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_slist_length(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list);
@@ -684,17 +684,17 @@ namespace GISharp.Lib.GLib
         ///     the end of the #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_nth(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint n);
 
@@ -712,15 +712,15 @@ namespace GISharp.Lib.GLib
         ///     is off the end of the #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_slist_nth_data(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint n);
 
@@ -739,16 +739,16 @@ namespace GISharp.Lib.GLib
         ///     or -1 if the element is not found
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_slist_position(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* llink);
@@ -780,17 +780,17 @@ namespace GISharp.Lib.GLib
         /// the new start of the #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_prepend(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -809,17 +809,17 @@ namespace GISharp.Lib.GLib
         /// the new start of the #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_remove(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -839,17 +839,17 @@ namespace GISharp.Lib.GLib
         /// new head of @list
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_remove_all(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
@@ -878,18 +878,18 @@ namespace GISharp.Lib.GLib
         /// the new start of the #GSList, without the element
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_remove_link(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* link);
@@ -904,13 +904,13 @@ namespace GISharp.Lib.GLib
         /// the start of the reversed #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_reverse(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list);
@@ -933,17 +933,17 @@ namespace GISharp.Lib.GLib
         /// the start of the sorted #GSList
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_sort(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="CompareFunc" type="GCompareFunc" managed-name="CompareFunc" /> */
+        /* <type name="CompareFunc" type="GCompareFunc" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, int> compareFunc);
 
@@ -963,20 +963,20 @@ namespace GISharp.Lib.GLib
         /// new head of the list
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_slist_sort_with_data(
-        /* <type name="GLib.SList" type="GSList*" managed-name="GISharp.Lib.GLib.SList" is-pointer="1">
-*   <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" />
+        /* <type name="GLib.SList" type="GSList*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SList.UnmanagedStruct* list,
-        /* <type name="CompareDataFunc" type="GCompareDataFunc" managed-name="CompareDataFunc" /> */
+        /* <type name="CompareDataFunc" type="GCompareDataFunc" /> */
         /* transfer-ownership:none closure:2 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, int> compareFunc,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
     }

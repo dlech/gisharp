@@ -7,13 +7,13 @@ namespace GISharp.Lib.GLib
     public static unsafe partial class Version
     {
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.major']/*" />
-        private const System.Int32 major = 2;
+        private const int major = 2;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.minor']/*" />
-        private const System.Int32 minor = 66;
+        private const int minor = 66;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.micro']/*" />
-        private const System.Int32 micro = 2;
+        private const int micro = 2;
 
         /// <summary>
         /// Checks that the GLib library in use is compatible with the
@@ -51,16 +51,16 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* glib_check_version(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint requiredMajor,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint requiredMinor,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint requiredMicro);
         static partial void CheckCheckArgs(uint requiredMajor, uint requiredMinor, uint requiredMicro);

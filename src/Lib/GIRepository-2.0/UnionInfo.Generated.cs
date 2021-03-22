@@ -56,13 +56,13 @@ namespace GISharp.Lib.GIRepository
         /// when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FunctionInfo" type="GIFunctionInfo*" managed-name="FunctionInfo" is-pointer="1" /> */
+        /* <type name="FunctionInfo" type="GIFunctionInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* g_union_info_find_method(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
         partial void CheckFindMethodArgs(GISharp.Lib.GLib.UnownedUtf8 name);
@@ -89,10 +89,10 @@ namespace GISharp.Lib.GIRepository
         /// required alignment in bytes
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         private static extern nuint g_union_info_get_alignment(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetAlignmentArgs();
@@ -123,13 +123,13 @@ namespace GISharp.Lib.GIRepository
         /// when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ConstantInfo" type="GIConstantInfo*" managed-name="ConstantInfo" is-pointer="1" /> */
+        /* <type name="ConstantInfo" type="GIConstantInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.ConstantInfo.UnmanagedStruct* g_union_info_get_discriminator(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetDiscriminatorArgs(int n);
@@ -156,10 +156,10 @@ namespace GISharp.Lib.GIRepository
         /// offset in bytes of the discriminator
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_union_info_get_discriminator_offset(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetDiscriminatorOffsetArgs();
@@ -185,10 +185,10 @@ namespace GISharp.Lib.GIRepository
         /// when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeInfo" type="GITypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
+        /* <type name="TypeInfo" type="GITypeInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* g_union_info_get_discriminator_type(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetDiscriminatorTypeArgs();
@@ -217,13 +217,13 @@ namespace GISharp.Lib.GIRepository
         /// when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FieldInfo" type="GIFieldInfo*" managed-name="FieldInfo" is-pointer="1" /> */
+        /* <type name="FieldInfo" type="GIFieldInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct* g_union_info_get_field(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetFieldArgs(int n);
@@ -253,13 +253,13 @@ namespace GISharp.Lib.GIRepository
         /// when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FunctionInfo" type="GIFunctionInfo*" managed-name="FunctionInfo" is-pointer="1" /> */
+        /* <type name="FunctionInfo" type="GIFunctionInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* g_union_info_get_method(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info,
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int n);
         partial void CheckGetMethodArgs(int n);
@@ -285,10 +285,10 @@ namespace GISharp.Lib.GIRepository
         /// number of fields
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_union_info_get_n_fields(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetNFieldsArgs();
@@ -313,10 +313,10 @@ namespace GISharp.Lib.GIRepository
         /// number of methods
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_union_info_get_n_methods(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetNMethodsArgs();
@@ -341,10 +341,10 @@ namespace GISharp.Lib.GIRepository
         /// size of the union in bytes
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         private static extern nuint g_union_info_get_size(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetSizeArgs();
@@ -369,10 +369,10 @@ namespace GISharp.Lib.GIRepository
         /// %TRUE if this is a discriminated union, %FALSE otherwise
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_union_info_is_discriminated(
-        /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetIsDiscriminatedArgs();

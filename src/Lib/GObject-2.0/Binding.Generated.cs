@@ -71,7 +71,7 @@ namespace GISharp.Lib.GObject
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_binding_get_type();
 
@@ -86,10 +86,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
+        /* <type name="BindingFlags" type="GBindingFlags" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.BindingFlags g_binding_get_flags(
-        /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
         partial void CheckGetFlagsArgs();
@@ -116,10 +116,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_binding_get_source(
-        /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
         partial void CheckGetSourceArgs();
@@ -147,10 +147,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_binding_get_source_property(
-        /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
         partial void CheckGetSourcePropertyArgs();
@@ -177,10 +177,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_binding_get_target(
-        /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
         partial void CheckGetTargetArgs();
@@ -208,10 +208,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_binding_get_target_property(
-        /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
         partial void CheckGetTargetPropertyArgs();
@@ -244,10 +244,10 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_binding_unbind(
-        /* <type name="Binding" type="GBinding*" managed-name="Binding" is-pointer="1" /> */
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
     }

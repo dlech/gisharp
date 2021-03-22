@@ -15,21 +15,21 @@ namespace GISharp.Lib.GObject
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+    /* <type name="gboolean" type="gboolean" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate GISharp.Runtime.Boolean UnmanagedSignalEmissionHook(
-    /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" is-pointer="1" /> */
+    /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.SignalInvocationHint* ihint,
-    /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+    /* <type name="guint" type="guint" /> */
     /* transfer-ownership:none direction:in */
     uint nParamValues,
-    /* <array length="1" zero-terminated="0" type="const GValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="Value" type="GValue" managed-name="Value" />
+    /* <array length="1" zero-terminated="0" type="const GValue*" is-pointer="1">
+*   <type name="Value" type="GValue" />
 * </array> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.Value* paramValues,
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:3 direction:in */
     System.IntPtr data);
 

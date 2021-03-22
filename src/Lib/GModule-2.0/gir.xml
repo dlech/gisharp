@@ -17,12 +17,12 @@ It should only be accessed via the following functions.</doc>
         <source-position filename="gmodule.h" line="80" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="182">%TRUE on success</doc>
-          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="178">a #GModule to close</doc>
-            <type name="Module" c:type="GModule*" gs:managed-name="Module" gs:is-pointer="1" />
+            <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
@@ -32,12 +32,12 @@ It should only be accessed via the following functions.</doc>
 Any future g_module_close() calls on the module will be ignored.</doc>
         <source-position filename="gmodule.h" line="84" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Void" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="197">a #GModule to make permanently resident</doc>
-            <type name="Module" c:type="GModule*" gs:managed-name="Module" gs:is-pointer="1" />
+            <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
@@ -49,12 +49,12 @@ If @module refers to the application itself, "main" is returned.</doc>
         <source-position filename="gmodule.h" line="98" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="212">the filename of the module</doc>
-          <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="206">a #GModule</doc>
-            <type name="Module" c:type="GModule*" gs:managed-name="Module" gs:is-pointer="1" />
+            <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
@@ -66,12 +66,12 @@ If @module refers to the application itself, "main" is returned.</doc>
         <source-position filename="gmodule.h" line="98" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="212">the filename of the module</doc>
-          <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="206">a #GModule</doc>
-            <type name="Module" c:type="GModule*" gs:managed-name="Module" gs:is-pointer="1" />
+            <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
@@ -82,30 +82,30 @@ by #G_MODULE_EXPORT. Note that a valid symbol can be %NULL.</doc>
         <source-position filename="gmodule.h" line="92" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="258">%TRUE on success</doc>
-          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="251">a #GModule</doc>
-            <type name="Module" c:type="GModule*" gs:managed-name="Module" gs:is-pointer="1" />
+            <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
           <parameter name="symbol_name" transfer-ownership="none" gs:managed-name="symbolName" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="252">the name of the symbol to find</doc>
-            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="symbol" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" gs:managed-name="symbol">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="253">returns the pointer to the symbol value</doc>
-            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            <type name="gpointer" c:type="gpointer*" gs:is-pointer="1" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="symbol_name" transfer-ownership="none" gs:managed-name="symbolName" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="252">the name of the symbol to find</doc>
-            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="symbol" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" gs:managed-name="symbol">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="253">returns the pointer to the symbol value</doc>
-            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            <type name="gpointer" c:type="gpointer*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -127,18 +127,18 @@ directory it will return `\Windows\mylibrary.dll`.</doc>
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="171">the complete path of the module, including the standard library
     prefix and suffix. This should be freed when no longer needed</doc>
-          <type name="utf8" c:type="gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <parameter name="directory" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="directory" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="152">the directory where the module is. This can be
     %NULL or the empty string to indicate that the standard platform-specific
     directories will be used, though that is not recommended</doc>
-            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="module_name" transfer-ownership="none" gs:managed-name="moduleName" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="155">the name of the module</doc>
-            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
@@ -146,11 +146,11 @@ directory it will return `\Windows\mylibrary.dll`.</doc>
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="152">the directory where the module is. This can be
     %NULL or the empty string to indicate that the standard platform-specific
     directories will be used, though that is not recommended</doc>
-            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="module_name" transfer-ownership="none" gs:managed-name="moduleName" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="155">the name of the module</doc>
-            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -159,7 +159,7 @@ directory it will return `\Windows\mylibrary.dll`.</doc>
         <source-position filename="gmodule.h" line="88" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="191">a string describing the last module error</doc>
-          <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -169,7 +169,7 @@ directory it will return `\Windows\mylibrary.dll`.</doc>
         <source-position filename="gmodule.h" line="88" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="191">a string describing the last module error</doc>
-          <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -190,30 +190,30 @@ returned.</doc>
         <source-position filename="gmodule.h" line="75" />
         <return-value nullable="1" transfer-ownership="full" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="236">a #GModule on success, or %NULL on failure</doc>
-          <type name="Module" c:type="GModule*" gs:managed-name="Module" gs:is-pointer="1" />
+          <type name="Module" c:type="GModule*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <parameter name="file_name" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="fileName" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="218">the name of the file containing the module, or %NULL
     to obtain a #GModule representing the main program itself</doc>
-            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="flags" transfer-ownership="none" gs:default="default" gs:managed-name="flags" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="220">the flags used for opening the module. This can be the
     logical OR of any of the #GModuleFlags</doc>
-            <type name="ModuleFlags" c:type="GModuleFlags" gs:managed-name="ModuleFlags" />
+            <type name="ModuleFlags" c:type="GModuleFlags" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="file_name" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="fileName" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="218">the name of the file containing the module, or %NULL
     to obtain a #GModule representing the main program itself</doc>
-            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="flags" transfer-ownership="none" gs:default="default" gs:managed-name="flags" direction="in">
             <doc xml:space="preserve" filename="gmodule-2.0.c" line="220">the flags used for opening the module. This can be the
     logical OR of any of the #GModuleFlags</doc>
-            <type name="ModuleFlags" c:type="GModuleFlags" gs:managed-name="ModuleFlags" />
+            <type name="ModuleFlags" c:type="GModuleFlags" />
           </parameter>
         </gs:managed-parameters>
       </function>
@@ -222,7 +222,7 @@ returned.</doc>
         <source-position filename="gmodule.h" line="71" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="245">%TRUE if modules are supported</doc>
-          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
@@ -232,7 +232,7 @@ returned.</doc>
         <source-position filename="gmodule.h" line="71" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gmodule-2.0.c" line="245">%TRUE if modules are supported</doc>
-          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters />
         <gs:managed-parameters />

@@ -50,16 +50,16 @@ namespace GISharp.Lib.GObject
         /// a floating reference to a new #GCClosure
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_cclosure_new(
-        /* <type name="Callback" type="GCallback" managed-name="Callback" /> */
+        /* <type name="Callback" type="GCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
         delegate* unmanaged[Cdecl]<void> callbackFunc,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:0 direction:in */
         System.IntPtr userData,
-        /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
+        /* <type name="ClosureNotify" type="GClosureNotify" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> destroyData);
 
@@ -80,13 +80,13 @@ namespace GISharp.Lib.GObject
         /// a new #GCClosure
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_cclosure_new_object(
-        /* <type name="Callback" type="GCallback" managed-name="Callback" /> */
+        /* <type name="Callback" type="GCallback" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<void> callbackFunc,
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
@@ -107,13 +107,13 @@ namespace GISharp.Lib.GObject
         /// a new #GCClosure
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_cclosure_new_object_swap(
-        /* <type name="Callback" type="GCallback" managed-name="Callback" /> */
+        /* <type name="Callback" type="GCallback" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<void> callbackFunc,
-        /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
@@ -139,16 +139,16 @@ namespace GISharp.Lib.GObject
         /// a floating reference to a new #GCClosure
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
+        /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_cclosure_new_swap(
-        /* <type name="Callback" type="GCallback" managed-name="Callback" /> */
+        /* <type name="Callback" type="GCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
         delegate* unmanaged[Cdecl]<void> callbackFunc,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:0 direction:in */
         System.IntPtr userData,
-        /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
+        /* <type name="ClosureNotify" type="GClosureNotify" /> */
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> destroyData);
     }

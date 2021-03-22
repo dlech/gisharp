@@ -59,22 +59,22 @@ namespace GISharp.Lib.GLib
         /// the ID (greater than 0) of the event source.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_timeout_add_full(
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int priority,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint interval,
-        /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
+        /* <type name="SourceFunc" type="GSourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:3 destroy:4 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> function,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> notify);
         static partial void CheckAddArgs(uint interval, GISharp.Lib.GLib.SourceFunc function, int priority = GISharp.Lib.GLib.Priority.Default);
@@ -166,22 +166,22 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.14")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_timeout_add_seconds_full(
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         int priority,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint interval,
-        /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
+        /* <type name="SourceFunc" type="GSourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:3 destroy:4 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> function,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> notify);
         static partial void CheckAddSecondsArgs(uint interval, GISharp.Lib.GLib.SourceFunc function, int priority = GISharp.Lib.GLib.Priority.Default);

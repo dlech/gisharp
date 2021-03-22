@@ -36,10 +36,10 @@ namespace GISharp.Lib.GLib
         /// an initialized #GMutex
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_mutex_clear(
-        /* <type name="Mutex" type="GMutex*" managed-name="Mutex" is-pointer="1" /> */
+        /* <type name="Mutex" type="GMutex*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Mutex* mutex);
         partial void CheckClearArgs();
@@ -95,10 +95,10 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_mutex_init(
-        /* <type name="Mutex" type="GMutex*" managed-name="Mutex" is-pointer="1" /> */
+        /* <type name="Mutex" type="GMutex*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Mutex* mutex);
         partial void CheckInitArgs();
@@ -133,10 +133,10 @@ namespace GISharp.Lib.GLib
         /// a #GMutex
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_mutex_lock(
-        /* <type name="Mutex" type="GMutex*" managed-name="Mutex" is-pointer="1" /> */
+        /* <type name="Mutex" type="GMutex*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Mutex* mutex);
         partial void CheckLockArgs();
@@ -173,10 +173,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @mutex could be locked
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_mutex_trylock(
-        /* <type name="Mutex" type="GMutex*" managed-name="Mutex" is-pointer="1" /> */
+        /* <type name="Mutex" type="GMutex*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Mutex* mutex);
         partial void CheckTrylockArgs();
@@ -209,10 +209,10 @@ namespace GISharp.Lib.GLib
         /// a #GMutex
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_mutex_unlock(
-        /* <type name="Mutex" type="GMutex*" managed-name="Mutex" is-pointer="1" /> */
+        /* <type name="Mutex" type="GMutex*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Mutex* mutex);
         partial void CheckUnlockArgs();

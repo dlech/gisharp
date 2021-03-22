@@ -23,10 +23,10 @@ namespace GISharp.Lib.GLib
         /// a #GCond
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_cond_broadcast(
-        /* <type name="Cond" type="GCond*" managed-name="Cond" is-pointer="1" /> */
+        /* <type name="Cond" type="GCond*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Cond* cond);
         partial void CheckBroadcastArgs();
@@ -61,10 +61,10 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_cond_clear(
-        /* <type name="Cond" type="GCond*" managed-name="Cond" is-pointer="1" /> */
+        /* <type name="Cond" type="GCond*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Cond* cond);
         partial void CheckClearArgs();
@@ -105,10 +105,10 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_cond_init(
-        /* <type name="Cond" type="GCond*" managed-name="Cond" is-pointer="1" /> */
+        /* <type name="Cond" type="GCond*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Cond* cond);
         partial void CheckInitArgs();
@@ -136,10 +136,10 @@ namespace GISharp.Lib.GLib
         /// a #GCond
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_cond_signal(
-        /* <type name="Cond" type="GCond*" managed-name="Cond" is-pointer="1" /> */
+        /* <type name="Cond" type="GCond*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Cond* cond);
         partial void CheckSignalArgs();
@@ -183,13 +183,13 @@ namespace GISharp.Lib.GLib
         /// a #GMutex that is currently locked
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_cond_wait(
-        /* <type name="Cond" type="GCond*" managed-name="Cond" is-pointer="1" /> */
+        /* <type name="Cond" type="GCond*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Cond* cond,
-        /* <type name="Mutex" type="GMutex*" managed-name="Mutex" is-pointer="1" /> */
+        /* <type name="Mutex" type="GMutex*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Mutex* mutex);
         partial void CheckWaitArgs(ref GISharp.Lib.GLib.Mutex mutex);
@@ -285,16 +285,16 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_cond_wait_until(
-        /* <type name="Cond" type="GCond*" managed-name="Cond" is-pointer="1" /> */
+        /* <type name="Cond" type="GCond*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Cond* cond,
-        /* <type name="Mutex" type="GMutex*" managed-name="Mutex" is-pointer="1" /> */
+        /* <type name="Mutex" type="GMutex*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Mutex* mutex,
-        /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
+        /* <type name="gint64" type="gint64" /> */
         /* transfer-ownership:none direction:in */
         long endTime);
         partial void CheckWaitUntilArgs(ref GISharp.Lib.GLib.Mutex mutex, long endTime);

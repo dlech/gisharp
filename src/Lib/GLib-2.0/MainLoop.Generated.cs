@@ -49,13 +49,13 @@ namespace GISharp.Lib.GLib
         /// a new #GMainLoop.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" is-pointer="1" /> */
+        /* <type name="MainLoop" type="GMainLoop*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.MainLoop.UnmanagedStruct* g_main_loop_new(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean isRunning);
         static partial void CheckNewArgs(GISharp.Lib.GLib.MainContext? context = null, bool isRunning = false);
@@ -76,7 +76,7 @@ namespace GISharp.Lib.GLib
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_main_loop_get_type();
 
@@ -90,10 +90,10 @@ namespace GISharp.Lib.GLib
         /// the #GMainContext of @loop
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_loop_get_context(
-        /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" is-pointer="1" /> */
+        /* <type name="MainLoop" type="GMainLoop*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainLoop.UnmanagedStruct* loop);
         partial void CheckGetContextArgs();
@@ -118,10 +118,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the mainloop is currently being run.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_loop_is_running(
-        /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" is-pointer="1" /> */
+        /* <type name="MainLoop" type="GMainLoop*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainLoop.UnmanagedStruct* loop);
         partial void CheckGetIsRunningArgs();
@@ -150,10 +150,10 @@ namespace GISharp.Lib.GLib
         /// a #GMainLoop
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_loop_quit(
-        /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" is-pointer="1" /> */
+        /* <type name="MainLoop" type="GMainLoop*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainLoop.UnmanagedStruct* loop);
         partial void CheckQuitArgs();
@@ -177,10 +177,10 @@ namespace GISharp.Lib.GLib
         /// @loop
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" is-pointer="1" /> */
+        /* <type name="MainLoop" type="GMainLoop*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.MainLoop.UnmanagedStruct* g_main_loop_ref(
-        /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" is-pointer="1" /> */
+        /* <type name="MainLoop" type="GMainLoop*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainLoop.UnmanagedStruct* loop);
 
@@ -200,10 +200,10 @@ namespace GISharp.Lib.GLib
         /// a #GMainLoop
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_loop_run(
-        /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" is-pointer="1" /> */
+        /* <type name="MainLoop" type="GMainLoop*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainLoop.UnmanagedStruct* loop);
 
@@ -215,10 +215,10 @@ namespace GISharp.Lib.GLib
         /// a #GMainLoop
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_loop_unref(
-        /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" is-pointer="1" /> */
+        /* <type name="MainLoop" type="GMainLoop*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainLoop.UnmanagedStruct* loop);
 

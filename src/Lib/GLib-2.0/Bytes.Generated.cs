@@ -57,15 +57,15 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Bytes.UnmanagedStruct* g_bytes_new(
-        /* <array length="1" zero-terminated="0" type="gconstpointer" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="guint8" managed-name="System.Byte" />
+        /* <array length="1" zero-terminated="0" type="gconstpointer" is-pointer="1">
+*   <type name="guint8" />
 * </array> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* data,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint size);
         static partial void CheckNewArgs(System.ReadOnlySpan<byte> data);
@@ -121,15 +121,15 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Bytes.UnmanagedStruct* g_bytes_new_take(
-        /* <array length="1" zero-terminated="0" type="gpointer" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="guint8" managed-name="System.Byte" />
+        /* <array length="1" zero-terminated="0" type="gpointer" is-pointer="1">
+*   <type name="guint8" />
 * </array> */
         /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
         byte* data,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint size);
         static partial void CheckNewTakeArgs(GISharp.Runtime.CArray<byte>? data);
@@ -186,21 +186,21 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Bytes.UnmanagedStruct* g_bytes_new_with_free_func(
-        /* <array length="1" zero-terminated="0" type="gconstpointer" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="guint8" managed-name="System.Byte" />
+        /* <array length="1" zero-terminated="0" type="gconstpointer" is-pointer="1">
+*   <type name="guint8" />
 * </array> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* data,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint size,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> freeFunc,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
@@ -232,13 +232,13 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_bytes_compare(
-        /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes1,
-        /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes2);
         static partial void CheckCompareArgs(GISharp.Lib.GLib.Bytes bytes1, GISharp.Lib.GLib.Bytes bytes2);
@@ -288,7 +288,7 @@ namespace GISharp.Lib.GLib
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_bytes_get_type();
 
@@ -313,13 +313,13 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_bytes_equal(
-        /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes1,
-        /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes2);
         partial void CheckEqualsArgs(GISharp.Lib.GLib.Bytes bytes2);
@@ -390,15 +390,15 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="0" zero-terminated="0" type="gconstpointer" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="guint8" managed-name="System.Byte" />
+        /* <array length="0" zero-terminated="0" type="gconstpointer" is-pointer="1">
+*   <type name="guint8" />
 * </array> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_bytes_get_data(
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes,
-        /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         nuint* size);
         partial void CheckGetDataArgs();
@@ -431,10 +431,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         private static extern nuint g_bytes_get_size(
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes);
         partial void CheckGetSizeArgs();
@@ -470,7 +470,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_bytes_hash(
-        /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes);
         partial void CheckGetHashCodeArgs();
@@ -518,16 +518,16 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Bytes.UnmanagedStruct* g_bytes_new_from_bytes(
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint offset,
-        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize" /> */
         /* transfer-ownership:none direction:in */
         nuint length);
         partial void CheckNewFromBytesArgs(int offset, int length);
@@ -557,10 +557,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Bytes.UnmanagedStruct* g_bytes_ref(
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes);
 
@@ -579,10 +579,10 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_bytes_unref(
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes);
 
@@ -617,12 +617,12 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" managed-name="GISharp.Lib.GLib.ByteArray" is-pointer="1">
-*   <type name="guint8" type="guint8" managed-name="System.Byte" />
+        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+*   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_bytes_unref_to_array(
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes);
         partial void CheckUnrefToArrayArgs();
@@ -663,15 +663,15 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="0" zero-terminated="0" type="gpointer" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="guint8" managed-name="System.Byte" />
+        /* <array length="0" zero-terminated="0" type="gpointer" is-pointer="1">
+*   <type name="guint8" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern byte* g_bytes_unref_to_data(
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes,
-        /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
+        /* <type name="gsize" type="gsize*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         nuint* size);
         partial void CheckUnrefToDataArgs();

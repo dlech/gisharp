@@ -21,19 +21,19 @@ namespace GISharp.Lib.GLib
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="none" type="void" managed-name="System.Void" /> */
+    /* <type name="none" type="void" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedLogFunc(
-    /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+    /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 direction:in */
     byte* logDomain,
-    /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+    /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GLib.LogLevelFlags logLevel,
-    /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+    /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 direction:in */
     byte* message,
-    /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+    /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:3 direction:in */
     System.IntPtr userData);
 

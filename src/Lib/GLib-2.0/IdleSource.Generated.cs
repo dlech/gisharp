@@ -22,7 +22,7 @@ namespace GISharp.Lib.GLib
         /// the newly-created idle source
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_idle_source_new();
         static partial void CheckNewArgs();

@@ -50,16 +50,16 @@ namespace GISharp.Lib.GIRepository
         /// address to a function or %NULL if an error happened
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_vfunc_info_get_address(
-        /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
+        /* <type name="VFuncInfo" type="GIVFuncInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* info,
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType implementorGtype,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         partial void CheckGetAddressArgs(GISharp.Runtime.GType implementorGtype);
@@ -94,10 +94,10 @@ namespace GISharp.Lib.GIRepository
         /// the flags
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="VFuncInfoFlags" type="GIVFuncInfoFlags" managed-name="VFuncInfoFlags" /> */
+        /* <type name="VFuncInfoFlags" type="GIVFuncInfoFlags" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GIRepository.VFuncInfoFlags g_vfunc_info_get_flags(
-        /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
+        /* <type name="VFuncInfo" type="GIVFuncInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* info);
         partial void CheckGetFlagsArgs();
@@ -129,10 +129,10 @@ namespace GISharp.Lib.GIRepository
         /// g_base_info_unref() when done.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="FunctionInfo" type="GIFunctionInfo*" managed-name="FunctionInfo" is-pointer="1" /> */
+        /* <type name="FunctionInfo" type="GIFunctionInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* g_vfunc_info_get_invoker(
-        /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
+        /* <type name="VFuncInfo" type="GIVFuncInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* info);
         partial void CheckGetInvokerArgs();
@@ -158,10 +158,10 @@ namespace GISharp.Lib.GIRepository
         /// the struct offset or 0xFFFF if it's unknown
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_vfunc_info_get_offset(
-        /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
+        /* <type name="VFuncInfo" type="GIVFuncInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* info);
         partial void CheckGetOffsetArgs();
@@ -188,10 +188,10 @@ namespace GISharp.Lib.GIRepository
         /// the signal or %NULL if none set
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="SignalInfo" type="GISignalInfo*" managed-name="SignalInfo" is-pointer="1" /> */
+        /* <type name="SignalInfo" type="GISignalInfo*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GIRepository.SignalInfo.UnmanagedStruct* g_vfunc_info_get_signal(
-        /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
+        /* <type name="VFuncInfo" type="GIVFuncInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* info);
         partial void CheckGetSignalArgs();

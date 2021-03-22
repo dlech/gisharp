@@ -21,10 +21,10 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.Gio.Icon.UnmanagedStruct* g_icon_deserialize(
-        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
         static partial void CheckDeserializeArgs(GISharp.Lib.GLib.Variant value);
@@ -64,13 +64,13 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.20")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.Gio.Icon.UnmanagedStruct* g_icon_new_for_string(
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* str,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckNewForStringArgs(GISharp.Lib.GLib.UnownedUtf8 str);
@@ -95,7 +95,7 @@ namespace GISharp.Lib.Gio
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_icon_get_type();
 
@@ -139,7 +139,7 @@ namespace GISharp.Lib.Gio
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_icon_hash(
-        /* <type name="Icon" type="gconstpointer" managed-name="Icon" is-pointer="1" /> */
+        /* <type name="Icon" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
         static partial void CheckGetHashCodeArgs(this GISharp.Lib.Gio.IIcon icon);
@@ -168,13 +168,13 @@ namespace GISharp.Lib.Gio
         /// %TRUE if @icon1 is equal to @icon2. %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_icon_equal(
-        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon1,
-        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2);
         static partial void CheckEqualsArgs(this GISharp.Lib.Gio.IIcon? icon1, GISharp.Lib.Gio.IIcon? icon2);
@@ -206,10 +206,10 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_icon_serialize(
-        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
         static partial void CheckSerializeArgs(this GISharp.Lib.Gio.IIcon icon);
@@ -258,10 +258,10 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.20")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern byte* g_icon_to_string(
-        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
         static partial void CheckToStringArgs(this GISharp.Lib.Gio.IIcon icon);

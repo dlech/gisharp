@@ -89,22 +89,22 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
+        /* <type name="gssize" type="gssize" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate nint UnmanagedReadFn(
-/* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+/* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
-/* <type name="gpointer" type="void*" managed-name="System.IntPtr" is-pointer="1" /> */
+/* <type name="gpointer" type="void*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr buffer,
-/* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+/* <type name="gsize" type="gsize" /> */
 /* transfer-ownership:none direction:in */
 nuint count,
-/* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+/* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+/* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
@@ -132,19 +132,19 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
+        /* <type name="gssize" type="gssize" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate nint UnmanagedSkip(
-/* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+/* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
-/* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+/* <type name="gsize" type="gsize" /> */
 /* transfer-ownership:none direction:in */
 nuint count,
-/* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+/* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+/* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
@@ -172,16 +172,16 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedCloseFn(
-/* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+/* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
-/* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+/* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+/* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
@@ -209,30 +209,30 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedReadAsync(
-/* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+/* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
-/* <array length="2" zero-terminated="0" type="void*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="guint8" managed-name="System.Byte" />
+/* <array length="2" zero-terminated="0" type="void*" is-pointer="1">
+*   <type name="guint8" />
 * </array> */
 /* direction:out caller-allocates:1 transfer-ownership:none nullable:1 */
 byte* buffer,
-/* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+/* <type name="gsize" type="gsize" /> */
 /* direction:in caller-allocates:0 transfer-ownership:full */
 nuint count,
-/* <type name="gint" type="int" managed-name="System.Int32" /> */
+/* <type name="gint" type="int" /> */
 /* transfer-ownership:none direction:in */
 int ioPriority,
-/* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+/* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
 delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback,
-/* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+/* <type name="gpointer" type="gpointer" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:6 direction:in */
 System.IntPtr userData);
 
@@ -260,16 +260,16 @@ System.IntPtr userData);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
+        /* <type name="gssize" type="gssize" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate nint UnmanagedReadFinish(
-/* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+/* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
-/* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+/* <type name="AsyncResult" type="GAsyncResult*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
-/* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+/* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
@@ -297,25 +297,25 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedSkipAsync(
-/* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+/* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
-/* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+/* <type name="gsize" type="gsize" /> */
 /* transfer-ownership:none direction:in */
 nuint count,
-/* <type name="gint" type="int" managed-name="System.Int32" /> */
+/* <type name="gint" type="int" /> */
 /* transfer-ownership:none direction:in */
 int ioPriority,
-/* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+/* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback,
-/* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+/* <type name="gpointer" type="gpointer" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
 System.IntPtr userData);
 
@@ -343,16 +343,16 @@ System.IntPtr userData);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
+        /* <type name="gssize" type="gssize" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate nint UnmanagedSkipFinish(
-/* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+/* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
-/* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+/* <type name="AsyncResult" type="GAsyncResult*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
-/* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+/* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
@@ -380,22 +380,22 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedCloseAsync(
-/* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+/* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
-/* <type name="gint" type="int" managed-name="System.Int32" /> */
+/* <type name="gint" type="int" /> */
 /* transfer-ownership:none direction:in */
 int ioPriority,
-/* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+/* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback,
-/* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+/* <type name="gpointer" type="gpointer" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
@@ -423,16 +423,16 @@ System.IntPtr userData);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedCloseFinish(
-/* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
+/* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
-/* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+/* <type name="AsyncResult" type="GAsyncResult*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
-/* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+/* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 

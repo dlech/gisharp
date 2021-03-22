@@ -26,7 +26,7 @@ namespace GISharp.Lib.GIRepository
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
+        /* <type name="GLib.Quark" type="GQuark" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Quark g_irepository_error_quark();
         static partial void CheckGetQuarkArgs();

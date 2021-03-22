@@ -27,10 +27,10 @@ namespace GISharp.Lib.GLib
         /// the newly-created timeout source
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_timeout_source_new(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint interval);
         static partial void CheckNewArgs(uint interval);
@@ -72,10 +72,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.14")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_timeout_source_new_seconds(
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint interval);
         static partial void CheckNewSecondsArgs(uint interval);

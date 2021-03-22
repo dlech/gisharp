@@ -38,10 +38,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" is-pointer="1" /> */
+        /* <type name="TypeInterface" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* g_type_default_interface_ref(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType gType);
         static partial void CheckRefArgs(GISharp.Runtime.GType gType);
@@ -76,10 +76,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" is-pointer="1" /> */
+        /* <type name="TypeInterface" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* g_type_default_interface_peek(
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType gType);
 
@@ -96,10 +96,10 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_type_default_interface_unref(
-        /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" is-pointer="1" /> */
+        /* <type name="TypeInterface" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* gIface);
     }

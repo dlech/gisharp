@@ -22,13 +22,13 @@ namespace GISharp.Lib.GObject
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    /* <type name="none" type="void" managed-name="System.Void" /> */
+    /* <type name="none" type="void" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedInstanceInitFunc(
-    /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" is-pointer="1" /> */
+    /* <type name="TypeInstance" type="GTypeInstance*" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance,
-    /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
+    /* <type name="TypeClass" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypeClass.UnmanagedStruct* gClass);
 

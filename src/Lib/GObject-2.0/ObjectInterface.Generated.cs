@@ -27,13 +27,13 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* g_object_interface_find_property(
-        /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" is-pointer="1" /> */
+        /* <type name="TypeInterface" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* gIface,
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* propertyName);
         static partial void CheckFindPropertyArgs(this GISharp.Lib.GObject.TypeInterface gIface, GISharp.Lib.GLib.UnownedUtf8 propertyName);
@@ -83,13 +83,13 @@ namespace GISharp.Lib.GObject
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_object_interface_install_property(
-        /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" is-pointer="1" /> */
+        /* <type name="TypeInterface" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* gIface,
-        /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+        /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         static partial void CheckInstallPropertyArgs(this GISharp.Lib.GObject.TypeInterface gIface, GISharp.Lib.GObject.ParamSpec pspec);
@@ -127,15 +127,15 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="0" zero-terminated="0" type="GParamSpec**" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" />
+        /* <array length="0" zero-terminated="0" type="GParamSpec**" is-pointer="1">
+*   <type name="ParamSpec" type="GParamSpec*" is-pointer="1" />
 * </array> */
         /* transfer-ownership:container direction:in */
         private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct** g_object_interface_list_properties(
-        /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" is-pointer="1" /> */
+        /* <type name="TypeInterface" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* gIface,
-        /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
+        /* <type name="guint" type="guint*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* nPropertiesP);
         static partial void CheckListPropertiesArgs(this GISharp.Lib.GObject.TypeInterface gIface);

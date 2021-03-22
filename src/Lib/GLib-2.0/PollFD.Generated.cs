@@ -19,7 +19,7 @@ namespace GISharp.Lib.GLib
         private readonly ushort revents;
 #pragma warning restore CS0169, CS0414, CS0649
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Runtime.GType" /> */
+        /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_pollfd_get_type();
     }

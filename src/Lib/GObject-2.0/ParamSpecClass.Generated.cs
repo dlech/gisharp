@@ -64,10 +64,10 @@ namespace GISharp.Lib.GObject
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedFinalize(
-/* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+/* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
 
@@ -95,13 +95,13 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedValueSetDefault(
-/* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+/* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec,
-/* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+/* <type name="Value" type="GValue*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value* value);
 
@@ -129,13 +129,13 @@ GISharp.Lib.GObject.Value* value);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedValueValidate(
-/* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+/* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec,
-/* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
+/* <type name="Value" type="GValue*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value* value);
 
@@ -163,16 +163,16 @@ GISharp.Lib.GObject.Value* value);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gint" type="gint" managed-name="System.Int32" /> */
+        /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate int UnmanagedValuesCmp(
-/* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
+/* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec,
-/* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+/* <type name="Value" type="const GValue*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value* value1,
-/* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
+/* <type name="Value" type="const GValue*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value* value2);
 

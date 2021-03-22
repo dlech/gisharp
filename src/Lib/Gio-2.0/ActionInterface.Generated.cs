@@ -70,10 +70,10 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate byte* UnmanagedGetName(
-/* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+/* <type name="Action" type="GAction*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Action.UnmanagedStruct* action);
 
@@ -101,10 +101,10 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
+        /* <type name="GLib.VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         public unsafe delegate GISharp.Lib.GLib.VariantType.UnmanagedStruct* UnmanagedGetParameterType(
-/* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+/* <type name="Action" type="GAction*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Action.UnmanagedStruct* action);
 
@@ -132,10 +132,10 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
+        /* <type name="GLib.VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         public unsafe delegate GISharp.Lib.GLib.VariantType.UnmanagedStruct* UnmanagedGetStateType(
-/* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+/* <type name="Action" type="GAction*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Action.UnmanagedStruct* action);
 
@@ -163,10 +163,10 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate GISharp.Lib.GLib.Variant.UnmanagedStruct* UnmanagedGetStateHint(
-/* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+/* <type name="Action" type="GAction*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Action.UnmanagedStruct* action);
 
@@ -194,10 +194,10 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedGetEnabled(
-/* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+/* <type name="Action" type="GAction*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Action.UnmanagedStruct* action);
 
@@ -225,10 +225,10 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         public unsafe delegate GISharp.Lib.GLib.Variant.UnmanagedStruct* UnmanagedGetState(
-/* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+/* <type name="Action" type="GAction*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Action.UnmanagedStruct* action);
 
@@ -256,13 +256,13 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedChangeState(
-/* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+/* <type name="Action" type="GAction*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Action.UnmanagedStruct* action,
-/* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+/* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
 
@@ -290,13 +290,13 @@ GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedActivate(
-/* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+/* <type name="Action" type="GAction*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Action.UnmanagedStruct* action,
-/* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+/* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.GLib.Variant.UnmanagedStruct* parameter);
 
