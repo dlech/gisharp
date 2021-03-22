@@ -8,6 +8,13 @@ namespace GISharp.Lib.GObject
     public unsafe partial struct Value
     {
         private static readonly GISharp.Runtime.GType _GType = g_value_get_type();
+
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.internedString']/*" />
+        [GISharp.Runtime.SinceAttribute("2.66")]
+        private const System.Int32 internedString = 268435456;
+
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.nocopyContents']/*" />
+        private const System.Int32 nocopyContents = 134217728;
 #pragma warning disable CS0169, CS0414, CS0649
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.gType']/*" />
         private readonly GISharp.Runtime.GType gType;

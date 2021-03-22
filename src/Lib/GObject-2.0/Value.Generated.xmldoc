@@ -1,5 +1,21 @@
 <declaration>
 
+<member name='Value.internedString'>
+<summary>
+For string values, indicates that the string contained is canonical and will
+exist for the duration of the process. See <see cref="Value.SetInternedString(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
+</summary>
+</member>
+
+<member name='Value.nocopyContents'>
+<summary>
+If passed to G_VALUE_COLLECT(), allocated data won't be copied
+but used verbatim. This does not affect ref-counted types like
+objects. This does not affect usage of <see cref="Value.Copy(ref GISharp.Lib.GObject.Value)"/>, the data will
+be copied if it is not ref-counted.
+</summary>
+</member>
+
 <member name='Value.gType'>
 </member>
 

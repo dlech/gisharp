@@ -84,3 +84,17 @@
 - !move-element
   xpath: gi:repository/gi:namespace/gi:function[@name='strdup_value_contents']
   new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='Value']
+
+# move constants
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'VALUE_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='Value']
+- !change-attribute
+  name: name
+  regex: ^VALUE_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:constant
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:constant
