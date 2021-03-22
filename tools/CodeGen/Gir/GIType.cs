@@ -80,7 +80,6 @@ namespace GISharp.CodeGen.Gir
             case "guintptr":
             case "gsize":
             case "gssize":
-            case "goffset":
             case "gunichar":
             case "gunichar2":
             case "GType":

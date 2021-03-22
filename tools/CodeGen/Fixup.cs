@@ -1279,7 +1279,6 @@ namespace GISharp.CodeGen
                 yield return "gdouble";
                 yield return "gsize";
                 yield return "gssize";
-                yield return "goffset";
                 yield return "gintptr";
                 yield return "guintptr";
             }
@@ -1353,7 +1352,6 @@ namespace GISharp.CodeGen
             // size/offset are cast to int to match .NET convention
             case "gsize":
             case "gssize":
-            case "goffset":
                 return typeof(int).ToString();
             case "guint":
             case "guint32":
