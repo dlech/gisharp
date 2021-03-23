@@ -55,42 +55,42 @@ namespace GISharp.CodeGen
                 // basic/fundamental types
                 "none" => $"void{pointer}",
                 "gboolean" => $"{typeof(Runtime.Boolean)}{pointer}",
-                var x when x == "gchar" || x == "gint8" => $"sbyte{pointer}",
-                var x when x == "guchar" || x == "guint8" => $"byte{pointer}",
-                var x when x == "gshort" || x == "gint16" => $"short{pointer}",
-                var x when x == "gushort" || x == "guint16" => $"ushort{pointer}",
-                var x when x == "gint" || x == "gint32" => $"int{pointer}",
-                var x when x == "guint" || x == "guint32" => $"uint{pointer}",
+                "gchar" or "gint8" => $"sbyte{pointer}",
+                "guchar" or "guint8" => $"byte{pointer}",
+                "gshort" or "gint16" => $"short{pointer}",
+                "gushort" or "guint16" => $"ushort{pointer}",
+                "gint" or "gint32" => $"int{pointer}",
+                "guint" or "guint32" => $"uint{pointer}",
                 "gint64" => $"long{pointer}",
                 "guint64" => $"ulong{pointer}",
                 "glong" => $"{typeof(CLong)}{pointer}",
                 "gulong" => $"{typeof(CULong)}{pointer}",
                 "gfloat" => $"float{pointer}",
                 "gdouble" => $"double{pointer}",
-                var x when x == "gpointer" || x == "gconstpointer" => "System.IntPtr",
-                var x when x == "gssize" || x == "gintptr" => $"nint{pointer}",
-                var x when x == "gsize" || x == "guintptr" => $"nuint{pointer}",
+                "gpointer" or "gconstpointer" => "System.IntPtr",
+                "gssize" or "gintptr" => $"nint{pointer}",
+                "gsize" or "guintptr" => $"nuint{pointer}",
                 "gunichar" => $"uint{pointer}",
                 "gunichar2" => $"char{pointer}",
                 "GType" => $"GISharp.Runtime.GType{pointer}",
-                var x when x == "filename" || x == "utf8" => "byte*",
+                "filename" or "utf8" => "byte*",
                 "GLib.DestroyNotify" => "delegate* unmanaged[Cdecl]<System.IntPtr, void>",
                 "va_list" =>
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported"),
-                var x when x is not null && x.EndsWith("Private") => "System.IntPtr",
-                var x when x is not null && x.Contains(".") => type switch {
+                var n when n is not null && n.EndsWith("Private") => "System.IntPtr",
+                var n when n is not null && n.Contains(".") => type switch {
                     var t when t.Interface is Alias alias && alias.Type.Interface is Callback callback => callback.GetUnmanagedType(),
                     var t when t.Interface is Callback callback => callback.GetUnmanagedType(),
                     var t when t.IsValueType() => $"GISharp.Lib.{type.GirName}{pointer}",
                     _ => $"GISharp.Lib.{type.GirName}.UnmanagedStruct{pointer}",
                 },
-                var x when x is null && type is Gir.Array array =>
+                var n when n is null && type is Gir.Array array =>
                     $"{array.TypeParameters.Single().GetUnmanagedType()}*",
                 _ => type switch {
-                    var x when x.Interface is Alias alias && alias.Type.Interface is Callback callback => callback.GetUnmanagedType(),
-                    var x when x.Interface is Callback callback => callback.GetUnmanagedType(),
-                    var x when x.IsValueType() =>
+                    var t when t.Interface is Alias alias && alias.Type.Interface is Callback callback => callback.GetUnmanagedType(),
+                    var t when t.Interface is Callback callback => callback.GetUnmanagedType(),
+                    var t when t.IsValueType() =>
                         $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}{pointer}",
                     _ => $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}.UnmanagedStruct{pointer}",
                 }
@@ -113,23 +113,23 @@ namespace GISharp.CodeGen
                 // basic/fundamental types
                 "none" => "void",
                 "gboolean" => "bool",
-                var x when x == "gchar" || x == "gint8" => "sbyte",
-                var x when x == "guchar" || x == "guint8" => "byte",
-                var x when x == "gshort" || x == "gint16" => "short",
-                var x when x == "gushort" || x == "guint16" => "ushort",
-                var x when x == "gint" || x == "gint32" => "int",
-                var x when x == "guint" || x == "guint32" => "uint",
+                "gchar" or "gint8" => "sbyte",
+                "guchar" or "guint8" => "byte",
+                "gshort" or "gint16" => "short",
+                "gushort" or "guint16" => "ushort",
+                "gint" or "gint32" => "int",
+                "guint" or "guint32" => "uint",
                 "gint64" => "long",
                 "guint64" => "ulong",
                 "glong" => typeof(CLong).ToString(),
                 "gulong" => typeof(CULong).ToString(),
                 "gfloat" => "float",
                 "gdouble" => "double",
-                var x when x == "gpointer" || x == "gconstpointer" => "System.IntPtr",
+                "gpointer" or "gconstpointer" => "System.IntPtr",
                 "gintptr" => "nint",
                 "guintptr" => "nuint",
                 // size/offset are cast to int to match .NET convention
-                var x when x == "gsize" || x == "gssize" => "int",
+                "gsize" or "gssize" => "int",
                 "gunichar" => "System.Text.Rune",
                 "gunichar2" => "char",
                 "GType" => "GISharp.Runtime.GType",
@@ -138,12 +138,12 @@ namespace GISharp.CodeGen
                 "va_list" =>
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported"),
-                var x when x is null && type is Gir.Array =>
+                var n when n is null && type is Gir.Array =>
                     type.TypeParameters.Single().IsValueType() ?
                         $"{typeof(CArray).FullName}<{type.TypeParameters.Single().GetUnmanagedType()}>" :
                         $"{typeof(CPtrArray).FullName}<{type.TypeParameters.Single().GetManagedType()}>",
-                var x when x is not null && x.EndsWith("Private") => "System.IntPtr",
-                var x when x is not null && x.Contains(".") => $"GISharp.Lib.{type.GirName}",
+                var n when n is not null && n.EndsWith("Private") => "System.IntPtr",
+                var n when n is not null && n.Contains(".") => $"GISharp.Lib.{type.GirName}",
                 _ => $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}",
             };
 
