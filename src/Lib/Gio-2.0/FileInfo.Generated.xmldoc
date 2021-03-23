@@ -517,7 +517,7 @@ a UTF-8 string.
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='FileInfo.SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.

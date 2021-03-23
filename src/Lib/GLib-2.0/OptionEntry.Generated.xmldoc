@@ -74,7 +74,7 @@ The placeholder to use for the extra argument parsed
 <summary>
 A GOptionEntry struct defines a single option. To have an effect, they
 must be added to a <see cref="OptionGroup"/> with g_option_context_add_main_entries()
-or <see cref="OptionGroup.AddEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/>.
+or <see cref="OptionGroup.AddEntries(GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GLib.OptionEntry})"/>.
 </summary>
 </member>
 

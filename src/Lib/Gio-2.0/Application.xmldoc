@@ -219,7 +219,7 @@ after the parsing of the commandline options has occurred.
 <remarks>
 <para>
 You can add options to be recognised during commandline option
-parsing using <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> and
+parsing using <see cref="Application.AddMainOptionEntries(GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GLib.OptionEntry})"/> and
 <see cref="Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
 </para>
 <para>
@@ -443,7 +443,7 @@ Add an option to be handled by this instance.
 <remarks>
 <para>
 Calling this function is the equivalent of calling
-<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> with a single <see cref="GLib.OptionEntry"/>
+<see cref="Application.AddMainOptionEntries(GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GLib.OptionEntry})"/> with a single <see cref="GLib.OptionEntry"/>
 that has its arg_data member set to <c>null</c>.
 </para>
 <para>
@@ -451,7 +451,7 @@ The parsed arguments will be packed into a <see cref="GLib.VariantDict"/> which
 is passed to <see cref="Application"/>::handle-local-options. If
 <see cref="ApplicationFlags.HandlesCommandLine"/> is set, then it will also
 be sent to the primary instance. See
-<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> for more details.
+<see cref="Application.AddMainOptionEntries(GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GLib.OptionEntry})"/> for more details.
 </para>
 <para>
 See <see cref="GLib.OptionEntry"/> for more documentation of the arguments.
@@ -478,7 +478,7 @@ the placeholder to use for the extra argument
 </param>
 </member>
 
-<member name='Application.AddMainOptionEntries(System.ReadOnlySpan&lt;GISharp.Lib.GLib.OptionEntry&gt;)'>
+<member name='Application.AddMainOptionEntries(GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GLib.OptionEntry&gt;)'>
 <summary>
 Adds main option entries to be handled by this instance.
 </summary>
@@ -559,7 +559,7 @@ Adds a <see cref="GLib.OptionGroup"/> to the commandline handling of this instan
 This function is comparable to <see cref="GLib.OptionContext.AddGroup"/>.
 </para>
 <para>
-Unlike <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/>, this function does
+Unlike <see cref="Application.AddMainOptionEntries(GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GLib.OptionEntry})"/>, this function does
 not deal with <c>null</c> <c>argData</c> and never transmits options to the
 primary instance.
 </para>
@@ -782,7 +782,7 @@ of Unicode commandline arguments).
 <para>
 <see cref="Application"/> will attempt to parse the commandline arguments.  You
 can add commandline flags to the list of recognised options by way of
-<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/>.  After this, the
+<see cref="Application.AddMainOptionEntries(GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GLib.OptionEntry})"/>.  After this, the
 <see cref="Application"/>::handle-local-options signal is emitted, from which the
 application can inspect the values of its <see cref="GLib.OptionEntry"/>s.
 </para>

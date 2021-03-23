@@ -20,7 +20,7 @@ the hook id, for later use with <see cref="Signal.RemoveEmissionHook(uint,GIShar
 </returns>
 </member>
 
-<member name='Signal.ChainFromOverridden(System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;,GISharp.Lib.GObject.Value)'>
+<member name='Signal.ChainFromOverridden(GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.Value&gt;,GISharp.Lib.GObject.Value)'>
 <summary>
 Calls the original class closure of a signal. This function should only
 be called from an overridden class closure; see
@@ -84,13 +84,13 @@ the handler ID (always greater than 0 for successful connections)
 </returns>
 </member>
 
-<member name='Signal.Emitv(System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Value)'>
+<member name='Signal.Emitv(GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.Value&gt;,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Value)'>
 <summary>
 Emits a signal.
 </summary>
 <remarks>
 <para>
-Note that <see cref="Signal.Emitv(System.ReadOnlySpan{GISharp.Lib.GObject.Value},uint,GISharp.Lib.GLib.Quark,ref GISharp.Lib.GObject.Value)"/> doesn't change <paramref name="returnValue"/> if no handlers are
+Note that <see cref="Signal.Emitv(GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GObject.Value},uint,GISharp.Lib.GLib.Quark,ref GISharp.Lib.GObject.Value)"/> doesn't change <paramref name="returnValue"/> if no handlers are
 connected, in contrast to g_signal_emit() and g_signal_emit_valist().
 </para>
 </remarks>
@@ -339,7 +339,7 @@ from the type to which the signal belongs.
 </summary>
 <remarks>
 <para>
-See <see cref="Signal.ChainFromOverridden(System.ReadOnlySpan{GISharp.Lib.GObject.Value},ref GISharp.Lib.GObject.Value)"/> and
+See <see cref="Signal.ChainFromOverridden(GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GObject.Value},ref GISharp.Lib.GObject.Value)"/> and
 g_signal_chain_from_overridden_handler() for how to chain up to the
 parent class closure from inside the overridden one.
 </para>

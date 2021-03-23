@@ -671,11 +671,11 @@ namespace GISharp.Lib.Gio
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionEntry* entries);
-        partial void CheckAddMainOptionEntriesArgs(System.ReadOnlySpan<GISharp.Lib.GLib.OptionEntry> entries);
+        partial void CheckAddMainOptionEntriesArgs(GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GLib.OptionEntry> entries);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.AddMainOptionEntries(System.ReadOnlySpan&lt;GISharp.Lib.GLib.OptionEntry&gt;)']/*" />
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.AddMainOptionEntries(GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GLib.OptionEntry&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public void AddMainOptionEntries(System.ReadOnlySpan<GISharp.Lib.GLib.OptionEntry> entries)
+        public void AddMainOptionEntries(GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GLib.OptionEntry> entries)
         {
             fixed (GISharp.Lib.GLib.OptionEntry* entriesData_ = entries)
             {

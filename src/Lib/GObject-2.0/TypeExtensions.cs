@@ -231,9 +231,8 @@ namespace GISharp.Lib.GObject
                     var flagsAttribute = type.GetCustomAttributes()
                         .OfType<FlagsAttribute>().SingleOrDefault();
                     if (flagsAttribute is null) {
-                        var gtypeValues = new Span<EnumValue>(
-                            (void*)Marshal.AllocCoTaskMem(sizeof(EnumValue) * (values.Length + 1)),
-                            values.Length + 1);
+                        var valuesMem = (void*)Marshal.AllocCoTaskMem(sizeof(EnumValue) * (values.Length + 1));
+                        var gtypeValues = new Span<EnumValue>(valuesMem, values.Length + 1);
                         for (int i = 0; i < values.Length; i++) {
                             var enumValueField = type.GetField(names[i]);
                             var enumValueAttr = enumValueField?.GetCustomAttributes()
@@ -246,7 +245,7 @@ namespace GISharp.Lib.GObject
                         }
                         // zero termination
                         gtypeValues[values.Length] = default;
-                        var gtype = Enum.RegisterStatic(gtypeName, gtypeValues);
+                        var gtype = Enum.RegisterStatic(gtypeName, new UnownedZeroTerminatedCArray<EnumValue>(valuesMem));
                         if (gtype == GType.Invalid) {
                             throw new InvalidOperationException("Something bad happend while registering enum.");
                         }
@@ -256,9 +255,8 @@ namespace GISharp.Lib.GObject
                         return gtype;
                     }
                     else {
-                        var gtypeValues = new Span<FlagsValue>(
-                            (void*)Marshal.AllocCoTaskMem(sizeof(FlagsValue) * (values.Length + 1)),
-                            values.Length + 1);
+                        var valuesMem = (void*)Marshal.AllocCoTaskMem(sizeof(FlagsValue) * (values.Length + 1));
+                        var gtypeValues = new Span<FlagsValue>(valuesMem, values.Length + 1);
                         for (int i = 0; i < values.Length; i++) {
                             var enumValueField = type.GetField(names[i]);
                             var enumValueAttr = enumValueField?
@@ -272,7 +270,7 @@ namespace GISharp.Lib.GObject
                         }
                         // zero termination
                         gtypeValues[values.Length] = default;
-                        var gtype = Flags.RegisterStatic(gtypeName, gtypeValues);
+                        var gtype = Flags.RegisterStatic(gtypeName, new UnownedZeroTerminatedCArray<FlagsValue>(valuesMem));
                         if (gtype == GType.Invalid) {
                             throw new InvalidOperationException("Something bad happend while registering flags.");
                         }

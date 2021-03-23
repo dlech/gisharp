@@ -37,10 +37,10 @@ namespace GISharp.Lib.GObject
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.FlagsValue* constValues);
-        static partial void CheckCompleteTypeInfoArgs(GISharp.Runtime.GType gFlagsType, System.ReadOnlySpan<GISharp.Lib.GObject.FlagsValue> constValues);
+        static partial void CheckCompleteTypeInfoArgs(GISharp.Runtime.GType gFlagsType, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.FlagsValue> constValues);
 
-        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.CompleteTypeInfo(GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,System.ReadOnlySpan&lt;GISharp.Lib.GObject.FlagsValue&gt;)']/*" />
-        public static void CompleteTypeInfo(GISharp.Runtime.GType gFlagsType, out GISharp.Lib.GObject.TypeInfo info, System.ReadOnlySpan<GISharp.Lib.GObject.FlagsValue> constValues)
+        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.CompleteTypeInfo(GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.FlagsValue&gt;)']/*" />
+        public static void CompleteTypeInfo(GISharp.Runtime.GType gFlagsType, out GISharp.Lib.GObject.TypeInfo info, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.FlagsValue> constValues)
         {
             fixed (GISharp.Lib.GObject.FlagsValue* constValuesData_ = constValues)
             {
@@ -198,10 +198,10 @@ namespace GISharp.Lib.GObject
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.FlagsValue* constStaticValues);
-        static partial void CheckRegisterStaticArgs(GISharp.Lib.GLib.UnownedUtf8 name, System.ReadOnlySpan<GISharp.Lib.GObject.FlagsValue> constStaticValues);
+        static partial void CheckRegisterStaticArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.FlagsValue> constStaticValues);
 
-        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.RegisterStatic(GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Lib.GObject.FlagsValue&gt;)']/*" />
-        public static GISharp.Runtime.GType RegisterStatic(GISharp.Lib.GLib.UnownedUtf8 name, System.ReadOnlySpan<GISharp.Lib.GObject.FlagsValue> constStaticValues)
+        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.RegisterStatic(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.FlagsValue&gt;)']/*" />
+        public static GISharp.Runtime.GType RegisterStatic(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.FlagsValue> constStaticValues)
         {
             fixed (GISharp.Lib.GObject.FlagsValue* constStaticValuesData_ = constStaticValues)
             {

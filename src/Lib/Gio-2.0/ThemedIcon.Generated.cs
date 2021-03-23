@@ -31,7 +31,7 @@ namespace GISharp.Lib.Gio
         public bool UseDefaultFallbacks { get => (bool)GetProperty("use-default-fallbacks")!; set => SetProperty("use-default-fallbacks", value); }
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Names']/*" />
-        public GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> Names { get => GetNames(); }
+        public GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8> Names { get => GetNames(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -220,13 +220,13 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* icon);
         partial void CheckGetNamesArgs();
 
-        private GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> GetNames()
+        private GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8> GetNames()
         {
             CheckGetNamesArgs();
             var icon_ = (GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_themed_icon_get_names(icon_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8>(ret_, -1);
+            var ret = new GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8>(ret_, -1);
             return ret;
         }
 

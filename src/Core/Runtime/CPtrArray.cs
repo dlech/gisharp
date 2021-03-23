@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace GISharp.Runtime
 {
@@ -204,12 +205,8 @@ namespace GISharp.Runtime
                 throw new NotSupportedException();
             }
 
-            // length of < 0 means zero-terminated, so we have to go through
-            // the whole array to find the length
             if (length < 0) {
-                var array = (IntPtr*)handle;
-                for (length = 0; array[length] != IntPtr.Zero; length++) {
-                }
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
 
             Data = new((void*)handle, length);
@@ -292,6 +289,110 @@ namespace GISharp.Runtime
         /// Gets an enumerator for this array.
         /// </summary>
         public Enumerator GetEnumerator() => new(this);
+    }
+
+    /// <summary>
+    /// Managed wrapper for unowned C arrays of pointers to opaque data types.
+    /// </summary>
+    public unsafe ref struct UnownedZeroTerminatedCPtrArray<T> where T : IOpaque?
+    {
+        private readonly IntPtr* handle;
+        private int length;
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public UnownedZeroTerminatedCPtrArray(void* handle) : this((IntPtr)handle, -1, Transfer.None)
+        {
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public UnownedZeroTerminatedCPtrArray(void* handle, int length) : this((IntPtr)handle, length, Transfer.None)
+        {
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public UnownedZeroTerminatedCPtrArray(IntPtr handle, int length, Transfer ownership)
+        {
+            if (ownership != Transfer.None) {
+                throw new NotSupportedException();
+            }
+
+            this.handle = (IntPtr*)handle;
+            this.length = length;
+            // TODO: could save length in case it is >= 0 for later conversion
+            // to UnownedCPtrArray
+        }
+
+        /// <summary>
+        /// Gets a pinnable reference for passing to unmanged code.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public ref readonly IntPtr GetPinnableReference()
+        {
+            return ref Unsafe.AsRef<IntPtr>(handle);
+        }
+
+        /// <summary>
+        /// Enumerator for iterating <see cref="UnownedZeroTerminatedCPtrArray{T}"/>.
+        /// </summary>
+        public ref struct Enumerator
+        {
+            private readonly UnownedZeroTerminatedCPtrArray<T> array;
+            private IntPtr* current;
+
+            internal Enumerator(UnownedZeroTerminatedCPtrArray<T> array)
+            {
+                this.array = array;
+                current = null;
+            }
+
+            /// <summary>
+            /// Implements the <c>Current</c> property for the <c>foreach</c>
+            /// enumerator pattern.
+            /// </summary>
+            public T Current => Opaque.GetInstance<T>(*current, Transfer.None);
+
+            /// <summary>
+            /// Implements the <c>MoveNext</c> method for the <c>foreach</c>
+            /// enumerator pattern.
+            /// </summary>
+            public bool MoveNext()
+            {
+                if (current == null) {
+                    current = array.handle;
+                }
+                else {
+                    current++;
+                }
+
+                return *current != IntPtr.Zero;
+            }
+        }
+
+        /// <summary>
+        /// Gets an enumerator for this array.
+        /// </summary>
+        public Enumerator GetEnumerator() => new(this);
+
+        /// <summary>
+        /// Finds the length and returns a <see cref="UnownedCPtrArray{T}"/>.
+        /// </summary>
+        public UnownedCPtrArray<T> ToUnownedCPtrArray()
+        {
+            if (length < 0) {
+                for (length = 0; handle[length] != IntPtr.Zero; length++) {
+                }
+            }
+            return new UnownedCPtrArray<T>(handle, length);
+        }
     }
 
     /// <summary>

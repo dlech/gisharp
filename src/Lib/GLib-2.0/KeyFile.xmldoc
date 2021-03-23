@@ -211,7 +211,7 @@ Returns the name of the start group of the file.
 <summary>
 Creates a new empty <see cref="KeyFile"/> object. Use
 <see cref="KeyFile.LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/>, <see cref="KeyFile.LoadFromData(GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.GLib.KeyFileFlags)"/>,
-<see cref="KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename},out GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> or <see cref="KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,out GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> to
+<see cref="KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.UnownedZeroTerminatedCPtrArray{GISharp.Lib.GLib.Filename},out GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> or <see cref="KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,out GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> to
 read an existing key file.
 </summary>
 </member>
@@ -742,7 +742,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 This function looks for a key file named <paramref name="file"/> in the paths
 specified in <paramref name="searchDirs"/>, loads the file into this instance and

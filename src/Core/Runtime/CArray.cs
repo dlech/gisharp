@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace GISharp.Runtime
 {
@@ -124,5 +125,95 @@ namespace GISharp.Runtime
         {
             return new ReadOnlySpan<T>((void*)array.UnsafeHandle, array.Length);
         }
+    }
+
+    /// <summary>
+    /// Managed wrapper for unowned C arrays of pointers to opaque data types.
+    /// </summary>
+    public unsafe ref struct UnownedZeroTerminatedCArray<T> where T : unmanaged
+    {
+        private readonly T* handle;
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public UnownedZeroTerminatedCArray(void* handle) : this((IntPtr)handle, -1, Transfer.None)
+        {
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public UnownedZeroTerminatedCArray(void* handle, int length) : this((IntPtr)handle, length, Transfer.None)
+        {
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public UnownedZeroTerminatedCArray(IntPtr handle, int length, Transfer ownership)
+        {
+            if (ownership != Transfer.None) {
+                throw new NotSupportedException();
+            }
+
+            this.handle = (T*)handle;
+            // TODO: could save length in case it is >= 0 for later conversion
+            // to UnownedCPtrArray
+        }
+
+        /// <summary>
+        /// Gets a pinnable reference for passing to unmanged code.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public ref readonly T GetPinnableReference()
+        {
+            return ref Unsafe.AsRef<T>(handle);
+        }
+
+        /// <summary>
+        /// Enumerator for iterating <see cref="UnownedZeroTerminatedCArray{T}"/>.
+        /// </summary>
+        public ref struct Enumerator
+        {
+            private readonly UnownedZeroTerminatedCArray<T> array;
+            private T* current;
+
+            internal Enumerator(UnownedZeroTerminatedCArray<T> array)
+            {
+                this.array = array;
+                current = null;
+            }
+
+            /// <summary>
+            /// Implements the <c>Current</c> property for the <c>foreach</c>
+            /// enumerator pattern.
+            /// </summary>
+            public ref T Current => ref *current;
+
+            /// <summary>
+            /// Implements the <c>MoveNext</c> method for the <c>foreach</c>
+            /// enumerator pattern.
+            /// </summary>
+            public bool MoveNext()
+            {
+                if (current == null) {
+                    current = array.handle;
+                }
+                else {
+                    current++;
+                }
+
+                return GMarshal.IsZero(current);
+            }
+        }
+
+        /// <summary>
+        /// Gets an enumerator for this array.
+        /// </summary>
+        public Enumerator GetEnumerator() => new(this);
     }
 }

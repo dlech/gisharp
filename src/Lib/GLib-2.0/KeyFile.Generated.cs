@@ -1682,11 +1682,11 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        partial void CheckLoadFromDirsArgs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> searchDirs, GISharp.Lib.GLib.KeyFileFlags flags);
+        partial void CheckLoadFromDirsArgs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Filename> searchDirs, GISharp.Lib.GLib.KeyFileFlags flags);
 
-        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public void LoadFromDirs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> searchDirs, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
+        public void LoadFromDirs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Filename> searchDirs, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
         {
             fixed (System.IntPtr* searchDirsData_ = searchDirs)
             {

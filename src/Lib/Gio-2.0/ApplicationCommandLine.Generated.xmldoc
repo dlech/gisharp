@@ -102,7 +102,7 @@ Gets the options there were passed to g_application_command_line().
 <para>
 If you did not override local_command_line() then these are the same
 options that were parsed according to the #GOptionEntrys added to the
-application with <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> and possibly
+application with <see cref="Application.AddMainOptionEntries(GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GLib.OptionEntry})"/> and possibly
 modified from your GApplication::handle-local-options handler.
 </para>
 <para>

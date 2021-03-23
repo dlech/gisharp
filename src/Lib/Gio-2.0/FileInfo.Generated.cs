@@ -589,14 +589,14 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute)
+        public GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8> GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             CheckGetAttributeStringvArgs(attribute);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_stringv(info_,attribute_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8>(ret_, -1);
+            var ret = new GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8>(ret_, -1);
             return ret;
         }
 
@@ -1766,10 +1766,10 @@ namespace GISharp.Lib.Gio
 * </array> */
         /* transfer-ownership:none direction:in */
         byte** attrValue);
-        partial void CheckSetAttributeStringvArgs(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> attrValue);
+        partial void CheckSetAttributeStringvArgs(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8> attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
-        public void SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> attrValue)
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
+        public void SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8> attrValue)
         {
             fixed (System.IntPtr* attrValueData_ = attrValue)
             {

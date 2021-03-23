@@ -58,10 +58,10 @@ namespace GISharp.Lib.GObject
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.EnumValue* constValues);
-        static partial void CheckCompleteTypeInfoArgs(GISharp.Runtime.GType gEnumType, System.ReadOnlySpan<GISharp.Lib.GObject.EnumValue> constValues);
+        static partial void CheckCompleteTypeInfoArgs(GISharp.Runtime.GType gEnumType, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.EnumValue> constValues);
 
-        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.CompleteTypeInfo(GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,System.ReadOnlySpan&lt;GISharp.Lib.GObject.EnumValue&gt;)']/*" />
-        public static void CompleteTypeInfo(GISharp.Runtime.GType gEnumType, out GISharp.Lib.GObject.TypeInfo info, System.ReadOnlySpan<GISharp.Lib.GObject.EnumValue> constValues)
+        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.CompleteTypeInfo(GISharp.Runtime.GType,GISharp.Lib.GObject.TypeInfo,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.EnumValue&gt;)']/*" />
+        public static void CompleteTypeInfo(GISharp.Runtime.GType gEnumType, out GISharp.Lib.GObject.TypeInfo info, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.EnumValue> constValues)
         {
             fixed (GISharp.Lib.GObject.EnumValue* constValuesData_ = constValues)
             {
@@ -222,10 +222,10 @@ namespace GISharp.Lib.GObject
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.EnumValue* constStaticValues);
-        static partial void CheckRegisterStaticArgs(GISharp.Lib.GLib.UnownedUtf8 name, System.ReadOnlySpan<GISharp.Lib.GObject.EnumValue> constStaticValues);
+        static partial void CheckRegisterStaticArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.EnumValue> constStaticValues);
 
-        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.RegisterStatic(GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Lib.GObject.EnumValue&gt;)']/*" />
-        public static GISharp.Runtime.GType RegisterStatic(GISharp.Lib.GLib.UnownedUtf8 name, System.ReadOnlySpan<GISharp.Lib.GObject.EnumValue> constStaticValues)
+        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.RegisterStatic(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.EnumValue&gt;)']/*" />
+        public static GISharp.Runtime.GType RegisterStatic(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.EnumValue> constStaticValues)
         {
             fixed (GISharp.Lib.GObject.EnumValue* constStaticValuesData_ = constStaticValues)
             {

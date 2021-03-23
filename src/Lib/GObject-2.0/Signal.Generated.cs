@@ -182,10 +182,10 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* returnValue);
-        static partial void CheckChainFromOverriddenArgs(System.ReadOnlySpan<GISharp.Lib.GObject.Value> instanceAndParams, ref GISharp.Lib.GObject.Value returnValue);
+        static partial void CheckChainFromOverriddenArgs(GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.Value> instanceAndParams, ref GISharp.Lib.GObject.Value returnValue);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.ChainFromOverridden(System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;,GISharp.Lib.GObject.Value)']/*" />
-        public static void ChainFromOverridden(System.ReadOnlySpan<GISharp.Lib.GObject.Value> instanceAndParams, ref GISharp.Lib.GObject.Value returnValue)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.ChainFromOverridden(GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.Value&gt;,GISharp.Lib.GObject.Value)']/*" />
+        public static void ChainFromOverridden(GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.Value> instanceAndParams, ref GISharp.Lib.GObject.Value returnValue)
         {
             fixed (GISharp.Lib.GObject.Value* returnValue_ = &returnValue)
             {
@@ -402,10 +402,10 @@ namespace GISharp.Lib.GObject
         /* <type name="Value" type="GValue*" /> */
         /* direction:inout caller-allocates:0 transfer-ownership:full optional:1 */
         GISharp.Lib.GObject.Value* returnValue);
-        static partial void CheckEmitvArgs(System.ReadOnlySpan<GISharp.Lib.GObject.Value> instanceAndParams, uint signalId, GISharp.Lib.GLib.Quark detail, ref GISharp.Lib.GObject.Value returnValue);
+        static partial void CheckEmitvArgs(GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.Value> instanceAndParams, uint signalId, GISharp.Lib.GLib.Quark detail, ref GISharp.Lib.GObject.Value returnValue);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Emitv(System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Value)']/*" />
-        public static void Emitv(System.ReadOnlySpan<GISharp.Lib.GObject.Value> instanceAndParams, uint signalId, GISharp.Lib.GLib.Quark detail, ref GISharp.Lib.GObject.Value returnValue)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Emitv(GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.Value&gt;,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Value)']/*" />
+        public static void Emitv(GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.Value> instanceAndParams, uint signalId, GISharp.Lib.GLib.Quark detail, ref GISharp.Lib.GObject.Value returnValue)
         {
             fixed (GISharp.Lib.GObject.Value* returnValue_ = &returnValue)
             {

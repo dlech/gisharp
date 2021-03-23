@@ -32,7 +32,5 @@ namespace GISharp.Lib.GObject
             valueName = (byte*)name.Take();
             valueNick = (byte*)nick.Take();
         }
-
-        internal bool IsZero => value == 0 && valueName == null && valueNick == null;
     }
 }

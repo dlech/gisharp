@@ -56,16 +56,20 @@ namespace GISharp.CodeGen.Syntax
                 return type;
             }
 
+            var isZeroTerminated = false;
+
             // special case for fully owned zero terminated arrays of zero terminated strings
-            if (arg.Type is Gir.Array array && array.GirName is null
-                && array.IsZeroTerminated && arg.TransferOwnership == "full"
-            ) {
-                var elementType = array.TypeParameters.First().GirName;
-                if (elementType == "utf8") {
-                    return "GISharp.Lib.GLib.Strv";
-                }
-                if (elementType == "filename") {
-                    return "GISharp.Runtime.FilenameArray";
+            if (arg.Type is Gir.Array array) {
+                isZeroTerminated = array.IsZeroTerminated;
+
+                if (array.GirName is null && isZeroTerminated && arg.TransferOwnership == "full") {
+                    var elementType = array.TypeParameters.First().GirName;
+                    if (elementType == "utf8") {
+                        return "GISharp.Lib.GLib.Strv";
+                    }
+                    if (elementType == "filename") {
+                        return "GISharp.Runtime.FilenameArray";
+                    }
                 }
             }
 
@@ -78,6 +82,9 @@ namespace GISharp.CodeGen.Syntax
                     useUnmanagedElementType = true;
                     // TODO: probably need check TransferOwnership == "in" on special types
                     if (isAsync) {
+                        if (isZeroTerminated) {
+                            throw new NotSupportedException("don't know how to handle zero-terminated CArray in async");
+                        }
                         if (arg.Direction == "out" && arg.IsCallerAllocates) {
                             type = "System.Memory";
                         }
@@ -86,13 +93,38 @@ namespace GISharp.CodeGen.Syntax
                         }
                     }
                     else if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                        if (isZeroTerminated) {
+                            throw new NotSupportedException("don't know how to handle caller allocated zero-terminated CArray");
+                        }
                         type = "System.Span";
                     }
-                    else if (arg.TransferOwnership == "none") {
+                    else if (!isZeroTerminated && arg.TransferOwnership == "none") {
                         type = "System.ReadOnlySpan";
+                    }
+                    else if (isZeroTerminated) {
+                        if (arg.TransferOwnership == "none") {
+                            if (arg.IsNullable) {
+                                type = type.Replace("CArray", "NullableUnownedZeroTerminatedCArray");
+                            }
+                            else {
+                                type = type.Replace("CArray", "UnownedZeroTerminatedCArray");
+                            }
+                        }
+                        else {
+                            type = type.Replace("CArray", "ZeroTerminatedCArray");
+                        }
                     }
                 }
                 else {
+                    if (isZeroTerminated) {
+                        if (type == "GISharp.Runtime.CPtrArray") {
+                            type = type.Replace("CPtrArray", "ZeroTerminatedCPtrArray");
+                        }
+                        else {
+                            throw new NotSupportedException($"don't know how to handle zero-terminated {type}");
+                        }
+                    }
+
                     if (arg.Direction == "out" && arg.IsCallerAllocates) {
                         throw new NotImplementedException("Not sure how to handle caller allocated pointer array");
                     }
@@ -107,7 +139,10 @@ namespace GISharp.CodeGen.Syntax
                     // copying the container.
                     var lastDot = type.LastIndexOf('.') + 1;
                     if (arg.TransferOwnership == "none" && (
-                        type == "GISharp.Runtime.CPtrArray" || type == "GISharp.Lib.GLib.List" || type == "GISharp.Lib.GLib.SList"
+                        type == "GISharp.Runtime.CPtrArray" ||
+                        type == "GISharp.Runtime.ZeroTerminatedCPtrArray" ||
+                        type == "GISharp.Lib.GLib.List" ||
+                        type == "GISharp.Lib.GLib.SList"
                     )) {
                         type = $"{type[..lastDot]}Unowned{type[lastDot..]}";
                     }

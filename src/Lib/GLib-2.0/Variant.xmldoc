@@ -443,7 +443,7 @@ a #guint8 value
 </param>
 </member>
 
-<member name='Variant.Variant(System.ReadOnlySpan&lt;byte&gt;)'>
+<member name='Variant.Variant(GISharp.Runtime.UnownedZeroTerminatedCArray&lt;byte&gt;)'>
 <summary>
 Creates an array-of-bytes <see cref="Variant"/> with the contents of <paramref name="string"/>.
 This function is just like <see cref="Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)"/> except that the
