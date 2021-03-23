@@ -24,14 +24,14 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Names_']/*" />
         [GISharp.Runtime.GPropertyAttribute("names", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Strv? Names_ { get => (GISharp.Lib.GLib.Strv?)GetProperty("names")!; set => SetProperty("names", value); }
+        public GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8>? Names_ { get => (GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8>?)GetProperty("names")!; set => SetProperty("names", value); }
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.UseDefaultFallbacks']/*" />
         [GISharp.Runtime.GPropertyAttribute("use-default-fallbacks", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public bool UseDefaultFallbacks { get => (bool)GetProperty("use-default-fallbacks")!; set => SetProperty("use-default-fallbacks", value); }
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Names']/*" />
-        public GISharp.Lib.GLib.Strv Names { get => GetNames(); }
+        public GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> Names { get => GetNames(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -210,7 +210,7 @@ namespace GISharp.Lib.Gio
         /// a list of icon names.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="const gchar* const*" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="const gchar* const*" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -220,13 +220,13 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* icon);
         partial void CheckGetNamesArgs();
 
-        private GISharp.Lib.GLib.Strv GetNames()
+        private GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> GetNames()
         {
             CheckGetNamesArgs();
             var icon_ = (GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_themed_icon_get_names(icon_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8>(ret_, -1);
             return ret;
         }
 

@@ -1086,7 +1086,7 @@ it is no longer required.</doc>
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gio-2.0.c" line="10639">a %NULL-terminated array of the names of the
 actions in the group</doc>
-          <array c:type="gchar**" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+          <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
           </array>
         </return-value>
@@ -1546,7 +1546,7 @@ it is no longer required.</doc>
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gio-2.0.c" line="10639">a %NULL-terminated array of the names of the
 actions in the group</doc>
-          <array c:type="gchar**" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+          <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
           </array>
         </return-value>
@@ -1842,7 +1842,7 @@ is still visible and can be queried from the signal handler.</doc>
           <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="10639">a %NULL-terminated array of the names of the
 actions in the group</doc>
-            <array c:type="gchar**" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+            <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
               <type name="utf8" gs:is-pointer="1" />
             </array>
           </return-value>
@@ -3064,7 +3064,7 @@ See g_application_run() for more details on #GApplication startup.</doc>
           </instance-parameter>
           <parameter name="arguments" direction="inout" caller-allocates="0" transfer-ownership="full" gs:managed-name="arguments">
             <doc xml:space="preserve" filename="gapplication.h" line="76">array of command line arguments</doc>
-            <array c:type="gchar***" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+            <array c:type="gchar***" zero-terminated="1" gs:is-pointer="1">
               <type name="utf8" c:type="gchar**" gs:is-pointer="1" />
             </array>
           </parameter>
@@ -3076,7 +3076,7 @@ See g_application_run() for more details on #GApplication startup.</doc>
         <gs:managed-parameters>
           <parameter name="arguments" direction="inout" caller-allocates="0" transfer-ownership="full" gs:managed-name="arguments">
             <doc xml:space="preserve" filename="gapplication.h" line="76">array of command line arguments</doc>
-            <array c:type="gchar***" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+            <array c:type="gchar***" zero-terminated="1" gs:is-pointer="1">
               <type name="utf8" c:type="gchar**" gs:is-pointer="1" />
             </array>
           </parameter>
@@ -4844,7 +4844,7 @@ after registration. See g_application_register().</doc>
             </parameter>
             <parameter name="arguments" direction="inout" caller-allocates="0" transfer-ownership="full" gs:managed-name="arguments">
               <doc xml:space="preserve" filename="gapplication.h" line="76">array of command line arguments</doc>
-              <array c:type="gchar***" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+              <array c:type="gchar***" zero-terminated="1" gs:is-pointer="1">
                 <type name="utf8" c:type="gchar**" gs:is-pointer="1" />
               </array>
             </parameter>
@@ -4860,7 +4860,7 @@ after registration. See g_application_register().</doc>
             </parameter>
             <parameter name="arguments" direction="inout" caller-allocates="0" transfer-ownership="full" gs:managed-name="arguments">
               <doc xml:space="preserve" filename="gapplication.h" line="76">array of command line arguments</doc>
-              <array c:type="gchar***" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+              <array c:type="gchar***" zero-terminated="1" gs:is-pointer="1">
                 <type name="utf8" c:type="gchar**" gs:is-pointer="1" />
               </array>
             </parameter>
@@ -21149,7 +21149,7 @@ not contain a stringv, %NULL will be returned.</doc>
         <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gio-2.0.c" line="22470">the contents of the @attribute value as a stringv,
 or %NULL otherwise. Do not free. These returned strings are UTF-8.</doc>
-          <array c:type="char**" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+          <array c:type="char**" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
           </array>
         </return-value>
@@ -21833,7 +21833,7 @@ specified @name_space.</doc>
           <doc xml:space="preserve" filename="gio-2.0.c" line="22735">a
 null-terminated array of strings of all of the possible attribute
 types for the given @name_space, or %NULL on error.</doc>
-          <array c:type="char**" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+          <array c:type="char**" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
           </array>
         </return-value>
@@ -22192,7 +22192,7 @@ Sinze: 2.22</doc>
           <parameter name="attr_value" transfer-ownership="none" gs:managed-name="attrValue" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="22868">a %NULL
   terminated array of UTF-8 strings.</doc>
-            <array c:type="char**" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+            <array c:type="char**" zero-terminated="1" gs:is-pointer="1">
               <type name="utf8" gs:is-pointer="1" />
             </array>
           </parameter>
@@ -22205,7 +22205,7 @@ Sinze: 2.22</doc>
           <parameter name="attr_value" transfer-ownership="none" gs:managed-name="attrValue" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="22868">a %NULL
   terminated array of UTF-8 strings.</doc>
-            <array c:type="char**" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+            <array c:type="char**" zero-terminated="1" gs:is-pointer="1">
               <type name="utf8" gs:is-pointer="1" />
             </array>
           </parameter>
@@ -33064,7 +33064,7 @@ to g_icon_hash().</doc>
         <source-position filename="gthemedicon.h" line="64" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gio-2.0.c" line="38823">a list of icon names.</doc>
-          <array c:type="const gchar* const*" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+          <array c:type="const gchar* const*" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
           </array>
         </return-value>
@@ -33081,7 +33081,7 @@ to g_icon_hash().</doc>
         <source-position filename="gthemedicon.h" line="64" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="gio-2.0.c" line="38823">a list of icon names.</doc>
-          <array c:type="const gchar* const*" zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+          <array c:type="const gchar* const*" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
           </array>
         </return-value>
@@ -33125,7 +33125,7 @@ to g_icon_hash().</doc>
       </property>
       <property name="names" writable="1" construct-only="1" transfer-ownership="none" gs:managed-name="Names_">
         <doc xml:space="preserve" filename="gio-2.0.c" line="3532">A %NULL-terminated array of icon names.</doc>
-        <array zero-terminated="1" name="GLib.Strv" gs:is-pointer="1">
+        <array zero-terminated="1" gs:is-pointer="1">
           <type name="utf8" gs:is-pointer="1" />
         </array>
       </property>

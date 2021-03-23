@@ -615,19 +615,6 @@ namespace GISharp.CodeGen
                     continue;
                 }
 
-                // Identify Strv arrays (TODO: move this out of managed-name loop)
-
-                if (element.Name == gi + "array" && element.Attribute("name") is null) {
-                    // special case for null-terminated arrays of strings
-                    if (element.Attribute("zero-terminated").AsBool()) {
-                        var elementType = element.Element(gi + "type").Attribute("name").AsString();
-                        if (elementType == "utf8") {
-                            element.SetAttributeValue("name", "GLib.Strv");
-                            continue;
-                        }
-                    }
-                }
-
                 if (element.Name == gi + "type" || element.Name == gi + "array") {
                     // type elements don't get gs:managed-name attribute
                     continue;

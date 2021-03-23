@@ -132,7 +132,7 @@ byte* actionName);
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */

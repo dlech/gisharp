@@ -56,8 +56,17 @@ namespace GISharp.CodeGen.Syntax
                 return type;
             }
 
-            if (type == "GISharp.Lib.GLib.Strv" || type == "GISharp.Runtime.FilenameArray") {
-                return type;
+            // special case for fully owned zero terminated arrays of zero terminated strings
+            if (arg.Type is Gir.Array array && array.GirName is null
+                && array.IsZeroTerminated && arg.TransferOwnership == "full"
+            ) {
+                var elementType = array.TypeParameters.First().GirName;
+                if (elementType == "utf8") {
+                    return "GISharp.Lib.GLib.Strv";
+                }
+                if (elementType == "filename") {
+                    return "GISharp.Runtime.FilenameArray";
+                }
             }
 
             var cArrayType = typeof(CArray).FullName;

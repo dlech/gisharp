@@ -69,7 +69,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Objv']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public GISharp.Lib.GLib.Strv Objv { get => GetObjv(); }
+        public GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8> Objv { get => GetObjv(); }
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Size']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
@@ -77,7 +77,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Strv']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public GISharp.Lib.GLib.Strv Strv { get => GetStrv(); }
+        public GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8> Strv { get => GetStrv(); }
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Type']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
@@ -1972,7 +1972,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="0" zero-terminated="1" type="gchar**" name="GLib.Strv" is-pointer="1">
+        /* <array length="0" zero-terminated="1" type="gchar**" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -2073,7 +2073,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="0" zero-terminated="1" type="gchar**" name="GLib.Strv" is-pointer="1">
+        /* <array length="0" zero-terminated="1" type="gchar**" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -2813,7 +2813,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="0" zero-terminated="1" type="const gchar**" name="GLib.Strv" is-pointer="1">
+        /* <array length="0" zero-terminated="1" type="const gchar**" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:container direction:in */
@@ -2827,14 +2827,14 @@ namespace GISharp.Lib.GLib
         partial void CheckGetObjvArgs();
 
         [GISharp.Runtime.SinceAttribute("2.30")]
-        private GISharp.Lib.GLib.Strv GetObjv()
+        private GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8> GetObjv()
         {
             CheckGetObjvArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_get_objv(value_,&length_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Container);
+            var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
 
@@ -2972,7 +2972,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="0" zero-terminated="1" type="const gchar**" name="GLib.Strv" is-pointer="1">
+        /* <array length="0" zero-terminated="1" type="const gchar**" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:container direction:in */
@@ -2986,14 +2986,14 @@ namespace GISharp.Lib.GLib
         partial void CheckGetStrvArgs();
 
         [GISharp.Runtime.SinceAttribute("2.24")]
-        private GISharp.Lib.GLib.Strv GetStrv()
+        private GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8> GetStrv()
         {
             CheckGetStrvArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_get_strv(value_,&length_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Container);
+            var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
 

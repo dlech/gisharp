@@ -551,7 +551,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" length="0" name="GLib.Strv" is-pointer="1">
+        /* <array type="gchar**" zero-terminated="1" length="0" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -811,7 +811,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" length="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="gchar**" zero-terminated="1" length="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -1041,7 +1041,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="3" zero-terminated="1" type="gchar**" name="GLib.Strv" is-pointer="1">
+        /* <array length="3" zero-terminated="1" type="gchar**" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -1221,7 +1221,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="2" zero-terminated="1" type="gchar**" name="GLib.Strv" is-pointer="1">
+        /* <array length="2" zero-terminated="1" type="gchar**" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -1682,28 +1682,31 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        partial void CheckLoadFromDirsArgs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.FilenameArray searchDirs, GISharp.Lib.GLib.KeyFileFlags flags);
+        partial void CheckLoadFromDirsArgs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> searchDirs, GISharp.Lib.GLib.KeyFileFlags flags);
 
-        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.FilenameArray,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public void LoadFromDirs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.FilenameArray searchDirs, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
+        public void LoadFromDirs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> searchDirs, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
         {
-            CheckLoadFromDirsArgs(file, searchDirs, flags);
-            var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
-            var file_ = (byte*)file.UnsafeHandle;
-            var searchDirs_ = (byte**)searchDirs.UnsafeHandle;
-            var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
-            byte* fullPath_;
-            var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
-            g_key_file_load_from_dirs(keyFile_, file_, searchDirs_, &fullPath_, flags_, &error_);
-            GISharp.Runtime.GMarshal.PopUnhandledException();
-            if (error_ is not null)
+            fixed (System.IntPtr* searchDirsData_ = searchDirs)
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
-            }
+                CheckLoadFromDirsArgs(file, searchDirs, flags);
+                var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
+                var file_ = (byte*)file.UnsafeHandle;
+                var searchDirs_ = (byte**)searchDirsData_;
+                var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
+                byte* fullPath_;
+                var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+                g_key_file_load_from_dirs(keyFile_, file_, searchDirs_, &fullPath_, flags_, &error_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
+                if (error_ is not null)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
+                    throw new GISharp.Runtime.GErrorException(error);
+                }
 
-            fullPath = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)fullPath_, GISharp.Runtime.Transfer.Full)!;
+                fullPath = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)fullPath_, GISharp.Runtime.Transfer.Full)!;
+            }
         }
 
         /// <summary>

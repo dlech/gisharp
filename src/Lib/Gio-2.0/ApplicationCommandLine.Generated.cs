@@ -53,7 +53,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Environment']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.Runtime.FilenameArray Environment { get => GetEnvironment(); }
+        public GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> Environment { get => GetEnvironment(); }
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.ExitStatus']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -272,13 +272,13 @@ namespace GISharp.Lib.Gio
         partial void CheckGetEnvironmentArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private GISharp.Runtime.FilenameArray GetEnvironment()
+        private GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> GetEnvironment()
         {
             CheckGetEnvironmentArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_environ(cmdline_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.FilenameArray((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename>(ret_, -1);
             return ret;
         }
 

@@ -787,7 +787,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */

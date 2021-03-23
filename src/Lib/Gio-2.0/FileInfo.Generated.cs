@@ -574,7 +574,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="char**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="char**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none nullable:1 direction:in */
@@ -589,14 +589,14 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public GISharp.Lib.GLib.Strv? GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute)
+        public GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             CheckGetAttributeStringvArgs(attribute);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var attribute_ = (byte*)attribute.UnsafeHandle;
             var ret_ = g_file_info_get_attribute_stringv(info_,attribute_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8>(ret_, -1);
             return ret;
         }
 
@@ -1312,7 +1312,7 @@ namespace GISharp.Lib.Gio
         /// types for the given @name_space, or %NULL on error.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="char**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="char**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full nullable:1 direction:in */
@@ -1761,22 +1761,25 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* attribute,
-        /* <array type="char**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="char**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
         byte** attrValue);
-        partial void CheckSetAttributeStringvArgs(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.Strv attrValue);
+        partial void CheckSetAttributeStringvArgs(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Strv)']/*" />
-        public void SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.Strv attrValue)
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
+        public void SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> attrValue)
         {
-            CheckSetAttributeStringvArgs(attribute, attrValue);
-            var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
-            var attribute_ = (byte*)attribute.UnsafeHandle;
-            var attrValue_ = (byte**)attrValue.UnsafeHandle;
-            g_file_info_set_attribute_stringv(info_, attribute_, attrValue_);
-            GISharp.Runtime.GMarshal.PopUnhandledException();
+            fixed (System.IntPtr* attrValueData_ = attrValue)
+            {
+                CheckSetAttributeStringvArgs(attribute, attrValue);
+                var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
+                var attribute_ = (byte*)attribute.UnsafeHandle;
+                var attrValue_ = (byte**)attrValueData_;
+                g_file_info_set_attribute_stringv(info_, attribute_, attrValue_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
+            }
         }
 
         /// <summary>

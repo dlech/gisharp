@@ -859,7 +859,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public static Variant CreateArray(VariantType? childType, params Variant[] children)
         {
-            return new Variant(childType, children.AsUnownedCPtrArray());
+            return new Variant(childType, children.ToUnownedCPtrArray());
         }
 
         /// <summary>

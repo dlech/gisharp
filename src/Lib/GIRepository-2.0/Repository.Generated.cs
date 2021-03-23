@@ -440,7 +440,7 @@ byte* directory);
         ///   dependencies
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -492,7 +492,7 @@ byte* directory);
         /// </returns>
         [GISharp.Runtime.SinceAttribute("1.44")]
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -576,7 +576,7 @@ byte* directory);
         /// List of namespaces
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */

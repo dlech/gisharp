@@ -266,7 +266,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine);
 /* <type name="Application" type="GApplication*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Application.UnmanagedStruct* application,
-/* <array type="gchar***" zero-terminated="1" name="GLib.Strv" is-pointer="1">
+/* <array type="gchar***" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" type="gchar**" is-pointer="1" />
 * </array> */
 /* direction:inout caller-allocates:0 transfer-ownership:full */

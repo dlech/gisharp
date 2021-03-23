@@ -74,8 +74,6 @@ namespace GISharp.CodeGen
                 "gunichar2" => $"char{pointer}",
                 "GType" => $"GISharp.Runtime.GType{pointer}",
                 var x when x == "filename" || x == "utf8" => "byte*",
-                // TODO: remove name="GLib.Strv" from Fixup.cs
-                "GLib.Strv" => "byte**",
                 "GLib.DestroyNotify" => "delegate* unmanaged[Cdecl]<System.IntPtr, void>",
                 "va_list" =>
                     // va_list should be filtered out, but just in case...
@@ -140,9 +138,6 @@ namespace GISharp.CodeGen
                 "va_list" =>
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported"),
-                var x when x is null && type is Gir.Array array && array.IsZeroTerminated &&
-                    type.TypeParameters.Single().GirName == "filename" =>
-                        typeof(FilenameArray).FullName,
                 var x when x is null && type is Gir.Array =>
                     type.TypeParameters.Single().IsValueType() ?
                         $"{typeof(CArray).FullName}<{type.TypeParameters.Single().GetUnmanagedType()}>" :

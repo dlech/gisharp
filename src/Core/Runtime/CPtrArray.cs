@@ -155,13 +155,8 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public UnownedCPtrArray(void* handle, int length)
+        public UnownedCPtrArray(void* handle, int length) : this((IntPtr)handle, length, Transfer.None)
         {
-            if (length < 0) {
-                // TODO: lazy-get length for null terminated arrays
-                throw new NotSupportedException();
-            }
-            Data = new(handle, length);
         }
 
         /// <summary>
@@ -173,10 +168,15 @@ namespace GISharp.Runtime
             if (ownership != Transfer.None) {
                 throw new NotSupportedException();
             }
+
+            // length of < 0 means zero-terminated, so we have to go through
+            // the whole array to find the length
             if (length < 0) {
-                // TODO: lazy-get length for null terminated arrays
-                throw new NotSupportedException();
+                var array = (IntPtr*)handle;
+                for (length = 0; array[length] != IntPtr.Zero; length++) {
+                }
             }
+
             Data = new((void*)handle, length);
         }
 
@@ -267,7 +267,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Casts a managed array of pointers to an unmanaged C array.
         /// </summary>
-        public static UnownedCPtrArray<T> AsUnownedCPtrArray<T>(this T[] array) where T : IOpaque
+        public static UnownedCPtrArray<T> ToUnownedCPtrArray<T>(this T[] array) where T : IOpaque
         {
             if (array is null) {
                 return UnownedCPtrArray<T>.Empty;
