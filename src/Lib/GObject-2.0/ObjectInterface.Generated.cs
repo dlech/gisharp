@@ -142,14 +142,14 @@ namespace GISharp.Lib.GObject
 
         /// <include file="ObjectInterface.xmldoc" path="declaration/member[@name='ObjectInterface.ListProperties(GISharp.Lib.GObject.TypeInterface)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
-        public static GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec> ListProperties(this GISharp.Lib.GObject.TypeInterface gIface)
+        public static GISharp.Runtime.WeakCPtrArray<GISharp.Lib.GObject.ParamSpec> ListProperties(this GISharp.Lib.GObject.TypeInterface gIface)
         {
             CheckListPropertiesArgs(gIface);
             var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;
             uint nPropertiesP_;
             var ret_ = g_object_interface_list_properties(gIface_,&nPropertiesP_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nPropertiesP_, GISharp.Runtime.Transfer.Container);
+            var ret = new GISharp.Runtime.WeakCPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nPropertiesP_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
     }

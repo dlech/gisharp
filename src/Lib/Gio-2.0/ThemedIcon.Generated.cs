@@ -24,7 +24,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Names_']/*" />
         [GISharp.Runtime.GPropertyAttribute("names", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8>? Names_ { get => (GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Utf8>?)GetProperty("names")!; set => SetProperty("names", value); }
+        public GISharp.Runtime.CPtrArray? Names_ { get => (GISharp.Runtime.CPtrArray?)GetProperty("names")!; set => SetProperty("names", value); }
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.UseDefaultFallbacks']/*" />
         [GISharp.Runtime.GPropertyAttribute("use-default-fallbacks", Construct = GISharp.Runtime.GPropertyConstruct.Only)]

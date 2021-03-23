@@ -1,12 +1,11 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace GISharp.Runtime
 {
@@ -18,21 +17,10 @@ namespace GISharp.Runtime
         /// <summary>
         /// Gets the number of elements in the array.
         /// </summary>
-        protected int Length { get; }
+        public int Length { get; }
 
-        /// <summary>
-        /// For internal runtime use only.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        protected CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle)
+        private protected CPtrArray(IntPtr handle, int length) : base(handle)
         {
-            if (ownership == Transfer.Full) {
-                this.handle = IntPtr.Zero;
-                throw new NotSupportedException();
-            }
-            if (ownership != Transfer.Container) {
-                throw new NotSupportedException();
-            }
             if (length < 0) {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
@@ -63,12 +51,22 @@ namespace GISharp.Runtime
             return ret;
         }
 
-        /// <summary>
-        /// Creates an managed wrapper around an unmanaged C array.
-        /// </summary>
-        public static CPtrArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership) where T : IOpaque?
+        private protected T GetElement<T>(int index) where T : IOpaque?
         {
-            return new CPtrArray<T>(handle, length, ownership);
+            if (index < 0 || index >= Length) {
+                throw new IndexOutOfRangeException(nameof(index));
+            }
+            var element_ = ((IntPtr*)UnsafeHandle)[index];
+            return GetInstance<T>(element_, Transfer.None);
+        }
+
+        private protected ReadOnlySpan<IntPtr> Data => new((void*)UnsafeHandle, Length);
+
+        private protected IEnumerator<T> GetEnumerator<T>() where T : IOpaque?
+        {
+            for (int i = 0; i < Length; i++) {
+                yield return GetElement<T>(i);
+            }
         }
     }
 
@@ -81,8 +79,19 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
+        public CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, length)
         {
+            if (ownership != Transfer.Full) {
+                GC.SuppressFinalize(this);
+                throw new NotSupportedException("owned array must own everything");
+            }
+        }
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            // TODO: need to call free function on each element
+            base.Dispose(disposing);
         }
 
         /// <summary>
@@ -94,40 +103,66 @@ namespace GISharp.Runtime
         /// <exception cref="IndexOutOfRangeException">
         /// The index is outside of the bounds of the array.
         /// </exception>
-        public T this[int index] {
-            get {
-                var this_ = UnsafeHandle;
-                if (index < 0 || index >= Length) {
-                    throw new IndexOutOfRangeException(nameof(index));
-                }
-                var offset = IntPtr.Size * index;
-                var ptr = Marshal.ReadIntPtr(this_, offset);
-                return GetInstance<T>(ptr, Transfer.None);
-            }
-        }
+        public T this[int index] => GetElement<T>(index);
 
-        private ReadOnlySpan<IntPtr> Data => new((void*)UnsafeHandle, Length);
+        /// <inheritdoc/>
+        int IReadOnlyCollection<T>.Count => Length;
 
-        /// <summary>
-        /// Gets the number of elements in the array.
-        /// </summary>
-        public int Count => Length;
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator<T>();
 
-        IEnumerator<T> GetEnumerator()
-        {
-            for (int i = 0; i < Length; i++) {
-                yield return this[i];
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator<T>();
 
         /// <summary>
         /// Casts a <see cref="CPtrArray{T}"/> to an <see cref="UnownedCPtrArray{T}"/>.
         /// </summary>
         public static implicit operator UnownedCPtrArray<T>(CPtrArray<T>? array)
+        {
+            if (array is null) {
+                return default;
+            }
+            return new UnownedCPtrArray<T>(array.Data);
+        }
+    }
+
+    /// <summary>
+    /// Managed wrapper for C array of pointers to opaque data types.
+    /// </summary>
+    public unsafe class WeakCPtrArray<T> : CPtrArray, IReadOnlyList<T> where T : IOpaque?
+    {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public WeakCPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, length)
+        {
+            if (ownership != Transfer.Container) {
+                GC.SuppressFinalize(this);
+                throw new NotSupportedException("weak array must only own container");
+            }
+        }
+
+        /// <summary>
+        /// Gets an element of this array.
+        /// </summary>
+        /// <param name="index">
+        /// The zero-based index of the element in the array.
+        /// </param>
+        /// <exception cref="IndexOutOfRangeException">
+        /// The index is outside of the bounds of the array.
+        /// </exception>
+        public T this[int index] => GetElement<T>(index);
+
+        /// <inheritdoc/>
+        int IReadOnlyCollection<T>.Count => Length;
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator<T>();
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator<T>();
+
+        /// <summary>
+        /// Casts a <see cref="WeakCPtrArray{T}"/> to an <see cref="UnownedCPtrArray{T}"/>.
+        /// </summary>
+        public static implicit operator UnownedCPtrArray<T>(WeakCPtrArray<T>? array)
         {
             if (array is null) {
                 return default;

@@ -132,7 +132,7 @@ namespace GISharp.Lib.GObject
         partial void CheckListArgs(GISharp.Runtime.GType ownerType);
 
         /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.List(GISharp.Runtime.GType)']/*" />
-        public GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec> List(GISharp.Runtime.GType ownerType)
+        public GISharp.Runtime.WeakCPtrArray<GISharp.Lib.GObject.ParamSpec> List(GISharp.Runtime.GType ownerType)
         {
             CheckListArgs(ownerType);
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;
@@ -140,7 +140,7 @@ namespace GISharp.Lib.GObject
             uint nPspecsP_;
             var ret_ = g_param_spec_pool_list(pool_,ownerType_,&nPspecsP_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nPspecsP_, GISharp.Runtime.Transfer.Container);
+            var ret = new GISharp.Runtime.WeakCPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nPspecsP_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
 

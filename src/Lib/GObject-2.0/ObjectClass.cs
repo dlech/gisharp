@@ -43,12 +43,12 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        internal static CPtrArray<ParamSpec> ListProperties(UnmanagedStruct* oclass_)
+        internal static WeakCPtrArray<ParamSpec> ListProperties(UnmanagedStruct* oclass_)
         {
             uint nProperties_;
             var ret_ = g_object_class_list_properties(oclass_, &nProperties_);
             GMarshal.PopUnhandledException();
-            var ret = new CPtrArray<ParamSpec>((IntPtr)ret_, (int)nProperties_, Transfer.Container);
+            var ret = new WeakCPtrArray<ParamSpec>((IntPtr)ret_, (int)nProperties_, Transfer.Container);
             return ret;
         }
 

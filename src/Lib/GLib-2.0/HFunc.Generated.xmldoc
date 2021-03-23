@@ -2,9 +2,9 @@
 
 <member name='HFunc'>
 <summary>
-Specifies the type of the function passed to <see cref="HashTable.Foreach(GISharp.Lib.GLib.UnownedHashTable{System.IntPtr, System.IntPtr},GISharp.Lib.GLib.HFunc)"/>.
+Specifies the type of the function passed to <see cref="HashTable.Foreach(GISharp.Lib.GLib.WeakHashTable{System.IntPtr, System.IntPtr},GISharp.Lib.GLib.HFunc)"/>.
 It is called with each key/value pair, together with the <paramref name="userData"/>
-parameter which is passed to <see cref="HashTable.Foreach(GISharp.Lib.GLib.UnownedHashTable{System.IntPtr, System.IntPtr},GISharp.Lib.GLib.HFunc)"/>.
+parameter which is passed to <see cref="HashTable.Foreach(GISharp.Lib.GLib.WeakHashTable{System.IntPtr, System.IntPtr},GISharp.Lib.GLib.HFunc)"/>.
 </summary>
 </member>
 

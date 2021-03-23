@@ -3002,12 +3002,12 @@ namespace GISharp.Lib.Gio
         static partial void CheckLoadContentsAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public static System.Threading.Tasks.Task<System.ValueTuple<GISharp.Runtime.CArray<byte>, GISharp.Lib.GLib.Utf8>> LoadContentsAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public static System.Threading.Tasks.Task<System.ValueTuple<GISharp.Runtime.CArray, GISharp.Lib.GLib.Utf8>> LoadContentsAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckLoadContentsAsyncArgs(file, cancellable);
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Runtime.CArray<byte>, GISharp.Lib.GLib.Utf8>>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Runtime.CArray, GISharp.Lib.GLib.Utf8>>();
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&LoadContentsFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_load_contents_async(file_, cancellable_, callback_, userData_);
@@ -3078,7 +3078,7 @@ namespace GISharp.Lib.Gio
             {
                 var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)sourceObject_;
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Runtime.CArray<byte>, GISharp.Lib.GLib.Utf8>>)userData.Target!;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Runtime.CArray, GISharp.Lib.GLib.Utf8>>)userData.Target!;
                 userData.Free();
                 byte* contents_;
                 nuint length_;

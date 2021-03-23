@@ -610,14 +610,14 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         partial void CheckListPropertiesArgs();
 
         /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='ObjectClass.ListProperties()']/*" />
-        public GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec> ListProperties()
+        public GISharp.Runtime.WeakCPtrArray<GISharp.Lib.GObject.ParamSpec> ListProperties()
         {
             CheckListPropertiesArgs();
             var oclass_ = (GISharp.Lib.GObject.ObjectClass.UnmanagedStruct*)UnsafeHandle;
             uint nProperties_;
             var ret_ = g_object_class_list_properties(oclass_,&nProperties_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nProperties_, GISharp.Runtime.Transfer.Container);
+            var ret = new GISharp.Runtime.WeakCPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nProperties_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
 

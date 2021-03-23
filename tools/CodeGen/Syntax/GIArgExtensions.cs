@@ -69,44 +69,57 @@ namespace GISharp.CodeGen.Syntax
                 }
             }
 
-            var cArrayType = typeof(CArray).FullName;
-            if (type.StartsWith(cArrayType, StringComparison.Ordinal)) {
-                if (isAsync) {
-                    if (arg.Direction == "out" && arg.IsCallerAllocates) {
-                        return type.Replace(cArrayType, "System.Memory");
-                    }
-                    return type.Replace(cArrayType, "System.ReadOnlyMemory");
-                }
-                if (arg.Direction == "out" && arg.IsCallerAllocates) {
-                    return type.Replace(cArrayType, "System.Span");
-                }
-                if (arg.TransferOwnership == "none") {
-                    return type.Replace(cArrayType, "System.ReadOnlySpan");
-                }
-                return type;
-            }
-
-            var cPtrArrayType = typeof(CPtrArray).FullName;
-            if (type.StartsWith(cPtrArrayType, StringComparison.Ordinal)) {
-                if (arg.Direction == "out" && arg.IsCallerAllocates) {
-                    throw new NotImplementedException("Not sure how to handle caller allocated pointer array");
-                }
-                // TODO: implement WeakCPtrArray when arg.TransferOwnership == "container"
-                if (arg.TransferOwnership == "none") {
-                    return type.Replace("CPtrArray", "UnownedCPtrArray");
-                }
-                return type;
-            }
-
             if (arg.Type.TypeParameters.Any() && arg.Type.GirName != "GLib.ByteArray") {
-                var lastDot = type.LastIndexOf('.') + 1;
-                if (arg.TransferOwnership == "container") {
-                    type = $"{type[..lastDot]}Weak{type[lastDot..]}";
+                // arrays of structs need to use unmanaged type since it may be a
+                // different size compared to managed type
+                var useUnmanagedElementType = false;
+
+                if (type == "GISharp.Runtime.CArray") {
+                    useUnmanagedElementType = true;
+                    // TODO: probably need check TransferOwnership == "in" on special types
+                    if (isAsync) {
+                        if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                            type = "System.Memory";
+                        }
+                        else {
+                            type = "System.ReadOnlyMemory";
+                        }
+                    }
+                    else if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                        type = "System.Span";
+                    }
+                    else if (arg.TransferOwnership == "none") {
+                        type = "System.ReadOnlySpan";
+                    }
                 }
-                else if (arg.TransferOwnership == "none") {
-                    type = $"{type[..lastDot]}Unowned{type[lastDot..]}";
+                else {
+                    if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                        throw new NotImplementedException("Not sure how to handle caller allocated pointer array");
+                    }
+
+                    if (arg.Type.GirName == "GLib.Array") {
+                        useUnmanagedElementType = true;
+                    }
+
+                    // Reference-counted containsers can only be weak or fully owned
+                    // since it is trivial to take a reference to the container.
+                    // Other container types also have an unowned version to avoid
+                    // copying the container.
+                    var lastDot = type.LastIndexOf('.') + 1;
+                    if (arg.TransferOwnership == "none" && (
+                        type == "GISharp.Runtime.CPtrArray" || type == "GISharp.Lib.GLib.List" || type == "GISharp.Lib.GLib.SList"
+                    )) {
+                        type = $"{type[..lastDot]}Unowned{type[lastDot..]}";
+                    }
+                    else if (arg.TransferOwnership != "full") {
+                        type = $"{type[..lastDot]}Weak{type[lastDot..]}";
+                    }
                 }
-                type += $"<{string.Join(", ", arg.Type.TypeParameters.Select(x => x.GetManagedType()))}>";
+
+                // append the type parameters to the type
+                var typeParameters = arg.Type.TypeParameters.Select(x =>
+                    useUnmanagedElementType ? x.GetUnmanagedType() : x.GetManagedType());
+                type += $"<{string.Join(", ", typeParameters)}>";
             }
 
             return type;

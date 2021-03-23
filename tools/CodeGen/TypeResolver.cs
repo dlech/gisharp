@@ -140,10 +140,9 @@ namespace GISharp.CodeGen
                     throw new NotSupportedException("va_list is not supported"),
                 var n when n is null && type is Gir.Array =>
                     type.TypeParameters.Single().IsValueType() ?
-                        $"{typeof(CArray).FullName}<{type.TypeParameters.Single().GetUnmanagedType()}>" :
-                        $"{typeof(CPtrArray).FullName}<{type.TypeParameters.Single().GetManagedType()}>",
+                        "GISharp.Runtime.CArray" : "GISharp.Runtime.CPtrArray",
                 var n when n is not null && n.EndsWith("Private") => "System.IntPtr",
-                var n when n is not null && n.Contains(".") => $"GISharp.Lib.{type.GirName}",
+                var n when n is not null && n.Contains('.') => $"GISharp.Lib.{type.GirName}",
                 _ => $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}",
             };
 
