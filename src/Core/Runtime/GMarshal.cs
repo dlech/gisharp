@@ -134,20 +134,6 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
-        /// Marshals a GLib UTF8 char* to a managed string.
-        /// </summary>
-        /// <returns>The managed string string.</returns>
-        /// <param name="ptr">Pointer to the GLib string.</param>
-        /// <param name="freePtr">If set to <c>true</c>, free the GLib string.</param>
-        public static string? Utf8PtrToString(IntPtr ptr, bool freePtr = false)
-        {
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            return Encoding.UTF8.GetString(PtrToByteString(ptr, freePtr)!);
-        }
-
-        /// <summary>
         /// Marshals a managed string to a GLib UTF8 char*.
         /// </summary>
         /// <returns>The to pointer to the GLib string.</returns>
@@ -175,7 +161,7 @@ namespace GISharp.Runtime
             IntPtr current;
             var offset = 0;
             while ((current = Marshal.ReadIntPtr(ptr, offset)) != IntPtr.Zero) {
-                strings.Add(Utf8PtrToString(current)!);
+                strings.Add(Marshal.PtrToStringUTF8(current)!);
                 if (freeElements) {
                     g_free(current);
                 }
