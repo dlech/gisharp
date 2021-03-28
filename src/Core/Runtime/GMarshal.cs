@@ -312,26 +312,11 @@ namespace GISharp.Runtime
         /// <param name="domain">error domain.</param>
         /// <param name="code">error code.</param>
         /// <param name="message">error message.</param>
-        public static void SetError(IntPtr error, Quark domain, int code, string message)
+        public static void SetError(IntPtr error, Quark domain, int code, Utf8 message)
         {
-            var messagePtr = StringToUtf8Ptr(message);
-            g_set_error_literal(error, domain, code, messagePtr);
-            Free(messagePtr);
+            var message_ = message.UnsafeHandle;
+            g_set_error_literal(error, domain, code, message_);
             PopUnhandledException();
-        }
-
-        /// <summary>
-        /// Does nothing if err is NULL; if err is non-NULL, then *err must be NULL.
-        /// A new GError is created and assigned to *err.
-        /// </summary>
-        /// <param name="error">a return location for a GError.</param>
-        /// <param name="domain">error domain.</param>
-        /// <param name="code">error code.</param>
-        /// <param name="format">error message format string.</param>
-        /// <param name="args">error message format args.</param>
-        public static void SetError(IntPtr error, Quark domain, int code, string format, params object[] args)
-        {
-            SetError(error, domain, code, string.Format(format, args));
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
