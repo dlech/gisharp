@@ -372,9 +372,9 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="Variant"/> to array of <see cref="byte"/> arrays.
+        /// Coverts <see cref="Variant"/> to <see cref="WeakByteStringArray"/>.
         /// </summary>
-        public static explicit operator byte[][](Variant v)
+        public static explicit operator WeakByteStringArray?(Variant v)
         {
             if (v.Type != VariantType.ByteStringArray) {
                 throw new InvalidCastException();
@@ -383,9 +383,36 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts array of <see cref="byte"/> arrays to <see cref="Variant"/>.
+        /// Coverts <see cref="Variant"/> to <see cref="ByteStringArray"/>.
         /// </summary>
-        public static explicit operator Variant(byte[][] value)
+        public static explicit operator ByteStringArray?(Variant v)
+        {
+            if (v.Type != VariantType.ByteStringArray) {
+                throw new InvalidCastException();
+            }
+            return v.DupBytestringArray();
+        }
+
+        /// <summary>
+        /// Coverts <see cref="ByteStringArray"/> to <see cref="Variant"/>.
+        /// </summary>
+        public static explicit operator Variant(ByteStringArray value)
+        {
+            return new Variant(value);
+        }
+
+        /// <summary>
+        /// Coverts <see cref="WeakByteStringArray"/> to <see cref="Variant"/>.
+        /// </summary>
+        public static explicit operator Variant(WeakByteStringArray value)
+        {
+            return new Variant(value);
+        }
+
+        /// <summary>
+        /// Coverts <see cref="UnownedByteStringArray"/> to <see cref="Variant"/>.
+        /// </summary>
+        public static explicit operator Variant(UnownedByteStringArray value)
         {
             return new Variant(value);
         }
@@ -1060,31 +1087,20 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             nint length);
 
-        static UnmanagedStruct* NewBytestringArray(byte[][] value)
+        static UnmanagedStruct* NewBytestringArray(UnownedByteStringArray value)
         {
-            var strv = GMarshal.Alloc((value.Length + 1) * IntPtr.Size);
-            try {
-                var offset = 0;
-                foreach (var bytestring in value) {
-                    Marshal.WriteIntPtr(strv, offset, GMarshal.ByteStringToPtr(bytestring));
-                    offset += IntPtr.Size;
-                }
-                Marshal.WriteIntPtr(strv, offset, IntPtr.Zero);
-
-                var ret = g_variant_new_bytestring_array((byte**)strv, -1);
-                GMarshal.PopUnhandledException();
-                return ret;
-            }
-            finally {
-                GMarshal.FreeGStrv(strv);
-            }
+            var strv_ = (byte**)value.UnsafeHandle;
+            var length_ = (nint)value.Length;
+            var ret_ = g_variant_new_bytestring_array(strv_, length_);
+            GMarshal.PopUnhandledException();
+            return ret_;
         }
 
         /// <summary>
         /// Constructs an array of bytestring <see cref="Variant"/> from the given array of
         /// strings.
         /// </summary>
-        public Variant(byte[][] value) : this((IntPtr)NewBytestringArray(value), Transfer.None)
+        public Variant(UnownedByteStringArray value) : this((IntPtr)NewBytestringArray(value), Transfer.None)
         {
         }
 
@@ -3118,7 +3134,7 @@ namespace GISharp.Lib.GLib
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
             nuint* length);
 
-        byte[][] GetBytestringArray()
+        WeakByteStringArray? GetBytestringArray()
         {
             if (!IsOfType(VariantType.ByteStringArray)) {
                 throw new InvalidOperationException();
@@ -3128,16 +3144,30 @@ namespace GISharp.Lib.GLib
             var ret_ = g_variant_get_bytestring_array(value_, &length_);
             GMarshal.PopUnhandledException();
             if (ret_ == null) {
-                return System.Array.Empty<byte[]>();
+                return null;
             }
-            var array = new System.Collections.Generic.List<byte[]>();
-            var offset = 0;
-            for (var i = 0; i < (int)length_; i++) {
-                var elementPtr = Marshal.ReadIntPtr((IntPtr)ret_, offset);
-                array.Add(GMarshal.PtrToByteString(elementPtr)!);
-                offset += IntPtr.Size;
+            return new WeakByteStringArray((IntPtr)ret_, (int)length_, Transfer.Container);
+        }
+
+        [Since("2.26")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern byte** g_variant_dup_bytestring_array(
+            UnmanagedStruct* value,
+            nuint* length);
+
+        ByteStringArray? DupBytestringArray()
+        {
+            if (!IsOfType(VariantType.ByteStringArray)) {
+                throw new InvalidOperationException();
             }
-            return array.ToArray();
+            var value_ = (UnmanagedStruct*)UnsafeHandle;
+            nuint length_;
+            var ret_ = g_variant_dup_bytestring_array(value_, &length_);
+            GMarshal.PopUnhandledException();
+            if (ret_ == null) {
+                return null;
+            }
+            return new ByteStringArray((IntPtr)ret_, (int)length_, Transfer.Full);
         }
 
         /// <summary>

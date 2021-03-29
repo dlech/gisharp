@@ -170,7 +170,8 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNewBytestringArray()
         {
-            using var v = new Variant(System.Array.Empty<byte[]>());
+            using var empty = new ByteStringArray(System.Array.Empty<byte[]>());
+            using var v = new Variant(empty);
             Assert.That(GetIsFloating(v), Is.False);
             Assert.That(GetRefCount(v), Is.EqualTo(1));
         }
@@ -398,11 +399,13 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCastBytestringArray()
         {
-            var expected = new[] { Encoding.ASCII.GetBytes("bytestring") };
+            var expected = new ByteStringArray(new[] { Encoding.Latin1.GetBytes("bytestring") });
             using var variant = (Variant)expected;
             Assert.That(variant.Type, Is.EqualTo(VariantType.ByteStringArray));
-            var actual = (byte[][])variant;
-            Assert.That(actual, Is.EqualTo(expected));
+            using var actual1 = (ByteStringArray?)variant;
+            Assert.That(actual1, Is.EqualTo(expected));
+            using var actual2 = (WeakByteStringArray?)variant;
+            Assert.That(actual2, Is.EqualTo(expected));
         }
 
         [Test]
