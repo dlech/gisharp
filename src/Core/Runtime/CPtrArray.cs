@@ -377,6 +377,11 @@ namespace GISharp.Runtime
         private int length;
 
         /// <summary>
+        /// Pointer to the unmanged array.
+        /// </summary>
+        public IntPtr UnsafeHandle => (IntPtr)handle;
+
+        /// <summary>
         /// Gets the length of the array, not including the zero-termination.
         /// </summary>
         /// <remarks>

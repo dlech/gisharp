@@ -404,7 +404,7 @@ namespace GISharp.Test.GLib
             Assert.That(variant.Type, Is.EqualTo(VariantType.ByteStringArray));
             using var actual1 = (ByteStringArray?)variant;
             Assert.That(actual1, Is.EqualTo(expected));
-            using var actual2 = (WeakByteStringArray?)variant;
+            using var actual2 = (WeakZeroTerminatedCPtrArray<ByteString>?)variant;
             Assert.That(actual2, Is.EqualTo(expected));
         }
 

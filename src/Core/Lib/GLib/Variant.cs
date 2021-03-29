@@ -372,9 +372,9 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="Variant"/> to <see cref="WeakByteStringArray"/>.
+        /// Coverts <see cref="Variant"/> to <see cref="WeakZeroTerminatedCPtrArray{T}"/> of <see cref="ByteString"/>.
         /// </summary>
-        public static explicit operator WeakByteStringArray?(Variant v)
+        public static explicit operator WeakZeroTerminatedCPtrArray<ByteString>?(Variant v)
         {
             if (v.Type != VariantType.ByteStringArray) {
                 throw new InvalidCastException();
@@ -402,17 +402,17 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="WeakByteStringArray"/> to <see cref="Variant"/>.
+        /// Coverts <see cref="WeakZeroTerminatedCPtrArray{T}"/> of <see cref="ByteString"/> to <see cref="Variant"/>.
         /// </summary>
-        public static explicit operator Variant(WeakByteStringArray value)
+        public static explicit operator Variant(WeakZeroTerminatedCPtrArray<ByteString> value)
         {
             return new Variant(value);
         }
 
         /// <summary>
-        /// Coverts <see cref="UnownedByteStringArray"/> to <see cref="Variant"/>.
+        /// Coverts <see cref="UnownedZeroTerminatedCPtrArray{T}"/> of <see cref="ByteString"/> to <see cref="Variant"/>.
         /// </summary>
-        public static explicit operator Variant(UnownedByteStringArray value)
+        public static explicit operator Variant(UnownedZeroTerminatedCPtrArray<ByteString> value)
         {
             return new Variant(value);
         }
@@ -1087,7 +1087,7 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             nint length);
 
-        static UnmanagedStruct* NewBytestringArray(UnownedByteStringArray value)
+        static UnmanagedStruct* NewBytestringArray(UnownedZeroTerminatedCPtrArray<ByteString> value)
         {
             var strv_ = (byte**)value.UnsafeHandle;
             var length_ = (nint)value.Length;
@@ -1100,7 +1100,7 @@ namespace GISharp.Lib.GLib
         /// Constructs an array of bytestring <see cref="Variant"/> from the given array of
         /// strings.
         /// </summary>
-        public Variant(UnownedByteStringArray value) : this((IntPtr)NewBytestringArray(value), Transfer.None)
+        public Variant(UnownedZeroTerminatedCPtrArray<ByteString> value) : this((IntPtr)NewBytestringArray(value), Transfer.None)
         {
         }
 
@@ -3134,7 +3134,7 @@ namespace GISharp.Lib.GLib
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
             nuint* length);
 
-        WeakByteStringArray? GetBytestringArray()
+        WeakZeroTerminatedCPtrArray<ByteString>? GetBytestringArray()
         {
             if (!IsOfType(VariantType.ByteStringArray)) {
                 throw new InvalidOperationException();
@@ -3146,7 +3146,7 @@ namespace GISharp.Lib.GLib
             if (ret_ == null) {
                 return null;
             }
-            return new WeakByteStringArray((IntPtr)ret_, (int)length_, Transfer.Container);
+            return new WeakZeroTerminatedCPtrArray<ByteString>((IntPtr)ret_, (int)length_, Transfer.Container);
         }
 
         [Since("2.26")]
