@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -16,7 +15,7 @@ namespace GISharp.Lib.GLib
     /// Wrapper around unmanaged null-terminated array of null-terminated UTF-8 strings.
     /// </summary>
     [GType("GStrv", IsProxyForUnmanagedType = true)]
-    public sealed unsafe class Strv : Boxed, IReadOnlyList<Utf8>
+    public sealed unsafe class Strv : ByteStringArray, IReadOnlyList<Utf8>
     {
         /// <summary>
         /// Gets the managed UTF-16 value of this string.
@@ -43,59 +42,23 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Strv(IntPtr handle, Transfer ownership) : base(handle)
+        public Strv(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
         {
-            if (ownership == Transfer.None) {
-                this.handle = (IntPtr)g_strdupv((byte**)handle);
-                GMarshal.PopUnhandledException();
-            }
-            _Value = new Lazy<string[]>(() => this.Select(x => (string)x).ToArray());
         }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Strv(IntPtr handle, int length, Transfer ownership) : this(handle, ownership)
+        public Strv(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
         {
-            // TODO: cache the length
-        }
-
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_strfreev(byte** strv);
-
-        /// <inheritdoc/>
-        protected override void Dispose(bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_strfreev((byte**)handle);
-                GMarshal.PopUnhandledException();
-            }
-            base.Dispose(disposing);
+            _Value = new Lazy<string[]>(() => this.Select(x => (string)x).ToArray());
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_strv_get_type();
 
         static readonly GType _GType = g_strv_get_type();
-
-        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.6")]
-        static extern uint g_strv_length(byte** strArray);
-
-        /// <summary>
-        /// Returns the length of this <see cref="Strv"/>.
-        /// </summary>
-        [Since("2.6")]
-        public int Length {
-            get {
-                var this_ = (byte**)UnsafeHandle;
-                var ret = g_strv_length(this_);
-                GMarshal.PopUnhandledException();
-                return (int)ret;
-            }
-        }
-
         int IReadOnlyCollection<Utf8>.Count => Length;
 
         Utf8 IReadOnlyList<Utf8>.this[int index] => throw new NotImplementedException();
@@ -180,14 +143,5 @@ namespace GISharp.Lib.GLib
         /// Function needed for use in <c>foreach</c> loops.
         /// </summary>
         public Enumerator GetEnumerator() => new(this);
-
-        /// <summary>
-        /// Returns a reference to unmanaged string array.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public ref readonly IntPtr GetPinnableReference()
-        {
-            return ref Unsafe.AsRef<IntPtr>((void*)UnsafeHandle);
-        }
     }
 }

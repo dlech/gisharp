@@ -173,6 +173,83 @@ namespace GISharp.Runtime
     }
 
     /// <summary>
+    /// Managed wrapper for zero-terminated C array of pointers to opaque data types.
+    /// </summary>
+    public unsafe class WeakZeroTerminatedCPtrArray<T> : Opaque where T : IOpaque?
+    {
+        private int length;
+
+        /// <summary>
+        /// Gets the length of the array, not including the zero-termination.
+        /// </summary>
+        /// <remarks>
+        /// If the length is not already known, it will be determined by iterating the array.
+        /// </remarks>
+        public int Length {
+            get {
+                if (length < 0) {
+                    var array_ = (IntPtr*)UnsafeHandle;
+                    for (length = 0; array_[length] != IntPtr.Zero; length++) {
+                    }
+                }
+                return length;
+            }
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public WeakZeroTerminatedCPtrArray(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
+        {
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public WeakZeroTerminatedCPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle)
+        {
+            if (ownership != Transfer.Container) {
+                this.handle = IntPtr.Zero;
+                GC.SuppressFinalize(this);
+                throw new NotSupportedException();
+            }
+
+            this.length = length;
+        }
+
+        /// <inheritdoc />
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != IntPtr.Zero) {
+                GMarshal.Free(handle);
+                GMarshal.PopUnhandledException();
+            }
+            base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// Gets a ref to the unmanaged pointer.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe ref readonly IntPtr GetPinnableReference()
+        {
+            return ref Unsafe.AsRef<IntPtr>((void*)UnsafeHandle);
+        }
+
+        /// <summary>
+        /// Gets an unowned reference to this instance.
+        /// </summary>
+        public UnownedZeroTerminatedCPtrArray<T> AsUnowned() => new(handle, length, Transfer.None);
+
+        /// <summary>
+        /// Coverts <see cref="WeakZeroTerminatedCPtrArray{T}"/> to <see cref="UnownedZeroTerminatedCPtrArray{T}"/>.
+        /// </summary>
+        public static implicit operator UnownedZeroTerminatedCPtrArray<T>(WeakZeroTerminatedCPtrArray<T> value) => value.AsUnowned();
+    }
+
+    /// <summary>
     /// Managed wrapper for unowned C arrays of pointers to opaque data types.
     /// </summary>
     public unsafe ref struct UnownedCPtrArray<T> where T : IOpaque?
@@ -300,6 +377,22 @@ namespace GISharp.Runtime
         private int length;
 
         /// <summary>
+        /// Gets the length of the array, not including the zero-termination.
+        /// </summary>
+        /// <remarks>
+        /// If the length is not already known, it will be determined by iterating the array.
+        /// </remarks>
+        public int Length {
+            get {
+                if (length < 0) {
+                    for (length = 0; handle[length] != IntPtr.Zero; length++) {
+                    }
+                }
+                return length;
+            }
+        }
+
+        /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -327,8 +420,6 @@ namespace GISharp.Runtime
 
             this.handle = (IntPtr*)handle;
             this.length = length;
-            // TODO: could save length in case it is >= 0 for later conversion
-            // to UnownedCPtrArray
         }
 
         /// <summary>
@@ -387,11 +478,7 @@ namespace GISharp.Runtime
         /// </summary>
         public UnownedCPtrArray<T> ToUnownedCPtrArray()
         {
-            if (length < 0) {
-                for (length = 0; handle[length] != IntPtr.Zero; length++) {
-                }
-            }
-            return new UnownedCPtrArray<T>(handle, length);
+            return new UnownedCPtrArray<T>(handle, Length);
         }
     }
 

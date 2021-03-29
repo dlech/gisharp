@@ -13,6 +13,12 @@
   value: 1
   xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[contains(@name,'take')]
 
+# expose dup_boxed
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[@name='dup_boxed']
+
 # requires special handling
 - !set-attribute
   name: gs:pinvoke-only

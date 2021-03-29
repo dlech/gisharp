@@ -254,6 +254,26 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
+        /// Get the contents of a %G_TYPE_BOXED derived #GValue.  Upon getting,
+        /// the boxed value is duplicated and needs to be later freed with
+        /// g_boxed_free(), e.g. like: g_boxed_free (G_VALUE_TYPE (@value),
+        /// return_value);
+        /// </summary>
+        /// <param name="value">
+        /// a valid #GValue of %G_TYPE_BOXED derived type
+        /// </param>
+        /// <returns>
+        /// boxed contents of @value
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern System.IntPtr g_value_dup_boxed(
+        /* <type name="Value" type="const GValue*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GObject.Value* value);
+
+        /// <summary>
         /// Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
         /// its reference count. If the contents of the #GValue are %NULL, then
         /// %NULL will be returned.

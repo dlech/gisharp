@@ -611,9 +611,9 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="Variant"/> to <see cref="Strv"/>.
+        /// Coverts <see cref="Variant"/> to <see cref="WeakZeroTerminatedCPtrArray{T}"/> of <see cref="Utf8"/>.
         /// </summary>
-        public static explicit operator Strv?(Variant v)
+        public static explicit operator WeakZeroTerminatedCPtrArray<Utf8>?(Variant v)
         {
             if (v.Type != VariantType.StringArray) {
                 throw new InvalidCastException();
@@ -622,22 +622,22 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="Variant"/> to <see cref="string"/> array.
+        /// Coverts <see cref="Variant"/> to <see cref="Strv"/>.
         /// </summary>
-        public static explicit operator string[]?(Variant v)
+        public static explicit operator Strv?(Variant v)
         {
             if (v.Type != VariantType.StringArray) {
                 throw new InvalidCastException();
             }
-            return v.Strv?.Value;
+            return v.DupStrv();
         }
 
         /// <summary>
         /// Coverts <see cref="string"/> array to <see cref="Variant"/>.
         /// </summary>
-        public static explicit operator Variant(string[] value)
+        public static explicit operator Variant(Strv value)
         {
-            return new Variant(new Strv(value));
+            return new Variant(value);
         }
 
         /// <summary>
@@ -3994,7 +3994,7 @@ namespace GISharp.Lib.GLib
         /// an array of constant strings or <c>null</c> for an empty array
         /// </returns>
         [Since("2.24")]
-        Strv? Strv {
+        WeakZeroTerminatedCPtrArray<Utf8>? Strv {
             get {
                 if (!IsOfType(VariantType.StringArray)) {
                     throw new InvalidOperationException();
@@ -4003,11 +4003,27 @@ namespace GISharp.Lib.GLib
                 nuint length_;
                 var ret_ = g_variant_get_strv(value_, &length_);
                 GMarshal.PopUnhandledException();
-                // using Transfer.None to force deep copy - really Transfer.Container
-                var ret = GetInstance<Strv>((IntPtr)ret_, Transfer.None);
-                GMarshal.Free((IntPtr)ret_);
+                var ret = new WeakZeroTerminatedCPtrArray<Utf8>((IntPtr)ret_, (int)length_, Transfer.Container);
                 return ret;
             }
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern byte** g_variant_dup_strv(
+            UnmanagedStruct* value,
+            nuint* length);
+
+        Strv? DupStrv()
+        {
+            if (!IsOfType(VariantType.StringArray)) {
+                throw new InvalidOperationException();
+            }
+            var value_ = (UnmanagedStruct*)UnsafeHandle;
+            nuint length_;
+            var ret_ = g_variant_dup_strv(value_, &length_);
+            GMarshal.PopUnhandledException();
+            var ret = new Strv((IntPtr)ret_, (int)length_, Transfer.Full);
+            return ret;
         }
 
         /// <summary>

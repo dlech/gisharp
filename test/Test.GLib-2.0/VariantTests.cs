@@ -349,10 +349,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCastStringArray()
         {
-            var expected = new[] { "string" };
+            using var expected = new Strv(new[] { "string" });
             using var variant = (Variant)expected;
             Assert.That(variant.Type, Is.EqualTo(VariantType.StringArray));
-            var actual = (string[]?)variant;
+            using var actual = (Strv?)variant;
             Assert.That(actual, Is.EqualTo(expected));
         }
 

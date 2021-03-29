@@ -8065,6 +8065,24 @@ only be accessed through the G_VALUE_TYPE() macro.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
+      <method name="dup_boxed" c:identifier="g_value_dup_boxed" introspectable="1" gs:pinvoke-only="1" gs:dll-name="gobject-2.0" gs:managed-name="DupBoxed">
+        <doc xml:space="preserve" filename="gobject-2.0.c" line="6263">Get the contents of a %G_TYPE_BOXED derived #GValue.  Upon getting,
+the boxed value is duplicated and needs to be later freed with
+g_boxed_free(), e.g. like: g_boxed_free (G_VALUE_TYPE (@value),
+return_value);</doc>
+        <source-position filename="gboxed.h" line="90" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gobject-2.0.c" line="6272">boxed contents of @value</doc>
+          <type name="gpointer" c:type="gpointer" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
+            <doc xml:space="preserve" filename="gobject-2.0.c" line="6265">a valid #GValue of %G_TYPE_BOXED derived type</doc>
+            <type name="Value" c:type="const GValue*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
       <method name="dup_object" c:identifier="g_value_dup_object" gs:dll-name="gobject-2.0" gs:managed-name="DupObject">
         <doc xml:space="preserve" filename="gobject-2.0.c" line="6276">Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
 its reference count. If the contents of the #GValue are %NULL, then

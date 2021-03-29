@@ -621,9 +621,9 @@ namespace GISharp.Lib.GObject
                 AssertType(GType.Boxed);
                 var managedType = ValueGType.ToType();
                 fixed (Value* value_ = &this) {
-                    var ret_ = g_value_get_boxed(value_);
+                    var ret_ = g_value_dup_boxed(value_);
                     GMarshal.PopUnhandledException();
-                    return (Boxed?)Opaque.GetInstance(managedType, ret_, Transfer.None);
+                    return (Boxed?)Opaque.GetInstance(managedType, ret_, Transfer.Full);
                 }
             }
             set {
