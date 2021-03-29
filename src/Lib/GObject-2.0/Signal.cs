@@ -2,7 +2,6 @@
 // Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 

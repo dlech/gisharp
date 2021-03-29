@@ -22,6 +22,6 @@ namespace GISharp.CodeGen.Gir
         }
 
         IEnumerable<Prerequisite> LazyGetPrerequisites() =>
-            Element.Elements(gi + "prerequisite").Select(x => (Prerequisite)GirNode.GetNode(x));
+            Element.Elements(gi + "prerequisite").Select(x => (Prerequisite)GetNode(x));
     }
 }

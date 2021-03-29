@@ -139,7 +139,7 @@ namespace GISharp.CodeGen.Gir
         {
             var match = Element.Descendants()
                 .SingleOrDefault(x => x.Attribute(c + "identifier").AsString() == identifier);
-            return GirNode.GetNode(match);
+            return GetNode(match);
         }
 
         IEnumerable<Alias> LazyGetAliases() =>

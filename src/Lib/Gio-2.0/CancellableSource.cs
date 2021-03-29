@@ -25,9 +25,9 @@ namespace GISharp.Lib.Gio
         {
             var source_ = (Source.UnmanagedStruct*)source.UnsafeHandle;
             var func_ = (delegate* unmanaged[Cdecl]<Cancellable.UnmanagedStruct*, IntPtr, Runtime.Boolean>)&CancellableSourceFuncMarshal.Callback;
-            var funcHandle = GCHandle.Alloc((func, Runtime.CallbackScope.Notified));
+            var funcHandle = GCHandle.Alloc((func, CallbackScope.Notified));
             var data_ = (IntPtr)funcHandle;
-            var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&Runtime.GMarshal.DestroyGCHandle;
+            var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
             g_source_set_callback(source_, func_, data_, notify_);
             GMarshal.PopUnhandledException();
         }

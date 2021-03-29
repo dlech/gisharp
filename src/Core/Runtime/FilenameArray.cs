@@ -70,7 +70,7 @@ namespace GISharp.Runtime
                 IntPtr str_;
                 var offset = 0;
                 while ((str_ = Marshal.ReadIntPtr(this_, offset)) != IntPtr.Zero) {
-                    yield return Opaque.GetInstance<Filename>(str_, Transfer.None);
+                    yield return GetInstance<Filename>(str_, Transfer.None);
                     offset += IntPtr.Size;
                 }
             }

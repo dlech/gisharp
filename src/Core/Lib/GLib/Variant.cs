@@ -3821,7 +3821,7 @@ namespace GISharp.Lib.GLib
                 var ret_ = g_variant_get_objv(value_, &length_);
                 GMarshal.PopUnhandledException();
                 if (ret_ is null) {
-                    return System.Array.Empty<DBusObjectPath>();
+                    return Array.Empty<DBusObjectPath>();
                 }
                 var strv = GMarshal.GStrvPtrToStringArray((IntPtr)ret_, freePtr: true, freeElements: false)!;
                 var objv = new DBusObjectPath[strv.Length];

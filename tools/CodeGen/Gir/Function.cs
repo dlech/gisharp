@@ -29,7 +29,7 @@ namespace GISharp.CodeGen.Gir
         }
 
         GIFunction LazyGetFinishForFunction =>
-            (GIFunction)GirNode.GetNode(Element.Parent.Elements(gi + "function")
+            (GIFunction)GetNode(Element.Parent.Elements(gi + "function")
                 .Concat(Element.Parent.Elements(gi + "method"))
                 .FirstOrDefault(x => x.Attribute("name")?.Value == FinishFor));
     }
