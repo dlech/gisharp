@@ -649,7 +649,7 @@ namespace GISharp.Lib.GLib
     /// <seealso cref="NullableUnownedUtf8"/>
     [GType("gchararray", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay("{Value}")]
-    public sealed unsafe class Utf8 : Opaque, IComparable, IComparable<Utf8>, IComparable<string>, IConvertible, IEquatable<Utf8>, IEquatable<string>
+    public sealed unsafe class Utf8 : ByteString, IComparable, IComparable<Utf8>, IComparable<string>, IConvertible, IEquatable<string>
     {
         /// <summary>
         /// Enumerator for iterating the bytes of a <see cref="Utf8"/> string.
@@ -843,12 +843,8 @@ namespace GISharp.Lib.GLib
         /// made.
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Utf8(IntPtr handle, Transfer ownership) : base(handle)
+        public Utf8(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
-            if (ownership == Transfer.None) {
-                this.handle = (IntPtr)g_strdup((byte*)handle);
-                GMarshal.PopUnhandledException();
-            }
             _Value = new(GetValue);
         }
 
@@ -864,15 +860,6 @@ namespace GISharp.Lib.GLib
         [PtrArrayFreeFunc]
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_free(void* ptr);
-
-        /// <inheritdoc/>
-        protected override void Dispose(bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_free((void*)handle);
-            }
-            base.Dispose(disposing);
-        }
 
         /// <summary>
         /// Gets an unowned reference to this string.
