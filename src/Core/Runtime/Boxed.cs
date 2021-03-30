@@ -112,8 +112,9 @@ namespace GISharp.Runtime
         {
             var name = typeof(Boxed<T>).GetGTypeName();
             GType.AssertGTypeName(name);
-            using var utf8 = (Utf8)name;
-            var ret = g_boxed_type_register_static((byte*)utf8.Take(), &CopyManagedType, &FreeManagedType);
+            using var nameUtf8 = (Utf8)name;
+            var name_ = (byte*)nameUtf8.UnsafeHandle;
+            var ret = g_boxed_type_register_static(name_, &CopyManagedType, &FreeManagedType);
             GMarshal.PopUnhandledException();
             return ret;
         }
