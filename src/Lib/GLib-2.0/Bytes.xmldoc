@@ -172,6 +172,11 @@ if this was the last reference to bytes and bytes was created with
 <see cref="Bytes.Bytes(System.ReadOnlySpan{byte})"/>, <see cref="Bytes.Bytes(GISharp.Runtime.CArray{byte})"/> or <see cref="ByteArray.FreeToBytes()"/>. In all
 other cases the data is copied.
 </para>
+<para>
+Do not use it if this instance contains more than %G_MAXUINT
+bytes. <see cref="ByteArray"/> stores the length of its data in #guint, which
+may be shorter than #gsize, that this instance is using.
+</para>
 </remarks>
 <returns>
 a new mutable <see cref="ByteArray"/> containing the same byte data

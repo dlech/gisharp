@@ -27,7 +27,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.Etag']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public GISharp.Lib.GLib.Utf8 Etag { get => GetEtag(); }
+        public GISharp.Lib.GLib.Utf8? Etag { get => GetEtag(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -56,7 +56,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern byte* g_file_io_stream_get_etag(
         /* <type name="FileIOStream" type="GFileIOStream*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -64,13 +64,13 @@ namespace GISharp.Lib.Gio
         partial void CheckGetEtagArgs();
 
         [GISharp.Runtime.SinceAttribute("2.22")]
-        private GISharp.Lib.GLib.Utf8 GetEtag()
+        private GISharp.Lib.GLib.Utf8? GetEtag()
         {
             CheckGetEtagArgs();
             var stream_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_io_stream_get_etag(stream_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -307,12 +307,12 @@ namespace GISharp.Lib.Gio
         /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoGetEtag()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedGetEtag))]
-        protected virtual GISharp.Lib.GLib.Utf8 DoGetEtag()
+        protected virtual GISharp.Lib.GLib.Utf8? DoGetEtag()
         {
             var stream_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedGetEtag>(_GType)!(stream_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

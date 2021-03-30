@@ -69,7 +69,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.FlagsValue* g_flags_get_first_value(
         /* <type name="FlagsClass" type="GFlagsClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -106,7 +106,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.FlagsValue* g_flags_get_value_by_name(
         /* <type name="FlagsClass" type="GFlagsClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -143,7 +143,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.FlagsValue* g_flags_get_value_by_nick(
         /* <type name="FlagsClass" type="GFlagsClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */

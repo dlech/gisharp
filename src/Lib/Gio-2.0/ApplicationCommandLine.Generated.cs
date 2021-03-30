@@ -73,7 +73,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Stdin']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public GISharp.Lib.Gio.InputStream Stdin { get => GetStdin(); }
+        public GISharp.Lib.Gio.InputStream? Stdin { get => GetStdin(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -434,7 +434,7 @@ namespace GISharp.Lib.Gio
         /// The #GInputStream can be used to read data passed to the standard
         /// input of the invoking process.
         /// This doesn't work on all platforms.  Presently, it is only available
-        /// on UNIX when using a DBus daemon capable of passing file descriptors.
+        /// on UNIX when using a D-Bus daemon capable of passing file descriptors.
         /// If stdin is not available then %NULL will be returned.  In the
         /// future, support may be expanded to other platforms.
         /// </para>
@@ -451,7 +451,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.Gio.InputStream.UnmanagedStruct* g_application_command_line_get_stdin(
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -459,13 +459,13 @@ namespace GISharp.Lib.Gio
         partial void CheckGetStdinArgs();
 
         [GISharp.Runtime.SinceAttribute("2.34")]
-        private GISharp.Lib.Gio.InputStream GetStdin()
+        private GISharp.Lib.Gio.InputStream? GetStdin()
         {
             CheckGetStdinArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_stdin(cmdline_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.Gio.InputStream.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.Gio.InputStream.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -498,7 +498,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_application_command_line_getenv(
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -510,14 +510,14 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.Lib.GLib.UnownedUtf8 GetEnvironmentVariable(GISharp.Lib.GLib.Filename name)
+        public GISharp.Lib.GLib.NullableUnownedUtf8 GetEnvironmentVariable(GISharp.Lib.GLib.Filename name)
         {
             CheckGetEnvironmentVariableArgs(name);
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_application_command_line_getenv(cmdline_,name_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -581,12 +581,12 @@ namespace GISharp.Lib.Gio
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoGetStdin()']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedGetStdin))]
-        protected virtual GISharp.Lib.Gio.InputStream DoGetStdin()
+        protected virtual GISharp.Lib.Gio.InputStream? DoGetStdin()
         {
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedGetStdin>(_GType)!(cmdline_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.Gio.InputStream.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.Gio.InputStream.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

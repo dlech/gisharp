@@ -120,7 +120,8 @@ Returns the invocation hint of the innermost signal emission of instance.
 the instance to query
 </param>
 <returns>
-the invocation hint of the innermost signal  emission.
+the invocation hint of the innermost
+    signal emission, or <c>null</c> if not found.
 </returns>
 </member>
 

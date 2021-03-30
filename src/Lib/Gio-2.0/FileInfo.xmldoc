@@ -86,7 +86,9 @@ Gets the name for a file. This is guaranteed to always be set.
 
 <member name='FileInfo.Size'>
 <summary>
-Gets the file's size.
+Gets the file's size (in bytes). The size is retrieved through the value of
+the %G_FILE_ATTRIBUTE_STANDARD_SIZE attribute and is converted
+from #guint64 to #goffset before returning the result.
 </summary>
 </member>
 

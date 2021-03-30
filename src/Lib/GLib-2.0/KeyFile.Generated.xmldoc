@@ -276,7 +276,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Retrieves a comment above <paramref name="key"/> from <paramref name="groupName"/>.
 If <paramref name="key"/> is <c>null</c> then <c>comment</c> will be read from above

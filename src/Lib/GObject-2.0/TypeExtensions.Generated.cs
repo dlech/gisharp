@@ -438,12 +438,12 @@ nuint privateSize);
         }
 
         /// <summary>
-        /// Adds @interface_type to the static @instantiable_type.
+        /// Adds @interface_type to the static @instance_type.
         /// The information contained in the #GInterfaceInfo structure
         /// pointed to by @info is used to manage the relationship.
         /// </summary>
         /// <param name="instanceType">
-        /// #GType value of an instantiable type
+        /// #GType value of an instantiatable type
         /// </param>
         /// <param name="interfaceType">
         /// #GType value of an interface type
@@ -658,7 +658,7 @@ nuint privateSize);
 
         /// <summary>
         /// Given a @leaf_type and a @root_type which is contained in its
-        /// anchestry, return the type that @root_type is the immediate parent
+        /// ancestry, return the type that @root_type is the immediate parent
         /// of. In other words, this function determines the type that is
         /// derived directly from @root_type which is also a base class of
         /// @leaf_type.  Given a root type and a leaf type, this function can
@@ -672,7 +672,7 @@ nuint privateSize);
         /// immediate parent of the returned type
         /// </param>
         /// <returns>
-        /// immediate child of @root_type and anchestor of @leaf_type
+        /// immediate child of @root_type and ancestor of @leaf_type
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" /> */

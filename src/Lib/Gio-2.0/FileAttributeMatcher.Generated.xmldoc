@@ -90,7 +90,7 @@ a file attribute key.
 </returns>
 </member>
 
-<member name='FileAttributeMatcher.Subtract(GISharp.Lib.Gio.FileAttributeMatcher)'>
+<member name='FileAttributeMatcher.Subtract(GISharp.Lib.Gio.FileAttributeMatcher?)'>
 <summary>
 Subtracts all attributes of <paramref name="subtract"/> from this instance and returns
 a matcher that supports those attributes.

@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
     /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime']/*" />
     [GISharp.Runtime.SinceAttribute("2.26")]
     [GISharp.Runtime.GTypeAttribute("GDateTime", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class DateTime : GISharp.Runtime.Boxed, System.IEquatable<DateTime>
+    public sealed unsafe partial class DateTime : GISharp.Runtime.Boxed, System.IComparable<DateTime>
     {
         private static readonly GISharp.Runtime.GType _GType = g_date_time_get_type();
 
@@ -770,25 +770,56 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
         private static extern int g_date_time_compare(
-        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
+        /* <type name="DateTime" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr dt1,
-        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
+        GISharp.Lib.GLib.DateTime.UnmanagedStruct* dt1,
+        /* <type name="DateTime" type="gconstpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr dt2);
-        static partial void CheckCompareArgs(System.IntPtr dt1, System.IntPtr dt2);
+        GISharp.Lib.GLib.DateTime.UnmanagedStruct* dt2);
+        static partial void CheckCompareArgs(GISharp.Lib.GLib.DateTime dt1, GISharp.Lib.GLib.DateTime dt2);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Compare(System.IntPtr,System.IntPtr)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Compare(GISharp.Lib.GLib.DateTime,GISharp.Lib.GLib.DateTime)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static int Compare(System.IntPtr dt1, System.IntPtr dt2)
+        public static int Compare(GISharp.Lib.GLib.DateTime dt1, GISharp.Lib.GLib.DateTime dt2)
         {
             CheckCompareArgs(dt1, dt2);
-            var dt1_ = (System.IntPtr)dt1;
-            var dt2_ = (System.IntPtr)dt2;
+            var dt1_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)dt1.UnsafeHandle;
+            var dt2_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)dt2.UnsafeHandle;
             var ret_ = g_date_time_compare(dt1_,dt2_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
             return ret;
+        }
+
+        /// <inheritdoc/>
+        /// <seealso cref="GISharp.Lib.GLib.DateTime.Compare"/>
+        public System.Int32 CompareTo(GISharp.Lib.GLib.DateTime? other)
+        {
+            return Compare(this, other ?? throw new System.ArgumentNullException(nameof(other)));
+        }
+
+        /// <inheritdoc/>
+        public static System.Boolean operator <(GISharp.Lib.GLib.DateTime dt1, GISharp.Lib.GLib.DateTime dt2)
+        {
+            return Compare(dt1, dt2) < 0;
+        }
+
+        /// <inheritdoc/>
+        public static System.Boolean operator >(GISharp.Lib.GLib.DateTime dt1, GISharp.Lib.GLib.DateTime dt2)
+        {
+            return Compare(dt1, dt2) > 0;
+        }
+
+        /// <inheritdoc/>
+        public static System.Boolean operator <=(GISharp.Lib.GLib.DateTime dt1, GISharp.Lib.GLib.DateTime dt2)
+        {
+            return Compare(dt1, dt2) <= 0;
+        }
+
+        /// <inheritdoc/>
+        public static System.Boolean operator >=(GISharp.Lib.GLib.DateTime dt1, GISharp.Lib.GLib.DateTime dt2)
+        {
+            return Compare(dt1, dt2) >= 0;
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -1242,6 +1273,43 @@ namespace GISharp.Lib.GLib
             var ret_ = g_date_time_difference(end_,begin_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.TimeSpan)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks to see if @dt1 and @dt2 are equal.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Equal here means that they represent the same moment after converting
+        /// them to the same time zone.
+        /// </para>
+        /// </remarks>
+        /// <param name="dt1">
+        /// a #GDateTime
+        /// </param>
+        /// <returns>
+        /// %TRUE if @dt1 and @dt2 are equal
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.26")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Runtime.Boolean g_date_time_equal(
+        /* <type name="DateTime" type="gconstpointer" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.DateTime.UnmanagedStruct* dt1);
+        partial void CheckEqualArgs();
+
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Equal()']/*" />
+        [GISharp.Runtime.SinceAttribute("2.26")]
+        public bool Equal()
+        {
+            CheckEqualArgs();
+            var dt1_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_date_time_equal(dt1_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -2019,6 +2087,37 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Hashes @datetime into a #guint, suitable for use within #GHashTable.
+        /// </summary>
+        /// <param name="datetime">
+        /// a #GDateTime
+        /// </param>
+        /// <returns>
+        /// a #guint containing the hash
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.26")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="guint" type="guint" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern uint g_date_time_hash(
+        /* <type name="DateTime" type="gconstpointer" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
+        partial void CheckGetHashCodeArgs();
+
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetHashCode()']/*" />
+        [GISharp.Runtime.SinceAttribute("2.26")]
+        public override System.Int32 GetHashCode()
+        {
+            CheckGetHashCodeArgs();
+            var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_date_time_hash(datetime_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = (System.Int32)ret_;
+            return ret;
+        }
+
+        /// <summary>
         /// Determines if daylight savings time is in effect at the time and in
         /// the time zone of @datetime.
         /// </summary>
@@ -2327,109 +2426,6 @@ namespace GISharp.Lib.GLib
             }
 
             base.Dispose(disposing);
-        }
-
-        /// <summary>
-        /// Checks to see if @dt1 and @dt2 are equal.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// Equal here means that they represent the same moment after converting
-        /// them to the same time zone.
-        /// </para>
-        /// </remarks>
-        /// <param name="dt1">
-        /// a #GDateTime
-        /// </param>
-        /// <param name="dt2">
-        /// a #GDateTime
-        /// </param>
-        /// <returns>
-        /// %TRUE if @dt1 and @dt2 are equal
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.26")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" /> */
-        /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.Boolean g_date_time_equal(
-        /* <type name="DateTime" type="gconstpointer" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.DateTime.UnmanagedStruct* dt1,
-        /* <type name="DateTime" type="gconstpointer" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.DateTime.UnmanagedStruct* dt2);
-        partial void CheckEqualsArgs(GISharp.Lib.GLib.DateTime dt2);
-
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Equals(GISharp.Lib.GLib.DateTime?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.26")]
-        public bool Equals(GISharp.Lib.GLib.DateTime? dt2)
-        {
-            if (dt2 is null)
-            {
-                return false;
-            }
-
-            CheckEqualsArgs(dt2);
-            var dt1_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var dt2_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)dt2.UnsafeHandle;
-            var ret_ = g_date_time_equal(dt1_,dt2_);
-            GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-            return ret;
-        }
-
-        /// <inheritdoc/>
-        public override bool Equals(object? other)
-        {
-            if (other is GISharp.Lib.GLib.DateTime dateTime)
-            {
-                return Equals(dateTime);
-            }
-
-            return base.Equals(other);
-        }
-
-        /// <inheritdoc/>
-        public static bool operator ==(GISharp.Lib.GLib.DateTime a, GISharp.Lib.GLib.DateTime b)
-        {
-            return a.Equals(b);
-        }
-
-        /// <inheritdoc/>
-        public static System.Boolean operator !=(GISharp.Lib.GLib.DateTime a, GISharp.Lib.GLib.DateTime b)
-        {
-            return !a.Equals(b);
-        }
-
-        /// <summary>
-        /// Hashes @datetime into a #guint, suitable for use within #GHashTable.
-        /// </summary>
-        /// <param name="datetime">
-        /// a #GDateTime
-        /// </param>
-        /// <returns>
-        /// a #guint containing the hash
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.26")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.Int32" /> */
-        /* transfer-ownership:none direction:in */
-        private static extern uint g_date_time_hash(
-        /* <type name="DateTime" type="gconstpointer" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
-        partial void CheckGetHashCodeArgs();
-
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetHashCode()']/*" />
-        [GISharp.Runtime.SinceAttribute("2.26")]
-        public override System.Int32 GetHashCode()
-        {
-            CheckGetHashCodeArgs();
-            var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var ret_ = g_date_time_hash(datetime_);
-            GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (System.Int32)ret_;
-            return ret;
         }
     }
 }

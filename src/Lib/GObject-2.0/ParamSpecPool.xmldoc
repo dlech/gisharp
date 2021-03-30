@@ -1,25 +1,5 @@
 <declaration>
 
-<member name='ParamSpecPool.New(bool)'>
-<summary>
-Creates a new <see cref="ParamSpecPool"/>.
-</summary>
-<remarks>
-<para>
-If <paramref name="typePrefixing"/> is <c>true</c>, lookups in the newly created pool will
-allow to specify the owner as a colon-separated prefix of the
-property name, like "GtkContainer:border-width". This feature is
-deprecated, so you should always set <paramref name="typePrefixing"/> to <c>false</c>.
-</para>
-</remarks>
-<param name="typePrefixing">
-Whether the pool will support type-prefixed property names.
-</param>
-<returns>
-a newly allocated <see cref="ParamSpecPool"/>.
-</returns>
-</member>
-
 <member name='ParamSpecPool.Insert(GISharp.Lib.GObject.ParamSpec,GISharp.Runtime.GType)'>
 <summary>
 Inserts a <see cref="ParamSpec"/> in the pool.

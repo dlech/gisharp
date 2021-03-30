@@ -248,7 +248,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetState()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetState))]
-        GISharp.Lib.GLib.Variant DoGetState();
+        GISharp.Lib.GLib.Variant? DoGetState();
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetStateHint()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -496,7 +496,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_action_get_state(
         /* <type name="Action" type="GAction*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -505,13 +505,13 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='Action.GetState(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.Lib.GLib.Variant GetState(this GISharp.Lib.Gio.IAction action)
+        public static GISharp.Lib.GLib.Variant? GetState(this GISharp.Lib.Gio.IAction action)
         {
             CheckGetStateArgs(action);
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var ret_ = g_action_get_state(action_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

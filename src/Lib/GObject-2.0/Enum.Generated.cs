@@ -90,7 +90,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="EnumValue" type="GEnumValue*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.EnumValue* g_enum_get_value(
         /* <type name="EnumClass" type="GEnumClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -128,7 +128,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="EnumValue" type="GEnumValue*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.EnumValue* g_enum_get_value_by_name(
         /* <type name="EnumClass" type="GEnumClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -166,7 +166,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="EnumValue" type="GEnumValue*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.EnumValue* g_enum_get_value_by_nick(
         /* <type name="EnumClass" type="GEnumClass*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */

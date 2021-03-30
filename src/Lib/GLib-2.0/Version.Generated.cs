@@ -13,7 +13,7 @@ namespace GISharp.Lib.GLib
         private const int minor = 66;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.micro']/*" />
-        private const int micro = 2;
+        private const int micro = 7;
 
         /// <summary>
         /// Checks that the GLib library in use is compatible with the

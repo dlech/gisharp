@@ -371,6 +371,39 @@ namespace GISharp.Lib.Gio
         /// parameters then @parameter must be %NULL.  See
         /// g_action_group_get_action_parameter_type().
         /// </para>
+        /// <para>
+        /// If the #GActionGroup implementation supports asynchronous remote
+        /// activation over D-Bus, this call may return before the relevant
+        /// D-Bus traffic has been sent, or any replies have been received. In
+        /// order to block on such asynchronous activation calls,
+        /// g_dbus_connection_flush() should be called prior to the code, which
+        /// depends on the result of the action activation. Without flushing
+        /// the D-Bus connection, there is no guarantee that the action would
+        /// have been activated.
+        /// </para>
+        /// <para>
+        /// The following code which runs in a remote app instance, shows an
+        /// example of a "quit" action being activated on the primary app
+        /// instance over D-Bus. Here g_dbus_connection_flush() is called
+        /// before `exit()`. Without g_dbus_connection_flush(), the "quit" action
+        /// may fail to be activated on the primary instance.
+        /// </para>
+        /// <para>
+        /// |[&lt;!-- language="C" --&gt;
+        /// // call "quit" action on primary instance
+        /// g_action_group_activate_action (G_ACTION_GROUP (app), "quit", NULL);
+        /// </para>
+        /// <para>
+        /// // make sure the action is activated now
+        /// g_dbus_connection_flush (...);
+        /// </para>
+        /// <para>
+        /// g_debug ("application has been terminated. exiting.");
+        /// </para>
+        /// <para>
+        /// exit (0);
+        /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="actionGroup">
         /// a #GActionGroup

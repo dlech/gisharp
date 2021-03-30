@@ -107,6 +107,14 @@ this instance and the <paramref name="target"/> you can just call <see cref="Obj
 <see cref="Binding"/> instance.
 </para>
 <para>
+Removing the binding by calling <see cref="Object.Unref()"/> on it must only be done if
+the binding, this instance and <paramref name="target"/> are only used from a single thread and it
+is clear that both this instance and <paramref name="target"/> outlive the binding. Especially it
+is not safe to rely on this if the binding, this instance or <paramref name="target"/> can be
+finalized from different threads. Keep another reference to the binding and
+use <see cref="Binding.Unbind()"/> instead to be on the safe side.
+</para>
+<para>
 A <see cref="Object"/> can have multiple bindings.
 </para>
 </remarks>

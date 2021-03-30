@@ -38,7 +38,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='_LookupAction']/*" />
-        public delegate GISharp.Lib.Gio.IAction _LookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        public delegate GISharp.Lib.Gio.IAction? _LookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -46,7 +46,7 @@ namespace GISharp.Lib.Gio
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Action" type="GAction*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         public unsafe delegate GISharp.Lib.Gio.Action.UnmanagedStruct* UnmanagedLookupAction(
 /* <type name="ActionMap" type="GActionMap*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -65,7 +65,7 @@ byte* actionName);
             /// </summary>
             public static UnmanagedLookupAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.Gio.Action.UnmanagedStruct* unmanagedLookupAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doLookupAction = (_LookupAction)methodInfo.CreateDelegate(typeof(_LookupAction), actionMap); var ret = doLookupAction(actionName); var ret_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.Gio.Action.UnmanagedStruct*); }
+                GISharp.Lib.Gio.Action.UnmanagedStruct* unmanagedLookupAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doLookupAction = (_LookupAction)methodInfo.CreateDelegate(typeof(_LookupAction), actionMap); var ret = doLookupAction(actionName); var ret_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)(ret?.UnsafeHandle ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.Gio.Action.UnmanagedStruct*); }
 
                 return unmanagedLookupAction;
             }

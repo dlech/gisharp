@@ -218,7 +218,7 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         }
 
         /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='_GetState']/*" />
-        public delegate GISharp.Lib.GLib.Variant _GetState();
+        public delegate GISharp.Lib.GLib.Variant? _GetState();
 
         /// <summary>
         /// Unmanaged callback
@@ -226,7 +226,7 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate GISharp.Lib.GLib.Variant.UnmanagedStruct* UnmanagedGetState(
 /* <type name="Action" type="GAction*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -242,7 +242,7 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
             /// </summary>
             public static UnmanagedGetState Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedGetState(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetState = (_GetState)methodInfo.CreateDelegate(typeof(_GetState), action); var ret = doGetState(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
+                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedGetState(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetState = (_GetState)methodInfo.CreateDelegate(typeof(_GetState), action); var ret = doGetState(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
 
                 return unmanagedGetState;
             }

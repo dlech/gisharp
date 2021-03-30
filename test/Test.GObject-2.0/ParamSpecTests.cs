@@ -33,7 +33,7 @@ namespace GISharp.Test.GObject
             var param = instantiate("name", "nick", "blurb", flags);
             Assert.That<string>(param.Name, Is.EqualTo("name"));
             Assert.That<string>(param.Nick, Is.EqualTo("nick"));
-            Assert.That<string>(param.Blurb, Is.EqualTo("blurb"));
+            Assert.That<string?>(param.Blurb, Is.EqualTo("blurb"));
             Assert.That(param.RedirectTarget, Is.Null);
             Assert.That(param.ValueType, Is.EqualTo(type));
 

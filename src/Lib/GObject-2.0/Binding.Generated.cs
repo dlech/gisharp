@@ -47,16 +47,20 @@ namespace GISharp.Lib.GObject
         public GISharp.Lib.GObject.BindingFlags Flags { get => GetFlags(); }
 
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.Source']/*" />
+        [System.ObsoleteAttribute("Use g_binding_dup_source() for a safer version of this\nfunction.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.68")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GObject.Object Source { get => GetSource(); }
+        public GISharp.Lib.GObject.Object? Source { get => GetSource(); }
 
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.SourceProperty']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public GISharp.Lib.GLib.UnownedUtf8 SourceProperty { get => GetSourceProperty(); }
 
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.Target']/*" />
+        [System.ObsoleteAttribute("Use g_binding_dup_target() for a safer version of this\nfunction.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.68")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GObject.Object Target { get => GetTarget(); }
+        public GISharp.Lib.GObject.Object? Target { get => GetTarget(); }
 
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.TargetProperty']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -108,30 +112,47 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Retrieves the #GObject instance used as the source of the binding.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// A #GBinding can outlive the source #GObject as the binding does not hold a
+        /// strong reference to the source. If the source is destroyed before the
+        /// binding then this function will return %NULL.
+        /// </para>
+        /// <para>
+        /// Use g_binding_dup_source() if the source or binding are used from different
+        /// threads as otherwise the pointer returned from this function might become
+        /// invalid if the source is finalized from another thread in the meantime.
+        /// </para>
+        /// </remarks>
         /// <param name="binding">
         /// a #GBinding
         /// </param>
         /// <returns>
-        /// the source #GObject
+        /// the source #GObject, or %NULL if the
+        ///     source does not exist any more.
         /// </returns>
+        [System.ObsoleteAttribute("Use g_binding_dup_source() for a safer version of this\nfunction.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.68")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Object" type="GObject*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_binding_get_source(
         /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
         partial void CheckGetSourceArgs();
 
+        [System.ObsoleteAttribute("Use g_binding_dup_source() for a safer version of this\nfunction.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.68")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private GISharp.Lib.GObject.Object GetSource()
+        private GISharp.Lib.GObject.Object? GetSource()
         {
             CheckGetSourceArgs();
             var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_binding_get_source(binding_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -169,30 +190,47 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Retrieves the #GObject instance used as the target of the binding.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// A #GBinding can outlive the target #GObject as the binding does not hold a
+        /// strong reference to the target. If the target is destroyed before the
+        /// binding then this function will return %NULL.
+        /// </para>
+        /// <para>
+        /// Use g_binding_dup_target() if the target or binding are used from different
+        /// threads as otherwise the pointer returned from this function might become
+        /// invalid if the target is finalized from another thread in the meantime.
+        /// </para>
+        /// </remarks>
         /// <param name="binding">
         /// a #GBinding
         /// </param>
         /// <returns>
-        /// the target #GObject
+        /// the target #GObject, or %NULL if the
+        ///     target does not exist any more.
         /// </returns>
+        [System.ObsoleteAttribute("Use g_binding_dup_target() for a safer version of this\nfunction.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.68")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Object" type="GObject*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_binding_get_target(
         /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
         partial void CheckGetTargetArgs();
 
+        [System.ObsoleteAttribute("Use g_binding_dup_target() for a safer version of this\nfunction.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.68")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private GISharp.Lib.GObject.Object GetTarget()
+        private GISharp.Lib.GObject.Object? GetTarget()
         {
             CheckGetTargetArgs();
             var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_binding_get_target(binding_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -234,9 +272,14 @@ namespace GISharp.Lib.GObject
         /// <remarks>
         /// <para>
         /// This function will release the reference that is being held on
-        /// the @binding instance; if you want to hold on to the #GBinding instance
-        /// after calling g_binding_unbind(), you will need to hold a reference
-        /// to it.
+        /// the @binding instance if the binding is still bound; if you want to hold on
+        /// to the #GBinding instance after calling g_binding_unbind(), you will need
+        /// to hold a reference to it.
+        /// </para>
+        /// <para>
+        /// Note however that this function does not take ownership of @binding, it
+        /// only unrefs the reference that was initially created by
+        /// g_object_bind_property() and is owned by the binding.
         /// </para>
         /// </remarks>
         /// <param name="binding">

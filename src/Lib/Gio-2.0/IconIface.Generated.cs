@@ -108,7 +108,7 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2);
         }
 
         /// <include file="IconIface.xmldoc" path="declaration/member[@name='_Serialize']/*" />
-        public delegate GISharp.Lib.GLib.Variant _Serialize();
+        public delegate GISharp.Lib.GLib.Variant? _Serialize();
 
         /// <summary>
         /// Unmanaged callback
@@ -116,7 +116,7 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2);
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate GISharp.Lib.GLib.Variant.UnmanagedStruct* UnmanagedSerialize(
 /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -132,7 +132,7 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
             /// </summary>
             public static UnmanagedSerialize Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedSerialize(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doSerialize = (_Serialize)methodInfo.CreateDelegate(typeof(_Serialize), icon); var ret = doSerialize(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
+                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedSerialize(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doSerialize = (_Serialize)methodInfo.CreateDelegate(typeof(_Serialize), icon); var ret = doSerialize(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
 
                 return unmanagedSerialize;
             }

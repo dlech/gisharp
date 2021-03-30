@@ -67,6 +67,11 @@ namespace GISharp.Lib.GLib
         /// messages unless their log domain (or `all`) is listed in the space-separated
         /// `G_MESSAGES_DEBUG` environment variable.
         /// </para>
+        /// <para>
+        /// g_log_writer_default() uses the mask set by g_log_set_always_fatal() to
+        /// determine which messages are fatal. When using a custom writer func instead it is
+        /// up to the writer function to determine which log messages are fatal.
+        /// </para>
         /// </remarks>
         /// <param name="logLevel">
         /// log level, either from #GLogLevelFlags, or a user-defined
@@ -274,7 +279,9 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Format a structured log message and print it to either `stdout` or `stderr`,
         /// depending on its log level. %G_LOG_LEVEL_INFO and %G_LOG_LEVEL_DEBUG messages
-        /// are sent to `stdout`; all other log levels are sent to `stderr`. Only fields
+        /// are sent to `stdout`, or to `stderr` if requested by
+        /// g_log_writer_default_set_use_stderr();
+        /// all other log levels are sent to `stderr`. Only fields
         /// which are understood by this function are included in the formatted string
         /// which is printed.
         /// </summary>

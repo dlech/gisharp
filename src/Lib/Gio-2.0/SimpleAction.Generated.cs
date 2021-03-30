@@ -366,7 +366,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.GLib.Variant GISharp.Lib.Gio.IAction.DoGetState()
+        GISharp.Lib.GLib.Variant? GISharp.Lib.Gio.IAction.DoGetState()
         {
             throw new System.NotImplementedException();
         }

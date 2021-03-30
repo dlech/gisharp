@@ -139,7 +139,7 @@ byte* message);
         }
 
         /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='_GetStdin']/*" />
-        public delegate GISharp.Lib.Gio.InputStream _GetStdin();
+        public delegate GISharp.Lib.Gio.InputStream? _GetStdin();
 
         /// <summary>
         /// Unmanaged callback
@@ -147,7 +147,7 @@ byte* message);
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate GISharp.Lib.Gio.InputStream.UnmanagedStruct* UnmanagedGetStdin(
 /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -163,7 +163,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
             /// </summary>
             public static UnmanagedGetStdin Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.Gio.InputStream.UnmanagedStruct* unmanagedGetStdin(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_) { try { var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var doGetStdin = (_GetStdin)methodInfo.CreateDelegate(typeof(_GetStdin), cmdline); var ret = doGetStdin(); var ret_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.Gio.InputStream.UnmanagedStruct*); }
+                GISharp.Lib.Gio.InputStream.UnmanagedStruct* unmanagedGetStdin(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_) { try { var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var doGetStdin = (_GetStdin)methodInfo.CreateDelegate(typeof(_GetStdin), cmdline); var ret = doGetStdin(); var ret_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Lib.Gio.InputStream.UnmanagedStruct*); }
 
                 return unmanagedGetStdin;
             }

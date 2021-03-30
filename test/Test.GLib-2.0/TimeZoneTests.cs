@@ -1,14 +1,18 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
+using System;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
+
+using TimeZone = GISharp.Lib.GLib.TimeZone;
 
 namespace GISharp.Test.GLib
 {
     public class TimeZoneTests
     {
         [Test]
+        [Obsolete("g_time_zone_new() is deprecated upstream")]
         public void TestNew()
         {
             using var tz = new TimeZone(Utf8.Null);
@@ -33,6 +37,7 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
+        [Obsolete("g_time_zone_new() is deprecated upstream")]
         public void TestGetIdentifier()
         {
             using (var tz = new TimeZone(null)) {
@@ -44,6 +49,7 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
+        [Obsolete("g_time_zone_new() is deprecated upstream")]
         public void TestFindInterval()
         {
             using var tz = new TimeZone(Utf8.Null);
@@ -51,6 +57,7 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
+        [Obsolete("g_time_zone_new() is deprecated upstream")]
         public void TestAdjustTime()
         {
             using var tz = new TimeZone(Utf8.Null);
@@ -59,6 +66,7 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
+        [Obsolete("g_time_zone_new() is deprecated upstream")]
         public void TestGetAbbreviation()
         {
             using var tz = new TimeZone(Utf8.Null);

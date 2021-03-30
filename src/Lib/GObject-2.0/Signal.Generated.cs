@@ -133,10 +133,10 @@ namespace GISharp.Lib.GObject
         /* transfer-ownership:none scope:notified closure:3 destroy:4 direction:in */
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.SignalInvocationHint*, uint, GISharp.Lib.GObject.Value*, System.IntPtr, GISharp.Runtime.Boolean> hookFunc,
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:notified direction:in */
         System.IntPtr hookData,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" /> */
-        /* transfer-ownership:none scope:async direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async destroy:3 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> dataDestroy);
         static partial void CheckAddEmissionHookArgs(uint signalId, GISharp.Lib.GLib.Quark detail, GISharp.Lib.GObject.SignalEmissionHook hookFunc);
 
@@ -350,10 +350,10 @@ namespace GISharp.Lib.GObject
         /* transfer-ownership:none closure:3 direction:in */
         delegate* unmanaged[Cdecl]<void> cHandler,
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:notified direction:in */
         System.IntPtr data,
         /* <type name="ClosureNotify" type="GClosureNotify" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:notified destroy:3 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> destroyData,
         /* <type name="ConnectFlags" type="GConnectFlags" /> */
         /* transfer-ownership:none direction:in */
@@ -428,11 +428,12 @@ namespace GISharp.Lib.GObject
         /// the instance to query
         /// </param>
         /// <returns>
-        /// the invocation hint of the innermost signal  emission.
+        /// the invocation hint of the innermost
+        ///     signal emission, or %NULL if not found.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.SignalInvocationHint* g_signal_get_invocation_hint(
         /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -1085,7 +1086,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_signal_name(
         /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
@@ -1093,13 +1094,13 @@ namespace GISharp.Lib.GObject
         static partial void CheckNameArgs(uint signalId);
 
         /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Name(uint)']/*" />
-        public static GISharp.Lib.GLib.UnownedUtf8 Name(uint signalId)
+        public static GISharp.Lib.GLib.NullableUnownedUtf8 Name(uint signalId)
         {
             CheckNameArgs(signalId);
             var signalId_ = (uint)signalId;
             var ret_ = g_signal_name(signalId_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -1151,7 +1152,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         /// <param name="paramTypes">
         /// an array of types, one for
-        ///     each parameter
+        ///     each parameter (may be %NULL if @n_params is zero)
         /// </param>
         /// <returns>
         /// the signal id
@@ -1190,7 +1191,7 @@ namespace GISharp.Lib.GObject
         /* <array length="8" zero-terminated="0" type="GType*" is-pointer="1">
 *   <type name="GType" type="GType" />
 * </array> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Runtime.GType* paramTypes);
 
         /// <summary>

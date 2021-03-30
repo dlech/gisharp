@@ -57,7 +57,7 @@ namespace GISharp.Test.Gio
         {
             using var obj = TestAction.New();
             Assert.That((int)obj.State!, Is.EqualTo(2));
-            Assert.That((int)obj.GetState(), Is.EqualTo(2));
+            Assert.That((int)obj.GetState()!, Is.EqualTo(2));
             Assert.That((int)(Variant)obj.GetProperty("state")!, Is.EqualTo(2));
         }
 
@@ -127,7 +127,7 @@ namespace GISharp.Test.Gio
             using var obj = TestAction.New();
             Assume.That(obj.GetStateCallbackCount, Is.EqualTo(0));
             var actual = obj.GetState();
-            Assert.That((int)actual, Is.EqualTo(2));
+            Assert.That((int)actual!, Is.EqualTo(2));
             Assert.That(obj.GetStateCallbackCount, Is.EqualTo(1));
         }
 

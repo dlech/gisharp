@@ -22,7 +22,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.Gio.Icon.UnmanagedStruct* g_icon_deserialize(
         /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -31,13 +31,13 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.Deserialize(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static GISharp.Lib.Gio.IIcon Deserialize(GISharp.Lib.GLib.Variant value)
+        public static GISharp.Lib.Gio.IIcon? Deserialize(GISharp.Lib.GLib.Variant value)
         {
             CheckDeserializeArgs(value);
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             var ret_ = g_icon_deserialize(value_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -110,7 +110,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoSerialize()']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedSerialize))]
-        GISharp.Lib.GLib.Variant DoSerialize();
+        GISharp.Lib.GLib.Variant? DoSerialize();
     }
 
     /// <summary>
@@ -207,7 +207,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_icon_serialize(
         /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -216,13 +216,13 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.Serialize(GISharp.Lib.Gio.IIcon)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static GISharp.Lib.GLib.Variant Serialize(this GISharp.Lib.Gio.IIcon icon)
+        public static GISharp.Lib.GLib.Variant? Serialize(this GISharp.Lib.Gio.IIcon icon)
         {
             CheckSerializeArgs(icon);
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
             var ret_ = g_icon_serialize(icon_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

@@ -151,10 +151,10 @@ idle_callback (gpointer data)
 {
   SomeWidget *self = data;
    
-  GDK_THREADS_ENTER ();
+  g_mutex_lock (&amp;self-&gt;idle_id_mutex);
   // do stuff with self
   self-&gt;idle_id = 0;
-  GDK_THREADS_LEAVE ();
+  g_mutex_unlock (&amp;self-&gt;idle_id_mutex);
    
   return G_SOURCE_REMOVE;
 }
@@ -162,9 +162,21 @@ idle_callback (gpointer data)
 static void
 some_widget_do_stuff_later (SomeWidget *self)
 {
+  g_mutex_lock (&amp;self-&gt;idle_id_mutex);
   self-&gt;idle_id = g_idle_add (idle_callback, self);
+  g_mutex_unlock (&amp;self-&gt;idle_id_mutex);
 }
  
+static void
+some_widget_init (SomeWidget *self)
+{
+  g_mutex_init (&amp;self-&gt;idle_id_mutex);
+</para>
+<para>
+  // ...
+}
+</para>
+<para>
 static void
 some_widget_finalize (GObject *object)
 {
@@ -173,6 +185,9 @@ some_widget_finalize (GObject *object)
   if (self-&gt;idle_id)
     g_source_remove (self-&gt;idle_id);
    
+  g_mutex_clear (&amp;self-&gt;idle_id_mutex);
+</para>
+<para>
   G_OBJECT_CLASS (parent_class)-&gt;finalize (object);
 }
 ]|
@@ -191,12 +206,12 @@ idle_callback (gpointer data)
 {
   SomeWidget *self = data;
   
-  GDK_THREADS_ENTER ();
+  g_mutex_lock (&amp;self-&gt;idle_id_mutex);
   if (!g_source_is_destroyed (g_main_current_source ()))
     {
       // do stuff with self
     }
-  GDK_THREADS_LEAVE ();
+  g_mutex_unlock (&amp;self-&gt;idle_id_mutex);
   
   return FALSE;
 }

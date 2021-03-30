@@ -241,7 +241,10 @@ the priority for this file descriptor which should be
 
 <member name='MainContext.Check(int,System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;)'>
 <summary>
-Passes the results of polling back to the main loop.
+Passes the results of polling back to the main loop. You should be
+careful to pass <paramref name="fds"/> and its length the length of <paramref name="fds"/> as received from
+<see cref="MainContext.Query(int,out int,System.Span{GISharp.Lib.GLib.PollFD})"/>, as this functions relies on assumptions
+on how <paramref name="fds"/> is filled.
 </summary>
 <remarks>
 <para>
@@ -449,7 +452,10 @@ see g_file_supports_thread_contexts().
 
 <member name='MainContext.Query(int,int,System.Span&lt;GISharp.Lib.GLib.PollFD&gt;)'>
 <summary>
-Determines information necessary to poll this main loop.
+Determines information necessary to poll this main loop. You should
+be careful to pass the resulting <paramref name="fds"/> array and its length the length of <paramref name="fds"/>
+as is when calling <see cref="MainContext.Check(int,System.ReadOnlySpan{GISharp.Lib.GLib.PollFD})"/>, as this function relies
+on assumptions made when the array is filled.
 </summary>
 <remarks>
 <para>
@@ -513,7 +519,7 @@ loop with a termination condition, computed from multiple threads:
 <para>
 |[&lt;!-- language="C" --&gt;
   #define NUM_TASKS 10
-  static volatile gint tasks_remaining = NUM_TASKS;
+  static gint tasks_remaining = NUM_TASKS;  // (atomic)
   ...
  
   while (g_atomic_int_get (&amp;tasks_remaining) != 0)

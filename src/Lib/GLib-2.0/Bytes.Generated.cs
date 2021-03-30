@@ -608,6 +608,11 @@ namespace GISharp.Lib.GLib
         /// g_bytes_new(), g_bytes_new_take() or g_byte_array_free_to_bytes(). In all
         /// other cases the data is copied.
         /// </para>
+        /// <para>
+        /// Do not use it if @bytes contains more than %G_MAXUINT
+        /// bytes. #GByteArray stores the length of its data in #guint, which
+        /// may be shorter than #gsize, that @bytes is using.
+        /// </para>
         /// </remarks>
         /// <param name="bytes">
         /// a #GBytes

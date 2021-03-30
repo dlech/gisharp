@@ -648,7 +648,7 @@ byte* uriScheme);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetUriScheme']/*" />
-        public delegate GISharp.Lib.GLib.Utf8 _GetUriScheme();
+        public delegate GISharp.Lib.GLib.Utf8? _GetUriScheme();
 
         /// <summary>
         /// Unmanaged callback
@@ -656,7 +656,7 @@ byte* uriScheme);
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate byte* UnmanagedGetUriScheme(
 /* <type name="File" type="GFile*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -672,22 +672,22 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
             /// </summary>
             public static UnmanagedGetUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
-                byte* unmanagedGetUriScheme(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetUriScheme = (_GetUriScheme)methodInfo.CreateDelegate(typeof(_GetUriScheme), file); var ret = doGetUriScheme(); var ret_ = (byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
+                byte* unmanagedGetUriScheme(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetUriScheme = (_GetUriScheme)methodInfo.CreateDelegate(typeof(_GetUriScheme), file); var ret = doGetUriScheme(); var ret_ = (byte*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
 
                 return unmanagedGetUriScheme;
             }
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetBasename']/*" />
-        public delegate GISharp.Lib.GLib.Utf8 _GetBasename();
+        public delegate GISharp.Lib.GLib.Filename? _GetBasename();
 
         /// <summary>
         /// Unmanaged callback
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="char*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* <type name="filename" type="char*" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate byte* UnmanagedGetBasename(
 /* <type name="File" type="GFile*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -703,22 +703,22 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
             /// </summary>
             public static UnmanagedGetBasename Create(System.Reflection.MethodInfo methodInfo)
             {
-                byte* unmanagedGetBasename(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetBasename = (_GetBasename)methodInfo.CreateDelegate(typeof(_GetBasename), file); var ret = doGetBasename(); var ret_ = (byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
+                byte* unmanagedGetBasename(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetBasename = (_GetBasename)methodInfo.CreateDelegate(typeof(_GetBasename), file); var ret = doGetBasename(); var ret_ = (byte*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
 
                 return unmanagedGetBasename;
             }
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetPath']/*" />
-        public delegate GISharp.Lib.GLib.Utf8 _GetPath();
+        public delegate GISharp.Lib.GLib.Filename? _GetPath();
 
         /// <summary>
         /// Unmanaged callback
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="char*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* <type name="filename" type="char*" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate byte* UnmanagedGetPath(
 /* <type name="File" type="GFile*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -734,7 +734,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
             /// </summary>
             public static UnmanagedGetPath Create(System.Reflection.MethodInfo methodInfo)
             {
-                byte* unmanagedGetPath(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetPath = (_GetPath)methodInfo.CreateDelegate(typeof(_GetPath), file); var ret = doGetPath(); var ret_ = (byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
+                byte* unmanagedGetPath(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetPath = (_GetPath)methodInfo.CreateDelegate(typeof(_GetPath), file); var ret = doGetPath(); var ret_ = (byte*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
 
                 return unmanagedGetPath;
             }
@@ -868,15 +868,15 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetRelativePath']/*" />
-        public delegate GISharp.Lib.GLib.Utf8 _GetRelativePath(GISharp.Lib.Gio.IFile descendant);
+        public delegate GISharp.Lib.GLib.Filename? _GetRelativePath(GISharp.Lib.Gio.IFile descendant);
 
         /// <summary>
         /// Unmanaged callback
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="char*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* <type name="filename" type="char*" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate byte* UnmanagedGetRelativePath(
 /* <type name="File" type="GFile*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -895,7 +895,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* descendant);
             /// </summary>
             public static UnmanagedGetRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
-                byte* unmanagedGetRelativePath(GISharp.Lib.Gio.File.UnmanagedStruct* parent_, GISharp.Lib.Gio.File.UnmanagedStruct* descendant_) { try { var parent = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)parent_, GISharp.Runtime.Transfer.None)!; var descendant = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)descendant_, GISharp.Runtime.Transfer.None)!; var doGetRelativePath = (_GetRelativePath)methodInfo.CreateDelegate(typeof(_GetRelativePath), parent); var ret = doGetRelativePath(descendant); var ret_ = (byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
+                byte* unmanagedGetRelativePath(GISharp.Lib.Gio.File.UnmanagedStruct* parent_, GISharp.Lib.Gio.File.UnmanagedStruct* descendant_) { try { var parent = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)parent_, GISharp.Runtime.Transfer.None)!; var descendant = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)descendant_, GISharp.Runtime.Transfer.None)!; var doGetRelativePath = (_GetRelativePath)methodInfo.CreateDelegate(typeof(_GetRelativePath), parent); var ret = doGetRelativePath(descendant); var ret_ = (byte*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
 
                 return unmanagedGetRelativePath;
             }

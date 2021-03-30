@@ -12,11 +12,11 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.compileTimeMicroVersion']/*" />
         [GISharp.Runtime.SinceAttribute("1.60")]
-        private const int compileTimeMicroVersion = 1;
+        private const int compileTimeMicroVersion = 0;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.compileTimeMinorVersion']/*" />
         [GISharp.Runtime.SinceAttribute("1.60")]
-        private const int compileTimeMinorVersion = 66;
+        private const int compileTimeMinorVersion = 68;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.RunTimeMajorVersion']/*" />
         [GISharp.Runtime.SinceAttribute("1.60")]

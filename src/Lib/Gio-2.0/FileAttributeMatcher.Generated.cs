@@ -286,25 +286,25 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* g_file_attribute_matcher_subtract(
         /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* matcher,
         /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* subtract);
-        partial void CheckSubtractArgs(GISharp.Lib.Gio.FileAttributeMatcher subtract);
+        partial void CheckSubtractArgs(GISharp.Lib.Gio.FileAttributeMatcher? subtract);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Subtract(GISharp.Lib.Gio.FileAttributeMatcher)']/*" />
-        public GISharp.Lib.Gio.FileAttributeMatcher Subtract(GISharp.Lib.Gio.FileAttributeMatcher subtract)
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Subtract(GISharp.Lib.Gio.FileAttributeMatcher?)']/*" />
+        public GISharp.Lib.Gio.FileAttributeMatcher? Subtract(GISharp.Lib.Gio.FileAttributeMatcher? subtract)
         {
             CheckSubtractArgs(subtract);
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
-            var subtract_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)subtract.UnsafeHandle;
+            var subtract_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)(subtract?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_file_attribute_matcher_subtract(matcher_,subtract_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.Gio.FileAttributeMatcher.GetInstance<GISharp.Lib.Gio.FileAttributeMatcher>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.Gio.FileAttributeMatcher.GetInstance<GISharp.Lib.Gio.FileAttributeMatcher>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

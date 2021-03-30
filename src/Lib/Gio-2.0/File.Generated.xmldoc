@@ -741,6 +741,31 @@ the second <see cref="IFile"/>
 </member>
 
 <member name='IFile.DoGetBasename()'>
+<summary>
+Gets the base name (the last component of the path) for a given <see cref="IFile"/>.
+</summary>
+<remarks>
+<para>
+If called for the top level of a system (such as the filesystem root
+or a uri like sftp://host/) it will return a single directory separator
+(and on Windows, possibly a drive letter).
+</para>
+<para>
+The base name is a byte string (not UTF-8). It has no defined encoding
+or rules other than it may not contain zero bytes.  If you want to use
+filenames in a user interface you should use the display name that you
+can get by requesting the %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME
+attribute with <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>.
+</para>
+<para>
+This call does no blocking I/O.
+</para>
+</remarks>
+<returns>
+string containing the <see cref="IFile"/>'s
+    base name, or <c>null</c> if given <see cref="IFile"/> is invalid. The returned string
+    should be freed with g_free() when no longer needed.
+</returns>
 </member>
 
 <member name='IFile.DoGetChildForDisplayName(GISharp.Lib.GLib.UnownedUtf8)'>
@@ -818,9 +843,40 @@ a string containing the <see cref="IFile"/>'s parse name.
 </member>
 
 <member name='IFile.DoGetPath()'>
+<summary>
+Gets the local pathname for <see cref="IFile"/>, if one exists. If non-<c>null</c>, this is
+guaranteed to be an absolute, canonical path. It might contain symlinks.
+</summary>
+<remarks>
+<para>
+This call does no blocking I/O.
+</para>
+</remarks>
+<returns>
+string containing the <see cref="IFile"/>'s path,
+    or <c>null</c> if no such path exists. The returned string should be freed
+    with g_free() when no longer needed.
+</returns>
 </member>
 
 <member name='IFile.DoGetRelativePath(GISharp.Lib.Gio.IFile)'>
+<summary>
+Gets the path for <paramref name="descendant"/> relative to this instance.
+</summary>
+<remarks>
+<para>
+This call does no blocking I/O.
+</para>
+</remarks>
+<param name="descendant">
+input <see cref="IFile"/>
+</param>
+<returns>
+string with the relative path from
+    <paramref name="descendant"/> to this instance, or <c>null</c> if <paramref name="descendant"/> doesn't have this instance as
+    prefix. The returned string should be freed with g_free() when
+    no longer needed.
+</returns>
 </member>
 
 <member name='IFile.DoGetUri()'>
@@ -833,7 +889,8 @@ This call does no blocking I/O.
 </para>
 </remarks>
 <returns>
-a string containing the <see cref="IFile"/>'s URI.
+a string containing the <see cref="IFile"/>'s URI. If the <see cref="IFile"/> was constructed
+    with an invalid URI, an invalid URI is returned.
     The returned string should be freed with g_free()
     when no longer needed.
 </returns>
@@ -850,13 +907,17 @@ Common schemes include "file", "http", "ftp", etc.
 </summary>
 <remarks>
 <para>
+The scheme can be different from the one used to construct the <see cref="IFile"/>,
+in that it might be replaced with one that is logically equivalent to the <see cref="IFile"/>.
+</para>
+<para>
 This call does no blocking I/O.
 </para>
 </remarks>
 <returns>
 a string containing the URI scheme for the given
-    <see cref="IFile"/>. The returned string should be freed with g_free()
-    when no longer needed.
+    <see cref="IFile"/> or <c>null</c> if the <see cref="IFile"/> was constructed with an invalid URI. The
+    returned string should be freed with g_free() when no longer needed.
 </returns>
 </member>
 
@@ -3082,7 +3143,8 @@ This call does no blocking I/O.
 input <see cref="IFile"/>
 </param>
 <returns>
-a string containing the <see cref="IFile"/>'s URI.
+a string containing the <see cref="IFile"/>'s URI. If the <see cref="IFile"/> was constructed
+    with an invalid URI, an invalid URI is returned.
     The returned string should be freed with g_free()
     when no longer needed.
 </returns>
@@ -3099,6 +3161,10 @@ Common schemes include "file", "http", "ftp", etc.
 </summary>
 <remarks>
 <para>
+The scheme can be different from the one used to construct the <see cref="IFile"/>,
+in that it might be replaced with one that is logically equivalent to the <see cref="IFile"/>.
+</para>
+<para>
 This call does no blocking I/O.
 </para>
 </remarks>
@@ -3107,8 +3173,8 @@ input <see cref="IFile"/>
 </param>
 <returns>
 a string containing the URI scheme for the given
-    <see cref="IFile"/>. The returned string should be freed with g_free()
-    when no longer needed.
+    <see cref="IFile"/> or <c>null</c> if the <see cref="IFile"/> was constructed with an invalid URI. The
+    returned string should be freed with g_free() when no longer needed.
 </returns>
 </member>
 
@@ -3301,7 +3367,7 @@ a <see cref="Cancellable"/> or <c>null</c>
 </param>
 </member>
 
-<member name='File.LoadContents(GISharp.Lib.Gio.IFile,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.LoadContents(GISharp.Lib.Gio.IFile,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Loads the content of the file into memory. The data is always
 zero-terminated, but this is not included in the resultant the length of <paramref name="contents"/>.
@@ -3362,7 +3428,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='File.LoadPartialContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8)'>
+<member name='File.LoadPartialContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8?)'>
 <summary>
 Finishes an asynchronous partial load operation that was started
 with g_file_load_partial_contents_async(). The data is always
@@ -4256,7 +4322,7 @@ optional <see cref="Cancellable"/> object,
 </param>
 </member>
 
-<member name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Replaces the contents of <paramref name="file"/> with <paramref name="contents"/> of the length of <paramref name="contents"/> bytes.
 </summary>

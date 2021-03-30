@@ -279,7 +279,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.GLib.Variant GISharp.Lib.Gio.IIcon.DoSerialize()
+        GISharp.Lib.GLib.Variant? GISharp.Lib.Gio.IIcon.DoSerialize()
         {
             throw new System.NotImplementedException();
         }

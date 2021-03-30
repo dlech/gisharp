@@ -36,7 +36,7 @@ namespace GISharp.Lib.GObject
         /// the #GTypePlugin
         /// </param>
         /// <param name="instanceType">
-        /// the #GType of an instantiable type to which the interface
+        /// the #GType of an instantiatable type to which the interface
         ///  is added
         /// </param>
         /// <param name="interfaceType">

@@ -369,7 +369,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoGetBasename()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetBasename))]
-        GISharp.Lib.GLib.Utf8 DoGetBasename();
+        GISharp.Lib.GLib.Filename? DoGetBasename();
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoGetChildForDisplayName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetChildForDisplayName))]
@@ -385,11 +385,11 @@ namespace GISharp.Lib.Gio
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoGetPath()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetPath))]
-        GISharp.Lib.GLib.Utf8 DoGetPath();
+        GISharp.Lib.GLib.Filename? DoGetPath();
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoGetRelativePath(GISharp.Lib.Gio.IFile)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetRelativePath))]
-        GISharp.Lib.GLib.Utf8 DoGetRelativePath(GISharp.Lib.Gio.IFile descendant);
+        GISharp.Lib.GLib.Filename? DoGetRelativePath(GISharp.Lib.Gio.IFile descendant);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoGetUri()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetUri))]
@@ -397,7 +397,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoGetUriScheme()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetUriScheme))]
-        GISharp.Lib.GLib.Utf8 DoGetUriScheme();
+        GISharp.Lib.GLib.Utf8? DoGetUriScheme();
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoHasUriScheme(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedHasUriScheme))]
@@ -2351,7 +2351,8 @@ namespace GISharp.Lib.Gio
         /// input #GFile
         /// </param>
         /// <returns>
-        /// a string containing the #GFile's URI.
+        /// a string containing the #GFile's URI. If the #GFile was constructed
+        ///     with an invalid URI, an invalid URI is returned.
         ///     The returned string should be freed with g_free()
         ///     when no longer needed.
         /// </returns>
@@ -2385,6 +2386,10 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// <para>
+        /// The scheme can be different from the one used to construct the #GFile,
+        /// in that it might be replaced with one that is logically equivalent to the #GFile.
+        /// </para>
+        /// <para>
         /// This call does no blocking I/O.
         /// </para>
         /// </remarks>
@@ -2393,12 +2398,12 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a string containing the URI scheme for the given
-        ///     #GFile. The returned string should be freed with g_free()
-        ///     when no longer needed.
+        ///     #GFile or %NULL if the #GFile was constructed with an invalid URI. The
+        ///     returned string should be freed with g_free() when no longer needed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern byte* g_file_get_uri_scheme(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -2406,13 +2411,13 @@ namespace GISharp.Lib.Gio
         static partial void CheckGetUriSchemeArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetUriScheme(GISharp.Lib.Gio.IFile)']/*" />
-        public static GISharp.Lib.GLib.Utf8 GetUriScheme(this GISharp.Lib.Gio.IFile file)
+        public static GISharp.Lib.GLib.Utf8? GetUriScheme(this GISharp.Lib.Gio.IFile file)
         {
             CheckGetUriSchemeArgs(file);
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var ret_ = g_file_get_uri_scheme(file_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -2917,15 +2922,15 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         nuint* length,
         /* <type name="utf8" type="char**" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         byte** etagOut,
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckLoadContentsArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadContents(GISharp.Lib.Gio.IFile,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public static void LoadContents(this GISharp.Lib.Gio.IFile file, out GISharp.Runtime.CArray<byte> contents, out GISharp.Lib.GLib.Utf8 etagOut, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadContents(GISharp.Lib.Gio.IFile,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        public static void LoadContents(this GISharp.Lib.Gio.IFile file, out GISharp.Runtime.CArray<byte> contents, out GISharp.Lib.GLib.Utf8? etagOut, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckLoadContentsArgs(file, cancellable);
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
@@ -2943,7 +2948,7 @@ namespace GISharp.Lib.Gio
             }
 
             contents = new GISharp.Runtime.CArray<byte>((System.IntPtr)contents_, (int)length_, GISharp.Runtime.Transfer.Full);
-            etagOut = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)etagOut_, GISharp.Runtime.Transfer.Full)!;
+            etagOut = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)etagOut_, GISharp.Runtime.Transfer.Full);
         }
 
         /// <summary>
@@ -3065,7 +3070,7 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         nuint* length,
         /* <type name="utf8" type="char**" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         byte** etagOut,
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
@@ -3092,7 +3097,7 @@ namespace GISharp.Lib.Gio
                     return;
                 }
                 var contents = new GISharp.Runtime.CArray<byte>((System.IntPtr)contents_, (int)length_, GISharp.Runtime.Transfer.Full);
-                var etagOut = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)etagOut_, GISharp.Runtime.Transfer.Full)!;
+                var etagOut = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)etagOut_, GISharp.Runtime.Transfer.Full);
                 completionSource.SetResult((contents, etagOut));
             }
             catch (System.Exception ex)
@@ -3151,15 +3156,15 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         nuint* length,
         /* <type name="utf8" type="char**" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         byte** etagOut,
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckLoadPartialContentsFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadPartialContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8)']/*" />
-        public static void LoadPartialContentsFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult res, out GISharp.Runtime.CArray<byte> contents, out GISharp.Lib.GLib.Utf8 etagOut)
+        /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadPartialContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8?)']/*" />
+        public static void LoadPartialContentsFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult res, out GISharp.Runtime.CArray<byte> contents, out GISharp.Lib.GLib.Utf8? etagOut)
         {
             CheckLoadPartialContentsFinishArgs(file, res);
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
@@ -3177,7 +3182,7 @@ namespace GISharp.Lib.Gio
             }
 
             contents = new GISharp.Runtime.CArray<byte>((System.IntPtr)contents_, (int)length_, GISharp.Runtime.Transfer.Full);
-            etagOut = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)etagOut_, GISharp.Runtime.Transfer.Full)!;
+            etagOut = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)etagOut_, GISharp.Runtime.Transfer.Full);
         }
 
         /// <summary>
@@ -5344,7 +5349,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileCreateFlags flags,
         /* <type name="utf8" type="char**" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         byte** newEtag,
         /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
@@ -5354,8 +5359,8 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckReplaceContentsArgs(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public static void ReplaceContents(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, out GISharp.Lib.GLib.Utf8 newEtag, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,bool,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        public static void ReplaceContents(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, out GISharp.Lib.GLib.Utf8? newEtag, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             fixed (byte* contentsData_ = contents)
             {
@@ -5377,7 +5382,7 @@ namespace GISharp.Lib.Gio
                     throw new GISharp.Runtime.GErrorException(error);
                 }
 
-                newEtag = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)newEtag_, GISharp.Runtime.Transfer.Full)!;
+                newEtag = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)newEtag_, GISharp.Runtime.Transfer.Full);
             }
         }
 
@@ -5613,7 +5618,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
         /* <type name="utf8" type="char**" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         byte** newEtag,
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
@@ -5637,7 +5642,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                var newEtag = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)newEtag_, GISharp.Runtime.Transfer.Full)!;
+                var newEtag = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)newEtag_, GISharp.Runtime.Transfer.Full);
                 completionSource.SetResult((newEtag));
             }
             catch (System.Exception ex)

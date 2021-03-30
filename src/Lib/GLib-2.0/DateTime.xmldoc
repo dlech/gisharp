@@ -508,7 +508,7 @@ a <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.Compare(System.IntPtr,System.IntPtr)'>
+<member name='DateTime.Compare(GISharp.Lib.GLib.DateTime,GISharp.Lib.GLib.DateTime)'>
 <summary>
 A comparison function for <see cref="DateTime"/>s that is suitable
 as a <see cref="D:CompareFunc"/>. Both <see cref="DateTime"/>s must be non-<c>null</c>.
@@ -685,6 +685,21 @@ the difference between the two <see cref="DateTime"/>, as a time
 </returns>
 </member>
 
+<member name='DateTime.Equal()'>
+<summary>
+Checks to see if this instance and <c>dt2</c> are equal.
+</summary>
+<remarks>
+<para>
+Equal here means that they represent the same moment after converting
+them to the same time zone.
+</para>
+</remarks>
+<returns>
+<c>true</c> if this instance and <c>dt2</c> are equal
+</returns>
+</member>
+
 <member name='DateTime.Format(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Creates a newly allocated string representing the requested <paramref name="format"/>.
@@ -840,6 +855,15 @@ the return location for the day of the month, or <c>null</c>.
 </param>
 </member>
 
+<member name='DateTime.GetHashCode()'>
+<summary>
+Hashes this instance into a #guint, suitable for use within <see cref="HashTable"/>.
+</summary>
+<returns>
+a #guint containing the hash
+</returns>
+</member>
+
 <member name='DateTime.ToLocal()'>
 <summary>
 Creates a new <see cref="DateTime"/> corresponding to the same instant in time as
@@ -934,33 +958,6 @@ time zone returned by <see cref="TimeZone.GetUtc()"/>.
 </remarks>
 <returns>
 the newly created <see cref="DateTime"/> which or <c>null</c>
-</returns>
-</member>
-
-<member name='DateTime.Equals(GISharp.Lib.GLib.DateTime?)'>
-<summary>
-Checks to see if this instance and <paramref name="dt2"/> are equal.
-</summary>
-<remarks>
-<para>
-Equal here means that they represent the same moment after converting
-them to the same time zone.
-</para>
-</remarks>
-<param name="dt2">
-a <see cref="DateTime"/>
-</param>
-<returns>
-<c>true</c> if this instance and <paramref name="dt2"/> are equal
-</returns>
-</member>
-
-<member name='DateTime.GetHashCode()'>
-<summary>
-Hashes this instance into a #guint, suitable for use within <see cref="HashTable"/>.
-</summary>
-<returns>
-a #guint containing the hash
 </returns>
 </member>
 

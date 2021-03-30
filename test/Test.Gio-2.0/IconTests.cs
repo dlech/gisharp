@@ -14,7 +14,8 @@ namespace GISharp.Test.Gio
         {
             using var expected = IIcon.NewForString("file");
             using var serialized = expected.Serialize();
-            using var actual = IIcon.Deserialize(serialized);
+            Assert.That(serialized, Is.Not.Null);
+            using var actual = IIcon.Deserialize(serialized!);
             Assert.That(expected, Is.EqualTo(actual));
         }
     }

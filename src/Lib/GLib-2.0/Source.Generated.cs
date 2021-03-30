@@ -75,7 +75,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.UnownedUtf8 Name { get => GetName(); set => SetName(value); }
+        public GISharp.Lib.GLib.NullableUnownedUtf8 Name { get => GetName(); set => SetName(value.Value); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Priority']/*" />
         public int Priority { get => GetPriority(); set => SetPriority(value); }
@@ -93,7 +93,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Current']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public static GISharp.Lib.GLib.Source Current { get => GetCurrent(); }
+        public static GISharp.Lib.GLib.Source? Current { get => GetCurrent(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -344,17 +344,17 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_main_current_source();
         static partial void CheckGetCurrentArgs();
 
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private static GISharp.Lib.GLib.Source GetCurrent()
+        private static GISharp.Lib.GLib.Source? GetCurrent()
         {
             CheckGetCurrentArgs();
             var ret_ = g_main_current_source();
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GLib.Source.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -769,7 +769,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_source_get_name(
         /* <type name="Source" type="GSource*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -777,13 +777,13 @@ namespace GISharp.Lib.GLib
         partial void CheckGetNameArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private GISharp.Lib.GLib.UnownedUtf8 GetName()
+        private GISharp.Lib.GLib.NullableUnownedUtf8 GetName()
         {
             CheckGetNameArgs();
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_source_get_name(source_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -905,10 +905,10 @@ namespace GISharp.Lib.GLib
         /// {
         ///   SomeWidget *self = data;
         ///    
-        ///   GDK_THREADS_ENTER ();
+        ///   g_mutex_lock (&amp;self-&gt;idle_id_mutex);
         ///   // do stuff with self
         ///   self-&gt;idle_id = 0;
-        ///   GDK_THREADS_LEAVE ();
+        ///   g_mutex_unlock (&amp;self-&gt;idle_id_mutex);
         ///    
         ///   return G_SOURCE_REMOVE;
         /// }
@@ -916,9 +916,21 @@ namespace GISharp.Lib.GLib
         /// static void
         /// some_widget_do_stuff_later (SomeWidget *self)
         /// {
+        ///   g_mutex_lock (&amp;self-&gt;idle_id_mutex);
         ///   self-&gt;idle_id = g_idle_add (idle_callback, self);
+        ///   g_mutex_unlock (&amp;self-&gt;idle_id_mutex);
         /// }
         ///  
+        /// static void
+        /// some_widget_init (SomeWidget *self)
+        /// {
+        ///   g_mutex_init (&amp;self-&gt;idle_id_mutex);
+        /// </para>
+        /// <para>
+        ///   // ...
+        /// }
+        /// </para>
+        /// <para>
         /// static void
         /// some_widget_finalize (GObject *object)
         /// {
@@ -927,6 +939,9 @@ namespace GISharp.Lib.GLib
         ///   if (self-&gt;idle_id)
         ///     g_source_remove (self-&gt;idle_id);
         ///    
+        ///   g_mutex_clear (&amp;self-&gt;idle_id_mutex);
+        /// </para>
+        /// <para>
         ///   G_OBJECT_CLASS (parent_class)-&gt;finalize (object);
         /// }
         /// ]|
@@ -945,12 +960,12 @@ namespace GISharp.Lib.GLib
         /// {
         ///   SomeWidget *self = data;
         ///   
-        ///   GDK_THREADS_ENTER ();
+        ///   g_mutex_lock (&amp;self-&gt;idle_id_mutex);
         ///   if (!g_source_is_destroyed (g_main_current_source ()))
         ///     {
         ///       // do stuff with self
         ///     }
-        ///   GDK_THREADS_LEAVE ();
+        ///   g_mutex_unlock (&amp;self-&gt;idle_id_mutex);
         ///   
         ///   return FALSE;
         /// }

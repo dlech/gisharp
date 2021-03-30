@@ -54,6 +54,18 @@ Retrieves the flags passed when constructing the <see cref="Binding"/>.
 <summary>
 Retrieves the <see cref="Object"/> instance used as the source of the binding.
 </summary>
+<remarks>
+<para>
+A <see cref="Binding"/> can outlive the source <see cref="Object"/> as the binding does not hold a
+strong reference to the source. If the source is destroyed before the
+binding then this function will return <c>null</c>.
+</para>
+<para>
+Use g_binding_dup_source() if the source or binding are used from different
+threads as otherwise the pointer returned from this function might become
+invalid if the source is finalized from another thread in the meantime.
+</para>
+</remarks>
 </member>
 
 <member name='Binding.SourceProperty'>
@@ -67,6 +79,18 @@ of the binding.
 <summary>
 Retrieves the <see cref="Object"/> instance used as the target of the binding.
 </summary>
+<remarks>
+<para>
+A <see cref="Binding"/> can outlive the target <see cref="Object"/> as the binding does not hold a
+strong reference to the target. If the target is destroyed before the
+binding then this function will return <c>null</c>.
+</para>
+<para>
+Use g_binding_dup_target() if the target or binding are used from different
+threads as otherwise the pointer returned from this function might become
+invalid if the target is finalized from another thread in the meantime.
+</para>
+</remarks>
 </member>
 
 <member name='Binding.TargetProperty'>

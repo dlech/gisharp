@@ -60,7 +60,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Default']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static GISharp.Lib.Gio.Application Default { get => GetDefault(); }
+        public static GISharp.Lib.Gio.Application? Default { get => GetDefault(); }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.ApplicationId']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -68,7 +68,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DbusObjectPath']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public GISharp.Lib.GLib.UnownedUtf8 DbusObjectPath { get => GetDbusObjectPath(); }
+        public GISharp.Lib.GLib.NullableUnownedUtf8 DbusObjectPath { get => GetDbusObjectPath(); }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Flags']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -361,17 +361,17 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Application" type="GApplication*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.Gio.Application.UnmanagedStruct* g_application_get_default();
         static partial void CheckGetDefaultArgs();
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        private static GISharp.Lib.Gio.Application GetDefault()
+        private static GISharp.Lib.Gio.Application? GetDefault()
         {
             CheckGetDefaultArgs();
             var ret_ = g_application_get_default();
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -859,7 +859,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_application_get_dbus_object_path(
         /* <type name="Application" type="GApplication*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -867,13 +867,13 @@ namespace GISharp.Lib.Gio
         partial void CheckGetDbusObjectPathArgs();
 
         [GISharp.Runtime.SinceAttribute("2.34")]
-        private GISharp.Lib.GLib.UnownedUtf8 GetDbusObjectPath()
+        private GISharp.Lib.GLib.NullableUnownedUtf8 GetDbusObjectPath()
         {
             CheckGetDbusObjectPathArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_get_dbus_object_path(application_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
 

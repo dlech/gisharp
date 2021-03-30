@@ -22,43 +22,6 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Creates a new #GParamSpecPool.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// If @type_prefixing is %TRUE, lookups in the newly created pool will
-        /// allow to specify the owner as a colon-separated prefix of the
-        /// property name, like "GtkContainer:border-width". This feature is
-        /// deprecated, so you should always set @type_prefixing to %FALSE.
-        /// </para>
-        /// </remarks>
-        /// <param name="typePrefixing">
-        /// Whether the pool will support type-prefixed property names.
-        /// </param>
-        /// <returns>
-        /// a newly allocated #GParamSpecPool.
-        /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="ParamSpecPool" type="GParamSpecPool*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        private static extern GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct* g_param_spec_pool_new(
-        /* <type name="gboolean" type="gboolean" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Runtime.Boolean typePrefixing);
-        static partial void CheckNewArgs(bool typePrefixing);
-
-        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.New(bool)']/*" />
-        public static GISharp.Lib.GObject.ParamSpecPool New(bool typePrefixing)
-        {
-            CheckNewArgs(typePrefixing);
-            var typePrefixing_ = GISharp.Runtime.BooleanExtensions.ToBoolean(typePrefixing);
-            var ret_ = g_param_spec_pool_new(typePrefixing_);
-            GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GObject.ParamSpecPool.GetInstance<GISharp.Lib.GObject.ParamSpecPool>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
-            return ret;
-        }
-
-        /// <summary>
         /// Inserts a #GParamSpec in the pool.
         /// </summary>
         /// <param name="pool">
@@ -207,7 +170,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* g_param_spec_pool_lookup(
         /* <type name="ParamSpecPool" type="GParamSpecPool*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -224,7 +187,7 @@ namespace GISharp.Lib.GObject
         partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 paramName, GISharp.Runtime.GType ownerType, bool walkAncestors);
 
         /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,bool)']/*" />
-        public GISharp.Lib.GObject.ParamSpec Lookup(GISharp.Lib.GLib.UnownedUtf8 paramName, GISharp.Runtime.GType ownerType, bool walkAncestors)
+        public GISharp.Lib.GObject.ParamSpec? Lookup(GISharp.Lib.GLib.UnownedUtf8 paramName, GISharp.Runtime.GType ownerType, bool walkAncestors)
         {
             CheckLookupArgs(paramName, ownerType, walkAncestors);
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;
@@ -233,7 +196,7 @@ namespace GISharp.Lib.GObject
             var walkAncestors_ = GISharp.Runtime.BooleanExtensions.ToBoolean(walkAncestors);
             var ret_ = g_param_spec_pool_lookup(pool_,paramName_,ownerType_,walkAncestors_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 

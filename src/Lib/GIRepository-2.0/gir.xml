@@ -6325,12 +6325,12 @@ the expected arguments for the functions type signature.</doc>
         <source-position filename="build/girepository/giversion.h" line="28" />
         <type name="gint" c:type="gint" />
       </constant>
-      <constant name="COMPILE_TIME_MICRO_VERSION" value="1" c:type="GI_MICRO_VERSION" version="1.60" gs:access-modifiers="private" gs:managed-name="compileTimeMicroVersion">
+      <constant name="COMPILE_TIME_MICRO_VERSION" value="0" c:type="GI_MICRO_VERSION" version="1.60" gs:access-modifiers="private" gs:managed-name="compileTimeMicroVersion">
         <doc xml:space="preserve" filename="girepository/giversion.c" line="45">The micro version number of the girepository library.</doc>
         <source-position filename="build/girepository/giversion.h" line="30" />
         <type name="gint" c:type="gint" />
       </constant>
-      <constant name="COMPILE_TIME_MINOR_VERSION" value="66" c:type="GI_MINOR_VERSION" version="1.60" gs:access-modifiers="private" gs:managed-name="compileTimeMinorVersion">
+      <constant name="COMPILE_TIME_MINOR_VERSION" value="68" c:type="GI_MINOR_VERSION" version="1.60" gs:access-modifiers="private" gs:managed-name="compileTimeMinorVersion">
         <doc xml:space="preserve" filename="girepository/giversion.c" line="37">The minor version number of the girepository library.</doc>
         <source-position filename="build/girepository/giversion.h" line="29" />
         <type name="gint" c:type="gint" />

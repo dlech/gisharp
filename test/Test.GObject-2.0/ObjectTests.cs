@@ -198,7 +198,7 @@ namespace GISharp.Test.GObject
             using (var basePspec = baseObjClass.FindProperty("bool-value")!) {
                 Assert.That<string>(basePspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
                 Assert.That<string>(basePspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
-                Assert.That<string>(basePspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
+                Assert.That<string?>(basePspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
                 Assert.That(basePspec.DefaultValue.Get(),
                     Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
             }
@@ -211,7 +211,7 @@ namespace GISharp.Test.GObject
             using var subPspec = subObjClass.FindProperty("bool-value")!;
             Assert.That<string>(subPspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
             Assert.That<string>(subPspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
-            Assert.That<string>(subPspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
+            Assert.That<string?>(subPspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
             Assert.That(subPspec.DefaultValue.Get(),
                 Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
         }

@@ -381,7 +381,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='_GetEtag']/*" />
-        public delegate GISharp.Lib.GLib.Utf8 _GetEtag();
+        public delegate GISharp.Lib.GLib.Utf8? _GetEtag();
 
         /// <summary>
         /// Unmanaged callback
@@ -389,7 +389,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate byte* UnmanagedGetEtag(
 /* <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -405,7 +405,7 @@ GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* stream);
             /// </summary>
             public static UnmanagedGetEtag Create(System.Reflection.MethodInfo methodInfo)
             {
-                byte* unmanagedGetEtag(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* stream_) { try { var stream = GISharp.Lib.Gio.FileOutputStream.GetInstance<GISharp.Lib.Gio.FileOutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var doGetEtag = (_GetEtag)methodInfo.CreateDelegate(typeof(_GetEtag), stream); var ret = doGetEtag(); var ret_ = (byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
+                byte* unmanagedGetEtag(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* stream_) { try { var stream = GISharp.Lib.Gio.FileOutputStream.GetInstance<GISharp.Lib.Gio.FileOutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var doGetEtag = (_GetEtag)methodInfo.CreateDelegate(typeof(_GetEtag), stream); var ret = doGetEtag(); var ret_ = (byte*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(byte*); }
 
                 return unmanagedGetEtag;
             }

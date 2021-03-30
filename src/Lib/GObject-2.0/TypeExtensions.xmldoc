@@ -270,7 +270,7 @@ Newly allocated
 <member name='TypeExtensions.NextBase(GISharp.Runtime.GType,GISharp.Runtime.GType)'>
 <summary>
 Given a <paramref name="leafType"/> and a <paramref name="rootType"/> which is contained in its
-anchestry, return the type that <paramref name="rootType"/> is the immediate parent
+ancestry, return the type that <paramref name="rootType"/> is the immediate parent
 of. In other words, this function determines the type that is
 derived directly from <paramref name="rootType"/> which is also a base class of
 <paramref name="leafType"/>.  Given a root type and a leaf type, this function can
@@ -284,7 +284,7 @@ descendant of <paramref name="rootType"/> and the type to be returned
 immediate parent of the returned type
 </param>
 <returns>
-immediate child of <paramref name="rootType"/> and anchestor of <paramref name="leafType"/>
+immediate child of <paramref name="rootType"/> and ancestor of <paramref name="leafType"/>
 </returns>
 </member>
 

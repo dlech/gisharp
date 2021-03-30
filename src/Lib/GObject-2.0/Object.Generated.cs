@@ -238,6 +238,14 @@ System.IntPtr data);
         /// #GBinding instance.
         /// </para>
         /// <para>
+        /// Removing the binding by calling g_object_unref() on it must only be done if
+        /// the binding, @source and @target are only used from a single thread and it
+        /// is clear that both @source and @target outlive the binding. Especially it
+        /// is not safe to rely on this if the binding, @source or @target can be
+        /// finalized from different threads. Keep another reference to the binding and
+        /// use g_binding_unbind() instead to be on the safe side.
+        /// </para>
+        /// <para>
         /// A #GObject can have multiple bindings.
         /// </para>
         /// </remarks>

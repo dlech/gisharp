@@ -31,13 +31,14 @@ namespace GISharp.Lib.Gio
         public GISharp.Lib.GLib.UnownedUtf8 EditName { get => GetEditName(); set => SetEditName(value); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.Etag']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 Etag { get => GetEtag(); }
+        public GISharp.Lib.GLib.NullableUnownedUtf8 Etag { get => GetEtag(); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.FileType']/*" />
         public GISharp.Lib.Gio.FileType FileType { get => GetFileType(); set => SetFileType(value); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.Icon']/*" />
-        public GISharp.Lib.Gio.IIcon Icon { get => GetIcon(); set => SetIcon(value); }
+        [System.Diagnostics.CodeAnalysis.DisallowNullAttribute]
+        public GISharp.Lib.Gio.IIcon? Icon { get => GetIcon(); set => SetIcon(value!); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.IsBackup']/*" />
         public bool IsBackup { get => GetIsBackup(); }
@@ -64,10 +65,11 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SymbolicIcon']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public GISharp.Lib.Gio.IIcon SymbolicIcon { get => GetSymbolicIcon(); set => SetSymbolicIcon(value); }
+        [System.Diagnostics.CodeAnalysis.DisallowNullAttribute]
+        public GISharp.Lib.Gio.IIcon? SymbolicIcon { get => GetSymbolicIcon(); set => SetSymbolicIcon(value!); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SymlinkTarget']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 SymlinkTarget { get => GetSymlinkTarget(); set => SetSymlinkTarget(value); }
+        public GISharp.Lib.GLib.NullableUnownedUtf8 SymlinkTarget { get => GetSymlinkTarget(); set => SetSymlinkTarget(value.Value); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -842,20 +844,20 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_file_info_get_etag(
         /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info);
         partial void CheckGetEtagArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetEtag()
+        private GISharp.Lib.GLib.NullableUnownedUtf8 GetEtag()
         {
             CheckGetEtagArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_etag(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -899,20 +901,20 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.Gio.Icon.UnmanagedStruct* g_file_info_get_icon(
         /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info);
         partial void CheckGetIconArgs();
 
-        private GISharp.Lib.Gio.IIcon GetIcon()
+        private GISharp.Lib.Gio.IIcon? GetIcon()
         {
             CheckGetIconArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_icon(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -1105,13 +1107,15 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Gets the file's size.
+        /// Gets the file's size (in bytes). The size is retrieved through the value of
+        /// the %G_FILE_ATTRIBUTE_STANDARD_SIZE attribute and is converted
+        /// from #guint64 to #goffset before returning the result.
         /// </summary>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
         /// <returns>
-        /// a #goffset containing the file's size.
+        /// a #goffset containing the file's size (in bytes).
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="goffset" /> */
@@ -1173,7 +1177,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Icon" type="GIcon*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.Gio.Icon.UnmanagedStruct* g_file_info_get_symbolic_icon(
         /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -1181,13 +1185,13 @@ namespace GISharp.Lib.Gio
         partial void CheckGetSymbolicIconArgs();
 
         [GISharp.Runtime.SinceAttribute("2.34")]
-        private GISharp.Lib.Gio.IIcon GetSymbolicIcon()
+        private GISharp.Lib.Gio.IIcon? GetSymbolicIcon()
         {
             CheckGetSymbolicIconArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_symbolic_icon(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -1202,20 +1206,20 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_file_info_get_symlink_target(
         /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info);
         partial void CheckGetSymlinkTargetArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetSymlinkTarget()
+        private GISharp.Lib.GLib.NullableUnownedUtf8 GetSymlinkTarget()
         {
             CheckGetSymlinkTargetArgs();
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_info_get_symlink_target(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
 

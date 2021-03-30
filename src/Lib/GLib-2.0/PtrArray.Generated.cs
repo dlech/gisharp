@@ -347,12 +347,12 @@ namespace GISharp.Lib.GLib
         /// if %TRUE the actual pointer array is freed as well
         /// </param>
         /// <returns>
-        /// the pointer array if @free_seg is %FALSE, otherwise %NULL.
-        ///     The pointer array should be freed using g_free().
+        /// the pointer array if @free_seg is
+        ///     %FALSE, otherwise %NULL. The pointer array should be freed using g_free().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern System.IntPtr g_ptr_array_free(
         /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />

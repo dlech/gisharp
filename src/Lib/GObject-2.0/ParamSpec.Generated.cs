@@ -56,7 +56,7 @@ namespace GISharp.Lib.GObject
         private const int userShift = 8;
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.Blurb']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 Blurb { get => GetBlurb(); }
+        public GISharp.Lib.GLib.NullableUnownedUtf8 Blurb { get => GetBlurb(); }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DefaultValue']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
@@ -74,7 +74,7 @@ namespace GISharp.Lib.GObject
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.RedirectTarget']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
-        public GISharp.Lib.GObject.ParamSpec RedirectTarget { get => GetRedirectTarget(); }
+        public GISharp.Lib.GObject.ParamSpec? RedirectTarget { get => GetRedirectTarget(); }
 
         /// <summary>
         /// Validate a property name for a #GParamSpec. This can be useful for
@@ -126,20 +126,20 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_param_spec_get_blurb(
         /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         partial void CheckGetBlurbArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetBlurb()
+        private GISharp.Lib.GLib.NullableUnownedUtf8 GetBlurb()
         {
             CheckGetBlurbArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_blurb(pspec_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -325,7 +325,7 @@ namespace GISharp.Lib.GObject
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* g_param_spec_get_redirect_target(
         /* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -333,13 +333,13 @@ namespace GISharp.Lib.GObject
         partial void CheckGetRedirectTargetArgs();
 
         [GISharp.Runtime.SinceAttribute("2.4")]
-        private GISharp.Lib.GObject.ParamSpec GetRedirectTarget()
+        private GISharp.Lib.GObject.ParamSpec? GetRedirectTarget()
         {
             CheckGetRedirectTargetArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_redirect_target(pspec_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -461,7 +461,7 @@ namespace GISharp.Lib.GObject
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" /> */
-        /* transfer-ownership:none scope:async direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> destroy);
 
         /// <summary>

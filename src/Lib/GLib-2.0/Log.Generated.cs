@@ -42,7 +42,8 @@ namespace GISharp.Lib.GLib
         /// <para>
         /// stderr is used for levels %G_LOG_LEVEL_ERROR, %G_LOG_LEVEL_CRITICAL,
         /// %G_LOG_LEVEL_WARNING and %G_LOG_LEVEL_MESSAGE. stdout is used for
-        /// the rest.
+        /// the rest, unless stderr was requested by
+        /// g_log_writer_default_set_use_stderr().
         /// </para>
         /// <para>
         /// This has no effect if structured logging is enabled; see
