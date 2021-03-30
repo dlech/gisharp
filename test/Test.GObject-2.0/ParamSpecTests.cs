@@ -17,7 +17,7 @@ namespace GISharp.Test.GObject
     public class ParamSpecTests : IListTests<PtrArray<ParamSpec>, ParamSpec>
     {
         // Init for IListTests
-        public ParamSpecTests() : base(getItemAt,
+        public ParamSpecTests() : base(GetItemAt,
             new ParamSpecBoolean("P0", "P0", "P0", false, ParamFlags.Readwrite),
             new ParamSpecBoolean("P1", "P1", "P1", false, ParamFlags.Readwrite),
             new ParamSpecBoolean("P2", "P2", "P2", false, ParamFlags.Readwrite),
@@ -350,7 +350,7 @@ namespace GISharp.Test.GObject
             Assert.That(typeof(ParamSpecOverride).ToGType().Name, Is.EqualTo("GParamOverride"));
         }
 
-        static ParamSpec getItemAt(PtrArray<ParamSpec> array, int index)
+        static ParamSpec GetItemAt(PtrArray<ParamSpec> array, int index)
         {
             var data_ = Marshal.ReadIntPtr(array.UnsafeHandle);
             var ptr = Marshal.ReadIntPtr(data_, IntPtr.Size * index);

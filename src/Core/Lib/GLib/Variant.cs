@@ -306,7 +306,7 @@ namespace GISharp.Lib.GLib
                     if (!Type.IsContainer) {
                         throw new InvalidOperationException("Variant must be a container type");
                     }
-                    childValues = new(nChildren, getChildValue);
+                    childValues = new(NChildren, GetChildValue);
                 }
                 return childValues;
             }
@@ -521,7 +521,7 @@ namespace GISharp.Lib.GLib
             if (v.Type != VariantType.DBusObjectPath) {
                 throw new InvalidCastException();
             }
-            return (string)v.getString();
+            return (string)v.GetString();
         }
 
         /// <summary>
@@ -540,7 +540,7 @@ namespace GISharp.Lib.GLib
             if (v.Type != VariantType.DBusSignature) {
                 throw new InvalidCastException();
             }
-            return (string)v.getString();
+            return (string)v.GetString();
         }
 
         /// <summary>
@@ -599,7 +599,7 @@ namespace GISharp.Lib.GLib
             if (v.Type != VariantType.String) {
                 throw new InvalidCastException();
             }
-            return v.getString();
+            return v.GetString();
         }
 
         /// <summary>
@@ -3228,7 +3228,7 @@ namespace GISharp.Lib.GLib
         /// the child at the specified index
         /// </returns>
         [Since("2.24")]
-        Variant getChildValue(int index)
+        Variant GetChildValue(int index)
         {
             if (!IsContainer) {
                 throw new InvalidOperationException();
@@ -3465,7 +3465,7 @@ namespace GISharp.Lib.GLib
         /// a pointer to the fixed array
         /// </returns>
         [Since("2.24")]
-        ReadOnlySpan<T> getFixedArray<T>() where T : unmanaged
+        ReadOnlySpan<T> GetFixedArray<T>() where T : unmanaged
         {
             var value_ = (UnmanagedStruct*)UnsafeHandle;
             if (!IsOfType(VariantType.Array)) {
@@ -3936,7 +3936,7 @@ namespace GISharp.Lib.GLib
         /// the string
         /// </returns>
         [Since("2.24")]
-        UnownedUtf8 getString()
+        UnownedUtf8 GetString()
         {
             if (!IsOfType(VariantType.String) && !IsOfType(VariantType.DBusObjectPath) && !IsOfType(VariantType.DBusSignature)) {
                 throw new InvalidOperationException();
@@ -4604,7 +4604,7 @@ namespace GISharp.Lib.GLib
         /// the number of children in the container
         /// </returns>
         [Since("2.24")]
-        int nChildren()
+        int NChildren()
         {
             var value_ = (UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_n_children(value_);

@@ -13,11 +13,11 @@ namespace GISharp.Test.GLib
 {
     public class ByteArrayTests : IListTests<ByteArray, byte>
     {
-        public ByteArrayTests() : base(getItemAt, 0, 1, 2, 3, 4)
+        public ByteArrayTests() : base(GetItemAt, 0, 1, 2, 3, 4)
         {
         }
 
-        static byte getItemAt(ByteArray array, int index)
+        static byte GetItemAt(ByteArray array, int index)
         {
             var data = Marshal.ReadIntPtr(array.UnsafeHandle);
             return Marshal.ReadByte(data, index);
@@ -54,8 +54,8 @@ namespace GISharp.Test.GLib
 
             array.Append(1, 2);
             Assert.That(array.Length, Is.EqualTo(2));
-            Assert.That(getItemAt(array, 0), Is.EqualTo(1));
-            Assert.That(getItemAt(array, 1), Is.EqualTo(2));
+            Assert.That(GetItemAt(array, 0), Is.EqualTo(1));
+            Assert.That(GetItemAt(array, 1), Is.EqualTo(2));
 
             array.Dispose();
             Assert.That(() => array.Append(0), Throws.TypeOf<ObjectDisposedException>());
@@ -69,8 +69,8 @@ namespace GISharp.Test.GLib
 
             array.Prepend(1, 2);
             Assert.That(array.Length, Is.EqualTo(2));
-            Assert.That(getItemAt(array, 0), Is.EqualTo(1));
-            Assert.That(getItemAt(array, 1), Is.EqualTo(2));
+            Assert.That(GetItemAt(array, 0), Is.EqualTo(1));
+            Assert.That(GetItemAt(array, 1), Is.EqualTo(2));
 
             array.Dispose();
             Assert.That(() => array.Prepend(0), Throws.TypeOf<ObjectDisposedException>());
@@ -85,9 +85,9 @@ namespace GISharp.Test.GLib
 
             array.RemoveIndexFast(1);
             Assert.That(array.Length, Is.EqualTo(3));
-            Assert.That(getItemAt(array, 0), Is.EqualTo(1));
-            Assert.That(getItemAt(array, 1), Is.EqualTo(4));
-            Assert.That(getItemAt(array, 2), Is.EqualTo(3));
+            Assert.That(GetItemAt(array, 0), Is.EqualTo(1));
+            Assert.That(GetItemAt(array, 1), Is.EqualTo(4));
+            Assert.That(GetItemAt(array, 2), Is.EqualTo(3));
 
             // check index out of range
             Assert.That(() => array.RemoveIndexFast(3),
@@ -107,8 +107,8 @@ namespace GISharp.Test.GLib
 
             array.RemoveRange(1, 2);
             Assert.That(array.Length, Is.EqualTo(2));
-            Assert.That(getItemAt(array, 0), Is.EqualTo(1));
-            Assert.That(getItemAt(array, 1), Is.EqualTo(4));
+            Assert.That(GetItemAt(array, 0), Is.EqualTo(1));
+            Assert.That(GetItemAt(array, 1), Is.EqualTo(4));
 
             // check index out of range
             Assert.That(() => array.RemoveRange(3, 0),
@@ -129,9 +129,9 @@ namespace GISharp.Test.GLib
             array.Append(2, 3, 1);
 
             array.Sort((x, y) => x - y);
-            Assert.That(getItemAt(array, 0), Is.EqualTo(1));
-            Assert.That(getItemAt(array, 1), Is.EqualTo(2));
-            Assert.That(getItemAt(array, 2), Is.EqualTo(3));
+            Assert.That(GetItemAt(array, 0), Is.EqualTo(1));
+            Assert.That(GetItemAt(array, 1), Is.EqualTo(2));
+            Assert.That(GetItemAt(array, 2), Is.EqualTo(3));
 
             array.Dispose();
             Assert.That(() => array.Sort((x, y) => 0),

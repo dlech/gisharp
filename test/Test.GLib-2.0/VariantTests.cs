@@ -15,7 +15,7 @@ namespace GISharp.Test.GLib
 {
     public class VariantTests : IListTests<PtrArray<Variant>, Variant>
     {
-        public VariantTests() : base(getItemAt, (Variant)0, (Variant)1, (Variant)2, (Variant)3, (Variant)4)
+        public VariantTests() : base(GetItemAt, (Variant)0, (Variant)1, (Variant)2, (Variant)3, (Variant)4)
         {
         }
 
@@ -609,7 +609,7 @@ namespace GISharp.Test.GLib
             Assert.That(actual8, Is.EqualTo(item8));
         }
 
-        static Variant getItemAt(PtrArray<Variant> array, int index)
+        static Variant GetItemAt(PtrArray<Variant> array, int index)
         {
             var data_ = Marshal.ReadIntPtr(array.UnsafeHandle);
             var ptr = Marshal.ReadIntPtr(data_, IntPtr.Size * index);

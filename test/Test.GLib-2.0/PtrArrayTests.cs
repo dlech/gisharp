@@ -13,11 +13,11 @@ namespace GISharp.Test.GLib
 {
     public class PtrArrayTests : IListTests<PtrArray<OpaqueInt>, OpaqueInt>
     {
-        public PtrArrayTests() : base(getItemAt, 0, 1, 2, 3, 4)
+        public PtrArrayTests() : base(GetItemAt, 0, 1, 2, 3, 4)
         {
         }
 
-        static OpaqueInt getItemAt(PtrArray<OpaqueInt> array, int index)
+        static OpaqueInt GetItemAt(PtrArray<OpaqueInt> array, int index)
         {
             var dataPtr = Marshal.ReadIntPtr(array.UnsafeHandle);
             var data = Marshal.ReadIntPtr(dataPtr, IntPtr.Size * index);
@@ -57,9 +57,9 @@ namespace GISharp.Test.GLib
             Assert.That(a.Count, Is.EqualTo(4));
             Assert.That(a.RemoveFast(_(2)), Is.True);
             Assert.That(a.Count, Is.EqualTo(3));
-            Assert.That(getItemAt(a, 0), Is.EqualTo(_(1)));
-            Assert.That(getItemAt(a, 1), Is.EqualTo(_(4)));
-            Assert.That(getItemAt(a, 2), Is.EqualTo(_(3)));
+            Assert.That(GetItemAt(a, 0), Is.EqualTo(_(1)));
+            Assert.That(GetItemAt(a, 1), Is.EqualTo(_(4)));
+            Assert.That(GetItemAt(a, 2), Is.EqualTo(_(3)));
 
             a.Dispose();
             Assert.That(() => a.RemoveFast(_(0)), Throws.TypeOf<ObjectDisposedException>());
@@ -84,9 +84,9 @@ namespace GISharp.Test.GLib
 
             a.RemoveAtFast(1);
             Assert.That(a.Count, Is.EqualTo(3));
-            Assert.That(getItemAt(a, 0), Is.EqualTo(_(1)));
-            Assert.That(getItemAt(a, 1), Is.EqualTo(_(4)));
-            Assert.That(getItemAt(a, 2), Is.EqualTo(_(3)));
+            Assert.That(GetItemAt(a, 0), Is.EqualTo(_(1)));
+            Assert.That(GetItemAt(a, 1), Is.EqualTo(_(4)));
+            Assert.That(GetItemAt(a, 2), Is.EqualTo(_(3)));
 
             Assert.That(() => a.RemoveAtFast(-1), Throws.TypeOf<ArgumentOutOfRangeException>());
             Assert.That(() => a.RemoveAtFast(3), Throws.TypeOf<ArgumentOutOfRangeException>());
@@ -114,10 +114,10 @@ namespace GISharp.Test.GLib
 
             a.RemoveRange(1, 2);
             Assert.That(a.Count, Is.EqualTo(4));
-            Assert.That(getItemAt(a, 0), Is.EqualTo(_(1)));
-            Assert.That(getItemAt(a, 1), Is.EqualTo(_(4)));
-            Assert.That(getItemAt(a, 2), Is.EqualTo(_(5)));
-            Assert.That(getItemAt(a, 3), Is.EqualTo(_(6)));
+            Assert.That(GetItemAt(a, 0), Is.EqualTo(_(1)));
+            Assert.That(GetItemAt(a, 1), Is.EqualTo(_(4)));
+            Assert.That(GetItemAt(a, 2), Is.EqualTo(_(5)));
+            Assert.That(GetItemAt(a, 3), Is.EqualTo(_(6)));
 
             Assert.That(() => a.RemoveRange(-1, 0), Throws.TypeOf<ArgumentOutOfRangeException>());
             Assert.That(() => a.RemoveRange(0, -1), Throws.TypeOf<ArgumentOutOfRangeException>());
@@ -135,14 +135,14 @@ namespace GISharp.Test.GLib
                 _(1),
                 _(2)
             };
-            Assume.That(getItemAt(a, 0), Is.EqualTo(_(3)));
-            Assume.That(getItemAt(a, 1), Is.EqualTo(_(1)));
-            Assume.That(getItemAt(a, 2), Is.EqualTo(_(2)));
+            Assume.That(GetItemAt(a, 0), Is.EqualTo(_(3)));
+            Assume.That(GetItemAt(a, 1), Is.EqualTo(_(1)));
+            Assume.That(GetItemAt(a, 2), Is.EqualTo(_(2)));
 
             a.Sort((x, y) => x.Value - y.Value);
-            Assert.That(getItemAt(a, 0), Is.EqualTo(_(1)));
-            Assert.That(getItemAt(a, 1), Is.EqualTo(_(2)));
-            Assert.That(getItemAt(a, 2), Is.EqualTo(_(3)));
+            Assert.That(GetItemAt(a, 0), Is.EqualTo(_(1)));
+            Assert.That(GetItemAt(a, 1), Is.EqualTo(_(2)));
+            Assert.That(GetItemAt(a, 2), Is.EqualTo(_(3)));
 
             a.Dispose();
             Assert.That(() => a.Sort((x, y) => 0), Throws.TypeOf<ObjectDisposedException>());
