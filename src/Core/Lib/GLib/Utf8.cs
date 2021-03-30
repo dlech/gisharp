@@ -33,17 +33,13 @@ namespace GISharp.Lib.GLib
         /// </exception>
         public IntPtr UnsafeHandle => handle is null ? throw new NullReferenceException() : (IntPtr)handle;
 
-        [DllImport("c")]
-        static extern nuint strlen(byte* s);
-
         /// <summary>
         /// Gets the length of the string in bytes.
         /// </summary>
         public int Length {
             get {
                 if (length < 0) {
-                    var this_ = (byte*)UnsafeHandle;
-                    length = (int)strlen(this_);
+                    length = new ReadOnlySpan<byte>((byte*)UnsafeHandle, int.MaxValue).IndexOf<byte>(0);
                 }
                 return length;
             }
@@ -949,24 +945,6 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             byte* p);
 
-        [DllImport("c")]
-        static extern nuint strlen(byte* s);
-
-        private int length = -1;
-
-        /// <summary>
-        /// Gets the length of the string in bytes.
-        /// </summary>
-        /// <seealso cref="LengthInCharacters"/>
-        public int Length {
-            get {
-                if (length == -1) {
-                    length = (int)strlen((byte*)UnsafeHandle);
-                }
-                return length;
-            }
-        }
-
         /// <summary>
         /// Computes the length of the string in characters, not including
         /// the terminating nul character. If the @max'th byte falls in the
@@ -1001,7 +979,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Gets the length of the string in Unicode characters.
         /// </summary>
-        /// <seealso cref="Length"/>
+        /// <seealso cref="ByteString.Length"/>
         public int LengthInCharacters {
             get {
                 if (lengthInCharacters == -1) {

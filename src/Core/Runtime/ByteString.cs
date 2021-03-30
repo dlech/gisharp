@@ -12,7 +12,20 @@ namespace GISharp.Runtime
     /// </summary>
     public unsafe class ByteString : Opaque, IEquatable<ByteString>
     {
-        private int length;
+        private protected int length;
+
+        /// <summary>
+        /// Gets the length of the string in bytes.
+        /// </summary>
+        /// <seealso cref="Lib.GLib.Utf8.LengthInCharacters"/>
+        public int Length {
+            get {
+                if (length < 0) {
+                    length = new ReadOnlySpan<byte>((byte*)UnsafeHandle, int.MaxValue).IndexOf<byte>(0);
+                }
+                return length;
+            }
+        }
 
         /// <summary>
         /// For internal runtime use only.
