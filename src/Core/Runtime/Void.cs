@@ -17,9 +17,11 @@ namespace GISharp.Runtime
         /// </summary>
         public static Void Default { get; } = default;
 
+#pragma warning disable IDE0051
         // hack to hide the constructor
         [ExcludeFromCodeCoverage]
         private Void(int _) => throw new NotSupportedException();
+#pragma warning restore IDE0051
 
         /// <inheritdoc />
         public bool Equals(Void other) => true;

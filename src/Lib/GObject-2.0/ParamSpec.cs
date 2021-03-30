@@ -12,7 +12,7 @@ namespace GISharp.Lib.GObject
 {
     unsafe partial class ParamSpec
     {
-        private static GType _GType = GType.Param;
+        private static readonly GType _GType = GType.Param;
 
         private static readonly Quark managedProxyGCHandleQuark = Quark.FromString("gisharp-gobject-paramspec-managed-proxy-instance-quark");
 

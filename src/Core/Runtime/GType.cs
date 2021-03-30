@@ -29,34 +29,6 @@ namespace GISharp.Runtime
         /// </summary>
         const int FundamentalShift = 2;
 
-        /// <summary>
-        /// First fundamental type number to create a new fundamental type id with
-        /// G_TYPE_MAKE_FUNDAMENTAL() reserved for BSE.
-        /// </summary>
-        const int ReservedBseFirst = 32;
-
-        /// <summary>
-        /// Last fundamental type number reserved for BSE.
-        /// </summary>
-        const int ReservedBseLast = 48;
-
-        /// <summary>
-        /// First fundamental type number to create a new fundamental type id with
-        /// G_TYPE_MAKE_FUNDAMENTAL() reserved for GLib.
-        /// </summary>
-        const int ReservedGlibFirst = 22;
-
-        /// <summary>
-        /// Last fundamental type number reserved for GLib.
-        /// </summary>
-        const int ReservedGlibLast = 31;
-
-        /// <summary>
-        /// First available fundamental type number to create new fundamental
-        /// type id with G_TYPE_MAKE_FUNDAMENTAL().
-        /// </summary>
-        const int ReservedUserFirst = 49;
-
         // typedef gsize GType;
         readonly nuint value;
 

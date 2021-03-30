@@ -410,7 +410,7 @@ namespace GISharp.Test
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         private static extern GType g_async_result_get_type();
 
-        private static GType _GType = g_async_result_get_type();
+        private static readonly GType _GType = g_async_result_get_type();
 
         [GVirtualMethod(typeof(AsyncResultIface.UnmanagedGetUserData))]
         IntPtr GetUserData();
@@ -458,9 +458,7 @@ namespace GISharp.Test
         public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-#pragma warning disable CS0169
-            TypeInterface.UnmanagedStruct gIface;
-#pragma warning restore CS0169
+            public TypeInterface.UnmanagedStruct GIface;
             public IntPtr GetUserData;
             public IntPtr GetSourceObject;
             public IntPtr IsTagged;

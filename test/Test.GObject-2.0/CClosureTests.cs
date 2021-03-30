@@ -21,6 +21,7 @@ namespace GISharp.Test.GObject
 
         private delegate int TestHandler(int i);
 
+#pragma warning disable IDE0051
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         private static int ManagedTestHandler(int i, IntPtr userData_)
         {
@@ -34,5 +35,6 @@ namespace GISharp.Test.GObject
                 return default;
             }
         }
+#pragma warning restore IDE0051
     }
 }

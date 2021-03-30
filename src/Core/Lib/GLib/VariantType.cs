@@ -1006,7 +1006,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public IEnumerable<VariantType> Items => LazyItems.Value;
 
-        private Lazy<ItemsEnumerable> LazyItems;
+        private readonly Lazy<ItemsEnumerable> LazyItems;
 
         private struct ItemsEnumerable : IEnumerable<VariantType>
         {
