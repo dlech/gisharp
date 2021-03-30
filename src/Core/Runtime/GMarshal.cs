@@ -174,20 +174,6 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
-        /// Tests if an unmanaged struct is "zero" (all bytes are zero).
-        /// </summary>
-        public static bool IsZero<T>(T* value) where T : unmanaged
-        {
-            var bytes = (byte*)value;
-            for (int i = 0; i < sizeof(T); i++) {
-                if (bytes[i] != 0) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        /// <summary>
         /// Converts an array of managed UTF-16 strings to <see cref="Strv"/>.
         /// </summary>
         public static IntPtr StringArrayToGStrvPtr(string[]? strings)

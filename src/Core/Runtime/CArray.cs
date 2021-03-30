@@ -207,7 +207,7 @@ namespace GISharp.Runtime
                     current++;
                 }
 
-                return GMarshal.IsZero(current);
+                return !EqualityComparer<T>.Default.Equals(*current, default);
             }
         }
 
