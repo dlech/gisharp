@@ -9,8 +9,8 @@ Creates a new idle source.
 The source will not initially be associated with any <see cref="MainContext"/>
 and must be added to one with <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/> before it will be
 executed. Note that the default priority for idle sources is
-%G_PRIORITY_DEFAULT_IDLE, as compared to other sources which
-have a default priority of %G_PRIORITY_DEFAULT.
+<see cref="Priority.DefaultIdle"/>, as compared to other sources which
+have a default priority of <see cref="Priority.Default"/>.
 </para>
 </remarks>
 <returns>

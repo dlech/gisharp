@@ -29,7 +29,7 @@ Gets the edit name for a file.
 <member name='FileInfo.Etag'>
 <summary>
 Gets the [entity tag][gfile-etag] for a given
-<see cref="FileInfo"/>. See %G_FILE_ATTRIBUTE_ETAG_VALUE.
+<see cref="FileInfo"/>. See <see cref="FileAttribute.EtagValue"/>.
 </summary>
 </member>
 
@@ -71,8 +71,8 @@ Gets the modification time of the current this instance and returns it as a
 </summary>
 <remarks>
 <para>
-This requires the <see cref="Gio.FileAttribute.TimeModified"/> attribute. If
-<see cref="Gio.FileAttribute.TimeModifiedUsec"/> is provided, the resulting <see cref="GLib.DateTime"/>
+This requires the <see cref="FileAttribute.TimeModified"/> attribute. If
+<see cref="FileAttribute.TimeModifiedUsec"/> is provided, the resulting <see cref="GLib.DateTime"/>
 will have microsecond precision.
 </para>
 </remarks>
@@ -87,7 +87,7 @@ Gets the name for a file. This is guaranteed to always be set.
 <member name='FileInfo.Size'>
 <summary>
 Gets the file's size (in bytes). The size is retrieved through the value of
-the %G_FILE_ATTRIBUTE_STANDARD_SIZE attribute and is converted
+the <see cref="FileAttribute.StandardSize"/> attribute and is converted
 from #guint64 to #goffset before returning the result.
 </summary>
 </member>
@@ -95,7 +95,7 @@ from #guint64 to #goffset before returning the result.
 <member name='FileInfo.SortOrder'>
 <summary>
 Gets the value of the sort_order attribute from the <see cref="FileInfo"/>.
-See %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
+See <see cref="FileAttribute.StandardSortOrder"/>.
 </summary>
 </member>
 
@@ -564,8 +564,8 @@ an unsigned 64-bit integer.
 
 <member name='FileInfo.SetModificationTime(GISharp.Lib.GLib.TimeVal)'>
 <summary>
-Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
-%G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
+Sets the <see cref="FileAttribute.TimeModified"/> and
+<see cref="FileAttribute.TimeModifiedUsec"/> attributes in the file info to the
 given time value.
 </summary>
 <param name="mtime">

@@ -214,7 +214,7 @@ For more details on its usage and about the parameters, see g_log_structured().
 </para>
 </remarks>
 <param name="logDomain">
-log domain, usually %G_LOG_DOMAIN
+log domain, usually <see cref="Log.domain"/>
 </param>
 <param name="logLevel">
 log level, either from <see cref="LogLevelFlags"/>, or a user-defined

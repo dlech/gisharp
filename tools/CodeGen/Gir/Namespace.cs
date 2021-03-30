@@ -129,7 +129,7 @@ namespace GISharp.CodeGen.Gir
         }
 
         /// <summary>
-        /// Finds a decendant node with the give identifier, if any
+        /// Finds a decendant node with the given identifier, if any
         /// </summary>
         /// <param name="identifier">The identifier to search for</param>
         /// <returns>
@@ -138,7 +138,10 @@ namespace GISharp.CodeGen.Gir
         public GirNode FindNodeByCIdentifier(string identifier)
         {
             var match = Element.Descendants()
-                .SingleOrDefault(x => x.Attribute(c + "identifier").AsString() == identifier);
+                .Where(x => x.Attribute(c + "identifier").AsString() == identifier)
+                .Concat(Element.Descendants(gi + "constant")
+                    .Where(x => x.Attribute(c + "type").AsString() == identifier))
+                .SingleOrDefault();
             return GetNode(match);
         }
 

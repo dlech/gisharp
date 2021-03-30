@@ -2300,7 +2300,7 @@ hard or soft links may cause two different <see cref="IFile"/>s to refer to the 
 file. Other possible causes for aliases are: case insensitive filesystems,
 short and long names on FAT/NTFS, or bind mounts in Linux. If you want to
 check if two <see cref="IFile"/>s point to the same file you can query for the
-%G_FILE_ATTRIBUTE_ID_FILE attribute. Note that <see cref="IFile"/> does some trivial
+<see cref="FileAttribute.IdFile"/> attribute. Note that <see cref="IFile"/> does some trivial
 canonicalization of pathnames passed in, so that trivial differences in
 the path string used at creation (duplicated slashes, slash at end of
 path, "." or ".." path segments, etc) does not create different <see cref="IFile"/>s.

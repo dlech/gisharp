@@ -530,7 +530,7 @@ and <c>false</c> if the file has been modified since the thumbnail was generated
 </summary>
 <remarks>
 <para>
-If %G_FILE_ATTRIBUTE_THUMBNAILING_FAILED is <c>true</c> and this attribute is <c>false</c>,
+If <see cref="FileAttribute.ThumbnailingFailed"/> is <c>true</c> and this attribute is <c>false</c>,
 it indicates that thumbnailing may be attempted again and may succeed.
 </para>
 <para>

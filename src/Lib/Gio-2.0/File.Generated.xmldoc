@@ -754,7 +754,7 @@ or a uri like sftp://host/) it will return a single directory separator
 The base name is a byte string (not UTF-8). It has no defined encoding
 or rules other than it may not contain zero bytes.  If you want to use
 filenames in a user interface you should use the display name that you
-can get by requesting the %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME
+can get by requesting the <see cref="FileAttribute.StandardDisplayName"/>
 attribute with <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>.
 </para>
 <para>
@@ -2367,7 +2367,7 @@ are byte strings that are used to identify the file on the filesystem
 have any particular charset encoding or even make any sense at all. If
 you want to use filenames in a user interface you should use the display
 name that you can get by requesting the
-%G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME attribute with <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="FileAttribute.StandardDisplayName"/> attribute with <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>.
 This is guaranteed to be in UTF-8 and can be used in a user interface.
 But always store the real basename or the <see cref="IFile"/> to use to actually
 access the file, because there is no way to go from a display name to
@@ -2380,7 +2380,7 @@ hard or soft links may cause two different <see cref="IFile"/>s to refer to the 
 file. Other possible causes for aliases are: case insensitive filesystems,
 short and long names on FAT/NTFS, or bind mounts in Linux. If you want to
 check if two <see cref="IFile"/>s point to the same file you can query for the
-%G_FILE_ATTRIBUTE_ID_FILE attribute. Note that <see cref="IFile"/> does some trivial
+<see cref="FileAttribute.IdFile"/> attribute. Note that <see cref="IFile"/> does some trivial
 canonicalization of pathnames passed in, so that trivial differences in
 the path string used at creation (duplicated slashes, slash at end of
 path, "." or ".." path segments, etc) does not create different <see cref="IFile"/>s.
@@ -2961,7 +2961,7 @@ or a uri like sftp://host/) it will return a single directory separator
 The base name is a byte string (not UTF-8). It has no defined encoding
 or rules other than it may not contain zero bytes.  If you want to use
 filenames in a user interface you should use the display name that you
-can get by requesting the %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME
+can get by requesting the <see cref="FileAttribute.StandardDisplayName"/>
 attribute with <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>.
 </para>
 <para>
