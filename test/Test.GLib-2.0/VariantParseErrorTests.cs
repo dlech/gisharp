@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2019-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
 using NUnit.Framework;
 
@@ -23,11 +23,11 @@ namespace GISharp.Test.GLib
         {
             using Utf8 badSourceStr = "(1, 2, 3, 'abc";
             using var err = new Error(TestError.Failed, "test");
-            Assert.That(() => err.PrintContext(badSourceStr), Throws.ArgumentException);
+            Assert.That(() => VariantParseErrorDomain.PrintContext(err, badSourceStr), Throws.ArgumentException);
 
             var exception = Assert.Throws<GErrorException>(() => Variant.Parse(null, badSourceStr));
             Assert.That(exception.Matches(VariantParseError.UnterminatedStringConstant));
-            Assert.That(exception.Error.PrintContext(badSourceStr), Is.Not.Null);
+            Assert.That(VariantParseErrorDomain.PrintContext(exception.Error, badSourceStr), Is.Not.Null);
         }
     }
 }

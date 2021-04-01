@@ -154,7 +154,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNewObjv()
         {
-            using var v = new Variant(System.Array.Empty<DBusObjectPath>());
+            using var path1 = new DBusObjectPath("/one");
+            using var path2 = new DBusObjectPath("/two");
+            using var objv = new[] { path1, path2 }.ToWeakCPtrArray();
+            using var v = new Variant(objv);
             Assert.That(GetIsFloating(v), Is.False);
             Assert.That(GetRefCount(v), Is.EqualTo(1));
         }
@@ -162,7 +165,8 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNewBytestring()
         {
-            using var v = new Variant(System.Array.Empty<byte>());
+            using var bytestring = new ByteString(System.Array.Empty<byte>());
+            using var v = new Variant(bytestring);
             Assert.That(GetIsFloating(v), Is.False);
             Assert.That(GetRefCount(v), Is.EqualTo(1));
         }
@@ -369,10 +373,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCastObjectPathArray()
         {
-            var expected = new[] { new DBusObjectPath("/") };
+            using var expected = new[] { new DBusObjectPath("/") }.ToWeakCPtrArray();
             using var variant = (Variant)expected;
             Assert.That(variant.Type, Is.EqualTo(VariantType.DBusObjectPathArray));
-            var actual = (DBusObjectPath[])variant;
+            var actual = (WeakZeroTerminatedCPtrArray<DBusObjectPath>)variant;
             Assert.That(actual, Is.EqualTo(expected));
         }
 
@@ -389,10 +393,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCastBytestring()
         {
-            var expected = Encoding.ASCII.GetBytes("bytestring");
+            using var expected = new ByteString(Encoding.Latin1.GetBytes("bytestring"));
             using var variant = (Variant)expected;
             Assert.That(variant.Type, Is.EqualTo(VariantType.ByteString));
-            var actual = (byte[])variant;
+            using var actual = (ByteString)variant;
             Assert.That(actual, Is.EqualTo(expected));
         }
 
@@ -449,7 +453,7 @@ namespace GISharp.Test.GLib
             // make sure we get back what we put in
             var expected = new KeyValuePair<Variant, Variant>(new Variant("key"), new Variant("value"));
             using var variant = (Variant)expected;
-            Assert.That(variant.Type.IsDictionaryEntry, Is.True);
+            Assert.That(variant.Type.IsDictEntry, Is.True);
             var actual = (KeyValuePair<Variant, Variant>)variant;
             Assert.That(actual, Is.EqualTo(expected));
         }

@@ -1,0 +1,10 @@
+
+### DBusSignature ###
+
+# create a new alias (this type doesn't actually exist in GLib)
+- !add-element
+  xml: |
+    <gi:alias name='DBusSignature' c:type='GI_DBusSignature'>
+      <gi:type name="utf8" c:type="char*" />
+    </gi:alias>
+  xpath: gi:repository/gi:namespace

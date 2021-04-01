@@ -1,0 +1,12 @@
+
+### VariantParseError ###
+
+# move functions from Variant
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:function[starts-with(@name,'parse_error_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='VariantParseError']
+- !change-attribute
+  name: name
+  regex: parse_error_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='VariantParseError']/gi:function[starts-with(@name,'parse_error_')]

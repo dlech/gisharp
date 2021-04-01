@@ -73,7 +73,7 @@ namespace GISharp.CodeGen
                 "gunichar" => $"uint{pointer}",
                 "gunichar2" => $"char{pointer}",
                 "GType" => $"GISharp.Runtime.GType{pointer}",
-                "filename" or "utf8" => "byte*",
+                "filename" or "utf8" or "bytestring" => "byte*",
                 "GLib.DestroyNotify" => "delegate* unmanaged[Cdecl]<System.IntPtr, void>",
                 "va_list" =>
                     // va_list should be filtered out, but just in case...
@@ -89,6 +89,7 @@ namespace GISharp.CodeGen
                     $"{array.TypeParameters.Single().GetUnmanagedType()}*",
                 _ => type switch {
                     var t when t.Interface is Alias alias && alias.Type.Interface is Callback callback => callback.GetUnmanagedType(),
+                    var t when t.Interface is Alias alias && alias.Type.GirName == "utf8" => "byte*",
                     var t when t.Interface is Callback callback => callback.GetUnmanagedType(),
                     var t when t.IsValueType() =>
                         $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}{pointer}",
@@ -135,6 +136,7 @@ namespace GISharp.CodeGen
                 "GType" => "GISharp.Runtime.GType",
                 "utf8" => "GISharp.Lib.GLib.Utf8",
                 "filename" => "GISharp.Lib.GLib.Filename",
+                "bytestring" => "GISharp.Runtime.ByteString",
                 "va_list" =>
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported"),
@@ -171,7 +173,7 @@ namespace GISharp.CodeGen
                 return false;
             }
 
-            if (type.GirName == "utf8" || type.GirName == "filename") {
+            if (type.GirName == "utf8" || type.GirName == "filename" || type.GirName == "bytestring") {
                 return false;
             }
 

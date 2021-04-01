@@ -354,15 +354,15 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public static bool operator ==(GISharp.Lib.GLib.Bytes a, GISharp.Lib.GLib.Bytes b)
+        public static bool operator ==(GISharp.Lib.GLib.Bytes? a, GISharp.Lib.GLib.Bytes? b)
         {
-            return a.Equals(b);
+            return a?.Equals(b) ?? b is null;
         }
 
         /// <inheritdoc/>
-        public static System.Boolean operator !=(GISharp.Lib.GLib.Bytes a, GISharp.Lib.GLib.Bytes b)
+        public static System.Boolean operator !=(GISharp.Lib.GLib.Bytes? a, GISharp.Lib.GLib.Bytes? b)
         {
-            return !a.Equals(b);
+            return !(a?.Equals(b) ?? b is null);
         }
 
         /// <summary>

@@ -6,5 +6,33 @@ namespace GISharp.Lib.GLib
     /// <include file="Quark.xmldoc" path="declaration/member[@name='Quark']/*" />
     public unsafe partial struct Quark
     {
+        private readonly uint value;
+
+        static partial void ValidateValue(uint value);
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public Quark(uint value)
+        {
+            ValidateValue(value);
+            this.value = value;
+        }
+
+        /// <summary>
+        /// Converts to <see cref="Quark"/> from the underlying type.
+        /// </summary>
+        public static explicit operator Quark(uint value)
+        {
+            return new Quark(value);
+        }
+
+        /// <summary>
+        /// Converts from <see cref="Quark"/> to the underlying type.
+        /// </summary>
+        public static explicit operator uint(Quark value)
+        {
+            return value.value;
+        }
     }
 }

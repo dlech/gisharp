@@ -145,15 +145,15 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <inheritdoc/>
-        public static bool operator ==(GISharp.Lib.GIRepository.BaseInfo a, GISharp.Lib.GIRepository.BaseInfo b)
+        public static bool operator ==(GISharp.Lib.GIRepository.BaseInfo? a, GISharp.Lib.GIRepository.BaseInfo? b)
         {
-            return a.Equals(b);
+            return a?.Equals(b) ?? b is null;
         }
 
         /// <inheritdoc/>
-        public static System.Boolean operator !=(GISharp.Lib.GIRepository.BaseInfo a, GISharp.Lib.GIRepository.BaseInfo b)
+        public static System.Boolean operator !=(GISharp.Lib.GIRepository.BaseInfo? a, GISharp.Lib.GIRepository.BaseInfo? b)
         {
-            return !a.Equals(b);
+            return !(a?.Equals(b) ?? b is null);
         }
 
         /// <summary>

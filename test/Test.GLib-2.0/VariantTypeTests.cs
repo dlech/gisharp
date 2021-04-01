@@ -51,11 +51,11 @@ namespace GISharp.Test.GLib
         public void TestIsDictEntry()
         {
             using (var vt = VariantType.Int32) {
-                Assert.That(vt.IsDictionaryEntry, Is.False);
+                Assert.That(vt.IsDictEntry, Is.False);
             }
 
             using (var vt = VariantType.DictionaryEntry) {
-                Assert.That(vt.IsDictionaryEntry, Is.True);
+                Assert.That(vt.IsDictEntry, Is.True);
             }
         }
 
@@ -94,7 +94,7 @@ namespace GISharp.Test.GLib
         public void TestNewMaybe()
         {
             using var element = VariantType.String;
-            using var vt = VariantType.CreateMaybe(element);
+            using var vt = VariantType.NewMaybe(element);
             Assert.That(vt.ToString(), Is.EqualTo("ms"));
         }
 
@@ -102,7 +102,7 @@ namespace GISharp.Test.GLib
         public void TestNewArray()
         {
             using var element = VariantType.String;
-            using var vt = VariantType.CreateArray(element);
+            using var vt = VariantType.NewArray(element);
             Assert.That(vt.ToString(), Is.EqualTo("as"));
         }
 
@@ -111,7 +111,7 @@ namespace GISharp.Test.GLib
         {
             using var a = VariantType.String;
             using var b = VariantType.Variant;
-            using var vt = VariantType.CreateTuple(a, b);
+            using var vt = VariantType.NewTuple(a, b);
             Assert.That(vt.ToString(), Is.EqualTo("(sv)"));
         }
 
@@ -120,7 +120,7 @@ namespace GISharp.Test.GLib
         {
             using var key = VariantType.String;
             using var value = VariantType.Variant;
-            using var vt = VariantType.CreateDictEntry(key, value);
+            using var vt = VariantType.NewDictEntry(key, value);
             Assert.That(vt.ToString(), Is.EqualTo("{sv}"));
         }
 
@@ -128,18 +128,18 @@ namespace GISharp.Test.GLib
         public void TestElement()
         {
             using (var vt = VariantType.Int32) {
-                Assert.That(() => vt.ElementType, Throws.InvalidOperationException);
+                Assert.That(() => vt.Element, Throws.InvalidOperationException);
             }
 
             using (var any = VariantType.Any)
             using (var vt = VariantType.Array)
-            using (var element = vt.ElementType) {
+            using (var element = vt.Element) {
                 Assert.That(element, Is.EqualTo(any));
             }
 
             using (var any = VariantType.Any)
             using (var vt = VariantType.Maybe)
-            using (var element = vt.ElementType) {
+            using (var element = vt.Element) {
                 Assert.That(element, Is.EqualTo(any));
             }
         }
@@ -148,21 +148,21 @@ namespace GISharp.Test.GLib
         public void TestNItems()
         {
             using (var vt = VariantType.Int32) {
-                Assert.That(() => vt.Count, Throws.InvalidOperationException);
+                Assert.That(() => vt.ItemCount, Throws.InvalidOperationException);
             }
 
             using (var vt = VariantType.Tuple) {
-                Assert.That(() => vt.Count, Throws.InvalidOperationException);
+                Assert.That(() => vt.ItemCount, Throws.InvalidOperationException);
             }
 
             using (var vt = VariantType.Unit) {
-                Assert.That(vt.Count, Is.Zero);
+                Assert.That(vt.ItemCount, Is.Zero);
             }
 
             using (var basic = VariantType.Basic)
             using (var any = VariantType.Any)
             using (var vt = VariantType.DictionaryEntry) {
-                Assert.That(vt.Count, Is.EqualTo(2));
+                Assert.That(vt.ItemCount, Is.EqualTo(2));
             }
         }
 

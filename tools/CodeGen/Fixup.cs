@@ -868,7 +868,7 @@ namespace GISharp.CodeGen
 
                 // special base types
                 var name = element.Attribute("name").AsString();
-                if (name == "utf8" || name == "filename") {
+                if (name == "utf8" || name == "filename" || name == "bytestring") {
                     element.SetAttributeValue(gs + "is-pointer", "1");
                     continue;
                 }
@@ -1209,73 +1209,6 @@ namespace GISharp.CodeGen
                 yield return gi + "record";
                 yield return gi + "union";
                 yield return gs + "static-class";
-            }
-        }
-
-        public static IEnumerable<XName> ElementsThatReferenceAType {
-            get {
-                yield return gi + "return-value";
-                yield return gi + "instance-parameter";
-                yield return gi + "parameter";
-                yield return gs + "error-parameter";
-                yield return gi + "field";
-                yield return gi + "constant";
-                yield return gi + "property";
-            }
-        }
-
-        /// <summary>
-        /// Gets a list of basic GLib types that translate to primitives in managed code.
-        /// </summary>
-        /// <value>The list of type names.</value>
-        /// <remarks>
-        /// These are used in the "name" attribute of "type" elements.
-        /// </remarks>
-        static IEnumerable<string> PrimitiveGirTypeNames {
-            get {
-                yield return "gboolean";
-                yield return "gpointer";
-                yield return "gconstpointer";
-                yield return "gchar";
-                yield return "guchar";
-                yield return "gunichar";
-                yield return "gunichar2";
-                yield return "gint";
-                yield return "guint";
-                yield return "gshort";
-                yield return "gushort";
-                yield return "gulong";
-                yield return "glong";
-                yield return "gint8";
-                yield return "guint8";
-                yield return "gint16";
-                yield return "guint16";
-                yield return "gint32";
-                yield return "guint32";
-                yield return "gint64";
-                yield return "guint64";
-                yield return "gfloat";
-                yield return "gdouble";
-                yield return "gsize";
-                yield return "gssize";
-                yield return "gintptr";
-                yield return "guintptr";
-            }
-        }
-
-        /// <summary>
-        /// Gets a list of special type names used in .gir files.
-        /// </summary>
-        /// <value>The list of type names.</value>
-        /// <remarks>
-        /// These are used in the "name" attribute of "type" elements.
-        /// </remarks>
-        static IEnumerable<string> SpecialGirTypeNames {
-            get {
-                yield return "none";
-                yield return "utf8";
-                yield return "filename";
-                yield return "va_list";
             }
         }
 

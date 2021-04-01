@@ -176,7 +176,13 @@ namespace GISharp.CodeGen.Syntax
 
         private static OperatorDeclarationSyntax GetEqualityOperatorDeclaration(this Method method)
         {
-            var parameterType = ParseTypeName(method.ManagedParameters.RegularParameters.Single().Type.GetManagedType());
+            var type = method.ManagedParameters.RegularParameters.Single().Type;
+            var parameterType = ParseTypeName(type.GetManagedType());
+
+            if (!type.IsValueType()) {
+                parameterType = NullableType(parameterType);
+            }
+
             return OperatorDeclaration(ParseTypeName("bool"), Token(EqualsEqualsToken))
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .AddParameterListParameters(
@@ -184,7 +190,7 @@ namespace GISharp.CodeGen.Syntax
                     Parameter(Identifier("b")).WithType(parameterType)
                 )
                 .AddBodyStatements(
-                    ReturnStatement(ParseExpression("a.Equals(b)"))
+                    ReturnStatement(ParseExpression(type.IsValueType() ? "a.Equals(b)" : "a?.Equals(b) ?? b is null"))
                 )
                 .WithLeadingTrivia(ParseLeadingTrivia(@"/// <inheritdoc/>
                 "));
@@ -192,7 +198,13 @@ namespace GISharp.CodeGen.Syntax
 
         private static OperatorDeclarationSyntax GetInequalityOperatorDeclaration(this Method method)
         {
-            var parameterType = ParseTypeName(method.ManagedParameters.RegularParameters.Single().Type.GetManagedType());
+            var type = method.ManagedParameters.RegularParameters.Single().Type;
+            var parameterType = ParseTypeName(type.GetManagedType());
+
+            if (!type.IsValueType()) {
+                parameterType = NullableType(parameterType);
+            }
+
             return OperatorDeclaration(ParseTypeName("System.Boolean"), Token(ExclamationEqualsToken))
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .AddParameterListParameters(
@@ -200,7 +212,7 @@ namespace GISharp.CodeGen.Syntax
                     Parameter(Identifier("b")).WithType(parameterType)
                 )
                 .AddBodyStatements(
-                    ReturnStatement(ParseExpression("!a.Equals(b)"))
+                    ReturnStatement(ParseExpression(type.IsValueType() ? "!a.Equals(b)" : "!(a?.Equals(b) ?? b is null)"))
                 )
                 .WithLeadingTrivia(ParseLeadingTrivia(@"/// <inheritdoc/>
                 "));

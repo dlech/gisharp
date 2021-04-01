@@ -1,8 +1,88 @@
 
 ### Variant ###
 
-# needs special handling
+# constructors with special handling
+- !set-attribute
+  name: gs:custom-default-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']
 - !set-attribute
   name: gs:pinvoke-only
   value: 1
   xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_from_data']
+
+# for unmanaged code only
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[contains(@name,'take') or contains(@name,'sink')]
+
+# methods with special handling
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[contains(@name,'child') or (starts-with(@name,'get_') and not(@name='get_size') and not(@name='get_type_string') and not(@name='get_type')) or starts-with(@name,'dup_') or contains(@name,'floating')]
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='parse' or @name='store']
+
+# custom types
+- !set-attribute
+  name: name
+  value: bytestring
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/*[contains(@name,'bytestring')]/gi:parameters/gi:parameter[@name='string']/gi:array
+- !set-attribute
+  name: name
+  value: bytestring
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[contains(@name,'bytestring') and not(contains(@name,'array'))]/gi:return-value/gi:array
+- !set-attribute
+  name: name
+  value: bytestring
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/*[contains(@name,'bytestring_array')]/gi:parameters/gi:parameter[@name='strv']/gi:array/gi:type
+- !set-attribute
+  name: name
+  value: bytestring
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[contains(@name,'bytestring_array')]/gi:return-value/gi:array/gi:type
+- !set-attribute
+  name: name
+  value: DBusHandle
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/*[contains(@name,'handle')]/gi:parameters/gi:parameter[@name='value']/gi:type
+- !set-attribute
+  name: name
+  value: DBusHandle
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[contains(@name,'handle')]/gi:return-value/gi:type
+- !set-attribute
+  name: name
+  value: DBusObjectPath
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/*[contains(@name,'object_path')]/gi:parameters/gi:parameter[@name='object_path']/gi:type
+- !set-attribute
+  name: name
+  value: DBusObjectPath
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/*[contains(@name,'objv')]/gi:parameters/gi:parameter[@name='strv']/gi:array/gi:type
+- !set-attribute
+  name: name
+  value: DBusObjectPath
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[contains(@name,'objv')]/gi:return-value/gi:array/gi:type
+- !set-attribute
+  name: name
+  value: DBusSignature
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/*/gi:parameters/gi:parameter[@name='signature']/gi:type
+
+# fix zero-terminated
+- !set-attribute
+  name: zero-terminated
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[contains(@name,'bytestring_array')]/gi:return-value/gi:array
+
+# fix property/class name conflict
+- !set-attribute
+  name: name
+  value: get_boxed_variant
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_variant']
+
+# currently no DBusObjectPathArray class
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='dup_objv']

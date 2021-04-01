@@ -1,11 +1,39 @@
 <declaration>
 
-<member name='VariantType.StringLength'>
+<member name='VariantType.Element'>
 <summary>
-Returns the length of the type string corresponding to the given
-this instance.  This function must be used to determine the valid extent of
-the memory region returned by g_variant_type_peek_string().
+Determines the element type of an array or maybe type.
 </summary>
+<remarks>
+<para>
+This function may only be used with array or maybe types.
+</para>
+</remarks>
+</member>
+
+<member name='VariantType.First'>
+<summary>
+Determines the first item type of a tuple or dictionary entry
+type.
+</summary>
+<remarks>
+<para>
+This function may only be used with tuple or dictionary entry types,
+but must not be used with the generic tuple type
+%G_VARIANT_TYPE_TUPLE.
+</para>
+<para>
+In the case of a dictionary entry type, this returns the type of
+the key.
+</para>
+<para>
+<c>null</c> is returned in case of this instance being %G_VARIANT_TYPE_UNIT.
+</para>
+<para>
+This call, together with <see cref="VariantType.Next()"/> provides an iterator
+interface over tuple and dictionary entry types.
+</para>
+</remarks>
 </member>
 
 <member name='VariantType.IsArray'>
@@ -126,11 +154,52 @@ Determines if the given this instance is the variant type.
 </summary>
 </member>
 
+<member name='VariantType.Key'>
+<summary>
+Determines the key type of a dictionary entry type.
+</summary>
+<remarks>
+<para>
+This function may only be used with a dictionary entry type.  Other
+than the additional restriction, this call is equivalent to
+<see cref="VariantType.GetFirst()"/>.
+</para>
+</remarks>
+</member>
+
+<member name='VariantType.ItemCount'>
+<summary>
+Determines the number of items contained in a tuple or
+dictionary entry type.
+</summary>
+<remarks>
+<para>
+This function may only be used with tuple or dictionary entry types,
+but must not be used with the generic tuple type
+<see cref="VariantType.Tuple"/>.
+</para>
+<para>
+In the case of a dictionary entry type, this function will always
+return 2.
+</para>
+</remarks>
+</member>
+
+<member name='VariantType.Value'>
+<summary>
+Determines the value type of a dictionary entry type.
+</summary>
+<remarks>
+<para>
+This function may only be used with a dictionary entry type.
+</para>
+</remarks>
+</member>
+
 <member name='VariantType.VariantType(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Creates a new <see cref="VariantType"/> corresponding to the type string given
-by <paramref name="typeString"/>.  It is appropriate to call <see cref="VariantType.Free()"/> on
-the return value.
+by <paramref name="typeString"/>.
 </summary>
 <remarks>
 <para>
@@ -143,70 +212,58 @@ a valid GVariant type string
 </param>
 </member>
 
-<member name='VariantType.VariantType(GISharp.Lib.GLib.VariantType)'>
+<member name='VariantType.NewArray(GISharp.Lib.GLib.VariantType)'>
 <summary>
 Constructs the type corresponding to an array of elements of the
 type <c>type</c>.
 </summary>
-<remarks>
-<para>
-It is appropriate to call <see cref="VariantType.Free()"/> on the return value.
-</para>
-</remarks>
 <param name="element">
 a <see cref="VariantType"/>
 </param>
+<returns>
+a new array <see cref="VariantType"/>
+</returns>
 </member>
 
-<member name='VariantType.VariantType(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType)'>
+<member name='VariantType.NewDictEntry(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType)'>
 <summary>
 Constructs the type corresponding to a dictionary entry with a key
 of type <paramref name="key"/> and a value of type <paramref name="value"/>.
 </summary>
-<remarks>
-<para>
-It is appropriate to call <see cref="VariantType.Free()"/> on the return value.
-</para>
-</remarks>
 <param name="key">
 a basic <see cref="VariantType"/>
 </param>
 <param name="value">
 a <see cref="VariantType"/>
 </param>
+<returns>
+a new dictionary entry <see cref="VariantType"/>
+</returns>
 </member>
 
-<member name='VariantType.VariantType(GISharp.Lib.GLib.VariantType)'>
+<member name='VariantType.NewMaybe(GISharp.Lib.GLib.VariantType)'>
 <summary>
 Constructs the type corresponding to a maybe instance containing
 type <c>type</c> or Nothing.
 </summary>
-<remarks>
-<para>
-It is appropriate to call <see cref="VariantType.Free()"/> on the return value.
-</para>
-</remarks>
 <param name="element">
 a <see cref="VariantType"/>
 </param>
+<returns>
+a new maybe <see cref="VariantType"/>
+</returns>
 </member>
 
-<member name='VariantType.VariantType(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.VariantType&gt;)'>
+<member name='VariantType.NewTuple(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.VariantType&gt;)'>
 <summary>
 Constructs a new tuple type, from <paramref name="items"/>.
 </summary>
-<remarks>
-<para>
-the length of <paramref name="items"/> is the number of items in <paramref name="items"/>, or -1 to indicate that
-<paramref name="items"/> is <c>null</c>-terminated.
-</para>
-<para>
-It is appropriate to call <see cref="VariantType.Free()"/> on the return value.
-</para>
-</remarks>
 <param name="items">
-an array of #GVariantTypes, one for each item
+an array of <see cref="VariantType"/>s, one for each item
 </param>
+<returns>
+a new tuple <see cref="VariantType"/>
+</returns>
 </member>
 
 <member name='VariantType.Checked(GISharp.Lib.GLib.UnownedUtf8)'>
@@ -226,8 +283,6 @@ a pointer to any string
 </param>
 <returns>
 <c>true</c> if <paramref name="typeString"/> is exactly one valid type string
-
-Since 2.24
 </returns>
 </member>
 
@@ -274,24 +329,6 @@ call g_free() on the return value.
 </summary>
 <returns>
 the corresponding type string
-
-Since 2.24
-</returns>
-</member>
-
-<member name='VariantType.Element()'>
-<summary>
-Determines the element type of an array or maybe type.
-</summary>
-<remarks>
-<para>
-This function may only be used with array or maybe types.
-</para>
-</remarks>
-<returns>
-the element type of this instance
-
-Since 2.24
 </returns>
 </member>
 
@@ -317,38 +354,6 @@ a <see cref="VariantType"/>
 </param>
 <returns>
 <c>true</c> if this instance and <paramref name="type2"/> are exactly equal
-
-Since 2.24
-</returns>
-</member>
-
-<member name='VariantType.First()'>
-<summary>
-Determines the first item type of a tuple or dictionary entry
-type.
-</summary>
-<remarks>
-<para>
-This function may only be used with tuple or dictionary entry types,
-but must not be used with the generic tuple type
-%G_VARIANT_TYPE_TUPLE.
-</para>
-<para>
-In the case of a dictionary entry type, this returns the type of
-the key.
-</para>
-<para>
-<c>null</c> is returned in case of this instance being %G_VARIANT_TYPE_UNIT.
-</para>
-<para>
-This call, together with <see cref="VariantType.Next()"/> provides an iterator
-interface over tuple and dictionary entry types.
-</para>
-</remarks>
-<returns>
-the first item type of this instance, or <c>null</c>
-
-Since 2.24
 </returns>
 </member>
 
@@ -365,8 +370,6 @@ The argument type of this instance is only #gconstpointer to allow use with
 </remarks>
 <returns>
 the hash value
-
-Since 2.24
 </returns>
 </member>
 
@@ -386,49 +389,6 @@ a <see cref="VariantType"/>
 </param>
 <returns>
 <c>true</c> if this instance is a subtype of <paramref name="supertype"/>
-
-Since 2.24
-</returns>
-</member>
-
-<member name='VariantType.Key()'>
-<summary>
-Determines the key type of a dictionary entry type.
-</summary>
-<remarks>
-<para>
-This function may only be used with a dictionary entry type.  Other
-than the additional restriction, this call is equivalent to
-<see cref="VariantType.First()"/>.
-</para>
-</remarks>
-<returns>
-the key type of the dictionary entry
-
-Since 2.24
-</returns>
-</member>
-
-<member name='VariantType.NItems()'>
-<summary>
-Determines the number of items contained in a tuple or
-dictionary entry type.
-</summary>
-<remarks>
-<para>
-This function may only be used with tuple or dictionary entry types,
-but must not be used with the generic tuple type
-%G_VARIANT_TYPE_TUPLE.
-</para>
-<para>
-In the case of a dictionary entry type, this function will always
-return 2.
-</para>
-</remarks>
-<returns>
-the number of items in this instance
-
-Since 2.24
 </returns>
 </member>
 
@@ -440,7 +400,7 @@ type.
 <remarks>
 <para>
 this instance must be the result of a previous call to
-<see cref="VariantType.First()"/> or <see cref="VariantType.Next()"/>.
+<see cref="VariantType.GetFirst()"/> or <see cref="VariantType.Next()"/>.
 </para>
 <para>
 If called on the key type of a dictionary entry then this call
@@ -453,24 +413,6 @@ For tuples, <c>null</c> is returned when this instance is the last item in a tup
 </remarks>
 <returns>
 the next <see cref="VariantType"/> after this instance, or <c>null</c>
-
-Since 2.24
-</returns>
-</member>
-
-<member name='VariantType.Value()'>
-<summary>
-Determines the value type of a dictionary entry type.
-</summary>
-<remarks>
-<para>
-This function may only be used with a dictionary entry type.
-</para>
-</remarks>
-<returns>
-the value type of the dictionary entry
-
-Since 2.24
 </returns>
 </member>
 

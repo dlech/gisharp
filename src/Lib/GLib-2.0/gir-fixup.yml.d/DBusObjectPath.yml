@@ -1,0 +1,10 @@
+
+### DBusObjectPath ###
+
+# create a new alias (this type doesn't actually exist in GLib)
+- !add-element
+  xml: |
+    <gi:alias name='DBusObjectPath' c:type='GI_DBusObjectPath'>
+      <gi:type name="utf8" c:type="char*" />
+    </gi:alias>
+  xpath: gi:repository/gi:namespace

@@ -3,14 +3,14 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <include file="Strv.xmldoc" path="declaration/member[@name='Strv']/*" />
-    public sealed unsafe partial class Strv : GISharp.Lib.GLib.Utf8
+    /// <include file="DBusObjectPath.xmldoc" path="declaration/member[@name='DBusObjectPath']/*" />
+    public sealed unsafe partial class DBusObjectPath : GISharp.Lib.GLib.Utf8
     {
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public Strv(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        public DBusObjectPath(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
     }

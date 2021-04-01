@@ -46,6 +46,11 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Gets the length of the string in bytes or -1 if the length is not known.
+        /// </summary>
+        public int MaybeLength => length;
+
+        /// <summary>
         /// Creates a new <see cref="UnownedUtf8"/>.
         /// </summary>
         /// <param name="handle">
@@ -645,7 +650,7 @@ namespace GISharp.Lib.GLib
     /// <seealso cref="NullableUnownedUtf8"/>
     [GType("gchararray", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay("{Value}")]
-    public sealed unsafe class Utf8 : ByteString, IComparable, IComparable<Utf8>, IComparable<string>, IConvertible, IEquatable<string>
+    public unsafe class Utf8 : ByteString, IComparable, IComparable<Utf8>, IComparable<string>, IConvertible, IEquatable<string>
     {
         /// <summary>
         /// Enumerator for iterating the bytes of a <see cref="Utf8"/> string.
@@ -782,7 +787,7 @@ namespace GISharp.Lib.GLib
         /// <paramref name="value"/> is converted from UTF-16 to UTF-8 and stored
         /// in unmanaged memory.
         /// </remarks>
-        public Utf8(UnownedUtf8 value) : this(value.UnsafeHandle, Transfer.None)
+        public Utf8(UnownedUtf8 value) : this(value.UnsafeHandle, value.MaybeLength, Transfer.None)
         {
         }
 
@@ -821,26 +826,25 @@ namespace GISharp.Lib.GLib
         /// <paramref name="value"/> is converted from UTF-16 to UTF-8 and stored
         /// in unmanaged memory.
         /// </remarks>
-        public Utf8(string value) : this((IntPtr)New(value), Transfer.Full)
+        public Utf8(string value) : this((IntPtr)New(value), -1, Transfer.Full)
         {
         }
 
         /// <summary>
-        /// Creates a new <see cref="Utf8"/> string.
+        /// For internal runtime use only.
         /// </summary>
-        /// <param name="handle">
-        /// Pointer to the UTF-8 string in unmanaged memory.
-        /// </param>
-        /// <param name="ownership">
-        /// Indicates if we own <paramref name="handle"/> or not.
-        /// </param>
-        /// <remarks>
-        /// If <paramref name="handle"/> is unowned, a copy of the string is
-        /// made.
-        /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Utf8(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public Utf8(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
         {
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Utf8(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
+        {
+            // TODO: save length
             _Value = new(GetValue);
         }
 

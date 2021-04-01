@@ -1,1 +1,119 @@
-// implemented in Core
+<declaration>
+
+<member name='VariantClass.Boolean'>
+<summary>
+The <see cref="Variant"/> is a boolean.
+</summary>
+</member>
+
+<member name='VariantClass.Byte'>
+<summary>
+The <see cref="Variant"/> is a byte.
+</summary>
+</member>
+
+<member name='VariantClass.Int16'>
+<summary>
+The <see cref="Variant"/> is a signed 16 bit integer.
+</summary>
+</member>
+
+<member name='VariantClass.Uint16'>
+<summary>
+The <see cref="Variant"/> is an unsigned 16 bit integer.
+</summary>
+</member>
+
+<member name='VariantClass.Int32'>
+<summary>
+The <see cref="Variant"/> is a signed 32 bit integer.
+</summary>
+</member>
+
+<member name='VariantClass.Uint32'>
+<summary>
+The <see cref="Variant"/> is an unsigned 32 bit integer.
+</summary>
+</member>
+
+<member name='VariantClass.Int64'>
+<summary>
+The <see cref="Variant"/> is a signed 64 bit integer.
+</summary>
+</member>
+
+<member name='VariantClass.Uint64'>
+<summary>
+The <see cref="Variant"/> is an unsigned 64 bit integer.
+</summary>
+</member>
+
+<member name='VariantClass.Handle'>
+<summary>
+The <see cref="Variant"/> is a file handle index.
+</summary>
+</member>
+
+<member name='VariantClass.Double'>
+<summary>
+The <see cref="Variant"/> is a double precision floating
+                         point value.
+</summary>
+</member>
+
+<member name='VariantClass.String'>
+<summary>
+The <see cref="Variant"/> is a normal string.
+</summary>
+</member>
+
+<member name='VariantClass.ObjectPath'>
+<summary>
+The <see cref="Variant"/> is a D-Bus object path
+                              string.
+</summary>
+</member>
+
+<member name='VariantClass.Signature'>
+<summary>
+The <see cref="Variant"/> is a D-Bus signature string.
+</summary>
+</member>
+
+<member name='VariantClass.Variant'>
+<summary>
+The <see cref="Variant"/> is a variant.
+</summary>
+</member>
+
+<member name='VariantClass.Maybe'>
+<summary>
+The <see cref="Variant"/> is a maybe-typed value.
+</summary>
+</member>
+
+<member name='VariantClass.Array'>
+<summary>
+The <see cref="Variant"/> is an array.
+</summary>
+</member>
+
+<member name='VariantClass.Tuple'>
+<summary>
+The <see cref="Variant"/> is a tuple.
+</summary>
+</member>
+
+<member name='VariantClass.DictEntry'>
+<summary>
+The <see cref="Variant"/> is a dictionary entry.
+</summary>
+</member>
+
+<member name='VariantClass'>
+<summary>
+The range of possible top-level types of <see cref="Variant"/> instances.
+</summary>
+</member>
+
+</declaration>

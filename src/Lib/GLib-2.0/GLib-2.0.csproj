@@ -12,9 +12,5 @@
     <Compile Remove="Quark.Generated.cs" />
     <Compile Remove="SourceDummyMarshal.Generated.cs" />
     <Compile Remove="Strv.Generated.cs" />
-    <Compile Remove="Variant.Generated.cs" />
-    <Compile Remove="VariantClass.Generated.cs" />
-    <Compile Remove="VariantParseError.Generated.cs" />
-    <Compile Remove="VariantType.Generated.cs" />
   </ItemGroup>
 </Project>

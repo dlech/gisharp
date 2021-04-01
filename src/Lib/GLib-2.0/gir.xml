@@ -16779,7 +16779,7 @@ See [Unicode Character Database](http://www.unicode.org/reports/tr44/#General_Ca
         <doc xml:space="preserve" filename="gunicode.h" line="110">General category "Separator, Space" (Zs)</doc>
       </member>
     </enumeration>
-    <glib:boxed name="Variant" c:type="GVariant" version="2.24" glib:type-name="GVariant" glib:get-type="intern" c:symbol-prefix="variant" gs:managed-name="Variant">
+    <glib:boxed name="Variant" c:type="GVariant" version="2.24" glib:type-name="GVariant" glib:get-type="intern" c:symbol-prefix="variant" gs:custom-default-constructor="1" gs:managed-name="Variant">
       <doc xml:space="preserve" filename="glib-2.0.c" line="6349">#GVariant is a variant datatype; it can contain one or more values
 along with information about the type of the values.
 
@@ -17131,7 +17131,7 @@ the array.</doc>
           <parameter name="string" transfer-ownership="none" gs:managed-name="@string" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="39957">a normal
          nul-terminated string in no particular encoding</doc>
-            <array c:type="const gchar*" zero-terminated="1" gs:is-pointer="1">
+            <array c:type="const gchar*" name="bytestring" zero-terminated="1" gs:is-pointer="1">
               <type name="guint8" />
             </array>
           </parameter>
@@ -17140,7 +17140,7 @@ the array.</doc>
           <parameter name="string" transfer-ownership="none" gs:managed-name="@string" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="39957">a normal
          nul-terminated string in no particular encoding</doc>
-            <array c:type="const gchar*" zero-terminated="1" gs:is-pointer="1">
+            <array c:type="const gchar*" name="bytestring" zero-terminated="1" gs:is-pointer="1">
               <type name="guint8" />
             </array>
           </parameter>
@@ -17160,7 +17160,7 @@ If @length is -1 then @strv is %NULL-terminated.</doc>
           <parameter name="strv" transfer-ownership="none" gs:managed-name="strv" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="39974">an array of strings</doc>
             <array length="1" zero-terminated="0" c:type="const gchar* const*" gs:is-pointer="1">
-              <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
+              <type name="bytestring" c:type="gchar*" gs:is-pointer="1" />
             </array>
           </parameter>
           <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
@@ -17172,7 +17172,7 @@ If @length is -1 then @strv is %NULL-terminated.</doc>
           <parameter name="strv" transfer-ownership="none" gs:managed-name="strv" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="39974">an array of strings</doc>
             <array length="1" zero-terminated="0" c:type="const gchar* const*" gs:is-pointer="1">
-              <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
+              <type name="bytestring" c:type="gchar*" gs:is-pointer="1" />
             </array>
           </parameter>
         </gs:managed-parameters>
@@ -17431,13 +17431,13 @@ with D-Bus, you probably don't need them.</doc>
         <parameters>
           <parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="40107">a #gint32 value</doc>
-            <type name="gint32" c:type="gint32" />
+            <type name="DBusHandle" c:type="gint32" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="40107">a #gint32 value</doc>
-            <type name="gint32" c:type="gint32" />
+            <type name="DBusHandle" c:type="gint32" />
           </parameter>
         </gs:managed-parameters>
       </constructor>
@@ -17550,13 +17550,13 @@ g_variant_is_object_path() if you're not sure.</doc>
         <parameters>
           <parameter name="object_path" transfer-ownership="none" gs:managed-name="objectPath" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="40176">a normal C nul-terminated string</doc>
-            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+            <type name="DBusObjectPath" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="object_path" transfer-ownership="none" gs:managed-name="objectPath" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="40176">a normal C nul-terminated string</doc>
-            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+            <type name="DBusObjectPath" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
       </constructor>
@@ -17577,7 +17577,7 @@ If @length is -1 then @strv is %NULL-terminated.</doc>
           <parameter name="strv" transfer-ownership="none" gs:managed-name="strv" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="40189">an array of strings</doc>
             <array length="1" zero-terminated="0" c:type="const gchar* const*" gs:is-pointer="1">
-              <type name="utf8" gs:is-pointer="1" />
+              <type name="DBusObjectPath" />
             </array>
           </parameter>
           <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
@@ -17589,7 +17589,7 @@ If @length is -1 then @strv is %NULL-terminated.</doc>
           <parameter name="strv" transfer-ownership="none" gs:managed-name="strv" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="40189">an array of strings</doc>
             <array length="1" zero-terminated="0" c:type="const gchar* const*" gs:is-pointer="1">
-              <type name="utf8" gs:is-pointer="1" />
+              <type name="DBusObjectPath" />
             </array>
           </parameter>
         </gs:managed-parameters>
@@ -17606,13 +17606,13 @@ g_variant_is_signature() if you're not sure.</doc>
         <parameters>
           <parameter name="signature" transfer-ownership="none" gs:managed-name="signature" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="40297">a normal C nul-terminated string</doc>
-            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+            <type name="DBusSignature" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="signature" transfer-ownership="none" gs:managed-name="signature" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="40297">a normal C nul-terminated string</doc>
-            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+            <type name="DBusSignature" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
       </constructor>
@@ -17923,7 +17923,7 @@ general.</doc>
           </parameter>
         </gs:managed-parameters>
       </function>
-      <method name="dup_bytestring" c:identifier="g_variant_dup_bytestring" version="2.26" gs:dll-name="glib-2.0" gs:managed-name="DupBytestring">
+      <method name="dup_bytestring" c:identifier="g_variant_dup_bytestring" version="2.26" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="DupBytestring">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38730">Similar to g_variant_get_bytestring() except that instead of
 returning a constant string, the string is duplicated.
 
@@ -17932,7 +17932,7 @@ The return value must be freed using g_free().</doc>
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="38741">
          a newly allocated string</doc>
-          <array length="0" zero-terminated="1" c:type="gchar*" gs:is-pointer="1">
+          <array length="0" zero-terminated="1" c:type="gchar*" name="bytestring" gs:is-pointer="1">
             <type name="guint8" />
           </array>
         </return-value>
@@ -17949,7 +17949,7 @@ The return value must be freed using g_free().</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="dup_bytestring_array" c:identifier="g_variant_dup_bytestring_array" version="2.26" gs:dll-name="glib-2.0" gs:managed-name="DupBytestringArray">
+      <method name="dup_bytestring_array" c:identifier="g_variant_dup_bytestring_array" version="2.26" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="DupBytestringArray">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38747">Gets the contents of an array of array of bytes #GVariant.  This call
 makes a deep copy; the return result should be released with
 g_strfreev().
@@ -17963,8 +17963,8 @@ For an empty array, @length will be set to 0 and a pointer to a
         <source-position filename="gvariant.h" line="182" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="38763">an array of strings</doc>
-          <array length="0" zero-terminated="0" c:type="gchar**" gs:is-pointer="1">
-            <type name="utf8" gs:is-pointer="1" />
+          <array length="0" zero-terminated="1" c:type="gchar**" gs:is-pointer="1">
+            <type name="bytestring" gs:is-pointer="1" />
           </array>
         </return-value>
         <parameters>
@@ -17979,7 +17979,7 @@ For an empty array, @length will be set to 0 and a pointer to a
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="dup_objv" c:identifier="g_variant_dup_objv" version="2.30" gs:dll-name="glib-2.0" gs:managed-name="DupObjv">
+      <method name="dup_objv" c:identifier="g_variant_dup_objv" version="2.30" gs:access-modifiers="private" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="DupObjv">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38768">Gets the contents of an array of object paths #GVariant.  This call
 makes a deep copy; the return result should be released with
 g_strfreev().
@@ -17994,7 +17994,7 @@ For an empty array, @length will be set to 0 and a pointer to a
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="38784">an array of strings</doc>
           <array length="0" zero-terminated="1" c:type="gchar**" gs:is-pointer="1">
-            <type name="utf8" gs:is-pointer="1" />
+            <type name="DBusObjectPath" />
           </array>
         </return-value>
         <parameters>
@@ -18009,7 +18009,7 @@ For an empty array, @length will be set to 0 and a pointer to a
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="dup_string" c:identifier="g_variant_dup_string" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="DupString">
+      <method name="dup_string" c:identifier="g_variant_dup_string" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="DupString">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38789">Similar to g_variant_get_string() except that instead of returning
 a constant string, the string is duplicated.
 
@@ -18038,7 +18038,7 @@ The return value must be freed using g_free().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="dup_strv" c:identifier="g_variant_dup_strv" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="DupStrv">
+      <method name="dup_strv" c:identifier="g_variant_dup_strv" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="DupStrv">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38806">Gets the contents of an array of strings #GVariant.  This call
 makes a deep copy; the return result should be released with
 g_strfreev().
@@ -18095,7 +18095,7 @@ this function with #GHashTable.  They must each be a #GVariant.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <gs:managed-property name="get_boolean" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Boolean">
+      <gs:managed-property name="get_boolean" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Boolean">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38869">Returns the boolean value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18113,7 +18113,7 @@ other than %G_VARIANT_TYPE_BOOLEAN.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_boolean" c:identifier="g_variant_get_boolean" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetBoolean" gs:property-getter-for="Boolean" gs:access-modifiers="private">
+      <method name="get_boolean" c:identifier="g_variant_get_boolean" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetBoolean" gs:property-getter-for="Boolean">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38869">Returns the boolean value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18131,7 +18131,7 @@ other than %G_VARIANT_TYPE_BOOLEAN.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_byte" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Byte">
+      <gs:managed-property name="get_byte" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Byte">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38883">Returns the byte value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18149,7 +18149,7 @@ other than %G_VARIANT_TYPE_BYTE.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_byte" c:identifier="g_variant_get_byte" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetByte" gs:property-getter-for="Byte" gs:access-modifiers="private">
+      <method name="get_byte" c:identifier="g_variant_get_byte" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetByte" gs:property-getter-for="Byte">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38883">Returns the byte value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18167,7 +18167,7 @@ other than %G_VARIANT_TYPE_BYTE.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_bytestring" version="2.26" gs:dll-name="glib-2.0" gs:managed-name="Bytestring">
+      <gs:managed-property name="get_bytestring" version="2.26" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Bytestring">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38897">Returns the string value of a #GVariant instance with an
 array-of-bytes type.  The string has no particular encoding.
 
@@ -18190,7 +18190,7 @@ The return value remains valid as long as @value exists.</doc>
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="38920">
          the constant string</doc>
-          <array c:type="const gchar*" zero-terminated="1" gs:is-pointer="1">
+          <array c:type="const gchar*" name="bytestring" zero-terminated="1" gs:is-pointer="1">
             <type name="guint8" />
           </array>
         </return-value>
@@ -18202,7 +18202,7 @@ The return value remains valid as long as @value exists.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_bytestring" c:identifier="g_variant_get_bytestring" version="2.26" gs:dll-name="glib-2.0" gs:managed-name="GetBytestring" gs:property-getter-for="Bytestring" gs:access-modifiers="private">
+      <method name="get_bytestring" c:identifier="g_variant_get_bytestring" version="2.26" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetBytestring" gs:property-getter-for="Bytestring">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38897">Returns the string value of a #GVariant instance with an
 array-of-bytes type.  The string has no particular encoding.
 
@@ -18225,7 +18225,7 @@ The return value remains valid as long as @value exists.</doc>
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="38920">
          the constant string</doc>
-          <array c:type="const gchar*" zero-terminated="1" gs:is-pointer="1">
+          <array c:type="const gchar*" name="bytestring" zero-terminated="1" gs:is-pointer="1">
             <type name="guint8" />
           </array>
         </return-value>
@@ -18237,7 +18237,7 @@ The return value remains valid as long as @value exists.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_bytestring_array" version="2.26" gs:dll-name="glib-2.0" gs:managed-name="BytestringArray">
+      <gs:managed-property name="get_bytestring_array" version="2.26" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="BytestringArray">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38926">Gets the contents of an array of array of bytes #GVariant.  This call
 makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
@@ -18251,8 +18251,8 @@ For an empty array, @length will be set to 0 and a pointer to a
         <source-position filename="gvariant.h" line="179" />
         <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="38942">an array of constant strings</doc>
-          <array length="0" zero-terminated="0" c:type="const gchar**" gs:is-pointer="1">
-            <type name="utf8" gs:is-pointer="1" />
+          <array length="0" zero-terminated="1" c:type="const gchar**" gs:is-pointer="1">
+            <type name="bytestring" gs:is-pointer="1" />
           </array>
         </return-value>
         <parameters>
@@ -18267,7 +18267,7 @@ For an empty array, @length will be set to 0 and a pointer to a
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_bytestring_array" c:identifier="g_variant_get_bytestring_array" version="2.26" gs:dll-name="glib-2.0" gs:managed-name="GetBytestringArray" gs:property-getter-for="BytestringArray" gs:access-modifiers="private">
+      <method name="get_bytestring_array" c:identifier="g_variant_get_bytestring_array" version="2.26" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetBytestringArray" gs:property-getter-for="BytestringArray">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38926">Gets the contents of an array of array of bytes #GVariant.  This call
 makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
@@ -18281,8 +18281,8 @@ For an empty array, @length will be set to 0 and a pointer to a
         <source-position filename="gvariant.h" line="179" />
         <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="38942">an array of constant strings</doc>
-          <array length="0" zero-terminated="0" c:type="const gchar**" gs:is-pointer="1">
-            <type name="utf8" gs:is-pointer="1" />
+          <array length="0" zero-terminated="1" c:type="const gchar**" gs:is-pointer="1">
+            <type name="bytestring" gs:is-pointer="1" />
           </array>
         </return-value>
         <parameters>
@@ -18297,7 +18297,7 @@ For an empty array, @length will be set to 0 and a pointer to a
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="get_child_value" c:identifier="g_variant_get_child_value" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetChildValue">
+      <method name="get_child_value" c:identifier="g_variant_get_child_value" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetChildValue">
         <doc xml:space="preserve" filename="glib-2.0.c" line="38968">Reads a child item out of a container #GVariant instance.  This
 includes variants, maybes, arrays, tuples and dictionary
 entries.  It is an error to call this function on any other type of
@@ -18343,7 +18343,7 @@ This function is O(1).</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <gs:managed-property name="get_data" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Data">
+      <gs:managed-property name="get_data" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Data">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39002">Returns a pointer to the serialised form of a #GVariant instance.
 The returned data may not be in fully-normalised form if read from an
 untrusted source.  The returned data must not be freed; it remains
@@ -18382,7 +18382,7 @@ serialised data).</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_data" c:identifier="g_variant_get_data" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetData" gs:property-getter-for="Data" gs:access-modifiers="private">
+      <method name="get_data" c:identifier="g_variant_get_data" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetData" gs:property-getter-for="Data">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39002">Returns a pointer to the serialised form of a #GVariant instance.
 The returned data may not be in fully-normalised form if read from an
 untrusted source.  The returned data must not be freed; it remains
@@ -18421,7 +18421,7 @@ serialised data).</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_data_as_bytes" version="2.36" gs:dll-name="glib-2.0" gs:managed-name="DataAsBytes">
+      <gs:managed-property name="get_data_as_bytes" version="2.36" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="DataAsBytes">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39037">Returns a pointer to the serialised form of a #GVariant instance.
 The semantics of this function are exactly the same as
 g_variant_get_data(), except that the returned #GBytes holds
@@ -18439,7 +18439,7 @@ a reference to the variant data.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_data_as_bytes" c:identifier="g_variant_get_data_as_bytes" version="2.36" gs:dll-name="glib-2.0" gs:managed-name="GetDataAsBytes" gs:property-getter-for="DataAsBytes" gs:access-modifiers="private">
+      <method name="get_data_as_bytes" c:identifier="g_variant_get_data_as_bytes" version="2.36" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetDataAsBytes" gs:property-getter-for="DataAsBytes">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39037">Returns a pointer to the serialised form of a #GVariant instance.
 The semantics of this function are exactly the same as
 g_variant_get_data(), except that the returned #GBytes holds
@@ -18457,7 +18457,7 @@ a reference to the variant data.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_double" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Double">
+      <gs:managed-property name="get_double" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Double">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39051">Returns the double precision floating point value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18475,7 +18475,7 @@ other than %G_VARIANT_TYPE_DOUBLE.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_double" c:identifier="g_variant_get_double" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetDouble" gs:property-getter-for="Double" gs:access-modifiers="private">
+      <method name="get_double" c:identifier="g_variant_get_double" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetDouble" gs:property-getter-for="Double">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39051">Returns the double precision floating point value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18493,7 +18493,7 @@ other than %G_VARIANT_TYPE_DOUBLE.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_handle" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Handle">
+      <gs:managed-property name="get_handle" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Handle">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39104">Returns the 32-bit signed integer value of @value.
 
 It is an error to call this function with a @value of any type other
@@ -18505,7 +18505,7 @@ with D-Bus, you probably don't need them.</doc>
         <source-position filename="gvariant.h" line="150" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="39117">a #gint32</doc>
-          <type name="gint32" c:type="gint32" />
+          <type name="DBusHandle" c:type="gint32" />
         </return-value>
         <parameters>
           <instance-parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
@@ -18515,7 +18515,7 @@ with D-Bus, you probably don't need them.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_handle" c:identifier="g_variant_get_handle" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetHandle" gs:property-getter-for="Handle" gs:access-modifiers="private">
+      <method name="get_handle" c:identifier="g_variant_get_handle" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetHandle" gs:property-getter-for="Handle">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39104">Returns the 32-bit signed integer value of @value.
 
 It is an error to call this function with a @value of any type other
@@ -18527,7 +18527,7 @@ with D-Bus, you probably don't need them.</doc>
         <source-position filename="gvariant.h" line="150" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="39117">a #gint32</doc>
-          <type name="gint32" c:type="gint32" />
+          <type name="DBusHandle" c:type="gint32" />
         </return-value>
         <parameters>
           <instance-parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
@@ -18537,7 +18537,7 @@ with D-Bus, you probably don't need them.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_int16" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Int16">
+      <gs:managed-property name="get_int16" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Int16">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39122">Returns the 16-bit signed integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18555,7 +18555,7 @@ other than %G_VARIANT_TYPE_INT16.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_int16" c:identifier="g_variant_get_int16" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetInt16" gs:property-getter-for="Int16" gs:access-modifiers="private">
+      <method name="get_int16" c:identifier="g_variant_get_int16" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetInt16" gs:property-getter-for="Int16">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39122">Returns the 16-bit signed integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18573,7 +18573,7 @@ other than %G_VARIANT_TYPE_INT16.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_int32" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Int32">
+      <gs:managed-property name="get_int32" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Int32">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39136">Returns the 32-bit signed integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18591,7 +18591,7 @@ other than %G_VARIANT_TYPE_INT32.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_int32" c:identifier="g_variant_get_int32" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetInt32" gs:property-getter-for="Int32" gs:access-modifiers="private">
+      <method name="get_int32" c:identifier="g_variant_get_int32" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetInt32" gs:property-getter-for="Int32">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39136">Returns the 32-bit signed integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18609,7 +18609,7 @@ other than %G_VARIANT_TYPE_INT32.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_int64" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Int64">
+      <gs:managed-property name="get_int64" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Int64">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39150">Returns the 64-bit signed integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18627,7 +18627,7 @@ other than %G_VARIANT_TYPE_INT64.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_int64" c:identifier="g_variant_get_int64" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetInt64" gs:property-getter-for="Int64" gs:access-modifiers="private">
+      <method name="get_int64" c:identifier="g_variant_get_int64" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetInt64" gs:property-getter-for="Int64">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39150">Returns the 64-bit signed integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -18645,7 +18645,7 @@ other than %G_VARIANT_TYPE_INT64.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_maybe" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Maybe">
+      <gs:managed-property name="get_maybe" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Maybe">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39164">Given a maybe-typed #GVariant instance, extract its value.  If the
 value is Nothing, then this function returns %NULL.</doc>
         <source-position filename="gvariant.h" line="200" />
@@ -18661,7 +18661,7 @@ value is Nothing, then this function returns %NULL.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_maybe" c:identifier="g_variant_get_maybe" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetMaybe" gs:property-getter-for="Maybe" gs:access-modifiers="private">
+      <method name="get_maybe" c:identifier="g_variant_get_maybe" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetMaybe" gs:property-getter-for="Maybe">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39164">Given a maybe-typed #GVariant instance, extract its value.  If the
 value is Nothing, then this function returns %NULL.</doc>
         <source-position filename="gvariant.h" line="200" />
@@ -18677,7 +18677,7 @@ value is Nothing, then this function returns %NULL.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_normal_form" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="NormalForm">
+      <gs:managed-property name="get_normal_form" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="NormalForm">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39176">Gets a #GVariant instance that has the same value as @value and is
 trusted to be in normal form.
 
@@ -18714,7 +18714,7 @@ reference to it.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_normal_form" c:identifier="g_variant_get_normal_form" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetNormalForm" gs:property-getter-for="NormalForm" gs:access-modifiers="private">
+      <method name="get_normal_form" c:identifier="g_variant_get_normal_form" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetNormalForm" gs:property-getter-for="NormalForm">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39176">Gets a #GVariant instance that has the same value as @value and is
 trusted to be in normal form.
 
@@ -18751,7 +18751,7 @@ reference to it.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_objv" version="2.30" gs:dll-name="glib-2.0" gs:managed-name="Objv">
+      <gs:managed-property name="get_objv" version="2.30" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Objv">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39209">Gets the contents of an array of object paths #GVariant.  This call
 makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
@@ -18766,7 +18766,7 @@ For an empty array, @length will be set to 0 and a pointer to a
         <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="39225">an array of constant strings</doc>
           <array length="0" zero-terminated="1" c:type="const gchar**" gs:is-pointer="1">
-            <type name="utf8" gs:is-pointer="1" />
+            <type name="DBusObjectPath" />
           </array>
         </return-value>
         <parameters>
@@ -18781,7 +18781,7 @@ For an empty array, @length will be set to 0 and a pointer to a
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_objv" c:identifier="g_variant_get_objv" version="2.30" gs:dll-name="glib-2.0" gs:managed-name="GetObjv" gs:property-getter-for="Objv" gs:access-modifiers="private">
+      <method name="get_objv" c:identifier="g_variant_get_objv" version="2.30" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetObjv" gs:property-getter-for="Objv">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39209">Gets the contents of an array of object paths #GVariant.  This call
 makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
@@ -18796,7 +18796,7 @@ For an empty array, @length will be set to 0 and a pointer to a
         <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
           <doc xml:space="preserve" filename="glib-2.0.c" line="39225">an array of constant strings</doc>
           <array length="0" zero-terminated="1" c:type="const gchar**" gs:is-pointer="1">
-            <type name="utf8" gs:is-pointer="1" />
+            <type name="DBusObjectPath" />
           </array>
         </return-value>
         <parameters>
@@ -18861,7 +18861,7 @@ involved.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="get_string" c:identifier="g_variant_get_string" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetString">
+      <method name="get_string" c:identifier="g_variant_get_string" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetString">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39251">Returns the string value of a #GVariant instance with a string
 type.  This includes the types %G_VARIANT_TYPE_STRING,
 %G_VARIANT_TYPE_OBJECT_PATH and %G_VARIANT_TYPE_SIGNATURE.
@@ -18904,7 +18904,7 @@ The return value remains valid as long as @value exists.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <gs:managed-property name="get_strv" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Strv">
+      <gs:managed-property name="get_strv" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Strv">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39281">Gets the contents of an array of strings #GVariant.  This call
 makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
@@ -18934,7 +18934,7 @@ For an empty array, @length will be set to 0 and a pointer to a
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_strv" c:identifier="g_variant_get_strv" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetStrv" gs:property-getter-for="Strv" gs:access-modifiers="private">
+      <method name="get_strv" c:identifier="g_variant_get_strv" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetStrv" gs:property-getter-for="Strv">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39281">Gets the contents of an array of strings #GVariant.  This call
 makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
@@ -19034,7 +19034,7 @@ string belongs to #GVariant and must not be freed.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_uint16" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Uint16">
+      <gs:managed-property name="get_uint16" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Uint16">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39329">Returns the 16-bit unsigned integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -19052,7 +19052,7 @@ other than %G_VARIANT_TYPE_UINT16.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_uint16" c:identifier="g_variant_get_uint16" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetUint16" gs:property-getter-for="Uint16" gs:access-modifiers="private">
+      <method name="get_uint16" c:identifier="g_variant_get_uint16" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetUint16" gs:property-getter-for="Uint16">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39329">Returns the 16-bit unsigned integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -19070,7 +19070,7 @@ other than %G_VARIANT_TYPE_UINT16.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_uint32" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Uint32">
+      <gs:managed-property name="get_uint32" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Uint32">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39343">Returns the 32-bit unsigned integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -19088,7 +19088,7 @@ other than %G_VARIANT_TYPE_UINT32.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_uint32" c:identifier="g_variant_get_uint32" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetUint32" gs:property-getter-for="Uint32" gs:access-modifiers="private">
+      <method name="get_uint32" c:identifier="g_variant_get_uint32" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetUint32" gs:property-getter-for="Uint32">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39343">Returns the 32-bit unsigned integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -19106,7 +19106,7 @@ other than %G_VARIANT_TYPE_UINT32.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_uint64" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Uint64">
+      <gs:managed-property name="get_uint64" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="Uint64">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39357">Returns the 64-bit unsigned integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -19124,7 +19124,7 @@ other than %G_VARIANT_TYPE_UINT64.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_uint64" c:identifier="g_variant_get_uint64" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetUint64" gs:property-getter-for="Uint64" gs:access-modifiers="private">
+      <method name="get_uint64" c:identifier="g_variant_get_uint64" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetUint64" gs:property-getter-for="Uint64">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39357">Returns the 64-bit unsigned integer value of @value.
 
 It is an error to call this function with a @value of any type
@@ -19142,7 +19142,7 @@ other than %G_VARIANT_TYPE_UINT64.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_variant" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Variant">
+      <gs:managed-property name="get_boxed_variant" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="BoxedVariant">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39408">Unboxes @value.  The result is the #GVariant instance that was
 contained in @value.</doc>
         <source-position filename="gvariant.h" line="154" />
@@ -19158,7 +19158,7 @@ contained in @value.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="get_variant" c:identifier="g_variant_get_variant" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="GetVariant" gs:property-getter-for="Variant" gs:access-modifiers="private">
+      <method name="get_boxed_variant" c:identifier="g_variant_get_variant" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetBoxedVariant" gs:property-getter-for="BoxedVariant">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39408">Unboxes @value.  The result is the #GVariant instance that was
 contained in @value.</doc>
         <source-position filename="gvariant.h" line="154" />
@@ -19227,7 +19227,7 @@ function with #GHashTable.  @value must be a #GVariant.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="is_floating" version="2.26" gs:dll-name="glib-2.0" gs:managed-name="IsFloating">
+      <gs:managed-property name="is_floating" version="2.26" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="IsFloating">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39450">Checks whether @value has a floating reference count.
 
 This function should only ever be used to assert that a given variant
@@ -19250,7 +19250,7 @@ counts.</doc>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
-      <method name="is_floating" c:identifier="g_variant_is_floating" version="2.26" gs:dll-name="glib-2.0" gs:managed-name="GetIsFloating" gs:property-getter-for="IsFloating" gs:access-modifiers="private">
+      <method name="is_floating" c:identifier="g_variant_is_floating" version="2.26" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="GetIsFloating" gs:property-getter-for="IsFloating">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39450">Checks whether @value has a floating reference count.
 
 This function should only ever be used to assert that a given variant
@@ -19403,7 +19403,7 @@ plan to do many lookups then #GVariantDict may be more efficient.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="n_children" c:identifier="g_variant_n_children" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="NChildren">
+      <method name="n_children" c:identifier="g_variant_n_children" version="2.24" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="NChildren">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39845">Determines the number of children in a container #GVariant instance.
 This includes variants, maybes, arrays, tuples and dictionary
 entries.  It is an error to call this function on any other type of
@@ -19474,7 +19474,7 @@ the output.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="ref_sink" c:identifier="g_variant_ref_sink" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="RefSink">
+      <method name="ref_sink" c:identifier="g_variant_ref_sink" version="2.24" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RefSink">
         <doc xml:space="preserve" filename="glib-2.0.c" line="40619">#GVariant uses a floating reference count system.  All functions with
 names starting with `g_variant_new_` return floating
 references.
@@ -19510,7 +19510,7 @@ are not floating.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="store" c:identifier="g_variant_store" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="Store">
+      <method name="store" c:identifier="g_variant_store" version="2.24" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Store">
         <doc xml:space="preserve" filename="glib-2.0.c" line="40651">Stores the serialised form of @value at @data.  @data should be
 large enough.  See g_variant_get_size().
 
@@ -19544,7 +19544,7 @@ This function is approximately O(n) in the size of @data.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="take_ref" c:identifier="g_variant_take_ref" gs:dll-name="glib-2.0" gs:managed-name="TakeRef">
+      <method name="take_ref" c:identifier="g_variant_take_ref" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="TakeRef">
         <doc xml:space="preserve" filename="glib-2.0.c" line="40673">If @value is floating, sink it.  Otherwise, do nothing.
 
 Typically you want to use g_variant_ref_sink() in order to
@@ -19738,69 +19738,6 @@ guaranteed to handle nesting up to at least 64 levels.</doc>
             <type name="utf8" c:type="const gchar**" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
-      </function>
-      <function name="parse_error_print_context" c:identifier="g_variant_parse_error_print_context" version="2.40" gs:dll-name="glib-2.0" gs:managed-name="ParseErrorPrintContext">
-        <doc xml:space="preserve" filename="glib-2.0.c" line="40524">Pretty-prints a message showing the context of a #GVariant parse
-error within the string for which parsing was attempted.
-
-The resulting string is suitable for output to the console or other
-monospace media where newlines are treated in the usual way.
-
-The message will typically look something like one of the following:
-
-|[
-unterminated string constant:
-  (1, 2, 3, 'abc
-            ^^^^
-]|
-
-or
-
-|[
-unable to find a common type:
-  [1, 2, 3, 'str']
-   ^        ^^^^^
-]|
-
-The format of the message may change in a future version.
-
-@error must have come from a failed attempt to g_variant_parse() and
-@source_str must be exactly the same string that caused the error.
-If @source_str was not nul-terminated when you passed it to
-g_variant_parse() then you must add nul termination before using this
-function.</doc>
-        <source-position filename="gvariant.h" line="430" />
-        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="glib-2.0.c" line="40559">the printed message</doc>
-          <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
-        </return-value>
-        <parameters>
-          <parameter name="error" transfer-ownership="none" gs:managed-name="error" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="40526">a #GError from the #GVariantParseError domain</doc>
-            <type name="Error" c:type="GError*" gs:is-pointer="1" />
-          </parameter>
-          <parameter name="source_str" transfer-ownership="none" gs:managed-name="sourceStr" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="40527">the string that was given to the parser</doc>
-            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
-          </parameter>
-        </parameters>
-        <gs:managed-parameters>
-          <parameter name="error" transfer-ownership="none" gs:managed-name="error" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="40526">a #GError from the #GVariantParseError domain</doc>
-            <type name="Error" c:type="GError*" gs:is-pointer="1" />
-          </parameter>
-          <parameter name="source_str" transfer-ownership="none" gs:managed-name="sourceStr" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="40527">the string that was given to the parser</doc>
-            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
-          </parameter>
-        </gs:managed-parameters>
-      </function>
-      <function name="parse_error_quark" c:identifier="g_variant_parse_error_quark" gs:dll-name="glib-2.0" gs:managed-name="ParseErrorQuark">
-        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="Quark" c:type="GQuark" />
-        </return-value>
-        <parameters />
-        <gs:managed-parameters />
       </function>
       <function name="parser_get_error_quark" c:identifier="g_variant_parser_get_error_quark" deprecated="1" gs:dll-name="glib-2.0" gs:managed-name="ParserGetErrorQuark">
         <doc xml:space="preserve" filename="glib-2.0.c" line="40564">Same as g_variant_error_quark().</doc>
@@ -20611,6 +20548,234 @@ things will happen.</doc>
         <gs:managed-parameters />
       </function>
     </glib:boxed>
+    <record name="VariantIter" c:type="GVariantIter" introspectable="1" disguised="1" gs:managed-name="VariantIter">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="2769">#GVariantIter is an opaque data structure and can only be accessed
+using the following functions.</doc>
+      <source-position filename="gvariant.h" line="272" />
+      <field name="x0" readable="0" private="1" gs:managed-name="X0">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x1" readable="0" private="1" gs:managed-name="X1">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x2" readable="0" private="1" gs:managed-name="X2">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x3" readable="0" private="1" gs:managed-name="X3">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x4" readable="0" private="1" gs:managed-name="X4">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x5" readable="0" private="1" gs:managed-name="X5">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x6" readable="0" private="1" gs:managed-name="X6">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x7" readable="0" private="1" gs:managed-name="X7">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x8" readable="0" private="1" gs:managed-name="X8">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x9" readable="0" private="1" gs:managed-name="X9">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x10" readable="0" private="1" gs:managed-name="X10">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x11" readable="0" private="1" gs:managed-name="X11">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x12" readable="0" private="1" gs:managed-name="X12">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x13" readable="0" private="1" gs:managed-name="X13">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x14" readable="0" private="1" gs:managed-name="X14">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <field name="x15" readable="0" private="1" gs:managed-name="X15">
+        <type name="gsize" c:type="gsize" />
+      </field>
+      <method name="copy" c:identifier="g_variant_iter_copy" version="2.24" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Copy" gs:special-func="copy" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="39538">Creates a new heap-allocated #GVariantIter to iterate over the
+container that was being iterated over by @iter.  Iteration begins on
+the new iterator from the current position of the old iterator but
+the two copies are independent past that point.
+
+Use g_variant_iter_free() to free the return value when you no longer
+need it.
+
+A reference is taken to the container that @iter is iterating over
+and will be related only when g_variant_iter_free() is called.</doc>
+        <source-position filename="gvariant.h" line="280" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="39553">a new heap-allocated #GVariantIter</doc>
+          <type name="VariantIter" c:type="GVariantIter*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="iter" transfer-ownership="none" gs:managed-name="iter" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39540">a #GVariantIter</doc>
+            <type name="VariantIter" c:type="GVariantIter*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <method name="free" c:identifier="g_variant_iter_free" version="2.24" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Free" gs:special-func="free" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="39558">Frees a heap-allocated #GVariantIter.  Only call this function on
+iterators that were returned by g_variant_iter_new() or
+g_variant_iter_copy().</doc>
+        <source-position filename="gvariant.h" line="284" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="iter" transfer-ownership="full" gs:managed-name="iter" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39560">a heap-allocated #GVariantIter</doc>
+            <type name="VariantIter" c:type="GVariantIter*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <method name="init" c:identifier="g_variant_iter_init" version="2.24" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Init">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="39570">Initialises (without allocating) a #GVariantIter.  @iter may be
+completely uninitialised prior to this call; its old value is
+ignored.
+
+The iterator remains valid for as long as @value exists, and need not
+be freed in any way.</doc>
+        <source-position filename="gvariant.h" line="277" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="39582">the number of items in @value</doc>
+          <type name="gsize" c:type="gsize" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="iter" transfer-ownership="none" gs:managed-name="iter" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39572">a pointer to a #GVariantIter</doc>
+            <type name="VariantIter" c:type="GVariantIter*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39573">a container #GVariant</doc>
+            <type name="Variant" c:type="GVariant*" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39573">a container #GVariant</doc>
+            <type name="Variant" c:type="GVariant*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <gs:managed-property name="get_count" version="2.24" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Count">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="39662">Queries the number of child items in the container that we are
+iterating over.  This is the total number of items -- not the number
+of items remaining.
+
+This function might be useful for preallocation of arrays.</doc>
+        <source-position filename="gvariant.h" line="282" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="39672">the number of children in the container</doc>
+          <type name="gsize" c:type="gsize" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="iter" transfer-ownership="none" gs:managed-name="iter" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39664">a #GVariantIter</doc>
+            <type name="VariantIter" c:type="GVariantIter*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <method name="get_count" c:identifier="g_variant_iter_n_children" version="2.24" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="GetCount" gs:property-getter-for="Count" gs:access-modifiers="private">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="39662">Queries the number of child items in the container that we are
+iterating over.  This is the total number of items -- not the number
+of items remaining.
+
+This function might be useful for preallocation of arrays.</doc>
+        <source-position filename="gvariant.h" line="282" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="39672">the number of children in the container</doc>
+          <type name="gsize" c:type="gsize" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="iter" transfer-ownership="none" gs:managed-name="iter" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39664">a #GVariantIter</doc>
+            <type name="VariantIter" c:type="GVariantIter*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <method name="next_value" c:identifier="g_variant_iter_next_value" version="2.24" introspectable="1" gs:access-modifiers="private" gs:dll-name="glib-2.0" gs:managed-name="NextValue">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="39748">Gets the next item in the container.  If no more items remain then
+%NULL is returned.
+
+Use g_variant_unref() to drop your reference on the return value when
+you no longer need it.
+
+Here is an example for iterating with g_variant_iter_next_value():
+|[&lt;!-- language="C" --&gt;
+  // recursively iterate a container
+  void
+  iterate_container_recursive (GVariant *container)
+  {
+    GVariantIter iter;
+    GVariant *child;
+
+    g_variant_iter_init (&amp;iter, container);
+    while ((child = g_variant_iter_next_value (&amp;iter)))
+      {
+        g_print ("type '%s'\n", g_variant_get_type_string (child));
+
+        if (g_variant_is_container (child))
+          iterate_container_recursive (child);
+
+        g_variant_unref (child);
+      }
+  }
+]|</doc>
+        <source-position filename="gvariant.h" line="286" />
+        <return-value transfer-ownership="full" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="39780">a #GVariant, or %NULL</doc>
+          <type name="Variant" c:type="GVariant*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="iter" transfer-ownership="none" gs:managed-name="iter" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39750">a #GVariantIter</doc>
+            <type name="VariantIter" c:type="GVariantIter*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <constructor name="new" c:identifier="g_variant_iter_new" version="2.24" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="39677">Creates a heap-allocated #GVariantIter for iterating over the items
+in @value.
+
+Use g_variant_iter_free() to free the return value when you no longer
+need it.
+
+A reference is taken to @value and will be released only when
+g_variant_iter_free() is called.</doc>
+        <source-position filename="gvariant.h" line="275" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="39690">a new heap-allocated #GVariantIter</doc>
+          <type name="VariantIter" c:type="GVariantIter*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39679">a container #GVariant</doc>
+            <type name="Variant" c:type="GVariant*" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="value" transfer-ownership="none" gs:managed-name="value" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="39679">a container #GVariant</doc>
+            <type name="Variant" c:type="GVariant*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </constructor>
+    </record>
     <enumeration name="VariantParseError" c:type="GVariantParseError" glib:error-domain="g-variant-parse-error-quark" gs:managed-name="VariantParseError">
       <doc xml:space="preserve" filename="glib-2.0.c" line="2777">Error codes returned by parsing text-format GVariants.</doc>
       <source-position filename="gvariant.h" line="332" />
@@ -20671,6 +20836,76 @@ things will happen.</doc>
       <member name="recursion" value="18" c:identifier="G_VARIANT_PARSE_ERROR_RECURSION" version="2.64" gs:managed-name="Recursion">
         <doc xml:space="preserve" filename="glib-2.0.c" line="2797">variant was too deeply nested; #GVariant is only guaranteed to handle nesting up to 64 levels ()</doc>
       </member>
+      <function name="print_context" c:identifier="g_variant_parse_error_print_context" version="2.40" gs:dll-name="glib-2.0" gs:managed-name="PrintContext">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="40524">Pretty-prints a message showing the context of a #GVariant parse
+error within the string for which parsing was attempted.
+
+The resulting string is suitable for output to the console or other
+monospace media where newlines are treated in the usual way.
+
+The message will typically look something like one of the following:
+
+|[
+unterminated string constant:
+  (1, 2, 3, 'abc
+            ^^^^
+]|
+
+or
+
+|[
+unable to find a common type:
+  [1, 2, 3, 'str']
+   ^        ^^^^^
+]|
+
+The format of the message may change in a future version.
+
+@error must have come from a failed attempt to g_variant_parse() and
+@source_str must be exactly the same string that caused the error.
+If @source_str was not nul-terminated when you passed it to
+g_variant_parse() then you must add nul termination before using this
+function.</doc>
+        <source-position filename="gvariant.h" line="430" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="40559">the printed message</doc>
+          <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="error" transfer-ownership="none" gs:managed-name="error" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="40526">a #GError from the #GVariantParseError domain</doc>
+            <type name="Error" c:type="GError*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="source_str" transfer-ownership="none" gs:managed-name="sourceStr" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="40527">the string that was given to the parser</doc>
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="error" transfer-ownership="none" gs:managed-name="error" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="40526">a #GError from the #GVariantParseError domain</doc>
+            <type name="Error" c:type="GError*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="source_str" transfer-ownership="none" gs:managed-name="sourceStr" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="40527">the string that was given to the parser</doc>
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <gs:managed-property name="get_quark" gs:dll-name="glib-2.0" gs:managed-name="Quark">
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="Quark" c:type="GQuark" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <function name="get_quark" c:identifier="g_variant_parse_error_quark" gs:dll-name="glib-2.0" gs:managed-name="GetQuark" gs:property-getter-for="Quark" gs:access-modifiers="private">
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="Quark" c:type="GQuark" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
     </enumeration>
     <glib:boxed name="VariantType" c:type="GVariantType" glib:type-name="GVariantType" glib:get-type="g_variant_type_get_gtype" c:symbol-prefix="variant_type" gs:managed-name="VariantType">
       <doc xml:space="preserve" filename="glib-2.0.c" line="6600">This section introduces the GVariant type system. It is based, in
@@ -20846,7 +21081,7 @@ string.  Use g_variant_type_string_is_valid() if you are unsure.</doc>
           </parameter>
         </gs:managed-parameters>
       </constructor>
-      <constructor name="new_array" c:identifier="g_variant_type_new_array" gs:dll-name="glib-2.0" gs:managed-name="NewArray">
+      <function name="new_array" c:identifier="g_variant_type_new_array" gs:dll-name="glib-2.0" gs:managed-name="NewArray">
         <doc xml:space="preserve" filename="glib-2.0.c" line="41056">Constructs the type corresponding to an array of elements of the
 type @type.
 
@@ -20870,8 +21105,8 @@ Since 2.24</doc>
             <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
-      </constructor>
-      <constructor name="new_dict_entry" c:identifier="g_variant_type_new_dict_entry" gs:dll-name="glib-2.0" gs:managed-name="NewDictEntry">
+      </function>
+      <function name="new_dict_entry" c:identifier="g_variant_type_new_dict_entry" gs:dll-name="glib-2.0" gs:managed-name="NewDictEntry">
         <doc xml:space="preserve" filename="glib-2.0.c" line="41071">Constructs the type corresponding to a dictionary entry with a key
 of type @key and a value of type @value.
 
@@ -20903,8 +21138,8 @@ Since 2.24</doc>
             <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
-      </constructor>
-      <constructor name="new_maybe" c:identifier="g_variant_type_new_maybe" gs:dll-name="glib-2.0" gs:managed-name="NewMaybe">
+      </function>
+      <function name="new_maybe" c:identifier="g_variant_type_new_maybe" gs:dll-name="glib-2.0" gs:managed-name="NewMaybe">
         <doc xml:space="preserve" filename="glib-2.0.c" line="41087">Constructs the type corresponding to a maybe instance containing
 type @type or Nothing.
 
@@ -20928,8 +21163,8 @@ Since 2.24</doc>
             <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
-      </constructor>
-      <constructor name="new_tuple" c:identifier="g_variant_type_new_tuple" gs:dll-name="glib-2.0" gs:managed-name="NewTuple">
+      </function>
+      <function name="new_tuple" c:identifier="g_variant_type_new_tuple" gs:dll-name="glib-2.0" gs:managed-name="NewTuple">
         <doc xml:space="preserve" filename="glib-2.0.c" line="41102">Constructs a new tuple type, from @items.
 
 @length is the number of items in @items, or -1 to indicate that
@@ -20963,7 +21198,7 @@ Since 2.24</doc>
             </array>
           </parameter>
         </gs:managed-parameters>
-      </constructor>
+      </function>
       <method name="copy" c:identifier="g_variant_type_copy" gs:dll-name="glib-2.0" gs:managed-name="Copy" gs:special-func="copy" gs:pinvoke-only="1">
         <doc xml:space="preserve" filename="glib-2.0.c" line="40714">Makes a copy of a #GVariantType.  It is appropriate to call
 g_variant_type_free() on the return value.  @type may not be %NULL.</doc>
@@ -21001,7 +21236,26 @@ Since 2.24</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="element" c:identifier="g_variant_type_element" gs:dll-name="glib-2.0" gs:managed-name="Element">
+      <gs:managed-property name="get_element" gs:dll-name="glib-2.0" gs:managed-name="Element">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="40741">Determines the element type of an array or maybe type.
+
+This function may only be used with array or maybe types.</doc>
+        <source-position filename="gvarianttype.h" line="350" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="40749">the element type of @type
+
+Since 2.24</doc>
+          <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="40743">an array or maybe #GVariantType</doc>
+            <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <method name="get_element" c:identifier="g_variant_type_element" gs:dll-name="glib-2.0" gs:managed-name="GetElement" gs:property-getter-for="Element" gs:access-modifiers="private">
         <doc xml:space="preserve" filename="glib-2.0.c" line="40741">Determines the element type of an array or maybe type.
 
 This function may only be used with array or maybe types.</doc>
@@ -21055,7 +21309,37 @@ Since 2.24</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="first" c:identifier="g_variant_type_first" gs:dll-name="glib-2.0" gs:managed-name="First">
+      <gs:managed-property name="get_first" gs:dll-name="glib-2.0" gs:managed-name="First">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="40777">Determines the first item type of a tuple or dictionary entry
+type.
+
+This function may only be used with tuple or dictionary entry types,
+but must not be used with the generic tuple type
+%G_VARIANT_TYPE_TUPLE.
+
+In the case of a dictionary entry type, this returns the type of
+the key.
+
+%NULL is returned in case of @type being %G_VARIANT_TYPE_UNIT.
+
+This call, together with g_variant_type_next() provides an iterator
+interface over tuple and dictionary entry types.</doc>
+        <source-position filename="gvarianttype.h" line="352" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="40796">the first item type of @type, or %NULL
+
+Since 2.24</doc>
+          <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="40779">a tuple or dictionary entry #GVariantType</doc>
+            <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <method name="get_first" c:identifier="g_variant_type_first" gs:dll-name="glib-2.0" gs:managed-name="GetFirst" gs:property-getter-for="First" gs:access-modifiers="private">
         <doc xml:space="preserve" filename="glib-2.0.c" line="40777">Determines the first item type of a tuple or dictionary entry
 type.
 
@@ -21105,26 +21389,7 @@ Since 2.24</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <gs:managed-property name="get_string_length" gs:dll-name="glib-2.0" gs:managed-name="StringLength">
-        <doc xml:space="preserve" filename="glib-2.0.c" line="40816">Returns the length of the type string corresponding to the given
-@type.  This function must be used to determine the valid extent of
-the memory region returned by g_variant_type_peek_string().</doc>
-        <source-position filename="gvarianttype.h" line="312" />
-        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="glib-2.0.c" line="40824">the length of the corresponding type string
-
-Since 2.24</doc>
-          <type name="gsize" c:type="gsize" />
-        </return-value>
-        <parameters>
-          <instance-parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
-            <doc xml:space="preserve" filename="glib-2.0.c" line="40818">a #GVariantType</doc>
-            <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
-          </instance-parameter>
-        </parameters>
-        <gs:managed-parameters />
-      </gs:managed-property>
-      <method name="get_string_length" c:identifier="g_variant_type_get_string_length" gs:dll-name="glib-2.0" gs:managed-name="GetStringLength" gs:property-getter-for="StringLength" gs:access-modifiers="private">
+      <method name="get_string_length" c:identifier="g_variant_type_get_string_length" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="GetStringLength">
         <doc xml:space="preserve" filename="glib-2.0.c" line="40816">Returns the length of the type string corresponding to the given
 @type.  This function must be used to determine the valid extent of
 the memory region returned by g_variant_type_peek_string().</doc>
@@ -21556,7 +21821,28 @@ Since 2.24</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="key" c:identifier="g_variant_type_key" gs:dll-name="glib-2.0" gs:managed-name="Key">
+      <gs:managed-property name="get_key" gs:dll-name="glib-2.0" gs:managed-name="Key">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="41004">Determines the key type of a dictionary entry type.
+
+This function may only be used with a dictionary entry type.  Other
+than the additional restriction, this call is equivalent to
+g_variant_type_first().</doc>
+        <source-position filename="gvarianttype.h" line="358" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="41014">the key type of the dictionary entry
+
+Since 2.24</doc>
+          <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="41006">a dictionary entry #GVariantType</doc>
+            <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <method name="get_key" c:identifier="g_variant_type_key" gs:dll-name="glib-2.0" gs:managed-name="GetKey" gs:property-getter-for="Key" gs:access-modifiers="private">
         <doc xml:space="preserve" filename="glib-2.0.c" line="41004">Determines the key type of a dictionary entry type.
 
 This function may only be used with a dictionary entry type.  Other
@@ -21577,7 +21863,32 @@ Since 2.24</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="n_items" c:identifier="g_variant_type_n_items" gs:dll-name="glib-2.0" gs:managed-name="NItems">
+      <gs:managed-property name="get_item_count" gs:dll-name="glib-2.0" gs:managed-name="ItemCount">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="41020">Determines the number of items contained in a tuple or
+dictionary entry type.
+
+This function may only be used with tuple or dictionary entry types,
+but must not be used with the generic tuple type
+%G_VARIANT_TYPE_TUPLE.
+
+In the case of a dictionary entry type, this function will always
+return 2.</doc>
+        <source-position filename="gvarianttype.h" line="356" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="41034">the number of items in @type
+
+Since 2.24</doc>
+          <type name="gsize" c:type="gsize" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="41022">a tuple or dictionary entry #GVariantType</doc>
+            <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <method name="get_item_count" c:identifier="g_variant_type_n_items" gs:dll-name="glib-2.0" gs:managed-name="GetItemCount" gs:property-getter-for="ItemCount" gs:access-modifiers="private">
         <doc xml:space="preserve" filename="glib-2.0.c" line="41020">Determines the number of items contained in a tuple or
 dictionary entry type.
 
@@ -21629,7 +21940,47 @@ Since 2.24</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="value" c:identifier="g_variant_type_value" gs:dll-name="glib-2.0" gs:managed-name="Value">
+      <method name="peek_string" c:identifier="g_variant_type_peek_string" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="PeekString">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="41142">Returns the type string corresponding to the given @type.  The
+result is not nul-terminated; in order to determine its length you
+must call g_variant_type_get_string_length().
+
+To get a nul-terminated string, see g_variant_type_dup_string().</doc>
+        <source-position filename="gvarianttype.h" line="314" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="41152">the corresponding type string (not nul-terminated)
+
+Since 2.24</doc>
+          <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="41144">a #GVariantType</doc>
+            <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <gs:managed-property name="get_value" gs:dll-name="glib-2.0" gs:managed-name="Value">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="41197">Determines the value type of a dictionary entry type.
+
+This function may only be used with a dictionary entry type.</doc>
+        <source-position filename="gvarianttype.h" line="360" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="41205">the value type of the dictionary entry
+
+Since 2.24</doc>
+          <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="type" transfer-ownership="none" gs:managed-name="type" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="41199">a dictionary entry #GVariantType</doc>
+            <type name="VariantType" c:type="const GVariantType*" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <method name="get_value" c:identifier="g_variant_type_value" gs:dll-name="glib-2.0" gs:managed-name="GetValue" gs:property-getter-for="Value" gs:access-modifiers="private">
         <doc xml:space="preserve" filename="glib-2.0.c" line="41197">Determines the value type of a dictionary entry type.
 
 This function may only be used with a dictionary entry type.</doc>
@@ -25401,6 +25752,9 @@ containing the key-value pairs of message data.</doc>
         </gs:managed-parameters>
       </function>
     </gs:static-class>
+    <alias name="DBusHandle" c:type="GI_DBusHandle" gs:managed-name="DBusHandle">
+  <type name="gint32" c:type="gint32" />
+</alias>
     <gs:static-class name="IdleSource" gs:managed-name="IdleSource">
       <function name="new" c:identifier="g_idle_source_new" gs:dll-name="glib-2.0" gs:managed-name="New">
         <doc xml:space="preserve" filename="glib-2.0.c" line="19262">Creates a new idle source.
@@ -26288,6 +26642,9 @@ g_unichar_isxdigit()), its numeric value. Otherwise, -1.</doc>
         </gs:managed-parameters>
       </method>
     </gs:static-class>
+    <alias name="DBusObjectPath" c:type="GI_DBusObjectPath" gs:managed-name="DBusObjectPath">
+  <type name="utf8" c:type="char*" gs:is-pointer="1" />
+</alias>
     <gs:static-class name="Version" gs:managed-name="Version">
       <constant name="MAJOR" value="2" c:type="GLIB_MAJOR_VERSION" gs:access-modifiers="private" gs:managed-name="major">
         <doc xml:space="preserve" filename="glib-2.0.c" line="1136">The major version number of the GLib library.
@@ -26966,6 +27323,9 @@ It is not used within GLib or GTK+.</doc>
         <type name="gint" c:type="gint" />
       </constant>
     </gs:static-class>
+    <alias name="DBusSignature" c:type="GI_DBusSignature" gs:managed-name="DBusSignature">
+  <type name="utf8" c:type="char*" gs:is-pointer="1" />
+</alias>
     <gs:static-class name="Timeout" gs:managed-name="Timeout">
       <function name="add_full" c:identifier="g_timeout_add_full" shadows="add" gs:dll-name="glib-2.0" gs:managed-name="Add">
         <doc xml:space="preserve" filename="glib-2.0.c" line="34934">Sets a function to be called at regular intervals, with the given

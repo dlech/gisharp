@@ -60,17 +60,6 @@ Gets the contents of an array of array of bytes <see cref="Variant"/>.  This cal
 makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
 </summary>
-<remarks>
-<para>
-If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result is
-stored there.  In any case, the resulting array will be
-<c>null</c>-terminated.
-</para>
-<para>
-For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
-<c>null</c> pointer will be returned.
-</para>
-</remarks>
 </member>
 
 <member name='Variant.Data'>
@@ -213,14 +202,6 @@ It makes sense to call this function if you've received <see cref="Variant"/>
 data from untrusted sources and you want to ensure your serialised
 output is definitely in normal form.
 </para>
-<para>
-If this instance is already in normal form, a new reference will be returned
-(which will be floating if this instance is floating). If it is not in normal form,
-the newly created <see cref="Variant"/> will be returned with a single non-floating
-reference. Typically, <see cref="Variant.TakeRef()"/> should be called on the return
-value from this function to guarantee ownership of a single non-floating
-reference to it.
-</para>
 </remarks>
 </member>
 
@@ -230,23 +211,12 @@ Gets the contents of an array of object paths <see cref="Variant"/>.  This call
 makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
 </summary>
-<remarks>
-<para>
-If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result
-is stored there.  In any case, the resulting array will be
-<c>null</c>-terminated.
-</para>
-<para>
-For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
-<c>null</c> pointer will be returned.
-</para>
-</remarks>
 </member>
 
 <member name='Variant.Size'>
 <summary>
 Determines the number of bytes that would be required to store this instance
-with <see cref="Variant.Store(System.IntPtr)"/>.
+with <see cref="Variant.Store"/>.
 </summary>
 <remarks>
 <para>
@@ -269,17 +239,6 @@ Gets the contents of an array of strings <see cref="Variant"/>.  This call
 makes a shallow copy; the return result should be released with
 g_free(), but the individual strings must not be modified.
 </summary>
-<remarks>
-<para>
-If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result
-is stored there.  In any case, the resulting array will be
-<c>null</c>-terminated.
-</para>
-<para>
-For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
-<c>null</c> pointer will be returned.
-</para>
-</remarks>
 </member>
 
 <member name='Variant.Type'>
@@ -296,9 +255,7 @@ be freed.
 
 <member name='Variant.TypeString'>
 <summary>
-Returns the type string of this instance.  Unlike the result of calling
-g_variant_type_peek_string(), this string is nul-terminated.  This
-string belongs to <see cref="Variant"/> and must not be freed.
+Returns the type string of this instance.
 </summary>
 </member>
 
@@ -338,7 +295,7 @@ other than %G_VARIANT_TYPE_UINT64.
 </remarks>
 </member>
 
-<member name='Variant.Variant'>
+<member name='Variant.BoxedVariant'>
 <summary>
 Unboxes this instance.  The result is the <see cref="Variant"/> instance that was
 contained in this instance.
@@ -356,16 +313,6 @@ Checks if this instance is a container.
 Checks whether this instance has a floating reference count.
 </summary>
 <remarks>
-<para>
-This function should only ever be used to assert that a given variant
-is or is not floating, or for debug purposes. To acquire a reference
-to a variant that might be floating, always use <see cref="Variant.RefSink()"/>
-or <see cref="Variant.TakeRef()"/>.
-</para>
-<para>
-See <see cref="Variant.RefSink()"/> for more information about floating reference
-counts.
-</para>
 </remarks>
 </member>
 
@@ -377,7 +324,7 @@ Checks if this instance is in normal form.
 <para>
 The main reason to do this is to detect if a given chunk of
 serialised data is in normal form: load the data into a <see cref="Variant"/>
-using <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},bool,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> and then use this function to
+using g_variant_new_from_data() and then use this function to
 check.
 </para>
 <para>
@@ -411,10 +358,6 @@ in the <paramref name="children"/> array may be <c>null</c>.
 All items in the array must have the same type, which must be the
 same as <paramref name="childType"/>, if given.
 </para>
-<para>
-If the <paramref name="children"/> are floating references (see <see cref="Variant.RefSink()"/>), the
-new instance takes ownership of them as if via <see cref="Variant.RefSink()"/>.
-</para>
 </remarks>
 <param name="childType">
 the element type of the new array
@@ -443,7 +386,7 @@ a #guint8 value
 </param>
 </member>
 
-<member name='Variant.Variant(GISharp.Runtime.UnownedZeroTerminatedCArray&lt;byte&gt;)'>
+<member name='Variant.Variant(GISharp.Runtime.ByteString)'>
 <summary>
 Creates an array-of-bytes <see cref="Variant"/> with the contents of <paramref name="string"/>.
 This function is just like <see cref="Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)"/> except that the
@@ -461,7 +404,7 @@ a normal
 </param>
 </member>
 
-<member name='Variant.Variant(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='Variant.Variant(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Runtime.ByteString&gt;)'>
 <summary>
 Constructs an array of bytestring <see cref="Variant"/> from the given array of
 strings.
@@ -482,10 +425,6 @@ Creates a new dictionary entry <see cref="Variant"/>. <paramref name="key"/> and
 non-<c>null</c>. <paramref name="key"/> must be a value of a basic type (ie: not a container).
 </summary>
 <remarks>
-<para>
-If the <paramref name="key"/> or <paramref name="value"/> are floating references (see <see cref="Variant.RefSink()"/>),
-the new instance takes ownership of them as if via <see cref="Variant.RefSink()"/>.
-</para>
 </remarks>
 <param name="key">
 a basic <see cref="Variant"/>, the key
@@ -566,7 +505,7 @@ if the contents of <paramref name="bytes"/> are trusted
 </param>
 </member>
 
-<member name='Variant.Variant(int)'>
+<member name='Variant.Variant(GISharp.Lib.GLib.DBusHandle)'>
 <summary>
 Creates a new handle <see cref="Variant"/> instance.
 </summary>
@@ -621,10 +560,6 @@ If <paramref name="childType"/> is non-<c>null</c> then it must be a definite ty
 If they are both non-<c>null</c> then <paramref name="childType"/> must be the type
 of <paramref name="child"/>.
 </para>
-<para>
-If <paramref name="child"/> is a floating reference (see <see cref="Variant.RefSink()"/>), the new
-instance takes ownership of <paramref name="child"/>.
-</para>
 </remarks>
 <param name="childType">
 the <see cref="VariantType"/> of the child, or <c>null</c>
@@ -634,7 +569,7 @@ the child value, or <c>null</c>
 </param>
 </member>
 
-<member name='Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Variant.Variant(GISharp.Lib.GLib.DBusObjectPath)'>
 <summary>
 Creates a D-Bus object path <see cref="Variant"/> with the contents of <c><c>@string</c></c>.
 <c><c>@string</c></c> must be a valid D-Bus object path.  Use
@@ -645,7 +580,7 @@ a normal C nul-terminated string
 </param>
 </member>
 
-<member name='Variant.Variant(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='Variant.Variant(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.DBusObjectPath&gt;)'>
 <summary>
 Constructs an array of object paths <see cref="Variant"/> from the given array of
 strings.
@@ -664,7 +599,7 @@ an array of strings
 </param>
 </member>
 
-<member name='Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Variant.Variant(GISharp.Lib.GLib.DBusSignature)'>
 <summary>
 Creates a D-Bus type signature <see cref="Variant"/> with the contents of
 <c><c>@string</c></c>.  <c><c>@string</c></c> must be a valid D-Bus type signature.  Use
@@ -716,10 +651,6 @@ type is determined from the types of <paramref name="children"/>.  No entry in t
 <para>
 If the length of <paramref name="children"/> is 0 then the unit tuple is constructed.
 </para>
-<para>
-If the <paramref name="children"/> are floating references (see <see cref="Variant.RefSink()"/>), the
-new instance takes ownership of them as if via <see cref="Variant.RefSink()"/>.
-</para>
 </remarks>
 <param name="children">
 the items to make the tuple out of
@@ -758,12 +689,6 @@ a #guint64 value
 Boxes <paramref name="value"/>.  The result is a <see cref="Variant"/> instance representing a
 variant containing the original value.
 </summary>
-<remarks>
-<para>
-If <c>child</c> is a floating reference (see <see cref="Variant.RefSink()"/>), the new
-instance takes ownership of <c>child</c>.
-</para>
-</remarks>
 <param name="value">
 a <see cref="Variant"/> instance
 </param>
@@ -814,7 +739,7 @@ negative value if a &lt; b;
 <summary>
 Determines if a given string is a valid D-Bus object path.  You
 should ensure that a string is a valid D-Bus object path before
-passing it to <see cref="Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)"/>.
+passing it to <see cref="Variant.Variant(GISharp.Lib.GLib.DBusObjectPath)"/>.
 </summary>
 <remarks>
 <para>
@@ -836,7 +761,7 @@ a normal C nul-terminated string
 <summary>
 Determines if a given string is a valid D-Bus type signature.  You
 should ensure that a string is a valid D-Bus type signature before
-passing it to <see cref="Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)"/>.
+passing it to <see cref="Variant.Variant(GISharp.Lib.GLib.DBusSignature)"/>.
 </summary>
 <remarks>
 <para>
@@ -884,8 +809,7 @@ with empty arrays).
 </para>
 <para>
 In the event that the parsing is successful, the resulting <see cref="Variant"/>
-is returned. It is never floating, and must be freed with
-<see cref="Variant.Unref()"/>.
+is returned.
 </para>
 <para>
 In case of any error, <c>null</c> will be returned.  If <see cref="GISharp.Runtime.GErrorException"/> is non-<c>null</c>
@@ -919,61 +843,6 @@ a non-floating reference to a <see cref="Variant"/>, or <c>null</c>
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>
-</member>
-
-<member name='Variant.ParseErrorPrintContext(GISharp.Lib.GLib.Error,GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Pretty-prints a message showing the context of a <see cref="Variant"/> parse
-error within the string for which parsing was attempted.
-</summary>
-<remarks>
-<para>
-The resulting string is suitable for output to the console or other
-monospace media where newlines are treated in the usual way.
-</para>
-<para>
-The message will typically look something like one of the following:
-</para>
-<para>
-|[
-unterminated string constant:
-  (1, 2, 3, 'abc
-            ^^^^
-]|
-</para>
-<para>
-or
-</para>
-<para>
-|[
-unable to find a common type:
-  [1, 2, 3, 'str']
-   ^        ^^^^^
-]|
-</para>
-<para>
-The format of the message may change in a future version.
-</para>
-<para>
-<paramref name="error"/> must have come from a failed attempt to <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> and
-<paramref name="sourceStr"/> must be exactly the same string that caused the error.
-If <paramref name="sourceStr"/> was not nul-terminated when you passed it to
-<see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> then you must add nul termination before using this
-function.
-</para>
-</remarks>
-<param name="error">
-a <see cref="Error"/> from the <see cref="VariantParseError"/> domain
-</param>
-<param name="sourceStr">
-the string that was given to the parser
-</param>
-<returns>
-the printed message
-</returns>
-</member>
-
-<member name='Variant.ParseErrorQuark()'>
 </member>
 
 <member name='Variant.ParserGetErrorQuark()'>
@@ -1014,7 +883,7 @@ assumed to be a valid format string (from a syntactic standpoint).
 <remarks>
 <para>
 If <paramref name="copyOnly"/> is <c>true</c> then this function additionally checks that it
-would be safe to call <see cref="Variant.Unref()"/> on this instance immediately after
+would be safe to call <see cref="Dispose"/> on this instance immediately after
 the call to g_variant_get() without invalidating the result.  This is
 only possible if deep copies are made (ie: there are no pointers to
 the data inside of the soon-to-be-freed <see cref="Variant"/> instance).  If this
@@ -1046,109 +915,6 @@ the <see cref="VariantClass"/> of this instance
 </returns>
 </member>
 
-<member name='Variant.DupBytestring()'>
-<summary>
-Similar to <see cref="Variant.GetBytestring()"/> except that instead of
-returning a constant string, the string is duplicated.
-</summary>
-<remarks>
-<para>
-The return value must be freed using g_free().
-</para>
-</remarks>
-<returns>
-
-         a newly allocated string
-</returns>
-</member>
-
-<member name='Variant.DupBytestringArray()'>
-<summary>
-Gets the contents of an array of array of bytes <see cref="Variant"/>.  This call
-makes a deep copy; the return result should be released with
-g_strfreev().
-</summary>
-<remarks>
-<para>
-If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result is
-stored there.  In any case, the resulting array will be
-<c>null</c>-terminated.
-</para>
-<para>
-For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
-<c>null</c> pointer will be returned.
-</para>
-</remarks>
-<returns>
-an array of strings
-</returns>
-</member>
-
-<member name='Variant.DupObjv()'>
-<summary>
-Gets the contents of an array of object paths <see cref="Variant"/>.  This call
-makes a deep copy; the return result should be released with
-g_strfreev().
-</summary>
-<remarks>
-<para>
-If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result
-is stored there.  In any case, the resulting array will be
-<c>null</c>-terminated.
-</para>
-<para>
-For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
-<c>null</c> pointer will be returned.
-</para>
-</remarks>
-<returns>
-an array of strings
-</returns>
-</member>
-
-<member name='Variant.DupString(int)'>
-<summary>
-Similar to <see cref="Variant.GetString(out int)"/> except that instead of returning
-a constant string, the string is duplicated.
-</summary>
-<remarks>
-<para>
-The string will always be UTF-8 encoded.
-</para>
-<para>
-The return value must be freed using g_free().
-</para>
-</remarks>
-<param name="length">
-a pointer to a #gsize, to store the length
-</param>
-<returns>
-a newly allocated string, UTF-8 encoded
-</returns>
-</member>
-
-<member name='Variant.DupStrv()'>
-<summary>
-Gets the contents of an array of strings <see cref="Variant"/>.  This call
-makes a deep copy; the return result should be released with
-g_strfreev().
-</summary>
-<remarks>
-<para>
-If <paramref name="length"/> is non-<c>null</c> then the number of elements in the result
-is stored there.  In any case, the resulting array will be
-<c>null</c>-terminated.
-</para>
-<para>
-For an empty array, <paramref name="length"/> will be set to 0 and a pointer to a
-<c>null</c> pointer will be returned.
-</para>
-</remarks>
-<returns>
-an array of strings
-</returns>
-</member>
-
 <member name='Variant.Equals(GISharp.Lib.GLib.Variant?)'>
 <summary>
 Checks if this instance and <paramref name="two"/> have the same type and value.
@@ -1164,83 +930,6 @@ a <see cref="Variant"/> instance
 </param>
 <returns>
 <c>true</c> if this instance and <paramref name="two"/> are equal
-</returns>
-</member>
-
-<member name='Variant.GetChildValue(int)'>
-<summary>
-Reads a child item out of a container <see cref="Variant"/> instance.  This
-includes variants, maybes, arrays, tuples and dictionary
-entries.  It is an error to call this function on any other type of
-<see cref="Variant"/>.
-</summary>
-<remarks>
-<para>
-It is an error if <paramref name="index"/> is greater than the number of child items
-in the container.  See <see cref="Variant.NChildren()"/>.
-</para>
-<para>
-The returned value is never floating.  You should free it with
-<see cref="Variant.Unref()"/> when you're done with it.
-</para>
-<para>
-Note that values borrowed from the returned child are not guaranteed to
-still be valid after the child is freed even if you still hold a reference
-to this instance, if this instance has not been serialised at the time this function is
-called. To avoid this, you can serialize this instance by calling
-<see cref="Variant.GetData()"/> and optionally ignoring the return value.
-</para>
-<para>
-There may be implementation specific restrictions on deeply nested values,
-which would result in the unit tuple being returned as the child value,
-instead of further nested children. <see cref="Variant"/> is guaranteed to handle
-nesting up to at least 64 levels.
-</para>
-<para>
-This function is O(1).
-</para>
-</remarks>
-<param name="index">
-the index of the child to fetch
-</param>
-<returns>
-the child at the specified index
-</returns>
-</member>
-
-<member name='Variant.GetString(int)'>
-<summary>
-Returns the string value of a <see cref="Variant"/> instance with a string
-type.  This includes the types %G_VARIANT_TYPE_STRING,
-%G_VARIANT_TYPE_OBJECT_PATH and %G_VARIANT_TYPE_SIGNATURE.
-</summary>
-<remarks>
-<para>
-The string will always be UTF-8 encoded, will never be <c>null</c>, and will never
-contain nul bytes.
-</para>
-<para>
-If <paramref name="length"/> is non-<c>null</c> then the length of the string (in bytes) is
-returned there.  For trusted values, this information is already
-known.  Untrusted values will be validated and, if valid, a strlen() will be
-performed. If invalid, a default value will be returned — for
-%G_VARIANT_TYPE_OBJECT_PATH, this is `"/"`, and for other types it is the
-empty string.
-</para>
-<para>
-It is an error to call this function with a this instance of any type
-other than those three.
-</para>
-<para>
-The return value remains valid as long as this instance exists.
-</para>
-</remarks>
-<param name="length">
-a pointer to a #gsize,
-         to store the length
-</param>
-<returns>
-the constant string, UTF-8 encoded
 </returns>
 </member>
 
@@ -1319,29 +1008,6 @@ the value of the dictionary key, or <c>null</c>
 </returns>
 </member>
 
-<member name='Variant.NChildren()'>
-<summary>
-Determines the number of children in a container <see cref="Variant"/> instance.
-This includes variants, maybes, arrays, tuples and dictionary
-entries.  It is an error to call this function on any other type of
-<see cref="Variant"/>.
-</summary>
-<remarks>
-<para>
-For variants, the return value is always 1.  For values with maybe
-types, it is always zero or one.  For arrays, it is the length of the
-array.  For tuples it is the number of tuple items (which depends
-only on the type).  For dictionary entries, it is always 2
-</para>
-<para>
-This function is O(1).
-</para>
-</remarks>
-<returns>
-the number of children in the container
-</returns>
-</member>
-
 <member name='Variant.Print(bool)'>
 <summary>
 Pretty-prints this instance in the format understood by <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
@@ -1361,113 +1027,6 @@ the output.
 </param>
 <returns>
 a newly-allocated string holding the result.
-</returns>
-</member>
-
-<member name='Variant.RefSink()'>
-<summary>
-<see cref="Variant"/> uses a floating reference count system.  All functions with
-names starting with `g_variant_new_` return floating
-references.
-</summary>
-<remarks>
-<para>
-Calling <see cref="Variant.RefSink()"/> on a <see cref="Variant"/> with a floating reference
-will convert the floating reference into a full reference.  Calling
-<see cref="Variant.RefSink()"/> on a non-floating <see cref="Variant"/> results in an
-additional normal reference being added.
-</para>
-<para>
-In other words, if the this instance is floating, then this call "assumes
-ownership" of the floating reference, converting it to a normal
-reference.  If the this instance is not floating, then this call adds a
-new normal reference increasing the reference count by one.
-</para>
-<para>
-All calls that result in a <see cref="Variant"/> instance being inserted into a
-container will call <see cref="Variant.RefSink()"/> on the instance.  This means
-that if the value was just created (and has only its floating
-reference) then the container will assume sole ownership of the value
-at that point and the caller will not need to unreference it.  This
-makes certain common styles of programming much easier while still
-maintaining normal refcounting semantics in situations where values
-are not floating.
-</para>
-</remarks>
-<returns>
-the same this instance
-</returns>
-</member>
-
-<member name='Variant.Store(System.IntPtr)'>
-<summary>
-Stores the serialised form of this instance at <paramref name="data"/>.  <paramref name="data"/> should be
-large enough.  See <see cref="Variant.GetSize()"/>.
-</summary>
-<remarks>
-<para>
-The stored data is in machine native byte order but may not be in
-fully-normalised form if read from an untrusted source.  See
-<see cref="Variant.GetNormalForm()"/> for a solution.
-</para>
-<para>
-As with <see cref="Variant.GetData()"/>, to be able to deserialise the
-serialised variant successfully, its type and (if the destination
-machine might be different) its endianness must also be available.
-</para>
-<para>
-This function is approximately O(n) in the size of <paramref name="data"/>.
-</para>
-</remarks>
-<param name="data">
-the location to store the serialised data at
-</param>
-</member>
-
-<member name='Variant.TakeRef()'>
-<summary>
-If this instance is floating, sink it.  Otherwise, do nothing.
-</summary>
-<remarks>
-<para>
-Typically you want to use <see cref="Variant.RefSink()"/> in order to
-automatically do the correct thing with respect to floating or
-non-floating references, but there is one specific scenario where
-this function is helpful.
-</para>
-<para>
-The situation where this function is helpful is when creating an API
-that allows the user to provide a callback function that returns a
-<see cref="Variant"/>.  We certainly want to allow the user the flexibility to
-return a non-floating reference from this callback (for the case
-where the value that is being returned already exists).
-</para>
-<para>
-At the same time, the style of the <see cref="Variant"/> API makes it likely that
-for newly-created <see cref="Variant"/> instances, the user can be saved some
-typing if they are allowed to return a <see cref="Variant"/> with a floating
-reference.
-</para>
-<para>
-Using this function on the return value of the user's callback allows
-the user to do whichever is more convenient for them.  The caller
-will always receives exactly one full reference to the value: either
-the one that was returned in the first place, or a floating reference
-that has been converted to a full reference.
-</para>
-<para>
-This function has an odd interaction when combined with
-<see cref="Variant.RefSink()"/> running at the same time in another thread on
-the same <see cref="Variant"/> instance.  If <see cref="Variant.RefSink()"/> runs first then
-the result will be that the floating reference is converted to a hard
-reference.  If <see cref="Variant.TakeRef()"/> runs first then the result will
-be that the floating reference is converted to a hard reference and
-an additional reference on top of that one is added.  It is best to
-avoid this situation.
-</para>
-</remarks>
-<returns>
-the same this instance
 </returns>
 </member>
 
@@ -1521,11 +1080,6 @@ can never change other than by the <see cref="Variant"/> itself being
 destroyed.  A <see cref="Variant"/> cannot contain a pointer.
 </para>
 <para>
-<see cref="Variant"/> is reference counted using <see cref="Variant.Ref()"/> and
-<see cref="Variant.Unref()"/>.  <see cref="Variant"/> also has floating reference counts --
-see <see cref="Variant.RefSink()"/>.
-</para>
-<para>
 <see cref="Variant"/> is completely threadsafe.  A <see cref="Variant"/> instance can be
 concurrently accessed in any way from any number of threads without
 problems.
@@ -1558,7 +1112,7 @@ or network stream).
 A <see cref="Variant"/>'s size is limited mainly by any lower level operating
 system constraints, such as the number of bits in #gsize.  For
 example, it is reasonable to have a 2GB file mapped into memory
-with #GMappedFile, and call <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},bool,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> on it.
+with #GMappedFile, and call g_variant_new_from_data() on it.
 </para>
 <para>
 For convenience to C programmers, <see cref="Variant"/> features powerful
@@ -1746,7 +1300,7 @@ dictionary.
 <para>
 If calls are made to start accessing the other values then
 <see cref="Variant"/> instances will exist for those values only for as long
-as they are in use (ie: until you call <see cref="Variant.Unref()"/>).  The
+as they are in use (ie: until you call <see cref="Dispose"/>).  The
 type information is shared.  The serialised data and the buffer
 management structure for that serialised data is shared by the
 child.

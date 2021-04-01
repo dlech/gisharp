@@ -5,8 +5,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace GISharp.Runtime
 {
@@ -175,7 +177,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for zero-terminated C array of pointers to opaque data types.
     /// </summary>
-    public unsafe class WeakZeroTerminatedCPtrArray<T> : Opaque where T : IOpaque?
+    public unsafe class WeakZeroTerminatedCPtrArray<T> : Opaque, IEnumerable<T> where T : IOpaque?
     {
         private int length;
 
@@ -242,6 +244,16 @@ namespace GISharp.Runtime
         /// Gets an unowned reference to this instance.
         /// </summary>
         public UnownedZeroTerminatedCPtrArray<T> AsUnowned() => new(handle, length, Transfer.None);
+
+        /// <inheritdoc/>
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; Marshal.ReadIntPtr(UnsafeHandle, i * IntPtr.Size) != IntPtr.Zero; i++) {
+                yield return GetInstance<T>(Marshal.ReadIntPtr(UnsafeHandle, i * IntPtr.Size), Transfer.None);
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Coverts <see cref="WeakZeroTerminatedCPtrArray{T}"/> to <see cref="UnownedZeroTerminatedCPtrArray{T}"/>.
@@ -490,17 +502,28 @@ namespace GISharp.Runtime
     /// <summary>
     /// Extension methods for <see cref="UnownedCPtrArray{T}"/>
     /// </summary>
-    public static class UnownedCPtrArrayExtensions
+    public static unsafe class CPtrArrayExtensions
     {
         /// <summary>
         /// Casts a managed array of pointers to an unmanaged C array.
         /// </summary>
-        public static UnownedCPtrArray<T> ToUnownedCPtrArray<T>(this T[] array) where T : IOpaque
+        [return: NotNullIfNotNull("array")]
+        public static WeakCPtrArray<T>? ToWeakCPtrArray<T>(this T[]? array) where T : IOpaque
         {
             if (array is null) {
-                return UnownedCPtrArray<T>.Empty;
+                return null;
             }
-            return new UnownedCPtrArray<T>(array.Select(x => x.UnsafeHandle).ToArray());
+            var array_ = (IntPtr*)GMarshal.Alloc(array.Length * IntPtr.Size);
+            try {
+                foreach (var (h, i) in array.Select((x, i) => (x.UnsafeHandle, i))) {
+                    array_[i] = h;
+                }
+            }
+            catch {
+                GMarshal.Free((IntPtr)array_);
+                throw;
+            }
+            return new WeakCPtrArray<T>((IntPtr)array_, array.Length, Transfer.Container);
         }
     }
 }

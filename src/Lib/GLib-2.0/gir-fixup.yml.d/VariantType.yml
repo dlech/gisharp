@@ -1,0 +1,30 @@
+
+### VariantType ###
+
+# most constructors don't make sense as constructor
+- !change-element
+  new-name: gi:function
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[not(@name='new')]
+
+# using for ToString method
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:method[@name='peek_string']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:method[@name='peek_string' or @name='get_string_length']
+
+# make properties
+- !change-attribute
+  name: name
+  regex: ^(.*)$
+  replace: get_$1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:method[@name='element' or @name='first' or @name='key' or @name='value']
+
+# better name
+- !set-attribute
+  name: name
+  value: get_item_count
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:method[@name='n_items']

@@ -74,6 +74,7 @@ namespace GISharp.CodeGen.Gir
             case "gtype":
             case "utf8":
             case "filename":
+            case "bytestring":
             case "gpointer":
             case "gconstpointer":
             case "gintptr":

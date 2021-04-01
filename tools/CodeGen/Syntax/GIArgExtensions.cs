@@ -70,10 +70,13 @@ namespace GISharp.CodeGen.Syntax
                     if (elementType == "filename") {
                         return "GISharp.Runtime.FilenameArray";
                     }
+                    if (elementType == "bytestring") {
+                        return "GISharp.Runtime.ByteStringArray";
+                    }
                 }
             }
 
-            if (arg.Type.TypeParameters.Any() && arg.Type.GirName != "GLib.ByteArray") {
+            if (arg.Type.TypeParameters.Any() && arg.Type.GirName != "GLib.ByteArray" && arg.Type.GirName != "bytestring") {
                 // arrays of structs need to use unmanaged type since it may be a
                 // different size compared to managed type
                 var useUnmanagedElementType = false;
@@ -557,6 +560,9 @@ namespace GISharp.CodeGen.Syntax
                 return true;
             }
             if (arg.Type.GirName == "filename") {
+                return true;
+            }
+            if (arg.Type.GirName == "bytestring") {
                 return true;
             }
             if (arg.Type is Gir.Array) {

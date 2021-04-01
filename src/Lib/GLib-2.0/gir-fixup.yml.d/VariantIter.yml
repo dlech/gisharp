@@ -1,0 +1,55 @@
+
+### VariantIter ###
+
+# don't treat as struct
+- !set-attribute
+  name: disguised
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']
+
+# make introspectable
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']/gi:method
+
+# move constructor
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='iter_new']
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']/gi:method[@name='iter_new']
+- !change-element
+  new-name: gi:parameter
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']/gi:constructor[@name='iter_new']/gi:parameters/gi:instance-parameter
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']/gi:constructor[@name='iter_new']
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']/gi:constructor[@name='new']
+
+# for unmanaged code only
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']/gi:method[@name='init']
+
+# better name
+- !set-attribute
+  name: name
+  value: get_count
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']/gi:method[@name='n_children']
+
+# special handling
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']/gi:method[@name='next_value']

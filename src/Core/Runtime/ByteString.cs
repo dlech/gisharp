@@ -35,6 +35,27 @@ namespace GISharp.Runtime
         {
         }
 
+        private static byte* NewManaged(byte[] source)
+        {
+            var ret = (byte*)GMarshal.Alloc(source.Length + 1);
+            Marshal.Copy(source, 0, (IntPtr)ret, source.Length);
+            ret[source.Length] = 0;
+            return ret;
+        }
+
+        /// <summary>
+        /// Makes a copy of <paramref name="source"/> in unmanaged memory and
+        /// adds a zero-terminator byte.
+        /// </summary>
+        /// <remarks>
+        /// <paramref name="source"/> should not include any 0 bytes.
+        /// </remarks>
+        /// <param name="source">The source to copy.</param>
+        public ByteString(byte[] source)
+            : this((IntPtr)NewManaged(source), source.Length, Transfer.Full)
+        {
+        }
+
         /// <summary>
         /// For internal runtime use only.
         /// </summary>

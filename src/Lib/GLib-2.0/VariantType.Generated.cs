@@ -16,8 +16,11 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.StringLength']/*" />
-        public int StringLength { get => GetStringLength(); }
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Element']/*" />
+        public GISharp.Lib.GLib.VariantType Element { get => GetElement(); }
+
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.First']/*" />
+        public GISharp.Lib.GLib.VariantType First { get => GetFirst(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsArray']/*" />
         public bool IsArray { get => GetIsArray(); }
@@ -42,6 +45,15 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsVariant']/*" />
         public bool IsVariant { get => GetIsVariant(); }
+
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Key']/*" />
+        public GISharp.Lib.GLib.VariantType Key { get => GetKey(); }
+
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.ItemCount']/*" />
+        public int ItemCount { get => GetItemCount(); }
+
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Value']/*" />
+        public GISharp.Lib.GLib.VariantType Value { get => GetValue(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -124,18 +136,15 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* element);
         static partial void CheckNewArrayArgs(GISharp.Lib.GLib.VariantType element);
 
-        static GISharp.Lib.GLib.VariantType.UnmanagedStruct* NewArray(GISharp.Lib.GLib.VariantType element)
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.NewArray(GISharp.Lib.GLib.VariantType)']/*" />
+        public static GISharp.Lib.GLib.VariantType NewArray(GISharp.Lib.GLib.VariantType element)
         {
             CheckNewArrayArgs(element);
             var element_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)element.UnsafeHandle;
             var ret_ = g_variant_type_new_array(element_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            return ret_;
-        }
-
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.VariantType(GISharp.Lib.GLib.VariantType)']/*" />
-        public VariantType(GISharp.Lib.GLib.VariantType element) : this((System.IntPtr)NewArray(element), GISharp.Runtime.Transfer.Full)
-        {
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
         }
 
         /// <summary>
@@ -170,19 +179,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* value);
         static partial void CheckNewDictEntryArgs(GISharp.Lib.GLib.VariantType key, GISharp.Lib.GLib.VariantType value);
 
-        static GISharp.Lib.GLib.VariantType.UnmanagedStruct* NewDictEntry(GISharp.Lib.GLib.VariantType key, GISharp.Lib.GLib.VariantType value)
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.NewDictEntry(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType)']/*" />
+        public static GISharp.Lib.GLib.VariantType NewDictEntry(GISharp.Lib.GLib.VariantType key, GISharp.Lib.GLib.VariantType value)
         {
             CheckNewDictEntryArgs(key, value);
             var key_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)key.UnsafeHandle;
             var value_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)value.UnsafeHandle;
             var ret_ = g_variant_type_new_dict_entry(key_,value_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            return ret_;
-        }
-
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.VariantType(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType)']/*" />
-        public VariantType(GISharp.Lib.GLib.VariantType key, GISharp.Lib.GLib.VariantType value) : this((System.IntPtr)NewDictEntry(key, value), GISharp.Runtime.Transfer.Full)
-        {
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
         }
 
         /// <summary>
@@ -211,18 +217,15 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* element);
         static partial void CheckNewMaybeArgs(GISharp.Lib.GLib.VariantType element);
 
-        static GISharp.Lib.GLib.VariantType.UnmanagedStruct* NewMaybe(GISharp.Lib.GLib.VariantType element)
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.NewMaybe(GISharp.Lib.GLib.VariantType)']/*" />
+        public static GISharp.Lib.GLib.VariantType NewMaybe(GISharp.Lib.GLib.VariantType element)
         {
             CheckNewMaybeArgs(element);
             var element_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)element.UnsafeHandle;
             var ret_ = g_variant_type_new_maybe(element_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            return ret_;
-        }
-
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.VariantType(GISharp.Lib.GLib.VariantType)']/*" />
-        public VariantType(GISharp.Lib.GLib.VariantType element) : this((System.IntPtr)NewMaybe(element), GISharp.Runtime.Transfer.Full)
-        {
+            var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
         }
 
         /// <summary>
@@ -262,7 +265,8 @@ namespace GISharp.Lib.GLib
         int length);
         static partial void CheckNewTupleArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.VariantType> items);
 
-        static GISharp.Lib.GLib.VariantType.UnmanagedStruct* NewTuple(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.VariantType> items)
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.NewTuple(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.VariantType&gt;)']/*" />
+        public static GISharp.Lib.GLib.VariantType NewTuple(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.VariantType> items)
         {
             fixed (System.IntPtr* itemsData_ = items)
             {
@@ -271,13 +275,9 @@ namespace GISharp.Lib.GLib
                 var length_ = (int)items.Length;
                 var ret_ = g_variant_type_new_tuple(items_,length_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                return ret_;
+                var ret = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                return ret;
             }
-        }
-
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.VariantType(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.VariantType&gt;)']/*" />
-        public VariantType(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.VariantType> items) : this((System.IntPtr)NewTuple(items), GISharp.Runtime.Transfer.Full)
-        {
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -497,12 +497,11 @@ byte* typeString);
         /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
-        partial void CheckElementArgs();
+        partial void CheckGetElementArgs();
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Element()']/*" />
-        public GISharp.Lib.GLib.VariantType Element()
+        private GISharp.Lib.GLib.VariantType GetElement()
         {
-            CheckElementArgs();
+            CheckGetElementArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_element(type_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
@@ -578,15 +577,15 @@ byte* typeString);
         }
 
         /// <inheritdoc/>
-        public static bool operator ==(GISharp.Lib.GLib.VariantType a, GISharp.Lib.GLib.VariantType b)
+        public static bool operator ==(GISharp.Lib.GLib.VariantType? a, GISharp.Lib.GLib.VariantType? b)
         {
-            return a.Equals(b);
+            return a?.Equals(b) ?? b is null;
         }
 
         /// <inheritdoc/>
-        public static System.Boolean operator !=(GISharp.Lib.GLib.VariantType a, GISharp.Lib.GLib.VariantType b)
+        public static System.Boolean operator !=(GISharp.Lib.GLib.VariantType? a, GISharp.Lib.GLib.VariantType? b)
         {
-            return !a.Equals(b);
+            return !(a?.Equals(b) ?? b is null);
         }
 
         /// <summary>
@@ -626,12 +625,11 @@ byte* typeString);
         /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
-        partial void CheckFirstArgs();
+        partial void CheckGetFirstArgs();
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.First()']/*" />
-        public GISharp.Lib.GLib.VariantType First()
+        private GISharp.Lib.GLib.VariantType GetFirst()
         {
-            CheckFirstArgs();
+            CheckGetFirstArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_first(type_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
@@ -694,17 +692,6 @@ byte* typeString);
         /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
-        partial void CheckGetStringLengthArgs();
-
-        private int GetStringLength()
-        {
-            CheckGetStringLengthArgs();
-            var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
-            var ret_ = g_variant_type_get_string_length(type_);
-            GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (int)ret_;
-            return ret;
-        }
 
         /// <summary>
         /// Hashes @type.
@@ -1124,12 +1111,11 @@ byte* typeString);
         /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
-        partial void CheckKeyArgs();
+        partial void CheckGetKeyArgs();
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Key()']/*" />
-        public GISharp.Lib.GLib.VariantType Key()
+        private GISharp.Lib.GLib.VariantType GetKey()
         {
-            CheckKeyArgs();
+            CheckGetKeyArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_key(type_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
@@ -1167,12 +1153,11 @@ byte* typeString);
         /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
-        partial void CheckNItemsArgs();
+        partial void CheckGetItemCountArgs();
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.NItems()']/*" />
-        public int NItems()
+        private int GetItemCount()
         {
-            CheckNItemsArgs();
+            CheckGetItemCountArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_n_items(type_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
@@ -1227,6 +1212,32 @@ byte* typeString);
         }
 
         /// <summary>
+        /// Returns the type string corresponding to the given @type.  The
+        /// result is not nul-terminated; in order to determine its length you
+        /// must call g_variant_type_get_string_length().
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// To get a nul-terminated string, see g_variant_type_dup_string().
+        /// </para>
+        /// </remarks>
+        /// <param name="type">
+        /// a #GVariantType
+        /// </param>
+        /// <returns>
+        /// the corresponding type string (not nul-terminated)
+        /// 
+        /// Since 2.24
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern byte* g_variant_type_peek_string(
+        /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
+
+        /// <summary>
         /// Determines the value type of a dictionary entry type.
         /// </summary>
         /// <remarks>
@@ -1249,12 +1260,11 @@ byte* typeString);
         /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
-        partial void CheckValueArgs();
+        partial void CheckGetValueArgs();
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Value()']/*" />
-        public GISharp.Lib.GLib.VariantType Value()
+        private GISharp.Lib.GLib.VariantType GetValue()
         {
-            CheckValueArgs();
+            CheckGetValueArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_value(type_);
             GISharp.Runtime.GMarshal.PopUnhandledException();

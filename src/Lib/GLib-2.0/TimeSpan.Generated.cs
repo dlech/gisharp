@@ -25,5 +25,33 @@ namespace GISharp.Lib.GLib
         /// <include file="TimeSpan.xmldoc" path="declaration/member[@name='TimeSpan.Second']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public const long Second = 1000000L;
+        private readonly long value;
+
+        static partial void ValidateValue(long value);
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public TimeSpan(long value)
+        {
+            ValidateValue(value);
+            this.value = value;
+        }
+
+        /// <summary>
+        /// Converts to <see cref="TimeSpan"/> from the underlying type.
+        /// </summary>
+        public static explicit operator TimeSpan(long value)
+        {
+            return new TimeSpan(value);
+        }
+
+        /// <summary>
+        /// Converts from <see cref="TimeSpan"/> to the underlying type.
+        /// </summary>
+        public static explicit operator long(TimeSpan value)
+        {
+            return value.value;
+        }
     }
 }

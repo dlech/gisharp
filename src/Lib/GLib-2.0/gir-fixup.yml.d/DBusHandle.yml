@@ -1,0 +1,10 @@
+
+### DBusHandle ###
+
+# create a new alias (this type doesn't actually exist in GLib)
+- !add-element
+  xml: |
+    <gi:alias name='DBusHandle' c:type='GI_DBusHandle'>
+      <gi:type name="gint32" c:type="gint32" />
+    </gi:alias>
+  xpath: gi:repository/gi:namespace

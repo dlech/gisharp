@@ -1,0 +1,91 @@
+<declaration>
+
+<member name='UnmanagedStruct.X0'>
+</member>
+
+<member name='UnmanagedStruct.X1'>
+</member>
+
+<member name='UnmanagedStruct.X2'>
+</member>
+
+<member name='UnmanagedStruct.X3'>
+</member>
+
+<member name='UnmanagedStruct.X4'>
+</member>
+
+<member name='UnmanagedStruct.X5'>
+</member>
+
+<member name='UnmanagedStruct.X6'>
+</member>
+
+<member name='UnmanagedStruct.X7'>
+</member>
+
+<member name='UnmanagedStruct.X8'>
+</member>
+
+<member name='UnmanagedStruct.X9'>
+</member>
+
+<member name='UnmanagedStruct.X10'>
+</member>
+
+<member name='UnmanagedStruct.X11'>
+</member>
+
+<member name='UnmanagedStruct.X12'>
+</member>
+
+<member name='UnmanagedStruct.X13'>
+</member>
+
+<member name='UnmanagedStruct.X14'>
+</member>
+
+<member name='UnmanagedStruct.X15'>
+</member>
+
+<member name='VariantIter.Count'>
+<summary>
+Queries the number of child items in the container that we are
+iterating over.  This is the total number of items -- not the number
+of items remaining.
+</summary>
+<remarks>
+<para>
+This function might be useful for preallocation of arrays.
+</para>
+</remarks>
+</member>
+
+<member name='VariantIter.VariantIter(GISharp.Lib.GLib.Variant)'>
+<summary>
+Creates a heap-allocated <see cref="VariantIter"/> for iterating over the items
+in <paramref name="value"/>.
+</summary>
+<remarks>
+<para>
+Use <see cref="VariantIter.Free()"/> to free the return value when you no longer
+need it.
+</para>
+<para>
+A reference is taken to <paramref name="value"/> and will be released only when
+<see cref="VariantIter.Free()"/> is called.
+</para>
+</remarks>
+<param name="value">
+a container <see cref="Variant"/>
+</param>
+</member>
+
+<member name='VariantIter'>
+<summary>
+<see cref="VariantIter"/> is an opaque data structure and can only be accessed
+using the following functions.
+</summary>
+</member>
+
+</declaration>

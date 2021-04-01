@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2019-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
 using NUnit.Framework;
 
@@ -33,14 +33,15 @@ namespace GISharp.Test.GLib
                 using var vt = VariantType.String;
                 using var v = new Variant(vt, UnownedCPtrArray<Variant>.Empty);
                 using var iter = new VariantIter(v);
-                Assert.That(iter.TryNextValue(), Is.Null);
+                Assert.That(iter.MoveNext(), Is.False);
             }
             {
                 using var vt = VariantType.String;
                 using var test = new Variant("test");
                 using var v = Variant.CreateArray(vt, test);
                 using var iter = new VariantIter(v);
-                Assert.That(iter.TryNextValue(), Is.EqualTo(test));
+                Assert.That(iter.MoveNext(), Is.True);
+                Assert.That(iter.Current, Is.EqualTo(test));
             }
         }
     }
