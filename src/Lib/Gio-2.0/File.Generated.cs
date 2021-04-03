@@ -1062,7 +1062,7 @@ namespace GISharp.Lib.Gio
             var progressCallback_ = progressCallback is null ? default : (delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void>)&GISharp.Lib.Gio.FileProgressCallbackMarshal.Callback;
             var progressCallbackHandle = progressCallback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((progressCallback, GISharp.Runtime.CallbackScope.Async));
             var progressCallbackData_ = (System.IntPtr)progressCallbackHandle;
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>();
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&CopyFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_copy_async(source_, destination_, flags_, ioPriority_, cancellable_, progressCallback_, progressCallbackData_, callback_, userData_);
@@ -1178,7 +1178,7 @@ namespace GISharp.Lib.Gio
             {
                 var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)sourceObject_;
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target!;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>)userData.Target!;
                 userData.Free();
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_file_copy_finish(file_, res_, &error_);
@@ -1188,7 +1188,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(GISharp.Runtime.Void.Default);
+                completionSource.SetResult(default(System.ValueTuple));
             }
             catch (System.Exception ex)
             {
@@ -1761,7 +1761,7 @@ namespace GISharp.Lib.Gio
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var ioPriority_ = (int)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>();
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&DeleteFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_delete_async(file_, ioPriority_, cancellable_, callback_, userData_);
@@ -1806,7 +1806,7 @@ namespace GISharp.Lib.Gio
             {
                 var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)sourceObject_;
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target!;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>)userData.Target!;
                 userData.Free();
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_file_delete_finish(file_, result_, &error_);
@@ -1816,7 +1816,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(GISharp.Runtime.Void.Default);
+                completionSource.SetResult(default(System.ValueTuple));
             }
             catch (System.Exception ex)
             {
@@ -3299,7 +3299,7 @@ namespace GISharp.Lib.Gio
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var ioPriority_ = (int)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>();
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&MakeDirectoryFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_make_directory_async(file_, ioPriority_, cancellable_, callback_, userData_);
@@ -3345,7 +3345,7 @@ namespace GISharp.Lib.Gio
             {
                 var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)sourceObject_;
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target!;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>)userData.Target!;
                 userData.Free();
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_file_make_directory_finish(file_, result_, &error_);
@@ -3355,7 +3355,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(GISharp.Runtime.Void.Default);
+                completionSource.SetResult(default(System.ValueTuple));
             }
             catch (System.Exception ex)
             {
@@ -7225,7 +7225,7 @@ namespace GISharp.Lib.Gio
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var ioPriority_ = (int)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>();
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&TrashFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_trash_async(file_, ioPriority_, cancellable_, callback_, userData_);
@@ -7271,7 +7271,7 @@ namespace GISharp.Lib.Gio
             {
                 var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)sourceObject_;
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target!;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>)userData.Target!;
                 userData.Free();
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_file_trash_finish(file_, result_, &error_);
@@ -7281,7 +7281,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(GISharp.Runtime.Void.Default);
+                completionSource.SetResult(default(System.ValueTuple));
             }
             catch (System.Exception ex)
             {

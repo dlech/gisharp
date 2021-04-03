@@ -164,7 +164,7 @@ namespace GISharp.CodeGen.Syntax
                 var completionType = returnTypes switch {
                     var x when x.Skip(1).Any() => $"{typeof(TaskCompletionSource)}<{typeof(ValueTuple)}<{string.Join(", ", returnTypes)}>>",
                     var x when x.Any() => $"{typeof(TaskCompletionSource)}<{string.Join(", ", returnTypes)}>",
-                    _ => $"{typeof(TaskCompletionSource)}<{typeof(Runtime.Void)}>",
+                    _ => $"{typeof(TaskCompletionSource)}<{typeof(ValueTuple)}>",
                 };
 
                 var completionVarExpression = $"var completionSource = new {completionType}()";
@@ -339,7 +339,7 @@ namespace GISharp.CodeGen.Syntax
             var completionType = returnTypes switch {
                 var x when x.Skip(1).Any() => $"{typeof(TaskCompletionSource)}<{typeof(ValueTuple)}<{string.Join(", ", returnTypes)}>>",
                 var x when x.Any() => $"{typeof(TaskCompletionSource)}<{string.Join(", ", returnTypes)}>",
-                _ => $"{typeof(TaskCompletionSource)}<{typeof(Runtime.Void)}>",
+                _ => $"{typeof(TaskCompletionSource)}<{typeof(ValueTuple)}>",
             };
             var targetExpression = $"var completionSource = ({completionType})userData.Target!";
             tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(ParseExpression(targetExpression)));
@@ -397,7 +397,7 @@ namespace GISharp.CodeGen.Syntax
                 returnValues.Insert(0, "ret");
             }
 
-            var returnValue = returnValues.Any() ? $"({string.Join(", ", returnValues)})" : $"{typeof(Runtime.Void)}.{nameof(Runtime.Void.Default)}";
+            var returnValue = returnValues.Any() ? $"({string.Join(", ", returnValues)})" : $"default({typeof(ValueTuple)})";
             var returnExpression = ParseExpression($"completionSource.SetResult({returnValue})");
             tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(returnExpression));
 
