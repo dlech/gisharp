@@ -155,18 +155,15 @@ namespace GISharp.Lib.GObject
             GMarshal.PopUnhandledException();
             if (ptr != IntPtr.Zero) {
                 var gcHandle = (GCHandle)ptr;
-                if (gcHandle.IsAllocated) {
-                    // the GC handle looks good, so we should have the managed
-                    // proxy for the unmanged object here
-                    var target = (ParamSpec)gcHandle.Target!;
+                if (gcHandle.IsAllocated && gcHandle.Target is T pspec) {
                     // make sure the managed object has not been disposed
-                    if (target.handle == handle) {
+                    if (pspec.handle == handle) {
                         // release the extra reference, if there is one
                         if (ownership != Transfer.None) {
                             g_param_spec_unref((UnmanagedStruct*)handle);
                         }
                         // return the existing managed proxy
-                        return (T?)target;
+                        return pspec;
                     }
                 }
             }
