@@ -135,6 +135,11 @@ namespace GISharp.Runtime
         private int length;
 
         /// <summary>
+        /// Indicates whether the current instance is empty.
+        /// </summary>
+        public bool IsEmpty => EqualityComparer<T>.Default.Equals(((T*)UnsafeHandle)[0], default);
+
+        /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]

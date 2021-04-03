@@ -637,13 +637,16 @@ namespace GISharp.Runtime
         /// <returns>
         /// array of child types
         /// </returns>
-        public ReadOnlyMemory<GType> Children {
+        public ZeroTerminatedCArray<GType>? Children {
             get {
                 uint nChildren_;
                 var ret_ = g_type_children(this, &nChildren_);
                 GMarshal.PopUnhandledException();
-                var ret = new CArrayMemoryManager<GType>(ret_, (int)nChildren_, Transfer.Full);
-                return ret.Memory;
+                if (ret_ == IntPtr.Zero) {
+                    return null;
+                }
+                var ret = new ZeroTerminatedCArray<GType>(ret_, (int)nChildren_, Transfer.Full);
+                return ret;
             }
         }
 
