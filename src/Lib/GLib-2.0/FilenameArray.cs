@@ -6,9 +6,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-using GISharp.Lib.GLib;
+using GISharp.Runtime;
 
-namespace GISharp.Runtime
+namespace GISharp.Lib.GLib
 {
     /// <summary>
     /// Null-terminated array of null-terminated file names
@@ -40,6 +40,7 @@ namespace GISharp.Runtime
         public FilenameArray(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
         {
         }
+
         static IntPtr New(string[] filenames)
         {
             var ptr = GMarshal.Alloc(IntPtr.Size * filenames.Length + 1);

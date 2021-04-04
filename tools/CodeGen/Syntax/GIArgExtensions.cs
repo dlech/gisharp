@@ -68,7 +68,7 @@ namespace GISharp.CodeGen.Syntax
                         return "GISharp.Lib.GLib.Strv";
                     }
                     if (elementType == "filename") {
-                        return "GISharp.Runtime.FilenameArray";
+                        return "GISharp.Lib.GLib.FilenameArray";
                     }
                     if (elementType == "bytestring") {
                         return "GISharp.Runtime.ByteStringArray";
@@ -285,7 +285,7 @@ namespace GISharp.CodeGen.Syntax
             // explicit cast expression to unmanaged type
             var unmanagedCast = $"({unmanagedType})";
 
-            if (arg.Type is Gir.Array array && array.GirName is null && type != "GISharp.Lib.GLib.Strv" && type != "GISharp.Runtime.FilenameArray") {
+            if (arg.Type is Gir.Array array && array.GirName is null && type != "GISharp.Lib.GLib.Strv" && type != "GISharp.Lib.GLib.FilenameArray") {
                 var isSpanLike = arg.TransferOwnership == "none";
                 var takeData = arg.TransferOwnership == "full";
                 var isAsync = arg.Ancestors.Any(x => x is GICallable callable && callable.IsAsync);
@@ -436,7 +436,7 @@ namespace GISharp.CodeGen.Syntax
             var @var = declareVariable ? "var " : "";
             var ownership = arg.GetOwnershipTransfer();
 
-            if (type == "GISharp.Lib.GLib.Strv" || type == "GISharp.Runtime.FilenameArray") {
+            if (type == "GISharp.Lib.GLib.Strv" || type == "GISharp.Lib.GLib.FilenameArray") {
                 var lengthArg = "-1";
 
                 if (arg.Type is Gir.Array v && v.LengthIndex >= 0) {
