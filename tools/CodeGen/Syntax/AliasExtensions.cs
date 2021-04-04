@@ -34,7 +34,7 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Alias alias)
         {
             var members = List<MemberDeclarationSyntax>()
-                .AddIf(alias.Type.GirName != "utf8", () =>
+                .AddIf(alias.Type.GirName != "utf8" && alias.Type.GirName != "filename" && alias.Type.GirName != "bytestring", () =>
                     alias.Fields.GetStructDeclaration().AddModifiers(Token(NewKeyword)))
                 .AddRange(alias.Constants.GetMemberDeclarations())
                 .AddRange(alias.ManagedProperties.GetMemberDeclarations())

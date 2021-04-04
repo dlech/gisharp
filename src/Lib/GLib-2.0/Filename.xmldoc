@@ -1,0 +1,232 @@
+<declaration>
+
+<member name='Filename.DisplayBasename'>
+<summary>
+Returns the display basename for the particular filename, guaranteed
+to be valid UTF-8. The display name might not be identical to the filename,
+for instance there might be problems converting it to UTF-8, and some files
+can be translated in the display.
+</summary>
+<remarks>
+<para>
+If GLib cannot make sense of the encoding of this instance, as a last resort it
+replaces unknown characters with U+FFFD, the Unicode replacement character.
+You can search the result for the UTF-8 encoding of this character (which is
+"\357\277\275" in octal notation) to find out if this instance was in an invalid
+encoding.
+</para>
+<para>
+You must pass the whole absolute pathname to this functions so that
+translation of well known locations can be done.
+</para>
+<para>
+This function is preferred over <see cref="Filename.DisplayName"/> if you know the
+whole path, as it allows translation.
+</para>
+</remarks>
+</member>
+
+<member name='Filename.DisplayName'>
+<summary>
+Converts a filename into a valid UTF-8 string. The conversion is
+not necessarily reversible, so you should keep the original around
+and use the return value of this function only for display purposes.
+Unlike <see cref="Filename.ToUtf8()"/>, the result is guaranteed to be non-<c>null</c>
+even if the filename actually isn't in the GLib file name encoding.
+</summary>
+<remarks>
+<para>
+If GLib cannot make sense of the encoding of this instance, as a last resort it
+replaces unknown characters with U+FFFD, the Unicode replacement character.
+You can search the result for the UTF-8 encoding of this character (which is
+"\357\277\275" in octal notation) to find out if this instance was in an invalid
+encoding.
+</para>
+<para>
+If you know the whole pathname of the file you should use
+<see cref="Filename.DisplayBasename"/>, since that allows location-based
+translation of filenames.
+</para>
+</remarks>
+</member>
+
+<member name='Filename.Build(GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;)'>
+<summary>
+Behaves exactly like g_build_filename(), but takes the path elements
+as a string array, instead of varargs. This function is mainly
+meant for language bindings.
+</summary>
+<param name="args">
+<c>null</c>-terminated
+    array of strings containing the path elements.
+</param>
+<returns>
+a newly-allocated string that must be freed
+    with g_free().
+</returns>
+</member>
+
+<member name='Filename.FromUri(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Utf8?)'>
+<summary>
+Converts an escaped ASCII-encoded URI to a local filename in the
+encoding used for filenames.
+</summary>
+<param name="uri">
+a uri describing a filename (escaped, encoded in ASCII).
+</param>
+<param name="hostname">
+Location to store hostname for the URI.
+           If there is no hostname in the URI, <c>null</c> will be
+           stored in this location.
+</param>
+<returns>
+a newly-allocated string holding
+              the resulting filename, or <c>null</c> on an error.
+</returns>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
+<member name='Filename.FromUtf8(GISharp.Lib.GLib.UnownedUtf8,int,int,int)'>
+<summary>
+Converts a string from UTF-8 to the encoding GLib uses for
+filenames. Note that on Windows GLib uses UTF-8 for filenames;
+on other platforms, this function indirectly depends on the
+[current locale][setlocale].
+</summary>
+<remarks>
+<para>
+The input string shall not contain nul characters even if the <paramref name="len"/>
+argument is positive. A nul character found inside the string will result
+in error <see cref="ConvertError.IllegalSequence"/>. If the filename encoding is
+not UTF-8 and the conversion output contains a nul character, the error
+<see cref="ConvertError.EmbeddedNul"/> is set and the function returns <c>null</c>.
+</para>
+</remarks>
+<param name="utf8string">
+a UTF-8 encoded string.
+</param>
+<param name="len">
+the length of the string, or -1 if the string is
+                nul-terminated.
+</param>
+<param name="bytesRead">
+location to store the number of bytes in
+                the input string that were successfully converted, or <c>null</c>.
+                Even if the conversion was successful, this may be
+                less than <paramref name="len"/> if there were partial characters
+                at the end of the input. If the error
+                <see cref="ConvertError.IllegalSequence"/> occurs, the value
+                stored will be the byte offset after the last valid
+                input sequence.
+</param>
+<param name="bytesWritten">
+the number of bytes stored in
+                the output buffer (not including the terminating nul).
+</param>
+<returns>
+
+              The converted string, or <c>null</c> on an error.
+</returns>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
+<member name='Filename.TryGetCharsets(GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<summary>
+Determines the preferred character sets used for filenames.
+The first character set from the <c>charsets</c> is the filename encoding, the
+subsequent character sets are used when trying to generate a displayable
+representation of a filename, see <see cref="Filename.DisplayName"/>.
+</summary>
+<remarks>
+<para>
+On Unix, the character sets are determined by consulting the
+environment variables `G_FILENAME_ENCODING` and `G_BROKEN_FILENAMES`.
+On Windows, the character set used in the GLib API is always UTF-8
+and said environment variables have no effect.
+</para>
+<para>
+`G_FILENAME_ENCODING` may be set to a comma-separated list of
+character set names. The special token "@locale" is taken
+to  mean the character set for the [current locale][setlocale].
+If `G_FILENAME_ENCODING` is not set, but `G_BROKEN_FILENAMES` is,
+the character set of the current locale is taken as the filename
+encoding. If neither environment variable  is set, UTF-8 is taken
+as the filename encoding, but the character set of the current locale
+is also put in the list of encodings.
+</para>
+<para>
+The returned <c>charsets</c> belong to GLib and must not be freed.
+</para>
+<para>
+Note that on Unix, regardless of the locale character set or
+`G_FILENAME_ENCODING` value, the actual file names present
+on a system might be in any random encoding or just gibberish.
+</para>
+</remarks>
+<param name="filenameCharsets">
+
+   return location for the <c>null</c>-terminated list of encoding names
+</param>
+<returns>
+<c>true</c> if the filename encoding is UTF-8.
+</returns>
+</member>
+
+<member name='Filename.Canonicalize(GISharp.Lib.GLib.Filename?)'>
+<summary>
+Gets the canonical file name from this instance. All triple slashes are turned into
+single slashes, and all `..` and `.`s resolved against <paramref name="relativeTo"/>.
+</summary>
+<remarks>
+<para>
+Symlinks are not followed, and the returned path is guaranteed to be absolute.
+</para>
+<para>
+If this instance is an absolute path, <paramref name="relativeTo"/> is ignored. Otherwise,
+<paramref name="relativeTo"/> will be prepended to this instance to make it absolute. <paramref name="relativeTo"/>
+must be an absolute path, or <c>null</c>. If <paramref name="relativeTo"/> is <c>null</c>, it'll fallback
+to g_get_current_dir().
+</para>
+<para>
+This function never fails, and will canonicalize file paths even if they don't
+exist.
+</para>
+<para>
+No file system I/O is done.
+</para>
+</remarks>
+<param name="relativeTo">
+the relative directory, or <c>null</c>
+to use the current working directory
+</param>
+<returns>
+a newly allocated string with the
+canonical file path
+</returns>
+</member>
+
+<member name='Filename.ToUri(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<summary>
+Converts an absolute filename to an escaped ASCII-encoded URI, with the path
+component following Section 3.3. of RFC 2396.
+</summary>
+<param name="hostname">
+A UTF-8 encoded hostname, or <c>null</c> for none.
+</param>
+<returns>
+a newly-allocated string holding the resulting
+              URI, or <c>null</c> on an error.
+</returns>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
+<member name='Filename'>
+</member>
+
+</declaration>

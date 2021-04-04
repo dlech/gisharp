@@ -27236,6 +27236,192 @@ See g_get_monotonic_time().</doc>
         </gs:managed-parameters>
       </function>
     </gs:static-class>
+    <alias name="Filename" c:type="char *" gs:managed-name="Filename">
+  <type name="bytestring" c:type="char *" gs:is-pointer="1" />
+<function name="build" c:identifier="g_build_filenamev" version="2.8" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Build"><doc xml:space="preserve" filename="glib-2.0.c" line="12915">Behaves exactly like g_build_filename(), but takes the path elements
+as a string array, instead of varargs. This function is mainly
+meant for language bindings.</doc><source-position filename="gfileutils.h" line="176" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="12924">a newly-allocated string that must be freed
+    with g_free().</doc><type name="filename" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><parameter name="args" transfer-ownership="none" gs:managed-name="args" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="12917">%NULL-terminated
+    array of strings containing the path elements.</doc><array c:type="gchar**" zero-terminated="1" gs:is-pointer="1"><type name="filename" gs:is-pointer="1" /></array></parameter></parameters><gs:managed-parameters><parameter name="args" transfer-ownership="none" gs:managed-name="args" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="12917">%NULL-terminated
+    array of strings containing the path elements.</doc><array c:type="gchar**" zero-terminated="1" gs:is-pointer="1"><type name="filename" gs:is-pointer="1" /></array></parameter></gs:managed-parameters></function><method name="canonicalize" c:identifier="g_canonicalize_filename" version="2.58" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Canonicalize"><doc xml:space="preserve" filename="glib-2.0.c" line="13451">Gets the canonical file name from @filename. All triple slashes are turned into
+single slashes, and all `..` and `.`s resolved against @relative_to.
+
+Symlinks are not followed, and the returned path is guaranteed to be absolute.
+
+If @filename is an absolute path, @relative_to is ignored. Otherwise,
+@relative_to will be prepended to @filename to make it absolute. @relative_to
+must be an absolute path, or %NULL. If @relative_to is %NULL, it'll fallback
+to g_get_current_dir().
+
+This function never fails, and will canonicalize file paths even if they don't
+exist.
+
+No file system I/O is done.</doc><source-position filename="gfileutils.h" line="216" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="13472">a newly allocated string with the
+canonical file path</doc><type name="filename" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><instance-parameter name="filename" transfer-ownership="none" gs:managed-name="filename" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="13453">the name of the file</doc><type name="filename" c:type="const gchar*" gs:is-pointer="1" /></instance-parameter><parameter name="relative_to" transfer-ownership="none" nullable="1" allow-none="1" gs:default="default" gs:managed-name="relativeTo" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="13454">the relative directory, or %NULL
+to use the current working directory</doc><type name="filename" c:type="const gchar*" gs:is-pointer="1" /></parameter></parameters><gs:managed-parameters><parameter name="relative_to" transfer-ownership="none" nullable="1" allow-none="1" gs:default="default" gs:managed-name="relativeTo" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="13454">the relative directory, or %NULL
+to use the current working directory</doc><type name="filename" c:type="const gchar*" gs:is-pointer="1" /></parameter></gs:managed-parameters></method><gs:managed-property name="get_display_basename" version="2.6" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="DisplayBasename"><doc xml:space="preserve" filename="glib-2.0.c" line="17068">Returns the display basename for the particular filename, guaranteed
+to be valid UTF-8. The display name might not be identical to the filename,
+for instance there might be problems converting it to UTF-8, and some files
+can be translated in the display.
+
+If GLib cannot make sense of the encoding of @filename, as a last resort it
+replaces unknown characters with U+FFFD, the Unicode replacement character.
+You can search the result for the UTF-8 encoding of this character (which is
+"\357\277\275" in octal notation) to find out if @filename was in an invalid
+encoding.
+
+You must pass the whole absolute pathname to this functions so that
+translation of well known locations can be done.
+
+This function is preferred over g_filename_display_name() if you know the
+whole path, as it allows translation.</doc><source-position filename="gconvert.h" line="170" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17090">a newly allocated string containing
+  a rendition of the basename of the filename in valid UTF-8</doc><type name="utf8" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><instance-parameter name="filename" transfer-ownership="none" gs:managed-name="filename" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17070">an absolute pathname in the
+    GLib file name encoding</doc><type name="filename" c:type="const gchar*" gs:is-pointer="1" /></instance-parameter></parameters><gs:managed-parameters /></gs:managed-property><method name="get_display_basename" c:identifier="g_filename_display_basename" version="2.6" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="GetDisplayBasename" gs:property-getter-for="DisplayBasename" gs:access-modifiers="private"><doc xml:space="preserve" filename="glib-2.0.c" line="17068">Returns the display basename for the particular filename, guaranteed
+to be valid UTF-8. The display name might not be identical to the filename,
+for instance there might be problems converting it to UTF-8, and some files
+can be translated in the display.
+
+If GLib cannot make sense of the encoding of @filename, as a last resort it
+replaces unknown characters with U+FFFD, the Unicode replacement character.
+You can search the result for the UTF-8 encoding of this character (which is
+"\357\277\275" in octal notation) to find out if @filename was in an invalid
+encoding.
+
+You must pass the whole absolute pathname to this functions so that
+translation of well known locations can be done.
+
+This function is preferred over g_filename_display_name() if you know the
+whole path, as it allows translation.</doc><source-position filename="gconvert.h" line="170" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17090">a newly allocated string containing
+  a rendition of the basename of the filename in valid UTF-8</doc><type name="utf8" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><instance-parameter name="filename" transfer-ownership="none" gs:managed-name="filename" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17070">an absolute pathname in the
+    GLib file name encoding</doc><type name="filename" c:type="const gchar*" gs:is-pointer="1" /></instance-parameter></parameters><gs:managed-parameters /></method><gs:managed-property name="get_display_name" version="2.6" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="DisplayName"><doc xml:space="preserve" filename="glib-2.0.c" line="17096">Converts a filename into a valid UTF-8 string. The conversion is
+not necessarily reversible, so you should keep the original around
+and use the return value of this function only for display purposes.
+Unlike g_filename_to_utf8(), the result is guaranteed to be non-%NULL
+even if the filename actually isn't in the GLib file name encoding.
+
+If GLib cannot make sense of the encoding of @filename, as a last resort it
+replaces unknown characters with U+FFFD, the Unicode replacement character.
+You can search the result for the UTF-8 encoding of this character (which is
+"\357\277\275" in octal notation) to find out if @filename was in an invalid
+encoding.
+
+If you know the whole pathname of the file you should use
+g_filename_display_basename(), since that allows location-based
+translation of filenames.</doc><source-position filename="gconvert.h" line="165" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17117">a newly allocated string containing
+  a rendition of the filename in valid UTF-8</doc><type name="utf8" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><instance-parameter name="filename" transfer-ownership="none" gs:managed-name="filename" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17098">a pathname hopefully in the
+    GLib file name encoding</doc><type name="filename" c:type="const gchar*" gs:is-pointer="1" /></instance-parameter></parameters><gs:managed-parameters /></gs:managed-property><method name="get_display_name" c:identifier="g_filename_display_name" version="2.6" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="GetDisplayName" gs:property-getter-for="DisplayName" gs:access-modifiers="private"><doc xml:space="preserve" filename="glib-2.0.c" line="17096">Converts a filename into a valid UTF-8 string. The conversion is
+not necessarily reversible, so you should keep the original around
+and use the return value of this function only for display purposes.
+Unlike g_filename_to_utf8(), the result is guaranteed to be non-%NULL
+even if the filename actually isn't in the GLib file name encoding.
+
+If GLib cannot make sense of the encoding of @filename, as a last resort it
+replaces unknown characters with U+FFFD, the Unicode replacement character.
+You can search the result for the UTF-8 encoding of this character (which is
+"\357\277\275" in octal notation) to find out if @filename was in an invalid
+encoding.
+
+If you know the whole pathname of the file you should use
+g_filename_display_basename(), since that allows location-based
+translation of filenames.</doc><source-position filename="gconvert.h" line="165" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17117">a newly allocated string containing
+  a rendition of the filename in valid UTF-8</doc><type name="utf8" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><instance-parameter name="filename" transfer-ownership="none" gs:managed-name="filename" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17098">a pathname hopefully in the
+    GLib file name encoding</doc><type name="filename" c:type="const gchar*" gs:is-pointer="1" /></instance-parameter></parameters><gs:managed-parameters /></method><function name="from_uri" c:identifier="g_filename_from_uri" throws="1" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="FromUri"><doc xml:space="preserve" filename="glib-2.0.c" line="17123">Converts an escaped ASCII-encoded URI to a local filename in the
+encoding used for filenames.</doc><source-position filename="gconvert.h" line="156" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17135">a newly-allocated string holding
+              the resulting filename, or %NULL on an error.</doc><type name="filename" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><parameter name="uri" transfer-ownership="none" gs:managed-name="uri" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17125">a uri describing a filename (escaped, encoded in ASCII).</doc><type name="utf8" c:type="const gchar*" gs:is-pointer="1" /></parameter><parameter name="hostname" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="hostname"><doc xml:space="preserve" filename="glib-2.0.c" line="17126">Location to store hostname for the URI.
+           If there is no hostname in the URI, %NULL will be
+           stored in this location.</doc><type name="utf8" c:type="gchar**" gs:is-pointer="1" /></parameter><gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error"><doc>return location for a #GError</doc><type name="GLib.Error" c:type="GError**" gs:is-pointer="1" /></gs:error-parameter></parameters><gs:managed-parameters><parameter name="uri" transfer-ownership="none" gs:managed-name="uri" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17125">a uri describing a filename (escaped, encoded in ASCII).</doc><type name="utf8" c:type="const gchar*" gs:is-pointer="1" /></parameter><parameter name="hostname" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="hostname"><doc xml:space="preserve" filename="glib-2.0.c" line="17126">Location to store hostname for the URI.
+           If there is no hostname in the URI, %NULL will be
+           stored in this location.</doc><type name="utf8" c:type="gchar**" gs:is-pointer="1" /></parameter></gs:managed-parameters></function><function name="from_utf8" c:identifier="g_filename_from_utf8" throws="1" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="FromUtf8"><doc xml:space="preserve" filename="glib-2.0.c" line="17140">Converts a string from UTF-8 to the encoding GLib uses for
+filenames. Note that on Windows GLib uses UTF-8 for filenames;
+on other platforms, this function indirectly depends on the
+[current locale][setlocale].
+
+The input string shall not contain nul characters even if the @len
+argument is positive. A nul character found inside the string will result
+in error %G_CONVERT_ERROR_ILLEGAL_SEQUENCE. If the filename encoding is
+not UTF-8 and the conversion output contains a nul character, the error
+%G_CONVERT_ERROR_EMBEDDED_NUL is set and the function returns %NULL.</doc><source-position filename="gconvert.h" line="149" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17169">
+              The converted string, or %NULL on an error.</doc><type name="filename" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><parameter name="utf8string" transfer-ownership="none" gs:managed-name="utf8string" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17142">a UTF-8 encoded string.</doc><type name="utf8" c:type="const gchar*" gs:is-pointer="1" /></parameter><parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17143">the length of the string, or -1 if the string is
+                nul-terminated.</doc><type name="gssize" c:type="gssize" /></parameter><parameter name="bytes_read" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="bytesRead"><doc xml:space="preserve" filename="glib-2.0.c" line="17145">location to store the number of bytes in
+                the input string that were successfully converted, or %NULL.
+                Even if the conversion was successful, this may be
+                less than @len if there were partial characters
+                at the end of the input. If the error
+                %G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will be the byte offset after the last valid
+                input sequence.</doc><type name="gsize" c:type="gsize*" /></parameter><parameter name="bytes_written" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="bytesWritten"><doc xml:space="preserve" filename="glib-2.0.c" line="17153">the number of bytes stored in
+                the output buffer (not including the terminating nul).</doc><type name="gsize" c:type="gsize*" /></parameter><gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error"><doc>return location for a #GError</doc><type name="GLib.Error" c:type="GError**" gs:is-pointer="1" /></gs:error-parameter></parameters><gs:managed-parameters><parameter name="utf8string" transfer-ownership="none" gs:managed-name="utf8string" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17142">a UTF-8 encoded string.</doc><type name="utf8" c:type="const gchar*" gs:is-pointer="1" /></parameter><parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17143">the length of the string, or -1 if the string is
+                nul-terminated.</doc><type name="gssize" c:type="gssize" /></parameter><parameter name="bytes_read" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="bytesRead"><doc xml:space="preserve" filename="glib-2.0.c" line="17145">location to store the number of bytes in
+                the input string that were successfully converted, or %NULL.
+                Even if the conversion was successful, this may be
+                less than @len if there were partial characters
+                at the end of the input. If the error
+                %G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will be the byte offset after the last valid
+                input sequence.</doc><type name="gsize" c:type="gsize*" /></parameter><parameter name="bytes_written" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="bytesWritten"><doc xml:space="preserve" filename="glib-2.0.c" line="17153">the number of bytes stored in
+                the output buffer (not including the terminating nul).</doc><type name="gsize" c:type="gsize*" /></parameter></gs:managed-parameters></function><method name="to_uri" c:identifier="g_filename_to_uri" throws="1" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="ToUri"><doc xml:space="preserve" filename="glib-2.0.c" line="17174">Converts an absolute filename to an escaped ASCII-encoded URI, with the path
+component following Section 3.3. of RFC 2396.</doc><source-position filename="gconvert.h" line="161" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17186">a newly-allocated string holding the resulting
+              URI, or %NULL on an error.</doc><type name="utf8" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><instance-parameter name="filename" transfer-ownership="none" gs:managed-name="filename" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17176">an absolute filename specified in the GLib file
+    name encoding, which is the on-disk file name bytes on Unix, and UTF-8
+    on Windows</doc><type name="filename" c:type="const gchar*" gs:is-pointer="1" /></instance-parameter><parameter name="hostname" transfer-ownership="none" nullable="1" allow-none="1" gs:default="default" gs:managed-name="hostname" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17179">A UTF-8 encoded hostname, or %NULL for none.</doc><type name="utf8" c:type="const gchar*" gs:is-pointer="1" /></parameter><gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error"><doc>return location for a #GError</doc><type name="GLib.Error" c:type="GError**" gs:is-pointer="1" /></gs:error-parameter></parameters><gs:managed-parameters><parameter name="hostname" transfer-ownership="none" nullable="1" allow-none="1" gs:default="default" gs:managed-name="hostname" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17179">A UTF-8 encoded hostname, or %NULL for none.</doc><type name="utf8" c:type="const gchar*" gs:is-pointer="1" /></parameter></gs:managed-parameters></method><method name="to_utf8" c:identifier="g_filename_to_utf8" throws="1" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="ToUtf8"><doc xml:space="preserve" filename="glib-2.0.c" line="17191">Converts a string which is in the encoding used by GLib for
+filenames into a UTF-8 string. Note that on Windows GLib uses UTF-8
+for filenames; on other platforms, this function indirectly depends on
+the [current locale][setlocale].
+
+The input string shall not contain nul characters even if the @len
+argument is positive. A nul character found inside the string will result
+in error %G_CONVERT_ERROR_ILLEGAL_SEQUENCE.
+If the source encoding is not UTF-8 and the conversion output contains a
+nul character, the error %G_CONVERT_ERROR_EMBEDDED_NUL is set and the
+function returns %NULL. Use g_convert() to produce output that
+may contain embedded nul characters.</doc><source-position filename="gconvert.h" line="143" /><return-value transfer-ownership="full" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17224">The converted string, or %NULL on an error.</doc><type name="utf8" c:type="gchar*" gs:is-pointer="1" /></return-value><parameters><instance-parameter name="opsysstring" transfer-ownership="none" gs:managed-name="opsysstring" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17193">a string in the encoding for filenames</doc><type name="filename" c:type="const gchar*" gs:is-pointer="1" /></instance-parameter><parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17194">the length of the string, or -1 if the string is
+                nul-terminated (Note that some encodings may allow nul
+                bytes to occur inside strings. In that case, using -1
+                for the @len parameter is unsafe)</doc><type name="gssize" c:type="gssize" /></parameter><parameter name="bytes_read" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="bytesRead"><doc xml:space="preserve" filename="glib-2.0.c" line="17198">location to store the number of bytes in the
+                input string that were successfully converted, or %NULL.
+                Even if the conversion was successful, this may be
+                less than @len if there were partial characters
+                at the end of the input. If the error
+                %G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will be the byte offset after the last valid
+                input sequence.</doc><type name="gsize" c:type="gsize*" /></parameter><parameter name="bytes_written" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="bytesWritten"><doc xml:space="preserve" filename="glib-2.0.c" line="17206">the number of bytes stored in the output
+                buffer (not including the terminating nul).</doc><type name="gsize" c:type="gsize*" /></parameter><gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error"><doc>return location for a #GError</doc><type name="GLib.Error" c:type="GError**" gs:is-pointer="1" /></gs:error-parameter></parameters><gs:managed-parameters><parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17194">the length of the string, or -1 if the string is
+                nul-terminated (Note that some encodings may allow nul
+                bytes to occur inside strings. In that case, using -1
+                for the @len parameter is unsafe)</doc><type name="gssize" c:type="gssize" /></parameter><parameter name="bytes_read" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="bytesRead"><doc xml:space="preserve" filename="glib-2.0.c" line="17198">location to store the number of bytes in the
+                input string that were successfully converted, or %NULL.
+                Even if the conversion was successful, this may be
+                less than @len if there were partial characters
+                at the end of the input. If the error
+                %G_CONVERT_ERROR_ILLEGAL_SEQUENCE occurs, the value
+                stored will be the byte offset after the last valid
+                input sequence.</doc><type name="gsize" c:type="gsize*" /></parameter><parameter name="bytes_written" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="bytesWritten"><doc xml:space="preserve" filename="glib-2.0.c" line="17206">the number of bytes stored in the output
+                buffer (not including the terminating nul).</doc><type name="gsize" c:type="gsize*" /></parameter></gs:managed-parameters></method><function name="get_charsets" c:identifier="g_get_filename_charsets" version="2.6" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="TryGetCharsets"><doc xml:space="preserve" filename="glib-2.0.c" line="17547">Determines the preferred character sets used for filenames.
+The first character set from the @charsets is the filename encoding, the
+subsequent character sets are used when trying to generate a displayable
+representation of a filename, see g_filename_display_name().
+
+On Unix, the character sets are determined by consulting the
+environment variables `G_FILENAME_ENCODING` and `G_BROKEN_FILENAMES`.
+On Windows, the character set used in the GLib API is always UTF-8
+and said environment variables have no effect.
+
+`G_FILENAME_ENCODING` may be set to a comma-separated list of
+character set names. The special token "\@locale" is taken
+to  mean the character set for the [current locale][setlocale].
+If `G_FILENAME_ENCODING` is not set, but `G_BROKEN_FILENAMES` is,
+the character set of the current locale is taken as the filename
+encoding. If neither environment variable  is set, UTF-8 is taken
+as the filename encoding, but the character set of the current locale
+is also put in the list of encodings.
+
+The returned @charsets belong to GLib and must not be freed.
+
+Note that on Unix, regardless of the locale character set or
+`G_FILENAME_ENCODING` value, the actual file names present
+on a system might be in any random encoding or just gibberish.</doc><source-position filename="gconvert.h" line="167" /><return-value transfer-ownership="none" gs:managed-name="ret" direction="in"><doc xml:space="preserve" filename="glib-2.0.c" line="17577">%TRUE if the filename encoding is UTF-8.</doc><type name="gboolean" c:type="gboolean" /></return-value><parameters><parameter name="filename_charsets" direction="out" caller-allocates="0" transfer-ownership="none" gs:managed-name="filenameCharsets"><doc xml:space="preserve" filename="glib-2.0.c" line="17549">
+   return location for the %NULL-terminated list of encoding names</doc><array c:type="const gchar***" zero-terminated="1" gs:is-pointer="1"><type name="utf8" c:type="gchar**" gs:is-pointer="1" /></array></parameter></parameters><gs:managed-parameters><parameter name="filename_charsets" direction="out" caller-allocates="0" transfer-ownership="none" gs:managed-name="filenameCharsets"><doc xml:space="preserve" filename="glib-2.0.c" line="17549">
+   return location for the %NULL-terminated list of encoding names</doc><array c:type="const gchar***" zero-terminated="1" gs:is-pointer="1"><type name="utf8" c:type="gchar**" gs:is-pointer="1" /></array></parameter></gs:managed-parameters></function></alias>
     <gs:static-class name="UnixSignalSource" gs:managed-name="UnixSignalSource">
       <function name="new" c:identifier="g_unix_signal_source_new" version="2.30" gs:dll-name="glib-2.0" gs:managed-name="New">
         <doc xml:space="preserve" filename="glib-2.0.c" line="36605">Create a #GSource that will be dispatched upon delivery of the UNIX
