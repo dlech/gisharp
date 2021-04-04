@@ -85,10 +85,13 @@ Request that the input method should not
 <member name='InputHints'>
 <summary>
 Describes hints that might be taken into account by input methods
-or applications. Note that input methods may already tailor their
-behaviour according to the <see cref="InputPurpose"/> of the entry.
+or applications.
 </summary>
 <remarks>
+<para>
+Note that input methods may already tailor their behaviour according
+to the `GtkInputPurpose` of the entry.
+</para>
 <para>
 Some common sense is expected when using these flags - mixing
 <see cref="InputHints.Lowercase"/> with any of the uppercase hints makes no sense.

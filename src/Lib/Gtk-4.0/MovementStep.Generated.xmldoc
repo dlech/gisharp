@@ -61,6 +61,10 @@ Move horizontally by pages
 </member>
 
 <member name='MovementStep'>
+<summary>
+Passed as argument to various keybinding signals for moving the
+cursor position.
+</summary>
 </member>
 
 </declaration>

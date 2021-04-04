@@ -43,7 +43,9 @@ namespace GISharp.Lib.Gtk
         /// <include file="DebugFlags.xmldoc" path="declaration/member[@name='DebugFlags.BuilderObjects']/*" />
         BuilderObjects = 0b0000_0000_0000_0001_0000_0000_0000_0000,
         /// <include file="DebugFlags.xmldoc" path="declaration/member[@name='DebugFlags.A11y']/*" />
-        A11y = 0b0000_0000_0000_0010_0000_0000_0000_0000
+        A11y = 0b0000_0000_0000_0010_0000_0000_0000_0000,
+        /// <include file="DebugFlags.xmldoc" path="declaration/member[@name='DebugFlags.Iconfallback']/*" />
+        Iconfallback = 0b0000_0000_0000_0100_0000_0000_0000_0000
     }
 
     /// <summary>

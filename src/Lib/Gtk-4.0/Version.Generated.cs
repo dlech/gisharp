@@ -7,19 +7,19 @@ namespace GISharp.Lib.Gtk
     public static unsafe partial class Version
     {
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.CompileTimeBinaryAge']/*" />
-        public const int CompileTimeBinaryAge = 3;
+        public const int CompileTimeBinaryAge = 200;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.CompileTimeInterfaceAge']/*" />
-        public const int CompileTimeInterfaceAge = 3;
+        public const int CompileTimeInterfaceAge = 0;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.majorVersion']/*" />
         private const int majorVersion = 4;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.microVersion']/*" />
-        private const int microVersion = 3;
+        private const int microVersion = 0;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.minorVersion']/*" />
-        private const int minorVersion = 0;
+        private const int minorVersion = 2;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.RunTimeBinaryAge']/*" />
         public static uint RunTimeBinaryAge { get => GetRunTimeBinaryAge(); }
@@ -38,14 +38,16 @@ namespace GISharp.Lib.Gtk
 
         /// <summary>
         /// Checks that the GTK library in use is compatible with the
-        /// given version. Generally you would pass in the constants
-        /// %GTK_MAJOR_VERSION, %GTK_MINOR_VERSION, %GTK_MICRO_VERSION
-        /// as the three arguments to this function; that produces
-        /// a check that the library in use is compatible with
-        /// the version of GTK the application or module was compiled
-        /// against.
+        /// given version.
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// Generally you would pass in the constants %GTK_MAJOR_VERSION,
+        /// %GTK_MINOR_VERSION, %GTK_MICRO_VERSION as the three arguments
+        /// to this function; that produces a check that the library in
+        /// use is compatible with the version of GTK the application or
+        /// module was compiled against.
+        /// </para>
         /// <para>
         /// Compatibility is defined by two things: first the version
         /// of the running library is newer than the version
@@ -108,11 +110,13 @@ namespace GISharp.Lib.Gtk
         }
 
         /// <summary>
-        /// Returns the binary age as passed to `libtool`
-        /// when building the GTK library the process is running against.
-        /// If `libtool` means nothing to you, don't
-        /// worry about it.
+        /// Returns the binary age as passed to `libtool`.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If `libtool` means nothing to you, don't worry about it.
+        /// </para>
+        /// </remarks>
         /// <returns>
         /// the binary age of the GTK library
         /// </returns>
@@ -132,11 +136,13 @@ namespace GISharp.Lib.Gtk
         }
 
         /// <summary>
-        /// Returns the interface age as passed to `libtool`
-        /// when building the GTK library the process is running against.
-        /// If `libtool` means nothing to you, don't
-        /// worry about it.
+        /// Returns the interface age as passed to `libtool`.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If `libtool` means nothing to you, don't worry about it.
+        /// </para>
+        /// </remarks>
         /// <returns>
         /// the interface age of the GTK library
         /// </returns>
@@ -157,9 +163,11 @@ namespace GISharp.Lib.Gtk
 
         /// <summary>
         /// Returns the major version number of the GTK library.
-        /// (e.g. in GTK version 3.1.5 this is 3.)
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// For example, in GTK version 3.1.5 this is 3.
+        /// </para>
         /// <para>
         /// This function is in the library, so it represents the GTK library
         /// your code is running against. Contrast with the %GTK_MAJOR_VERSION
@@ -187,9 +195,11 @@ namespace GISharp.Lib.Gtk
 
         /// <summary>
         /// Returns the micro version number of the GTK library.
-        /// (e.g. in GTK version 3.1.5 this is 5.)
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// For example, in GTK version 3.1.5 this is 5.
+        /// </para>
         /// <para>
         /// This function is in the library, so it represents the GTK library
         /// your code is are running against. Contrast with the
@@ -217,9 +227,11 @@ namespace GISharp.Lib.Gtk
 
         /// <summary>
         /// Returns the minor version number of the GTK library.
-        /// (e.g. in GTK version 3.1.5 this is 1.)
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// For example, in GTK version 3.1.5 this is 1.
+        /// </para>
         /// <para>
         /// This function is in the library, so it represents the GTK library
         /// your code is are running against. Contrast with the

@@ -63,7 +63,7 @@ A “selected” state; set when a widget
 
 <member name='AccessibleState'>
 <summary>
-The possible accessible states of a #GtkAccessible.
+The possible accessible states of a `GtkAccessible`.
 </summary>
 </member>
 

@@ -98,10 +98,15 @@ Widget contains the keyboard focus
 
 <member name='StateFlags'>
 <summary>
-Describes a widget state. Widget states are used to match the widget
-against CSS pseudo-classes. Note that GTK extends the regular CSS
-classes and sometimes uses different names.
+Describes a widget state.
 </summary>
+<remarks>
+<para>
+Widget states are used to match the widget against CSS pseudo-classes.
+Note that GTK extends the regular CSS classes and sometimes uses
+different names.
+</para>
+</remarks>
 </member>
 
 </declaration>

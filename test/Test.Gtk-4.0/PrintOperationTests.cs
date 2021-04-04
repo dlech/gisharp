@@ -11,6 +11,13 @@ namespace GISharp.Test.Gtk
     public class PrintOperationTests
     {
         [Test]
+        public void PrintCapabilitiesGType()
+        {
+            var gtype = typeof(PrintCapabilities).ToGType();
+            Assert.That(gtype.Name, Is.EqualTo("GtkPrintCapabilities"));
+        }
+
+        [Test]
         public void PrintStatusGType()
         {
             var gtype = typeof(PrintStatus).ToGType();

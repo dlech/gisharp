@@ -26,14 +26,19 @@ the widget contains a #GdkPaintable
 
 <member name='ImageType'>
 <summary>
-Describes the image data representation used by a #GtkImage. If you
-want to get the image from the widget, you can only get the
-currently-stored representation. e.g.  if the
-gtk_image_get_storage_type() returns #GTK_IMAGE_PAINTABLE, then you can
-call gtk_image_get_paintable().  For empty images, you can request any
-storage type (call any of the "get" functions), but they will all
-return <c>null</c> values.
+Describes the image data representation used by a [class<c>gtk</c>.Image].
 </summary>
+<remarks>
+<para>
+If you want to get the image from the widget, you can only get the
+currently-stored representation; for instance, if the gtk_image_get_storage_type()
+returns <see cref="ImageType.Paintable"/>, then you can call gtk_image_get_paintable().
+</para>
+<para>
+For empty images, you can request any storage type (call any of the "get"
+functions), but they will all return <c>null</c> values.
+</para>
+</remarks>
 </member>
 
 </declaration>

@@ -490,7 +490,7 @@ An application window.
 
 <member name='AccessibleRole'>
 <summary>
-The accessible role for a #GtkAccessible implementation.
+The accessible role for a `GtkAccessible` implementation.
 </summary>
 <remarks>
 <para>

@@ -83,7 +83,7 @@ The baseline of a widget
 
 <member name='ConstraintAttribute'>
 <summary>
-The widget attributes that can be used when creating a #GtkConstraint.
+The widget attributes that can be used when creating a `GtkConstraint`.
 </summary>
 </member>
 

@@ -37,6 +37,9 @@ Scroll to the horizontal ends.
 </member>
 
 <member name='ScrollStep'>
+<summary>
+Passed as argument to various keybinding signals.
+</summary>
 </member>
 
 </declaration>

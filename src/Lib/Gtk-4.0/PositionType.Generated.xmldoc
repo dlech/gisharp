@@ -26,9 +26,14 @@ The feature is at the bottom edge.
 
 <member name='PositionType'>
 <summary>
-Describes which edge of a widget a certain feature is positioned at, e.g.
-the tabs of a #GtkNotebook, or the label of a #GtkScale.
+Describes which edge of a widget a certain feature is positioned at.
 </summary>
+<remarks>
+<para>
+For examples, see the tabs of a `GtkNotebook`, or the label
+of a `GtkScale`.
+</para>
+</remarks>
 </member>
 
 </declaration>

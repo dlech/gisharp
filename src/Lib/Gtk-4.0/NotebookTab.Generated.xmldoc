@@ -14,7 +14,7 @@ the last tab in the notebook
 
 <member name='NotebookTab'>
 <summary>
-The parameter used in the action signals of #GtkNotebook.
+The parameter used in the action signals of `GtkNotebook`.
 </summary>
 </member>
 

@@ -38,12 +38,15 @@ The icon theme has changed in a way that requires
 <member name='SystemSetting'>
 <summary>
 Values that can be passed to the GtkWidgetClass.system_setting_changed
-vfunc to indicate that a system setting has changed and widgets may
-need to drop caches, or react otherwise.
+vfunc.
 </summary>
 <remarks>
 <para>
-Most of the values correspond to #GtkSettings properties.
+The values indicate which system setting has changed.
+Widgets may need to drop caches, or react otherwise.
+</para>
+<para>
+Most of the values correspond to `GtkSettings` properties.
 </para>
 <para>
 More values may be added over time.

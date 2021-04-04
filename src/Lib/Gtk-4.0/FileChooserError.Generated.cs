@@ -29,10 +29,10 @@ namespace GISharp.Lib.Gtk
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
         /// <summary>
-        /// Registers an error quark for #GtkFileChooser if necessary.
+        /// Registers an error quark for `GtkFileChooser` errors.
         /// </summary>
         /// <returns>
-        /// The error quark used for #GtkFileChooser errors.
+        /// The error quark used for `GtkFileChooser` errors.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" /> */

@@ -9,14 +9,15 @@ or <see cref="Initialize.TryInit()"/>.
 
 <member name='Initialize.DisableSetlocale()'>
 <summary>
-Prevents <see cref="Initialize.Init()"/>, <see cref="Initialize.TryInit()"/> and
-gtk_parse_args() from automatically
-calling `setlocale (LC_ALL, "")`. You would
-want to use this function if you wanted to set the locale for
-your program to something other than the user’s locale, or if
-you wanted to set different values for different locale categories.
+Prevents [id<c>gtkInit</c>] and [id<c>gtkInitCheck</c>] from automatically calling
+`setlocale (LC_ALL, "")`.
 </summary>
 <remarks>
+<para>
+You would want to use this function if you wanted to set the locale for
+your program to something other than the user’s locale, or if
+you wanted to set different values for different locale categories.
+</para>
 <para>
 Most programs should not need to call this function.
 </para>

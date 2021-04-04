@@ -23,7 +23,7 @@ A total order. gtk_sorter_compare() will only
 
 <member name='SorterOrder'>
 <summary>
-Describes the type of order that a #GtkSorter may describe.
+Describes the type of order that a `GtkSorter` may produce.
 </summary>
 </member>
 

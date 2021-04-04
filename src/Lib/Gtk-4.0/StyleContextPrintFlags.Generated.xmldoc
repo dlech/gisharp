@@ -30,8 +30,12 @@ Show information about
 <member name='StyleContextPrintFlags'>
 <summary>
 Flags that modify the behavior of gtk_style_context_to_string().
-New values may be added to this enumeration.
 </summary>
+<remarks>
+<para>
+New values may be added to this enumeration.
+</para>
+</remarks>
 </member>
 
 </declaration>

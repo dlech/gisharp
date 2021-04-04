@@ -14,7 +14,7 @@ An unspecified error occurred.
 
 <member name='IconThemeError'>
 <summary>
-Error codes for GtkIconTheme operations.
+Error codes for `GtkIconTheme` operations.
 </summary>
 </member>
 

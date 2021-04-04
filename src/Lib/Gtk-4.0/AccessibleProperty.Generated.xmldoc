@@ -144,7 +144,7 @@ Defines the human readable text alternative
 
 <member name='AccessibleProperty'>
 <summary>
-The possible accessible properties of a #GtkAccessible.
+The possible accessible properties of a `GtkAccessible`.
 </summary>
 </member>
 

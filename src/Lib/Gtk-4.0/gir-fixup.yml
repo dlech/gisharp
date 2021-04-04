@@ -1,6 +1,3 @@
-
-# TODO
-
 - !set-attribute
   name: introspectable
   value: 0
@@ -1576,6 +1573,10 @@
 - !set-attribute
   name: introspectable
   value: 0
+  xpath: gi:repository/gi:namespace/gi:class[@name='PageSetupUnixDialog']
+- !set-attribute
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='Paned']
 - !set-attribute
   name: introspectable
@@ -1620,7 +1621,19 @@
 - !set-attribute
   name: introspectable
   value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='PrintBackend']
+- !set-attribute
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='PrintContext']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:class[@name='PrintJob']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:callback[@name='PrintJobCompleteFunc']
 - !set-attribute
   name: introspectable
   value: 0
@@ -1649,6 +1662,18 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='PrintSettingsFunc']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:class[@name='PrintUnixDialog']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:class[@name='Printer']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:callback[@name='PrinterFunc']
 - !set-attribute
   name: introspectable
   value: 0
@@ -1793,10 +1818,6 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='Settings']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsValue']
 - !set-attribute
   name: introspectable
   value: 0
@@ -2029,10 +2050,6 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='Text']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:record[@name='TextBTree']
 - !set-attribute
   name: introspectable
   value: 0
@@ -2424,7 +2441,7 @@
 - !set-attribute
   name: introspectable
   value: 0
-  xpath: gi:repository/gi:namespace/gi:docsection[@name='filesystem']
+  xpath: gi:repository/gi:namespace/gi:function[@name='enumerate_printers']
 - !set-attribute
   name: introspectable
   value: 0
@@ -2436,43 +2453,11 @@
 - !set-attribute
   name: introspectable
   value: 0
-  xpath: gi:repository/gi:namespace/gi:docsection[@name='gtkaccelgroup']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:docsection[@name='gtkfeatures']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:docsection[@name='gtkmain']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:docsection[@name='gtkpagesetupunixdialog']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:docsection[@name='gtkprinter']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:docsection[@name='gtkprintjob']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:docsection[@name='gtkprintunixdialog']
-- !set-attribute
-  name: introspectable
-  value: 0
   xpath: gi:repository/gi:namespace/gi:docsection[@name='gtktreednd']
 - !set-attribute
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='hsv_to_rgb']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:function[@name='im_modules_init']
 - !set-attribute
   name: introspectable
   value: 0

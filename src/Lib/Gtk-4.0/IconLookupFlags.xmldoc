@@ -23,7 +23,7 @@ Starts loading the texture in the background
 
 <member name='IconLookupFlags'>
 <summary>
-Used to specify options for gtk_icon_theme_lookup_icon()
+Used to specify options for gtk_icon_theme_lookup_icon().
 </summary>
 </member>
 

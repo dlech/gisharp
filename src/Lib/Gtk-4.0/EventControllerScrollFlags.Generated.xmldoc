@@ -26,8 +26,7 @@ Only emit deltas that are multiples of 1.
 
 <member name='EventControllerScrollFlags.Kinetic'>
 <summary>
-Emit #GtkEventControllerScroll::decelerate
-  after continuous scroll finishes.
+Emit ::decelerate after continuous scroll finishes.
 </summary>
 </member>
 
@@ -39,7 +38,7 @@ Emit scroll on both axes.
 
 <member name='EventControllerScrollFlags'>
 <summary>
-Describes the behavior of a #GtkEventControllerScroll.
+Describes the behavior of a `GtkEventControllerScroll`.
 </summary>
 </member>
 

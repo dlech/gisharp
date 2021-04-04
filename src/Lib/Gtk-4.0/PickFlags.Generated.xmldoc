@@ -20,7 +20,7 @@ Include widgets that are marked as non-targetable. See #GtkWidget:can-target
 
 <member name='PickFlags'>
 <summary>
-Flags that influence the behavior of gtk_widget_pick()
+Flags that influence the behavior of gtk_widget_pick().
 </summary>
 </member>
 

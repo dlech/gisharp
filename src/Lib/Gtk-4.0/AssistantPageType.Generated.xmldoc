@@ -47,10 +47,12 @@ Used for when other page types are not
 
 <member name='AssistantPageType'>
 <summary>
-An enum for determining the page role inside the #GtkAssistant. It's
-used to handle buttons sensitivity and visibility.
+Determines the page role inside a `GtkAssistant`.
 </summary>
 <remarks>
+<para>
+The role is used to handle buttons sensitivity and visibility.
+</para>
 <para>
 Note that an assistant needs to end its page flow with a page of type
 <see cref="AssistantPageType.Confirm"/>, <see cref="AssistantPageType.Summary"/> or

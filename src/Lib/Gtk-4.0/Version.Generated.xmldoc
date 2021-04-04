@@ -42,28 +42,34 @@ against at application run time.
 
 <member name='Version.RunTimeBinaryAge'>
 <summary>
-Returns the binary age as passed to `libtool`
-when building the GTK library the process is running against.
-If `libtool` means nothing to you, don't
-worry about it.
+Returns the binary age as passed to `libtool`.
 </summary>
+<remarks>
+<para>
+If `libtool` means nothing to you, don't worry about it.
+</para>
+</remarks>
 </member>
 
 <member name='Version.RunTimeInterfaceAge'>
 <summary>
-Returns the interface age as passed to `libtool`
-when building the GTK library the process is running against.
-If `libtool` means nothing to you, don't
-worry about it.
+Returns the interface age as passed to `libtool`.
 </summary>
+<remarks>
+<para>
+If `libtool` means nothing to you, don't worry about it.
+</para>
+</remarks>
 </member>
 
 <member name='Version.MajorVersion'>
 <summary>
 Returns the major version number of the GTK library.
-(e.g. in GTK version 3.1.5 this is 3.)
 </summary>
 <remarks>
+<para>
+For example, in GTK version 3.1.5 this is 3.
+</para>
 <para>
 This function is in the library, so it represents the GTK library
 your code is running against. Contrast with the <see cref="Version.majorVersion"/>
@@ -76,9 +82,11 @@ have included when compiling your code.
 <member name='Version.MicroVersion'>
 <summary>
 Returns the micro version number of the GTK library.
-(e.g. in GTK version 3.1.5 this is 5.)
 </summary>
 <remarks>
+<para>
+For example, in GTK version 3.1.5 this is 5.
+</para>
 <para>
 This function is in the library, so it represents the GTK library
 your code is are running against. Contrast with the
@@ -91,9 +99,11 @@ GTK headers you have included when compiling your code.
 <member name='Version.MinorVersion'>
 <summary>
 Returns the minor version number of the GTK library.
-(e.g. in GTK version 3.1.5 this is 1.)
 </summary>
 <remarks>
+<para>
+For example, in GTK version 3.1.5 this is 1.
+</para>
 <para>
 This function is in the library, so it represents the GTK library
 your code is are running against. Contrast with the
@@ -106,14 +116,16 @@ GTK headers you have included when compiling your code.
 <member name='Version.Check(uint,uint,uint)'>
 <summary>
 Checks that the GTK library in use is compatible with the
-given version. Generally you would pass in the constants
-<see cref="Version.majorVersion"/>, <see cref="Version.minorVersion"/>, <see cref="Version.microVersion"/>
-as the three arguments to this function; that produces
-a check that the library in use is compatible with
-the version of GTK the application or module was compiled
-against.
+given version.
 </summary>
 <remarks>
+<para>
+Generally you would pass in the constants <see cref="Version.majorVersion"/>,
+<see cref="Version.minorVersion"/>, <see cref="Version.microVersion"/> as the three arguments
+to this function; that produces a check that the library in
+use is compatible with the version of GTK the application or
+module was compiled against.
+</para>
 <para>
 Compatibility is defined by two things: first the version
 of the running library is newer than the version

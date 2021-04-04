@@ -140,8 +140,7 @@ Pretend the pages are sides of a cube and rotate that cube to the left or right 
 
 <member name='StackTransitionType'>
 <summary>
-These enumeration values describe the possible transitions
-between pages in a #GtkStack widget.
+Possible transitions between pages in a `GtkStack` widget.
 </summary>
 <remarks>
 <para>

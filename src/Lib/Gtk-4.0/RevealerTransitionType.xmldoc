@@ -63,7 +63,7 @@ Floop in from the top
 <member name='RevealerTransitionType'>
 <summary>
 These enumeration values describe the possible transitions
-when the child of a #GtkRevealer widget is shown or hidden.
+when the child of a `GtkRevealer` widget is shown or hidden.
 </summary>
 </member>
 

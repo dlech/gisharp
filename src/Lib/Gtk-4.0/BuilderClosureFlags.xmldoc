@@ -10,11 +10,15 @@ The closure should be created swapped. See
 <member name='BuilderClosureFlags'>
 <summary>
 The list of flags that can be passed to gtk_builder_create_closure().
-New values may be added in the future for new features, so external
-implementations of GtkBuilderScopeInterface should test the flags for unknown
-values and raise a <see cref="BuilderError.InvalidAttribute"/> error when they
-encounter one.
 </summary>
+<remarks>
+<para>
+New values may be added in the future for new features, so external
+implementations of [interface<c>gtk</c>.BuilderScope] should test the flags
+for unknown values and raise a <see cref="BuilderError.InvalidAttribute"/> error
+when they encounter one.
+</para>
+</remarks>
 </member>
 
 </declaration>

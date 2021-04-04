@@ -22,6 +22,36 @@ namespace GISharp.Lib.Gtk
     {
         private static readonly GISharp.Runtime.GType _GType = gtk_ordering_get_type();
 
+        /// <summary>
+        /// Converts the result of a `GCompareFunc` like strcmp() to a
+        /// `GtkOrdering` value.
+        /// </summary>
+        /// <param name="cmpfuncResult">
+        /// Result of a comparison function
+        /// </param>
+        /// <returns>
+        /// the corresponding `GtkOrdering`
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Ordering" type="GtkOrdering" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Lib.Gtk.Ordering gtk_ordering_from_cmpfunc(
+        /* <type name="gint" type="int" /> */
+        /* transfer-ownership:none direction:in */
+        int cmpfuncResult);
+        static partial void CheckFromCompareResultArgs(int cmpfuncResult);
+
+        /// <include file="Ordering.xmldoc" path="declaration/member[@name='OrderingExtensions.FromCompareResult(int)']/*" />
+        public static GISharp.Lib.Gtk.Ordering FromCompareResult(int cmpfuncResult)
+        {
+            CheckFromCompareResultArgs(cmpfuncResult);
+            var cmpfuncResult_ = (int)cmpfuncResult;
+            var ret_ = gtk_ordering_from_cmpfunc(cmpfuncResult_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = (GISharp.Lib.Gtk.Ordering)ret_;
+            return ret;
+        }
+
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */

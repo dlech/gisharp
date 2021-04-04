@@ -8,7 +8,7 @@
   xpath: gi:repository/gi:namespace/gi:function[@name='disable_setlocale']
   new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Initialize']
 - !move-element
-  xpath: gi:repository/gi:namespace/gi:function[contains(@name,'init') and not(starts-with(@name,'im_'))]
+  xpath: gi:repository/gi:namespace/gi:function[contains(@name,'init')]
   new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Initialize']
 
 # more .NET-like name

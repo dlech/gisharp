@@ -17,7 +17,7 @@ Events are only handled if their target
 
 <member name='PropagationLimit'>
 <summary>
-Describes limits of a #GtkEventController for handling events
+Describes limits of a `GtkEventController` for handling events
 targeting other widgets.
 </summary>
 </member>

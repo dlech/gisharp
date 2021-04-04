@@ -29,8 +29,13 @@ Inhibit the session being
 
 <member name='ApplicationInhibitFlags'>
 <summary>
-Types of user actions that may be blocked by gtk_application_inhibit().
+Types of user actions that may be blocked by `GtkApplication`.
 </summary>
+<remarks>
+<para>
+See [method<c>gtk</c>.Application.inhibit].
+</para>
+</remarks>
 </member>
 
 </declaration>

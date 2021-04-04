@@ -11,8 +11,12 @@ The action is the only
 <member name='ShortcutActionFlags'>
 <summary>
 List of flags that can be passed to action activation.
-More flags may be added in the future.
 </summary>
+<remarks>
+<para>
+More flags may be added in the future.
+</para>
+</remarks>
 </member>
 
 </declaration>

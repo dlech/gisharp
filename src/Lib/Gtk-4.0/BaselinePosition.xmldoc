@@ -20,13 +20,18 @@ Align the baseline at the bottom
 
 <member name='BaselinePosition'>
 <summary>
+Baseline position in a row of widgets.
+</summary>
+<remarks>
+<para>
 Whenever a container has some form of natural row it may align
 children in that row along a common typographical baseline. If
 the amount of vertical space in the row is taller than the total
 requested height of the baseline-aligned children then it can use a
-<see cref="BaselinePosition"/> to select where to put the baseline inside the
+`GtkBaselinePosition` to select where to put the baseline inside the
 extra available space.
-</summary>
+</para>
+</remarks>
 </member>
 
 </declaration>

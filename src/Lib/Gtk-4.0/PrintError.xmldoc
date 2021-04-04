@@ -34,7 +34,7 @@ using the GTK printing support.
 
 <member name='PrintErrorDomain.Quark()'>
 <summary>
-Registers an error quark for #GtkPrintOperation if necessary.
+Registers an error quark for `GtkPrintOperation` if necessary.
 </summary>
 <returns>
 The error quark used for #GtkPrintOperation errors.

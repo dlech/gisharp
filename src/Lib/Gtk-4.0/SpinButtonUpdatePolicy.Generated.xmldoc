@@ -17,10 +17,14 @@ When refreshing your #GtkSpinButton, the value is
 
 <member name='SpinButtonUpdatePolicy'>
 <summary>
-The spin button update policy determines whether the spin button displays
-values even if they are outside the bounds of its adjustment.
-See gtk_spin_button_set_update_policy().
+Determines whether the spin button displays values outside the adjustment
+bounds.
 </summary>
+<remarks>
+<para>
+See [method<c>gtk</c>.SpinButton.set_update_policy].
+</para>
+</remarks>
 </member>
 
 </declaration>

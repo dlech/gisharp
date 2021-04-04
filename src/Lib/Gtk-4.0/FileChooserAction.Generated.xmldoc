@@ -25,7 +25,7 @@ Indicates an Open mode for
 
 <member name='FileChooserAction'>
 <summary>
-Describes whether a #GtkFileChooser is being used to open existing files
+Describes whether a `GtkFileChooser` is being used to open existing files
 or to save to a possibly new file.
 </summary>
 </member>

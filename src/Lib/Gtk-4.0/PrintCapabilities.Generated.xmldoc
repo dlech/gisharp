@@ -1,0 +1,80 @@
+<declaration>
+
+<member name='PrintCapabilities.PageSet'>
+<summary>
+Print dialog will offer printing even/odd pages.
+</summary>
+</member>
+
+<member name='PrintCapabilities.Copies'>
+<summary>
+Print dialog will allow to print multiple copies.
+</summary>
+</member>
+
+<member name='PrintCapabilities.Collate'>
+<summary>
+Print dialog will allow to collate multiple copies.
+</summary>
+</member>
+
+<member name='PrintCapabilities.Reverse'>
+<summary>
+Print dialog will allow to print pages in reverse order.
+</summary>
+</member>
+
+<member name='PrintCapabilities.Scale'>
+<summary>
+Print dialog will allow to scale the output.
+</summary>
+</member>
+
+<member name='PrintCapabilities.GeneratePdf'>
+<summary>
+The program will send the document to
+  the printer in PDF format
+</summary>
+</member>
+
+<member name='PrintCapabilities.GeneratePs'>
+<summary>
+The program will send the document to
+  the printer in Postscript format
+</summary>
+</member>
+
+<member name='PrintCapabilities.Preview'>
+<summary>
+Print dialog will offer a preview
+</summary>
+</member>
+
+<member name='PrintCapabilities.NumberUp'>
+<summary>
+Print dialog will offer printing multiple
+  pages per sheet
+</summary>
+</member>
+
+<member name='PrintCapabilities.NumberUpLayout'>
+<summary>
+Print dialog will allow to rearrange
+  pages when printing multiple pages per sheet
+</summary>
+</member>
+
+<member name='PrintCapabilities'>
+<summary>
+Specifies which features the print dialog should offer.
+</summary>
+<remarks>
+<para>
+If neither <see cref="PrintCapabilities.GeneratePdf"/> nor
+<see cref="PrintCapabilities.GeneratePs"/> is specified, GTK assumes that all
+formats are supported.
+</para>
+</remarks>
+</member>
+
+</declaration>

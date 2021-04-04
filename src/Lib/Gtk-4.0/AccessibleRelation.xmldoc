@@ -135,10 +135,14 @@ Defines the number of items in the current
 
 <member name='AccessibleRelation'>
 <summary>
-The possible accessible relations of a #GtkAccessible.
+The possible accessible relations of a `GtkAccessible`.
+</summary>
+<remarks>
+<para>
 Accessible relations can be references to other widgets,
 integers or strings.
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='AccessibleRelationExtensions.InitValue(GISharp.Lib.Gtk.AccessibleRelation,GISharp.Lib.GObject.Value)'>

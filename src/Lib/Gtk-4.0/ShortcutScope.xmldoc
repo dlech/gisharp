@@ -23,8 +23,8 @@ Shortcuts are handled by
 
 <member name='ShortcutScope'>
 <summary>
-Describes where #GtkShortcuts added to a
-#GtkShortcutController get handled.
+Describes where `GtkShortcut`s added to a
+`GtkShortcutController` get handled.
 </summary>
 </member>
 

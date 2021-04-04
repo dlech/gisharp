@@ -15,8 +15,12 @@ The child is packed into the end of the widget
 <member name='PackType'>
 <summary>
 Represents the packing location of a children in its parent.
-See #GtkWindowControls for example.
 </summary>
+<remarks>
+<para>
+See `GtkWindowControls` for example.
+</para>
+</remarks>
 </member>
 
 </declaration>

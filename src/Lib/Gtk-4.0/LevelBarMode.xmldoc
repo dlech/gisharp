@@ -14,10 +14,14 @@ the bar has a discrete mode
 
 <member name='LevelBarMode'>
 <summary>
-Describes how #GtkLevelBar contents should be rendered.
+Describes how `GtkLevelBar` contents should be rendered.
+</summary>
+<remarks>
+<para>
 Note that this enumeration could be extended with additional modes
 in the future.
-</summary>
+</para>
+</remarks>
 </member>
 
 </declaration>

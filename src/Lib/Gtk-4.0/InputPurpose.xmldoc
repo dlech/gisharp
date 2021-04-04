@@ -68,11 +68,13 @@ Allow any character, in addition to control codes
 
 <member name='InputPurpose'>
 <summary>
-Describes primary purpose of the input widget. This information is
-useful for on-screen keyboards and similar input methods to decide
-which keys should be presented to the user.
+Describes primary purpose of the input widget.
 </summary>
 <remarks>
+<para>
+This information is useful for on-screen keyboards and similar input
+methods to decide which keys should be presented to the user.
+</para>
 <para>
 Note that the purpose is not meant to impose a totally strict rule
 about allowed characters, and does not replace input validation.

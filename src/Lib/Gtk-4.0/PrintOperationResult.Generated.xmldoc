@@ -28,8 +28,13 @@ The print operation is not complete
 
 <member name='PrintOperationResult'>
 <summary>
-A value of this type is returned by gtk_print_operation_run().
+The result of a print operation.
 </summary>
+<remarks>
+<para>
+A value of this type is returned by [method<c>gtk</c>.PrintOperation.run].
+</para>
+</remarks>
 </member>
 
 </declaration>

@@ -29,13 +29,13 @@ Indicates an incomplete hostname
 <member name='FileChooserError'>
 <summary>
 These identify the various errors that can occur while calling
-#GtkFileChooser functions.
+`GtkFileChooser` functions.
 </summary>
 </member>
 
 <member name='FileChooserErrorDomain.Quark()'>
 <summary>
-Registers an error quark for #GtkFileChooser if necessary.
+Registers an error quark for `GtkFileChooser` errors.
 </summary>
 <returns>
 The error quark used for #GtkFileChooser errors.

@@ -2,15 +2,13 @@
 
 <member name='DialogFlags.Modal'>
 <summary>
-Make the constructed dialog modal,
-    see gtk_window_set_modal()
+Make the constructed dialog modal
 </summary>
 </member>
 
 <member name='DialogFlags.DestroyWithParent'>
 <summary>
-Destroy the dialog when its
-    parent is destroyed, see gtk_window_set_destroy_with_parent()
+Destroy the dialog when its parent is destroyed
 </summary>
 </member>
 

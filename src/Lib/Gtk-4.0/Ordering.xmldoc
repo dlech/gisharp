@@ -24,12 +24,25 @@ Describes the way two values can be compared.
 </summary>
 <remarks>
 <para>
-These values can be used with a #GCompareFunc. However, a
-#GCompareFunc is allowed to return any integer values.
-For converting such a value to a <see cref="Ordering"/>, use
-gtk_ordering_from_cmpfunc().
+These values can be used with a `GCompareFunc`. However,
+a `GCompareFunc` is allowed to return any integer values.
+For converting such a value to a `GtkOrdering` value, use
+[func<c>gtk</c>.Ordering.from_cmpfunc].
 </para>
 </remarks>
+</member>
+
+<member name='OrderingExtensions.FromCompareResult(int)'>
+<summary>
+Converts the result of a `GCompareFunc` like strcmp() to a
+`GtkOrdering` value.
+</summary>
+<param name="cmpfuncResult">
+Result of a comparison function
+</param>
+<returns>
+the corresponding `GtkOrdering`
+</returns>
 </member>
 
 </declaration>

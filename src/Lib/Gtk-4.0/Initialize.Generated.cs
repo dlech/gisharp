@@ -10,14 +10,15 @@ namespace GISharp.Lib.Gtk
         public static bool IsInitialized { get => GetIsInitialized(); }
 
         /// <summary>
-        /// Prevents gtk_init(), gtk_init_check() and
-        /// gtk_parse_args() from automatically
-        /// calling `setlocale (LC_ALL, "")`. You would
-        /// want to use this function if you wanted to set the locale for
-        /// your program to something other than the user’s locale, or if
-        /// you wanted to set different values for different locale categories.
+        /// Prevents [id@gtk_init] and [id@gtk_init_check] from automatically calling
+        /// `setlocale (LC_ALL, "")`.
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// You would want to use this function if you wanted to set the locale for
+        /// your program to something other than the user’s locale, or if
+        /// you wanted to set different values for different locale categories.
+        /// </para>
         /// <para>
         /// Most programs should not need to call this function.
         /// </para>

@@ -1,0 +1,8 @@
+
+### Ordering ###
+
+# better name
+- !set-attribute
+  name: name
+  value: from_compare_result
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='Ordering']/gi:function[@name='from_cmpfunc']

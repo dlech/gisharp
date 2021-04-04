@@ -54,6 +54,9 @@
 <member name='DebugFlags.A11y'>
 </member>
 
+<member name='DebugFlags.Iconfallback'>
+</member>
+
 <member name='DebugFlags'>
 </member>
 

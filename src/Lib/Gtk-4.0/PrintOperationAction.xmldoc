@@ -28,9 +28,13 @@ Export to a file. This requires
 
 <member name='PrintOperationAction'>
 <summary>
-The <c>action</c> parameter to gtk_print_operation_run()
-determines what action the print operation should perform.
+Determines what action the print operation should perform.
 </summary>
+<remarks>
+<para>
+A parameter of this typs is passed to [method<c>gtk</c>.PrintOperation.run].
+</para>
+</remarks>
 </member>
 
 </declaration>

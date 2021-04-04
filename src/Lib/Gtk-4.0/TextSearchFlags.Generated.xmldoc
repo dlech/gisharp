@@ -27,7 +27,7 @@ Flags affecting how a search is done.
 </summary>
 <remarks>
 <para>
-If neither #GTK_TEXT_SEARCH_VISIBLE_ONLY nor #GTK_TEXT_SEARCH_TEXT_ONLY are
+If neither <see cref="TextSearchFlags.VisibleOnly"/> nor <see cref="TextSearchFlags.TextOnly"/> are
 enabled, the match must be exact; the special 0xFFFC character will match
 embedded paintables or child widgets.
 </para>

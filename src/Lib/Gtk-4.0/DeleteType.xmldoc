@@ -56,7 +56,7 @@ Delete only whitespace. Like M-\ in Emacs.
 
 <member name='DeleteType'>
 <summary>
-See also: #GtkEntry::delete-from-cursor.
+Passed to various keybinding signals for deleting text.
 </summary>
 </member>
 

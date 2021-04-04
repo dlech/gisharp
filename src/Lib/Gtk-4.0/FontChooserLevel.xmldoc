@@ -32,8 +32,8 @@ Allow selecting specific OpenType font features
 
 <member name='FontChooserLevel'>
 <summary>
-This enumeration specifies the granularity of font selection
-that is desired in a font chooser.
+Specifies the granularity of font selection
+that is desired in a `GtkFontChooser`.
 </summary>
 <remarks>
 <para>
