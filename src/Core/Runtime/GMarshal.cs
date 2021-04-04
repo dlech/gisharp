@@ -84,35 +84,6 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
-        /// Marshals a C string pointer to a byte array.
-        /// </summary>
-        /// <returns>The string as a byte array.</returns>
-        /// <param name="ptr">Pointer to the unmanaged string.</param>
-        /// <param name="freePtr">If set to <c>true</c> free the unmanaged memory.</param>
-        /// <remarks>
-        /// Since encoding is not specified, the string is returned as a byte array.
-        /// The byte array does not include the null terminator.
-        /// </remarks>
-        public static byte[]? PtrToByteString(IntPtr ptr, bool freePtr = false)
-        {
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            var bytes = new System.Collections.Generic.List<byte>();
-            var offset = 0;
-            while (true) {
-                var b = Marshal.ReadByte(ptr, offset++);
-                if (b == 0)
-                    break;
-                bytes.Add(b);
-            }
-            if (freePtr) {
-                g_free(ptr);
-            }
-            return bytes.ToArray();
-        }
-
-        /// <summary>
         /// Marshals a managed byte array to a C string.
         /// </summary>
         /// <returns>A pointer to the unmanaged string.</returns>
@@ -150,30 +121,6 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
-        /// Converts a <see cref="Strv"/> to a managed array of managed UTF-16 strings.
-        /// </summary>
-        public static string[]? GStrvPtrToStringArray(IntPtr ptr, bool freePtr = false, bool freeElements = false)
-        {
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            var strings = new System.Collections.Generic.List<string>();
-            IntPtr current;
-            var offset = 0;
-            while ((current = Marshal.ReadIntPtr(ptr, offset)) != IntPtr.Zero) {
-                strings.Add(Marshal.PtrToStringUTF8(current)!);
-                if (freeElements) {
-                    g_free(current);
-                }
-                offset += IntPtr.Size;
-            }
-            if (freePtr) {
-                g_free(ptr);
-            }
-            return strings.ToArray();
-        }
-
-        /// <summary>
         /// Converts an array of managed UTF-16 strings to <see cref="Strv"/>.
         /// </summary>
         public static IntPtr StringArrayToGStrvPtr(string[]? strings)
@@ -194,103 +141,6 @@ namespace GISharp.Runtime
             return ptr;
         }
 
-        [DllImport("glib-2.0")]
-        extern static void g_strfreev(IntPtr list);
-
-        /// <summary>
-        /// Frees an unmanaged null terminated string array (GStrv).
-        /// </summary>
-        /// <param name="ptr">Pointer to the unmanaged array.</param>
-        public static void FreeGStrv(IntPtr ptr)
-        {
-            g_strfreev(ptr);
-        }
-
-        /// <summary>
-        /// Marshals a C-style array from unmanged memory to managed memory.
-        /// </summary>
-        /// <returns>The managed array.</returns>
-        /// <param name="ptr">Pointer to the unmanged array.</param>
-        /// <param name="length">The length of the array or null if the array is null-terminated.</param>
-        /// <param name="freePtr">Setting to <c>true</c> will call g_free() on <paramref name="ptr"/>.</param>
-        /// <typeparam name="T">The array element type.</typeparam>
-        public static T[]? PtrToCArray<T>(IntPtr ptr, int? length, bool freePtr = false) where T : unmanaged
-        {
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            T[] array;
-            var elementSize = sizeof(T);
-            if (length.HasValue) {
-                array = new T[length.Value];
-                var current = ptr;
-                for (int i = 0; i < array.Length; i++) {
-                    array[i] = Marshal.PtrToStructure<T>(current);
-                    current += elementSize;
-                }
-            }
-            else {
-                var list = new System.Collections.Generic.List<T>();
-                T item;
-                var current = ptr;
-                while (!(item = Marshal.PtrToStructure<T>(current)).Equals(default(T))) {
-                    list.Add(item);
-                    current += elementSize;
-                }
-                array = list.ToArray();
-            }
-            if (freePtr) {
-                Free(ptr);
-            }
-
-            return array;
-        }
-
-        /// <summary>
-        /// Marshalls an array of structs to unmanged memory.
-        /// </summary>
-        /// <returns>The pointer to the array in unmanged memory.</returns>
-        /// <param name="array">The managed array.</param>
-        /// <param name="nullTerminated">Set to <c>true</c> to make the array null-terminated</param>
-        /// <exception cref="NotSupportedException">
-        /// Thrown if array element type is not a value type
-        /// </exception>
-        public static IntPtr CArrayToPtr<T>(T[] array, bool nullTerminated) where T : unmanaged
-        {
-            if (array is null) {
-                return IntPtr.Zero;
-            }
-            var elementSize = sizeof(T);
-            var ptr = Alloc((array.Length + (nullTerminated ? 1 : 0)) * elementSize);
-            var current = ptr;
-            for (int i = 0; i < array.Length; i++) {
-                Marshal.StructureToPtr((T)array.GetValue(i)!, current, false);
-                current += elementSize;
-            }
-            if (nullTerminated) {
-                Marshal.StructureToPtr(default(T), current, false);
-            }
-            return ptr;
-        }
-
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_set_error_literal(IntPtr err, Quark domain, int code, IntPtr message);
-
-        /// <summary>
-        /// Does nothing if err is NULL; if err is non-NULL, then *err must be NULL.
-        /// A new GError is created and assigned to *err.
-        /// </summary>
-        /// <param name="error">a return location for a GError.</param>
-        /// <param name="domain">error domain.</param>
-        /// <param name="code">error code.</param>
-        /// <param name="message">error message.</param>
-        public static void SetError(IntPtr error, Quark domain, int code, Utf8 message)
-        {
-            var message_ = message.UnsafeHandle;
-            g_set_error_literal(error, domain, code, message_);
-            PopUnhandledException();
-        }
-
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_propagate_error(Error.UnmanagedStruct** dest, Error.UnmanagedStruct* src);
 
@@ -308,19 +158,6 @@ namespace GISharp.Runtime
             var src_ = (Error.UnmanagedStruct*)src.Take();
             g_propagate_error(dest, src_);
             PopUnhandledException();
-        }
-
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_clear_error(IntPtr err);
-
-        /// <summary>
-        /// If err or *err is NULL, does nothing. Otherwise, calls g_error_free()
-        /// on *err and sets *err to NULL.
-        /// </summary>
-        /// <param name="err">Error.</param>
-        public static void ClearError(IntPtr err)
-        {
-            g_clear_error(err);
         }
 
         /// <summary>
