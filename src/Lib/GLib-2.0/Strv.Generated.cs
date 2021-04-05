@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="Strv.xmldoc" path="declaration/member[@name='Strv']/*" />
-    public sealed unsafe partial class Strv : GISharp.Lib.GLib.Utf8
+    public sealed unsafe partial class Strv : GISharp.Runtime.ByteStringArray
     {
         /// <summary>
         /// For internal runtime use only.
@@ -12,6 +12,49 @@ namespace GISharp.Lib.GLib
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Strv(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
+        }
+
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Runtime.GType g_strv_get_type();
+
+        /// <summary>
+        /// Checks if @strv contains @str. @strv must not be %NULL.
+        /// </summary>
+        /// <param name="strv">
+        /// a %NULL-terminated array of strings
+        /// </param>
+        /// <param name="str">
+        /// a string
+        /// </param>
+        /// <returns>
+        /// %TRUE if @str is an element of @strv, according to g_str_equal().
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Runtime.Boolean g_strv_contains(
+        /* <type name="utf8" type="const gchar* const*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        byte* strv,
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        byte* str);
+        partial void CheckContainsArgs(GISharp.Lib.GLib.UnownedUtf8 str);
+
+        /// <include file="Strv.xmldoc" path="declaration/member[@name='Strv.Contains(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        public bool Contains(GISharp.Lib.GLib.UnownedUtf8 str)
+        {
+            CheckContainsArgs(str);
+            var strv_ = (byte*)UnsafeHandle;
+            var str_ = (byte*)str.UnsafeHandle;
+            var ret_ = g_strv_contains(strv_,str_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+            return ret;
         }
     }
 }

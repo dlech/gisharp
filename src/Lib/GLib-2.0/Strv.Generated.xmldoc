@@ -1,5 +1,17 @@
 <declaration>
 
+<member name='Strv.Contains(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Checks if this instance contains <paramref name="str"/>. this instance must not be <c>null</c>.
+</summary>
+<param name="str">
+a string
+</param>
+<returns>
+<c>true</c> if <paramref name="str"/> is an element of this instance, according to g_str_equal().
+</returns>
+</member>
+
 <member name='Strv'>
 <summary>
 A typedef alias for gchar**. This is mostly useful when used together with

@@ -2,7 +2,6 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -118,27 +117,6 @@ namespace GISharp.Runtime
                 return IntPtr.Zero;
             }
             return ByteStringToPtr(Encoding.UTF8.GetBytes(str));
-        }
-
-        /// <summary>
-        /// Converts an array of managed UTF-16 strings to <see cref="Strv"/>.
-        /// </summary>
-        public static IntPtr StringArrayToGStrvPtr(string[]? strings)
-        {
-            if (strings is null) {
-                return IntPtr.Zero;
-            }
-            if (strings.Any(s => s is null)) {
-                throw new ArgumentException("All array elements must be non-null.", nameof(strings));
-            }
-            var ptr = Alloc((strings.Length + 1) * IntPtr.Size);
-            var offset = 0;
-            foreach (var str in strings) {
-                Marshal.WriteIntPtr(ptr, offset, StringToUtf8Ptr(str));
-                offset += IntPtr.Size;
-            }
-            Marshal.WriteIntPtr(ptr, offset, IntPtr.Zero);
-            return ptr;
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

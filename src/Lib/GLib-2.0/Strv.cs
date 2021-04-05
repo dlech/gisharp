@@ -11,38 +11,28 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// Wrapper around unmanaged null-terminated array of null-terminated UTF-8 strings.
-    /// </summary>
     [GType("GStrv", IsProxyForUnmanagedType = true)]
-    public sealed unsafe class Strv : ByteStringArray, IReadOnlyList<Utf8>
+    unsafe partial class Strv : IEnumerable<Utf8>
     {
-        /// <summary>
-        /// Gets the managed UTF-16 value of this string.
-        /// </summary>
-        public string[] Value => _Value.Value;
-        readonly Lazy<string[]> _Value;
+        private static readonly GType _GType = g_strv_get_type();
 
-        static IntPtr New(string[] value)
+        static IntPtr* NewFromManaged(string[] value)
         {
-            return GMarshal.StringArrayToGStrvPtr(value);
+            if (value.Any(s => s is null)) {
+                throw new ArgumentException("All array elements must be non-null.", nameof(value));
+            }
+            var strv_ = (IntPtr*)GMarshal.Alloc((value.Length + 1) * IntPtr.Size);
+            for (int i = 0; i < value.Length; i++) {
+                strv_[i] = new Utf8(value[i]).Take();
+            }
+            strv_[value.Length] = IntPtr.Zero;
+            return strv_;
         }
 
         /// <summary>
         /// Creates a new unmanaged string array.
         /// </summary>
-        public Strv(params string[] value) : this(New(value), Transfer.Full)
-        {
-        }
-
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern byte** g_strdupv(byte** strv);
-
-        /// <summary>
-        /// For internal runtime use only.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Strv(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
+        public Strv(params string[] value) : this((IntPtr)NewFromManaged(value), value.Length, Transfer.Full)
         {
         }
 
@@ -52,44 +42,6 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Strv(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
         {
-            _Value = new Lazy<string[]>(() => this.Select(x => (string)x).ToArray());
-        }
-
-        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_strv_get_type();
-
-        static readonly GType _GType = g_strv_get_type();
-        int IReadOnlyCollection<Utf8>.Count => Length;
-
-        Utf8 IReadOnlyList<Utf8>.this[int index] => throw new NotImplementedException();
-
-        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.44")]
-        static extern Runtime.Boolean g_strv_contains(byte** strv, byte* str);
-
-        /// <summary>
-        /// Checks if this instance contains <paramref name="str"/>.
-        /// </summary>
-        /// <param name="str">
-        /// a string
-        /// </param>
-        [Since("2.44")]
-        public bool Contains(UnownedUtf8 str)
-        {
-            var this_ = (byte**)UnsafeHandle;
-            var str_ = (byte*)str.UnsafeHandle;
-            var ret_ = g_strv_contains(this_, str_);
-            GMarshal.PopUnhandledException();
-            var ret = ret_.IsTrue();
-            return ret;
-        }
-
-        /// <summary>
-        /// Converts and unmanaged UTF-8 string array to a manged UTF-16 string array.
-        /// </summary>
-        public static explicit operator string[](Strv strv)
-        {
-            return strv.Value;
         }
 
         IEnumerator<Utf8> GetIEnumerator()

@@ -11,6 +11,5 @@
     <Compile Remove="Mutex.Generated.cs" />
     <Compile Remove="Quark.Generated.cs" />
     <Compile Remove="SourceDummyMarshal.Generated.cs" />
-    <Compile Remove="Strv.Generated.cs" />
   </ItemGroup>
 </Project>

@@ -16,6 +16,13 @@ namespace GISharp.CodeGen.Syntax
         public static ClassDeclarationSyntax GetClassDeclaration(this Alias alias)
         {
             var identifier = alias.ManagedName;
+            var baseType = alias.Type.GetManagedType();
+
+            // HACK: special handling for GLib.Strv
+            if (alias.Namespace.Name == "GLib" && alias.GirName == "Strv") {
+                baseType = "GISharp.Runtime.ByteStringArray";
+            }
+
             return ClassDeclaration(identifier)
                 .WithModifiers(TokenList(
                     alias.GetInheritanceModifiers(Token(SealedKeyword))
@@ -23,7 +30,7 @@ namespace GISharp.CodeGen.Syntax
                     .Append(Token(UnsafeKeyword))
                     .Append(Token(PartialKeyword))
                 ))
-                .AddBaseListTypes(SimpleBaseType(ParseTypeName(alias.Type.GetManagedType())))
+                .AddBaseListTypes(SimpleBaseType(ParseTypeName(baseType)))
                 .WithLeadingTrivia(alias.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }

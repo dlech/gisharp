@@ -17,6 +17,38 @@ particular string. A GQuark value of zero is associated to %NULL.</doc>
 g_auto().</doc>
       <source-position filename="gstrfuncs.h" line="269" />
       <type name="utf8" c:type="gchar**" gs:is-pointer="1" />
+      <method name="contains" c:identifier="g_strv_contains" version="2.44" gs:dll-name="glib-2.0" gs:managed-name="Contains">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="32893">Checks if @strv contains @str. @strv must not be %NULL.</doc>
+        <source-position filename="gstrfuncs.h" line="307" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="32900">%TRUE if @str is an element of @strv, according to g_str_equal().</doc>
+          <type name="gboolean" c:type="gboolean" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="strv" transfer-ownership="none" gs:managed-name="strv" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="32895">a %NULL-terminated array of strings</doc>
+            <type name="utf8" c:type="const gchar* const*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="str" transfer-ownership="none" gs:managed-name="str" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="32896">a string</doc>
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="str" transfer-ownership="none" gs:managed-name="str" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="32896">a string</doc>
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <function name="get_type" c:identifier="g_strv_get_type" gs:dll-name="gobject-2.0" gs:pinvoke-only="1" gs:managed-name="GetType">
+        <source-position filename="glib-types.h" line="312" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
     </alias>
     <alias name="TimeSpan" c:type="GTimeSpan" gs:managed-name="TimeSpan">
       <doc xml:space="preserve" filename="gdatetime.h" line="80">A value representing an interval of time, in microseconds.</doc>
