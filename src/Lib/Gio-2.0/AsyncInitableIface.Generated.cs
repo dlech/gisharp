@@ -69,7 +69,22 @@ System.IntPtr userData);
             /// </summary>
             public static UnmanagedInitAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedInitAsync(GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable_, int ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback_, System.IntPtr userData_) { try { var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!; var ioPriority = (int)ioPriority_; var callback = callback_ is null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doInitAsync = (_InitAsync)methodInfo.CreateDelegate(typeof(_InitAsync), initable); doInitAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } }
+                void unmanagedInitAsync(GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable_, int ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback_, System.IntPtr userData_)
+                {
+                    try
+                    {
+                        var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!;
+                        var ioPriority = (int)ioPriority_;
+                        var callback = callback_ is null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
+                        var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
+                        var doInitAsync = (_InitAsync)methodInfo.CreateDelegate(typeof(_InitAsync), initable);
+                        doInitAsync(ioPriority, callback, cancellable);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Runtime.GMarshal.PushUnhandledException(ex);
+                    }
+                }
 
                 return unmanagedInitAsync;
             }
@@ -106,7 +121,27 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedInitFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedInitFinish(GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doInitFinish = (_InitFinish)methodInfo.CreateDelegate(typeof(_InitFinish), initable); doInitFinish(res); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Runtime.GMarshal.PushUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedInitFinish(GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_)
+                {
+                    try
+                    {
+                        var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!;
+                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!;
+                        var doInitFinish = (_InitFinish)methodInfo.CreateDelegate(typeof(_InitFinish), initable);
+                        doInitFinish(res);
+                        return GISharp.Runtime.Boolean.True;
+                    }
+                    catch (GISharp.Runtime.GErrorException ex)
+                    {
+                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Runtime.GMarshal.PushUnhandledException(ex);
+                    }
+
+                    return default(GISharp.Runtime.Boolean);
+                }
 
                 return unmanagedInitFinish;
             }

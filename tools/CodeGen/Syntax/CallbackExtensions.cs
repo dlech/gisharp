@@ -388,10 +388,12 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<StatementSyntax> GetUnmanagedDelegateCreateStatements(this Callback callback)
         {
             var returnType = ParseTypeName(callback.ReturnValue.Type.GetUnmanagedType());
-            var identifier = "unmanaged" + callback.ManagedName.ToPascalCase();
+            var identifier = $"unmanaged{callback.ManagedName.ToPascalCase()}";
             yield return LocalFunctionStatement(returnType, identifier)
                 .WithParameterList(callback.Parameters.GetParameterList())
-                .WithBody(Block(callback.GetVirtualMethodStatements()));
+                .WithBody(Block(callback.GetVirtualMethodStatements()
+                    // HACK: roslyn doesn't put newlines in local function blocks for some reason
+                    .Select(x => x.WithTrailingTrivia(EndOfLine("\n")))));
 
             yield return ReturnStatement(ParseExpression(identifier));
         }
