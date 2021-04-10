@@ -41,30 +41,18 @@ namespace GISharp.Runtime
         /// An invalid GType used as error return value in some functions which
         /// return a GType.
         /// </summary>
-        public static GType Invalid {
-            get {
-                return new GType();
-            }
-        }
+        public static GType Invalid => default;
 
         /// <summary>
         /// A fundamental type which is used as a replacement for the C void
         /// return type.
         /// </summary>
-        public static GType None {
-            get {
-                return new GType(1 << FundamentalShift);
-            }
-        }
+        public static GType None => new(1 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type from which all interfaces are derived.
         /// </summary>
-        public static GType Interface {
-            get {
-                return new GType(2 << FundamentalShift);
-            }
-        }
+        public static GType Interface => new(2 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to gchar.
@@ -74,164 +62,92 @@ namespace GISharp.Runtime
         /// signed integer. This may or may not be the same type a the C type
         /// "gchar".
         /// </remarks>
-        public static GType Char {
-            get {
-                return new GType(3 << FundamentalShift);
-            }
-        }
+        public static GType Char => new(3 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to guchar.
         /// </summary>
-        public static GType UChar {
-            get {
-                return new GType(4 << FundamentalShift);
-            }
-        }
+        public static GType UChar => new(4 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to gboolean.
         /// </summary>
-        public static GType Boolean {
-            get {
-                return new GType(5 << FundamentalShift);
-            }
-        }
+        public static GType Boolean => new(5 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to gint.
         /// </summary>
-        public static GType Int {
-            get {
-                return new GType(6 << FundamentalShift);
-            }
-        }
+        public static GType Int => new(6 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to guint.
         /// </summary>
-        public static GType UInt {
-            get {
-                return new GType(7 << FundamentalShift);
-            }
-        }
+        public static GType UInt => new(7 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to glong.
         /// </summary>
-        public static GType Long {
-            get {
-                return new GType(8 << FundamentalShift);
-            }
-        }
+        public static GType Long => new(8 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to gulong.
         /// </summary>
-        public static GType ULong {
-            get {
-                return new GType(9 << FundamentalShift);
-            }
-        }
+        public static GType ULong => new(9 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to gint64.
         /// </summary>
-        public static GType Int64 {
-            get {
-                return new GType(10 << FundamentalShift);
-            }
-        }
+        public static GType Int64 => new(10 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to guint64.
         /// </summary>
-        public static GType UInt64 {
-            get {
-                return new GType(11 << FundamentalShift);
-            }
-        }
+        public static GType UInt64 => new(11 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type from which all enumeration types are derived.
         /// </summary>
-        public static GType Enum {
-            get {
-                return new GType(12 << FundamentalShift);
-            }
-        }
+        public static GType Enum => new(12 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type from which all flags types are derived.
         /// </summary>
-        public static GType Flags {
-            get {
-                return new GType(13 << FundamentalShift);
-            }
-        }
+        public static GType Flags => new(13 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to gfloat.
         /// </summary>
-        public static GType Float {
-            get {
-                return new GType(14 << FundamentalShift);
-            }
-        }
+        public static GType Float => new(14 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to gdouble.
         /// </summary>
-        public static GType Double {
-            get {
-                return new GType(15 << FundamentalShift);
-            }
-        }
+        public static GType Double => new(15 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to null-terminated C strings.
         /// </summary>
-        public static GType String {
-            get {
-                return new GType(16 << FundamentalShift);
-            }
-        }
+        public static GType String => new(16 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to gpointer.
         /// </summary>
-        public static GType Pointer {
-            get {
-                return new GType(17 << FundamentalShift);
-            }
-        }
+        public static GType Pointer => new(17 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type from which all boxed types are derived.
         /// </summary>
-        public static GType Boxed {
-            get {
-                return new GType(18 << FundamentalShift);
-            }
-        }
+        public static GType Boxed => new(18 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type from which all GParamSpec types are derived.
         /// </summary>
-        public static GType Param {
-            get {
-                return new GType(19 << FundamentalShift);
-            }
-        }
+        public static GType Param => new(19 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type for GObject.
         /// </summary>
-        public static GType Object {
-            get {
-                return new GType(20 << FundamentalShift);
-            }
-        }
+        public static GType Object => new(20 << FundamentalShift);
 
         /// <summary>
         /// The fundamental type corresponding to GVariant.
@@ -243,11 +159,7 @@ namespace GISharp.Runtime
         /// Note that callbacks in closures, and signal handlers for signals of
         /// return type G_TYPE_VARIANT, must never return floating variants.
         /// </remarks>
-        public static GType Variant {
-            get {
-                return new GType(21 << FundamentalShift);
-            }
-        }
+        public static GType Variant => new(21 << FundamentalShift);
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_gtype_get_type();
@@ -258,20 +170,6 @@ namespace GISharp.Runtime
         public static GType Type {
             get {
                 var ret = g_gtype_get_type();
-                GMarshal.PopUnhandledException();
-                return ret;
-            }
-        }
-
-        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_checksum_get_type();
-
-        /// <summary>
-        /// The GType for a boxed type holding a GChecksum.
-        /// </summary>
-        public static GType Checksum {
-            get {
-                var ret = g_checksum_get_type();
                 GMarshal.PopUnhandledException();
                 return ret;
             }
@@ -382,20 +280,12 @@ namespace GISharp.Runtime
         /// Checks if this is derived (or in object-oriented terminology: inherited)
         /// from another type (this holds true for all non-fundamental types).
         /// </summary>
-        public bool IsDerived {
-            get {
-                return (int)value > FundamentalMax;
-            }
-        }
+        public bool IsDerived => (int)value > FundamentalMax;
 
         /// <summary>
         /// Checks if this is a fundamental type.
         /// </summary>
-        public bool IsFundamental {
-            get {
-                return (int)value <= FundamentalMax;
-            }
-        }
+        public bool IsFundamental => (int)value <= FundamentalMax;
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
@@ -711,10 +601,14 @@ namespace GISharp.Runtime
         {
             AssertGTypeName(name);
             var name_ = Marshal.StringToCoTaskMemUTF8(name);
-            var ret = g_type_from_name(name_);
-            GMarshal.PopUnhandledException();
-            Marshal.FreeCoTaskMem(name_);
-            return ret;
+            try {
+                var ret = g_type_from_name(name_);
+                GMarshal.PopUnhandledException();
+                return ret;
+            }
+            finally {
+                Marshal.FreeCoTaskMem(name_);
+            }
         }
 
         /// <summary>
