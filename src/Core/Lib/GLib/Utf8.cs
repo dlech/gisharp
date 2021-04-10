@@ -797,18 +797,14 @@ namespace GISharp.Lib.GLib
             clong len,
             clong* itemsRead,
             clong* itemsWritten,
-            Error.UnmanagedStruct** error);
+            void** error);
 
-        static byte* New(string value)
+        static byte* NewFromManaged(string value)
         {
-            var error_ = default(Error.UnmanagedStruct*);
             fixed (char* value_ = value) {
-                var ret = g_utf16_to_utf8(value_, value.Length, null, null, &error_);
+                var len_ = (clong)value.Length;
+                var ret = g_utf16_to_utf8(value_, len_, null, null, null);
                 GMarshal.PopUnhandledException();
-                if (error_ is not null) {
-                    var error = GetInstance<Error>((IntPtr)error_, Transfer.Full);
-                    throw new GErrorException(error);
-                }
                 return ret;
             }
         }
@@ -826,7 +822,7 @@ namespace GISharp.Lib.GLib
         /// <paramref name="value"/> is converted from UTF-16 to UTF-8 and stored
         /// in unmanaged memory.
         /// </remarks>
-        public Utf8(string value) : this((IntPtr)New(value), -1, Transfer.Full)
+        public Utf8(string value) : this((IntPtr)NewFromManaged(value), -1, Transfer.Full)
         {
         }
 
@@ -845,7 +841,7 @@ namespace GISharp.Lib.GLib
         public Utf8(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
         {
             // TODO: save length
-            _Value = new(GetValue);
+            _Value = new(() => Marshal.PtrToStringUTF8(UnsafeHandle)!);
         }
 
         /// <inheritdoc/>
@@ -881,20 +877,6 @@ namespace GISharp.Lib.GLib
         public override string ToString()
         {
             return Value;
-        }
-
-        string GetValue()
-        {
-            var error_ = default(Error.UnmanagedStruct*);
-            var ret_ = g_utf8_to_utf16((byte*)UnsafeHandle, -1, null, null, &error_);
-            GMarshal.PopUnhandledException();
-            if (error_ is not null) {
-                var error = GetInstance<Error>((IntPtr)error_, Transfer.Full);
-                throw new GErrorException(error);
-            }
-            var ret = Marshal.PtrToStringUni((IntPtr)ret_);
-            g_free(ret_);
-            return ret!;
         }
 
         /// <summary>
@@ -993,56 +975,6 @@ namespace GISharp.Lib.GLib
                 return lengthInCharacters;
             }
         }
-
-        /// <summary>
-        /// Convert a string from UTF-8 to UTF-16. A 0 character will be
-        /// added to the result after the converted text.
-        /// </summary>
-        /// <param name="str">
-        /// a UTF-8 encoded string
-        /// </param>
-        /// <param name="len">
-        /// the maximum length (number of bytes) of @str to use.
-        ///     If @len &lt; 0, then the string is nul-terminated.
-        /// </param>
-        /// <param name="itemsRead">
-        /// location to store number of bytes read,
-        ///     or %NULL. If %NULL, then %G_CONVERT_ERROR_PARTIAL_INPUT will be
-        ///     returned in case @str contains a trailing partial character. If
-        ///     an error occurs then the index of the invalid input is stored here.
-        /// </param>
-        /// <param name="itemsWritten">
-        /// location to store number of #gunichar2
-        ///     written, or %NULL. The value stored here does not include the
-        ///     trailing 0.
-        /// </param>
-        /// <param name="error">
-        /// return location for a #GError
-        /// </param>
-        /// <returns>
-        /// a pointer to a newly allocated UTF-16 string.
-        ///     This value must be freed with g_free(). If an error occurs,
-        ///     %NULL will be returned and @error set.
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="guint16" type="gunichar2*" managed-name="Guint16" /> */
-        /* transfer-ownership:none */
-        static extern char* g_utf8_to_utf16(
-            /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
-            /* transfer-ownership:none */
-            byte* str,
-            /* <type name="glong" type="glong" managed-name="Glong" /> */
-            /* transfer-ownership:none */
-            clong len,
-            /* <type name="glong" type="glong*" managed-name="Glong" /> */
-            /* transfer-ownership:none nullable:1 allow-none:1 */
-            clong* itemsRead,
-            /* <type name="glong" type="glong*" managed-name="Glong" /> */
-            /* transfer-ownership:none nullable:1 allow-none:1 */
-            clong* itemsWritten,
-            /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-            /* direction:out */
-            Error.UnmanagedStruct** error);
 
         int IComparable.CompareTo(object? obj)
         {
