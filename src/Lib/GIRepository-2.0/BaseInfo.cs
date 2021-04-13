@@ -57,7 +57,7 @@ namespace GISharp.Lib.GIRepository
                 return null;
             }
 
-            Type type = (g_base_info_get_type((UnmanagedStruct*)handle)) switch {
+            Type type = g_base_info_get_type((UnmanagedStruct*)handle) switch {
                 InfoType.Arg => typeof(ArgInfo),
                 InfoType.Boxed => typeof(StructInfo),// TODO: could be struct or union
                 InfoType.Callback => typeof(CallbackInfo),
