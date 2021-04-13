@@ -121,7 +121,13 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        void IList<byte>.RemoveAt(int index) => RemoveIndex((uint)index);
+        void IList<byte>.RemoveAt(int index)
+        {
+            if (index < 0) {
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+            RemoveIndex((uint)index);
+        }
 
         /// <inheritdoc/>
         bool ICollection<byte>.Remove(byte item)

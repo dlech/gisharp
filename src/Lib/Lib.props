@@ -8,6 +8,7 @@
     <NoWarn>CS0618</NoWarn>
     <RootNamespace>GISharp.Lib.$([System.Text.RegularExpressions.Regex]::Replace($(MSBuildProjectName),'-\d+\.\d+$',''))</RootNamespace>
     <AssemblyName>GISharp.Lib.$(MSBuildProjectName.Replace('-', '.'))</AssemblyName>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

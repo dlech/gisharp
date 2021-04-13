@@ -19,7 +19,7 @@ namespace GISharp.Test.GLib
 
             // fun way to get an invalid Rune since the constructor does the
             // same validation we are tying to check
-            Unsafe.Write(Unsafe.AsPointer(ref c), -1); // c = new Rune(-1)
+            Unsafe.Write(Unsafe.AsPointer(ref c), int.MaxValue); // c = new Rune(int.MaxValue)
             Assert.That(c.Validate(), Is.False);
         }
 

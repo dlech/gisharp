@@ -1141,7 +1141,7 @@ namespace GISharp.Lib.GLib
             var v_ = (byte*)UnsafeHandle;
             var ret = g_str_hash(v_);
             GMarshal.PopUnhandledException();
-            return (int)ret;
+            return unchecked((int)ret);
         }
 
         static bool EqualsUtf8(Utf8? a, Utf8? b)
