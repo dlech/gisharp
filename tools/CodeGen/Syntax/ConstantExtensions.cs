@@ -40,68 +40,25 @@ namespace GISharp.CodeGen.Syntax
 
         static LiteralExpressionSyntax GetValueAsLiteralExpression(string type, string value)
         {
-            string message;
-
-            switch (type) {
-            case "bool":
-            case "System.Boolean":
-                switch (value) {
-                case "true":
-                    return LiteralExpression(TrueLiteralExpression);
-                case "false":
-                    return LiteralExpression(FalseLiteralExpression);
-                default:
-                    message = $"Unknown bool constant value '{value}'";
-                    throw new ArgumentException(message, value);
-                }
-            case "byte":
-            case "System.Byte":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(byte.Parse(value)));
-            case "sbyte":
-            case "System.SByte":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(sbyte.Parse(value)));
-            case "short":
-            case "System.Int16":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(short.Parse(value)));
-            case "ushort":
-            case "System.UInt16":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(ushort.Parse(value)));
-            case "int":
-            case "System.Int32":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(int.Parse(value)));
-            case "uint":
-            case "System.Uint32":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(uint.Parse(value)));
-            case "long":
-            case "System.Int64":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(long.Parse(value)));
-            case "ulong":
-            case "System.UInt64":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(ulong.Parse(value)));
-            case "float":
-            case "System.Float":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(float.Parse(value)));
-            case "double":
-            case "System.Double":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal(double.Parse(value)));
-            case "string":
-            case "System.String":
-                return LiteralExpression(StringLiteralExpression,
-                    Literal(value));
-            default:
-                message = $"Bad constant type: {type}";
-                throw new ArgumentException(message, nameof(type));
-            }
+            return type switch {
+                "bool" => value switch {
+                    "true" => LiteralExpression(TrueLiteralExpression),
+                    "false" => LiteralExpression(FalseLiteralExpression),
+                    _ => throw new ArgumentException($"Unknown bool constant value '{value}'", value),
+                },
+                "byte" => LiteralExpression(NumericLiteralExpression, Literal(byte.Parse(value))),
+                "sbyte" => LiteralExpression(NumericLiteralExpression, Literal(sbyte.Parse(value))),
+                "short" => LiteralExpression(NumericLiteralExpression, Literal(short.Parse(value))),
+                "ushort" => LiteralExpression(NumericLiteralExpression, Literal(ushort.Parse(value))),
+                "int" => LiteralExpression(NumericLiteralExpression, Literal(int.Parse(value))),
+                "uint" => LiteralExpression(NumericLiteralExpression, Literal(uint.Parse(value))),
+                "long" => LiteralExpression(NumericLiteralExpression, Literal(long.Parse(value))),
+                "ulong" => LiteralExpression(NumericLiteralExpression, Literal(ulong.Parse(value))),
+                "float" => LiteralExpression(NumericLiteralExpression, Literal(float.Parse(value))),
+                "double" => LiteralExpression(NumericLiteralExpression, Literal(double.Parse(value))),
+                "string" => LiteralExpression(StringLiteralExpression, Literal(value)),
+                _ => throw new ArgumentException($"Bad constant type: {type}", nameof(type)),
+            };
         }
 
         /// <summary>
