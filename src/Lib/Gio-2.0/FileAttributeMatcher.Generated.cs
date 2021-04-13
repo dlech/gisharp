@@ -333,7 +333,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.ToString()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public override System.String ToString()
+        public override string ToString()
         {
             CheckToStringArgs();
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;

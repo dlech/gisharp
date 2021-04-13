@@ -18,103 +18,103 @@ namespace GISharp.Lib.GLib
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopGroup']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopGroup = "Desktop Entry";
+        public const string DesktopGroup = "Desktop Entry";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyActions']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public const System.String DesktopKeyActions = "Actions";
+        public const string DesktopKeyActions = "Actions";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyCategories']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyCategories = "Categories";
+        public const string DesktopKeyCategories = "Categories";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyComment']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyComment = "Comment";
+        public const string DesktopKeyComment = "Comment";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyDbusActivatable']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public const System.String DesktopKeyDbusActivatable = "DBusActivatable";
+        public const string DesktopKeyDbusActivatable = "DBusActivatable";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyExec']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyExec = "Exec";
+        public const string DesktopKeyExec = "Exec";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyGenericName']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyGenericName = "GenericName";
+        public const string DesktopKeyGenericName = "GenericName";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyHidden']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyHidden = "Hidden";
+        public const string DesktopKeyHidden = "Hidden";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyIcon']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyIcon = "Icon";
+        public const string DesktopKeyIcon = "Icon";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyMimeType']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyMimeType = "MimeType";
+        public const string DesktopKeyMimeType = "MimeType";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyName']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyName = "Name";
+        public const string DesktopKeyName = "Name";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyNotShowIn']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyNotShowIn = "NotShowIn";
+        public const string DesktopKeyNotShowIn = "NotShowIn";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyNoDisplay']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyNoDisplay = "NoDisplay";
+        public const string DesktopKeyNoDisplay = "NoDisplay";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyOnlyShowIn']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyOnlyShowIn = "OnlyShowIn";
+        public const string DesktopKeyOnlyShowIn = "OnlyShowIn";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyPath']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyPath = "Path";
+        public const string DesktopKeyPath = "Path";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyStartupNotify']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyStartupNotify = "StartupNotify";
+        public const string DesktopKeyStartupNotify = "StartupNotify";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyStartupWmClass']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyStartupWmClass = "StartupWMClass";
+        public const string DesktopKeyStartupWmClass = "StartupWMClass";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyTerminal']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyTerminal = "Terminal";
+        public const string DesktopKeyTerminal = "Terminal";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyTryExec']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyTryExec = "TryExec";
+        public const string DesktopKeyTryExec = "TryExec";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyType']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyType = "Type";
+        public const string DesktopKeyType = "Type";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyUrl']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyUrl = "URL";
+        public const string DesktopKeyUrl = "URL";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopKeyVersion']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopKeyVersion = "Version";
+        public const string DesktopKeyVersion = "Version";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopTypeApplication']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopTypeApplication = "Application";
+        public const string DesktopTypeApplication = "Application";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopTypeDirectory']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopTypeDirectory = "Directory";
+        public const string DesktopTypeDirectory = "Directory";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopTypeLink']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public const System.String DesktopTypeLink = "Link";
+        public const string DesktopTypeLink = "Link";
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.Groups']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]

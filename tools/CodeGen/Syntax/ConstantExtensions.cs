@@ -20,7 +20,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var type = constant.Type.GetManagedType();
             if (type == "GISharp.Lib.GLib.Utf8") {
-                type = "System.String";
+                type = "string";
             }
 
             var value = GetValueAsLiteralExpression(type, constant.Value);
