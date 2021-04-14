@@ -151,8 +151,6 @@ namespace GISharp.Test.GObject
             obj.SetProperty("bool-value", true);
             Assert.That(obj.BoolValue, Is.True);
 
-            Assert.That(((TestObjectPropertiesBase)obj).BoolValue, Is.True);
-
             using var baseBoolValueProp = baseObjClass.FindProperty("bool-value")!;
             using var subclassBoolValueProp = subclassObjClass.FindProperty("bool-value")!;
             // ...so ParamSpecs should be the same

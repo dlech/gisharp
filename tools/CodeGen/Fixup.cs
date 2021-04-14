@@ -196,7 +196,7 @@ namespace GISharp.CodeGen
                     var changeAttrNamespace = XNamespace.None;
                     if (changeAttrNameParts.Length > 1) {
                         setAttrLocalName = changeAttrNameParts[1];
-                        setAttrNamespace = (XNamespace)Manager.LookupNamespace(changeAttrNameParts[0]);
+                        setAttrNamespace = Manager.LookupNamespace(changeAttrNameParts[0]);
                     }
                     var changeAttrElements = document.XPathSelectElements(changeAttr.Xpath, Manager).ToList();
                     if (changeAttrElements.Count == 0) {
@@ -217,7 +217,7 @@ namespace GISharp.CodeGen
                     var elementNamespace = XNamespace.None;
                     if (elementParts.Length > 1) {
                         elementLocalName = elementParts[1];
-                        elementNamespace = (XNamespace)Manager.LookupNamespace(elementParts[0]);
+                        elementNamespace = Manager.LookupNamespace(elementParts[0]);
                     }
                     var elementsToChange = document.XPathSelectElements(changeElement.Xpath, Manager);
                     if (elementsToChange is null) {

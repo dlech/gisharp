@@ -9,6 +9,7 @@ trim_trailing_whitespace = true
 
 dotnet_diagnostic.CA1816.severity = silent # GC.SuppressFinalize() outside of Dispose()
 dotnet_diagnostic.IDE0002.severity = suggestion # name can be simplified
+dotnet_diagnostic.IDE0004.severity = suggestion # Cast is redundant
 dotnet_diagnostic.IDE0005.severity = suggestion # remove unused using
 dotnet_diagnostic.IDE0047.severity = suggestion # Parentheses can be removed
 dotnet_diagnostic.IDE0060.severity = silent # Remove unused parameter
