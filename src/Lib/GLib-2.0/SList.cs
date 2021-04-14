@@ -14,21 +14,16 @@ using static System.Reflection.BindingFlags;
 
 namespace GISharp.Lib.GLib
 {
-    unsafe partial class SList : Opaque
+    unsafe partial class SList
     {
         /// <inheritdoc/>
-        public override IntPtr UnsafeHandle {
-            get {
-                // null handle is OK here
-                return handle;
-            }
-        }
+        public override IntPtr UnsafeHandle => handle; // null handle is OK here
 
         private protected SList(IntPtr handle, Transfer ownership) : base(handle)
         {
             if (ownership == Transfer.None) {
                 GC.SuppressFinalize(this);
-                throw new NotSupportedException("must start with owned SList");
+                throw new ArgumentException("requires owned SList", nameof(ownership));
             }
         }
 
@@ -115,10 +110,17 @@ namespace GISharp.Lib.GLib
             userDataHandle.Free();
         }
 
-        private protected void Free() => g_slist_free((UnmanagedStruct*)handle);
+        private protected void Free()
+        {
+            g_slist_free((UnmanagedStruct*)handle);
+            GMarshal.PopUnhandledException();
+        }
 
-        private protected void FreeFull(delegate* unmanaged[Cdecl]<IntPtr, void> freeFunc) =>
+        private protected void FreeFull(delegate* unmanaged[Cdecl]<IntPtr, void> freeFunc)
+        {
             g_slist_free_full((UnmanagedStruct*)handle, freeFunc);
+            GMarshal.PopUnhandledException();
+        }
 
         /// <summary>
         /// Gets the position of the element containing
@@ -408,10 +410,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// <paramref name="list2"/> will be empty after calling this method.
         /// </remarks>
-        public void Concat(WeakSList<T> list2)
-        {
-            base.Concat(list2);
-        }
+        public void Concat(WeakSList<T> list2) => base.Concat(list2);
 
         /// <summary>
         /// Adds a new element on to the end of the list.
@@ -470,11 +469,7 @@ namespace GISharp.Lib.GLib
         /// the index of the element containing the data,
         ///     or -1 if the data is not found
         /// </returns>
-        public int IndexOf(T data)
-        {
-            var ret = IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
-            return ret;
-        }
+        public int IndexOf(T data) => IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Inserts a new element into the list at the given position.
@@ -545,7 +540,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the element's data, or <c>null</c> if the position
-        /// is off the end of the <see cref="SList{T}"/>
+        /// is off the end of the <see cref="WeakSList{T}"/>
         /// </returns>
         public T this[int n] {
             get {
@@ -577,10 +572,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data of the element to remove
         /// </param>
-        public void Remove(T data)
-        {
-            Remove(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void Remove(T data) => Remove(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Removes all list nodes with data equal to <paramref name="data"/>.
@@ -591,10 +583,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// data to remove
         /// </param>
-        public void RemoveAll(T data)
-        {
-            RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void RemoveAll(T data) => RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Sorts a <see cref="SList{T}"/> using the given comparison function.
@@ -690,10 +679,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// <paramref name="list2"/> will be empty after calling this method.
         /// </remarks>
-        public void Concat(SList<T> list2)
-        {
-            base.Concat(list2);
-        }
+        public void Concat(SList<T> list2) => base.Concat(list2);
 
         /// <summary>
         /// Adds a new element on to the end of the list.
@@ -710,10 +696,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        public void Append(T data)
-        {
-            Append(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void Append(T data) => Append(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Copies a <see cref="SList{T}"/>.
@@ -752,11 +735,7 @@ namespace GISharp.Lib.GLib
         /// the index of the element containing the data,
         ///     or -1 if the data is not found
         /// </returns>
-        public int IndexOf(T data)
-        {
-            var ret = IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
-            return ret;
-        }
+        public int IndexOf(T data) => IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Inserts a new element into the list at the given position.
@@ -770,10 +749,7 @@ namespace GISharp.Lib.GLib
         /// of elements in the list, the new element is added on
         /// to the end of the list.
         /// </param>
-        public void Insert(T data, int position)
-        {
-            Insert(data?.UnsafeHandle ?? IntPtr.Zero, position);
-        }
+        public void Insert(T data, int position) => Insert(data?.UnsafeHandle ?? IntPtr.Zero, position);
 
         /// <summary>
         /// Inserts a node before <paramref name="sibling"/> containing <paramref name="data"/>.
@@ -859,10 +835,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data of the element to remove
         /// </param>
-        public void Remove(T data)
-        {
-            Remove(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void Remove(T data) => Remove(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Removes all list nodes with data equal to <paramref name="data"/>.
@@ -873,10 +846,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// data to remove
         /// </param>
-        public void RemoveAll(T data)
-        {
-            RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void RemoveAll(T data) => RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Sorts a <see cref="SList{T}"/> using the given comparison function.

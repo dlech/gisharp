@@ -23,7 +23,7 @@ namespace GISharp.Lib.GLib
         {
             if (ownership == Transfer.None) {
                 GC.SuppressFinalize(this);
-                throw new ArgumentException("Can't handle unowned list, use UnownedList<T> instead", nameof(ownership));
+                throw new ArgumentException("requires owned List", nameof(ownership));
             }
         }
 
@@ -41,6 +41,7 @@ namespace GISharp.Lib.GLib
             var list1_ = (UnmanagedStruct*)handle;
             var list2_ = (UnmanagedStruct*)list2.handle;
             handle = (IntPtr)g_list_concat(list1_, list2_);
+            GMarshal.PopUnhandledException();
             list2.handle = IntPtr.Zero;
         }
 
@@ -63,6 +64,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_list_append(list_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -81,6 +83,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             var ret_ = g_list_copy(list_);
+            GMarshal.PopUnhandledException();
             var ret = new WeakList<T>((IntPtr)ret_, Transfer.Container);
             return ret;
         }
@@ -108,10 +111,17 @@ namespace GISharp.Lib.GLib
             userDataHandle.Free();
         }
 
-        private protected void Free() => g_list_free((UnmanagedStruct*)handle);
+        private protected void Free()
+        {
+            g_list_free((UnmanagedStruct*)handle);
+            GMarshal.PopUnhandledException();
+        }
 
-        private protected void FreeFull(delegate* unmanaged[Cdecl]<IntPtr, void> freeFunc) =>
+        private protected void FreeFull(delegate* unmanaged[Cdecl]<IntPtr, void> freeFunc)
+        {
             g_list_free_full((UnmanagedStruct*)handle, freeFunc);
+            GMarshal.PopUnhandledException();
+        }
 
         /// <summary>
         /// Gets the position of the element containing
@@ -147,6 +157,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_list_insert(list_, data, position);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -164,6 +175,7 @@ namespace GISharp.Lib.GLib
             var list_ = (UnmanagedStruct*)handle;
             var sibling_ = (UnmanagedStruct*)sibling;
             handle = (IntPtr)g_list_insert_before(list_, sibling_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -189,6 +201,7 @@ namespace GISharp.Lib.GLib
             var list_ = (UnmanagedStruct*)handle;
             var func_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(func);
             handle = (IntPtr)g_list_insert_sorted(list_, data, func_);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -243,6 +256,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_list_prepend(list_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -257,6 +271,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_list_remove(list_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -272,6 +287,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_list_remove_all(list_, data);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -282,6 +298,7 @@ namespace GISharp.Lib.GLib
         {
             var list_ = (UnmanagedStruct*)handle;
             handle = (IntPtr)g_list_reverse(list_);
+            GMarshal.PopUnhandledException();
         }
 
         /// <summary>
@@ -300,6 +317,7 @@ namespace GISharp.Lib.GLib
             var list_ = (UnmanagedStruct*)handle;
             var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(compareFunc);
             handle = (IntPtr)g_list_sort(list_, compareFunc_);
+            GMarshal.PopUnhandledException();
         }
     }
 
@@ -404,10 +422,7 @@ namespace GISharp.Lib.GLib
         /// the <see cref="WeakList{T}"/> to add to the end of the first <see cref="WeakList{T}"/>,
         /// this must point to the top of the list
         /// </param>
-        public void Concat(WeakList<T> list2)
-        {
-            base.Concat(list2);
-        }
+        public void Concat(WeakList<T> list2) => base.Concat(list2);
 
         /// <summary>
         /// Adds a new element on to the end of the list.
@@ -451,10 +466,7 @@ namespace GISharp.Lib.GLib
         /// the function to call with each element's data
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Foreach(Func<T> func)
-        {
-            Foreach<T>(func);
-        }
+        public void Foreach(Func<T> func) => Foreach<T>(func);
 
         /// <summary>
         /// Gets the position of the element containing
@@ -467,11 +479,7 @@ namespace GISharp.Lib.GLib
         /// the index of the element containing the data,
         ///     or -1 if the data is not found
         /// </returns>
-        public int IndexOf(T data)
-        {
-            var ret = IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
-            return ret;
-        }
+        public int IndexOf(T data) => IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Inserts a new element into the list at the given position.
@@ -564,10 +572,6 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Prepends a new element on to the start of the list.
         /// </summary>
-        /// <remarks>
-        /// Do not use this function to prepend a new element to a different
-        /// element than the start of the list. Use <see cref="InsertBefore"/> instead.
-        /// </remarks>
         /// <param name="data">
         /// the data for the new element
         /// </param>
@@ -584,10 +588,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data of the element to remove
         /// </param>
-        public void Remove(T data)
-        {
-            Remove(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void Remove(T data) => Remove(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Removes all list nodes with data equal to <paramref name="data"/>.
@@ -598,10 +599,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// data to remove
         /// </param>
-        public void RemoveAll(T data)
-        {
-            RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void RemoveAll(T data) => RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Sorts a <see cref="WeakList{T}"/> using the given comparison function. The algorithm
@@ -642,7 +640,7 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public sealed unsafe class List<T> : List, IEnumerable<T> where T : Opaque?
     {
-        private static readonly delegate* unmanaged[Cdecl]<IntPtr, IntPtr> copyData;
+        private static readonly delegate* unmanaged[Cdecl]<IntPtr, IntPtr> copyFunc;
         private static readonly delegate* unmanaged[Cdecl]<IntPtr, void> freeFunc;
 
         static List()
@@ -651,7 +649,7 @@ namespace GISharp.Lib.GLib
 
             // var copyMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayCopyFuncAttribute), false));
             // copyData = (Func<IntPtr, IntPtr>)copyMethodInfo.CreateDelegate(typeof(Func<IntPtr, IntPtr>));
-            copyData = default!;
+            copyFunc = default!;
 
             var freeMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayFreeFuncAttribute), false));
             freeFunc = (delegate* unmanaged[Cdecl]<IntPtr, void>)freeMethodInfo.MethodHandle.GetFunctionPointer();
@@ -696,10 +694,7 @@ namespace GISharp.Lib.GLib
         /// the <see cref="List{T}"/> to add to the end of the first <see cref="List{T}"/>,
         /// this must point to the top of the list
         /// </param>
-        public void Concat(List<T> list2)
-        {
-            base.Concat(list2);
-        }
+        public void Concat(List<T> list2) => base.Concat(list2);
 
         /// <summary>
         /// Adds a new element on to the end of the list.
@@ -713,10 +708,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        public void Append(T data)
-        {
-            Append(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void Append(T data) => Append(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Copies a <see cref="List{T}" />.
@@ -743,10 +735,7 @@ namespace GISharp.Lib.GLib
         /// the function to call with each element's data
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Foreach(Func<T> func)
-        {
-            Foreach<T>(func);
-        }
+        public void Foreach(Func<T> func) => Foreach<T>(func);
 
         /// <summary>
         /// Gets the position of the element containing
@@ -759,11 +748,7 @@ namespace GISharp.Lib.GLib
         /// the index of the element containing the data,
         ///     or -1 if the data is not found
         /// </returns>
-        public int IndexOf(T data)
-        {
-            var ret = IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
-            return ret;
-        }
+        public int IndexOf(T data) => IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Inserts a new element into the list at the given position.
@@ -776,10 +761,7 @@ namespace GISharp.Lib.GLib
         /// negative, or is larger than the number of elements in the
         /// list, the new element is added on to the end of the list.
         /// </param>
-        public void Insert(T data, int position)
-        {
-            Insert(data?.UnsafeHandle ?? IntPtr.Zero, position);
-        }
+        public void Insert(T data, int position) => Insert(data?.UnsafeHandle ?? IntPtr.Zero, position);
 
         /// <summary>
         /// Inserts a new element into the list before the given position.
@@ -876,10 +858,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data of the element to remove
         /// </param>
-        public void Remove(T data)
-        {
-            Remove(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void Remove(T data) => Remove(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Removes all list nodes with data equal to <paramref name="data"/>.
@@ -890,10 +869,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// data to remove
         /// </param>
-        public void RemoveAll(T data)
-        {
-            RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
-        }
+        public void RemoveAll(T data) => RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
 
         /// <summary>
         /// Sorts a <see cref="List{T}"/> using the given comparison function. The algorithm
