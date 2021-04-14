@@ -78,7 +78,7 @@ namespace GISharp.Lib.GIRepository
                 _ => typeof(BaseInfo),
             };
 
-            return (T?)Activator.CreateInstance(type, handle, ownership);
+            return (T)Activator.CreateInstance(type, handle, ownership)!;
         }
 
         [ModuleInitializer]

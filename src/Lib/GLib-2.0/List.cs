@@ -77,12 +77,12 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the start of the new list that holds the same data as @list
         /// </returns>
-        private protected List Copy()
+        private protected WeakList<T> Copy<T>() where T : Opaque?
         {
             var list_ = (UnmanagedStruct*)handle;
             var ret_ = g_list_copy(list_);
-            var ret = Activator.CreateInstance(GetType(), (IntPtr)ret_, Transfer.Container);
-            return (List)ret!;
+            var ret = new WeakList<T>((IntPtr)ret_, Transfer.Container);
+            return ret;
         }
 
         /// <summary>
@@ -439,11 +439,7 @@ namespace GISharp.Lib.GLib
         /// the start of the new list that holds the same data as
         /// this list
         /// </returns>
-        public new WeakList<T> Copy()
-        {
-            var ret = base.Copy();
-            return (WeakList<T>)ret;
-        }
+        public WeakList<T> Copy() => Copy<T>();
 
         /// <summary>
         /// Calls a function for each element of a <see cref="List"/>.
@@ -735,11 +731,7 @@ namespace GISharp.Lib.GLib
         /// the start of the new list that holds the same data as
         /// this list
         /// </returns>
-        public new WeakList<T> Copy()
-        {
-            var ret = base.Copy();
-            return (WeakList<T>)ret;
-        }
+        public WeakList<T> Copy() => Copy<T>();
 
         /// <summary>
         /// Calls a function for each element of a <see cref="List"/>.

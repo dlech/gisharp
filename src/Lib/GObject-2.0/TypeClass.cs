@@ -61,7 +61,7 @@ namespace GISharp.Lib.GObject
 
             var gtype = ((UnmanagedStruct*)handle)->GType;
             var type = gtype.GetGTypeStruct();
-            return (T?)Activator.CreateInstance(type, handle, ownership);
+            return (T)Activator.CreateInstance(type, handle, ownership)!;
         }
 
         /// <summary>
