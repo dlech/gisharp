@@ -177,7 +177,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for zero-terminated C array of pointers to opaque data types.
     /// </summary>
-    public unsafe class WeakZeroTerminatedCPtrArray<T> : Opaque, IEnumerable<T> where T : IOpaque?
+    public unsafe class WeakZeroTerminatedCPtrArray<T> : Opaque, IEnumerable<T> where T : IOpaque
     {
         private int length;
 
@@ -383,7 +383,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for unowned C arrays of pointers to opaque data types.
     /// </summary>
-    public unsafe ref struct UnownedZeroTerminatedCPtrArray<T> where T : IOpaque?
+    public unsafe ref struct UnownedZeroTerminatedCPtrArray<T> where T : IOpaque
     {
         private readonly IntPtr* handle;
         private int length;
