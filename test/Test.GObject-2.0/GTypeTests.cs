@@ -110,7 +110,7 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestString()
         {
-            Assert.That(GType.String.ToType(), Is.EqualTo(typeof(Utf8)));
+            Assert.That(GType.String.ToType(), Is.EqualTo(typeof(ByteString)));
         }
 
         [Test]

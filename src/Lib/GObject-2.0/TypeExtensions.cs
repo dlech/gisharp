@@ -8,10 +8,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
-
+using static System.Reflection.BindingFlags;
 using clong = GISharp.Runtime.CLong;
 using culong = GISharp.Runtime.CULong;
-using static System.Reflection.BindingFlags;
 
 namespace GISharp.Lib.GObject
 {
@@ -54,7 +53,10 @@ namespace GISharp.Lib.GObject
                     (IntPtr)GCHandle.Alloc(typeof(System.Enum)));
                 Add(GType.Float, typeof(float));
                 Add(GType.Double, typeof(double));
-                Add(GType.String, typeof(Utf8));
+                Add(GType.String, typeof(ByteString));
+                // strings are a bit ambiguous as to character encoding
+                typeMap.Add(typeof(Utf8), GType.String);
+                typeMap.Add(typeof(Filename), GType.String);
                 Add(GType.Pointer, typeof(IntPtr));
                 Add(GType.Boxed, typeof(Boxed));
                 Add(GType.Param, typeof(ParamSpec));

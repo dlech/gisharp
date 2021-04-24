@@ -10,6 +10,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Zero-terminated string with unspecified character encoding.
     /// </summary>
+    [GType("gchararray", IsProxyForUnmanagedType = true)]
     public unsafe class ByteString : Opaque, IEquatable<ByteString>
     {
         private protected int length;

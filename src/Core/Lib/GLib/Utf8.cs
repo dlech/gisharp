@@ -648,7 +648,6 @@ namespace GISharp.Lib.GLib
     /// </summary>
     /// <seealso cref="UnownedUtf8"/>
     /// <seealso cref="NullableUnownedUtf8"/>
-    [GType("gchararray", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay("{Value}")]
     public unsafe class Utf8 : ByteString, IComparable, IComparable<Utf8>, IComparable<string>, IConvertible, IEquatable<string>
     {
