@@ -3,7 +3,6 @@
 
 using GISharp.Lib.GIRepository;
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
 using NUnit.Framework;
 
 namespace GISharp.Test.GIRepository

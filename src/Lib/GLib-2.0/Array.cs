@@ -2,12 +2,12 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
 using System.Collections;
-using GISharp.Runtime;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
@@ -361,7 +361,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the elements to append to the end of the array
         /// </param>
-        public void Append(ReadOnlySpan<T> data) => AppendVals<T>(data);
+        public void Append(ReadOnlySpan<T> data) => AppendVals(data);
 
         /// <summary>
         /// Adds elements onto the end of the array.
@@ -388,7 +388,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the elements to insert
         /// </param>
-        public void Insert(int index, ReadOnlySpan<T> data) => InsertVals<T>(index, data);
+        public void Insert(int index, ReadOnlySpan<T> data) => InsertVals(index, data);
 
         /// <summary>
         /// Inserts elements into a <see cref="Array{T}"/> at the given index.
@@ -423,7 +423,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the elements to prepend to the start of the array
         /// </param>
-        public void Prepend(ReadOnlySpan<T> data) => PrependVals<T>(data);
+        public void Prepend(ReadOnlySpan<T> data) => PrependVals(data);
 
         /// <summary>
         /// Adds elements onto the start of the array.

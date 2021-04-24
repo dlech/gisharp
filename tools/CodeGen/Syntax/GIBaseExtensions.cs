@@ -53,7 +53,7 @@ namespace GISharp.CodeGen.Syntax
             // If there is a "version" GIR annotation, convert it to a GISharp SinceAttribute
 
             if (member.Version is not null) {
-                var attrName = ParseName(typeof(GISharp.Runtime.SinceAttribute).FullName);
+                var attrName = ParseName(typeof(SinceAttribute).FullName);
                 var arg = AttributeArgument(LiteralExpression(StringLiteralExpression,
                     Literal(member.Version)));
                 var attr = Attribute(attrName).AddArgumentListArguments(arg);

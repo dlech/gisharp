@@ -134,7 +134,7 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestObject()
         {
-            Assert.That(GType.Object.ToType(), Is.EqualTo(typeof(GISharp.Lib.GObject.Object)));
+            Assert.That(GType.Object.ToType(), Is.EqualTo(typeof(Lib.GObject.Object)));
         }
 
         [Test]

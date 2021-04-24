@@ -79,7 +79,7 @@ namespace GISharp.Lib.GLib
         ///
         /// You can make critical warnings fatal at runtime by setting the
         /// <c>G_DEBUG</c> environment variable (see Running GLib Applications).
-        /// You can also use <see cref="Log.SetAlwaysFatal"/>.
+        /// You can also use <see cref="SetAlwaysFatal"/>.
         /// </remarks>
         public static void Critical(NullableUnownedUtf8 message)
         {

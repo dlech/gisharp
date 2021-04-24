@@ -4,12 +4,10 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
-
-using GISharp.Runtime;
 using GISharp.Lib.GLib;
-
-using culong = GISharp.Runtime.CULong;
+using GISharp.Runtime;
 using Boolean = GISharp.Runtime.Boolean;
+using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
 {
@@ -104,7 +102,7 @@ namespace GISharp.Lib.GObject
         public static culong Connect<T>(this Object instance, UnownedUtf8 detailedSignal,
             T handler, ConnectFlags connectFlags = default) where T : Delegate
         {
-            var (ret, _, _) = ConnectData<T>(instance, detailedSignal, handler, connectFlags);
+            var (ret, _, _) = ConnectData(instance, detailedSignal, handler, connectFlags);
             // TODO: raise exception on failure?
             return ret;
         }
