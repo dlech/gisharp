@@ -13,6 +13,7 @@ namespace GISharp.Runtime
     /// return values and also in unmanged structs and arrays where the size of boolean
     /// value is expected to be 4 bytes.
     /// </remarks>
+    [GType("gboolean", IsProxyForUnmanagedType = true)]
     public enum Boolean : int
     {
         /// <summary>
