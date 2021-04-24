@@ -88,7 +88,7 @@ See <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,int,GIShar
 <param name="res">
 a <see cref="IAsyncResult"/>.
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

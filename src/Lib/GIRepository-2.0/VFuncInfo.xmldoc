@@ -45,7 +45,7 @@ is the implementation for this instance.
 <returns>
 address to a function or <c>null</c> if an error happened
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

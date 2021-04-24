@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using GISharp.Lib.GLib;
 
 namespace GISharp.Runtime
 {
@@ -117,25 +116,6 @@ namespace GISharp.Runtime
                 return IntPtr.Zero;
             }
             return ByteStringToPtr(Encoding.UTF8.GetBytes(str));
-        }
-
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_propagate_error(Error.UnmanagedStruct** dest, Error.UnmanagedStruct* src);
-
-        /// <summary>
-        /// If dest is NULL, free src; otherwise, moves src into *dest. The error
-        /// variable dest points to must be NULL.
-        /// </summary>
-        /// <param name="dest">Destination.</param>
-        /// <param name="src">Source.</param>
-        /// <remarks>
-        /// Note that src is no longer valid after this call.
-        /// </remarks>
-        public static void PropagateError(Error.UnmanagedStruct** dest, Error src)
-        {
-            var src_ = (Error.UnmanagedStruct*)src.Take();
-            g_propagate_error(dest, src_);
-            PopUnhandledException();
         }
 
         /// <summary>

@@ -131,9 +131,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         doInitFinish(res);
                         return GISharp.Runtime.Boolean.True;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {

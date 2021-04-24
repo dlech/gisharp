@@ -70,7 +70,7 @@ data will reach the target.
 <param name="cancellable">
 optional cancellable object
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -119,7 +119,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 <param name="cancellable">
 optional cancellable object
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -158,9 +158,9 @@ Checks if an output stream has pending actions.
 <summary>
 Sets this instance to have actions pending. If the pending flag is
 already set or this instance is closed, it will return <c>false</c> and set
-<see cref="GISharp.Runtime.GErrorException"/>.
+<see cref="GISharp.Lib.GLib.Error.Exception"/>.
 </summary>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -185,7 +185,7 @@ a #gssize containing the size of the data spliced, or
     returned, and there is no way to determine the actual number
     of bytes spliced.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -243,7 +243,7 @@ operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
 </para>
 <para>
-On error -1 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set accordingly.
+On error -1 is returned and <see cref="GISharp.Lib.GLib.Error.Exception"/> is set accordingly.
 </para>
 </remarks>
 <param name="buffer">
@@ -255,7 +255,7 @@ optional cancellable object
 <returns>
 Number of bytes written, or -1 on error
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -275,12 +275,12 @@ On a successful write of the length of <paramref name="buffer"/> bytes, <c>true<
 is set to the length of <paramref name="buffer"/>.
 </para>
 <para>
-If there is an error during the operation <c>false</c> is returned and <see cref="GISharp.Runtime.GErrorException"/>
+If there is an error during the operation <c>false</c> is returned and <see cref="GISharp.Lib.GLib.Error.Exception"/>
 is set to indicate the error status.
 </para>
 <para>
 As a special exception to the normal conventions for functions that
-use #GError, if this function returns <c>false</c> (and sets <see cref="GISharp.Runtime.GErrorException"/>) then
+use #GError, if this function returns <c>false</c> (and sets <see cref="GISharp.Lib.GLib.Error.Exception"/>) then
 <paramref name="bytesWritten"/> will be set to the number of bytes that were
 successfully written before the error was encountered.  This
 functionality is only available from C.  If you need it from another
@@ -298,7 +298,7 @@ location to store the number of bytes that was
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -423,7 +423,7 @@ optional cancellable object
 <returns>
 Number of bytes written, or -1 on error
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -501,7 +501,7 @@ location to store the number of bytes that were
 <param name="cancellable">
 optional cancellable object
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -521,12 +521,12 @@ On a successful write of all the length of <paramref name="vectors"/> vectors, <
 <paramref name="bytesWritten"/> is set to the sum of all the sizes of <paramref name="vectors"/>.
 </para>
 <para>
-If there is an error during the operation <c>false</c> is returned and <see cref="GISharp.Runtime.GErrorException"/>
+If there is an error during the operation <c>false</c> is returned and <see cref="GISharp.Lib.GLib.Error.Exception"/>
 is set to indicate the error status.
 </para>
 <para>
 As a special exception to the normal conventions for functions that
-use #GError, if this function returns <c>false</c> (and sets <see cref="GISharp.Runtime.GErrorException"/>) then
+use #GError, if this function returns <c>false</c> (and sets <see cref="GISharp.Lib.GLib.Error.Exception"/>) then
 <paramref name="bytesWritten"/> will be set to the number of bytes that were
 successfully written before the error was encountered.  This
 functionality is only available from C. If you need it from another
@@ -548,7 +548,7 @@ location to store the number of bytes that were
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -680,13 +680,13 @@ a <see cref="IAsyncResult"/>.
 <returns>
 <c>true</c> if stream was successfully closed, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
 
 <member name='OutputStream.DoCloseFn(GISharp.Lib.Gio.Cancellable?)'>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -713,7 +713,7 @@ optional cancellable object
 <returns>
 <c>true</c> on success, <c>false</c> on error
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -752,7 +752,7 @@ a GAsyncResult.
 <returns>
 <c>true</c> if flush operation succeeded, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -777,7 +777,7 @@ a #gssize containing the size of the data spliced, or
     returned, and there is no way to determine the actual number
     of bytes spliced.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -825,7 +825,7 @@ a #gssize of the number of bytes spliced. Note that if the
     will be returned, and there is no way to determine the actual
     number of bytes spliced.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -902,7 +902,7 @@ a <see cref="IAsyncResult"/>.
 <returns>
 a #gssize containing the number of bytes written to the stream.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -933,7 +933,7 @@ operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
 </para>
 <para>
-On error -1 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set accordingly.
+On error -1 is returned and <see cref="GISharp.Lib.GLib.Error.Exception"/> is set accordingly.
 </para>
 </remarks>
 <param name="buffer">
@@ -945,7 +945,7 @@ optional cancellable object
 <returns>
 Number of bytes written, or -1 on error
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1019,7 +1019,7 @@ location to store the number of bytes that were written to the stream
 <returns>
 <c>true</c> on success, <c>false</c> if there was an error
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1069,7 +1069,7 @@ optional cancellable object
 <returns>
 <c>true</c> on success, <c>false</c> if there was an error
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

@@ -7,16 +7,15 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
+using GISharp.Runtime;
+using Boolean = GISharp.Runtime.Boolean;
+using Object = GISharp.Lib.GObject.Object;
 
 // using GNetworkMonitor for testing since it is in gio, which is likely to
 // be installed and it has methods, properties and a signal as well as having
 // GInitable as a prerequisite.
-using GISharp.Lib.GLib;
-using GISharp.Lib.GObject;
-using GISharp.Runtime;
-
-using Object = GISharp.Lib.GObject.Object;
-using Boolean = GISharp.Runtime.Boolean;
 
 namespace GISharp.Test
 {
@@ -67,8 +66,8 @@ namespace GISharp.Test
                         doInit(cancellable_);
                         return true;
                     }
-                    catch (GErrorException ex) {
-                        GMarshal.PropagateError(error_, ex.Error);
+                    catch (Error.Exception ex) {
+                        Error.Propagate(error_, ex.Error);
                     }
                     catch (Exception ex) {
                         // FIXME: we should convert managed exception to GError
@@ -98,7 +97,7 @@ namespace GISharp.Test
             var ret_ = g_initable_newv(objectType, 0, IntPtr.Zero, IntPtr.Zero, &error_);
             if (error_ is not null) {
                 var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
-                throw new GErrorException(error);
+                throw new Error.Exception(error);
             }
             var ret = Object.GetInstance(ret_, Transfer.Full)!;
 
@@ -115,7 +114,7 @@ namespace GISharp.Test
             var ret_ = g_initable_init(instance.UnsafeHandle, IntPtr.Zero, &error_);
             if (error_ is not null) {
                 var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
-                throw new GErrorException(error);
+                throw new Error.Exception(error);
             }
             var ret = ret_.IsTrue();
             return ret;
@@ -237,8 +236,8 @@ namespace GISharp.Test
                         var ret = doCanReach(connectable_, cancellable_);
                         return ret;
                     }
-                    catch (GErrorException ex) {
-                        GMarshal.PropagateError(error_, ex.Error);
+                    catch (Error.Exception ex) {
+                        Error.Propagate(error_, ex.Error);
                     }
                     catch (Exception ex) {
                         // FIXME: convert managed exception to GError
@@ -294,8 +293,8 @@ namespace GISharp.Test
                         var result = Object.GetInstance<GTask>(result_, Transfer.None)!;
                         return result.PropagateBoolean();
                     }
-                    catch (GErrorException ex) {
-                        GMarshal.PropagateError(error_, ex.Error);
+                    catch (Error.Exception ex) {
+                        Error.Propagate(error_, ex.Error);
                     }
                     catch (Exception ex) {
                         // FIXME: convert managed exception to GError
@@ -349,7 +348,7 @@ namespace GISharp.Test
             var ret_ = g_network_monitor_can_reach(instance.UnsafeHandle, connectable, cancellable, &error_);
             if (error_ is not null) {
                 var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
-                throw new GErrorException(error);
+                throw new Error.Exception(error);
             }
 
             var ret = ret_.IsTrue();
@@ -390,7 +389,7 @@ namespace GISharp.Test
                 var ret_ = g_network_monitor_can_reach_finish(sourceObject_, result_, &error_);
                 if (error_ is not null) {
                     var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
-                    completion.SetException(new GErrorException(error));
+                    completion.SetException(new Error.Exception(error));
                 }
                 else {
                     var ret = ret_.IsTrue();
@@ -597,7 +596,7 @@ namespace GISharp.Test
             var ret_ = g_task_propagate_boolean(UnsafeHandle, &error_);
             if (error_ is not null) {
                 var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
-                throw new GErrorException(error);
+                throw new Error.Exception(error);
             }
             var ret = ret_.IsTrue();
             return ret;

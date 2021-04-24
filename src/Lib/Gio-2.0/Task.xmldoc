@@ -200,14 +200,14 @@ Gets the result of this instance as a #gboolean.
 <remarks>
 <para>
 If the task resulted in an error, or was cancelled, then this will
-instead return <c>false</c> and set <see cref="GISharp.Runtime.GErrorException"/>.
+instead return <c>false</c> and set <see cref="GISharp.Lib.GLib.Error.Exception"/>.
 </para>
 <para>
 Since this method transfers ownership of the return value (or
 error) to the caller, you may only call it once.
 </para>
 </remarks>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -219,7 +219,7 @@ Gets the result of this instance as an integer (#gssize).
 <remarks>
 <para>
 If the task resulted in an error, or was cancelled, then this will
-instead return -1 and set <see cref="GISharp.Runtime.GErrorException"/>.
+instead return -1 and set <see cref="GISharp.Lib.GLib.Error.Exception"/>.
 </para>
 <para>
 Since this method transfers ownership of the return value (or
@@ -229,7 +229,7 @@ error) to the caller, you may only call it once.
 <returns>
 the task result, or -1 on error
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -242,7 +242,7 @@ of that value to the caller.
 <remarks>
 <para>
 If the task resulted in an error, or was cancelled, then this will
-instead return <c>null</c> and set <see cref="GISharp.Runtime.GErrorException"/>.
+instead return <c>null</c> and set <see cref="GISharp.Lib.GLib.Error.Exception"/>.
 </para>
 <para>
 Since this method transfers ownership of the return value (or
@@ -252,7 +252,7 @@ error) to the caller, you may only call it once.
 <returns>
 the task result, or <c>null</c> on error
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -267,7 +267,7 @@ will usually be more useful for C code.
 <remarks>
 <para>
 If the task resulted in an error, or was cancelled, then this will
-instead set <see cref="GISharp.Runtime.GErrorException"/> and return <c>false</c>.
+instead set <see cref="GISharp.Lib.GLib.Error.Exception"/> and return <c>false</c>.
 </para>
 <para>
 Since this method transfers ownership of the return value (or
@@ -277,7 +277,7 @@ error) to the caller, you may only call it once.
 <param name="value">
 return location for the #GValue
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

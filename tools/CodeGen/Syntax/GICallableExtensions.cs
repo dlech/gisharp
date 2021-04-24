@@ -219,7 +219,7 @@ namespace GISharp.CodeGen.Syntax
                 "GISharp.Runtime.GMarshal.PopUnhandledException()"
             )));
 
-            // Check for GError and throw GErrorException
+            // Check for GError and throw GError exception
 
             if (callable.ThrowsGErrorException) {
                 var errorArg = callable.Parameters.ErrorParameter.ManagedName;
@@ -228,8 +228,7 @@ namespace GISharp.CodeGen.Syntax
                 var ownership = $"{typeof(Transfer)}.{nameof(Transfer.Full)}";
                 var marshalExpression = ParseExpression($"var {errorArg} = {getter}((System.IntPtr){errorArg}_, {ownership})");
                 var marshalStatement = ExpressionStatement(marshalExpression);
-                var exception = typeof(GErrorException);
-                var exceptionExpression = ParseExpression($"new {exception}({errorArg})");
+                var exceptionExpression = ParseExpression($"new GISharp.Lib.GLib.Error.Exception({errorArg})");
                 var throwStatement = ThrowStatement(exceptionExpression);
                 block = block.AddStatements(IfStatement(condition, Block(marshalStatement, throwStatement)));
             }
@@ -274,7 +273,7 @@ namespace GISharp.CodeGen.Syntax
         }
 
         /// <summary>
-        /// Gets XML doc comment for thowing a GErrorException or default trivia
+        /// Gets XML doc comment for thowing a GError exception or default trivia
         /// if the callable does not throw.
         /// </summary>
         public static SyntaxTriviaList GetGErrorExceptionDocCommentTrivia(this GICallable callable)
@@ -283,9 +282,7 @@ namespace GISharp.CodeGen.Syntax
                 return default;
             }
             var builder = new StringBuilder();
-            builder.AppendFormat("/// <exception name=\"{0}\">",
-                typeof(GErrorException).FullName);
-            builder.AppendLine();
+            builder.AppendLine("/// <exception name=\"GISharp.Lib.GLib.Error.Exception\">");
             builder.AppendLine("/// On error");
             builder.AppendLine("/// </exception>");
 
@@ -379,7 +376,7 @@ namespace GISharp.CodeGen.Syntax
                     "GISharp.Lib.GLib.Error",
                     typeof(Transfer),
                     nameof(Transfer.Full),
-                    typeof(GErrorException));
+                    "GISharp.Lib.GLib.Error.Exception");
                 tryStatement = tryStatement.AddBlockStatements(ParseStatement(ifErrorStatement));
             }
 

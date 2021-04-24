@@ -332,8 +332,8 @@ namespace GISharp.Lib.GLib
                     callback(optionName, value);
                     return Runtime.Boolean.True;
                 }
-                catch (GErrorException ex) {
-                    GMarshal.PropagateError(error_, ex.Error);
+                catch (Error.Exception ex) {
+                    Error.Propagate(error_, ex.Error);
                 }
                 catch (Exception ex) {
                     GMarshal.PushUnhandledException(ex);
@@ -386,8 +386,8 @@ namespace GISharp.Lib.GLib
                 }
                 return Runtime.Boolean.True;
             }
-            catch (GErrorException ex) {
-                GMarshal.PropagateError(error_, ex.Error);
+            catch (Error.Exception ex) {
+                Error.Propagate(error_, ex.Error);
             }
             catch (Exception ex) {
                 // FIXME: marshal Exception to Error

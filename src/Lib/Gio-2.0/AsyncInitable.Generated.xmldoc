@@ -97,9 +97,9 @@ a <see cref="IAsyncResult"/>.
 </param>
 <returns>
 <c>true</c> if successful. If an error has occurred, this function
-will return <c>false</c> and set <see cref="GISharp.Runtime.GErrorException"/> appropriately if present.
+will return <c>false</c> and set <see cref="GISharp.Lib.GLib.Error.Exception"/> appropriately if present.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

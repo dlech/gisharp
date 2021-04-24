@@ -27,7 +27,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the resulting filename
         /// </returns>
-        /// <exception name="GErrorException">
+        /// <exception name="Error.Exception">
         /// On error
         /// </exception>
         public static Filename FromUri(UnownedUtf8 uri)
@@ -38,7 +38,7 @@ namespace GISharp.Lib.GLib
             GMarshal.PopUnhandledException();
             if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
-                throw new GErrorException(error);
+                throw new Error.Exception(error);
             }
             var ret = GetInstance<Filename>((IntPtr)ret_, Transfer.Full);
             return ret;
@@ -56,7 +56,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// The converted string
         /// </returns>
-        /// <exception name="GErrorException">
+        /// <exception name="Error.Exception">
         /// On error
         /// </exception>
         public static Filename FromUtf8(Utf8 utf8string)
@@ -67,7 +67,7 @@ namespace GISharp.Lib.GLib
             GMarshal.PopUnhandledException();
             if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
-                throw new GErrorException(error);
+                throw new Error.Exception(error);
             }
             var ret = GetInstance<Filename>((IntPtr)ret_, Transfer.Full);
             return ret;
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// The converted string.
         /// </returns>
-        /// <exception name="GErrorException">
+        /// <exception name="Error.Exception">
         /// On error
         /// </exception>
         public Utf8 ToUtf8()
@@ -93,7 +93,7 @@ namespace GISharp.Lib.GLib
             GMarshal.PopUnhandledException();
             if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
-                throw new GErrorException(error);
+                throw new Error.Exception(error);
             }
 
             var ret = GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);

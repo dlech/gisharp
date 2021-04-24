@@ -128,10 +128,10 @@ namespace GISharp.CodeGen.Syntax
                             continue;
                         }
 
-                        // if this is an error parameter, cref GErrorException instead
+                        // if this is an error parameter, cref GError exception instead
                         var errorParam = callable.Parameters.ErrorParameter;
                         if (errorParam?.GirName == p.Value[1..]) {
-                            builder.Replace(p.Value, $"<see cref=\"{typeof(GErrorException)}\"/>");
+                            builder.Replace(p.Value, "<see cref=\"GISharp.Lib.GLib.Error.Exception\"/>");
                             continue;
                         }
 

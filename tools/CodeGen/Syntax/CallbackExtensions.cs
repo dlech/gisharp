@@ -135,20 +135,20 @@ namespace GISharp.CodeGen.Syntax
             }
 
             // if the method has an error parameter, we can propagate any
-            // GErrorException thrown by the managed callback
+            // GError exception thrown by the managed callback
 
             if (callback.ThrowsGErrorException) {
-                var gErrorException = typeof(GErrorException).FullName;
-                var propagateError = ExpressionStatement(ParseExpression(string.Format("{0}.{1}({2}_, ex.{3})",
-                    typeof(GMarshal),
-                    nameof(GMarshal.PropagateError),
-                    callback.Parameters.ErrorParameter.ManagedName,
-                    nameof(GErrorException.Error))));
+                var error = callback.Parameters.ErrorParameter.ManagedName;
+                var propagateError = ExpressionStatement(ParseExpression(
+                    $"GISharp.Lib.GLib.Error.Propagate({error}_, ex.Error)"
+                ));
 
                 var gErrorExceptionStatements = List<StatementSyntax>().Add(propagateError);
 
                 tryStatement = tryStatement.AddCatches(CatchClause()
-                    .WithDeclaration(CatchDeclaration(ParseTypeName(gErrorException), ParseToken("ex")))
+                    .WithDeclaration(CatchDeclaration(
+                        ParseTypeName("GISharp.Lib.GLib.Error.Exception"),
+                        ParseToken("ex")))
                     .WithBlock(Block(gErrorExceptionStatements)));
             }
 

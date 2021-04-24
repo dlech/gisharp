@@ -318,7 +318,7 @@ create a fresh cancellable for further async operations.
 If the this instance is cancelled, sets the error to notify
 that the operation was cancelled.
 </summary>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

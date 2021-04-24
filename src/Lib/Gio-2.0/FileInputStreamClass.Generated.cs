@@ -209,9 +209,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         doSeek(offset, type, cancellable);
                         return GISharp.Runtime.Boolean.True;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -271,9 +271,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take();
                         return ret_;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -391,9 +391,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take();
                         return ret_;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {

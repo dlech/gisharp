@@ -162,9 +162,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         var ret_ = (nint)ret;
                         return ret_;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -228,9 +228,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         var ret_ = (nint)ret;
                         return ret_;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -285,9 +285,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         doFlush(cancellable);
                         return GISharp.Runtime.Boolean.True;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -342,9 +342,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         doCloseFn(cancellable);
                         return GISharp.Runtime.Boolean.True;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -467,9 +467,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         var ret_ = (nint)ret;
                         return ret_;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -591,9 +591,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         var ret_ = (nint)ret;
                         return ret_;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -706,9 +706,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         doFlushFinish(result);
                         return GISharp.Runtime.Boolean.True;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -821,9 +821,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         doCloseFinish(result);
                         return GISharp.Runtime.Boolean.True;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -891,9 +891,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         *bytesWritten_ = (nuint)bytesWritten;
                         return GISharp.Runtime.Boolean.True;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {
@@ -1019,9 +1019,9 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                         *bytesWritten_ = (nuint)bytesWritten;
                         return GISharp.Runtime.Boolean.True;
                     }
-                    catch (GISharp.Runtime.GErrorException ex)
+                    catch (GISharp.Lib.GLib.Error.Exception ex)
                     {
-                        GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error);
+                        GISharp.Lib.GLib.Error.Propagate(error_, ex.Error);
                     }
                     catch (System.Exception ex)
                     {

@@ -53,7 +53,7 @@ The output file should already exist, but be empty. This function will overwrite
 
 Comma-separated pair of input and output filenames
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -320,7 +320,7 @@ TODO
 <param name="flags">
 TODO
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -342,7 +342,7 @@ Version of namespace, may be <c>null</c> for latest
 <param name="flags">
 Set of %GIRepositoryLoadFlags, may be 0
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -367,7 +367,7 @@ Version of namespace, may be <c>null</c> for latest
 <param name="flags">
 Set of %GIRepositoryLoadFlags, may be 0
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

@@ -89,7 +89,7 @@ individual input/output streams.
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -132,9 +132,9 @@ Checks if a stream has pending actions.
 <summary>
 Sets this instance to have actions pending. If the pending flag is
 already set or this instance is closed, it will return <c>false</c> and set
-<see cref="GISharp.Runtime.GErrorException"/>.
+<see cref="GISharp.Lib.GLib.Error.Exception"/>.
 </summary>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -204,13 +204,13 @@ a <see cref="IAsyncResult"/>
 <returns>
 <c>true</c> if stream was successfully closed, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
 
 <member name='IOStream.DoCloseFn(GISharp.Lib.Gio.Cancellable?)'>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

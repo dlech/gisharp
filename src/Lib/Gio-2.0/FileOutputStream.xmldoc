@@ -25,10 +25,10 @@ internally, and any other operations on the stream will fail with
 </summary>
 <remarks>
 <para>
-Can fail if the stream was already closed (with <see cref="GISharp.Runtime.GErrorException"/> being set to
-<see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <see cref="GISharp.Runtime.GErrorException"/> being
+Can fail if the stream was already closed (with <see cref="GISharp.Lib.GLib.Error.Exception"/> being set to
+<see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <see cref="GISharp.Lib.GLib.Error.Exception"/> being
 set to <see cref="IOErrorEnum.Pending"/>), or if querying info is not supported for
-the stream's interface (with <see cref="GISharp.Runtime.GErrorException"/> being set to <see cref="IOErrorEnum.NotSupported"/>). In
+the stream's interface (with <see cref="GISharp.Lib.GLib.Error.Exception"/> being set to <see cref="IOErrorEnum.NotSupported"/>). In
 all cases of failure, <c>null</c> will be returned.
 </para>
 <para>
@@ -47,7 +47,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 <returns>
 a <see cref="FileInfo"/> for the this instance, or <c>null</c> on error.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -101,10 +101,10 @@ internally, and any other operations on the stream will fail with
 </summary>
 <remarks>
 <para>
-Can fail if the stream was already closed (with <see cref="GISharp.Runtime.GErrorException"/> being set to
-<see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <see cref="GISharp.Runtime.GErrorException"/> being
+Can fail if the stream was already closed (with <see cref="GISharp.Lib.GLib.Error.Exception"/> being set to
+<see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <see cref="GISharp.Lib.GLib.Error.Exception"/> being
 set to <see cref="IOErrorEnum.Pending"/>), or if querying info is not supported for
-the stream's interface (with <see cref="GISharp.Runtime.GErrorException"/> being set to <see cref="IOErrorEnum.NotSupported"/>). In
+the stream's interface (with <see cref="GISharp.Lib.GLib.Error.Exception"/> being set to <see cref="IOErrorEnum.NotSupported"/>). In
 all cases of failure, <c>null</c> will be returned.
 </para>
 <para>
@@ -123,7 +123,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 <returns>
 a <see cref="FileInfo"/> for the this instance, or <c>null</c> on error.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -165,13 +165,13 @@ a <see cref="IAsyncResult"/>.
 <returns>
 A <see cref="FileInfo"/> for the finished query.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
 
 <member name='FileOutputStream.DoSeek(long,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)'>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -180,7 +180,7 @@ On error
 </member>
 
 <member name='FileOutputStream.DoTruncateFn(long,GISharp.Lib.Gio.Cancellable?)'>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

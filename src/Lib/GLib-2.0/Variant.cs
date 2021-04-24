@@ -737,7 +737,7 @@ namespace GISharp.Lib.GLib
             var ret = g_variant_parse(type_, text_, null, null, &error_);
             if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
-                throw new GErrorException(error);
+                throw new Error.Exception(error);
             }
             return new Variant((IntPtr)ret, Transfer.Full);
         }

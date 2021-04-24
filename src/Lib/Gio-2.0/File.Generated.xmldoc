@@ -119,7 +119,7 @@ on return, a <see cref="FileIOStream"/> for the created file
 a new <see cref="IFile"/>.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -175,7 +175,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileOutputStream"/>, or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -224,7 +224,7 @@ a valid <see cref="FileOutputStream"/>
     or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -301,7 +301,7 @@ optional <see cref="Cancellable"/> object,
 <returns>
 <c>true</c> on success, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -355,7 +355,7 @@ a <see cref="IAsyncResult"/>
 <returns>
 a <c>true</c> on success, <c>false</c> on error.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -399,7 +399,7 @@ a <see cref="FileOutputStream"/> for the newly created
     file, or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -448,7 +448,7 @@ a <see cref="IAsyncResult"/>
 a <see cref="FileOutputStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -497,7 +497,7 @@ a <see cref="FileIOStream"/> for the newly created
     file, or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -546,7 +546,7 @@ a <see cref="IAsyncResult"/>
 a <see cref="FileIOStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -586,7 +586,7 @@ optional <see cref="Cancellable"/> object,
 <returns>
 <c>true</c> if the file was deleted. <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -620,7 +620,7 @@ a <see cref="IAsyncResult"/>
 <returns>
 <c>true</c> if the file was deleted. <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -660,7 +660,7 @@ a <see cref="IAsyncResult"/>
 <c>true</c> if the this instance was ejected successfully.
     <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -677,7 +677,7 @@ a <see cref="IAsyncResult"/>
 <c>true</c> if the this instance was ejected successfully.
     <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -772,7 +772,7 @@ string containing the <see cref="IFile"/>'s
 <summary>
 Gets the child of this instance for a given <paramref name="displayName"/> (i.e. a UTF-8
 version of the name). If this function fails, it returns <c>null</c>
-and <see cref="GISharp.Runtime.GErrorException"/> will be set. This is very useful when constructing a
+and <see cref="GISharp.Lib.GLib.Error.Exception"/> will be set. This is very useful when constructing a
 <see cref="IFile"/> for a new file and the user entered the filename in the
 user interface, for instance when you select a directory and
 type a filename in the file selector.
@@ -790,7 +790,7 @@ a <see cref="IFile"/> to the specified child, or
     <c>null</c> if the display name couldn't be converted.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -987,8 +987,8 @@ Creates a directory. Note that this will only create a child directory
 of the immediate parent directory of the path or URI given by the <see cref="IFile"/>.
 To recursively create directories, see <see cref="File.MakeDirectoryWithParents(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/>.
 This function will fail if the parent directory does not exist, setting
-<see cref="GISharp.Runtime.GErrorException"/> to <see cref="IOErrorEnum.NotFound"/>. If the file system doesn't support
-creating directories, this function will fail, setting <see cref="GISharp.Runtime.GErrorException"/> to
+<see cref="GISharp.Lib.GLib.Error.Exception"/> to <see cref="IOErrorEnum.NotFound"/>. If the file system doesn't support
+creating directories, this function will fail, setting <see cref="GISharp.Lib.GLib.Error.Exception"/> to
 <see cref="IOErrorEnum.NotSupported"/>.
 </summary>
 <remarks>
@@ -1009,7 +1009,7 @@ optional <see cref="Cancellable"/> object,
 <returns>
 <c>true</c> on successful creation, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1042,7 +1042,7 @@ a <see cref="IAsyncResult"/>
 <returns>
 <c>true</c> on successful directory creation, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1070,7 +1070,7 @@ optional <see cref="Cancellable"/> object,
 <returns>
 <c>true</c> on the creation of a new symlink, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1095,9 +1095,9 @@ the number of non-directories encountered
 </param>
 <returns>
 <c>true</c> if successful, with the out parameters set.
-         <c>false</c> otherwise, with <see cref="GISharp.Runtime.GErrorException"/> set.
+         <c>false</c> otherwise, with <see cref="GISharp.Lib.GLib.Error.Exception"/> set.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1111,10 +1111,10 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 <c>true</c> if successful. If an error has occurred,
-    this function will return <c>false</c> and set <see cref="GISharp.Runtime.GErrorException"/>
+    this function will return <c>false</c> and set <see cref="GISharp.Lib.GLib.Error.Exception"/>
     appropriately if present.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1136,7 +1136,7 @@ a <see cref="IAsyncResult"/>
 a <see cref="IFile"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1203,7 +1203,7 @@ optional <see cref="Cancellable"/> object,
 <returns>
 <c>true</c> on successful move, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1238,7 +1238,7 @@ a <see cref="Cancellable"/>
 <see cref="FileIOStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1283,7 +1283,7 @@ a <see cref="IAsyncResult"/>
 a <see cref="FileIOStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1330,7 +1330,7 @@ a <see cref="IAsyncResult"/>
 <c>true</c> if the operation finished successfully. <c>false</c>
 otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1410,7 +1410,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileInfo"/> or <c>null</c> if there was an error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1462,7 +1462,7 @@ a <see cref="IAsyncResult"/>
     or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1520,7 +1520,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileInfo"/> for the given this instance, or <c>null</c>
     on error. Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1573,7 +1573,7 @@ a <see cref="IAsyncResult"/>
     or <c>null</c> on error. Free the returned object with
     g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1604,7 +1604,7 @@ a <see cref="FileAttributeInfoList"/> describing the settable attributes.
     When you are done with it, release it with
     <see cref="FileAttributeInfoList.Unref()"/>
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1631,7 +1631,7 @@ a <see cref="FileAttributeInfoList"/> describing the writable namespaces.
     When you are done with it, release it with
     <see cref="FileAttributeInfoList.Unref()"/>
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1676,7 +1676,7 @@ a <see cref="IAsyncResult"/>
 a <see cref="FileInputStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1706,7 +1706,7 @@ a <see cref="Cancellable"/>
 <see cref="FileInputStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1781,7 +1781,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileOutputStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1837,7 +1837,7 @@ a <see cref="IAsyncResult"/>
 a <see cref="FileOutputStream"/>, or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1877,7 +1877,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileIOStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1934,7 +1934,7 @@ a <see cref="IAsyncResult"/>
 a <see cref="FileIOStream"/>, or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1993,7 +1993,7 @@ optional <see cref="Cancellable"/> object,
 <returns>
 <c>true</c> if the attribute was set, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2044,7 +2044,7 @@ a <see cref="FileInfo"/>
 <returns>
 <c>true</c> if the attributes were set correctly, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2056,7 +2056,7 @@ values, not stopping on the first error.
 </summary>
 <remarks>
 <para>
-If there is any error during this operation then <see cref="GISharp.Runtime.GErrorException"/> will
+If there is any error during this operation then <see cref="GISharp.Lib.GLib.Error.Exception"/> will
 be set to the first error. Error on particular fields are flagged
 by setting the "status" field in the attribute value to
 <see cref="FileAttributeStatus.ErrorSetting"/>, which means you can
@@ -2081,7 +2081,7 @@ optional <see cref="Cancellable"/> object,
 <returns>
 <c>false</c> if there was any error, <c>true</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2122,7 +2122,7 @@ a <see cref="IFile"/> specifying what this instance was renamed to,
     or <c>null</c> if there was an error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2170,7 +2170,7 @@ a <see cref="IAsyncResult"/>
 a <see cref="IFile"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2192,7 +2192,7 @@ a <see cref="IAsyncResult"/>
 <c>true</c> if the operation finished successfully. <c>false</c>
 otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2214,7 +2214,7 @@ a <see cref="IAsyncResult"/>
 <c>true</c> if the operation finished successfully.
     <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2242,7 +2242,7 @@ optional <see cref="Cancellable"/> object,
 <returns>
 <c>true</c> on successful trash, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2275,7 +2275,7 @@ a <see cref="IAsyncResult"/>
 <returns>
 <c>true</c> on successful trash, <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2297,7 +2297,7 @@ a <see cref="IAsyncResult"/>
 <c>true</c> if the operation finished successfully.
     <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2320,7 +2320,7 @@ a <see cref="IAsyncResult"/>
 <c>true</c> if the operation finished successfully.
     <c>false</c> otherwise.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2462,7 +2462,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileOutputStream"/>, or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2569,7 +2569,7 @@ function to callback with
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2640,7 +2640,7 @@ a set of <see cref="FileCopyFlags"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2687,7 +2687,7 @@ a <see cref="FileOutputStream"/> for the newly created
     file, or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2770,7 +2770,7 @@ a <see cref="FileIOStream"/> for the newly created
     file, or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2841,7 +2841,7 @@ input <see cref="IFile"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2901,7 +2901,7 @@ input <see cref="IFile"/>
 <param name="result">
 a <see cref="IAsyncResult"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -2917,7 +2917,7 @@ input <see cref="IFile"/>
 <param name="result">
 a <see cref="IAsyncResult"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3008,7 +3008,7 @@ a <see cref="IFile"/> to a child specified by <paramref name="name"/>.
 <summary>
 Gets the child of <paramref name="file"/> for a given <paramref name="displayName"/> (i.e. a UTF-8
 version of the name). If this function fails, it returns <c>null</c>
-and <see cref="GISharp.Runtime.GErrorException"/> will be set. This is very useful when constructing a
+and <see cref="GISharp.Lib.GLib.Error.Exception"/> will be set. This is very useful when constructing a
 <see cref="IFile"/> for a new file and the user entered the filename in the
 user interface, for instance when you select a directory and
 type a filename in the file selector.
@@ -3029,7 +3029,7 @@ a <see cref="IFile"/> to the specified child, or
     <c>null</c> if the display name couldn't be converted.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3334,9 +3334,9 @@ a location to place the current
 a <see cref="Cancellable"/> or <c>null</c>
 </param>
 <returns>
-a #GBytes or <c>null</c> and <see cref="GISharp.Runtime.GErrorException"/> is set
+a #GBytes or <c>null</c> and <see cref="GISharp.Lib.GLib.Error.Exception"/> is set
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3394,7 +3394,7 @@ a location to place the current entity tag for the file,
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3449,7 +3449,7 @@ a location to place the contents of the file
 a location to place the current entity tag for the file,
     or <c>null</c> if the entity tag is not needed
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3460,8 +3460,8 @@ Creates a directory. Note that this will only create a child directory
 of the immediate parent directory of the path or URI given by the <see cref="IFile"/>.
 To recursively create directories, see <see cref="File.MakeDirectoryWithParents(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/>.
 This function will fail if the parent directory does not exist, setting
-<see cref="GISharp.Runtime.GErrorException"/> to <see cref="IOErrorEnum.NotFound"/>. If the file system doesn't support
-creating directories, this function will fail, setting <see cref="GISharp.Runtime.GErrorException"/> to
+<see cref="GISharp.Lib.GLib.Error.Exception"/> to <see cref="IOErrorEnum.NotFound"/>. If the file system doesn't support
+creating directories, this function will fail, setting <see cref="GISharp.Lib.GLib.Error.Exception"/> to
 <see cref="IOErrorEnum.NotSupported"/>.
 </summary>
 <remarks>
@@ -3482,7 +3482,7 @@ input <see cref="IFile"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3507,9 +3507,9 @@ optional <see cref="Cancellable"/> object,
 <summary>
 Creates a directory and any parent directories that may not
 exist similar to 'mkdir -p'. If the file system does not support
-creating directories, this function will fail, setting <see cref="GISharp.Runtime.GErrorException"/> to
+creating directories, this function will fail, setting <see cref="GISharp.Lib.GLib.Error.Exception"/> to
 <see cref="IOErrorEnum.NotSupported"/>. If the directory itself already exists,
-this function will fail setting <see cref="GISharp.Runtime.GErrorException"/> to <see cref="IOErrorEnum.Exists"/>, unlike
+this function will fail setting <see cref="GISharp.Lib.GLib.Error.Exception"/> to <see cref="IOErrorEnum.Exists"/>, unlike
 the similar g_mkdir_with_parents().
 </summary>
 <remarks>
@@ -3530,7 +3530,7 @@ input <see cref="IFile"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3558,7 +3558,7 @@ a string with the path for the target
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3584,7 +3584,7 @@ the number of directories encountered
 <param name="numFiles">
 the number of non-directories encountered
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3599,7 +3599,7 @@ input <see cref="IFile"/>
 <param name="result">
 a <see cref="IAsyncResult"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3624,7 +3624,7 @@ a <see cref="IAsyncResult"/>
 a <see cref="IFile"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3691,7 +3691,7 @@ set of <see cref="FileCopyFlags"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3729,7 +3729,7 @@ a <see cref="Cancellable"/>
 <see cref="FileIOStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3827,7 +3827,7 @@ input <see cref="IFile"/>
 <param name="result">
 a <see cref="IAsyncResult"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -3949,7 +3949,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileInfo"/> or <c>null</c> if there was an error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4043,7 +4043,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileInfo"/> for the given <paramref name="file"/>, or <c>null</c>
     on error. Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4111,7 +4111,7 @@ a <see cref="FileAttributeInfoList"/> describing the settable attributes.
     When you are done with it, release it with
     <see cref="FileAttributeInfoList.Unref()"/>
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4141,7 +4141,7 @@ a <see cref="FileAttributeInfoList"/> describing the writable namespaces.
     When you are done with it, release it with
     <see cref="FileAttributeInfoList.Unref()"/>
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4174,7 +4174,7 @@ a <see cref="Cancellable"/>
 <see cref="FileInputStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4279,7 +4279,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileOutputStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4371,7 +4371,7 @@ a location to a new [entity tag][gfile-etag]
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4496,7 +4496,7 @@ optional <see cref="Cancellable"/> object,
 a <see cref="FileIOStream"/> or <c>null</c> on error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4597,7 +4597,7 @@ a set of <see cref="FileQueryInfoFlags"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4631,7 +4631,7 @@ a <see cref="FileQueryInfoFlags"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4664,7 +4664,7 @@ a <see cref="FileQueryInfoFlags"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4697,7 +4697,7 @@ a <see cref="FileQueryInfoFlags"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4730,7 +4730,7 @@ a string containing the attribute's value
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4763,7 +4763,7 @@ a <see cref="FileQueryInfoFlags"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4796,7 +4796,7 @@ a <see cref="FileQueryInfoFlags"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4841,7 +4841,7 @@ values, not stopping on the first error.
 </summary>
 <remarks>
 <para>
-If there is any error during this operation then <see cref="GISharp.Runtime.GErrorException"/> will
+If there is any error during this operation then <see cref="GISharp.Lib.GLib.Error.Exception"/> will
 be set to the first error. Error on particular fields are flagged
 by setting the "status" field in the attribute value to
 <see cref="FileAttributeStatus.ErrorSetting"/>, which means you can
@@ -4866,7 +4866,7 @@ a <see cref="FileInfo"/>
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4910,7 +4910,7 @@ a <see cref="IFile"/> specifying what <paramref name="file"/> was renamed to,
     or <c>null</c> if there was an error.
     Free the returned object with g_object_unref().
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4961,7 +4961,7 @@ input <see cref="IFile"/>
 <param name="result">
 a <see cref="IAsyncResult"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -4982,7 +4982,7 @@ input <see cref="IFile"/>
 <param name="result">
 a <see cref="IAsyncResult"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -5025,7 +5025,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -5062,7 +5062,7 @@ input <see cref="IFile"/>
 <param name="result">
 a <see cref="IAsyncResult"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -5084,7 +5084,7 @@ input <see cref="IFile"/>
 <param name="result">
 a <see cref="IAsyncResult"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

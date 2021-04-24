@@ -83,7 +83,7 @@ Location to store hostname for the URI.
 a newly-allocated string holding
               the resulting filename, or <c>null</c> on an error.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -129,7 +129,7 @@ the number of bytes stored in
 
               The converted string, or <c>null</c> on an error.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -221,7 +221,7 @@ A UTF-8 encoded hostname, or <c>null</c> for none.
 a newly-allocated string holding the resulting
               URI, or <c>null</c> on an error.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

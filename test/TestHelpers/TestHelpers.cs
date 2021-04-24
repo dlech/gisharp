@@ -37,19 +37,19 @@ namespace GISharp
         }
 
         /// <summary>
-        /// Use this instead of <see cref="Throws.TypeOf{GISharp.Runtime.GErrorException}"/>
+        /// Use this instead of <see cref="Throws.TypeOf{T}"/> of <see cref="Error.Exception"/>
         /// to save a bunch of typing.
         /// </summary>
         /// <param name="code">
         /// The expected error code. The error domain will be inferred from the
-        /// see <see cref="GISharp.Runtime.GErrorDomainAttribute"/> of the
+        /// see <see cref="GErrorDomainAttribute"/> of the
         /// enum type.
         /// </param>
         public static Constraint ThrowsGErrorException(Enum code)
         {
             var domain = code.GetGErrorDomain();
             var value = Convert.ToInt32(code);
-            return Throws.TypeOf<GErrorException>()
+            return Throws.TypeOf<Error.Exception>()
                 .With.Property("Error").Property("Domain").EqualTo(domain)
                 .And.Property("Error").Property("Code").EqualTo(value);
         }

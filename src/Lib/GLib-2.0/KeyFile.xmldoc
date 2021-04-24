@@ -224,9 +224,9 @@ boolean.
 <remarks>
 <para>
 If <paramref name="key"/> cannot be found then
-a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown. Likewise, if the value
+a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown. Likewise, if the value
 associated with <paramref name="key"/> cannot be interpreted as a boolean then
-a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </para>
 </remarks>
 <param name="groupName">
@@ -239,7 +239,7 @@ a key
 the value associated with the key as a boolean,
    or <c>false</c> if the key was not found or could not be parsed.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -252,9 +252,9 @@ booleans.
 <remarks>
 <para>
 If <paramref name="key"/> cannot be found then a
-<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown. Likewise, if the values associated
+<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown. Likewise, if the values associated
 with <paramref name="key"/> cannot be interpreted as booleans then
-a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </para>
 </remarks>
 <param name="groupName">
@@ -268,7 +268,7 @@ a key
    the values associated with the key as a list of booleans, or <c>null</c> if the
    key was not found or could not be parsed.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -296,7 +296,7 @@ a key
 <returns>
 a comment
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -309,9 +309,9 @@ double. If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
 <remarks>
 <para>
 If <paramref name="key"/> cannot be found then a
-<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown. Likewise, if the value associated
+<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown. Likewise, if the value associated
 with <paramref name="key"/> cannot be interpreted as a double then
-a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </para>
 </remarks>
 <param name="groupName">
@@ -324,7 +324,7 @@ a key
 the value associated with the key as a double, or
     0.0 if the key was not found or could not be parsed.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -337,9 +337,9 @@ doubles.
 <remarks>
 <para>
 If <paramref name="key"/> cannot be found then a
-<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown. Likewise, if the values associated
+<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown. Likewise, if the values associated
 with <paramref name="key"/> cannot be interpreted as doubles then
-a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </para>
 </remarks>
 <param name="groupName">
@@ -353,7 +353,7 @@ a key
     the values associated with the key as a list of doubles, or <c>null</c> if the
     key was not found or could not be parsed.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -374,7 +374,7 @@ a non-<c>null</c> key
 the value associated with the key as a signed 64-bit integer, or
 0 if the key was not found or could not be parsed.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -387,10 +387,10 @@ integer.
 <remarks>
 <para>
 If <paramref name="key"/> cannot be found then a
-<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown. Likewise, if the value associated
+<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown. Likewise, if the value associated
 with <paramref name="key"/> cannot be interpreted as an integer, or is out of range
 for a <c>int</c>, then
-a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </para>
 </remarks>
 <param name="groupName">
@@ -403,7 +403,7 @@ a key
 the value associated with the key as an integer, or
     0 if the key was not found or could not be parsed.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -416,10 +416,10 @@ integers.
 <remarks>
 <para>
 If <paramref name="key"/> cannot be found then a
-<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown. Likewise, if the values associated
+<see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown. Likewise, if the values associated
 with <paramref name="key"/> cannot be interpreted as integers, or are out of range for
 <c>int</c>,
-a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+a <see cref="KeyFileError.InvalidValue"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </para>
 </remarks>
 <param name="groupName">
@@ -433,7 +433,7 @@ a key
     the values associated with the key as a list of integers, or <c>null</c> if
     the key was not found or could not be parsed.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -443,7 +443,7 @@ On error
 Returns all keys for the group name <paramref name="groupName"/>. 
 In the event that the <paramref name="groupName"/> cannot
 be found, a
-<see cref="KeyFileError.GroupNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+<see cref="KeyFileError.GroupNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </summary>
 <param name="groupName">
 a group name
@@ -451,7 +451,7 @@ a group name
 <returns>
 a newly-allocated <c>null</c>-terminated array of strings.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -500,7 +500,7 @@ the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 </para>
 <para>
 If <paramref name="key"/> cannot be found and
-a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown. If the value associated
+a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown. If the value associated
 with <paramref name="key"/> cannot be interpreted or no suitable translation can
 be found then the untranslated value is returned.
 </para>
@@ -518,7 +518,7 @@ a locale identifier or <c>null</c>
 a newly allocated string or <c>null</c> if the specified
   key cannot be found.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -537,7 +537,7 @@ the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 </para>
 <para>
 If <paramref name="key"/> cannot be found and
-a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown. If the values associated
+a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown. If the values associated
 with <paramref name="key"/> cannot be interpreted or no suitable translations
 can be found then the untranslated values are returned.
 </para>
@@ -555,7 +555,7 @@ a locale identifier or <c>null</c>
 a newly allocated <c>null</c>-terminated string array
   or <c>null</c> if the key isn't found.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -569,9 +569,9 @@ like \s.
 <remarks>
 <para>
 In the event the key cannot be found,
-a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown  In the
+a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown  In the
 event that the <paramref name="groupName"/> cannot be found,
-a <see cref="KeyFileError.GroupNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+a <see cref="KeyFileError.GroupNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </para>
 </remarks>
 <param name="groupName">
@@ -584,7 +584,7 @@ a key
 a newly allocated string or <c>null</c> if the specified
   key cannot be found.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -596,9 +596,9 @@ Returns the values associated with <paramref name="key"/> under <paramref name="
 <remarks>
 <para>
 In the event the key cannot be found,
-a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown  In the
+a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown  In the
 event that the <paramref name="groupName"/> cannot be found,
-a <see cref="KeyFileError.GroupNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+a <see cref="KeyFileError.GroupNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </para>
 </remarks>
 <param name="groupName">
@@ -612,7 +612,7 @@ a key
  a <c>null</c>-terminated string array or <c>null</c> if the specified
  key cannot be found.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -633,7 +633,7 @@ a non-<c>null</c> key
 the value associated with the key as an unsigned 64-bit integer,
 or 0 if the key was not found or could not be parsed.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -646,9 +646,9 @@ Use <see cref="KeyFile.GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.U
 <remarks>
 <para>
 In the event the key cannot be found,
-a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown  In the
+a <see cref="KeyFileError.KeyNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown  In the
 event that the <paramref name="groupName"/> cannot be found,
-a <see cref="KeyFileError.GroupNotFound"/> <see cref="GISharp.Runtime.GErrorException"/> is thrown.
+a <see cref="KeyFileError.GroupNotFound"/> <see cref="GISharp.Lib.GLib.Error.Exception"/> is thrown.
 </para>
 </remarks>
 <param name="groupName">
@@ -661,7 +661,7 @@ a key
 a newly allocated string or <c>null</c> if the specified
  key cannot be found.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -690,7 +690,7 @@ a #GBytes
 <param name="flags">
 flags from <see cref="KeyFileFlags"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -709,7 +709,7 @@ the length of <paramref name="data"/> in bytes (or (gsize)-1 if data is nul-term
 <param name="flags">
 flags from <see cref="KeyFileFlags"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -732,7 +732,7 @@ return location for a string containing the full path
 <param name="flags">
 flags from <see cref="KeyFileFlags"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -765,7 +765,7 @@ return location for a string containing the full path
 <param name="flags">
 flags from <see cref="KeyFileFlags"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -791,7 +791,7 @@ the path of a filename to load, in the GLib filename encoding
 <param name="flags">
 flags from <see cref="KeyFileFlags"/>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -809,7 +809,7 @@ a group name, or <c>null</c>
 <param name="key">
 a key
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -822,7 +822,7 @@ from the key file.
 <param name="groupName">
 a group name
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -837,7 +837,7 @@ a group name
 <param name="key">
 a key name to remove
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -858,7 +858,7 @@ g_file_set_contents() may fail.
 <param name="filename">
 the name of the file to write to
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -920,7 +920,7 @@ a key
 <param name="comment">
 a comment
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
@@ -1142,7 +1142,7 @@ return location for the length of the
 a newly allocated string holding
   the contents of the <see cref="KeyFile"/>
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

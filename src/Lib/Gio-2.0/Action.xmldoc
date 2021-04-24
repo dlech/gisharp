@@ -104,7 +104,7 @@ the action name
 <param name="targetValue">
 the target value, or <c>null</c> for no target
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

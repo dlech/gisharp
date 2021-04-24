@@ -29,9 +29,9 @@ A string obtained via <see cref="Icon.ToString(GISharp.Lib.Gio.IIcon)"/>.
 </param>
 <returns>
 An object implementing the <see cref="IIcon"/>
-         interface or <c>null</c> if <see cref="GISharp.Runtime.GErrorException"/> is set.
+         interface or <c>null</c> if <see cref="GISharp.Lib.GLib.Error.Exception"/> is set.
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

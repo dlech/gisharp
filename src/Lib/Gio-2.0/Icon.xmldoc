@@ -30,7 +30,7 @@ A string obtained via <see cref="Icon.ToString(GISharp.Lib.Gio.IIcon)"/>.
 <returns>
 An object implementing the <see cref="IIcon"/> interface
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

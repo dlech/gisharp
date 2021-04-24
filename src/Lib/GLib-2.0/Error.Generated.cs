@@ -87,6 +87,36 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        /// <summary>
+        /// If @dest is %NULL, free @src; otherwise, moves @src into *@dest.
+        /// The error variable @dest points to must be %NULL.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// @src must be non-%NULL.
+        /// </para>
+        /// <para>
+        /// Note that @src is no longer valid after this call. If you want
+        /// to keep using the same GError*, you need to set it to %NULL
+        /// after calling this function on it.
+        /// </para>
+        /// </remarks>
+        /// <param name="dest">
+        /// error return location
+        /// </param>
+        /// <param name="src">
+        /// error to move into the return location
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_propagate_error(
+        /* <type name="Error" type="GError**" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
+        GISharp.Lib.GLib.Error.UnmanagedStruct** dest,
+        /* <type name="Error" type="GError*" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        GISharp.Lib.GLib.Error.UnmanagedStruct* src);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" /> */
         /* transfer-ownership:full direction:in */

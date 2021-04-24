@@ -4346,6 +4346,40 @@ a certain case, your code will still work.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
+      <function name="propagate_error" c:identifier="g_propagate_error" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="PropagateError">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25606">If @dest is %NULL, free @src; otherwise, moves @src into *@dest.
+The error variable @dest points to must be %NULL.
+
+@src must be non-%NULL.
+
+Note that @src is no longer valid after this call. If you want
+to keep using the same GError*, you need to set it to %NULL
+after calling this function on it.</doc>
+        <source-position filename="gerror.h" line="95" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" />
+        </return-value>
+        <parameters>
+          <parameter name="dest" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="dest">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25608">error return location</doc>
+            <type name="Error" c:type="GError**" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="src" transfer-ownership="full" gs:managed-name="src" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25609">error to move into the return location</doc>
+            <type name="Error" c:type="GError*" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="dest" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="dest">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25608">error return location</doc>
+            <type name="Error" c:type="GError**" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="src" transfer-ownership="full" gs:managed-name="src" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25609">error to move into the return location</doc>
+            <type name="Error" c:type="GError*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_error_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <type name="GType" c:type="GType" />

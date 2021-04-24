@@ -733,7 +733,7 @@ case).
 </para>
 <para>
 In the event of an error (such as <paramref name="cancellable"/> being cancelled, or a
-failure to connect to the session bus), <c>false</c> is returned and <see cref="GISharp.Runtime.GErrorException"/>
+failure to connect to the session bus), <c>false</c> is returned and <see cref="GISharp.Lib.GLib.Error.Exception"/>
 is set appropriately.
 </para>
 <para>
@@ -745,7 +745,7 @@ instance is or is not the primary instance of the application.  See
 <param name="cancellable">
 a <see cref="Cancellable"/>, or <c>null</c>
 </param>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>

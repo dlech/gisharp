@@ -146,7 +146,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
         }
 
@@ -260,7 +260,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
                     return;
                 }
                 completionSource.SetResult(default(System.ValueTuple));
@@ -325,7 +325,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
         }
 
@@ -435,7 +435,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
                     return;
                 }
                 completionSource.SetResult(default(System.ValueTuple));
@@ -573,7 +573,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
         }
 
@@ -637,7 +637,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
 
             var ret = (int)ret_;
@@ -769,7 +769,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
                     return;
                 }
                 var ret = (int)ret_;
@@ -866,7 +866,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    throw new GISharp.Runtime.GErrorException(error);
+                    throw new GISharp.Lib.GLib.Error.Exception(error);
                 }
 
                 var ret = (int)ret_;
@@ -966,7 +966,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    throw new GISharp.Runtime.GErrorException(error);
+                    throw new GISharp.Lib.GLib.Error.Exception(error);
                 }
 
                 bytesWritten = (int)bytesWritten_;
@@ -1130,7 +1130,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
                     return;
                 }
                 var bytesWritten = (int)bytesWritten_;
@@ -1320,7 +1320,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
 
             var ret = (int)ret_;
@@ -1449,7 +1449,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
                     return;
                 }
                 var ret = (int)ret_;
@@ -1504,7 +1504,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
                     return;
                 }
                 var ret = (int)ret_;
@@ -1614,7 +1614,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    throw new GISharp.Runtime.GErrorException(error);
+                    throw new GISharp.Lib.GLib.Error.Exception(error);
                 }
 
                 bytesWritten = (int)bytesWritten_;
@@ -1719,7 +1719,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    throw new GISharp.Runtime.GErrorException(error);
+                    throw new GISharp.Lib.GLib.Error.Exception(error);
                 }
 
                 bytesWritten = (int)bytesWritten_;
@@ -1884,7 +1884,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
                     return;
                 }
                 var bytesWritten = (int)bytesWritten_;
@@ -2059,7 +2059,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
                     return;
                 }
                 var bytesWritten = (int)bytesWritten_;
@@ -2097,7 +2097,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
         }
 
@@ -2113,7 +2113,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
         }
 
@@ -2129,7 +2129,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
         }
 
@@ -2159,7 +2159,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
         }
 
@@ -2177,7 +2177,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
 
             var ret = (int)ret_;
@@ -2212,7 +2212,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
 
             var ret = (int)ret_;
@@ -2250,7 +2250,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
 
             var ret = (int)ret_;
@@ -2273,7 +2273,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    throw new GISharp.Runtime.GErrorException(error);
+                    throw new GISharp.Lib.GLib.Error.Exception(error);
                 }
 
                 var ret = (int)ret_;
@@ -2315,7 +2315,7 @@ namespace GISharp.Lib.Gio
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
             }
 
             bytesWritten = (int)bytesWritten_;
@@ -2339,7 +2339,7 @@ namespace GISharp.Lib.Gio
                 if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
-                    throw new GISharp.Runtime.GErrorException(error);
+                    throw new GISharp.Lib.GLib.Error.Exception(error);
                 }
 
                 bytesWritten = (int)bytesWritten_;

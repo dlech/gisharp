@@ -888,7 +888,7 @@ is returned. It is never floating, and must be freed with
 <see cref="Variant.Unref()"/>.
 </para>
 <para>
-In case of any error, <c>null</c> will be returned.  If <see cref="GISharp.Runtime.GErrorException"/> is non-<c>null</c>
+In case of any error, <c>null</c> will be returned.  If <see cref="GISharp.Lib.GLib.Error.Exception"/> is non-<c>null</c>
 then it will be set to reflect the error that occurred.
 </para>
 <para>
@@ -916,7 +916,7 @@ a location to store the end pointer, or <c>null</c>
 <returns>
 a non-floating reference to a <see cref="Variant"/>, or <c>null</c>
 </returns>
-<exception name="GISharp.Runtime.GErrorException">
+<exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
 </member>
