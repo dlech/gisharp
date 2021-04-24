@@ -1,5 +1,28 @@
 <declaration>
 
+<member name='Strv.Equal(GISharp.Lib.GLib.Strv,GISharp.Lib.GLib.Strv)'>
+<summary>
+Checks if <paramref name="strv1"/> and <paramref name="strv2"/> contain exactly the same elements in exactly the
+same order. Elements are compared using g_str_equal(). To match independently
+of order, sort the arrays first (using g_qsort_with_data() or similar).
+</summary>
+<remarks>
+<para>
+Two empty arrays are considered equal. Neither <paramref name="strv1"/> not <paramref name="strv2"/> may be
+<c>null</c>.
+</para>
+</remarks>
+<param name="strv1">
+a <c>null</c>-terminated array of strings
+</param>
+<param name="strv2">
+another <c>null</c>-terminated array of strings
+</param>
+<returns>
+<c>true</c> if <paramref name="strv1"/> and <paramref name="strv2"/> are equal
+</returns>
+</member>
+
 <member name='Strv.Contains(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if this instance contains <paramref name="str"/>. this instance must not be <c>null</c>.

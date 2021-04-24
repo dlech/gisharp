@@ -2,12 +2,11 @@
 // Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Collections;
-
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
@@ -164,9 +163,9 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="Variant"/> to <see cref="ByteStringArray"/>.
+        /// Coverts <see cref="Variant"/> to <see cref="Strv{T}"/> of <see cref="ByteString"/>.
         /// </summary>
-        public static explicit operator ByteStringArray?(Variant v)
+        public static explicit operator Strv<ByteString>?(Variant v)
         {
             if (v.Type != VariantType.ByteStringArray) {
                 throw new InvalidCastException();
@@ -175,9 +174,9 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="ByteStringArray"/> to <see cref="Variant"/>.
+        /// Coverts <see cref="Strv{T}"/> of <see cref="ByteString"/> to <see cref="Variant"/>.
         /// </summary>
-        public static explicit operator Variant(ByteStringArray value)
+        public static explicit operator Variant(Strv<ByteString> value)
         {
             return new Variant(value);
         }
@@ -411,9 +410,9 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="Variant"/> to <see cref="Strv"/>.
+        /// Coverts <see cref="Variant"/> to <see cref="Strv{T}"/> of <see cref="Utf8"/>.
         /// </summary>
-        public static explicit operator Strv?(Variant v)
+        public static explicit operator Strv<Utf8>?(Variant v)
         {
             if (v.Type != VariantType.StringArray) {
                 throw new InvalidCastException();
@@ -422,9 +421,9 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="string"/> array to <see cref="Variant"/>.
+        /// Coverts <see cref="Strv{T}"/> of <see cref="Utf8"/> to <see cref="Variant"/>.
         /// </summary>
-        public static explicit operator Variant(Strv value)
+        public static explicit operator Variant(Strv<Utf8> value)
         {
             return new Variant(value);
         }
@@ -607,7 +606,7 @@ namespace GISharp.Lib.GLib
         /// a new floating #GVariant instance
         /// </returns>
         [Since("2.24")]
-        static UnmanagedStruct* NewStrv(Strv strv)
+        static UnmanagedStruct* NewStrv(Strv<Utf8> strv)
         {
             var strv_ = (byte**)strv.UnsafeHandle;
             var ret = g_variant_new_strv(strv_, -1);
@@ -626,7 +625,7 @@ namespace GISharp.Lib.GLib
         /// an array of strings
         /// </param>
         [Since("2.24")]
-        public Variant(Strv strv) : this((IntPtr)NewStrv(strv), Transfer.None)
+        public Variant(Strv<Utf8> strv) : this((IntPtr)NewStrv(strv), Transfer.None)
         {
         }
 

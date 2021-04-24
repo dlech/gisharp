@@ -49,7 +49,7 @@ If the <c>arg</c> type is <see cref="OptionArg.Callback"/>, then <c>argData</c>
     the location will contain a newly allocated string if the option
     was given. That string needs to be freed by the callee using g_free().
     Likewise if <c>arg</c> type is <see cref="OptionArg.StringArray"/> or
-    <see cref="OptionArg.FilenameArray"/>, the data should be freed using g_strfreev().
+    <see cref="OptionArg.FilenameArray"/>, the data should be freed using <see cref="Strv.Free()"/>.
 </summary>
 </member>
 

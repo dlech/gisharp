@@ -2,12 +2,10 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
-
-using NUnit.Framework;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
-
+using NUnit.Framework;
 using clong = GISharp.Runtime.CLong;
 using culong = GISharp.Runtime.CULong;
 using Object = GISharp.Lib.GObject.Object;
@@ -338,10 +336,10 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestBoxed()
         {
-            var v = new Value(typeof(Strv).ToGType());
+            var v = new Value(typeof(MainContext).ToGType());
             Assert.That(v.ValueGType, Is.Not.EqualTo(GType.Boxed));
             Assert.That(v.ValueGType.Fundamental, Is.EqualTo(GType.Boxed));
-            using var expected = new Strv();
+            using var expected = MainContext.Default;
             v.Set(expected);
             Assert.That((Boxed?)v, Is.EqualTo(expected));
             Assert.That(v.Get(), Is.EqualTo(expected));

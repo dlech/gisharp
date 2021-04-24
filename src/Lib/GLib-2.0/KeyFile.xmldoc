@@ -266,8 +266,7 @@ a key
 <returns>
 
    the values associated with the key as a list of booleans, or <c>null</c> if the
-   key was not found or could not be parsed. The returned list of booleans
-   should be freed with g_free() when no longer needed.
+   key was not found or could not be parsed.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -295,7 +294,7 @@ a group name, or <c>null</c>
 a key
 </param>
 <returns>
-a comment that should be freed with g_free()
+a comment
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -352,8 +351,7 @@ a key
 <returns>
 
     the values associated with the key as a list of doubles, or <c>null</c> if the
-    key was not found or could not be parsed. The returned list of doubles
-    should be freed with g_free() when no longer needed.
+    key was not found or could not be parsed.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -433,8 +431,7 @@ a key
 <returns>
 
     the values associated with the key as a list of integers, or <c>null</c> if
-    the key was not found or could not be parsed. The returned list of
-    integers should be freed with g_free() when no longer needed.
+    the key was not found or could not be parsed.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -453,7 +450,6 @@ a group name
 </param>
 <returns>
 a newly-allocated <c>null</c>-terminated array of strings.
-    Use g_strfreev() to free it.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -557,8 +553,7 @@ a locale identifier or <c>null</c>
 </param>
 <returns>
 a newly allocated <c>null</c>-terminated string array
-  or <c>null</c> if the key isn't found. The string array should be freed
-  with g_strfreev().
+  or <c>null</c> if the key isn't found.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -615,7 +610,7 @@ a key
 <returns>
 
  a <c>null</c>-terminated string array or <c>null</c> if the specified
- key cannot be found. The array should be freed with g_strfreev().
+ key cannot be found.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error

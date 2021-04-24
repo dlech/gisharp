@@ -1330,14 +1330,14 @@ namespace GISharp.Lib.Gio
         partial void CheckListAttributesArgs(GISharp.Lib.GLib.NullableUnownedUtf8 nameSpace);
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
-        public GISharp.Lib.GLib.Strv? ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8 nameSpace)
+        public GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>? ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8 nameSpace)
         {
             CheckListAttributesArgs(nameSpace);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var nameSpace_ = (byte*)nameSpace.UnsafeHandle;
             var ret_ = g_file_info_list_attributes(info_,nameSpace_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
+            var ret = new GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

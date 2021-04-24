@@ -1023,7 +1023,7 @@ The application must be registered before calling this function.
 <member name='Application.DoHandleLocalOptions(GISharp.Lib.GLib.VariantDict)'>
 </member>
 
-<member name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv,int)'>
+<member name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv&lt;GISharp.Lib.GLib.Utf8&gt;,int)'>
 <summary>
 This virtual function is always invoked in the local instance. It
 gets passed a pointer to a <c>null</c>-terminated copy of <c>argv</c> and is

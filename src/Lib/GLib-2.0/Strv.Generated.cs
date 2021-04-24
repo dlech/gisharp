@@ -4,19 +4,85 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="Strv.xmldoc" path="declaration/member[@name='Strv']/*" />
-    public sealed unsafe partial class Strv : GISharp.Runtime.ByteStringArray
+    [GISharp.Runtime.GTypeAttribute("GStrv", IsProxyForUnmanagedType = true)]
+    public abstract unsafe partial class Strv : GISharp.Runtime.Boxed
     {
+        private static readonly GISharp.Runtime.GType _GType = g_strv_get_type();
+
         /// <summary>
-        /// For internal runtime use only.
+        /// The unmanaged data structure.
         /// </summary>
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public Strv(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        public struct UnmanagedStruct
         {
         }
 
+        /// <summary>
+        /// Checks if @strv1 and @strv2 contain exactly the same elements in exactly the
+        /// same order. Elements are compared using g_str_equal(). To match independently
+        /// of order, sort the arrays first (using g_qsort_with_data() or similar).
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Two empty arrays are considered equal. Neither @strv1 not @strv2 may be
+        /// %NULL.
+        /// </para>
+        /// </remarks>
+        /// <param name="strv1">
+        /// a %NULL-terminated array of strings
+        /// </param>
+        /// <param name="strv2">
+        /// another %NULL-terminated array of strings
+        /// </param>
+        /// <returns>
+        /// %TRUE if @strv1 and @strv2 are equal
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Runtime.Boolean g_strv_equal(
+        /* <type name="Strv" type="const gchar* const*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.Strv.UnmanagedStruct* strv1,
+        /* <type name="Strv" type="const gchar* const*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.Strv.UnmanagedStruct* strv2);
+        static partial void CheckEqualArgs(GISharp.Lib.GLib.Strv strv1, GISharp.Lib.GLib.Strv strv2);
+
+        /// <include file="Strv.xmldoc" path="declaration/member[@name='Strv.Equal(GISharp.Lib.GLib.Strv,GISharp.Lib.GLib.Strv)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        public static bool Equal(GISharp.Lib.GLib.Strv strv1, GISharp.Lib.GLib.Strv strv2)
+        {
+            CheckEqualArgs(strv1, strv2);
+            var strv1_ = (GISharp.Lib.GLib.Strv.UnmanagedStruct*)strv1.UnsafeHandle;
+            var strv2_ = (GISharp.Lib.GLib.Strv.UnmanagedStruct*)strv2.UnsafeHandle;
+            var ret_ = g_strv_equal(strv1_,strv2_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns the length of the given %NULL-terminated
+        /// string array @str_array. @str_array must not be %NULL.
+        /// </summary>
+        /// <param name="strArray">
+        /// a %NULL-terminated array of strings
+        /// </param>
+        /// <returns>
+        /// length of @str_array.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="guint" type="guint" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern uint g_strv_length(
+        /* <type name="Strv" type="gchar**" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.Strv.UnmanagedStruct* strArray);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:full direction:in */
         private static extern GISharp.Runtime.GType g_strv_get_type();
 
         /// <summary>
@@ -36,9 +102,9 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_strv_contains(
-        /* <type name="utf8" type="const gchar* const*" is-pointer="1" /> */
+        /* <type name="Strv" type="const gchar* const*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        byte* strv,
+        GISharp.Lib.GLib.Strv.UnmanagedStruct* strv,
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* str);
@@ -49,12 +115,65 @@ namespace GISharp.Lib.GLib
         public bool Contains(GISharp.Lib.GLib.UnownedUtf8 str)
         {
             CheckContainsArgs(str);
-            var strv_ = (byte*)UnsafeHandle;
+            var strv_ = (GISharp.Lib.GLib.Strv.UnmanagedStruct*)UnsafeHandle;
             var str_ = (byte*)str.UnsafeHandle;
             var ret_ = g_strv_contains(strv_,str_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
+        }
+
+        /// <summary>
+        /// Copies %NULL-terminated array of strings. The copy is a deep copy;
+        /// the new array should be freed by first freeing each string, then
+        /// the array itself. g_strfreev() does this for you. If called
+        /// on a %NULL value, g_strdupv() simply returns %NULL.
+        /// </summary>
+        /// <param name="strArray">
+        /// a %NULL-terminated array of strings
+        /// </param>
+        /// <returns>
+        /// a new %NULL-terminated array of strings.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
+*   <type name="utf8" is-pointer="1" />
+* </array> */
+        /* nullable:1 transfer-ownership:full direction:in */
+        private static extern byte** g_strdupv(
+        /* <type name="Strv" type="gchar**" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        GISharp.Lib.GLib.Strv.UnmanagedStruct* strArray);
+
+        /// <summary>
+        /// Frees a %NULL-terminated array of strings, as well as each
+        /// string it contains.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If @str_array is %NULL, this function simply returns.
+        /// </para>
+        /// </remarks>
+        /// <param name="strArray">
+        /// a %NULL-terminated array of strings to free
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_strfreev(
+        /* <type name="Strv" type="gchar**" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        GISharp.Lib.GLib.Strv.UnmanagedStruct* strArray);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_strfreev((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
         }
     }
 }

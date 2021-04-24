@@ -14,9 +14,9 @@ namespace GISharp.Test.GLib
             var arg1 = default(bool);
             var arg2 = default(int);
             var arg3 = default(string);
-            var arg4 = default(Strv);
+            var arg4 = default(Strv<Utf8>);
             var arg5 = default(Filename);
-            var arg6 = default(FilenameArray);
+            var arg6 = default(Strv<Filename>);
             var arg7 = default(double);
             var arg8 = default(string);
 

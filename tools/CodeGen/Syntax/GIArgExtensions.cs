@@ -63,15 +63,9 @@ namespace GISharp.CodeGen.Syntax
                 isZeroTerminated = array.IsZeroTerminated;
 
                 if (array.GirName is null && isZeroTerminated && arg.TransferOwnership == "full") {
-                    var elementType = array.TypeParameters.First().GirName;
-                    if (elementType == "utf8") {
-                        return "GISharp.Lib.GLib.Strv";
-                    }
-                    if (elementType == "filename") {
-                        return "GISharp.Lib.GLib.FilenameArray";
-                    }
-                    if (elementType == "bytestring") {
-                        return "GISharp.Runtime.ByteStringArray";
+                    var elementType = array.TypeParameters.Single();
+                    if (elementType.IsString()) {
+                        return $"GISharp.Lib.GLib.Strv<{elementType.GetManagedType()}>";
                     }
                 }
             }
@@ -285,7 +279,7 @@ namespace GISharp.CodeGen.Syntax
             // explicit cast expression to unmanaged type
             var unmanagedCast = $"({unmanagedType})";
 
-            if (arg.Type is Gir.Array array && array.GirName is null && type != "GISharp.Lib.GLib.Strv" && type != "GISharp.Lib.GLib.FilenameArray") {
+            if (arg.Type is Gir.Array array && array.GirName is null && !type.Contains("GISharp.Lib.GLib.Strv")) {
                 var isSpanLike = arg.TransferOwnership == "none";
                 var takeData = arg.TransferOwnership == "full";
                 var isAsync = arg.Ancestors.Any(x => x is GICallable callable && callable.IsAsync);
@@ -436,7 +430,7 @@ namespace GISharp.CodeGen.Syntax
             var @var = declareVariable ? "var " : "";
             var ownership = arg.GetOwnershipTransfer();
 
-            if (type == "GISharp.Lib.GLib.Strv" || type == "GISharp.Lib.GLib.FilenameArray") {
+            if (type.Contains("GISharp.Lib.GLib.Strv")) {
                 var lengthArg = "-1";
 
                 if (arg.Type is Gir.Array v && v.LengthIndex >= 0) {

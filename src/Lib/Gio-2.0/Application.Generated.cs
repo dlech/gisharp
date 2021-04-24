@@ -2120,16 +2120,16 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv,int)']/*" />
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv&lt;GISharp.Lib.GLib.Utf8&gt;,int)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedTryLocalCommandLine))]
-        protected virtual bool DoTryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out int exitStatus)
+        protected virtual bool DoTryLocalCommandLine(ref GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> arguments, out int exitStatus)
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var arguments_ = (byte**)arguments.Take();
             int exitStatus_;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedTryLocalCommandLine>(_GType)!(application_,&arguments_,&exitStatus_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            arguments = new GISharp.Lib.GLib.Strv((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full);
+            arguments = new GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full);
             exitStatus = (int)exitStatus_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -2258,7 +2258,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.GLib.Strv GISharp.Lib.Gio.IActionGroup.DoListActions()
+        GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> GISharp.Lib.Gio.IActionGroup.DoListActions()
         {
             throw new System.NotImplementedException();
         }

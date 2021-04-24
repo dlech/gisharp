@@ -1826,14 +1826,14 @@ namespace GISharp.Lib.GLib
         partial void CheckDupBytestringArrayArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private GISharp.Runtime.ByteStringArray DupBytestringArray()
+        private GISharp.Lib.GLib.Strv<GISharp.Runtime.ByteString> DupBytestringArray()
         {
             CheckDupBytestringArrayArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_dup_bytestring_array(value_,&length_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.ByteStringArray((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
+            var ret = new GISharp.Lib.GLib.Strv<GISharp.Runtime.ByteString>((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1964,14 +1964,14 @@ namespace GISharp.Lib.GLib
         partial void CheckDupStrvArgs();
 
         [GISharp.Runtime.SinceAttribute("2.24")]
-        private GISharp.Lib.GLib.Strv DupStrv()
+        private GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> DupStrv()
         {
             CheckDupStrvArgs();
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_dup_strv(value_,&length_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
+            var ret = new GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

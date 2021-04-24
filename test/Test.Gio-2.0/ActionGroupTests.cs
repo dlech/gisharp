@@ -220,6 +220,6 @@ namespace GISharp.Test.Gio
 
         bool IActionGroup.DoHasAction(UnownedUtf8 actionName) => false;
 
-        Strv IActionGroup.DoListActions() => new("test-action-1");
+        Strv<Utf8> IActionGroup.DoListActions() => new("test-action-1");
     }
 }

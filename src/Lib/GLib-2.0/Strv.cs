@@ -6,15 +6,102 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
-    [GType("GStrv", IsProxyForUnmanagedType = true)]
-    unsafe partial class Strv : IEnumerable<Utf8>
+    unsafe partial class Strv
     {
-        private static readonly GType _GType = g_strv_get_type();
+        private protected int length;
+
+        /// <summary>
+        /// Gets the length of the array, not including the zero-termination.
+        /// </summary>
+        /// <remarks>
+        /// If the length is not already known, it will be determined by iterating the array.
+        /// </remarks>
+        public int Length {
+            get {
+                if (length < 0) {
+                    length = (int)g_strv_length((UnmanagedStruct*)UnsafeHandle);
+                    GMarshal.PopUnhandledException();
+                }
+                return length;
+            }
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected Strv(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
+        {
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected Strv(IntPtr handle, int length, Transfer ownership) : base(handle)
+        {
+            if (ownership != Transfer.Full) {
+                this.handle = IntPtr.Zero;
+                GC.SuppressFinalize(this);
+                throw new NotSupportedException();
+            }
+
+            this.length = length;
+        }
+
+        /// <summary>
+        /// Gets a ref to the unmanaged pointer.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe ref readonly IntPtr GetPinnableReference()
+        {
+            return ref Unsafe.AsRef<IntPtr>((void*)UnsafeHandle);
+        }
+    }
+
+
+    /// <include file="Strv.xmldoc" path="declaration/member[@name='Strv']/*" />
+    public sealed unsafe class Strv<T> : Strv, IEnumerable<T> where T : ByteString
+    {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public Strv(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
+        {
+        }
+
+        private static byte** NewFromManaged(byte[][] source)
+        {
+            // allocate the array
+            var ret = (byte**)GMarshal.Alloc(IntPtr.Size * (source.Length + 1));
+
+            // copy each bytestring
+            for (int i = 0; i < source.Length; i++) {
+                ret[i] = (byte*)GMarshal.Alloc(source[i].Length + 1);
+                Marshal.Copy(source[i], 0, (IntPtr)ret[i], source[i].Length);
+                // null termination for bytestring
+                ret[i][source[i].Length] = 0;
+            }
+
+            // null termination for array
+            ret[source.Length] = null;
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Creates a new unmanaged string array.
+        /// </summary>
+        public Strv(params byte[][] value) : this((IntPtr)NewFromManaged(value), value.Length, Transfer.Full)
+        {
+        }
 
         static IntPtr* NewFromManaged(string[] value)
         {
@@ -32,68 +119,40 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Creates a new unmanaged string array.
         /// </summary>
+        /// <remarks>
+        /// Strings will be converted to UTF-8 regardless of the type parameter.
+        /// </remarks>
         public Strv(params string[] value) : this((IntPtr)NewFromManaged(value), value.Length, Transfer.Full)
         {
         }
 
         /// <summary>
-        /// For internal runtime use only.
+        /// Converts <see cref="Strv{T}"/> to <see cref="UnownedZeroTerminatedCPtrArray{T}"/>.
         /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Strv(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
+        public static implicit operator UnownedZeroTerminatedCPtrArray<T>(Strv<T> strv)
         {
+            return new UnownedZeroTerminatedCPtrArray<T>(strv.UnsafeHandle, strv.length, Transfer.None);
         }
 
-        IEnumerator<Utf8> GetIEnumerator()
+        /// <summary>
+        /// Converts <see cref="Strv{T}"/> to <see cref="UnownedCPtrArray{T}"/>.
+        /// </summary>
+        public static explicit operator UnownedCPtrArray<T>(Strv<T> strv)
+        {
+            return new UnownedCPtrArray<T>(strv.UnsafeHandle, strv.Length, Transfer.None);
+        }
+
+        IEnumerator<T> GetIEnumerator()
         {
             IntPtr ptr, str_;
             for (ptr = UnsafeHandle; (str_ = Marshal.ReadIntPtr(ptr)) != IntPtr.Zero; ptr += IntPtr.Size) {
-                var str = new Utf8(str_, Transfer.None);
+                var str = GetInstance<T>(str_, Transfer.None);
                 yield return str;
             }
         }
 
-        IEnumerator<Utf8> IEnumerable<Utf8>.GetEnumerator() => GetIEnumerator();
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetIEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetIEnumerator();
-
-        /// <summary>
-        /// Implements type needed in <c>foreach</c> loops.
-        /// </summary>
-        public class Enumerator
-        {
-            private readonly Strv instance;
-            private int offset;
-            private IntPtr ptr;
-
-            internal Enumerator(Strv instance)
-            {
-                this.instance = instance;
-            }
-
-            /// <summary>
-            /// Implements property needed in <c>foreach</c> loops.
-            /// </summary>
-            public UnownedUtf8 Current {
-                get {
-                    return new UnownedUtf8(ptr, -1);
-                }
-            }
-
-            /// <summary>
-            /// Implements method needed in <c>foreach</c> loops.
-            /// </summary>
-            public bool MoveNext()
-            {
-                ptr = Marshal.ReadIntPtr(instance.UnsafeHandle, offset);
-                offset += IntPtr.Size;
-                return ptr != IntPtr.Zero;
-            }
-        }
-
-        /// <summary>
-        /// Function needed for use in <c>foreach</c> loops.
-        /// </summary>
-        public Enumerator GetEnumerator() => new(this);
     }
 }

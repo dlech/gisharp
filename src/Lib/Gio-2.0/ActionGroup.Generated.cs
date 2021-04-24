@@ -180,7 +180,7 @@ namespace GISharp.Lib.Gio
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoListActions()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionGroupInterface.UnmanagedListActions))]
-        GISharp.Lib.GLib.Strv DoListActions();
+        GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> DoListActions();
     }
 
     /// <summary>
@@ -832,13 +832,13 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ListActions(GISharp.Lib.Gio.IActionGroup)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.Lib.GLib.Strv ListActions(this GISharp.Lib.Gio.IActionGroup actionGroup)
+        public static GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> ListActions(this GISharp.Lib.Gio.IActionGroup actionGroup)
         {
             CheckListActionsArgs(actionGroup);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
             var ret_ = g_action_group_list_actions(actionGroup_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
+            var ret = new GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

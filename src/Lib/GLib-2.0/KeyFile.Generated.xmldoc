@@ -456,7 +456,7 @@ a group name
 </param>
 <returns>
 a newly-allocated <c>null</c>-terminated array of strings.
-    Use g_strfreev() to free it.
+    Use <see cref="Strv.Free()"/> to free it.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -563,7 +563,7 @@ a locale identifier or <c>null</c>
 <returns>
 a newly allocated <c>null</c>-terminated string array
   or <c>null</c> if the key isn't found. The string array should be freed
-  with g_strfreev().
+  with <see cref="Strv.Free()"/>.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -620,7 +620,7 @@ a key
 <returns>
 
  a <c>null</c>-terminated string array or <c>null</c> if the specified
- key cannot be found. The array should be freed with g_strfreev().
+ key cannot be found. The array should be freed with <see cref="Strv.Free()"/>.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error

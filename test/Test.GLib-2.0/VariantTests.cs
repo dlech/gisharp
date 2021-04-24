@@ -6,10 +6,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
-
-using NUnit.Framework;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
+using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {
@@ -145,7 +144,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNewStrv()
         {
-            using var strv = new Strv("");
+            using var strv = new Strv<Utf8>("");
             using var v = new Variant(strv);
             Assert.That(GetIsFloating(v), Is.False);
             Assert.That(GetRefCount(v), Is.EqualTo(1));
@@ -174,7 +173,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNewBytestringArray()
         {
-            using var empty = new ByteStringArray(System.Array.Empty<byte[]>());
+            using var empty = new Strv<ByteString>(System.Array.Empty<byte[]>());
             using var v = new Variant(empty);
             Assert.That(GetIsFloating(v), Is.False);
             Assert.That(GetRefCount(v), Is.EqualTo(1));
@@ -353,10 +352,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCastStringArray()
         {
-            using var expected = new Strv(new[] { "string" });
+            using var expected = new Strv<Utf8>("string");
             using var variant = (Variant)expected;
             Assert.That(variant.Type, Is.EqualTo(VariantType.StringArray));
-            using var actual = (Strv?)variant;
+            using var actual = (Strv<Utf8>?)variant;
             Assert.That(actual, Is.EqualTo(expected));
         }
 
@@ -403,10 +402,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCastBytestringArray()
         {
-            var expected = new ByteStringArray(new[] { Encoding.Latin1.GetBytes("bytestring") });
+            var expected = new Strv<ByteString>(new[] { Encoding.Latin1.GetBytes("bytestring") });
             using var variant = (Variant)expected;
             Assert.That(variant.Type, Is.EqualTo(VariantType.ByteStringArray));
-            using var actual1 = (ByteStringArray?)variant;
+            using var actual1 = (Strv<ByteString>?)variant;
             Assert.That(actual1, Is.EqualTo(expected));
             using var actual2 = (WeakZeroTerminatedCPtrArray<ByteString>?)variant;
             Assert.That(actual2, Is.EqualTo(expected));
@@ -447,7 +446,7 @@ namespace GISharp.Test.GLib
         public void TestCastDictEntry()
         {
             // only basic variant types are allowed as key
-            var badKey = new KeyValuePair<Variant, Variant>(new Variant(new Strv("string")), new Variant("string"));
+            var badKey = new KeyValuePair<Variant, Variant>(new Variant(new Strv<Utf8>("string")), new Variant("string"));
             Assert.That(() => (Variant)badKey, Throws.ArgumentException);
 
             // make sure we get back what we put in

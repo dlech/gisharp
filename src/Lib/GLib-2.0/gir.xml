@@ -12,7 +12,7 @@ particular string. A GQuark value of zero is associated to %NULL.</doc>
       <source-position filename="gquark.h" line="36" />
       <type name="guint32" c:type="guint32" />
     </alias>
-    <alias name="Strv" c:type="GStrv" gs:managed-name="Strv">
+    <glib:boxed name="Strv" c:type="GStrv" glib:type-name="GStrv" glib:get-type="g_strv_get_type" gs:inheritance-modifiers="abstract" gs:custom-default-constructor="abstract" gs:managed-name="Strv">
       <doc xml:space="preserve" filename="glib-2.0.c" line="1900">A typedef alias for gchar**. This is mostly useful when used together with
 g_auto().</doc>
       <source-position filename="gstrfuncs.h" line="269" />
@@ -27,7 +27,7 @@ g_auto().</doc>
         <parameters>
           <instance-parameter name="strv" transfer-ownership="none" gs:managed-name="strv" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="32895">a %NULL-terminated array of strings</doc>
-            <type name="utf8" c:type="const gchar* const*" gs:is-pointer="1" />
+            <type name="Strv" c:type="const gchar* const*" gs:is-pointer="1" />
           </instance-parameter>
           <parameter name="str" transfer-ownership="none" gs:managed-name="str" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="32896">a string</doc>
@@ -41,15 +41,105 @@ g_auto().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <function name="get_type" c:identifier="g_strv_get_type" gs:dll-name="gobject-2.0" gs:pinvoke-only="1" gs:managed-name="GetType">
-        <source-position filename="glib-types.h" line="312" />
+      <function name="equal" c:identifier="g_strv_equal" version="2.60" gs:dll-name="glib-2.0" gs:managed-name="Equal">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="32905">Checks if @strv1 and @strv2 contain exactly the same elements in exactly the
+same order. Elements are compared using g_str_equal(). To match independently
+of order, sort the arrays first (using g_qsort_with_data() or similar).
+
+Two empty arrays are considered equal. Neither @strv1 not @strv2 may be
+%NULL.</doc>
+        <source-position filename="gstrfuncs.h" line="311" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="32917">%TRUE if @strv1 and @strv2 are equal</doc>
+          <type name="gboolean" c:type="gboolean" />
+        </return-value>
+        <parameters>
+          <parameter name="strv1" transfer-ownership="none" gs:managed-name="strv1" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="32907">a %NULL-terminated array of strings</doc>
+            <type name="Strv" c:type="const gchar* const*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="strv2" transfer-ownership="none" gs:managed-name="strv2" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="32908">another %NULL-terminated array of strings</doc>
+            <type name="Strv" c:type="const gchar* const*" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="strv1" transfer-ownership="none" gs:managed-name="strv1" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="32907">a %NULL-terminated array of strings</doc>
+            <type name="Strv" c:type="const gchar* const*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="strv2" transfer-ownership="none" gs:managed-name="strv2" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="32908">another %NULL-terminated array of strings</doc>
+            <type name="Strv" c:type="const gchar* const*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="length" c:identifier="g_strv_length" version="2.6" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Length">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="32922">Returns the length of the given %NULL-terminated
+string array @str_array. @str_array must not be %NULL.</doc>
+        <source-position filename="gstrfuncs.h" line="286" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="32929">length of @str_array.</doc>
+          <type name="guint" c:type="guint" />
+        </return-value>
+        <parameters>
+          <parameter name="str_array" transfer-ownership="none" gs:managed-name="strArray" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="32924">a %NULL-terminated array of strings</doc>
+            <type name="Strv" c:type="gchar**" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="str_array" transfer-ownership="none" gs:managed-name="strArray" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="32924">a %NULL-terminated array of strings</doc>
+            <type name="Strv" c:type="gchar**" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <method name="copy" c:identifier="g_strdupv" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Copy" gs:special-func="copy" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="31786">Copies %NULL-terminated array of strings. The copy is a deep copy;
+the new array should be freed by first freeing each string, then
+the array itself. g_strfreev() does this for you. If called
+on a %NULL value, g_strdupv() simply returns %NULL.</doc>
+        <source-position filename="gstrfuncs.h" line="284" />
+        <return-value nullable="1" transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="31795">a new %NULL-terminated array of strings.</doc>
+          <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
+            <type name="utf8" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="str_array" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="strArray" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="31788">a %NULL-terminated array of strings</doc>
+            <type name="Strv" c:type="gchar**" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <method name="free" c:identifier="g_strfreev" gs:dll-name="glib-2.0" gs:managed-name="Free" gs:special-func="free" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="31847">Frees a %NULL-terminated array of strings, as well as each
+string it contains.
+
+If @str_array is %NULL, this function simply returns.</doc>
+        <source-position filename="gstrfuncs.h" line="282" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="str_array" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="strArray" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="31849">a %NULL-terminated array of strings to free</doc>
+            <type name="Strv" c:type="gchar**" gs:is-pointer="1" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_strv_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <type name="GType" c:type="GType" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
       </function>
-    </alias>
+    </glib:boxed>
     <alias name="TimeSpan" c:type="GTimeSpan" gs:managed-name="TimeSpan">
       <doc xml:space="preserve" filename="gdatetime.h" line="80">A value representing an interval of time, in microseconds.</doc>
       <source-position filename="gdatetime.h" line="87" />

@@ -308,7 +308,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine);
         }
 
         /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='_TryLocalCommandLine']/*" />
-        public delegate bool _TryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out int exitStatus);
+        public delegate bool _TryLocalCommandLine(ref GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> arguments, out int exitStatus);
 
         /// <summary>
         /// Unmanaged callback
@@ -345,7 +345,7 @@ int* exitStatus);
                     try
                     {
                         var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
-                        var arguments = new GISharp.Lib.GLib.Strv((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full);
+                        var arguments = new GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full);
                         var doTryLocalCommandLine = (_TryLocalCommandLine)methodInfo.CreateDelegate(typeof(_TryLocalCommandLine), application);
                         var ret = doTryLocalCommandLine(ref arguments,out var exitStatus);
                         *arguments_ = (byte**)arguments.Take();

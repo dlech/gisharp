@@ -5,11 +5,10 @@ using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
-
-using StringList = System.Collections.Generic.List<GISharp.Lib.GLib.Utf8>;
+using ArgFuncList = System.Collections.Generic.List<GISharp.Lib.GLib.UnmanagedOptionArgFunc>;
 using ArgList = System.Collections.Generic.List<System.IntPtr>;
 using CallbackList = System.Collections.Generic.List<System.Action>;
-using ArgFuncList = System.Collections.Generic.List<GISharp.Lib.GLib.UnmanagedOptionArgFunc>;
+using StringList = System.Collections.Generic.List<GISharp.Lib.GLib.Utf8>;
 
 namespace GISharp.Lib.GLib
 {
@@ -224,7 +223,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Adds a string array option
         /// </summary>
-        public void AddStringArray(string longName, char shortName, Action<Strv> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
+        public void AddStringArray(string longName, char shortName, Action<Strv<Utf8>> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = UnsafeHandle;
             if (callback is null) {
@@ -237,7 +236,7 @@ namespace GISharp.Lib.GLib
 
             userData.Callbacks.Add(() => {
                 var arg = Marshal.ReadIntPtr(arg_);
-                var strv = new Strv(arg, Transfer.Full);
+                var strv = new Strv<Utf8>(arg, -1, Transfer.Full);
                 callback(strv);
             });
 
@@ -255,7 +254,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Adds a filename array option
         /// </summary>
-        public void AddFilenameArray(string longName, char shortName, Action<FilenameArray> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
+        public void AddFilenameArray(string longName, char shortName, Action<Strv<Filename>> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = UnsafeHandle;
             if (callback is null) {
@@ -268,7 +267,7 @@ namespace GISharp.Lib.GLib
 
             userData.Callbacks.Add(() => {
                 var arg = Marshal.ReadIntPtr(arg_);
-                var strv = new FilenameArray(arg, Transfer.Full);
+                var strv = new Strv<Filename>(arg, -1, Transfer.Full);
                 callback(strv);
             });
 

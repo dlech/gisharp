@@ -3,12 +3,11 @@
 
 using System;
 using System.Diagnostics;
+using System.Reflection;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
-
 using clong = GISharp.Runtime.CLong;
 using culong = GISharp.Runtime.CULong;
-using GISharp.Lib.GLib;
-using System.Reflection;
 
 namespace GISharp.Lib.GObject
 {
@@ -546,7 +545,7 @@ namespace GISharp.Lib.GObject
                 return value.Boxed;
             }
             catch (Exception ex) {
-                throw new InvalidCastException("Cannot cast to ParamSpec", ex);
+                throw new InvalidCastException("Cannot cast to Boxed", ex);
             }
         }
 

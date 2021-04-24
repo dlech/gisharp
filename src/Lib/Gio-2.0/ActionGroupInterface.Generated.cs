@@ -142,7 +142,7 @@ byte* actionName);
         }
 
         /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='_ListActions']/*" />
-        public delegate GISharp.Lib.GLib.Strv _ListActions();
+        public delegate GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> _ListActions();
 
         /// <summary>
         /// Unmanaged callback

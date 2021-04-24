@@ -31,7 +31,7 @@ namespace GISharp.Lib.GIRepository
         public static GISharp.Lib.GLib.UnownedSList<GISharp.Lib.GLib.Filename> SearchPath { get => GetSearchPath(); }
 
         /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.LoadedNamespaces']/*" />
-        public GISharp.Lib.GLib.Strv LoadedNamespaces { get => GetLoadedNamespaces(); }
+        public GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> LoadedNamespaces { get => GetLoadedNamespaces(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -454,14 +454,14 @@ byte* directory);
         partial void CheckGetDependenciesArgs(GISharp.Lib.GLib.UnownedUtf8 @namespace);
 
         /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.GetDependencies(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public GISharp.Lib.GLib.Strv GetDependencies(GISharp.Lib.GLib.UnownedUtf8 @namespace)
+        public GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> GetDependencies(GISharp.Lib.GLib.UnownedUtf8 @namespace)
         {
             CheckGetDependenciesArgs(@namespace);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_get_dependencies(repository_,@namespace_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
+            var ret = new GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -507,14 +507,14 @@ byte* directory);
 
         /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.GetImmediateDependencies(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("1.44")]
-        public GISharp.Lib.GLib.Strv GetImmediateDependencies(GISharp.Lib.GLib.UnownedUtf8 @namespace)
+        public GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> GetImmediateDependencies(GISharp.Lib.GLib.UnownedUtf8 @namespace)
         {
             CheckGetImmediateDependenciesArgs(@namespace);
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var @namespace_ = (byte*)@namespace.UnsafeHandle;
             var ret_ = g_irepository_get_immediate_dependencies(repository_,@namespace_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
+            var ret = new GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -586,13 +586,13 @@ byte* directory);
         GISharp.Lib.GIRepository.Repository.UnmanagedStruct* repository);
         partial void CheckGetLoadedNamespacesArgs();
 
-        private GISharp.Lib.GLib.Strv GetLoadedNamespaces()
+        private GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> GetLoadedNamespaces()
         {
             CheckGetLoadedNamespacesArgs();
             var repository_ = (GISharp.Lib.GIRepository.Repository.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_irepository_get_loaded_namespaces(repository_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
+            var ret = new GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

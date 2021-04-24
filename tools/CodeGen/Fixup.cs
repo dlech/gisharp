@@ -11,15 +11,12 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
-
+using GISharp.Runtime;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.Extensions.Logging;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
-
-using GISharp.Runtime;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace GISharp.CodeGen
 {
@@ -312,7 +309,9 @@ namespace GISharp.CodeGen
             // copy glib:name attribute to name
 
             foreach (var element in document.Descendants(glib + "boxed")) {
-                element.SetAttributeValue("name", element.Attribute(glib + "name").Value);
+                if (element.Attribute("name") is null) {
+                    element.SetAttributeValue("name", element.Attribute(glib + "name").Value);
+                }
             }
 
             // ensure that functions without parameters have an empty <parameters> element

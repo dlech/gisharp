@@ -18,11 +18,6 @@ namespace GISharp.CodeGen.Syntax
             var identifier = alias.ManagedName;
             var baseType = alias.Type.GetManagedType();
 
-            // HACK: special handling for GLib.Strv
-            if (alias.Namespace.Name == "GLib" && alias.GirName == "Strv") {
-                baseType = "GISharp.Runtime.ByteStringArray";
-            }
-
             return ClassDeclaration(identifier)
                 .WithModifiers(TokenList(
                     alias.GetInheritanceModifiers(Token(SealedKeyword))
