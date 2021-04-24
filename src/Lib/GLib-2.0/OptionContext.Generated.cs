@@ -163,6 +163,7 @@ namespace GISharp.Lib.GLib
             if (handle != System.IntPtr.Zero)
             {
                 g_option_context_free((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

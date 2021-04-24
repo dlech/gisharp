@@ -277,6 +277,7 @@ namespace GISharp.Lib.GLib
             if (handle != System.IntPtr.Zero)
             {
                 g_option_group_unref((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

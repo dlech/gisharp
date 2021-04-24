@@ -667,6 +667,7 @@ byte* typeString);
             if (handle != System.IntPtr.Zero)
             {
                 g_variant_type_free((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

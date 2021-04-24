@@ -592,6 +592,7 @@ namespace GISharp.Lib.GLib
             if (handle != System.IntPtr.Zero)
             {
                 g_bytes_unref((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

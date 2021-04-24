@@ -38,6 +38,7 @@ GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
             if (handle != System.IntPtr.Zero)
             {
                 g_typelib_free((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

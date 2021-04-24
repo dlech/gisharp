@@ -593,6 +593,7 @@ namespace GISharp.Lib.GObject
             if (handle != System.IntPtr.Zero)
             {
                 g_closure_unref((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

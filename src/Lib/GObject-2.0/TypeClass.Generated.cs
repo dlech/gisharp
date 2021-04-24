@@ -309,6 +309,7 @@ GISharp.Runtime.GType privateType);
             if (handle != System.IntPtr.Zero)
             {
                 g_type_class_unref((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

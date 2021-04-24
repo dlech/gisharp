@@ -491,6 +491,7 @@ namespace GISharp.Lib.GIRepository
             if (handle != System.IntPtr.Zero)
             {
                 g_base_info_unref((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

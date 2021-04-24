@@ -364,6 +364,7 @@ namespace GISharp.Lib.Gio
             if (handle != System.IntPtr.Zero)
             {
                 g_file_attribute_matcher_unref((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

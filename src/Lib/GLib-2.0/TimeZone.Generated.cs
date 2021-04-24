@@ -555,6 +555,7 @@ namespace GISharp.Lib.GLib
             if (handle != System.IntPtr.Zero)
             {
                 g_time_zone_unref((UnmanagedStruct*)handle);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             base.Dispose(disposing);

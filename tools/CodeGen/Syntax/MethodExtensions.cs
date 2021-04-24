@@ -88,7 +88,8 @@ namespace GISharp.CodeGen.Syntax
                         .AddModifiers(Token(ProtectedKeyword), Token(OverrideKeyword))
                         .WithBody(Block(
                             IfStatement(ParseExpression("handle != System.IntPtr.Zero"), Block(
-                                ExpressionStatement(ParseExpression($"{method.CIdentifier}((UnmanagedStruct*)handle)"))
+                                ExpressionStatement(ParseExpression($"{method.CIdentifier}((UnmanagedStruct*)handle)")),
+                                ExpressionStatement(ParseExpression("GISharp.Runtime.GMarshal.PopUnhandledException()"))
                             )),
                             ExpressionStatement(ParseExpression("base.Dispose(disposing)"))
                         ))
