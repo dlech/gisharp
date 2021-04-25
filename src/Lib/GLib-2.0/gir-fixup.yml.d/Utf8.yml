@@ -1,7 +1,7 @@
 
 ### Utf8 ###
 
-# acutal Utf8 type is defined in Core, so we make a static class with
+# acutal Utf8 type is defined in Runtime, so we make a static class with
 # extension methods
 - !add-element
   xml: <gs:static-class name='Utf8Extensions' />
@@ -17,7 +17,7 @@
   replace: $1
   xpath: gi:repository/gi:namespace/gs:static-class[@name='Utf8Extensions']/gi:function
 
-# Most functions require special handling or are used in Core
+# Most functions require special handling or are used in Runtime
 - !set-attribute
   name: gs:pinvoke-only
   value: 1

@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		BaseDirectory = .
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Core", "test\Test.Core\Test.Core.csproj", "{85913FB2-05F7-4995-BD23-4B5FA58E6729}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Runtime", "test\Test.Runtime\Test.Runtime.csproj", "{85913FB2-05F7-4995-BD23-4B5FA58E6729}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0", "src\Lib\GObject-2.0\GObject-2.0.csproj", "{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}"
 EndProject
@@ -29,7 +29,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0", "src\Lib\Gio-2.0\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Gio-2.0", "test\Test.Gio-2.0\Test.Gio-2.0.csproj", "{8441EC25-8A72-407C-85E9-957648FE36E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Core\Core.csproj", "{E3732A37-C368-422B-94DD-3161226D923B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runtime", "src\Runtime\Runtime.csproj", "{E3732A37-C368-422B-94DD-3161226D923B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHelpers", "test\TestHelpers\TestHelpers.csproj", "{8E21B314-0DBD-4710-9D4C-65C6A3738B8B}"
 EndProject

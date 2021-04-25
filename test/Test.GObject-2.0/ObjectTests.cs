@@ -4,11 +4,9 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
-
-using NUnit.Framework;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
-
+using NUnit.Framework;
 using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.GObject
@@ -98,7 +96,7 @@ namespace GISharp.Test.GObject
             Assert.That(() => typeof(TestObject1).ToGType(),
                 Throws.ArgumentException);
 
-            // Objects that do not inherit from GISharp.Core.Object fail
+            // Objects that do not inherit from GISharp.Lib.GObject.Object fail
             Assert.That(() => typeof(TestObject2).ToGType(),
                 Throws.ArgumentException);
 
@@ -257,7 +255,7 @@ namespace GISharp.Test.GObject
         {
         }
 
-        // This will fail because it does not inherit from GISharp.Core.Object
+        // This will fail because it does not inherit from GISharp.Lib.GObject.Object
         [GType]
         class TestObject2
         {

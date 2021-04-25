@@ -1,7 +1,7 @@
 
 ### Unichar ###
 
-# acutal Unichar type is defined in Core, so we make a static class with
+# acutal Unichar type is defined in Runtime, so we make a static class with
 # extension methods
 - !add-element
   xml: <gs:static-class name='Unichar' />

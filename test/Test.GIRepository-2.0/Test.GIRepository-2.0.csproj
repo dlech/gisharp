@@ -24,7 +24,7 @@
     <PackageReference Include="FluentAssertions" Version="4.19.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\Runtime\Runtime.csproj" />
     <ProjectReference Include="..\..\src\Lib\GLib-2.0\GLib-2.0.csproj" />
     <ProjectReference Include="..\..\src\Lib\GObject-2.0\GObject-2.0.csproj" />
     <ProjectReference Include="..\..\src\Lib\GIRepository-2.0\GIRepository-2.0.csproj" />

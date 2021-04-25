@@ -1,5 +1,5 @@
 
-# Ignore stuff that is in Core
+# Ignore stuff that is in Runtime
 
 - !set-attribute
   name: introspectable

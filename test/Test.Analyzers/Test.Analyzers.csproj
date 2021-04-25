@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Analyzers\Analyzers.csproj" />
-    <ProjectReference Include="..\..\src\Core\Core.csproj">
+    <ProjectReference Include="..\..\src\Runtime\Runtime.csproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <SkipGetTargetFrameworkProperties>true</SkipGetTargetFrameworkProperties>
       <Targets>Pack</Targets>

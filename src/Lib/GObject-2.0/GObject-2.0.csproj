@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Core.csproj" />
+    <ProjectReference Include="..\..\Runtime\Runtime.csproj" />
     <ProjectReference Include="..\..\Lib\GLib-2.0\GLib-2.0.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)../Lib.props"/>

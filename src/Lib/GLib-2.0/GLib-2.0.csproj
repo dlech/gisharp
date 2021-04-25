@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Core.csproj" />
+    <ProjectReference Include="..\..\Runtime\Runtime.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildThisFileDirectory)../Lib.props"/>
   <ItemGroup>
-    <!-- Ignore generated files for types that are maintained in Core. -->
+    <!-- Ignore generated files for types that are maintained in Runtime. -->
     <Compile Remove="Cond.Generated.cs" />
     <Compile Remove="DestroyNotify.Generated.cs" />
     <Compile Remove="Mutex.Generated.cs" />

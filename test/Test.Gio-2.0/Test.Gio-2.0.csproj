@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\Runtime\Runtime.csproj" />
     <ProjectReference Include="..\..\src\Lib\GLib-2.0\GLib-2.0.csproj" />
     <ProjectReference Include="..\..\src\Lib\GObject-2.0\GObject-2.0.csproj" />
     <ProjectReference Include="..\..\src\Lib\Gio-2.0\Gio-2.0.csproj" />

@@ -11,11 +11,11 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup Condition="$([MSBuild]::IsOSUnixLike())">
-    <Compile Remove="Runtime\CLong32.cs" />
-    <Compile Remove="Runtime\CULong32.cs" />
+    <Compile Remove="CLong32.cs" />
+    <Compile Remove="CULong32.cs" />
   </ItemGroup>
   <ItemGroup Condition="!$([MSBuild]::IsOSUnixLike())">
-    <Compile Remove="Runtime\CLong64.cs" />
-    <Compile Remove="Runtime\CULong64.cs" />
+    <Compile Remove="CLong64.cs" />
+    <Compile Remove="CULong64.cs" />
   </ItemGroup>
 </Project>

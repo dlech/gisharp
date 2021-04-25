@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\Runtime\Runtime.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Buildalyzer.Workspaces" Version="2.5.1" />
