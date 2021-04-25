@@ -240,6 +240,15 @@ namespace GISharp.CodeGen
                         moveParent.Add(element);
                     }
                     break;
+                case RemoveElement removeElement:
+                    var removeElements = document.XPathSelectElements(removeElement.Xpath, Manager).ToList();
+                    if (removeElements.Count == 0) {
+                        logger.LogWarning($"Could not find any elements matching '{removeElement.Xpath}'");
+                    }
+                    foreach (var element in removeElements) {
+                        element.Remove();
+                    }
+                    break;
                 }
             }
         }
@@ -1372,6 +1381,11 @@ namespace GISharp.CodeGen
         {
             public string Xpath { get; set; }
             public string NewParentXpath { get; set; }
+        }
+
+        public class RemoveElement : Command
+        {
+            public string Xpath { get; set; }
         }
 #pragma warning restore CS0649
     }

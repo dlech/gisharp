@@ -124,6 +124,20 @@
                     "new-parent-xpath"
                 ],
                 "additionalProperties": false
+            },
+            {
+                "title": "!remove-element",
+                "description": "Remove and XML element",
+                "properties": {
+                    "xpath": {
+                        "description": "The xpath to the XML element to remove.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "xpath"
+                ],
+                "additionalProperties": false
             }
         ]
     }
