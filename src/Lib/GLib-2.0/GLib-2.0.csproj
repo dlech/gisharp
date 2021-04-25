@@ -8,7 +8,6 @@
     <Compile Remove="Cond.Generated.cs" />
     <Compile Remove="DestroyNotify.Generated.cs" />
     <Compile Remove="Mutex.Generated.cs" />
-    <Compile Remove="Quark.Generated.cs" />
     <Compile Remove="SourceDummyMarshal.Generated.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -86,13 +86,13 @@ namespace GISharp.Test.GObject
             obj.NotifySignal += handler2;
 
             // make sure our callbacks are working
-            obj.Emit(id, 0, pspec);
+            obj.Emit(id, Quark.Zero, pspec);
             Assume.That(handler1Count, Is.EqualTo(1));
             Assume.That(handler2Count, Is.EqualTo(1));
 
             // now try to stop the emission
             stopEmission = true;
-            obj.Emit(id, 0, pspec);
+            obj.Emit(id, Quark.Zero, pspec);
 
             Assert.That(handler1Count, Is.EqualTo(2));
             Assert.That(handler2Count, Is.EqualTo(1));

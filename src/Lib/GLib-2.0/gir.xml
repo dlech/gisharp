@@ -11,6 +11,75 @@ and/or use gtk-doc annotations.  -->
 particular string. A GQuark value of zero is associated to %NULL.</doc>
       <source-position filename="gquark.h" line="36" />
       <type name="guint32" c:type="guint32" />
+      <function name="from_string" c:identifier="g_quark_from_string" gs:dll-name="glib-2.0" gs:managed-name="FromString">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="26245">Gets the #GQuark identifying the given string. If the string does
+not currently have an associated #GQuark, a new #GQuark is created,
+using a copy of the string.
+
+This function must not be used before library constructors have finished
+running. In particular, this means it cannot be used to initialize global
+variables in C++.</doc>
+        <source-position filename="gquark.h" line="45" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="26257">the #GQuark identifying the string, or 0 if @string is %NULL</doc>
+          <type name="Quark" c:type="GQuark" />
+        </return-value>
+        <parameters>
+          <parameter name="string" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="@string" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="26247">a string</doc>
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="string" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="@string" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="26247">a string</doc>
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <method name="to_string" c:identifier="g_quark_to_string" gs:dll-name="glib-2.0" gs:managed-name="ToString" gs:to-string="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="26261">Gets the string associated with the given #GQuark.</doc>
+        <source-position filename="gquark.h" line="47" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="26267">the string associated with the #GQuark</doc>
+          <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="quark" transfer-ownership="none" gs:managed-name="quark" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="26263">a #GQuark.</doc>
+            <type name="Quark" c:type="GQuark" />
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <function name="try_string" c:identifier="g_quark_try_string" gs:dll-name="glib-2.0" gs:managed-name="TryString">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="26271">Gets the #GQuark associated with the given string, or 0 if string is
+%NULL or it has no associated #GQuark.
+
+If you want the GQuark to be created if it doesn't already exist,
+use g_quark_from_string() or g_quark_from_static_string().
+
+This function must not be used before library constructors have finished
+running.</doc>
+        <source-position filename="gquark.h" line="41" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="26284">the #GQuark associated with the string, or 0 if @string is
+    %NULL or there is no #GQuark associated with it</doc>
+          <type name="Quark" c:type="GQuark" />
+        </return-value>
+        <parameters>
+          <parameter name="string" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="@string" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="26273">a string</doc>
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="string" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="@string" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="26273">a string</doc>
+            <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
     </alias>
     <glib:boxed name="Strv" c:type="GStrv" glib:type-name="GStrv" glib:get-type="g_strv_get_type" gs:inheritance-modifiers="abstract" gs:custom-default-constructor="abstract" gs:managed-name="Strv">
       <doc xml:space="preserve" filename="glib-2.0.c" line="1900">A typedef alias for gchar**. This is mostly useful when used together with

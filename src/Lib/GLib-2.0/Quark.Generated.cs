@@ -34,5 +34,113 @@ namespace GISharp.Lib.GLib
         {
             return value.value;
         }
+
+        /// <summary>
+        /// Gets the #GQuark identifying the given string. If the string does
+        /// not currently have an associated #GQuark, a new #GQuark is created,
+        /// using a copy of the string.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This function must not be used before library constructors have finished
+        /// running. In particular, this means it cannot be used to initialize global
+        /// variables in C++.
+        /// </para>
+        /// </remarks>
+        /// <param name="string">
+        /// a string
+        /// </param>
+        /// <returns>
+        /// the #GQuark identifying the string, or 0 if @string is %NULL
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Quark" type="GQuark" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Lib.GLib.Quark g_quark_from_string(
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        byte* @string);
+        static partial void CheckFromStringArgs(GISharp.Runtime.NullableUnownedUtf8 @string);
+
+        /// <include file="Quark.xmldoc" path="declaration/member[@name='Quark.FromString(GISharp.Runtime.NullableUnownedUtf8)']/*" />
+        public static GISharp.Lib.GLib.Quark FromString(GISharp.Runtime.NullableUnownedUtf8 @string)
+        {
+            CheckFromStringArgs(@string);
+            var @string_ = (byte*)@string.UnsafeHandle;
+            var ret_ = g_quark_from_string(@string_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = (GISharp.Lib.GLib.Quark)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the #GQuark associated with the given string, or 0 if string is
+        /// %NULL or it has no associated #GQuark.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If you want the GQuark to be created if it doesn't already exist,
+        /// use g_quark_from_string() or g_quark_from_static_string().
+        /// </para>
+        /// <para>
+        /// This function must not be used before library constructors have finished
+        /// running.
+        /// </para>
+        /// </remarks>
+        /// <param name="string">
+        /// a string
+        /// </param>
+        /// <returns>
+        /// the #GQuark associated with the string, or 0 if @string is
+        ///     %NULL or there is no #GQuark associated with it
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Quark" type="GQuark" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Lib.GLib.Quark g_quark_try_string(
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        byte* @string);
+        static partial void CheckTryStringArgs(GISharp.Runtime.NullableUnownedUtf8 @string);
+
+        /// <include file="Quark.xmldoc" path="declaration/member[@name='Quark.TryString(GISharp.Runtime.NullableUnownedUtf8)']/*" />
+        public static GISharp.Lib.GLib.Quark TryString(GISharp.Runtime.NullableUnownedUtf8 @string)
+        {
+            CheckTryStringArgs(@string);
+            var @string_ = (byte*)@string.UnsafeHandle;
+            var ret_ = g_quark_try_string(@string_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = (GISharp.Lib.GLib.Quark)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the string associated with the given #GQuark.
+        /// </summary>
+        /// <param name="quark">
+        /// a #GQuark.
+        /// </param>
+        /// <returns>
+        /// the string associated with the #GQuark
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern byte* g_quark_to_string(
+        /* <type name="Quark" type="GQuark" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.Quark quark);
+        partial void CheckToStringArgs();
+
+        /// <include file="Quark.xmldoc" path="declaration/member[@name='Quark.ToString()']/*" />
+        public override string? ToString()
+        {
+            CheckToStringArgs();
+            var quark_ = this;
+            var ret_ = g_quark_to_string(quark_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
+            return ret;
+        }
     }
 }

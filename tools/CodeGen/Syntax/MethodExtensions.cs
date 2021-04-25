@@ -126,7 +126,11 @@ namespace GISharp.CodeGen.Syntax
             }
 
             if (method.IsToString && !method.IsExtensionMethod) {
-                syntax = syntax.WithReturnType(ParseTypeName("string"));
+                var stringType = ParseTypeName("string");
+                if (method.ReturnValue.IsNullable) {
+                    stringType = NullableType(stringType);
+                }
+                syntax = syntax.WithReturnType(stringType);
             }
 
             var triviaParameters = method.ManagedParameters.RegularParameters.Cast<GIArg>();

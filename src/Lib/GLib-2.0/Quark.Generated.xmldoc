@@ -1,5 +1,59 @@
 <declaration>
 
+<member name='Quark.FromString(GISharp.Runtime.NullableUnownedUtf8)'>
+<summary>
+Gets the <see cref="Quark"/> identifying the given string. If the string does
+not currently have an associated <see cref="Quark"/>, a new <see cref="Quark"/> is created,
+using a copy of the string.
+</summary>
+<remarks>
+<para>
+This function must not be used before library constructors have finished
+running. In particular, this means it cannot be used to initialize global
+variables in C++.
+</para>
+</remarks>
+<param name="string">
+a string
+</param>
+<returns>
+the <see cref="Quark"/> identifying the string, or 0 if <paramref name="string"/> is <c>null</c>
+</returns>
+</member>
+
+<member name='Quark.TryString(GISharp.Runtime.NullableUnownedUtf8)'>
+<summary>
+Gets the <see cref="Quark"/> associated with the given string, or 0 if string is
+<c>null</c> or it has no associated <see cref="Quark"/>.
+</summary>
+<remarks>
+<para>
+If you want the GQuark to be created if it doesn't already exist,
+use <see cref="Quark.FromString(GISharp.Runtime.NullableUnownedUtf8)"/> or g_quark_from_static_string().
+</para>
+<para>
+This function must not be used before library constructors have finished
+running.
+</para>
+</remarks>
+<param name="string">
+a string
+</param>
+<returns>
+the <see cref="Quark"/> associated with the string, or 0 if <paramref name="string"/> is
+    <c>null</c> or there is no <see cref="Quark"/> associated with it
+</returns>
+</member>
+
+<member name='Quark.ToString()'>
+<summary>
+Gets the string associated with the given <see cref="Quark"/>.
+</summary>
+<returns>
+the string associated with the <see cref="Quark"/>
+</returns>
+</member>
+
 <member name='Quark'>
 <summary>
 A GQuark is a non-zero integer which uniquely identifies a

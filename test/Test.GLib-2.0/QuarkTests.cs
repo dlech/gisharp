@@ -13,11 +13,11 @@ namespace GISharp.Test.GLib
         const string testQuarkPrefix = "gisharp-glib-test-quark-";
 
         [Test]
-        public void TestImplicitOperator()
+        public void TestExplicitUintOperator()
         {
             uint expected = 1;
-            Quark quark = expected;
-            uint actual = quark;
+            var quark = (Quark)expected;
+            var actual = (uint)quark;
             Assert.That(actual, Is.EqualTo(expected));
         }
 
@@ -74,7 +74,7 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
-        public void TestExplicitOperator()
+        public void TestExplicitStringOperator()
         {
             const string str = "test-explicit-operator-quark";
             Assert.That(() => (Quark)str, Throws.TypeOf<InvalidCastException>());
