@@ -2,8 +2,6 @@
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
 using System;
-using System.Reflection;
-using GISharp.Lib.GLib;
 
 namespace GISharp.Runtime
 {
@@ -29,32 +27,6 @@ namespace GISharp.Runtime
         public GErrorDomainAttribute(string errorDomain)
         {
             ErrorDomain = errorDomain;
-        }
-    }
-
-    /// <summary>
-    /// Extension methods related to <see cref="GErrorDomainAttribute"/>.
-    /// </summary>
-    public static class GErrorDomainAttributeExtensions
-    {
-        /// <summary>
-        /// Gets the error domain of an Enum.
-        /// </summary>
-        /// <returns>The error domain.</returns>
-        /// <param name="value">Value.</param>
-        /// <exception cref="ArgumentException">
-        /// Thrown if type of <paramref name="value"/> is not decorated with
-        /// <see cref="GErrorDomainAttribute"/>.
-        /// </exception>
-        public static Quark GetGErrorDomain(this Enum value)
-        {
-            var type = value.GetType();
-            var attr = type.GetCustomAttribute<GErrorDomainAttribute>();
-            if (attr is null) {
-                throw new ArgumentException("Enum type must have ErrorDomainAttribute", nameof(value));
-            }
-            var quark = Quark.FromString(attr.ErrorDomain);
-            return quark;
         }
     }
 }
