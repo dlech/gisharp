@@ -9,13 +9,14 @@ dotnet test /p:CollectCoverage=true /maxcpucount:1
 
 cd .coverage
 
-lcov -o lcov.info -a runtime.info -t runtime \
-    -a glib-2.0.info -t glib-2.0 \
-    -a gobject-2.0.info -t gobject-2.0 \
-    -a gio-2.0.info -t gio-2.0 \
-    -a girepository-2.0.info -t girepository-2.0 \
-    -a gmodule-2.0.info -t gmodule-2.0 \
-    -a gtk-4.0.info -t gtk-4.0 \
+lcov -o lcov.info \
+    -a Test.Gio-2.0.info -t Gio-2.0 \
+    -a Test.GIRepository-2.0.info -t GIRepository-2.0 \
+    -a Test.GLib-2.0.info -t GLib-2.0 \
+    -a Test.GModule-2.0.info -t GModule-2.0 \
+    -a Test.GObject-2.0.info -t GObject-2.0 \
+    -a Test.Gtk-4.0.info -t Gtk-4.0 \
+    -a Test.Runtime.info -t Runtime \
 
 if [ "$TRAVIS" != "true" ]; then
     genhtml lcov.info

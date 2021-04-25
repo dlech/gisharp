@@ -1,32 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <CoverletOutputFormat>lcov</CoverletOutputFormat>
-    <CoverletOutput>../../.coverage/gobject-2.0.info</CoverletOutput>
-  </PropertyGroup>
-
+  <Import Project="$(MSBuildThisFileDirectory)../test.props"/>
   <ItemGroup>
-    <PackageReference Include="coverlet.msbuild" Version="2.9.0">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.*" />
-    <PackageReference Include="NUnit" Version="3.10.*" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.10.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Runtime\Runtime.csproj" />
     <ProjectReference Include="..\..\src\Lib\GLib-2.0\GLib-2.0.csproj" />
     <ProjectReference Include="..\..\src\Lib\GObject-2.0\GObject-2.0.csproj" />
-    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 </Project>
