@@ -48,7 +48,7 @@ namespace GISharp.Lib.GObject
             g_object_set_qdata((UnmanagedStruct*)handle, toggleRefGCHandleQuark, (IntPtr)gcHandle);
             g_object_add_toggle_ref((UnmanagedStruct*)handle, toggleNotifyDelegate, IntPtr.Zero);
 
-            // IntPtr always owns a reference so release it now that we have a toggle reference instead.
+            // handle always owns a reference so release it now that we have a toggle reference instead.
             // If this is the last normal reference, ToggleNotifyCallback will be called immediately
             // to convert the strong reference to a weak reference
             g_object_unref((UnmanagedStruct*)handle);
