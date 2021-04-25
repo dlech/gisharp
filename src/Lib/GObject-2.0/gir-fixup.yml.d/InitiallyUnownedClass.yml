@@ -1,0 +1,12 @@
+
+### InitallyUnowned ###
+
+# The GIR has a copy of GObject, but we need to have proper inheritance
+- !remove-element
+  xpath: gi:repository/gi:namespace/gi:class[@name='InitiallyUnowned']/gi:field
+- !add-element
+  xml: |
+    <gi:field name="parent">
+      <gi:type name="Object" c:type="GObject" />
+    </gi:field>
+  xpath: gi:repository/gi:namespace/gi:class[@name='InitiallyUnowned']

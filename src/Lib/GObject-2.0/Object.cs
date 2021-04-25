@@ -272,7 +272,9 @@ namespace GISharp.Lib.GObject
         public static T CreateInstance<T>(params object[] parameters) where T : Object
         {
             var handle = New<T>(parameters);
-            var instance = GetInstance<T>((IntPtr)handle, Transfer.Full)!;
+            // Could also test if type is IntiallyUnowned
+            var ownership = g_object_is_floating(handle).IsTrue() ? Transfer.None : Transfer.Full;
+            var instance = GetInstance<T>((IntPtr)handle, ownership)!;
 
             return instance;
         }

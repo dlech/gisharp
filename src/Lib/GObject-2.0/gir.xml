@@ -1673,6 +1673,29 @@ nickname.</doc>
         <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
       </field>
     </record>
+    <class name="InitiallyUnowned" c:symbol-prefix="initially_unowned" c:type="GInitiallyUnowned" parent="Object" glib:type-name="GInitiallyUnowned" glib:get-type="g_initially_unowned_get_type" glib:type-struct="InitiallyUnownedClass" gs:managed-name="InitiallyUnowned">
+      <doc xml:space="preserve" filename="gobject.h" line="370">All the fields in the GInitiallyUnowned structure
+are private to the #GInitiallyUnowned implementation and should never be
+accessed directly.</doc>
+      <source-position filename="gobject.h" line="190" />
+      <field name="parent" gs:managed-name="Parent">
+  <type name="Object" c:type="GObject" />
+</field>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_initially_unowned_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </class>
+    <record name="InitiallyUnownedClass" c:type="GInitiallyUnownedClass" glib:is-gtype-struct-for="InitiallyUnowned" gs:managed-name="InitiallyUnownedClass">
+      <doc xml:space="preserve" filename="gobject.h" line="377">The class structure for the GInitiallyUnowned type.</doc>
+      <source-position filename="gobject.h" line="190" />
+      <field name="parent" gs:managed-name="Parent">
+  <type name="ObjectClass" c:type="GObjectClass" />
+</field>
+    </record>
     <callback name="InstanceInitFunc" c:type="GInstanceInitFunc" gs:dll-name="gobject-2.0" gs:managed-name="InstanceInitFunc">
       <doc xml:space="preserve" filename="gtype.h" line="902">A callback function used by the type system to initialize a new
 instance of a type. This function initializes all instance members and

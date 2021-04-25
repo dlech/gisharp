@@ -1,0 +1,14 @@
+<declaration>
+
+<member name='UnmanagedStruct.Parent'>
+</member>
+
+<member name='InitiallyUnowned'>
+<summary>
+All the fields in the GInitiallyUnowned structure
+are private to the <see cref="InitiallyUnowned"/> implementation and should never be
+accessed directly.
+</summary>
+</member>
+
+</declaration>

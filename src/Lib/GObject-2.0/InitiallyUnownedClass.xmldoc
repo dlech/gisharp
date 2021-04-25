@@ -1,0 +1,12 @@
+<declaration>
+
+<member name='UnmanagedStruct.Parent'>
+</member>
+
+<member name='InitiallyUnownedClass'>
+<summary>
+The class structure for the GInitiallyUnowned type.
+</summary>
+</member>
+
+</declaration>
