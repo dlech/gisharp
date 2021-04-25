@@ -102,7 +102,7 @@ namespace GISharp.Test.GIRepository
             // so let's just test that it fails.
             static void require() =>
                 Repository.Default.Require("DoesNotExist", "9.9");
-            var exception = Assert.Throws<Error.Exception>(require);
+            var exception = Assert.Throws<Error.Exception>(require)!;
             Assert.True(exception.Matches(RepositoryError.TypelibNotFound));
         }
 
@@ -111,7 +111,7 @@ namespace GISharp.Test.GIRepository
         {
             static void require() =>
                 Repository.Default.RequirePrivate("NonExistentDir", "DoesNotExist", "9.9");
-            var exception = Assert.Throws<Error.Exception>(require);
+            var exception = Assert.Throws<Error.Exception>(require)!;
             Assert.True(exception.Matches(RepositoryError.TypelibNotFound));
         }
 
@@ -160,7 +160,7 @@ namespace GISharp.Test.GIRepository
         public void TestDump()
         {
             static void dump() => Repository.Dump("NonExistentFile");
-            var exception = Assert.Throws<Error.Exception>(dump);
+            var exception = Assert.Throws<Error.Exception>(dump)!;
             Assert.That(exception.Error.Domain, Is.EqualTo(g_io_error_quark()));
             Assert.That(exception.Error.Code, Is.EqualTo(G_IO_ERROR_NOT_FOUND));
         }

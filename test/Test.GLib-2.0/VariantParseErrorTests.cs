@@ -24,7 +24,7 @@ namespace GISharp.Test.GLib
             using var err = new Error(TestError.Failed, "test");
             Assert.That(() => VariantParseErrorDomain.PrintContext(err, badSourceStr), Throws.ArgumentException);
 
-            var exception = Assert.Throws<Error.Exception>(() => Variant.Parse(null, badSourceStr));
+            var exception = Assert.Throws<Error.Exception>(() => Variant.Parse(null, badSourceStr))!;
             Assert.That(exception.Matches(VariantParseError.UnterminatedStringConstant));
             Assert.That(VariantParseErrorDomain.PrintContext(exception.Error, badSourceStr), Is.Not.Null);
         }
