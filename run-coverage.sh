@@ -19,6 +19,6 @@ lcov -o lcov.info \
     -a Test.Runtime.info -t Runtime \
 
 if [ "$TRAVIS" != "true" ]; then
-    genhtml lcov.info
+    genhtml lcov.info --prefix "$(dirname "$(pwd)")/src"
     echo "Browse coverage at $(pwd)/index.html"
 fi
