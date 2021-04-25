@@ -3,6 +3,7 @@
 
 using GISharp.Lib.GIRepository;
 using GISharp.Lib.GLib;
+using GISharp.Runtime;
 using NUnit.Framework;
 
 namespace GISharp.Test.GIRepository
@@ -69,11 +70,12 @@ namespace GISharp.Test.GIRepository
         [Test]
         public void TestPrependSearchPathAndGetSearchPath()
         {
+            using var dummy = (Filename)"dummy";
             var startPath = Repository.SearchPath;
-            Assert.That(startPath, Is.Not.Member("dummy"));
-            Repository.PrependSearchPath("dummy");
+            Assert.That(startPath, Is.Not.Member(dummy));
+            Repository.PrependSearchPath(dummy);
             var endPath = Repository.SearchPath;
-            Assert.That(endPath, Contains.Item("dummy"));
+            Assert.That(endPath, Contains.Item(dummy));
         }
 
         [Test]

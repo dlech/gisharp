@@ -166,7 +166,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="LogWriter.xmldoc" path="declaration/member[@name='LogWriter.FormatFields(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan&lt;GISharp.Lib.GLib.LogField&gt;,bool)']/*" />
         [GISharp.Runtime.SinceAttribute("2.50")]
-        public static GISharp.Lib.GLib.Utf8 FormatFields(GISharp.Lib.GLib.LogLevelFlags logLevel, System.ReadOnlySpan<GISharp.Lib.GLib.LogField> fields, bool useColor)
+        public static GISharp.Runtime.Utf8 FormatFields(GISharp.Lib.GLib.LogLevelFlags logLevel, System.ReadOnlySpan<GISharp.Lib.GLib.LogField> fields, bool useColor)
         {
             fixed (GISharp.Lib.GLib.LogField* fieldsData_ = fields)
             {
@@ -177,7 +177,7 @@ namespace GISharp.Lib.GLib
                 var useColor_ = GISharp.Runtime.BooleanExtensions.ToBoolean(useColor);
                 var ret_ = g_log_writer_format_fields(logLevel_,fields_,nFields_,useColor_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
                 return ret;
             }
         }

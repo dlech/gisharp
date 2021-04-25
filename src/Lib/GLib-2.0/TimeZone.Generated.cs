@@ -27,7 +27,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.Identifier']/*" />
         [GISharp.Runtime.SinceAttribute("2.58")]
-        public GISharp.Lib.GLib.UnownedUtf8 Identifier { get => GetIdentifier(); }
+        public GISharp.Runtime.UnownedUtf8 Identifier { get => GetIdentifier(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -67,12 +67,12 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* identifier);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.NullableUnownedUtf8 identifier);
+        static partial void CheckNewArgs(GISharp.Runtime.NullableUnownedUtf8 identifier);
 
         [System.ObsoleteAttribute("Use g_time_zone_new_identifier() instead, as it provides\n    error reporting. Change your code to handle a potentially %NULL return\n    value.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.68")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        static GISharp.Lib.GLib.TimeZone.UnmanagedStruct* New(GISharp.Lib.GLib.NullableUnownedUtf8 identifier)
+        static GISharp.Lib.GLib.TimeZone.UnmanagedStruct* New(GISharp.Runtime.NullableUnownedUtf8 identifier)
         {
             CheckNewArgs(identifier);
             var identifier_ = (byte*)identifier.UnsafeHandle;
@@ -81,11 +81,11 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.TimeZone(GISharp.Runtime.NullableUnownedUtf8)']/*" />
         [System.ObsoleteAttribute("Use g_time_zone_new_identifier() instead, as it provides\n    error reporting. Change your code to handle a potentially %NULL return\n    value.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.68")]
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8 identifier) : this((System.IntPtr)New(identifier), GISharp.Runtime.Transfer.Full)
+        public TimeZone(GISharp.Runtime.NullableUnownedUtf8 identifier) : this((System.IntPtr)New(identifier), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -373,14 +373,14 @@ namespace GISharp.Lib.GLib
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.GetAbbreviation(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.UnownedUtf8 GetAbbreviation(int interval)
+        public GISharp.Runtime.UnownedUtf8 GetAbbreviation(int interval)
         {
             CheckGetAbbreviationArgs(interval);
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;
             var interval_ = (int)interval;
             var ret_ = g_time_zone_get_abbreviation(tz_,interval_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -414,13 +414,13 @@ namespace GISharp.Lib.GLib
         partial void CheckGetIdentifierArgs();
 
         [GISharp.Runtime.SinceAttribute("2.58")]
-        private GISharp.Lib.GLib.UnownedUtf8 GetIdentifier()
+        private GISharp.Runtime.UnownedUtf8 GetIdentifier()
         {
             CheckGetIdentifierArgs();
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_time_zone_get_identifier(tz_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 

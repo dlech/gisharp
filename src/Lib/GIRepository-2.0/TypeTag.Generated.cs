@@ -76,13 +76,13 @@ namespace GISharp.Lib.GIRepository
         static partial void CheckToStringArgs(this GISharp.Lib.GIRepository.TypeTag type);
 
         /// <include file="TypeTag.xmldoc" path="declaration/member[@name='TypeTagExtensions.ToString(GISharp.Lib.GIRepository.TypeTag)']/*" />
-        public static GISharp.Lib.GLib.UnownedUtf8 ToString(this GISharp.Lib.GIRepository.TypeTag type)
+        public static GISharp.Runtime.UnownedUtf8 ToString(this GISharp.Lib.GIRepository.TypeTag type)
         {
             CheckToStringArgs(type);
             var type_ = (GISharp.Lib.GIRepository.TypeTag)type;
             var ret_ = g_type_tag_to_string(type_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
     }

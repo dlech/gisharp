@@ -12,7 +12,7 @@ microseconds
 </summary>
 </member>
 
-<member name='TimeVal.TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeVal)'>
+<member name='TimeVal.TryFromIso8601(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.TimeVal)'>
 <summary>
 Converts a string containing an ISO 8601 encoded date and time
 to a <see cref="TimeVal"/> and puts it into <paramref name="time"/>.
@@ -82,7 +82,7 @@ the W3C Note
 Both of these documents are profiles of ISO 8601.
 </para>
 <para>
-Use <see cref="DateTime.Format(GISharp.Lib.GLib.UnownedUtf8)"/> or g_strdup_printf() if a different
+Use <see cref="DateTime.Format(GISharp.Runtime.UnownedUtf8)"/> or g_strdup_printf() if a different
 variation of ISO 8601 format is required.
 </para>
 <para>

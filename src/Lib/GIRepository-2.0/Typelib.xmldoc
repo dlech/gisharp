@@ -3,7 +3,7 @@
 <member name='Typelib.Namespace'>
 </member>
 
-<member name='Typelib.TrySymbol(GISharp.Lib.GLib.UnownedUtf8,System.IntPtr)'>
+<member name='Typelib.TrySymbol(GISharp.Runtime.UnownedUtf8,System.IntPtr)'>
 </member>
 
 <member name='Typelib'>

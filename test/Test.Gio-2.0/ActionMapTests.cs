@@ -4,13 +4,11 @@
 using System;
 using System.Linq;
 using GISharp.Lib.Gio;
-using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
-
-using Object = GISharp.Lib.GObject.Object;
 using ActionSet = System.Collections.Generic.HashSet<GISharp.Lib.Gio.IAction>;
+using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.Gio
 {

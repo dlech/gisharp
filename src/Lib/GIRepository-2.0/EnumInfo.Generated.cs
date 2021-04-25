@@ -15,7 +15,7 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="EnumInfo.xmldoc" path="declaration/member[@name='EnumInfo.ErrorDomain']/*" />
         [GISharp.Runtime.SinceAttribute("1.30")]
-        public GISharp.Lib.GLib.UnownedUtf8 ErrorDomain { get => GetErrorDomain(); }
+        public GISharp.Runtime.UnownedUtf8 ErrorDomain { get => GetErrorDomain(); }
 
         /// <include file="EnumInfo.xmldoc" path="declaration/member[@name='EnumInfo.NMethods']/*" />
         [GISharp.Runtime.SinceAttribute("1.30")]
@@ -57,13 +57,13 @@ namespace GISharp.Lib.GIRepository
         partial void CheckGetErrorDomainArgs();
 
         [GISharp.Runtime.SinceAttribute("1.30")]
-        private GISharp.Lib.GLib.UnownedUtf8 GetErrorDomain()
+        private GISharp.Runtime.UnownedUtf8 GetErrorDomain()
         {
             CheckGetErrorDomainArgs();
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_enum_info_get_error_domain(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 

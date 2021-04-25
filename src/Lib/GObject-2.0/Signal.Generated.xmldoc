@@ -7,7 +7,7 @@ of that signal, independent of the instance. This is possible only
 for signals which don't have #G_SIGNAL_NO_HOOKS flag set.
 </summary>
 <param name="signalId">
-the signal identifier, as returned by <see cref="Signal.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType)"/>.
+the signal identifier, as returned by <see cref="Signal.Lookup(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType)"/>.
 </param>
 <param name="detail">
 the detail on which to call the hook.
@@ -37,7 +37,7 @@ Location for the return value.
 </param>
 </member>
 
-<member name='Signal.Connect(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)'>
+<member name='Signal.Connect(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)'>
 <summary>
 Connects a closure to a signal for a particular object.
 </summary>
@@ -251,7 +251,7 @@ whether blocked handlers should count as match.
 </returns>
 </member>
 
-<member name='Signal.IsValidName(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Signal.IsValidName(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Validate a signal name. This can be useful for dynamically-generated signals
 which need to be validated at run-time before actually trying to create them.
@@ -285,7 +285,7 @@ Newly allocated array of signal IDs.
 </returns>
 </member>
 
-<member name='Signal.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType)'>
+<member name='Signal.Lookup(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType)'>
 <summary>
 Given the name of the signal and the type of object it connects to, gets
 the signal's identifying integer. Emitting the signal by number is
@@ -357,7 +357,7 @@ the closure.
 </param>
 </member>
 
-<member name='Signal.TryParseName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GLib.Quark,bool)'>
+<member name='Signal.TryParseName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GLib.Quark,bool)'>
 <summary>
 Internal function to parse a signal name into its <c>signalId</c>
 and <c>detail</c> quark.
@@ -431,14 +431,14 @@ Prints a warning if used on a signal which isn't being emitted.
 the object whose signal handlers you wish to stop.
 </param>
 <param name="signalId">
-the signal identifier, as returned by <see cref="Signal.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType)"/>.
+the signal identifier, as returned by <see cref="Signal.Lookup(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType)"/>.
 </param>
 <param name="detail">
 the detail which the signal was emitted with.
 </param>
 </member>
 
-<member name='Signal.StopEmission(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Signal.StopEmission(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Stops a signal's current emission.
 </summary>

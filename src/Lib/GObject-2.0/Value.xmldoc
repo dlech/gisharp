@@ -258,7 +258,7 @@ the instance
 </param>
 </member>
 
-<member name='Value.SetInternedString(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Value.SetInternedString(GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Set the contents of a %G_TYPE_STRING <see cref="Value"/> to <paramref name="vString"/>.  The string is
 assumed to be static and interned (canonical, for example from
@@ -269,7 +269,7 @@ static string to be set
 </param>
 </member>
 
-<member name='Value.SetStaticString(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Value.SetStaticString(GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Set the contents of a %G_TYPE_STRING <see cref="Value"/> to <paramref name="vString"/>.
 The string is assumed to be static, and is thus not duplicated
@@ -277,7 +277,7 @@ when setting the <see cref="Value"/>.
 </summary>
 <remarks>
 <para>
-If the the string is a canonical string, using <see cref="Value.SetInternedString(GISharp.Lib.GLib.NullableUnownedUtf8)"/>
+If the the string is a canonical string, using <see cref="Value.SetInternedString(GISharp.Runtime.NullableUnownedUtf8)"/>
 is more appropriate.
 </para>
 </remarks>

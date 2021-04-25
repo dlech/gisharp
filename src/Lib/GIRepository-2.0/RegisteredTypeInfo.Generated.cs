@@ -17,10 +17,10 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Runtime.GType GType { get => GetGType(); }
 
         /// <include file="RegisteredTypeInfo.xmldoc" path="declaration/member[@name='RegisteredTypeInfo.TypeInit']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 TypeInit { get => GetTypeInit(); }
+        public GISharp.Runtime.UnownedUtf8 TypeInit { get => GetTypeInit(); }
 
         /// <include file="RegisteredTypeInfo.xmldoc" path="declaration/member[@name='RegisteredTypeInfo.TypeName']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 TypeName { get => GetTypeName(); }
+        public GISharp.Runtime.UnownedUtf8 TypeName { get => GetTypeName(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -83,13 +83,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct* info);
         partial void CheckGetTypeInitArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetTypeInit()
+        private GISharp.Runtime.UnownedUtf8 GetTypeInit()
         {
             CheckGetTypeInitArgs();
             var info_ = (GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_registered_type_info_get_type_init(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -112,13 +112,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct* info);
         partial void CheckGetTypeNameArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetTypeName()
+        private GISharp.Runtime.UnownedUtf8 GetTypeName()
         {
             CheckGetTypeNameArgs();
             var info_ = (GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_registered_type_info_get_type_name(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
     }

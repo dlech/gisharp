@@ -67,9 +67,9 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamFlags" type="GParamFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamFlags flags);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Lib.GObject.ParamFlags flags);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Lib.GObject.ParamFlags flags);
 
-        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Lib.GObject.ParamFlags flags)
+        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Lib.GObject.ParamFlags flags)
         {
             CheckNewArgs(name, nick, blurb, flags);
             var name_ = (byte*)name.UnsafeHandle;
@@ -81,8 +81,8 @@ namespace GISharp.Lib.GObject
             return ret_;
         }
 
-        /// <include file="ParamSpecPointer.xmldoc" path="declaration/member[@name='ParamSpecPointer.ParamSpecPointer(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.ParamFlags)']/*" />
-        public ParamSpecPointer(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, flags), GISharp.Runtime.Transfer.None)
+        /// <include file="ParamSpecPointer.xmldoc" path="declaration/member[@name='ParamSpecPointer.ParamSpecPointer(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.ParamFlags)']/*" />
+        public ParamSpecPointer(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, flags), GISharp.Runtime.Transfer.None)
         {
         }
     }

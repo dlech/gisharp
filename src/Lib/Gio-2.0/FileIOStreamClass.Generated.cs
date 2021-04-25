@@ -349,7 +349,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='_QueryInfo']/*" />
-        public delegate GISharp.Lib.Gio.FileInfo _QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate GISharp.Lib.Gio.FileInfo _QueryInfo(GISharp.Runtime.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -387,7 +387,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                     try
                     {
                         var stream = GISharp.Lib.Gio.FileIOStream.GetInstance<GISharp.Lib.Gio.FileIOStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_);
+                        var attributes = new GISharp.Runtime.UnownedUtf8(attributes_);
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryInfo = (_QueryInfo)methodInfo.CreateDelegate(typeof(_QueryInfo), stream);
                         var ret = doQueryInfo(attributes, cancellable);
@@ -411,7 +411,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='_QueryInfoAsync']/*" />
-        public delegate void _QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void _QueryInfoAsync(GISharp.Runtime.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -455,7 +455,7 @@ System.IntPtr userData);
                     try
                     {
                         var stream = GISharp.Lib.Gio.FileIOStream.GetInstance<GISharp.Lib.Gio.FileIOStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_);
+                        var attributes = new GISharp.Runtime.UnownedUtf8(attributes_);
                         var ioPriority = (int)ioPriority_;
                         var callback = callback_ is null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
@@ -531,7 +531,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='_GetEtag']/*" />
-        public delegate GISharp.Lib.GLib.Utf8? _GetEtag();
+        public delegate GISharp.Runtime.Utf8? _GetEtag();
 
         /// <summary>
         /// Unmanaged callback

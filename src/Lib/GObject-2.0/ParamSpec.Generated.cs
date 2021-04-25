@@ -56,21 +56,21 @@ namespace GISharp.Lib.GObject
         private const int userShift = 8;
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.Blurb']/*" />
-        public GISharp.Lib.GLib.NullableUnownedUtf8 Blurb { get => GetBlurb(); }
+        public GISharp.Runtime.NullableUnownedUtf8 Blurb { get => GetBlurb(); }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DefaultValue']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public ref readonly GISharp.Lib.GObject.Value DefaultValue { get => ref GetDefaultValue(); }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.Name']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 Name { get => GetName(); }
+        public GISharp.Runtime.UnownedUtf8 Name { get => GetName(); }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.NameQuark']/*" />
         [GISharp.Runtime.SinceAttribute("2.46")]
         public GISharp.Lib.GLib.Quark NameQuark { get => GetNameQuark(); }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.Nick']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 Nick { get => GetNick(); }
+        public GISharp.Runtime.UnownedUtf8 Nick { get => GetNick(); }
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.RedirectTarget']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
@@ -101,11 +101,11 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        static partial void CheckIsValidNameArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        static partial void CheckIsValidNameArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.IsValidName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.IsValidName(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.66")]
-        public static bool IsValidName(GISharp.Lib.GLib.UnownedUtf8 name)
+        public static bool IsValidName(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckIsValidNameArgs(name);
             var name_ = (byte*)name.UnsafeHandle;
@@ -133,13 +133,13 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         partial void CheckGetBlurbArgs();
 
-        private GISharp.Lib.GLib.NullableUnownedUtf8 GetBlurb()
+        private GISharp.Runtime.NullableUnownedUtf8 GetBlurb()
         {
             CheckGetBlurbArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_blurb(pspec_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -202,13 +202,13 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         partial void CheckGetNameArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetName()
+        private GISharp.Runtime.UnownedUtf8 GetName()
         {
             CheckGetNameArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_name(pspec_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -260,13 +260,13 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
         partial void CheckGetNickArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetNick()
+        private GISharp.Runtime.UnownedUtf8 GetNick()
         {
             CheckGetNickArgs();
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_param_spec_get_nick(pspec_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 

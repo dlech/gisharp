@@ -25,7 +25,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.Etag']/*" />
-        public GISharp.Lib.GLib.Utf8? Etag { get => GetEtag(); }
+        public GISharp.Runtime.Utf8? Etag { get => GetEtag(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -60,13 +60,13 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* stream);
         partial void CheckGetEtagArgs();
 
-        private GISharp.Lib.GLib.Utf8? GetEtag()
+        private GISharp.Runtime.Utf8? GetEtag()
         {
             CheckGetEtagArgs();
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_output_stream_get_etag(stream_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -124,10 +124,10 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        partial void CheckQueryInfoArgs(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        partial void CheckQueryInfoArgs(GISharp.Runtime.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.QueryInfo(GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
+        public GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Runtime.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckQueryInfoArgs(attributes, cancellable);
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -199,10 +199,10 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        partial void CheckQueryInfoAsyncArgs(GISharp.Lib.GLib.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        partial void CheckQueryInfoAsyncArgs(GISharp.Runtime.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.QueryInfoAsync(GISharp.Runtime.UnownedUtf8,int,GISharp.Lib.Gio.Cancellable?)']/*" />
+        public System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(GISharp.Runtime.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckQueryInfoAsyncArgs(attributes, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -297,18 +297,18 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoGetEtag()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedGetEtag))]
-        protected virtual GISharp.Lib.GLib.Utf8? DoGetEtag()
+        protected virtual GISharp.Runtime.Utf8? DoGetEtag()
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedGetEtag>(_GType)!(stream_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoQueryInfo(GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedQueryInfo))]
-        protected virtual GISharp.Lib.Gio.FileInfo DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual GISharp.Lib.Gio.FileInfo DoQueryInfo(GISharp.Runtime.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
             var attributes_ = (byte*)attributes.UnsafeHandle;
@@ -326,9 +326,9 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoQueryInfoAsync(GISharp.Runtime.UnownedUtf8,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedQueryInfoAsync))]
-        protected virtual void DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoQueryInfoAsync(GISharp.Runtime.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
             var attributes_ = (byte*)attributes.UnsafeHandle;

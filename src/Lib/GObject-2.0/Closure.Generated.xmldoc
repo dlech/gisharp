@@ -82,7 +82,7 @@ signal. GObject provides a number of C marshallers for this
 purpose, see the g_cclosure_marshal_*() functions. Additional C
 marshallers can be generated with the [glib-genmarshal][glib-genmarshal]
 utility.  Closures can be explicitly connected to signals with
-<see cref="Signal.Connect(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)"/>, but it usually more convenient to let
+<see cref="Signal.Connect(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)"/>, but it usually more convenient to let
 GObject create a closure automatically by using one of the
 g_signal_connect_*() functions which take a callback function/user
 data pair.

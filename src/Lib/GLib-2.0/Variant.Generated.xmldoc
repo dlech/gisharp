@@ -446,7 +446,7 @@ a #guint8 value
 <member name='Variant.Variant(GISharp.Runtime.ByteString)'>
 <summary>
 Creates an array-of-bytes <see cref="Variant"/> with the contents of <paramref name="string"/>.
-This function is just like <see cref="Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)"/> except that the
+This function is just like <see cref="Variant.Variant(GISharp.Runtime.UnownedUtf8)"/> except that the
 string need not be valid UTF-8.
 </summary>
 <remarks>
@@ -638,7 +638,7 @@ the child value, or <c>null</c>
 <summary>
 Creates a D-Bus object path <see cref="Variant"/> with the contents of <c><c>@string</c></c>.
 <c><c>@string</c></c> must be a valid D-Bus object path.  Use
-<see cref="Variant.IsObjectPath(GISharp.Lib.GLib.UnownedUtf8)"/> if you're not sure.
+<see cref="Variant.IsObjectPath(GISharp.Runtime.UnownedUtf8)"/> if you're not sure.
 </summary>
 <param name="objectPath">
 a normal C nul-terminated string
@@ -653,7 +653,7 @@ strings.
 <remarks>
 <para>
 Each string must be a valid <see cref="Variant"/> object path; see
-<see cref="Variant.IsObjectPath(GISharp.Lib.GLib.UnownedUtf8)"/>.
+<see cref="Variant.IsObjectPath(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 <para>
 If the length of <paramref name="strv"/> is -1 then <paramref name="strv"/> is <c>null</c>-terminated.
@@ -668,14 +668,14 @@ an array of strings
 <summary>
 Creates a D-Bus type signature <see cref="Variant"/> with the contents of
 <c><c>@string</c></c>.  <c><c>@string</c></c> must be a valid D-Bus type signature.  Use
-<see cref="Variant.IsSignature(GISharp.Lib.GLib.UnownedUtf8)"/> if you're not sure.
+<see cref="Variant.IsSignature(GISharp.Runtime.UnownedUtf8)"/> if you're not sure.
 </summary>
 <param name="signature">
 a normal C nul-terminated string
 </param>
 </member>
 
-<member name='Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Variant.Variant(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Creates a string <see cref="Variant"/> with the contents of <paramref name="string"/>.
 </summary>
@@ -691,7 +691,7 @@ a normal UTF-8 nul-terminated string
 </param>
 </member>
 
-<member name='Variant.Variant(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='Variant.Variant(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Runtime.Utf8&gt;)'>
 <summary>
 Constructs an array of strings <see cref="Variant"/> from the given array of
 strings.
@@ -810,7 +810,7 @@ negative value if a &lt; b;
 </returns>
 </member>
 
-<member name='Variant.IsObjectPath(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Variant.IsObjectPath(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Determines if a given string is a valid D-Bus object path.  You
 should ensure that a string is a valid D-Bus object path before
@@ -832,7 +832,7 @@ a normal C nul-terminated string
 </returns>
 </member>
 
-<member name='Variant.IsSignature(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Variant.IsSignature(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Determines if a given string is a valid D-Bus type signature.  You
 should ensure that a string is a valid D-Bus type signature before
@@ -852,7 +852,7 @@ a normal C nul-terminated string
 </returns>
 </member>
 
-<member name='Variant.Parse(GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Variant.Parse(GISharp.Lib.GLib.VariantType?,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Parses a <see cref="Variant"/> from a text representation.
 </summary>
@@ -950,7 +950,7 @@ the byteswapped form of this instance
 </returns>
 </member>
 
-<member name='Variant.CheckFormatString(GISharp.Lib.GLib.UnownedUtf8,bool)'>
+<member name='Variant.CheckFormatString(GISharp.Runtime.UnownedUtf8,bool)'>
 <summary>
 Checks if calling g_variant_get() with <paramref name="formatString"/> on this instance would
 be valid from a type-compatibility standpoint.  <paramref name="formatString"/> is
@@ -1042,7 +1042,7 @@ a <see cref="VariantType"/>
 </returns>
 </member>
 
-<member name='Variant.LookupValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)'>
+<member name='Variant.LookupValue(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType?)'>
 <summary>
 Looks up a value in a dictionary <see cref="Variant"/>.
 </summary>
@@ -1086,7 +1086,7 @@ the value of the dictionary key, or <c>null</c>
 
 <member name='Variant.Print(bool)'>
 <summary>
-Pretty-prints this instance in the format understood by <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
+Pretty-prints this instance in the format understood by <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)"/>.
 </summary>
 <remarks>
 <para>

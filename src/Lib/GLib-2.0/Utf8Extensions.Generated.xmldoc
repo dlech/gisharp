@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='Utf8Extensions.Substring(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.CLong,GISharp.Runtime.CLong)'>
+<member name='Utf8Extensions.Substring(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.CLong,GISharp.Runtime.CLong)'>
 <summary>
 Copies a substring out of a UTF-8 encoded string.
 The substring will contain <paramref name="endPos"/> - <paramref name="startPos"/> characters.

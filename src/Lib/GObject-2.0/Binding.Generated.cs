@@ -30,7 +30,7 @@ namespace GISharp.Lib.GObject
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.SourceProperty_']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         [GISharp.Runtime.GPropertyAttribute("source-property", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Utf8? SourceProperty_ { get => (GISharp.Lib.GLib.Utf8?)GetProperty("source-property")!; set => SetProperty("source-property", value); }
+        public GISharp.Runtime.Utf8? SourceProperty_ { get => (GISharp.Runtime.Utf8?)GetProperty("source-property")!; set => SetProperty("source-property", value); }
 
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.Target_']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -40,7 +40,7 @@ namespace GISharp.Lib.GObject
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.TargetProperty_']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         [GISharp.Runtime.GPropertyAttribute("target-property", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Utf8? TargetProperty_ { get => (GISharp.Lib.GLib.Utf8?)GetProperty("target-property")!; set => SetProperty("target-property", value); }
+        public GISharp.Runtime.Utf8? TargetProperty_ { get => (GISharp.Runtime.Utf8?)GetProperty("target-property")!; set => SetProperty("target-property", value); }
 
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.Flags']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -54,7 +54,7 @@ namespace GISharp.Lib.GObject
 
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.SourceProperty']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.UnownedUtf8 SourceProperty { get => GetSourceProperty(); }
+        public GISharp.Runtime.UnownedUtf8 SourceProperty { get => GetSourceProperty(); }
 
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.Target']/*" />
         [System.ObsoleteAttribute("Use g_binding_dup_target() for a safer version of this\nfunction.")]
@@ -64,7 +64,7 @@ namespace GISharp.Lib.GObject
 
         /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.TargetProperty']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.UnownedUtf8 TargetProperty { get => GetTargetProperty(); }
+        public GISharp.Runtime.UnownedUtf8 TargetProperty { get => GetTargetProperty(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -177,13 +177,13 @@ namespace GISharp.Lib.GObject
         partial void CheckGetSourcePropertyArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private GISharp.Lib.GLib.UnownedUtf8 GetSourceProperty()
+        private GISharp.Runtime.UnownedUtf8 GetSourceProperty()
         {
             CheckGetSourcePropertyArgs();
             var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_binding_get_source_property(binding_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -255,13 +255,13 @@ namespace GISharp.Lib.GObject
         partial void CheckGetTargetPropertyArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private GISharp.Lib.GLib.UnownedUtf8 GetTargetProperty()
+        private GISharp.Runtime.UnownedUtf8 GetTargetProperty()
         {
             CheckGetTargetPropertyArgs();
             var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_binding_get_target_property(binding_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 

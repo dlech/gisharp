@@ -36,17 +36,17 @@ an array of <see cref="Parameter"/>
 <member name='NotifySignalHandler'>
 <summary>
 The notify signal is emitted on an object when one of its properties has
-its value set through <see cref="Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,in GISharp.Lib.GObject.Value)"/>, g_object_set(), et al.
+its value set through <see cref="Object.SetProperty(GISharp.Runtime.UnownedUtf8,in GISharp.Lib.GObject.Value)"/>, g_object_set(), et al.
 </summary>
 <remarks>
 <para>
 Note that getting this signal doesn’t itself guarantee that the value of
 the property has actually changed. When it is emitted is determined by the
 derived GObject class. If the implementor did not create the property with
-<see cref="ParamFlags.ExplicitNotify"/>, then any call to <see cref="Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,in GISharp.Lib.GObject.Value)"/> results
+<see cref="ParamFlags.ExplicitNotify"/>, then any call to <see cref="Object.SetProperty(GISharp.Runtime.UnownedUtf8,in GISharp.Lib.GObject.Value)"/> results
 in ::notify being emitted, even if the new value is the same as the old.
 If they did pass <see cref="ParamFlags.ExplicitNotify"/>, then this signal is emitted only
-when they explicitly call <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/> or <see cref="Object.Notify(GISharp.Lib.GObject.ParamSpec)"/>,
+when they explicitly call <see cref="Object.Notify(GISharp.Runtime.UnownedUtf8)"/> or <see cref="Object.Notify(GISharp.Lib.GObject.ParamSpec)"/>,
 and common practice is to do that only when the value has actually changed.
 </para>
 <para>
@@ -78,7 +78,7 @@ the <see cref="ParamSpec"/> of the property which changed.
 <member name='Object.CompatControl(int,System.IntPtr)'>
 </member>
 
-<member name='Object.BindProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)'>
+<member name='Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)'>
 <summary>
 Creates a binding between <paramref name="sourceProperty"/> on this instance and <paramref name="targetProperty"/>
 on <paramref name="target"/>. Whenever the <paramref name="sourceProperty"/> is changed the <paramref name="targetProperty"/> is
@@ -137,7 +137,7 @@ the <see cref="Binding"/> instance representing the
 </returns>
 </member>
 
-<member name='Object.BindProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Closure)'>
+<member name='Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Closure)'>
 <summary>
 Creates a binding between <paramref name="sourceProperty"/> on this instance and <paramref name="targetProperty"/>
 on <paramref name="target"/>, allowing you to set the transformation functions to be used by
@@ -146,7 +146,7 @@ the binding.
 <remarks>
 <para>
 This function is the language bindings friendly version of
-<see cref="Object.BindPropertyFull(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.BindingTransformFunc,GISharp.Lib.GObject.BindingTransformFunc)"/>, using #GClosures instead of
+<see cref="Object.BindPropertyFull(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.BindingTransformFunc,GISharp.Lib.GObject.BindingTransformFunc)"/>, using #GClosures instead of
 function pointers.
 </para>
 </remarks>
@@ -194,7 +194,7 @@ premature notification while the object is still being modified.
 </remarks>
 </member>
 
-<member name='Object.GetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)'>
+<member name='Object.GetProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Value)'>
 <summary>
 Gets a property of an object.
 </summary>
@@ -215,7 +215,7 @@ In general, a copy is made of the property contents and the caller is
 responsible for freeing the memory by calling <see cref="Value.Unset()"/>.
 </para>
 <para>
-Note that <see cref="Object.GetProperty(GISharp.Lib.GLib.UnownedUtf8,ref GISharp.Lib.GObject.Value)"/> is really intended for language
+Note that <see cref="Object.GetProperty(GISharp.Runtime.UnownedUtf8,ref GISharp.Lib.GObject.Value)"/> is really intended for language
 bindings, g_object_get() is much more convenient for C programming.
 </para>
 </remarks>
@@ -227,7 +227,7 @@ return location for the property value
 </param>
 </member>
 
-<member name='Object.GetProperties(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;)'>
+<member name='Object.GetProperties(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Runtime.Utf8&gt;,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;)'>
 <summary>
 Gets the length of <paramref name="names"/> properties for an this instance.
 Obtained properties will be set to <paramref name="values"/>. All properties must be valid.
@@ -242,7 +242,7 @@ the values of each property to get
 </param>
 </member>
 
-<member name='Object.Notify(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Object.Notify(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Emits a "notify" signal for the property <paramref name="propertyName"/> on this instance.
 </summary>
@@ -271,10 +271,10 @@ Emits a "notify" signal for the property specified by <paramref name="pspec"/> o
 <remarks>
 <para>
 This function omits the property name lookup, hence it is faster than
-<see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/>.
+<see cref="Object.Notify(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 <para>
-One way to avoid using <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/> from within the
+One way to avoid using <see cref="Object.Notify(GISharp.Runtime.UnownedUtf8)"/> from within the
 class that registered the properties, and using <see cref="Object.Notify(GISharp.Lib.GObject.ParamSpec)"/>
 instead, is to store the GParamSpec used with
 <see cref="ObjectClass.InstallProperty(uint,GISharp.Lib.GObject.ParamSpec)"/> inside a static array, e.g.:
@@ -331,7 +331,7 @@ This function should only be called from object system implementations.
 </remarks>
 </member>
 
-<member name='Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)'>
+<member name='Object.SetProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Value)'>
 <summary>
 Sets a property on an object.
 </summary>

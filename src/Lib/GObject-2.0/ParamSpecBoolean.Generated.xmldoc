@@ -12,11 +12,11 @@ default value for the property specified
 </summary>
 </member>
 
-<member name='ParamSpecBoolean.ParamSpecBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,bool,GISharp.Lib.GObject.ParamFlags)'>
+<member name='ParamSpecBoolean.ParamSpecBoolean(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,bool,GISharp.Lib.GObject.ParamFlags)'>
 <summary>
 Creates a new <see cref="ParamSpecBoolean"/> instance specifying a %G_TYPE_BOOLEAN
 property. In many cases, it may be more appropriate to use an enum with
-<see cref="ParamSpecEnum.ParamSpecEnum(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,int,GISharp.Lib.GObject.ParamFlags)"/>, both to improve code clarity by using explicitly named
+<see cref="ParamSpecEnum.ParamSpecEnum(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,int,GISharp.Lib.GObject.ParamFlags)"/>, both to improve code clarity by using explicitly named
 values, and to allow for more values to be added in future without breaking
 API.
 </summary>

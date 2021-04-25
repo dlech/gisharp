@@ -20,7 +20,7 @@ namespace GISharp.Lib.GLib
     System.IntPtr data);
 
     /// <include file="TranslateFunc.xmldoc" path="declaration/member[@name='TranslateFunc']/*" />
-    public delegate GISharp.Lib.GLib.UnownedUtf8 TranslateFunc(GISharp.Lib.GLib.UnownedUtf8 str);
+    public delegate GISharp.Runtime.UnownedUtf8 TranslateFunc(GISharp.Runtime.UnownedUtf8 str);
 
     /// <summary>
     /// Class for marshalling <see cref="TranslateFunc"/> methods.
@@ -33,12 +33,12 @@ namespace GISharp.Lib.GLib
         public static GISharp.Lib.GLib.TranslateFunc FromPointer(delegate* unmanaged[Cdecl]<byte*, System.IntPtr, byte*> callback_, System.IntPtr userData_)
         {
             var data_ = userData_;
-            GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str)
+            GISharp.Runtime.UnownedUtf8 managedCallback(GISharp.Runtime.UnownedUtf8 str)
             {
                 var str_ = (byte*)str.UnsafeHandle;
                 var ret_ = callback_(str_,data_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+                var ret = new GISharp.Runtime.UnownedUtf8(ret_);
                 return ret;
             }
 
@@ -53,7 +53,7 @@ namespace GISharp.Lib.GLib
         {
             try
             {
-                var str = new GISharp.Lib.GLib.UnownedUtf8(str_);
+                var str = new GISharp.Runtime.UnownedUtf8(str_);
                 var dataHandle = (System.Runtime.InteropServices.GCHandle)data_;
                 var (data, dataScope) = ((TranslateFunc, GISharp.Runtime.CallbackScope))dataHandle.Target!;
                 var ret = data.Invoke(str);

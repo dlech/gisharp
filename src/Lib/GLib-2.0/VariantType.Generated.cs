@@ -92,10 +92,10 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* typeString);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 typeString);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 typeString);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
-        static GISharp.Lib.GLib.VariantType.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 typeString)
+        static GISharp.Lib.GLib.VariantType.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 typeString)
         {
             CheckNewArgs(typeString);
             var typeString_ = (byte*)typeString.UnsafeHandle;
@@ -104,9 +104,9 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.VariantType(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.VariantType(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public VariantType(GISharp.Lib.GLib.UnownedUtf8 typeString) : this((System.IntPtr)New(typeString), GISharp.Runtime.Transfer.Full)
+        public VariantType(GISharp.Runtime.UnownedUtf8 typeString) : this((System.IntPtr)New(typeString), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -287,10 +287,10 @@ namespace GISharp.Lib.GLib
 /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 byte* arg0);
-        static partial void CheckCheckedArgs(GISharp.Lib.GLib.UnownedUtf8 arg0);
+        static partial void CheckCheckedArgs(GISharp.Runtime.UnownedUtf8 arg0);
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Checked(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static GISharp.Lib.GLib.VariantType Checked(GISharp.Lib.GLib.UnownedUtf8 arg0)
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Checked(GISharp.Runtime.UnownedUtf8)']/*" />
+        public static GISharp.Lib.GLib.VariantType Checked(GISharp.Runtime.UnownedUtf8 arg0)
         {
             CheckCheckedArgs(arg0);
             var arg0_ = (byte*)arg0.UnsafeHandle;
@@ -307,10 +307,10 @@ byte* arg0);
 /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 byte* typeString);
-        static partial void CheckStringGetDepthArgs(GISharp.Lib.GLib.UnownedUtf8 typeString);
+        static partial void CheckStringGetDepthArgs(GISharp.Runtime.UnownedUtf8 typeString);
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.StringGetDepth(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static int StringGetDepth(GISharp.Lib.GLib.UnownedUtf8 typeString)
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.StringGetDepth(GISharp.Runtime.UnownedUtf8)']/*" />
+        public static int StringGetDepth(GISharp.Runtime.UnownedUtf8 typeString)
         {
             CheckStringGetDepthArgs(typeString);
             var typeString_ = (byte*)typeString.UnsafeHandle;
@@ -340,10 +340,10 @@ byte* typeString);
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* typeString);
-        static partial void CheckStringIsValidArgs(GISharp.Lib.GLib.UnownedUtf8 typeString);
+        static partial void CheckStringIsValidArgs(GISharp.Runtime.UnownedUtf8 typeString);
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.StringIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static bool StringIsValid(GISharp.Lib.GLib.UnownedUtf8 typeString)
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.StringIsValid(GISharp.Runtime.UnownedUtf8)']/*" />
+        public static bool StringIsValid(GISharp.Runtime.UnownedUtf8 typeString)
         {
             CheckStringIsValidArgs(typeString);
             var typeString_ = (byte*)typeString.UnsafeHandle;
@@ -399,11 +399,11 @@ byte* typeString);
         /* <type name="utf8" type="const gchar**" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         byte** endptr);
-        static partial void CheckTryStringScanArgs(GISharp.Lib.GLib.UnownedUtf8 @string, GISharp.Lib.GLib.NullableUnownedUtf8 limit);
+        static partial void CheckTryStringScanArgs(GISharp.Runtime.UnownedUtf8 @string, GISharp.Runtime.NullableUnownedUtf8 limit);
 
-        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.TryStringScan(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.Utf8)']/*" />
+        /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.TryStringScan(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.Utf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public static bool TryStringScan(GISharp.Lib.GLib.UnownedUtf8 @string, GISharp.Lib.GLib.NullableUnownedUtf8 limit, out GISharp.Lib.GLib.Utf8 endptr)
+        public static bool TryStringScan(GISharp.Runtime.UnownedUtf8 @string, GISharp.Runtime.NullableUnownedUtf8 limit, out GISharp.Runtime.Utf8 endptr)
         {
             CheckTryStringScanArgs(@string, limit);
             var @string_ = (byte*)@string.UnsafeHandle;
@@ -411,7 +411,7 @@ byte* typeString);
             byte* endptr_;
             var ret_ = g_variant_type_string_scan(@string_,limit_,&endptr_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            endptr = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)endptr_, GISharp.Runtime.Transfer.Full)!;
+            endptr = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)endptr_, GISharp.Runtime.Transfer.Full)!;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -464,13 +464,13 @@ byte* typeString);
         partial void CheckDupStringArgs();
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.DupString()']/*" />
-        public GISharp.Lib.GLib.Utf8 DupString()
+        public GISharp.Runtime.Utf8 DupString()
         {
             CheckDupStringArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_dup_string(type_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

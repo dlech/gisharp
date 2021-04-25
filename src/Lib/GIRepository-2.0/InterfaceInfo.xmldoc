@@ -44,7 +44,7 @@ Obtain the number of virtual functions that this interface type has.
 </summary>
 </member>
 
-<member name='InterfaceInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='InterfaceInfo.FindMethod(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Obtain a method of the interface type given a <paramref name="name"/>. <c>null</c> will be
 returned if there's no method available with that name.
@@ -57,7 +57,7 @@ the <see cref="FunctionInfo"/> or <c>null</c> if none found.
 </returns>
 </member>
 
-<member name='InterfaceInfo.FindSignal(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='InterfaceInfo.FindSignal(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 TODO
 </summary>
@@ -70,10 +70,10 @@ Info for the signal with name <paramref name="name"/> in this instance, or
 </returns>
 </member>
 
-<member name='InterfaceInfo.FindVFunc(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='InterfaceInfo.FindVFunc(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Locate a virtual function slot with name <paramref name="name"/>. See the documentation
-for <see cref="ObjectInfo.FindVFunc(GISharp.Lib.GLib.UnownedUtf8)"/> for more information on virtuals.
+for <see cref="ObjectInfo.FindVFunc(GISharp.Runtime.UnownedUtf8)"/> for more information on virtuals.
 </summary>
 <param name="name">
 The name of a virtual function to find.

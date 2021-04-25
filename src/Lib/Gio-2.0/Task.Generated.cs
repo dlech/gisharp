@@ -40,7 +40,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
-        public GISharp.Lib.GLib.NullableUnownedUtf8 Name { get => GetName(); set => SetName(value); }
+        public GISharp.Runtime.NullableUnownedUtf8 Name { get => GetName(); set => SetName(value); }
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Priority']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -409,13 +409,13 @@ namespace GISharp.Lib.Gio
         partial void CheckGetNameArgs();
 
         [GISharp.Runtime.SinceAttribute("2.60")]
-        private GISharp.Lib.GLib.NullableUnownedUtf8 GetName()
+        private GISharp.Runtime.NullableUnownedUtf8 GetName()
         {
             CheckGetNameArgs();
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_name(task_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -1229,10 +1229,10 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* name);
-        partial void CheckSetNameArgs(GISharp.Lib.GLib.NullableUnownedUtf8 name);
+        partial void CheckSetNameArgs(GISharp.Runtime.NullableUnownedUtf8 name);
 
         [GISharp.Runtime.SinceAttribute("2.60")]
-        private void SetName(GISharp.Lib.GLib.NullableUnownedUtf8 name)
+        private void SetName(GISharp.Runtime.NullableUnownedUtf8 name)
         {
             CheckSetNameArgs(name);
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;

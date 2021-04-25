@@ -72,13 +72,13 @@ namespace GISharp.Lib.GIRepository
         static partial void CheckToStringArgs(this GISharp.Lib.GIRepository.InfoType type);
 
         /// <include file="InfoType.xmldoc" path="declaration/member[@name='InfoTypeExtensions.ToString(GISharp.Lib.GIRepository.InfoType)']/*" />
-        public static GISharp.Lib.GLib.UnownedUtf8 ToString(this GISharp.Lib.GIRepository.InfoType type)
+        public static GISharp.Runtime.UnownedUtf8 ToString(this GISharp.Lib.GIRepository.InfoType type)
         {
             CheckToStringArgs(type);
             var type_ = (GISharp.Lib.GIRepository.InfoType)type;
             var ret_ = g_info_type_to_string(type_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
     }

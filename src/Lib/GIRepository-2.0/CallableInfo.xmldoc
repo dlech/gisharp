@@ -61,7 +61,7 @@ See if a callable's return value is only useful in C.
 </summary>
 </member>
 
-<member name='CallableInfo.GetReturnAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='CallableInfo.GetReturnAttribute(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Retrieve an arbitrary attribute associated with the return value.
 </summary>

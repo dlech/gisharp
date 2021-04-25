@@ -262,7 +262,7 @@ the number of seconds past the minute
 </param>
 </member>
 
-<member name='DateTime.FromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeZone?)'>
+<member name='DateTime.FromIso8601(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.TimeZone?)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to the given
 [ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
@@ -700,7 +700,7 @@ them to the same time zone.
 </returns>
 </member>
 
-<member name='DateTime.Format(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='DateTime.Format(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Creates a newly allocated string representing the requested <paramref name="format"/>.
 </summary>

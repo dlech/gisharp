@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="DBusObjectPath.xmldoc" path="declaration/member[@name='DBusObjectPath']/*" />
-    public sealed unsafe partial class DBusObjectPath : GISharp.Lib.GLib.Utf8
+    public sealed unsafe partial class DBusObjectPath : GISharp.Runtime.Utf8
     {
         /// <summary>
         /// For internal runtime use only.

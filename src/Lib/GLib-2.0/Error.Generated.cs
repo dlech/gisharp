@@ -69,9 +69,9 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* message);
-        static partial void CheckNewLiteralArgs(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message);
+        static partial void CheckNewLiteralArgs(GISharp.Lib.GLib.Quark domain, int code, GISharp.Runtime.UnownedUtf8 message);
 
-        static GISharp.Lib.GLib.Error.UnmanagedStruct* NewLiteral(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message)
+        static GISharp.Lib.GLib.Error.UnmanagedStruct* NewLiteral(GISharp.Lib.GLib.Quark domain, int code, GISharp.Runtime.UnownedUtf8 message)
         {
             CheckNewLiteralArgs(domain, code, message);
             var domain_ = (GISharp.Lib.GLib.Quark)domain;
@@ -82,8 +82,8 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="Error.xmldoc" path="declaration/member[@name='Error.Error(GISharp.Lib.GLib.Quark,int,GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public Error(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message) : this((System.IntPtr)NewLiteral(domain, code, message), GISharp.Runtime.Transfer.Full)
+        /// <include file="Error.xmldoc" path="declaration/member[@name='Error.Error(GISharp.Lib.GLib.Quark,int,GISharp.Runtime.UnownedUtf8)']/*" />
+        public Error(GISharp.Lib.GLib.Quark domain, int code, GISharp.Runtime.UnownedUtf8 message) : this((System.IntPtr)NewLiteral(domain, code, message), GISharp.Runtime.Transfer.Full)
         {
         }
 

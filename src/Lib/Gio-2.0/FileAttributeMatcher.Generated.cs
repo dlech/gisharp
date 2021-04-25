@@ -67,9 +67,9 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* attributes);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 attributes);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 attributes);
 
-        static GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 attributes)
+        static GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 attributes)
         {
             CheckNewArgs(attributes);
             var attributes_ = (byte*)attributes.UnsafeHandle;
@@ -78,8 +78,8 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8 attributes) : this((System.IntPtr)New(attributes), GISharp.Runtime.Transfer.Full)
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.FileAttributeMatcher(GISharp.Runtime.UnownedUtf8)']/*" />
+        public FileAttributeMatcher(GISharp.Runtime.UnownedUtf8 attributes) : this((System.IntPtr)New(attributes), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -119,10 +119,10 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* ns);
-        partial void CheckEnumerateNamespaceArgs(GISharp.Lib.GLib.UnownedUtf8 ns);
+        partial void CheckEnumerateNamespaceArgs(GISharp.Runtime.UnownedUtf8 ns);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public bool EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8 ns)
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNamespace(GISharp.Runtime.UnownedUtf8)']/*" />
+        public bool EnumerateNamespace(GISharp.Runtime.UnownedUtf8 ns)
         {
             CheckEnumerateNamespaceArgs(ns);
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
@@ -153,13 +153,13 @@ namespace GISharp.Lib.Gio
         partial void CheckEnumerateNextArgs();
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNext()']/*" />
-        public GISharp.Lib.GLib.NullableUnownedUtf8 EnumerateNext()
+        public GISharp.Runtime.NullableUnownedUtf8 EnumerateNext()
         {
             CheckEnumerateNextArgs();
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_attribute_matcher_enumerate_next(matcher_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -187,10 +187,10 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* attribute);
-        partial void CheckMatchesArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
+        partial void CheckMatchesArgs(GISharp.Runtime.UnownedUtf8 attribute);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Matches(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public bool Matches(GISharp.Lib.GLib.UnownedUtf8 attribute)
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Matches(GISharp.Runtime.UnownedUtf8)']/*" />
+        public bool Matches(GISharp.Runtime.UnownedUtf8 attribute)
         {
             CheckMatchesArgs(attribute);
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
@@ -224,10 +224,10 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* attribute);
-        partial void CheckMatchesOnlyArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
+        partial void CheckMatchesOnlyArgs(GISharp.Runtime.UnownedUtf8 attribute);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public bool MatchesOnly(GISharp.Lib.GLib.UnownedUtf8 attribute)
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.MatchesOnly(GISharp.Runtime.UnownedUtf8)']/*" />
+        public bool MatchesOnly(GISharp.Runtime.UnownedUtf8 attribute)
         {
             CheckMatchesOnlyArgs(attribute);
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
@@ -339,7 +339,7 @@ namespace GISharp.Lib.Gio
             var matcher_ = (GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_file_attribute_matcher_to_string(matcher_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

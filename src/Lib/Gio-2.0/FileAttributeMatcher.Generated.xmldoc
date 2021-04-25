@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='FileAttributeMatcher.FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeMatcher.FileAttributeMatcher(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Creates a new file attribute matcher, which matches attributes
 against a given string. <see cref="FileAttributeMatcher"/>s are reference
@@ -32,7 +32,7 @@ an attribute string to match.
 </param>
 </member>
 
-<member name='FileAttributeMatcher.EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeMatcher.EnumerateNamespace(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if the matcher will match all of the keys in a given namespace.
 This will always return <c>true</c> if a wildcard character is in use (e.g. if
@@ -63,7 +63,7 @@ no more attribute exist.
 </returns>
 </member>
 
-<member name='FileAttributeMatcher.Matches(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeMatcher.Matches(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if an attribute will be matched by an attribute matcher. If
 the matcher was created with the "*" matching string, this function
@@ -77,7 +77,7 @@ a file attribute key.
 </returns>
 </member>
 
-<member name='FileAttributeMatcher.MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeMatcher.MatchesOnly(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if a attribute matcher only matches a given attribute. Always
 returns <c>false</c> if "*" was used when creating the matcher.
@@ -116,7 +116,7 @@ A file attribute matcher matching all attributes of
 <member name='FileAttributeMatcher.ToString()'>
 <summary>
 Prints what the matcher is matching against. The format will be
-equal to the format passed to <see cref="FileAttributeMatcher.FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)"/>.
+equal to the format passed to <see cref="FileAttributeMatcher.FileAttributeMatcher(GISharp.Runtime.UnownedUtf8)"/>.
 The output however, might not be identical, as the matcher may
 decide to use a different order or omit needless parts.
 </summary>

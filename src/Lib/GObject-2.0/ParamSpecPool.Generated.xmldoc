@@ -42,7 +42,7 @@ a
 </returns>
 </member>
 
-<member name='ParamSpecPool.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,bool)'>
+<member name='ParamSpecPool.Lookup(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,bool)'>
 <summary>
 Looks up a <see cref="ParamSpec"/> in the pool.
 </summary>

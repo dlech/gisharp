@@ -9,11 +9,10 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
-using GISharp.Runtime;
 
 using clong = GISharp.Runtime.CLong;
 
-namespace GISharp.Lib.GLib
+namespace GISharp.Runtime
 {
     /// <summary>
     /// Managed wrapper around an unowned, null-terminated UTF-8 string in unmanged memory.
@@ -104,7 +103,7 @@ namespace GISharp.Lib.GLib
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Runtime.Boolean g_str_equal(byte* v1, byte* v2);
+        static extern Boolean g_str_equal(byte* v1, byte* v2);
 
         /// <summary>
         /// Compares two strings for byte-by-byte equality and returns
@@ -952,7 +951,7 @@ namespace GISharp.Lib.GLib
         /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:out */
         private static extern clong g_utf8_strlen(
-            /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+            /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
             /* transfer-ownership:none direction:in */
             byte* p,
             /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
@@ -1088,7 +1087,7 @@ namespace GISharp.Lib.GLib
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Runtime.Boolean g_str_equal(byte* v1, byte* v2);
+        static extern Boolean g_str_equal(byte* v1, byte* v2);
 
         /// <summary>
         /// Compares two strings for byte-by-byte equality.

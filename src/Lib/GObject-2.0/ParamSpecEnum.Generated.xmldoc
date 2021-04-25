@@ -18,7 +18,7 @@ default value for the property specified
 </summary>
 </member>
 
-<member name='ParamSpecEnum.ParamSpecEnum(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,int,GISharp.Lib.GObject.ParamFlags)'>
+<member name='ParamSpecEnum.ParamSpecEnum(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,int,GISharp.Lib.GObject.ParamFlags)'>
 <summary>
 Creates a new <see cref="ParamSpecEnum"/> instance specifying a %G_TYPE_ENUM
 property.

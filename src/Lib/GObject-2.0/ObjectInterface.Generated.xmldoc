@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='ObjectInterface.FindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ObjectInterface.FindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Find the <see cref="ParamSpec"/> with the given name for an
 interface. Generally, the interface vtable passed in as <paramref name="gIface"/>
@@ -29,7 +29,7 @@ that are added to GObject-derived types. Adding a property to an
 interface forces all objects classes with that interface to have a
 compatible property. The compatible property could be a newly
 created <see cref="ParamSpec"/>, but normally
-<see cref="ObjectClass.OverrideProperty(uint,GISharp.Lib.GLib.UnownedUtf8)"/> will be used so that the object
+<see cref="ObjectClass.OverrideProperty(uint,GISharp.Runtime.UnownedUtf8)"/> will be used so that the object
 class only needs to provide an implementation and inherits the
 property description, default value, bounds, and so forth from the
 interface property.

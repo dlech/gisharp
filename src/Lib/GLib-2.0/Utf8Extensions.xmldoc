@@ -1,14 +1,14 @@
 <declaration>
 
-<member name='Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Utf8Extensions.CaseFold(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Converts a string into a form that is independent of case. The
 result will not correspond to any particular case, but can be
 compared for equality or ordered with the results of calling
-<see cref="Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8)"/> on other strings.
+<see cref="Utf8Extensions.CaseFold(GISharp.Runtime.UnownedUtf8)"/> on other strings.
 </summary>
 <remarks>
-Note that calling <see cref="Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8)"/> followed by <see cref="Utf8Extensions.Collate(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> is
+Note that calling <see cref="Utf8Extensions.CaseFold(GISharp.Runtime.UnownedUtf8)"/> followed by <see cref="Utf8Extensions.Collate(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/> is
 only an approximation to the correct linguistic case insensitive
 ordering, though it is a fairly good one. Getting this exactly
 right would require a more sophisticated collation function that
@@ -29,10 +29,10 @@ a newly allocated string, that is a
 Converts a string into a form that is independent of case. The
 result will not correspond to any particular case, but can be
 compared for equality or ordered with the results of calling
-<see cref="Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8)"/> on other strings.
+<see cref="Utf8Extensions.CaseFold(GISharp.Runtime.UnownedUtf8)"/> on other strings.
 </summary>
 <remarks>
-Note that calling <see cref="Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8)"/> followed by <see cref="Utf8Extensions.Collate(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> is
+Note that calling <see cref="Utf8Extensions.CaseFold(GISharp.Runtime.UnownedUtf8)"/> followed by <see cref="Utf8Extensions.Collate(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/> is
 only an approximation to the correct linguistic case insensitive
 ordering, though it is a fairly good one. Getting this exactly
 right would require a more sophisticated collation function that
@@ -51,12 +51,12 @@ a newly allocated string, that is a
 </returns>
 </member>
 
-<member name='Utf8Extensions.Collate(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Utf8Extensions.Collate(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Compares two strings for ordering using the linguistically
 correct rules for the [current locale][setlocale].
 When sorting a large number of strings, it will be significantly
-faster to obtain collation keys with <see cref="Utf8Extensions.CollateKey(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/> and
+faster to obtain collation keys with <see cref="Utf8Extensions.CollateKey(GISharp.Runtime.UnownedUtf8,System.Int32)"/> and
 compare the keys with strcmp() when sorting instead of sorting
 the original strings.
 </summary>
@@ -77,7 +77,7 @@ a UTF-8 encoded string
 Compares two strings for ordering using the linguistically
 correct rules for the [current locale][setlocale].
 When sorting a large number of strings, it will be significantly
-faster to obtain collation keys with <see cref="Utf8Extensions.CollateKey(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/> and
+faster to obtain collation keys with <see cref="Utf8Extensions.CollateKey(GISharp.Runtime.UnownedUtf8,System.Int32)"/> and
 compare the keys with strcmp() when sorting instead of sorting
 the original strings.
 </summary>
@@ -93,7 +93,7 @@ a UTF-8 encoded string
 </returns>
 </member>
 
-<member name='Utf8Extensions.CollateKey(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='Utf8Extensions.CollateKey(GISharp.Runtime.UnownedUtf8,System.Int32)'>
 <summary>
 Converts a string into a collation key that can be compared
 with other collation keys produced by the same function using
@@ -102,7 +102,7 @@ strcmp().
 <remarks>
 The results of comparing the collation keys of two strings
 with strcmp() will always be the same as comparing the two
-original keys with <see cref="Utf8Extensions.Collate(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>.
+original keys with <see cref="Utf8Extensions.Collate(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/>.
 
 Note that this function depends on the [current locale][setlocale].
 </remarks>
@@ -126,7 +126,7 @@ strcmp().
 <remarks>
 The results of comparing the collation keys of two strings
 with strcmp() will always be the same as comparing the two
-original keys with <see cref="Utf8Extensions.Collate(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>.
+original keys with <see cref="Utf8Extensions.Collate(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/>.
 
 Note that this function depends on the [current locale][setlocale].
 </remarks>
@@ -141,7 +141,7 @@ a newly allocated string.
 </returns>
 </member>
 
-<member name='Utf8Extensions.CollateKeyForFilename(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='Utf8Extensions.CollateKeyForFilename(GISharp.Runtime.UnownedUtf8,System.Int32)'>
 <summary>
 Converts a string into a collation key that can be compared
 with other collation keys produced by the same function using strcmp().
@@ -193,7 +193,7 @@ a newly allocated string.
 </returns>
 </member>
 
-<member name='Utf8Extensions.FindNextChar(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Utf8Extensions.FindNextChar(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Finds the start of the next UTF-8 character in the string after this instance.
 </summary>
@@ -247,7 +247,7 @@ a pointer to the found character or <c>null</c> if <paramref name="end"/> is
 </returns>
 </member>
 
-<member name='Utf8Extensions.FindPrevChar(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Utf8Extensions.FindPrevChar(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Given a position <paramref name="p"/> with a UTF-8 encoded string this instance, find the start
 of the previous UTF-8 character starting before <paramref name="p"/>. Returns <c>null</c> if no
@@ -291,14 +291,14 @@ a pointer to the found character or <c>null</c>.
 </returns>
 </member>
 
-<member name='Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Utf8Extensions.GetChar(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Converts a sequence of bytes encoded as UTF-8 to a Unicode character.
 </summary>
 <remarks>
 If this instance does not point to a valid UTF-8 encoded character, results
 are undefined. If you are not sure that the bytes are complete
-valid Unicode characters, you should use <see cref="Utf8Extensions.GetCharValidated(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/>
+valid Unicode characters, you should use <see cref="Utf8Extensions.GetCharValidated(GISharp.Runtime.UnownedUtf8,System.Int32)"/>
 instead.
 </remarks>
 <param name="p">
@@ -316,7 +316,7 @@ Converts a sequence of bytes encoded as UTF-8 to a Unicode character.
 <remarks>
 If this instance does not point to a valid UTF-8 encoded character, results
 are undefined. If you are not sure that the bytes are complete
-valid Unicode characters, you should use <see cref="Utf8Extensions.GetCharValidated(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/>
+valid Unicode characters, you should use <see cref="Utf8Extensions.GetCharValidated(GISharp.Runtime.UnownedUtf8,System.Int32)"/>
 instead.
 </remarks>
 <param name="p">
@@ -327,7 +327,7 @@ the resulting character
 </returns>
 </member>
 
-<member name='Utf8Extensions.GetCharValidated(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='Utf8Extensions.GetCharValidated(GISharp.Runtime.UnownedUtf8,System.Int32)'>
 <summary>
 Convert a sequence of bytes encoded as UTF-8 to a Unicode character.
 This function checks for incomplete characters, for invalid characters
@@ -335,7 +335,7 @@ such as characters that are out of the range of Unicode, and for
 overlong encodings of valid characters.
 </summary>
 <remarks>
-Note that <see cref="Utf8Extensions.GetCharValidated(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/> returns (gunichar)-2 if
+Note that <see cref="Utf8Extensions.GetCharValidated(GISharp.Runtime.UnownedUtf8,System.Int32)"/> returns (gunichar)-2 if
 <paramref name="maxLen"/> is positive and any of the bytes in the first UTF-8 character
 sequence are nul.
 </remarks>
@@ -362,7 +362,7 @@ such as characters that are out of the range of Unicode, and for
 overlong encodings of valid characters.
 </summary>
 <remarks>
-Note that <see cref="Utf8Extensions.GetCharValidated(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/> returns (gunichar)-2 if
+Note that <see cref="Utf8Extensions.GetCharValidated(GISharp.Runtime.UnownedUtf8,System.Int32)"/> returns (gunichar)-2 if
 <paramref name="maxLen"/> is positive and any of the bytes in the first UTF-8 character
 sequence are nul.
 </remarks>
@@ -381,7 +381,7 @@ the resulting character. If this instance points to a partial
 </returns>
 </member>
 
-<member name='Utf8Extensions.MakeValid(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='Utf8Extensions.MakeValid(GISharp.Runtime.UnownedUtf8,System.Int32)'>
 <summary>
 If the provided string is valid UTF-8, return a copy of it. If not,
 return a copy in which bytes that could not be interpreted as valid Unicode
@@ -431,14 +431,14 @@ a valid UTF-8 string whose content resembles this instance
 </returns>
 </member>
 
-<member name='Utf8Extensions.Normalize(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.NormalizeMode)'>
+<member name='Utf8Extensions.Normalize(GISharp.Runtime.UnownedUtf8,System.Int32,GISharp.Runtime.NormalizeMode)'>
 <summary>
 Converts a string into canonical form, standardizing
 such issues as whether a character with an accent
 is represented as a base character and combining
 accent or as a single precomposed character. The
 string has to be valid UTF-8, otherwise <c>null</c> is
-returned. You should generally call <see cref="Utf8Extensions.Normalize(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.NormalizeMode)"/>
+returned. You should generally call <see cref="Utf8Extensions.Normalize(GISharp.Runtime.UnownedUtf8,System.Int32,GISharp.Runtime.NormalizeMode)"/>
 before comparing two Unicode strings.
 </summary>
 <remarks>
@@ -476,14 +476,14 @@ a newly allocated string, that
 </returns>
 </member>
 
-<member name='Utf8Extensions.Normalize(System.String,System.Int32,GISharp.Lib.GLib.NormalizeMode)'>
+<member name='Utf8Extensions.Normalize(System.String,System.Int32,GISharp.Runtime.NormalizeMode)'>
 <summary>
 Converts a string into canonical form, standardizing
 such issues as whether a character with an accent
 is represented as a base character and combining
 accent or as a single precomposed character. The
 string has to be valid UTF-8, otherwise <c>null</c> is
-returned. You should generally call <see cref="Utf8Extensions.Normalize(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.NormalizeMode)"/>
+returned. You should generally call <see cref="Utf8Extensions.Normalize(GISharp.Runtime.UnownedUtf8,System.Int32,GISharp.Runtime.NormalizeMode)"/>
 before comparing two Unicode strings.
 </summary>
 <remarks>
@@ -521,7 +521,7 @@ a newly allocated string, that
 </returns>
 </member>
 
-<member name='Utf8Extensions.OffsetToPointer(GISharp.Lib.GLib.UnownedUtf8,System.Int64)'>
+<member name='Utf8Extensions.OffsetToPointer(GISharp.Runtime.UnownedUtf8,System.Int64)'>
 <summary>
 Converts from an integer character offset to a pointer to a position
 within the string.
@@ -534,7 +534,7 @@ since moving forward is about 3 times faster than moving backward.
 
 Note that this function doesn't abort when reaching the end of this instance.
 Therefore you should be sure that <paramref name="offset"/> is within string boundaries
-before calling that function. Call <see cref="Utf8Extensions.Strlen(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/> when unsure.
+before calling that function. Call <see cref="Utf8Extensions.Strlen(GISharp.Runtime.UnownedUtf8,System.Int32)"/> when unsure.
 This limitation exists as this function is called frequently during
 text rendering and therefore has to be as fast as possible.
 </remarks>
@@ -562,7 +562,7 @@ since moving forward is about 3 times faster than moving backward.
 
 Note that this function doesn't abort when reaching the end of this instance.
 Therefore you should be sure that <paramref name="offset"/> is within string boundaries
-before calling that function. Call <see cref="Utf8Extensions.Strlen(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/> when unsure.
+before calling that function. Call <see cref="Utf8Extensions.Strlen(GISharp.Runtime.UnownedUtf8,System.Int32)"/> when unsure.
 This limitation exists as this function is called frequently during
 text rendering and therefore has to be as fast as possible.
 </remarks>
@@ -577,7 +577,7 @@ the resulting pointer
 </returns>
 </member>
 
-<member name='Utf8Extensions.PointerToOffset(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Utf8Extensions.PointerToOffset(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Converts from a pointer to position within a string to an integer
 character offset.
@@ -617,7 +617,7 @@ the resulting character offset
 </returns>
 </member>
 
-<member name='Utf8Extensions.PrevChar(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Utf8Extensions.PrevChar(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Finds the previous UTF-8 character in the string before this instance.
 </summary>
@@ -625,7 +625,7 @@ Finds the previous UTF-8 character in the string before this instance.
 this instance does not have to be at the beginning of a UTF-8 character. No check
 is made to see if the character found is actually valid other than
 it starts with an appropriate byte. If this instance might be the first
-character of the string, you must use <see cref="Utf8Extensions.FindPrevChar(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> instead.
+character of the string, you must use <see cref="Utf8Extensions.FindPrevChar(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/> instead.
 </remarks>
 <param name="p">
 a pointer to a position within a UTF-8 encoded string
@@ -643,7 +643,7 @@ Finds the previous UTF-8 character in the string before this instance.
 this instance does not have to be at the beginning of a UTF-8 character. No check
 is made to see if the character found is actually valid other than
 it starts with an appropriate byte. If this instance might be the first
-character of the string, you must use <see cref="Utf8Extensions.FindPrevChar(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> instead.
+character of the string, you must use <see cref="Utf8Extensions.FindPrevChar(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/> instead.
 </remarks>
 <param name="p">
 a pointer to a position within a UTF-8 encoded string
@@ -653,7 +653,7 @@ a pointer to the found character
 </returns>
 </member>
 
-<member name='Utf8Extensions.Strchr(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.Unichar)'>
+<member name='Utf8Extensions.Strchr(GISharp.Runtime.UnownedUtf8,System.Int32,GISharp.Lib.GLib.Unichar)'>
 <summary>
 Finds the leftmost occurrence of the given Unicode character
 in a UTF-8 encoded string, while limiting the search to <paramref name="len"/> bytes.
@@ -697,7 +697,7 @@ a Unicode character
 </returns>
 </member>
 
-<member name='Utf8Extensions.Strdown(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='Utf8Extensions.Strdown(GISharp.Runtime.UnownedUtf8,System.Int32)'>
 <summary>
 Converts all Unicode characters in the string that have a case
 to lowercase. The exact manner that this is done depends
@@ -735,7 +735,7 @@ a newly allocated string, with all characters
 </returns>
 </member>
 
-<member name='Utf8Extensions.Strlen(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='Utf8Extensions.Strlen(GISharp.Runtime.UnownedUtf8,System.Int32)'>
 <summary>
 Computes the length of the string in characters, not including
 the terminating nul character. If the <paramref name="max"/>'th byte falls in the
@@ -777,7 +777,7 @@ the length of the string in characters
 </returns>
 </member>
 
-<member name='Utf8Extensions.Strncpy(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='Utf8Extensions.Strncpy(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,System.Int32)'>
 <summary>
 Like the standard C strncpy() function, but copies a given number
 of characters instead of a given number of bytes. The <paramref name="src"/> string
@@ -827,7 +827,7 @@ this instance
 </returns>
 </member>
 
-<member name='Utf8Extensions.Strrchr(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.Unichar)'>
+<member name='Utf8Extensions.Strrchr(GISharp.Runtime.UnownedUtf8,System.Int32,GISharp.Lib.GLib.Unichar)'>
 <summary>
 Find the rightmost occurrence of the given Unicode character
 in a UTF-8 encoded string, while limiting the search to <paramref name="len"/> bytes.
@@ -871,7 +871,7 @@ a Unicode character
 </returns>
 </member>
 
-<member name='Utf8Extensions.Strreverse(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='Utf8Extensions.Strreverse(GISharp.Runtime.UnownedUtf8,System.Int32)'>
 <summary>
 Reverses a UTF-8 string. this instance must be valid UTF-8 encoded text.
 (Use g_utf8_validate() on all text before trying to use UTF-8
@@ -921,7 +921,7 @@ a newly-allocated string which is the reverse of this instance
 </returns>
 </member>
 
-<member name='Utf8Extensions.Strup(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='Utf8Extensions.Strup(GISharp.Runtime.UnownedUtf8,System.Int32)'>
 <summary>
 Converts all Unicode characters in the string that have a case
 to uppercase. The exact manner that this is done depends
@@ -961,7 +961,7 @@ a newly allocated string, with all characters
 </returns>
 </member>
 
-<member name='Utf8Extensions.Substring(GISharp.Lib.GLib.UnownedUtf8,System.Int64,System.Int64)'>
+<member name='Utf8Extensions.Substring(GISharp.Runtime.UnownedUtf8,System.Int64,System.Int64)'>
 <summary>
 Copies a substring out of a UTF-8 encoded string.
 The substring will contain <paramref name="endPos"/> - <paramref name="startPos"/> characters.

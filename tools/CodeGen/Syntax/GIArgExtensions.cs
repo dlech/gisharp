@@ -49,9 +49,9 @@ namespace GISharp.CodeGen.Syntax
                 }
                 if (arg.TransferOwnership == "none") {
                     if (arg.IsNullable) {
-                        return "GISharp.Lib.GLib.NullableUnownedUtf8";
+                        return "GISharp.Runtime.NullableUnownedUtf8";
                     }
-                    return "GISharp.Lib.GLib.UnownedUtf8";
+                    return "GISharp.Runtime.UnownedUtf8";
                 }
                 return type;
             }
@@ -550,13 +550,7 @@ namespace GISharp.CodeGen.Syntax
             if (!arg.IsCallerAllocates) {
                 return false;
             }
-            if (arg.Type.GirName == "utf8") {
-                return true;
-            }
-            if (arg.Type.GirName == "filename") {
-                return true;
-            }
-            if (arg.Type.GirName == "bytestring") {
+            if (arg.Type.IsString()) {
                 return true;
             }
             if (arg.Type is Gir.Array) {

@@ -96,9 +96,9 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamFlags" type="GParamFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamFlags flags);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, double minimum, double maximum, double defaultValue, GISharp.Lib.GObject.ParamFlags flags);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, double minimum, double maximum, double defaultValue, GISharp.Lib.GObject.ParamFlags flags);
 
-        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, double minimum, double maximum, double defaultValue, GISharp.Lib.GObject.ParamFlags flags)
+        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, double minimum, double maximum, double defaultValue, GISharp.Lib.GObject.ParamFlags flags)
         {
             CheckNewArgs(name, nick, blurb, minimum, maximum, defaultValue, flags);
             var name_ = (byte*)name.UnsafeHandle;
@@ -113,8 +113,8 @@ namespace GISharp.Lib.GObject
             return ret_;
         }
 
-        /// <include file="ParamSpecDouble.xmldoc" path="declaration/member[@name='ParamSpecDouble.ParamSpecDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,double,double,double,GISharp.Lib.GObject.ParamFlags)']/*" />
-        public ParamSpecDouble(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, double minimum, double maximum, double defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, minimum, maximum, defaultValue, flags), GISharp.Runtime.Transfer.None)
+        /// <include file="ParamSpecDouble.xmldoc" path="declaration/member[@name='ParamSpecDouble.ParamSpecDouble(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,double,double,double,GISharp.Lib.GObject.ParamFlags)']/*" />
+        public ParamSpecDouble(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, double minimum, double maximum, double defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, minimum, maximum, defaultValue, flags), GISharp.Runtime.Transfer.None)
         {
         }
     }

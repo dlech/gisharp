@@ -40,7 +40,7 @@ action is stateless. This is immutable.
 </summary>
 </member>
 
-<member name='IAction.NameIsValid(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IAction.NameIsValid(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if <paramref name="actionName"/> is valid.
 </summary>
@@ -62,7 +62,7 @@ a potential action name
 </returns>
 </member>
 
-<member name='IAction.ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)'>
+<member name='IAction.ParseDetailedName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.Utf8,GISharp.Lib.GLib.Variant)'>
 <summary>
 Parses a detailed action name into its separate name and target
 components.
@@ -109,7 +109,7 @@ On error
 </exception>
 </member>
 
-<member name='IAction.PrintDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)'>
+<member name='IAction.PrintDetailedName(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.Variant?)'>
 <summary>
 Formats a detailed action name from <paramref name="actionName"/> and <paramref name="targetValue"/>.
 </summary>
@@ -118,7 +118,7 @@ Formats a detailed action name from <paramref name="actionName"/> and <paramref 
 It is an error to call this function with an invalid action name.
 </para>
 <para>
-This function is the opposite of <see cref="Action.ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8,out GISharp.Lib.GLib.Utf8,out GISharp.Lib.GLib.Variant)"/>.
+This function is the opposite of <see cref="Action.ParseDetailedName(GISharp.Runtime.UnownedUtf8,out GISharp.Runtime.Utf8,out GISharp.Lib.GLib.Variant)"/>.
 It will produce a string that can be parsed back to the <paramref name="actionName"/>
 and <paramref name="targetValue"/> by that function.
 </para>
@@ -283,14 +283,14 @@ Queries the type of the state of this instance.
 <remarks>
 <para>
 If the action is stateful (e.g. created with
-<see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>) then this function returns the
+<see cref="SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>) then this function returns the
 #GVariantType of the state.  This is the type of the initial value
 given as the state. All calls to <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> must give a
 #GVariant of this type and <see cref="Action.GetState(GISharp.Lib.Gio.IAction)"/> will return a
 #GVariant of the same type.
 </para>
 <para>
-If the action is not stateful (e.g. created with <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType)"/>)
+If the action is not stateful (e.g. created with <see cref="SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType)"/>)
 then this function will return <c>null</c>. In that case, <see cref="Action.GetState(GISharp.Lib.Gio.IAction)"/>
 will return <c>null</c> and you must not call <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>.
 </para>
@@ -508,14 +508,14 @@ Queries the type of the state of <paramref name="action"/>.
 <remarks>
 <para>
 If the action is stateful (e.g. created with
-<see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>) then this function returns the
+<see cref="SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>) then this function returns the
 #GVariantType of the state.  This is the type of the initial value
 given as the state. All calls to <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> must give a
 #GVariant of this type and <see cref="Action.GetState(GISharp.Lib.Gio.IAction)"/> will return a
 #GVariant of the same type.
 </para>
 <para>
-If the action is not stateful (e.g. created with <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType)"/>)
+If the action is not stateful (e.g. created with <see cref="SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType)"/>)
 then this function will return <c>null</c>. In that case, <see cref="Action.GetState(GISharp.Lib.Gio.IAction)"/>
 will return <c>null</c> and you must not call <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>.
 </para>

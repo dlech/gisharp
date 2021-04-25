@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="DBusSignature.xmldoc" path="declaration/member[@name='DBusSignature']/*" />
-    public sealed unsafe partial class DBusSignature : GISharp.Lib.GLib.Utf8
+    public sealed unsafe partial class DBusSignature : GISharp.Runtime.Utf8
     {
         /// <summary>
         /// For internal runtime use only.

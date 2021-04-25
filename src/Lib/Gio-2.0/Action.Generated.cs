@@ -18,7 +18,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name")]
-        GISharp.Lib.GLib.Utf8? Name { get; }
+        GISharp.Runtime.Utf8? Name { get; }
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.ParameterType']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -62,11 +62,11 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* actionName);
-        static partial void CheckNameIsValidArgs(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        static partial void CheckNameIsValidArgs(GISharp.Runtime.UnownedUtf8 actionName);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.NameIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.NameIsValid(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static bool NameIsValid(GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static bool NameIsValid(GISharp.Runtime.UnownedUtf8 actionName)
         {
             CheckNameIsValidArgs(actionName);
             var actionName_ = (byte*)actionName.UnsafeHandle;
@@ -140,11 +140,11 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckParseDetailedNameArgs(GISharp.Lib.GLib.UnownedUtf8 detailedName);
+        static partial void CheckParseDetailedNameArgs(GISharp.Runtime.UnownedUtf8 detailedName);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.ParseDetailedName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.Utf8,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static void ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8 detailedName, out GISharp.Lib.GLib.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
+        public static void ParseDetailedName(GISharp.Runtime.UnownedUtf8 detailedName, out GISharp.Runtime.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
         {
             CheckParseDetailedNameArgs(detailedName);
             var detailedName_ = (byte*)detailedName.UnsafeHandle;
@@ -159,7 +159,7 @@ namespace GISharp.Lib.Gio
                 throw new GISharp.Lib.GLib.Error.Exception(error);
             }
 
-            actionName = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)actionName_, GISharp.Runtime.Transfer.Full)!;
+            actionName = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)actionName_, GISharp.Runtime.Transfer.Full)!;
             targetValue = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)targetValue_, GISharp.Runtime.Transfer.Full)!;
         }
 
@@ -200,18 +200,18 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* targetValue);
-        static partial void CheckPrintDetailedNameArgs(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? targetValue);
+        static partial void CheckPrintDetailedNameArgs(GISharp.Runtime.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? targetValue);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.PrintDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.PrintDetailedName(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static GISharp.Lib.GLib.Utf8 PrintDetailedName(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? targetValue)
+        public static GISharp.Runtime.Utf8 PrintDetailedName(GISharp.Runtime.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? targetValue)
         {
             CheckPrintDetailedNameArgs(actionName, targetValue);
             var actionName_ = (byte*)actionName.UnsafeHandle;
             var targetValue_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(targetValue?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_action_print_detailed_name(actionName_,targetValue_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -238,7 +238,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetName()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetName))]
-        GISharp.Lib.GLib.UnownedUtf8 DoGetName();
+        GISharp.Runtime.UnownedUtf8 DoGetName();
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetParameterType()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -421,13 +421,13 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Action.xmldoc" path="declaration/member[@name='Action.GetName(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.Lib.GLib.UnownedUtf8 GetName(this GISharp.Lib.Gio.IAction action)
+        public static GISharp.Runtime.UnownedUtf8 GetName(this GISharp.Lib.Gio.IAction action)
         {
             CheckGetNameArgs(action);
             var action_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)action.UnsafeHandle;
             var ret_ = g_action_get_name(action_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 

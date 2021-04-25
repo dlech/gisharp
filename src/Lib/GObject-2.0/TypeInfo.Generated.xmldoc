@@ -76,11 +76,11 @@ its instances.
 </summary>
 <remarks>
 <para>
-The initialized structure is passed to the <see cref="TypeExtensions.RegisterStatic(GISharp.Runtime.GType,GISharp.Lib.GLib.UnownedUtf8,in GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeFlags)"/> function
+The initialized structure is passed to the <see cref="TypeExtensions.RegisterStatic(GISharp.Runtime.GType,GISharp.Runtime.UnownedUtf8,in GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeFlags)"/> function
 (or is copied into the provided <see cref="TypeInfo"/> structure in the
 <see cref="TypePlugin.CompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin,GISharp.Runtime.GType,ref GISharp.Lib.GObject.TypeInfo,ref GISharp.Lib.GObject.TypeValueTable)"/>). The type system will perform a deep
 copy of this structure, so its memory does not need to be persistent
-across invocation of <see cref="TypeExtensions.RegisterStatic(GISharp.Runtime.GType,GISharp.Lib.GLib.UnownedUtf8,in GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeFlags)"/>.
+across invocation of <see cref="TypeExtensions.RegisterStatic(GISharp.Runtime.GType,GISharp.Runtime.UnownedUtf8,in GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeFlags)"/>.
 </para>
 </remarks>
 </member>

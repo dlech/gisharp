@@ -26,7 +26,7 @@ namespace GISharp.Lib.GLib
     GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
     /// <include file="OptionArgFunc.xmldoc" path="declaration/member[@name='OptionArgFunc']/*" />
-    public delegate void OptionArgFunc(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value);
+    public delegate void OptionArgFunc(GISharp.Runtime.UnownedUtf8 optionName, GISharp.Runtime.UnownedUtf8 value);
 
     /// <summary>
     /// Class for marshalling <see cref="OptionArgFunc"/> methods.
@@ -39,7 +39,7 @@ namespace GISharp.Lib.GLib
         public static GISharp.Lib.GLib.OptionArgFunc FromPointer(delegate* unmanaged[Cdecl]<byte*, byte*, System.IntPtr, GISharp.Lib.GLib.Error.UnmanagedStruct**, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
             var data_ = userData_;
-            void managedCallback(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value)
+            void managedCallback(GISharp.Runtime.UnownedUtf8 optionName, GISharp.Runtime.UnownedUtf8 value)
             {
                 var optionName_ = (byte*)optionName.UnsafeHandle;
                 var value_ = (byte*)value.UnsafeHandle;
@@ -64,8 +64,8 @@ namespace GISharp.Lib.GLib
         {
             try
             {
-                var optionName = new GISharp.Lib.GLib.UnownedUtf8(optionName_);
-                var value = new GISharp.Lib.GLib.UnownedUtf8(value_);
+                var optionName = new GISharp.Runtime.UnownedUtf8(optionName_);
+                var value = new GISharp.Runtime.UnownedUtf8(value_);
                 var dataHandle = (System.Runtime.InteropServices.GCHandle)data_;
                 var (data, dataScope) = ((OptionArgFunc, GISharp.Runtime.CallbackScope))dataHandle.Target!;
                 data.Invoke(optionName, value);

@@ -39,13 +39,13 @@ action is stateless.
 </summary>
 </member>
 
-<member name='SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)'>
+<member name='SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType?)'>
 <summary>
 Creates a new action.
 </summary>
 <remarks>
 <para>
-The created action is stateless. See <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/> to create
+The created action is stateless. See <see cref="SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/> to create
 an action that has state.
 </para>
 </remarks>
@@ -58,7 +58,7 @@ the type of parameter that will be passed to
 </param>
 </member>
 
-<member name='SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)'>
+<member name='SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)'>
 <summary>
 Creates a new stateful action.
 </summary>
@@ -124,7 +124,7 @@ state.
 <remarks>
 <para>
 <paramref name="value"/> will always be of the correct state type, i.e. the type of the
-initial state passed to <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>. If an incorrect
+initial state passed to <see cref="SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>. If an incorrect
 type is given when requesting to change the state, this signal is not
 emitted.
 </para>

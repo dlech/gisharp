@@ -106,10 +106,10 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint handlerId);
-        static partial void CheckRemoveHandlerArgs(GISharp.Lib.GLib.UnownedUtf8 logDomain, uint handlerId);
+        static partial void CheckRemoveHandlerArgs(GISharp.Runtime.UnownedUtf8 logDomain, uint handlerId);
 
-        /// <include file="Log.xmldoc" path="declaration/member[@name='Log.RemoveHandler(GISharp.Lib.GLib.UnownedUtf8,uint)']/*" />
-        public static void RemoveHandler(GISharp.Lib.GLib.UnownedUtf8 logDomain, uint handlerId)
+        /// <include file="Log.xmldoc" path="declaration/member[@name='Log.RemoveHandler(GISharp.Runtime.UnownedUtf8,uint)']/*" />
+        public static void RemoveHandler(GISharp.Runtime.UnownedUtf8 logDomain, uint handlerId)
         {
             CheckRemoveHandlerArgs(logDomain, handlerId);
             var logDomain_ = (byte*)logDomain.UnsafeHandle;
@@ -239,10 +239,10 @@ namespace GISharp.Lib.GLib
         /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.LogLevelFlags fatalMask);
-        static partial void CheckSetFatalMaskArgs(GISharp.Lib.GLib.UnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags fatalMask);
+        static partial void CheckSetFatalMaskArgs(GISharp.Runtime.UnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags fatalMask);
 
-        /// <include file="Log.xmldoc" path="declaration/member[@name='Log.SetFatalMask(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.LogLevelFlags)']/*" />
-        public static GISharp.Lib.GLib.LogLevelFlags SetFatalMask(GISharp.Lib.GLib.UnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags fatalMask)
+        /// <include file="Log.xmldoc" path="declaration/member[@name='Log.SetFatalMask(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.LogLevelFlags)']/*" />
+        public static GISharp.Lib.GLib.LogLevelFlags SetFatalMask(GISharp.Runtime.UnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags fatalMask)
         {
             CheckSetFatalMaskArgs(logDomain, fatalMask);
             var logDomain_ = (byte*)logDomain.UnsafeHandle;
@@ -304,11 +304,11 @@ namespace GISharp.Lib.GLib
         /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> destroy);
-        static partial void CheckSetHandlerArgs(GISharp.Lib.GLib.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevels, GISharp.Lib.GLib.LogFunc logFunc);
+        static partial void CheckSetHandlerArgs(GISharp.Runtime.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevels, GISharp.Lib.GLib.LogFunc logFunc);
 
-        /// <include file="Log.xmldoc" path="declaration/member[@name='Log.SetHandler(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.LogFunc)']/*" />
+        /// <include file="Log.xmldoc" path="declaration/member[@name='Log.SetHandler(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.LogFunc)']/*" />
         [GISharp.Runtime.SinceAttribute("2.46")]
-        public static uint SetHandler(GISharp.Lib.GLib.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevels, GISharp.Lib.GLib.LogFunc logFunc)
+        public static uint SetHandler(GISharp.Runtime.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevels, GISharp.Lib.GLib.LogFunc logFunc)
         {
             CheckSetHandlerArgs(logDomain, logLevels, logFunc);
             var logDomain_ = (byte*)logDomain.UnsafeHandle;
@@ -428,11 +428,11 @@ namespace GISharp.Lib.GLib
         /* <type name="Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* fields);
-        static partial void CheckVariantArgs(GISharp.Lib.GLib.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Lib.GLib.Variant fields);
+        static partial void CheckVariantArgs(GISharp.Runtime.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Lib.GLib.Variant fields);
 
-        /// <include file="Log.xmldoc" path="declaration/member[@name='Log.Variant(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="Log.xmldoc" path="declaration/member[@name='Log.Variant(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.50")]
-        public static void Variant(GISharp.Lib.GLib.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Lib.GLib.Variant fields)
+        public static void Variant(GISharp.Runtime.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Lib.GLib.Variant fields)
         {
             CheckVariantArgs(logDomain, logLevel, fields);
             var logDomain_ = (byte*)logDomain.UnsafeHandle;

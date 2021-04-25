@@ -61,13 +61,13 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeVal" type="GTimeVal*" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
         GISharp.Lib.GLib.TimeVal* time);
-        static partial void CheckTryFromIso8601Args(GISharp.Lib.GLib.UnownedUtf8 isoDate);
+        static partial void CheckTryFromIso8601Args(GISharp.Runtime.UnownedUtf8 isoDate);
 
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeVal)']/*" />
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TryFromIso8601(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_iso8601() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public static bool TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
+        public static bool TryFromIso8601(GISharp.Runtime.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
         {
             fixed (GISharp.Lib.GLib.TimeVal* time_ = &time)
             {
@@ -185,7 +185,7 @@ namespace GISharp.Lib.GLib
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_format_iso8601(dt) instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public GISharp.Lib.GLib.Utf8? ToIso8601()
+        public GISharp.Runtime.Utf8? ToIso8601()
         {
             fixed (GISharp.Lib.GLib.TimeVal* this_ = &this)
             {
@@ -193,7 +193,7 @@ namespace GISharp.Lib.GLib
                 var time_ = this_;
                 var ret_ = g_time_val_to_iso8601(time_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+                var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
                 return ret;
             }
         }

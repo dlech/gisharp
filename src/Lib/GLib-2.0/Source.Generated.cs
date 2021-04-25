@@ -75,7 +75,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.NullableUnownedUtf8 Name { get => GetName(); set => SetName(value.Value); }
+        public GISharp.Runtime.NullableUnownedUtf8 Name { get => GetName(); set => SetName(value.Value); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Priority']/*" />
         public int Priority { get => GetPriority(); set => SetPriority(value); }
@@ -322,11 +322,11 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        static partial void CheckSetNameByIdArgs(uint tag, GISharp.Lib.GLib.UnownedUtf8 name);
+        static partial void CheckSetNameByIdArgs(uint tag, GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.SetNameById(uint,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.SetNameById(uint,GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static void SetNameById(uint tag, GISharp.Lib.GLib.UnownedUtf8 name)
+        public static void SetNameById(uint tag, GISharp.Runtime.UnownedUtf8 name)
         {
             CheckSetNameByIdArgs(tag, name);
             var tag_ = (uint)tag;
@@ -777,13 +777,13 @@ namespace GISharp.Lib.GLib
         partial void CheckGetNameArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private GISharp.Lib.GLib.NullableUnownedUtf8 GetName()
+        private GISharp.Runtime.NullableUnownedUtf8 GetName()
         {
             CheckGetNameArgs();
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_source_get_name(source_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -1494,10 +1494,10 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckSetNameArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckSetNameArgs(GISharp.Runtime.UnownedUtf8 name);
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private void SetName(GISharp.Lib.GLib.UnownedUtf8 name)
+        private void SetName(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckSetNameArgs(name);
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;

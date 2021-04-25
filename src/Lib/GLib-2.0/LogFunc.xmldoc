@@ -6,7 +6,7 @@ Specifies the prototype of log handler functions.
 </summary>
 <remarks>
 <para>
-The default log handler, <see cref="Log.DefaultHandler(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.NullableUnownedUtf8)"/>, automatically appends a
+The default log handler, <see cref="Log.DefaultHandler(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Runtime.NullableUnownedUtf8)"/>, automatically appends a
 new-line character to <paramref name="message"/> when printing it. It is advised that any
 custom log handler functions behave similarly, so that logging calls in user
 code do not need modifying to add a new-line character to the message if the

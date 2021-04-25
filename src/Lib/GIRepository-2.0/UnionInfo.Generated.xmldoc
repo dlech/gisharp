@@ -42,7 +42,7 @@ Return true if this union contains discriminator field.
 </summary>
 </member>
 
-<member name='UnionInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='UnionInfo.FindMethod(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Obtain the type information for method named <paramref name="name"/>.
 </summary>

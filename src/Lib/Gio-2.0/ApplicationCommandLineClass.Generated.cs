@@ -71,7 +71,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='_PrintLiteral']/*" />
-        public delegate void _PrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message);
+        public delegate void _PrintLiteral(GISharp.Runtime.UnownedUtf8 message);
 
         /// <summary>
         /// Unmanaged callback
@@ -103,7 +103,7 @@ byte* message);
                     try
                     {
                         var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!;
-                        var message = new GISharp.Lib.GLib.UnownedUtf8(message_);
+                        var message = new GISharp.Runtime.UnownedUtf8(message_);
                         var doPrintLiteral = (_PrintLiteral)methodInfo.CreateDelegate(typeof(_PrintLiteral), cmdline);
                         doPrintLiteral(message);
                     }
@@ -118,7 +118,7 @@ byte* message);
         }
 
         /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='_PrinterrLiteral']/*" />
-        public delegate void _PrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message);
+        public delegate void _PrinterrLiteral(GISharp.Runtime.UnownedUtf8 message);
 
         /// <summary>
         /// Unmanaged callback
@@ -150,7 +150,7 @@ byte* message);
                     try
                     {
                         var cmdline = GISharp.Lib.Gio.ApplicationCommandLine.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!;
-                        var message = new GISharp.Lib.GLib.UnownedUtf8(message_);
+                        var message = new GISharp.Runtime.UnownedUtf8(message_);
                         var doPrinterrLiteral = (_PrinterrLiteral)methodInfo.CreateDelegate(typeof(_PrinterrLiteral), cmdline);
                         doPrinterrLiteral(message);
                     }

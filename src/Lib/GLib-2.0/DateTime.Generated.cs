@@ -67,7 +67,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.TimezoneAbbreviation']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.UnownedUtf8 TimezoneAbbreviation { get => GetTimezoneAbbreviation(); }
+        public GISharp.Runtime.UnownedUtf8 TimezoneAbbreviation { get => GetTimezoneAbbreviation(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.UtcOffset']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -293,11 +293,11 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeZone" type="GTimeZone*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.TimeZone.UnmanagedStruct* defaultTz);
-        static partial void CheckFromIso8601Args(GISharp.Lib.GLib.UnownedUtf8 text, GISharp.Lib.GLib.TimeZone? defaultTz);
+        static partial void CheckFromIso8601Args(GISharp.Runtime.UnownedUtf8 text, GISharp.Lib.GLib.TimeZone? defaultTz);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeZone?)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromIso8601(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.TimeZone?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
-        public static GISharp.Lib.GLib.DateTime? FromIso8601(GISharp.Lib.GLib.UnownedUtf8 text, GISharp.Lib.GLib.TimeZone? defaultTz)
+        public static GISharp.Lib.GLib.DateTime? FromIso8601(GISharp.Runtime.UnownedUtf8 text, GISharp.Lib.GLib.TimeZone? defaultTz)
         {
             CheckFromIso8601Args(text, defaultTz);
             var text_ = (byte*)text.UnsafeHandle;
@@ -1447,18 +1447,18 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* format);
-        partial void CheckFormatArgs(GISharp.Lib.GLib.UnownedUtf8 format);
+        partial void CheckFormatArgs(GISharp.Runtime.UnownedUtf8 format);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Format(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Format(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.Utf8? Format(GISharp.Lib.GLib.UnownedUtf8 format)
+        public GISharp.Runtime.Utf8? Format(GISharp.Runtime.UnownedUtf8 format)
         {
             CheckFormatArgs(format);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var format_ = (byte*)format.UnsafeHandle;
             var ret_ = g_date_time_format(datetime_,format_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1492,13 +1492,13 @@ namespace GISharp.Lib.GLib
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FormatIso8601()']/*" />
         [GISharp.Runtime.SinceAttribute("2.62")]
-        public GISharp.Lib.GLib.Utf8? FormatIso8601()
+        public GISharp.Runtime.Utf8? FormatIso8601()
         {
             CheckFormatIso8601Args();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_format_iso8601(datetime_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1837,13 +1837,13 @@ namespace GISharp.Lib.GLib
         partial void CheckGetTimezoneAbbreviationArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private GISharp.Lib.GLib.UnownedUtf8 GetTimezoneAbbreviation()
+        private GISharp.Runtime.UnownedUtf8 GetTimezoneAbbreviation()
         {
             CheckGetTimezoneAbbreviationArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_timezone_abbreviation(datetime_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 

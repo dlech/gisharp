@@ -2,7 +2,6 @@
 // Copyright (c) 2021 David Lechner <david@lechnology.com>
 
 using System.Collections.Concurrent;
-using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository

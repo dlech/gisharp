@@ -224,17 +224,17 @@ namespace GISharp.Lib.GIRepository
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckGetReturnAttributeArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckGetReturnAttributeArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.GetReturnAttribute(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 GetReturnAttribute(GISharp.Lib.GLib.UnownedUtf8 name)
+        /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.GetReturnAttribute(GISharp.Runtime.UnownedUtf8)']/*" />
+        public GISharp.Runtime.UnownedUtf8 GetReturnAttribute(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckGetReturnAttributeArgs(name);
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_callable_info_get_return_attribute(info_,name_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -428,7 +428,7 @@ namespace GISharp.Lib.GIRepository
         byte** value);
         partial void CheckTryIterateReturnAttributesArgs(ref GISharp.Lib.GIRepository.AttributeIter iterator);
 
-        private bool TryIterateReturnAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
+        private bool TryIterateReturnAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Runtime.UnownedUtf8 name, out GISharp.Runtime.UnownedUtf8 value)
         {
             fixed (GISharp.Lib.GIRepository.AttributeIter* iterator_ = &iterator)
             {
@@ -438,8 +438,8 @@ namespace GISharp.Lib.GIRepository
                 byte* value_;
                 var ret_ = g_callable_info_iterate_return_attributes(info_,iterator_,&name_,&value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                name = new GISharp.Lib.GLib.UnownedUtf8(name_);
-                value = new GISharp.Lib.GLib.UnownedUtf8(value_);
+                name = new GISharp.Runtime.UnownedUtf8(name_);
+                value = new GISharp.Runtime.UnownedUtf8(value_);
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }

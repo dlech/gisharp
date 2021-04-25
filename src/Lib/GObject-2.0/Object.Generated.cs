@@ -289,11 +289,11 @@ System.IntPtr data);
         /* <type name="BindingFlags" type="GBindingFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.BindingFlags flags);
-        partial void CheckBindPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Lib.GLib.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags);
+        partial void CheckBindPropertyArgs(GISharp.Runtime.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Runtime.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags);
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.BindProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)']/*" />
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GObject.Binding BindProperty(GISharp.Lib.GLib.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Lib.GLib.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags)
+        public GISharp.Lib.GObject.Binding BindProperty(GISharp.Runtime.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Runtime.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags)
         {
             CheckBindPropertyArgs(sourceProperty, target, targetProperty, flags);
             var source_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
@@ -477,11 +477,11 @@ System.IntPtr data);
         /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Closure.UnmanagedStruct* transformFrom);
-        partial void CheckBindPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Lib.GLib.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags, GISharp.Lib.GObject.Closure transformTo, GISharp.Lib.GObject.Closure transformFrom);
+        partial void CheckBindPropertyArgs(GISharp.Runtime.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Runtime.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags, GISharp.Lib.GObject.Closure transformTo, GISharp.Lib.GObject.Closure transformFrom);
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.BindProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Closure)']/*" />
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Closure)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GObject.Binding BindProperty(GISharp.Lib.GLib.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Lib.GLib.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags, GISharp.Lib.GObject.Closure transformTo, GISharp.Lib.GObject.Closure transformFrom)
+        public GISharp.Lib.GObject.Binding BindProperty(GISharp.Runtime.UnownedUtf8 sourceProperty, GISharp.Lib.GObject.Object target, GISharp.Runtime.UnownedUtf8 targetProperty, GISharp.Lib.GObject.BindingFlags flags, GISharp.Lib.GObject.Closure transformTo, GISharp.Lib.GObject.Closure transformFrom)
         {
             CheckBindPropertyArgs(sourceProperty, target, targetProperty, flags, transformTo, transformFrom);
             var source_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
@@ -734,10 +734,10 @@ System.IntPtr data);
         /* <type name="Value" type="GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckGetPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 propertyName, ref GISharp.Lib.GObject.Value value);
+        partial void CheckGetPropertyArgs(GISharp.Runtime.UnownedUtf8 propertyName, ref GISharp.Lib.GObject.Value value);
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.GetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)']/*" />
-        public void GetProperty(GISharp.Lib.GLib.UnownedUtf8 propertyName, ref GISharp.Lib.GObject.Value value)
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.GetProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Value)']/*" />
+        public void GetProperty(GISharp.Runtime.UnownedUtf8 propertyName, ref GISharp.Lib.GObject.Value value)
         {
             fixed (GISharp.Lib.GObject.Value* value_ = &value)
             {
@@ -812,11 +812,11 @@ System.IntPtr data);
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* values);
-        partial void CheckGetPropertiesArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> names, System.ReadOnlySpan<GISharp.Lib.GObject.Value> values);
+        partial void CheckGetPropertiesArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Runtime.Utf8> names, System.ReadOnlySpan<GISharp.Lib.GObject.Value> values);
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.GetProperties(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;)']/*" />
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.GetProperties(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Runtime.Utf8&gt;,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.54")]
-        public void GetProperties(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> names, System.ReadOnlySpan<GISharp.Lib.GObject.Value> values)
+        public void GetProperties(GISharp.Runtime.UnownedCPtrArray<GISharp.Runtime.Utf8> names, System.ReadOnlySpan<GISharp.Lib.GObject.Value> values)
         {
             fixed (GISharp.Lib.GObject.Value* valuesData_ = values)
             {
@@ -896,10 +896,10 @@ System.IntPtr data);
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* propertyName);
-        partial void CheckNotifyArgs(GISharp.Lib.GLib.UnownedUtf8 propertyName);
+        partial void CheckNotifyArgs(GISharp.Runtime.UnownedUtf8 propertyName);
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.Notify(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public void Notify(GISharp.Lib.GLib.UnownedUtf8 propertyName)
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.Notify(GISharp.Runtime.UnownedUtf8)']/*" />
+        public void Notify(GISharp.Runtime.UnownedUtf8 propertyName)
         {
             CheckNotifyArgs(propertyName);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
@@ -1347,10 +1347,10 @@ System.IntPtr data);
         /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
-        partial void CheckSetPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 propertyName, in GISharp.Lib.GObject.Value value);
+        partial void CheckSetPropertyArgs(GISharp.Runtime.UnownedUtf8 propertyName, in GISharp.Lib.GObject.Value value);
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)']/*" />
-        public void SetProperty(GISharp.Lib.GLib.UnownedUtf8 propertyName, in GISharp.Lib.GObject.Value value)
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.SetProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Value)']/*" />
+        public void SetProperty(GISharp.Runtime.UnownedUtf8 propertyName, in GISharp.Lib.GObject.Value value)
         {
             fixed (GISharp.Lib.GObject.Value* value_ = &value)
             {

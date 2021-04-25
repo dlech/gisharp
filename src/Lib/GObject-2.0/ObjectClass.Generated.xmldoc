@@ -78,7 +78,7 @@ the parent class
 <member name='_Constructed'>
 </member>
 
-<member name='ObjectClass.FindProperty(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ObjectClass.FindProperty(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Looks up the <see cref="ParamSpec"/> for a property of a class.
 </summary>
@@ -210,7 +210,7 @@ an array of
 </returns>
 </member>
 
-<member name='ObjectClass.OverrideProperty(uint,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ObjectClass.OverrideProperty(uint,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Registers <paramref name="propertyId"/> as referring to a property with the name
 <paramref name="name"/> in a parent class or in an interface implemented by this instance.
@@ -222,7 +222,7 @@ an interface.
 <para>
 Internally, overriding is implemented by creating a property of type
 <see cref="ParamSpecOverride"/>; generally operations that query the properties of
-the object class, such as <see cref="ObjectClass.FindProperty(GISharp.Lib.GLib.UnownedUtf8)"/> or
+the object class, such as <see cref="ObjectClass.FindProperty(GISharp.Runtime.UnownedUtf8)"/> or
 <see cref="ObjectClass.ListProperties()"/> will return the overridden
 property. However, in one case, the <c>constructProperties</c> argument of
 the <c>constructor</c> virtual function, the <see cref="ParamSpecOverride"/> is passed

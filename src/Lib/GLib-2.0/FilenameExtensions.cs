@@ -2,21 +2,12 @@
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.ComponentModel;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
-    unsafe partial class Filename : IEquatable<string>
+    unsafe partial class FilenameExtensions
     {
-        /// <summary>
-        /// For internal runtime use only.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public Filename(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
-        {
-        }
-
         /// <summary>
         /// Converts an escaped ASCII-encoded URI to a local filename in the
         /// encoding used for filenames.
@@ -40,7 +31,7 @@ namespace GISharp.Lib.GLib
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }
-            var ret = GetInstance<Filename>((IntPtr)ret_, Transfer.Full);
+            var ret = Opaque.GetInstance<Filename>((IntPtr)ret_, Transfer.Full);
             return ret;
         }
 
@@ -69,7 +60,7 @@ namespace GISharp.Lib.GLib
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }
-            var ret = GetInstance<Filename>((IntPtr)ret_, Transfer.Full);
+            var ret = Opaque.GetInstance<Filename>((IntPtr)ret_, Transfer.Full);
             return ret;
         }
 
@@ -85,9 +76,9 @@ namespace GISharp.Lib.GLib
         /// <exception name="Error.Exception">
         /// On error
         /// </exception>
-        public Utf8 ToUtf8()
+        public static Utf8 ToUtf8(this Filename filename)
         {
-            var opsysstring_ = (byte*)UnsafeHandle;
+            var opsysstring_ = (byte*)filename.UnsafeHandle;
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_filename_to_utf8(opsysstring_, -1, null, null, &error_);
             GMarshal.PopUnhandledException();
@@ -96,41 +87,8 @@ namespace GISharp.Lib.GLib
                 throw new Error.Exception(error);
             }
 
-            var ret = GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
+            var ret = Opaque.GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
             return ret;
-        }
-
-        /// <inheritdoc/>
-        public bool Equals(string? other)
-        {
-            var str = ToString();
-            return str.Equals(other);
-        }
-
-        /// <inheritdoc/>
-        public override string ToString()
-        {
-            using var utf8 = ToUtf8();
-            return utf8.ToString();
-        }
-
-        /// <summary>
-        /// Converts an unmanged string with OS filename encoding to a managaged
-        /// UTF-16 string.
-        /// </summary>
-        public static implicit operator string(Filename filename)
-        {
-            return filename.ToString();
-        }
-
-        /// <summary>
-        /// Converts a managed UTF-16 string to an unmanged string with OS
-        /// filename encoding.
-        /// </summary>
-        public static implicit operator Filename(string str)
-        {
-            using var utf8 = new Utf8(str);
-            return FromUtf8(utf8);
         }
     }
 }

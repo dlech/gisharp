@@ -1,12 +1,9 @@
 
 ### Filename ###
 
-# create alias
+# create extension class
 - !add-element
-  xml: |
-    <gi:alias name='Filename' c:type='char *'>
-      <type name='bytestring' c:type='char *'/>
-    </gi:alias>
+  xml: <gs:static-class name='FilenameExtensions' />
   xpath: gi:repository/gi:namespace
 
 # move functions
@@ -16,50 +13,45 @@
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'filename') or @name='build_filenamev' or @name='canonicalize_filename' or @name='get_filename_charsets']
 - !move-element
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'filename') or @name='build_filenamev' or @name='canonicalize_filename' or @name='get_filename_charsets']
-  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']
 - !change-attribute
   name: name
   regex: filename_(.*)
   replace: $1
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:function[starts-with(@name,'filename_')]
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']/gi:function[starts-with(@name,'filename_')]
 - !set-attribute
   name: name
   value: build
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:function[@name='build_filenamev']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']/gi:function[@name='build_filenamev']
 - !set-attribute
   name: name
   value: canonicalize
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:function[@name='canonicalize_filename']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']/gi:function[@name='canonicalize_filename']
 - !set-attribute
   name: name
   value: get_charsets
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:function[@name='get_filename_charsets']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']/gi:function[@name='get_filename_charsets']
 
 # default values
 - !set-attribute
   name: gs:default
   value: default
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:function[@name='canonicalize']/gi:parameters/gi:parameter[@name='relative_to']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']/gi:function[@name='canonicalize']/gi:parameters/gi:parameter[@name='relative_to']
 - !set-attribute
   name: gs:default
   value: default
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:function[@name='to_uri']/gi:parameters/gi:parameter[@name='hostname']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']/gi:function[@name='to_uri']/gi:parameters/gi:parameter[@name='hostname']
 
 # make methods
 - !change-element
   new-name: gi:instance-parameter
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:function/gi:parameters/gi:parameter[position()=1 and gi:type[@name='filename']]
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']/gi:function/gi:parameters/gi:parameter[position()=1 and gi:type[@name='filename']]
 - !change-element
   new-name: gi:method
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:function[gi:parameters/gi:instance-parameter]
-- !change-attribute
-  name: name
-  regex: ^(.*)$
-  replace: get_$1
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:method[starts-with(@name,'display_')]
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']/gi:function[gi:parameters/gi:instance-parameter]
 
 # special handling for length parameters
 - !set-attribute
   name: gs:pinvoke-only
   value: 1
-  xpath: gi:repository/gi:namespace/gi:alias[@name='Filename']/gi:method[contains(@name,'utf8')]
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FilenameExtensions']/gi:method[contains(@name,'utf8')]

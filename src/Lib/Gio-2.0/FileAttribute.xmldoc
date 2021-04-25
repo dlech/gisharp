@@ -123,7 +123,7 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Bo
 <member name='FileAttribute.FilesystemSize'>
 <summary>
 A key in the "filesystem" namespace for getting the total size (in bytes) of the file system,
-used in <see cref="File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>. Corresponding <see cref="FileAttributeType"/>
+used in <see cref="File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>. Corresponding <see cref="FileAttributeType"/>
 is <see cref="FileAttributeType.Uint64"/>.
 </summary>
 </member>

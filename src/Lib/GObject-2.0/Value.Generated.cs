@@ -70,7 +70,7 @@ namespace GISharp.Lib.GObject
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.String']/*" />
         [System.Diagnostics.CodeAnalysis.AllowNullAttribute]
-        public GISharp.Lib.GLib.UnownedUtf8 String { get => GetString(); set => SetString(value); }
+        public GISharp.Runtime.UnownedUtf8 String { get => GetString(); set => SetString(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.UChar']/*" />
         public byte UChar { get => GetUChar(); set => SetUChar(value); }
@@ -327,7 +327,7 @@ namespace GISharp.Lib.GObject
         partial void CheckDupStringArgs();
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.DupString()']/*" />
-        public GISharp.Lib.GLib.Utf8 DupString()
+        public GISharp.Runtime.Utf8 DupString()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -335,7 +335,7 @@ namespace GISharp.Lib.GObject
                 var value_ = this_;
                 var ret_ = g_value_dup_string(value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
                 return ret;
             }
         }
@@ -851,7 +851,7 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetStringArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetString()
+        private GISharp.Runtime.UnownedUtf8 GetString()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -859,7 +859,7 @@ namespace GISharp.Lib.GObject
                 var value_ = this_;
                 var ret_ = g_value_get_string(value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+                var ret = new GISharp.Runtime.UnownedUtf8(ret_);
                 return ret;
             }
         }
@@ -1522,11 +1522,11 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
-        partial void CheckSetInternedStringArgs(GISharp.Lib.GLib.NullableUnownedUtf8 vString);
+        partial void CheckSetInternedStringArgs(GISharp.Runtime.NullableUnownedUtf8 vString);
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.SetInternedString(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.SetInternedString(GISharp.Runtime.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.66")]
-        public void SetInternedString(GISharp.Lib.GLib.NullableUnownedUtf8 vString)
+        public void SetInternedString(GISharp.Runtime.NullableUnownedUtf8 vString)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -1768,10 +1768,10 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
-        partial void CheckSetStaticStringArgs(GISharp.Lib.GLib.NullableUnownedUtf8 vString);
+        partial void CheckSetStaticStringArgs(GISharp.Runtime.NullableUnownedUtf8 vString);
 
-        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.SetStaticString(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
-        public void SetStaticString(GISharp.Lib.GLib.NullableUnownedUtf8 vString)
+        /// <include file="Value.xmldoc" path="declaration/member[@name='Value.SetStaticString(GISharp.Runtime.NullableUnownedUtf8)']/*" />
+        public void SetStaticString(GISharp.Runtime.NullableUnownedUtf8 vString)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -1802,9 +1802,9 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* vString);
-        partial void CheckSetStringArgs(GISharp.Lib.GLib.NullableUnownedUtf8 vString);
+        partial void CheckSetStringArgs(GISharp.Runtime.NullableUnownedUtf8 vString);
 
-        private void SetString(GISharp.Lib.GLib.NullableUnownedUtf8 vString)
+        private void SetString(GISharp.Runtime.NullableUnownedUtf8 vString)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {

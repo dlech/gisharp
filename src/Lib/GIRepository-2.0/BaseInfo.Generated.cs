@@ -54,10 +54,10 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GIRepository.BaseInfo Container { get => GetContainer(); }
 
         /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo.Name']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 Name { get => GetName(); }
+        public GISharp.Runtime.UnownedUtf8 Name { get => GetName(); }
 
         /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo.Namespace']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 Namespace { get => GetNamespace(); }
+        public GISharp.Runtime.UnownedUtf8 Namespace { get => GetNamespace(); }
 
         /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo.InfoType']/*" />
         public GISharp.Lib.GIRepository.InfoType InfoType { get => GetInfoType(); }
@@ -178,17 +178,17 @@ namespace GISharp.Lib.GIRepository
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckGetAttributeArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckGetAttributeArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo.GetAttribute(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 GetAttribute(GISharp.Lib.GLib.UnownedUtf8 name)
+        /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo.GetAttribute(GISharp.Runtime.UnownedUtf8)']/*" />
+        public GISharp.Runtime.UnownedUtf8 GetAttribute(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckGetAttributeArgs(name);
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_base_info_get_attribute(info_,name_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -242,13 +242,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* info);
         partial void CheckGetNameArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetName()
+        private GISharp.Runtime.UnownedUtf8 GetName()
         {
             CheckGetNameArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_get_name(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -270,13 +270,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* info);
         partial void CheckGetNamespaceArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetNamespace()
+        private GISharp.Runtime.UnownedUtf8 GetNamespace()
         {
             CheckGetNamespaceArgs();
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_base_info_get_namespace(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -430,7 +430,7 @@ namespace GISharp.Lib.GIRepository
         byte** value);
         partial void CheckTryIterateAttributesArgs(ref GISharp.Lib.GIRepository.AttributeIter iterator);
 
-        private bool TryIterateAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
+        private bool TryIterateAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Runtime.UnownedUtf8 name, out GISharp.Runtime.UnownedUtf8 value)
         {
             fixed (GISharp.Lib.GIRepository.AttributeIter* iterator_ = &iterator)
             {
@@ -440,8 +440,8 @@ namespace GISharp.Lib.GIRepository
                 byte* value_;
                 var ret_ = g_base_info_iterate_attributes(info_,iterator_,&name_,&value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                name = new GISharp.Lib.GLib.UnownedUtf8(name_);
-                value = new GISharp.Lib.GLib.UnownedUtf8(value_);
+                name = new GISharp.Runtime.UnownedUtf8(name_);
+                value = new GISharp.Runtime.UnownedUtf8(value_);
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }

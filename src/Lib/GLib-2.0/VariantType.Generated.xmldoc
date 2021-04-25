@@ -196,7 +196,7 @@ This function may only be used with a dictionary entry type.
 </remarks>
 </member>
 
-<member name='VariantType.VariantType(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='VariantType.VariantType(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Creates a new <see cref="VariantType"/> corresponding to the type string given
 by <paramref name="typeString"/>.  It is appropriate to call <see cref="VariantType.Free()"/> on
@@ -205,7 +205,7 @@ the return value.
 <remarks>
 <para>
 It is a programmer error to call this function with an invalid type
-string.  Use <see cref="VariantType.StringIsValid(GISharp.Lib.GLib.UnownedUtf8)"/> if you are unsure.
+string.  Use <see cref="VariantType.StringIsValid(GISharp.Runtime.UnownedUtf8)"/> if you are unsure.
 </para>
 </remarks>
 <param name="typeString">
@@ -299,16 +299,16 @@ Since 2.24
 </returns>
 </member>
 
-<member name='VariantType.Checked(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='VariantType.Checked(GISharp.Runtime.UnownedUtf8)'>
 </member>
 
-<member name='VariantType.StringGetDepth(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='VariantType.StringGetDepth(GISharp.Runtime.UnownedUtf8)'>
 </member>
 
-<member name='VariantType.StringIsValid(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='VariantType.StringIsValid(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if <paramref name="typeString"/> is a valid GVariant type string.  This call is
-equivalent to calling <see cref="VariantType.TryStringScan(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,out GISharp.Lib.GLib.Utf8)"/> and confirming
+equivalent to calling <see cref="VariantType.TryStringScan(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,out GISharp.Runtime.Utf8)"/> and confirming
 that the following character is a nul terminator.
 </summary>
 <param name="typeString">
@@ -321,7 +321,7 @@ Since 2.24
 </returns>
 </member>
 
-<member name='VariantType.TryStringScan(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.Utf8)'>
+<member name='VariantType.TryStringScan(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.Utf8)'>
 <summary>
 Scan for a single complete and valid GVariant type string in <paramref name="string"/>.
 The memory pointed to by <paramref name="limit"/> (or bytes beyond it) is never
@@ -339,7 +339,7 @@ string does not end before <paramref name="limit"/> then <c>false</c> is returne
 </para>
 <para>
 For the simple case of checking if a string is a valid type string,
-see <see cref="VariantType.StringIsValid(GISharp.Lib.GLib.UnownedUtf8)"/>.
+see <see cref="VariantType.StringIsValid(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 <param name="string">

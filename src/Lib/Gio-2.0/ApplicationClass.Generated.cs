@@ -201,7 +201,7 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         }
 
         /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='_Open']/*" />
-        public delegate void _Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint);
+        public delegate void _Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Runtime.UnownedUtf8 hint);
 
         /// <summary>
         /// Unmanaged callback
@@ -242,7 +242,7 @@ byte* hint);
                     {
                         var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
                         var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_);
-                        var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_);
+                        var hint = new GISharp.Runtime.UnownedUtf8(hint_);
                         var doOpen = (_Open)methodInfo.CreateDelegate(typeof(_Open), application);
                         doOpen(files, hint);
                     }
@@ -308,7 +308,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine);
         }
 
         /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='_TryLocalCommandLine']/*" />
-        public delegate bool _TryLocalCommandLine(ref GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8> arguments, out int exitStatus);
+        public delegate bool _TryLocalCommandLine(ref GISharp.Lib.GLib.Strv<GISharp.Runtime.Utf8> arguments, out int exitStatus);
 
         /// <summary>
         /// Unmanaged callback
@@ -345,7 +345,7 @@ int* exitStatus);
                     try
                     {
                         var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
-                        var arguments = new GISharp.Lib.GLib.Strv<GISharp.Lib.GLib.Utf8>((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full);
+                        var arguments = new GISharp.Lib.GLib.Strv<GISharp.Runtime.Utf8>((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full);
                         var doTryLocalCommandLine = (_TryLocalCommandLine)methodInfo.CreateDelegate(typeof(_TryLocalCommandLine), application);
                         var ret = doTryLocalCommandLine(ref arguments,out var exitStatus);
                         *arguments_ = (byte**)arguments.Take();

@@ -2,7 +2,6 @@
 // Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
-using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
@@ -29,7 +28,7 @@ namespace GISharp.Lib.GObject
 
         static readonly GType _GType = paramSpecTypes[11];
 
-        /// <include file="ParamSpecFlags.xmldoc" path="declaration/member[@name='ParamSpecFlags.ParamSpecFlags(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GObject.ParamFlags)']/*" />
+        /// <include file="ParamSpecFlags.xmldoc" path="declaration/member[@name='ParamSpecFlags.ParamSpecFlags(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GObject.ParamFlags)']/*" />
         public ParamSpecFlags(UnownedUtf8 name, UnownedUtf8 nick, UnownedUtf8 blurb, GType flagsType, System.Enum defaultValue, ParamFlags flags)
             : this((IntPtr)New(name, nick, blurb, flagsType, Convert.ToUInt32(defaultValue), flags), Transfer.None)
         {

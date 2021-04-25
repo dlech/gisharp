@@ -3,10 +3,10 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using GISharp.Lib.GLib;
+using GISharp.Runtime;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
-using GISharp.Lib.GLib;
-
 using static GISharp.Lib.GLib.LogLevelFlags;
 
 namespace GISharp.Test

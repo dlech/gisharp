@@ -63,7 +63,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='_GetName']/*" />
-        public delegate GISharp.Lib.GLib.UnownedUtf8 _GetName();
+        public delegate GISharp.Runtime.UnownedUtf8 _GetName();
 
         /// <summary>
         /// Unmanaged callback

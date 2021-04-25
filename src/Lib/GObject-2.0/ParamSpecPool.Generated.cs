@@ -184,10 +184,10 @@ namespace GISharp.Lib.GObject
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean walkAncestors);
-        partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 paramName, GISharp.Runtime.GType ownerType, bool walkAncestors);
+        partial void CheckLookupArgs(GISharp.Runtime.UnownedUtf8 paramName, GISharp.Runtime.GType ownerType, bool walkAncestors);
 
-        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,bool)']/*" />
-        public GISharp.Lib.GObject.ParamSpec? Lookup(GISharp.Lib.GLib.UnownedUtf8 paramName, GISharp.Runtime.GType ownerType, bool walkAncestors)
+        /// <include file="ParamSpecPool.xmldoc" path="declaration/member[@name='ParamSpecPool.Lookup(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,bool)']/*" />
+        public GISharp.Lib.GObject.ParamSpec? Lookup(GISharp.Runtime.UnownedUtf8 paramName, GISharp.Runtime.GType ownerType, bool walkAncestors)
         {
             CheckLookupArgs(paramName, ownerType, walkAncestors);
             var pool_ = (GISharp.Lib.GObject.ParamSpecPool.UnmanagedStruct*)UnsafeHandle;

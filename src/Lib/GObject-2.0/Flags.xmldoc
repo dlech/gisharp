@@ -35,7 +35,7 @@ the first <see cref="FlagsValue"/> which is set in
 </returns>
 </member>
 
-<member name='Flags.GetValueByName(GISharp.Lib.GObject.FlagsClass,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Flags.GetValueByName(GISharp.Lib.GObject.FlagsClass,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Looks up a <see cref="FlagsValue"/> by name.
 </summary>
@@ -51,7 +51,7 @@ the <see cref="FlagsValue"/> with name <paramref name="name"/>,
 </returns>
 </member>
 
-<member name='Flags.GetValueByNick(GISharp.Lib.GObject.FlagsClass,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Flags.GetValueByNick(GISharp.Lib.GObject.FlagsClass,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Looks up a <see cref="FlagsValue"/> by nickname.
 </summary>
@@ -67,7 +67,7 @@ the <see cref="FlagsValue"/> with nickname <paramref name="nick"/>,
 </returns>
 </member>
 
-<member name='Flags.RegisterStatic(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.FlagsValue&gt;)'>
+<member name='Flags.RegisterStatic(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.FlagsValue&gt;)'>
 <summary>
 Registers a new static flags type with the name <paramref name="name"/>.
 </summary>
@@ -75,7 +75,7 @@ Registers a new static flags type with the name <paramref name="name"/>.
 <para>
 It is normally more convenient to let [glib-mkenums][glib-mkenums]
 generate a my_flags_get_type() function from a usual C enumeration
-definition than to write one yourself using <see cref="Flags.RegisterStatic(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GObject.FlagsValue})"/>.
+definition than to write one yourself using <see cref="Flags.RegisterStatic(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray{GISharp.Lib.GObject.FlagsValue})"/>.
 </para>
 </remarks>
 <param name="name">

@@ -2,7 +2,7 @@
 
 <member name='OptionContext.Description'>
 <summary>
-Returns the description. See <see cref="OptionContext.SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
+Returns the description. See <see cref="OptionContext.SetDescription(GISharp.Runtime.NullableUnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -39,7 +39,7 @@ See <see cref="OptionContext.SetStrictPosix(bool)"/> for more information.
 
 <member name='OptionContext.Summary'>
 <summary>
-Returns the summary. See <see cref="OptionContext.SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
+Returns the summary. See <see cref="OptionContext.SetSummary(GISharp.Runtime.NullableUnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -84,13 +84,13 @@ strings are not translated.
 <remarks>
 <para>
 Note that option groups have their own translation functions,
-this function only affects the <c>parameterString</c> (see <see cref="OptionContext.OptionContext(GISharp.Lib.GLib.NullableUnownedUtf8)"/>),
-the summary (see <see cref="OptionContext.SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8)"/>) and the description
-(see <see cref="OptionContext.SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8)"/>).
+this function only affects the <c>parameterString</c> (see <see cref="OptionContext.OptionContext(GISharp.Runtime.NullableUnownedUtf8)"/>),
+the summary (see <see cref="OptionContext.SetSummary(GISharp.Runtime.NullableUnownedUtf8)"/>) and the description
+(see <see cref="OptionContext.SetDescription(GISharp.Runtime.NullableUnownedUtf8)"/>).
 </para>
 <para>
 If you are using gettext(), you only need to set the translation
-domain, see <see cref="OptionContext.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
+domain, see <see cref="OptionContext.SetTranslationDomain(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 <param name="func">
@@ -98,7 +98,7 @@ the <see cref="TranslateFunc"/>, or <c>null</c>
 </param>
 </member>
 
-<member name='OptionContext.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='OptionContext.SetTranslationDomain(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 A convenience function to use gettext() for translating
 user-visible strings.

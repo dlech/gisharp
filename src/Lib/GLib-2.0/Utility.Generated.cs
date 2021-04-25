@@ -8,10 +8,10 @@ namespace GISharp.Lib.GLib
     {
         /// <include file="Utility.xmldoc" path="declaration/member[@name='Utility.ApplicationName']/*" />
         [GISharp.Runtime.SinceAttribute("2.2")]
-        public static GISharp.Lib.GLib.NullableUnownedUtf8 ApplicationName { get => GetApplicationName(); set => SetApplicationName(value.Value); }
+        public static GISharp.Runtime.NullableUnownedUtf8 ApplicationName { get => GetApplicationName(); set => SetApplicationName(value.Value); }
 
         /// <include file="Utility.xmldoc" path="declaration/member[@name='Utility.ProgramName']/*" />
-        public static GISharp.Lib.GLib.NullableUnownedUtf8 ProgramName { get => GetProgramName(); set => SetProgramName(value.Value); }
+        public static GISharp.Runtime.NullableUnownedUtf8 ProgramName { get => GetProgramName(); set => SetProgramName(value.Value); }
 
         /// <summary>
         /// Gets a human-readable name for the application, as set by
@@ -34,12 +34,12 @@ namespace GISharp.Lib.GLib
         static partial void CheckGetApplicationNameArgs();
 
         [GISharp.Runtime.SinceAttribute("2.2")]
-        private static GISharp.Lib.GLib.NullableUnownedUtf8 GetApplicationName()
+        private static GISharp.Runtime.NullableUnownedUtf8 GetApplicationName()
         {
             CheckGetApplicationNameArgs();
             var ret_ = g_get_application_name();
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -71,10 +71,10 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* applicationName);
-        static partial void CheckSetApplicationNameArgs(GISharp.Lib.GLib.UnownedUtf8 applicationName);
+        static partial void CheckSetApplicationNameArgs(GISharp.Runtime.UnownedUtf8 applicationName);
 
         [GISharp.Runtime.SinceAttribute("2.2")]
-        private static void SetApplicationName(GISharp.Lib.GLib.UnownedUtf8 applicationName)
+        private static void SetApplicationName(GISharp.Runtime.UnownedUtf8 applicationName)
         {
             CheckSetApplicationNameArgs(applicationName);
             var applicationName_ = (byte*)applicationName.UnsafeHandle;
@@ -106,12 +106,12 @@ namespace GISharp.Lib.GLib
         private static extern byte* g_get_prgname();
         static partial void CheckGetProgramNameArgs();
 
-        private static GISharp.Lib.GLib.NullableUnownedUtf8 GetProgramName()
+        private static GISharp.Runtime.NullableUnownedUtf8 GetProgramName()
         {
             CheckGetProgramNameArgs();
             var ret_ = g_get_prgname();
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -141,9 +141,9 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* prgname);
-        static partial void CheckSetProgramNameArgs(GISharp.Lib.GLib.UnownedUtf8 prgname);
+        static partial void CheckSetProgramNameArgs(GISharp.Runtime.UnownedUtf8 prgname);
 
-        private static void SetProgramName(GISharp.Lib.GLib.UnownedUtf8 prgname)
+        private static void SetProgramName(GISharp.Runtime.UnownedUtf8 prgname)
         {
             CheckSetProgramNameArgs(prgname);
             var prgname_ = (byte*)prgname.UnsafeHandle;

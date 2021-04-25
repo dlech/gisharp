@@ -54,7 +54,7 @@ Higher bits can be used for user-defined log levels.
 </summary>
 </member>
 
-<member name='Log.RemoveHandler(GISharp.Lib.GLib.UnownedUtf8,uint)'>
+<member name='Log.RemoveHandler(GISharp.Runtime.UnownedUtf8,uint)'>
 <summary>
 Removes the log handler.
 </summary>
@@ -105,14 +105,14 @@ the old fatal mask
 </returns>
 </member>
 
-<member name='Log.SetFatalMask(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.LogLevelFlags)'>
+<member name='Log.SetFatalMask(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.LogLevelFlags)'>
 <summary>
 Sets the log levels which are fatal in the given domain.
 <see cref="LogLevelFlags.Error"/> is always fatal.
 </summary>
 <remarks>
 <para>
-This has no effect on structured log messages (using <see cref="Structured(GISharp.Lib.GLib.LogLevelFlags,System.Collections.Generic.IDictionary{GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8})"/> or
+This has no effect on structured log messages (using <see cref="Structured(GISharp.Lib.GLib.LogLevelFlags,System.Collections.Generic.IDictionary{GISharp.Runtime.Utf8,GISharp.Runtime.Utf8})"/> or
 <see cref="Log.Structured(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan{GISharp.Lib.GLib.LogField})"/>). To change the fatal behaviour for specific log
 messages, programs must install a custom log writer function using
 <see cref="LogWriter.SetFunc(GISharp.Lib.GLib.LogWriterFunc)"/>. See
@@ -136,7 +136,7 @@ the old fatal mask for the log domain
 </returns>
 </member>
 
-<member name='Log.SetHandler(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.LogFunc)'>
+<member name='Log.SetHandler(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.LogFunc)'>
 <summary>
 Sets the log handler for a domain and a set of log levels. 
 </summary>
@@ -189,7 +189,7 @@ key–value pairs of structured data to add
 </param>
 </member>
 
-<member name='Log.Variant(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.Variant)'>
+<member name='Log.Variant(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Lib.GLib.Variant)'>
 <summary>
 Log a message with structured data, accepting the data within a <see cref="Variant"/>. This
 version is especially useful for use in other languages, via introspection.

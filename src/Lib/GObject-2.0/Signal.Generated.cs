@@ -234,10 +234,10 @@ namespace GISharp.Lib.GObject
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean after);
-        static partial void CheckConnectArgs(GISharp.Lib.GObject.Object instance, GISharp.Lib.GLib.UnownedUtf8 detailedSignal, GISharp.Lib.GObject.Closure closure, bool after = false);
+        static partial void CheckConnectArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.UnownedUtf8 detailedSignal, GISharp.Lib.GObject.Closure closure, bool after = false);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Connect(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)']/*" />
-        public static GISharp.Runtime.CULong Connect(GISharp.Lib.GObject.Object instance, GISharp.Lib.GLib.UnownedUtf8 detailedSignal, GISharp.Lib.GObject.Closure closure, bool after = false)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Connect(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)']/*" />
+        public static GISharp.Runtime.CULong Connect(GISharp.Lib.GObject.Object instance, GISharp.Runtime.UnownedUtf8 detailedSignal, GISharp.Lib.GObject.Closure closure, bool after = false)
         {
             CheckConnectArgs(instance, detailedSignal, closure, after);
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
@@ -965,11 +965,11 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        static partial void CheckIsValidNameArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        static partial void CheckIsValidNameArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.IsValidName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.IsValidName(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.66")]
-        public static bool IsValidName(GISharp.Lib.GLib.UnownedUtf8 name)
+        public static bool IsValidName(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckIsValidNameArgs(name);
             var name_ = (byte*)name.UnsafeHandle;
@@ -1056,10 +1056,10 @@ namespace GISharp.Lib.GObject
         /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.GType itype);
-        static partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.GType itype);
+        static partial void CheckLookupArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.GType itype);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType)']/*" />
-        public static uint Lookup(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.GType itype)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Lookup(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType)']/*" />
+        public static uint Lookup(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.GType itype)
         {
             CheckLookupArgs(name, itype);
             var name_ = (byte*)name.UnsafeHandle;
@@ -1094,13 +1094,13 @@ namespace GISharp.Lib.GObject
         static partial void CheckNameArgs(uint signalId);
 
         /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Name(uint)']/*" />
-        public static GISharp.Lib.GLib.NullableUnownedUtf8 Name(uint signalId)
+        public static GISharp.Runtime.NullableUnownedUtf8 Name(uint signalId)
         {
             CheckNameArgs(signalId);
             var signalId_ = (uint)signalId;
             var ret_ = g_signal_name(signalId_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -1283,10 +1283,10 @@ namespace GISharp.Lib.GObject
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean forceDetailQuark);
-        static partial void CheckTryParseNameArgs(GISharp.Lib.GLib.UnownedUtf8 detailedSignal, GISharp.Runtime.GType itype, bool forceDetailQuark = false);
+        static partial void CheckTryParseNameArgs(GISharp.Runtime.UnownedUtf8 detailedSignal, GISharp.Runtime.GType itype, bool forceDetailQuark = false);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.TryParseName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GLib.Quark,bool)']/*" />
-        public static bool TryParseName(GISharp.Lib.GLib.UnownedUtf8 detailedSignal, GISharp.Runtime.GType itype, out uint signalIdP, out GISharp.Lib.GLib.Quark detailP, bool forceDetailQuark = false)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.TryParseName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GLib.Quark,bool)']/*" />
+        public static bool TryParseName(GISharp.Runtime.UnownedUtf8 detailedSignal, GISharp.Runtime.GType itype, out uint signalIdP, out GISharp.Lib.GLib.Quark detailP, bool forceDetailQuark = false)
         {
             CheckTryParseNameArgs(detailedSignal, itype, forceDetailQuark);
             var detailedSignal_ = (byte*)detailedSignal.UnsafeHandle;
@@ -1446,10 +1446,10 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* detailedSignal);
-        static partial void CheckStopEmissionArgs(GISharp.Lib.GObject.Object instance, GISharp.Lib.GLib.UnownedUtf8 detailedSignal);
+        static partial void CheckStopEmissionArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.UnownedUtf8 detailedSignal);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.StopEmission(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static void StopEmission(GISharp.Lib.GObject.Object instance, GISharp.Lib.GLib.UnownedUtf8 detailedSignal)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.StopEmission(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8)']/*" />
+        public static void StopEmission(GISharp.Lib.GObject.Object instance, GISharp.Runtime.UnownedUtf8 detailedSignal)
         {
             CheckStopEmissionArgs(instance, detailedSignal);
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;

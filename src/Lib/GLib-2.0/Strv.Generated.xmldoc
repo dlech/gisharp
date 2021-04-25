@@ -23,7 +23,7 @@ another <c>null</c>-terminated array of strings
 </returns>
 </member>
 
-<member name='Strv.Contains(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Strv.Contains(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if this instance contains <paramref name="str"/>. this instance must not be <c>null</c>.
 </summary>

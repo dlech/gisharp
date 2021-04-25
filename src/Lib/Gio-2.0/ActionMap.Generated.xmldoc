@@ -18,7 +18,7 @@ a <see cref="IAction"/>
 </param>
 </member>
 
-<member name='IActionMap.DoLookupAction(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionMap.DoLookupAction(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Looks up the action with the name <paramref name="actionName"/> in this instance.
 </summary>
@@ -35,7 +35,7 @@ a <see cref="IAction"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='IActionMap.DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionMap.DoRemoveAction(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Removes the named action from the action map.
 </summary>
@@ -87,7 +87,7 @@ a <see cref="IAction"/>
 </param>
 </member>
 
-<member name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Looks up the action with the name <paramref name="actionName"/> in <paramref name="actionMap"/>.
 </summary>
@@ -107,7 +107,7 @@ a <see cref="IAction"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Removes the named action from the action map.
 </summary>

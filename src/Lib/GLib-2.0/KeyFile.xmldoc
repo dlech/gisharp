@@ -210,13 +210,13 @@ Returns the name of the start group of the file.
 <member name='KeyFile.KeyFile()'>
 <summary>
 Creates a new empty <see cref="KeyFile"/> object. Use
-<see cref="KeyFile.LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/>, <see cref="KeyFile.LoadFromData(GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.GLib.KeyFileFlags)"/>,
-<see cref="KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.UnownedZeroTerminatedCPtrArray{GISharp.Lib.GLib.Filename},out GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> or <see cref="KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,out GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> to
+<see cref="KeyFile.LoadFromFile(GISharp.Runtime.Filename,GISharp.Lib.GLib.KeyFileFlags)"/>, <see cref="KeyFile.LoadFromData(GISharp.Runtime.UnownedUtf8,int,GISharp.Lib.GLib.KeyFileFlags)"/>,
+<see cref="KeyFile.LoadFromDirs(GISharp.Runtime.Filename,GISharp.Runtime.UnownedZeroTerminatedCPtrArray{GISharp.Runtime.Filename},out GISharp.Runtime.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> or <see cref="KeyFile.LoadFromDataDirs(GISharp.Runtime.Filename,out GISharp.Runtime.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> to
 read an existing key file.
 </summary>
 </member>
 
-<member name='KeyFile.GetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetBoolean(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
 boolean.
@@ -244,7 +244,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetBooleanList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
 booleans.
@@ -273,7 +273,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='KeyFile.GetComment(GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Retrieves a comment above <paramref name="key"/> from <paramref name="groupName"/>.
 If <paramref name="key"/> is <c>null</c> then the comment will be read from above
@@ -301,7 +301,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetDouble(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
 double. If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
@@ -329,7 +329,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetDoubleList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
 doubles.
@@ -358,10 +358,10 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetInt64(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a signed
-64-bit integer. This is similar to <see cref="KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> but can return
+64-bit integer. This is similar to <see cref="KeyFile.GetInteger(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/> but can return
 64-bit results without truncation.
 </summary>
 <param name="groupName">
@@ -379,7 +379,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetInteger(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an
 integer.
@@ -408,7 +408,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetIntegerList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
 integers.
@@ -438,7 +438,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetKeys(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetKeys(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns all keys for the group name <paramref name="groupName"/>. 
 In the event that the <paramref name="groupName"/> cannot
@@ -456,16 +456,16 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='KeyFile.GetLocaleForKey(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Returns the actual locale which the result of
-<see cref="KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> or <see cref="KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/>
+<see cref="KeyFile.GetLocaleString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)"/> or <see cref="KeyFile.GetLocaleStringList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)"/>
 came from.
 </summary>
 <remarks>
 <para>
-If calling <see cref="KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> or
-<see cref="KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> with exactly the same this instance,
+If calling <see cref="KeyFile.GetLocaleString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)"/> or
+<see cref="KeyFile.GetLocaleStringList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)"/> with exactly the same this instance,
 <paramref name="groupName"/>, <paramref name="key"/> and <paramref name="locale"/>, the result of those functions will
 have originally been tagged with the locale that is the result of
 this function.
@@ -486,7 +486,7 @@ the locale from the file, or <c>null</c> if the key was not
 </returns>
 </member>
 
-<member name='KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='KeyFile.GetLocaleString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/>
 translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
@@ -523,7 +523,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='KeyFile.GetLocaleStringList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>
 translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
@@ -560,10 +560,10 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the string value associated with <paramref name="key"/> under <paramref name="groupName"/>.
-Unlike <see cref="KeyFile.GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, this function handles escape sequences
+Unlike <see cref="KeyFile.GetValue(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/>, this function handles escape sequences
 like \s.
 </summary>
 <remarks>
@@ -589,7 +589,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetStringList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>.
 </summary>
@@ -617,10 +617,10 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetUint64(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an unsigned
-64-bit integer. This is similar to <see cref="KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> but can return
+64-bit integer. This is similar to <see cref="KeyFile.GetInteger(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/> but can return
 large positive results without truncation.
 </summary>
 <param name="groupName">
@@ -638,10 +638,10 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetValue(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Returns the raw value associated with <paramref name="key"/> under <paramref name="groupName"/>.
-Use <see cref="KeyFile.GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> to retrieve an unescaped UTF-8 string.
+Use <see cref="KeyFile.GetString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/> to retrieve an unescaped UTF-8 string.
 </summary>
 <remarks>
 <para>
@@ -666,7 +666,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.HasGroup(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.HasGroup(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Looks whether the key file has the group <paramref name="groupName"/>.
 </summary>
@@ -695,7 +695,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.LoadFromData(GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromData(GISharp.Runtime.UnownedUtf8,int,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 Loads a key file from memory into an empty <see cref="KeyFile"/> structure.
 If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
@@ -714,7 +714,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromDataDirs(GISharp.Runtime.Filename,GISharp.Runtime.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 This function looks for a key file named <paramref name="file"/> in the paths
 returned from g_get_user_data_dir() and g_get_system_data_dirs(),
@@ -737,7 +737,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromDirs(GISharp.Runtime.Filename,GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Runtime.Filename&gt;,GISharp.Runtime.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 This function looks for a key file named <paramref name="file"/> in the paths
 specified in <paramref name="searchDirs"/>, loads the file into this instance and
@@ -770,7 +770,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromFile(GISharp.Runtime.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 Loads a key file into an empty <see cref="KeyFile"/> structure.
 </summary>
@@ -796,7 +796,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='KeyFile.RemoveComment(GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Removes a comment above <paramref name="key"/> from <paramref name="groupName"/>.
 If <paramref name="key"/> is <c>null</c> then the comment will be removed above <paramref name="groupName"/>.
@@ -814,7 +814,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.RemoveGroup(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.RemoveGroup(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Removes the specified group, <paramref name="groupName"/>,
 from the key file.
@@ -827,7 +827,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.RemoveKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.RemoveKey(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Removes <paramref name="key"/> in <paramref name="groupName"/> from the key file.
 </summary>
@@ -842,7 +842,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.SaveToFile(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SaveToFile(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Writes the contents of this instance to <paramref name="filename"/> using
 g_file_set_contents(). If you need stricter guarantees about durability of
@@ -863,7 +863,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,bool)'>
+<member name='KeyFile.SetBoolean(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,bool)'>
 <summary>
 Associates a new boolean value with <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.
@@ -879,7 +879,7 @@ a key
 </param>
 </member>
 
-<member name='KeyFile.SetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)'>
+<member name='KeyFile.SetBooleanList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)'>
 <summary>
 Associates a list of boolean values with <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.
@@ -896,7 +896,7 @@ an array of boolean values
 </param>
 </member>
 
-<member name='KeyFile.SetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SetComment(GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Places a comment above <paramref name="key"/> from <paramref name="groupName"/>.
 </summary>
@@ -925,7 +925,7 @@ On error
 </exception>
 </member>
 
-<member name='KeyFile.SetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,double)'>
+<member name='KeyFile.SetDouble(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,double)'>
 <summary>
 Associates a new double value with <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.
@@ -941,7 +941,7 @@ a double value
 </param>
 </member>
 
-<member name='KeyFile.SetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;double&gt;)'>
+<member name='KeyFile.SetDoubleList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,System.ReadOnlySpan&lt;double&gt;)'>
 <summary>
 Associates a list of double values with <paramref name="key"/> under
 <paramref name="groupName"/>.  If <paramref name="key"/> cannot be found then it is created.
@@ -957,7 +957,7 @@ an array of double values
 </param>
 </member>
 
-<member name='KeyFile.SetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,long)'>
+<member name='KeyFile.SetInt64(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,long)'>
 <summary>
 Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.
@@ -973,7 +973,7 @@ an integer value
 </param>
 </member>
 
-<member name='KeyFile.SetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,int)'>
+<member name='KeyFile.SetInteger(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,int)'>
 <summary>
 Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.
@@ -989,7 +989,7 @@ an integer value
 </param>
 </member>
 
-<member name='KeyFile.SetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;int&gt;)'>
+<member name='KeyFile.SetIntegerList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,System.ReadOnlySpan&lt;int&gt;)'>
 <summary>
 Associates a list of integer values with <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.
@@ -1016,7 +1016,7 @@ the separator
 </param>
 </member>
 
-<member name='KeyFile.SetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SetLocaleString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Associates a string value for <paramref name="key"/> and <paramref name="locale"/> under <paramref name="groupName"/>.
 If the translation for <paramref name="key"/> cannot be found then it is created.
@@ -1035,7 +1035,7 @@ a string
 </param>
 </member>
 
-<member name='KeyFile.SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='KeyFile.SetLocaleStringList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Runtime.Utf8&gt;)'>
 <summary>
 Associates a list of string values for <paramref name="key"/> and <paramref name="locale"/> under
 <paramref name="groupName"/>.  If the translation for <paramref name="key"/> cannot be found then
@@ -1055,12 +1055,12 @@ a <c>null</c>-terminated array of locale string values
 </param>
 </member>
 
-<member name='KeyFile.SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SetString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Associates a new string value with <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.
 If <paramref name="groupName"/> cannot be found then it is created.
-Unlike <see cref="KeyFile.SetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, this function handles characters
+Unlike <see cref="KeyFile.SetValue(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/>, this function handles characters
 that need escaping, such as newlines.
 </summary>
 <param name="groupName">
@@ -1074,7 +1074,7 @@ a string
 </param>
 </member>
 
-<member name='KeyFile.SetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='KeyFile.SetStringList(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Runtime.Utf8&gt;)'>
 <summary>
 Associates a list of string values for <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.
@@ -1091,7 +1091,7 @@ an array of string values
 </param>
 </member>
 
-<member name='KeyFile.SetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,ulong)'>
+<member name='KeyFile.SetUint64(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,ulong)'>
 <summary>
 Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
 If <paramref name="key"/> cannot be found then it is created.
@@ -1107,7 +1107,7 @@ an integer value
 </param>
 </member>
 
-<member name='KeyFile.SetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SetValue(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Associates a new value with <paramref name="key"/> under <paramref name="groupName"/>.
 </summary>
@@ -1116,7 +1116,7 @@ Associates a new value with <paramref name="key"/> under <paramref name="groupNa
 If <paramref name="key"/> cannot be found then it is created. If <paramref name="groupName"/> cannot
 be found then it is created. To set an UTF-8 string which may contain
 characters that need escaping (such as newlines or spaces), use
-<see cref="KeyFile.SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>.
+<see cref="KeyFile.SetString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 <param name="groupName">

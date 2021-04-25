@@ -29,14 +29,14 @@ If the two properties being bound are
   booleans, setting one to <c>true</c> will result in the other being
   set to <c>false</c> and vice versa. This flag will only work for
   boolean properties, and cannot be used when passing custom
-  transformation functions to <see cref="Object.BindProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.BindingTransformFunc,GISharp.Lib.GObject.BindingTransformFunc)"/>.
+  transformation functions to <see cref="Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.BindingTransformFunc,GISharp.Lib.GObject.BindingTransformFunc)"/>.
 </summary>
 </member>
 
 <member name='BindingFlags'>
 <summary>
-Flags to be passed to <see cref="Object.BindProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)"/> or
-<see cref="Object.BindProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.BindingTransformFunc,GISharp.Lib.GObject.BindingTransformFunc)"/>.
+Flags to be passed to <see cref="Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)"/> or
+<see cref="Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.BindingTransformFunc,GISharp.Lib.GObject.BindingTransformFunc)"/>.
 </summary>
 <remarks>
 <para>

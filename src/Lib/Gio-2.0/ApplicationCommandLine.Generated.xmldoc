@@ -75,7 +75,7 @@ The return value should not be modified or freed and is valid for as
 long as this instance exists.
 </para>
 <para>
-See <see cref="ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)"/> if you are only interested
+See <see cref="ApplicationCommandLine.GetEnvironmentVariable(GISharp.Runtime.Filename)"/> if you are only interested
 in the value of a single environment variable.
 </para>
 </remarks>
@@ -148,14 +148,14 @@ You must only call this function once per commandline invocation.
 </remarks>
 </member>
 
-<member name='ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)'>
+<member name='ApplicationCommandLine.CreateFileForArg(GISharp.Runtime.Filename)'>
 <summary>
 Creates a <see cref="IFile"/> corresponding to a filename that was given as part
 of the invocation of this instance.
 </summary>
 <remarks>
 <para>
-This differs from <see cref="File.NewForCommandlineArg(GISharp.Lib.GLib.Filename)"/> in that it
+This differs from <see cref="File.NewForCommandlineArg(GISharp.Runtime.Filename)"/> in that it
 resolves relative pathnames using the current working directory of
 the invoking process rather than the local process.
 </para>
@@ -168,7 +168,7 @@ a new <see cref="IFile"/>
 </returns>
 </member>
 
-<member name='ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)'>
+<member name='ApplicationCommandLine.GetEnvironmentVariable(GISharp.Runtime.Filename)'>
 <summary>
 Gets the value of a particular environment variable of the command
 line invocation, as would be returned by g_getenv().  The strings may
@@ -216,10 +216,10 @@ a <see cref="InputStream"/> for stdin
 </returns>
 </member>
 
-<member name='ApplicationCommandLine.DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ApplicationCommandLine.DoPrintLiteral(GISharp.Runtime.UnownedUtf8)'>
 </member>
 
-<member name='ApplicationCommandLine.DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ApplicationCommandLine.DoPrinterrLiteral(GISharp.Runtime.UnownedUtf8)'>
 </member>
 
 <member name='ApplicationCommandLine'>

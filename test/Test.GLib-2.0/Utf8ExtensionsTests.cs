@@ -3,6 +3,7 @@
 
 using System;
 using GISharp.Lib.GLib;
+using GISharp.Runtime;
 using NUnit.Framework;
 
 namespace GISharp.Test.GLib

@@ -73,11 +73,11 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckNewForStringArgs(GISharp.Lib.GLib.UnownedUtf8 str);
+        static partial void CheckNewForStringArgs(GISharp.Runtime.UnownedUtf8 str);
 
-        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.NewForString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.NewForString(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
-        public static GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.UnownedUtf8 str)
+        public static GISharp.Lib.Gio.IIcon NewForString(GISharp.Runtime.UnownedUtf8 str)
         {
             CheckNewForStringArgs(str);
             var str_ = (byte*)str.UnsafeHandle;
@@ -268,13 +268,13 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.ToString(GISharp.Lib.Gio.IIcon)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
-        public static GISharp.Lib.GLib.Utf8? ToString(this GISharp.Lib.Gio.IIcon icon)
+        public static GISharp.Runtime.Utf8? ToString(this GISharp.Lib.Gio.IIcon icon)
         {
             CheckToStringArgs(icon);
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
             var ret_ = g_icon_to_string(icon_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
     }

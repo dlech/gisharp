@@ -20,7 +20,7 @@ namespace GISharp.Lib.Gio
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Name']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Utf8? Name { set => SetProperty("name", value); }
+        public GISharp.Runtime.Utf8? Name { set => SetProperty("name", value); }
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Names_']/*" />
         [GISharp.Runtime.GPropertyAttribute("names", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
@@ -31,7 +31,7 @@ namespace GISharp.Lib.Gio
         public bool UseDefaultFallbacks { get => (bool)GetProperty("use-default-fallbacks")!; set => SetProperty("use-default-fallbacks", value); }
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Names']/*" />
-        public GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8> Names { get => GetNames(); }
+        public GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Utf8> Names { get => GetNames(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -57,9 +57,9 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 iconname);
 
-        static GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 iconname)
+        static GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 iconname)
         {
             CheckNewArgs(iconname);
             var iconname_ = (byte*)iconname.UnsafeHandle;
@@ -93,9 +93,9 @@ namespace GISharp.Lib.Gio
         /* <type name="gint" type="int" /> */
         /* transfer-ownership:none direction:in */
         int len);
-        static partial void CheckNewFromNamesArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames);
+        static partial void CheckNewFromNamesArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Runtime.Utf8> iconnames);
 
-        static GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* NewFromNames(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames)
+        static GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* NewFromNames(GISharp.Runtime.UnownedCPtrArray<GISharp.Runtime.Utf8> iconnames)
         {
             fixed (System.IntPtr* iconnamesData_ = iconnames)
             {
@@ -108,8 +108,8 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.ThemedIcon(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
-        public ThemedIcon(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames) : this((System.IntPtr)NewFromNames(iconnames), GISharp.Runtime.Transfer.Full)
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.ThemedIcon(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Runtime.Utf8&gt;)']/*" />
+        public ThemedIcon(GISharp.Runtime.UnownedCPtrArray<GISharp.Runtime.Utf8> iconnames) : this((System.IntPtr)NewFromNames(iconnames), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -147,9 +147,9 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
-        static partial void CheckNewWithDefaultFallbacksArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
+        static partial void CheckNewWithDefaultFallbacksArgs(GISharp.Runtime.UnownedUtf8 iconname);
 
-        static GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* NewWithDefaultFallbacks(GISharp.Lib.GLib.UnownedUtf8 iconname)
+        static GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* NewWithDefaultFallbacks(GISharp.Runtime.UnownedUtf8 iconname)
         {
             CheckNewWithDefaultFallbacksArgs(iconname);
             var iconname_ = (byte*)iconname.UnsafeHandle;
@@ -188,10 +188,10 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
-        partial void CheckAppendNameArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
+        partial void CheckAppendNameArgs(GISharp.Runtime.UnownedUtf8 iconname);
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.AppendName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public void AppendName(GISharp.Lib.GLib.UnownedUtf8 iconname)
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.AppendName(GISharp.Runtime.UnownedUtf8)']/*" />
+        public void AppendName(GISharp.Runtime.UnownedUtf8 iconname)
         {
             CheckAppendNameArgs(iconname);
             var icon_ = (GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct*)UnsafeHandle;
@@ -220,13 +220,13 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* icon);
         partial void CheckGetNamesArgs();
 
-        private GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8> GetNames()
+        private GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Utf8> GetNames()
         {
             CheckGetNamesArgs();
             var icon_ = (GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_themed_icon_get_names(icon_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8>(ret_, -1);
+            var ret = new GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Utf8>(ret_, -1);
             return ret;
         }
 
@@ -256,11 +256,11 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
-        partial void CheckPrependNameArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
+        partial void CheckPrependNameArgs(GISharp.Runtime.UnownedUtf8 iconname);
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.PrependName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.PrependName(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.18")]
-        public void PrependName(GISharp.Lib.GLib.UnownedUtf8 iconname)
+        public void PrependName(GISharp.Runtime.UnownedUtf8 iconname)
         {
             CheckPrependNameArgs(iconname);
             var icon_ = (GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct*)UnsafeHandle;

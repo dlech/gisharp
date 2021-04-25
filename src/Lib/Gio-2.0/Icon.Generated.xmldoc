@@ -12,7 +12,7 @@ a <see cref="IIcon"/>, or <c>null</c> when deserialization fails.
 </returns>
 </member>
 
-<member name='IIcon.NewForString(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IIcon.NewForString(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
 <paramref name="str"/> is not valid - see <see cref="Icon.ToString(GISharp.Lib.Gio.IIcon)"/> for discussion.
@@ -21,7 +21,7 @@ Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This functi
 <para>
 If your application or library provides one or more <see cref="IIcon"/>
 implementations you need to ensure that each #GType is registered
-with the type system prior to calling <see cref="Icon.NewForString(GISharp.Lib.GLib.UnownedUtf8)"/>.
+with the type system prior to calling <see cref="Icon.NewForString(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 <param name="str">
@@ -160,7 +160,7 @@ a #GVariant, or <c>null</c> when serialization fails. The #GVariant will not be 
 <summary>
 Generates a textual representation of <paramref name="icon"/> that can be used for
 serialization such as when passing <paramref name="icon"/> to a different process or
-saving it to persistent storage. Use <see cref="Icon.NewForString(GISharp.Lib.GLib.UnownedUtf8)"/> to
+saving it to persistent storage. Use <see cref="Icon.NewForString(GISharp.Runtime.UnownedUtf8)"/> to
 get <paramref name="icon"/> back from the returned string.
 </summary>
 <remarks>

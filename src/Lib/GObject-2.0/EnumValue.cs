@@ -2,7 +2,7 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
-using GISharp.Lib.GLib;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
 {

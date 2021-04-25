@@ -21,7 +21,7 @@
 <member name='Application.IsBusy_'>
 <summary>
 Whether the application is currently marked as busy through
-<see cref="Application.MarkBusy()"/> or <see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)"/>.
+<see cref="Application.MarkBusy()"/> or <see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -106,7 +106,7 @@ This is the amount of time (in milliseconds) after the last call to
 <member name='Application.IsBusy'>
 <summary>
 Gets the application's current busy state, as set through
-<see cref="Application.MarkBusy()"/> or <see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)"/>.
+<see cref="Application.MarkBusy()"/> or <see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -147,19 +147,19 @@ Gets the resource base path of this instance.
 </summary>
 <remarks>
 <para>
-See <see cref="Application.SetResourceBasePath(GISharp.Lib.GLib.NullableUnownedUtf8)"/> for more information.
+See <see cref="Application.SetResourceBasePath(GISharp.Runtime.NullableUnownedUtf8)"/> for more information.
 </para>
 </remarks>
 </member>
 
-<member name='Application.Application(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)'>
+<member name='Application.Application(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)'>
 <summary>
 Creates a new <see cref="Application"/> instance.
 </summary>
 <remarks>
 <para>
 If non-<c>null</c>, the application id must be valid.  See
-<see cref="Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)"/>.
+<see cref="Application.IdIsValid(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 <para>
 If no application ID is given then some features of <see cref="Application"/>
@@ -191,7 +191,7 @@ the instance on which the signal was invoked
 <member name='CommandLineSignalHandler'>
 <summary>
 The ::command-line signal is emitted on the primary instance when
-a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> and
+a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Runtime.Filename})"/> and
 the <see cref="ApplicationCommandLine"/> documentation for more information.
 </summary>
 <param name="application">
@@ -241,12 +241,12 @@ In the event that <see cref="ApplicationFlags.HandlesCommandLine"/> is not set,
 "normal processing" will treat the remaining uncollected command
 line arguments as filenames or URIs.  If there are no arguments,
 the application is activated by <see cref="Application.Activate()"/>.  One or
-more arguments results in a call to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/>.
+more arguments results in a call to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 <para>
 If you want to handle the local commandline arguments for yourself
-by converting them to calls to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> or
-<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
+by converting them to calls to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Runtime.UnownedUtf8)"/> or
+<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
 the application first.  You should probably not call
 <see cref="Application.Activate()"/> for yourself, however: just return -1 and
 allow the default handler to do it for you.  This will ensure that
@@ -308,7 +308,7 @@ the instance on which the signal was invoked
 <member name='OpenSignalHandler'>
 <summary>
 The ::open signal is emitted on the primary instance when there are
-files to open. See <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> for more information.
+files to open. See <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Runtime.UnownedUtf8)"/> for more information.
 </summary>
 <param name="application">
 the instance on which the signal was invoked
@@ -353,14 +353,14 @@ the instance on which the signal was invoked
 <seealso cref="StartupSignalHandler"/>
 </member>
 
-<member name='Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Application.IdIsValid(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if <paramref name="applicationId"/> is a valid application identifier.
 </summary>
 <remarks>
 <para>
-A valid ID is required for calls to <see cref="Application.Application(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)"/> and
-<see cref="Application.SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
+A valid ID is required for calls to <see cref="Application.Application(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)"/> and
+<see cref="Application.SetApplicationId(GISharp.Runtime.NullableUnownedUtf8)"/>.
 </para>
 <para>
 Application identifiers follow the same format as
@@ -436,7 +436,7 @@ The application must be registered before calling this function.
 </remarks>
 </member>
 
-<member name='Application.AddMainOption(GISharp.Lib.GLib.UnownedUtf8,sbyte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Application.AddMainOption(GISharp.Runtime.UnownedUtf8,sbyte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Add an option to be handled by this instance.
 </summary>
@@ -590,7 +590,7 @@ a #GOptionGroup
 </param>
 </member>
 
-<member name='Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Marks this instance as busy (see <see cref="Application.MarkBusy()"/>) while
 <paramref name="property"/> on <paramref name="object"/> is <c>true</c>.
@@ -646,7 +646,7 @@ To cancel the busy indication, use <see cref="Application.UnmarkBusy()"/>.
 </remarks>
 </member>
 
-<member name='Application.Open(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Application.Open(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Opens the given files.
 </summary>
@@ -683,7 +683,7 @@ Immediately quits the application.
 </summary>
 <remarks>
 <para>
-Upon return to the mainloop, <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> will return,
+Upon return to the mainloop, <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Runtime.Filename})"/> will return,
 calling only the 'shutdown' function before doing so.
 </para>
 <para>
@@ -694,7 +694,7 @@ is therefore still expecting it to exist.
 through gtk_application_add_window().)
 </para>
 <para>
-The result of calling <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> again after it returns is
+The result of calling <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Runtime.Filename})"/> again after it returns is
 unspecified.
 </para>
 </remarks>
@@ -765,7 +765,7 @@ call to <see cref="Application.Hold()"/>.
 </remarks>
 </member>
 
-<member name='Application.Run(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;)'>
+<member name='Application.Run(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Runtime.Filename&gt;)'>
 <summary>
 Runs the application.
 </summary>
@@ -888,7 +888,7 @@ back to <c>null</c>.
 </remarks>
 </member>
 
-<member name='Application.SetOptionContextDescription(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Application.SetOptionContextDescription(GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Adds a description to the this instance option context.
 </summary>
@@ -903,7 +903,7 @@ a string to be shown in `--help` output
 </param>
 </member>
 
-<member name='Application.SetOptionContextParameterString(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Application.SetOptionContextParameterString(GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Sets the parameter string to be used by the commandline handling of this instance.
 </summary>
@@ -922,7 +922,7 @@ a string which is displayed
 </param>
 </member>
 
-<member name='Application.SetOptionContextSummary(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Application.SetOptionContextSummary(GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Adds a summary to the this instance option context.
 </summary>
@@ -937,11 +937,11 @@ a string to be shown in `--help` output
 </param>
 </member>
 
-<member name='Application.UnbindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Application.UnbindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Destroys a binding between <paramref name="property"/> and the busy state of
 this instance that was previously created with
-<see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)"/>.
+<see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8)"/>.
 </summary>
 <param name="object">
 a #GObject
@@ -967,7 +967,7 @@ call to <see cref="Application.MarkBusy()"/>.
 </remarks>
 </member>
 
-<member name='Application.WithdrawNotification(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Application.WithdrawNotification(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Withdraws a notification that was sent with
 g_application_send_notification().
@@ -1023,7 +1023,7 @@ The application must be registered before calling this function.
 <member name='Application.DoHandleLocalOptions(GISharp.Lib.GLib.VariantDict)'>
 </member>
 
-<member name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv&lt;GISharp.Lib.GLib.Utf8&gt;,int)'>
+<member name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv&lt;GISharp.Runtime.Utf8&gt;,int)'>
 <summary>
 This virtual function is always invoked in the local instance. It
 gets passed a pointer to a <c>null</c>-terminated copy of <c>argv</c> and is
@@ -1034,10 +1034,10 @@ arguments).
 <para>
 The last argument to local_command_line() is a pointer to the <c>status</c>
 variable which can used to set the exit status that is returned from
-<see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/>.
+<see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Runtime.Filename})"/>.
 </para>
 <para>
-See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> for more details on <see cref="Application"/> startup.
+See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Runtime.Filename})"/> for more details on <see cref="Application"/> startup.
 </para>
 </remarks>
 <param name="arguments">
@@ -1054,7 +1054,7 @@ exit status to fill after processing the command line.
 <member name='Application.DoNameLost()'>
 </member>
 
-<member name='Application.DoOpen(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Application.DoOpen(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Opens the given files.
 </summary>
@@ -1134,11 +1134,11 @@ application is not expected to manually register itself and check
 if it is the primary instance. Instead, the main() function of a
 <see cref="Application"/> should do very little more than instantiating the
 application instance, possibly connecting signal handlers, then
-calling <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/>. All checks for uniqueness are done
+calling <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Runtime.Filename})"/>. All checks for uniqueness are done
 internally. If the application is the primary instance then the
 startup signal is emitted and the mainloop runs. If the application
 is not the primary instance then a signal is sent to the primary
-instance and <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> promptly returns. See the code
+instance and <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Runtime.Filename})"/> promptly returns. See the code
 examples below.
 </para>
 <para>
@@ -1147,7 +1147,7 @@ that of of a
 [D-Bus well-known bus name](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
 Examples include: `com.example.MyApp`, `org.example.internal_apps.Calculator`,
 `org._7_zip.Archiver`.
-For details on valid application identifiers, see <see cref="Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)"/>.
+For details on valid application identifiers, see <see cref="Application.IdIsValid(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 <para>
 On Linux, the application identifier is claimed as a well-known bus name
@@ -1167,7 +1167,7 @@ attempts to acquire the bus name of your application (which happens in
 GApplication also implements the <see cref="IActionGroup"/> and <see cref="IActionMap"/>
 interfaces and lets you easily export actions by adding them with
 <see cref="ActionMap.AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)"/>. When invoking an action by calling
-<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> on the application, it is always
+<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> on the application, it is always
 invoked in the primary instance. The actions are also exported on
 the session bus, and GIO provides the #GDBusActionGroup wrapper to
 conveniently access them remotely. GIO provides a #GDBusMenuModel wrapper

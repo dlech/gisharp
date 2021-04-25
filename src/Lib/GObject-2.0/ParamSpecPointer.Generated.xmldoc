@@ -6,11 +6,11 @@ private <see cref="ParamSpec"/> portion
 </summary>
 </member>
 
-<member name='ParamSpecPointer.ParamSpecPointer(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.ParamFlags)'>
+<member name='ParamSpecPointer.ParamSpecPointer(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.ParamFlags)'>
 <summary>
 Creates a new <see cref="ParamSpecPointer"/> instance specifying a pointer property.
-Where possible, it is better to use <see cref="ParamSpecObject.ParamSpecObject(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)"/> or
-<see cref="ParamSpecBoxed.ParamSpecBoxed(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)"/> to expose memory management information.
+Where possible, it is better to use <see cref="ParamSpecObject.ParamSpecObject(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)"/> or
+<see cref="ParamSpecBoxed.ParamSpecBoxed(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)"/> to expose memory management information.
 </summary>
 <remarks>
 <para>

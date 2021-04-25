@@ -338,13 +338,13 @@ GISharp.Lib.GObject.TypeClass.UnmanagedStruct* gClass);
         static partial void CheckNameFromClassArgs(GISharp.Lib.GObject.TypeClass gClass);
 
         /// <include file="TypeExtensions.xmldoc" path="declaration/member[@name='TypeExtensions.NameFromClass(GISharp.Lib.GObject.TypeClass)']/*" />
-        public static GISharp.Lib.GLib.UnownedUtf8 NameFromClass(GISharp.Lib.GObject.TypeClass gClass)
+        public static GISharp.Runtime.UnownedUtf8 NameFromClass(GISharp.Lib.GObject.TypeClass gClass)
         {
             CheckNameFromClassArgs(gClass);
             var gClass_ = (GISharp.Lib.GObject.TypeClass.UnmanagedStruct*)gClass.UnsafeHandle;
             var ret_ = g_type_name_from_class(gClass_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -358,13 +358,13 @@ GISharp.Lib.GObject.TypeInstance.UnmanagedStruct* instance);
         static partial void CheckNameFromInstanceArgs(GISharp.Lib.GObject.TypeInstance instance);
 
         /// <include file="TypeExtensions.xmldoc" path="declaration/member[@name='TypeExtensions.NameFromInstance(GISharp.Lib.GObject.TypeInstance)']/*" />
-        public static GISharp.Lib.GLib.UnownedUtf8 NameFromInstance(GISharp.Lib.GObject.TypeInstance instance)
+        public static GISharp.Runtime.UnownedUtf8 NameFromInstance(GISharp.Lib.GObject.TypeInstance instance)
         {
             CheckNameFromInstanceArgs(instance);
             var instance_ = (GISharp.Lib.GObject.TypeInstance.UnmanagedStruct*)instance.UnsafeHandle;
             var ret_ = g_type_name_from_instance(instance_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -812,10 +812,10 @@ nuint privateSize);
         /* <type name="TypeFlags" type="GTypeFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.TypeFlags flags);
-        static partial void CheckRegisterFundamentalArgs(this GISharp.Runtime.GType typeId, GISharp.Lib.GLib.UnownedUtf8 typeName, in GISharp.Lib.GObject.TypeInfo info, in GISharp.Lib.GObject.TypeFundamentalInfo finfo, GISharp.Lib.GObject.TypeFlags flags);
+        static partial void CheckRegisterFundamentalArgs(this GISharp.Runtime.GType typeId, GISharp.Runtime.UnownedUtf8 typeName, in GISharp.Lib.GObject.TypeInfo info, in GISharp.Lib.GObject.TypeFundamentalInfo finfo, GISharp.Lib.GObject.TypeFlags flags);
 
-        /// <include file="TypeExtensions.xmldoc" path="declaration/member[@name='TypeExtensions.RegisterFundamental(GISharp.Runtime.GType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeFundamentalInfo,GISharp.Lib.GObject.TypeFlags)']/*" />
-        public static GISharp.Runtime.GType RegisterFundamental(this GISharp.Runtime.GType typeId, GISharp.Lib.GLib.UnownedUtf8 typeName, in GISharp.Lib.GObject.TypeInfo info, in GISharp.Lib.GObject.TypeFundamentalInfo finfo, GISharp.Lib.GObject.TypeFlags flags)
+        /// <include file="TypeExtensions.xmldoc" path="declaration/member[@name='TypeExtensions.RegisterFundamental(GISharp.Runtime.GType,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeFundamentalInfo,GISharp.Lib.GObject.TypeFlags)']/*" />
+        public static GISharp.Runtime.GType RegisterFundamental(this GISharp.Runtime.GType typeId, GISharp.Runtime.UnownedUtf8 typeName, in GISharp.Lib.GObject.TypeInfo info, in GISharp.Lib.GObject.TypeFundamentalInfo finfo, GISharp.Lib.GObject.TypeFlags flags)
         {
             fixed (GISharp.Lib.GObject.TypeFundamentalInfo* finfo_ = &finfo)
             {

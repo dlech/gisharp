@@ -3,11 +3,11 @@
 <member name='Utility.ApplicationName'>
 <summary>
 Gets a human-readable name for the application, as set by
-<see cref="Utility.SetApplicationName(GISharp.Lib.GLib.UnownedUtf8)"/>. This name should be localized if
+<see cref="Utility.SetApplicationName(GISharp.Runtime.UnownedUtf8)"/>. This name should be localized if
 possible, and is intended for display to the user.  Contrast with
 <see cref="Utility.GetProgramName()"/>, which gets a non-localized name. If
-<see cref="Utility.SetApplicationName(GISharp.Lib.GLib.UnownedUtf8)"/> has not been called, returns the result of
-<see cref="Utility.GetProgramName()"/> (which may be <c>null</c> if <see cref="Utility.SetProgramName(GISharp.Lib.GLib.UnownedUtf8)"/> has also not
+<see cref="Utility.SetApplicationName(GISharp.Runtime.UnownedUtf8)"/> has not been called, returns the result of
+<see cref="Utility.GetProgramName()"/> (which may be <c>null</c> if <see cref="Utility.SetProgramName(GISharp.Runtime.UnownedUtf8)"/> has also not
 been called).
 </summary>
 </member>

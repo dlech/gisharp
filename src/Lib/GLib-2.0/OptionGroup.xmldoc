@@ -9,7 +9,7 @@ for `--help` output. Different groups can use different
 <remarks>
 <para>
 If you are using gettext(), you only need to set the translation
-domain, see <see cref="OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
+domain, see <see cref="OptionGroup.SetTranslationDomain(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 <param name="func">
@@ -17,7 +17,7 @@ the <see cref="TranslateFunc"/>, or <c>null</c>
 </param>
 </member>
 
-<member name='OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='OptionGroup.SetTranslationDomain(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 A convenience function to use gettext() for translating
 user-visible strings.

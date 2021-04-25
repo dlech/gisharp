@@ -38,7 +38,7 @@ from generated public APIs.
 </summary>
 </member>
 
-<member name='StructInfo.FindField(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='StructInfo.FindField(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Obtain the type information for field named <paramref name="name"/>.
 </summary>
@@ -50,7 +50,7 @@ the <see cref="FieldInfo"/> or <c>null</c> if not found.
 </returns>
 </member>
 
-<member name='StructInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='StructInfo.FindMethod(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Obtain the type information for method named <paramref name="name"/>.
 </summary>

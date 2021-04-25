@@ -18,7 +18,7 @@ human-readable informative error message
 </summary>
 </member>
 
-<member name='Error.Error(GISharp.Lib.GLib.Quark,int,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Error.Error(GISharp.Lib.GLib.Quark,int,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Creates a new <see cref="Error"/>; unlike g_error_new(), <paramref name="message"/> is
 not a printf()-style format string. Use this function if

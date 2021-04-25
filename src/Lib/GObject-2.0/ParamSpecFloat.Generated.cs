@@ -95,9 +95,9 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamFlags" type="GParamFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamFlags flags);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, float minimum, float maximum, float defaultValue, GISharp.Lib.GObject.ParamFlags flags);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, float minimum, float maximum, float defaultValue, GISharp.Lib.GObject.ParamFlags flags);
 
-        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, float minimum, float maximum, float defaultValue, GISharp.Lib.GObject.ParamFlags flags)
+        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, float minimum, float maximum, float defaultValue, GISharp.Lib.GObject.ParamFlags flags)
         {
             CheckNewArgs(name, nick, blurb, minimum, maximum, defaultValue, flags);
             var name_ = (byte*)name.UnsafeHandle;
@@ -112,8 +112,8 @@ namespace GISharp.Lib.GObject
             return ret_;
         }
 
-        /// <include file="ParamSpecFloat.xmldoc" path="declaration/member[@name='ParamSpecFloat.ParamSpecFloat(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,float,float,float,GISharp.Lib.GObject.ParamFlags)']/*" />
-        public ParamSpecFloat(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, float minimum, float maximum, float defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, minimum, maximum, defaultValue, flags), GISharp.Runtime.Transfer.None)
+        /// <include file="ParamSpecFloat.xmldoc" path="declaration/member[@name='ParamSpecFloat.ParamSpecFloat(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,float,float,float,GISharp.Lib.GObject.ParamFlags)']/*" />
+        public ParamSpecFloat(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, float minimum, float maximum, float defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, minimum, maximum, defaultValue, flags), GISharp.Runtime.Transfer.None)
         {
         }
     }

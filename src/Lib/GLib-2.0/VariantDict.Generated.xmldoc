@@ -23,7 +23,7 @@ the <see cref="Variant"/> with which to initialise the
 </param>
 </member>
 
-<member name='VariantDict.Contains(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='VariantDict.Contains(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if <paramref name="key"/> exists in this instance.
 </summary>
@@ -53,7 +53,7 @@ a new, floating, <see cref="Variant"/>
 </returns>
 </member>
 
-<member name='VariantDict.Insert(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
+<member name='VariantDict.Insert(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
 <summary>
 Inserts (or replaces) a key in a <see cref="VariantDict"/>.
 </summary>
@@ -70,7 +70,7 @@ the value to insert
 </param>
 </member>
 
-<member name='VariantDict.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)'>
+<member name='VariantDict.Lookup(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType?)'>
 <summary>
 Looks up a value in a <see cref="VariantDict"/>.
 </summary>
@@ -100,7 +100,7 @@ the value of the dictionary key, or <c>null</c>
 </returns>
 </member>
 
-<member name='VariantDict.Remove(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='VariantDict.Remove(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Removes a key and its associated value from a <see cref="VariantDict"/>.
 </summary>

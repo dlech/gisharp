@@ -25,7 +25,7 @@ mask for all flags.
 
 <member name='ModuleFlags'>
 <summary>
-Flags passed to <see cref="Module.Open(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)"/>.
+Flags passed to <see cref="Module.Open(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)"/>.
 Note that these flags are not supported on all platforms.
 </summary>
 </member>

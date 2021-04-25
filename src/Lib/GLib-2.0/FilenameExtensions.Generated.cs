@@ -3,25 +3,9 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <include file="Filename.xmldoc" path="declaration/member[@name='Filename']/*" />
-    public sealed unsafe partial class Filename : GISharp.Runtime.ByteString
+    /// <include file="FilenameExtensions.xmldoc" path="declaration/member[@name='FilenameExtensions']/*" />
+    public static unsafe partial class FilenameExtensions
     {
-        /// <include file="Filename.xmldoc" path="declaration/member[@name='Filename.DisplayBasename']/*" />
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        public GISharp.Lib.GLib.Utf8 DisplayBasename { get => GetDisplayBasename(); }
-
-        /// <include file="Filename.xmldoc" path="declaration/member[@name='Filename.DisplayName']/*" />
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        public GISharp.Lib.GLib.Utf8 DisplayName { get => GetDisplayName(); }
-
-        /// <summary>
-        /// For internal runtime use only.
-        /// </summary>
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public Filename(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
-        {
-        }
-
         /// <summary>
         /// Behaves exactly like g_build_filename(), but takes the path elements
         /// as a string array, instead of varargs. This function is mainly
@@ -45,11 +29,11 @@ namespace GISharp.Lib.GLib
 * </array> */
         /* transfer-ownership:none direction:in */
         byte** args);
-        static partial void CheckBuildArgs(GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Filename> args);
+        static partial void CheckBuildArgs(GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Filename> args);
 
-        /// <include file="Filename.xmldoc" path="declaration/member[@name='Filename.Build(GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;)']/*" />
+        /// <include file="FilenameExtensions.xmldoc" path="declaration/member[@name='FilenameExtensions.Build(GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Runtime.Filename&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.8")]
-        public static GISharp.Lib.GLib.Filename Build(GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Filename> args)
+        public static GISharp.Runtime.Filename Build(GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Filename> args)
         {
             fixed (System.IntPtr* argsData_ = args)
             {
@@ -57,7 +41,7 @@ namespace GISharp.Lib.GLib
                 var args_ = (byte**)argsData_;
                 var ret_ = g_build_filenamev(args_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                var ret = GISharp.Runtime.Filename.GetInstance<GISharp.Runtime.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
                 return ret;
             }
         }
@@ -94,10 +78,10 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckFromUriArgs(GISharp.Lib.GLib.UnownedUtf8 uri);
+        static partial void CheckFromUriArgs(GISharp.Runtime.UnownedUtf8 uri);
 
-        /// <include file="Filename.xmldoc" path="declaration/member[@name='Filename.FromUri(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Utf8?)']/*" />
-        public static GISharp.Lib.GLib.Filename FromUri(GISharp.Lib.GLib.UnownedUtf8 uri, out GISharp.Lib.GLib.Utf8? hostname)
+        /// <include file="FilenameExtensions.xmldoc" path="declaration/member[@name='FilenameExtensions.FromUri(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.Utf8?)']/*" />
+        public static GISharp.Runtime.Filename FromUri(GISharp.Runtime.UnownedUtf8 uri, out GISharp.Runtime.Utf8? hostname)
         {
             CheckFromUriArgs(uri);
             var uri_ = (byte*)uri.UnsafeHandle;
@@ -111,8 +95,8 @@ namespace GISharp.Lib.GLib
                 throw new GISharp.Lib.GLib.Error.Exception(error);
             }
 
-            hostname = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)hostname_, GISharp.Runtime.Transfer.Full);
-            var ret = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            hostname = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)hostname_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Filename.GetInstance<GISharp.Runtime.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -178,10 +162,10 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckFromUtf8Args(GISharp.Lib.GLib.UnownedUtf8 utf8string, int len);
+        static partial void CheckFromUtf8Args(GISharp.Runtime.UnownedUtf8 utf8string, int len);
 
-        /// <include file="Filename.xmldoc" path="declaration/member[@name='Filename.FromUtf8(GISharp.Lib.GLib.UnownedUtf8,int,int,int)']/*" />
-        public static GISharp.Lib.GLib.Filename FromUtf8(GISharp.Lib.GLib.UnownedUtf8 utf8string, int len, out int bytesRead, out int bytesWritten)
+        /// <include file="FilenameExtensions.xmldoc" path="declaration/member[@name='FilenameExtensions.FromUtf8(GISharp.Runtime.UnownedUtf8,int,int,int)']/*" />
+        public static GISharp.Runtime.Filename FromUtf8(GISharp.Runtime.UnownedUtf8 utf8string, int len, out int bytesRead, out int bytesWritten)
         {
             CheckFromUtf8Args(utf8string, len);
             var utf8string_ = (byte*)utf8string.UnsafeHandle;
@@ -199,7 +183,7 @@ namespace GISharp.Lib.GLib
 
             bytesRead = (int)bytesRead_;
             bytesWritten = (int)bytesWritten_;
-            var ret = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Filename.GetInstance<GISharp.Runtime.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -254,15 +238,15 @@ namespace GISharp.Lib.GLib
         byte*** filenameCharsets);
         static partial void CheckTryGetCharsetsArgs();
 
-        /// <include file="Filename.xmldoc" path="declaration/member[@name='Filename.TryGetCharsets(GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
+        /// <include file="FilenameExtensions.xmldoc" path="declaration/member[@name='FilenameExtensions.TryGetCharsets(GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Runtime.Utf8&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public static bool TryGetCharsets(out GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8> filenameCharsets)
+        public static bool TryGetCharsets(out GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Utf8> filenameCharsets)
         {
             CheckTryGetCharsetsArgs();
             byte** filenameCharsets_;
             var ret_ = g_get_filename_charsets(&filenameCharsets_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            filenameCharsets = new GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Utf8>(filenameCharsets_, -1);
+            filenameCharsets = new GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Utf8>(filenameCharsets_, -1);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -311,18 +295,18 @@ namespace GISharp.Lib.GLib
         /* <type name="filename" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* relativeTo);
-        partial void CheckCanonicalizeArgs(GISharp.Lib.GLib.Filename? relativeTo = default);
+        static partial void CheckCanonicalizeArgs(this GISharp.Runtime.Filename filename, GISharp.Runtime.Filename? relativeTo = default);
 
-        /// <include file="Filename.xmldoc" path="declaration/member[@name='Filename.Canonicalize(GISharp.Lib.GLib.Filename?)']/*" />
+        /// <include file="FilenameExtensions.xmldoc" path="declaration/member[@name='FilenameExtensions.Canonicalize(GISharp.Runtime.Filename,GISharp.Runtime.Filename?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.58")]
-        public GISharp.Lib.GLib.Filename Canonicalize(GISharp.Lib.GLib.Filename? relativeTo = default)
+        public static GISharp.Runtime.Filename Canonicalize(this GISharp.Runtime.Filename filename, GISharp.Runtime.Filename? relativeTo = default)
         {
-            CheckCanonicalizeArgs(relativeTo);
-            var filename_ = (byte*)UnsafeHandle;
+            CheckCanonicalizeArgs(filename, relativeTo);
+            var filename_ = (byte*)filename.UnsafeHandle;
             var relativeTo_ = (byte*)(relativeTo?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_canonicalize_filename(filename_,relativeTo_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Filename.GetInstance<GISharp.Runtime.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -365,16 +349,17 @@ namespace GISharp.Lib.GLib
         /* <type name="filename" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* filename);
-        partial void CheckGetDisplayBasenameArgs();
+        static partial void CheckDisplayBasenameArgs(this GISharp.Runtime.Filename filename);
 
+        /// <include file="FilenameExtensions.xmldoc" path="declaration/member[@name='FilenameExtensions.DisplayBasename(GISharp.Runtime.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        private GISharp.Lib.GLib.Utf8 GetDisplayBasename()
+        public static GISharp.Runtime.Utf8 DisplayBasename(this GISharp.Runtime.Filename filename)
         {
-            CheckGetDisplayBasenameArgs();
-            var filename_ = (byte*)UnsafeHandle;
+            CheckDisplayBasenameArgs(filename);
+            var filename_ = (byte*)filename.UnsafeHandle;
             var ret_ = g_filename_display_basename(filename_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -415,16 +400,17 @@ namespace GISharp.Lib.GLib
         /* <type name="filename" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* filename);
-        partial void CheckGetDisplayNameArgs();
+        static partial void CheckDisplayNameArgs(this GISharp.Runtime.Filename filename);
 
+        /// <include file="FilenameExtensions.xmldoc" path="declaration/member[@name='FilenameExtensions.DisplayName(GISharp.Runtime.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        private GISharp.Lib.GLib.Utf8 GetDisplayName()
+        public static GISharp.Runtime.Utf8 DisplayName(this GISharp.Runtime.Filename filename)
         {
-            CheckGetDisplayNameArgs();
-            var filename_ = (byte*)UnsafeHandle;
+            CheckDisplayNameArgs(filename);
+            var filename_ = (byte*)filename.UnsafeHandle;
             var ret_ = g_filename_display_name(filename_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -460,13 +446,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        partial void CheckToUriArgs(GISharp.Lib.GLib.NullableUnownedUtf8 hostname = default);
+        static partial void CheckToUriArgs(this GISharp.Runtime.Filename filename, GISharp.Runtime.NullableUnownedUtf8 hostname = default);
 
-        /// <include file="Filename.xmldoc" path="declaration/member[@name='Filename.ToUri(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
-        public GISharp.Lib.GLib.Utf8 ToUri(GISharp.Lib.GLib.NullableUnownedUtf8 hostname = default)
+        /// <include file="FilenameExtensions.xmldoc" path="declaration/member[@name='FilenameExtensions.ToUri(GISharp.Runtime.Filename,GISharp.Runtime.NullableUnownedUtf8)']/*" />
+        public static GISharp.Runtime.Utf8 ToUri(this GISharp.Runtime.Filename filename, GISharp.Runtime.NullableUnownedUtf8 hostname = default)
         {
-            CheckToUriArgs(hostname);
-            var filename_ = (byte*)UnsafeHandle;
+            CheckToUriArgs(filename, hostname);
+            var filename_ = (byte*)filename.UnsafeHandle;
             var hostname_ = (byte*)hostname.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_filename_to_uri(filename_,hostname_,&error_);
@@ -477,7 +463,7 @@ namespace GISharp.Lib.GLib
                 throw new GISharp.Lib.GLib.Error.Exception(error);
             }
 
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

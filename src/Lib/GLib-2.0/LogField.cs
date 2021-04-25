@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2019,2021 David Lechner <david@lechnology.com>
 
+using GISharp.Runtime;
+
 namespace GISharp.Lib.GLib
 {
     unsafe partial struct LogField

@@ -23,7 +23,7 @@ Checks if modules are supported on the current platform.
 </summary>
 </member>
 
-<member name='Module.BuildPath(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Module.BuildPath(GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 A portable way to build the filename of a module. The platform-specific
 prefix and suffix are added to the filename, if needed, and the result
@@ -37,7 +37,7 @@ standard platform-specific directory, though this is not recommended
 since the wrong module may be found.
 </para>
 <para>
-For example, calling <see cref="Module.BuildPath(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> on a Linux system with a
+For example, calling <see cref="Module.BuildPath(GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.UnownedUtf8)"/> on a Linux system with a
 <paramref name="directory"/> of `/lib` and a <paramref name="moduleName"/> of "mylibrary" will return
 `/lib/libmylibrary.so`. On a Windows system, using `\Windows` as the
 directory it will return `\Windows\mylibrary.dll`.
@@ -57,20 +57,20 @@ the complete path of the module, including the standard library
 </returns>
 </member>
 
-<member name='Module.Open(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)'>
+<member name='Module.Open(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)'>
 <summary>
 Opens a module. If the module has already been opened,
 its reference count is incremented.
 </summary>
 <remarks>
 <para>
-First of all <see cref="Module.Open(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)"/> tries to open <paramref name="fileName"/> as a module.
+First of all <see cref="Module.Open(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)"/> tries to open <paramref name="fileName"/> as a module.
 If that fails and <paramref name="fileName"/> has the ".la"-suffix (and is a libtool
 archive) it tries to open the corresponding module. If that fails
 and it doesn't have the proper module suffix for the platform
 (#G_MODULE_SUFFIX), this suffix will be appended and the corresponding
 module will be opened. If that fails and <paramref name="fileName"/> doesn't have the
-".la"-suffix, this suffix is appended and <see cref="Module.Open(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)"/> tries to open
+".la"-suffix, this suffix is appended and <see cref="Module.Open(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)"/> tries to open
 the corresponding module. If eventually that fails as well, <c>null</c> is
 returned.
 </para>
@@ -104,7 +104,7 @@ Any future <see cref="Module.Close()"/> calls on the module will be ignored.
 </summary>
 </member>
 
-<member name='Module.TrySymbol(GISharp.Lib.GLib.UnownedUtf8,System.IntPtr)'>
+<member name='Module.TrySymbol(GISharp.Runtime.UnownedUtf8,System.IntPtr)'>
 <summary>
 Gets a symbol pointer from a module, such as one exported
 by #G_MODULE_EXPORT. Note that a valid symbol can be <c>null</c>.

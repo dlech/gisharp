@@ -508,10 +508,10 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* propertyName);
-        partial void CheckFindPropertyArgs(GISharp.Lib.GLib.UnownedUtf8 propertyName);
+        partial void CheckFindPropertyArgs(GISharp.Runtime.UnownedUtf8 propertyName);
 
-        /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='ObjectClass.FindProperty(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public GISharp.Lib.GObject.ParamSpec FindProperty(GISharp.Lib.GLib.UnownedUtf8 propertyName)
+        /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='ObjectClass.FindProperty(GISharp.Runtime.UnownedUtf8)']/*" />
+        public GISharp.Lib.GObject.ParamSpec FindProperty(GISharp.Runtime.UnownedUtf8 propertyName)
         {
             CheckFindPropertyArgs(propertyName);
             var oclass_ = (GISharp.Lib.GObject.ObjectClass.UnmanagedStruct*)UnsafeHandle;
@@ -777,11 +777,11 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckOverridePropertyArgs(uint propertyId, GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckOverridePropertyArgs(uint propertyId, GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='ObjectClass.OverrideProperty(uint,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='ObjectClass.OverrideProperty(uint,GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
-        public void OverrideProperty(uint propertyId, GISharp.Lib.GLib.UnownedUtf8 name)
+        public void OverrideProperty(uint propertyId, GISharp.Runtime.UnownedUtf8 name)
         {
             CheckOverridePropertyArgs(propertyId, name);
             var oclass_ = (GISharp.Lib.GObject.ObjectClass.UnmanagedStruct*)UnsafeHandle;

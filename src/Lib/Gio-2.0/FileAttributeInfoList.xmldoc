@@ -18,7 +18,7 @@ Creates a new file attribute info list.
 </summary>
 </member>
 
-<member name='FileAttributeInfoList.Add(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)'>
+<member name='FileAttributeInfoList.Add(GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)'>
 <summary>
 Adds a new attribute with <paramref name="name"/> to the this instance, setting
 its <paramref name="type"/> and <paramref name="flags"/>.
@@ -43,7 +43,7 @@ a copy of the given this instance.
 </returns>
 </member>
 
-<member name='FileAttributeInfoList.Lookup(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeInfoList.Lookup(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets the file attribute with the name <paramref name="name"/> from this instance.
 </summary>

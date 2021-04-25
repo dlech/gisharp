@@ -38,7 +38,7 @@ namespace GISharp.Lib.GLib
     System.IntPtr userData);
 
     /// <include file="LogFunc.xmldoc" path="declaration/member[@name='LogFunc']/*" />
-    public delegate void LogFunc(GISharp.Lib.GLib.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Lib.GLib.NullableUnownedUtf8 message);
+    public delegate void LogFunc(GISharp.Runtime.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Runtime.NullableUnownedUtf8 message);
 
     /// <summary>
     /// Class for marshalling <see cref="LogFunc"/> methods.
@@ -50,7 +50,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static GISharp.Lib.GLib.LogFunc FromPointer(delegate* unmanaged[Cdecl]<byte*, GISharp.Lib.GLib.LogLevelFlags, byte*, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(GISharp.Lib.GLib.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Lib.GLib.NullableUnownedUtf8 message)
+            void managedCallback(GISharp.Runtime.NullableUnownedUtf8 logDomain, GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Runtime.NullableUnownedUtf8 message)
             {
                 var logDomain_ = (byte*)logDomain.UnsafeHandle;
                 var logLevel_ = (GISharp.Lib.GLib.LogLevelFlags)logLevel;
@@ -70,9 +70,9 @@ namespace GISharp.Lib.GLib
         {
             try
             {
-                var logDomain = new GISharp.Lib.GLib.NullableUnownedUtf8(logDomain_);
+                var logDomain = new GISharp.Runtime.NullableUnownedUtf8(logDomain_);
                 var logLevel = (GISharp.Lib.GLib.LogLevelFlags)logLevel_;
-                var message = new GISharp.Lib.GLib.NullableUnownedUtf8(message_);
+                var message = new GISharp.Runtime.NullableUnownedUtf8(message_);
                 var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var (userData, userDataScope) = ((LogFunc, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
                 userData.Invoke(logDomain, logLevel, message);

@@ -679,7 +679,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_HasUriScheme']/*" />
-        public delegate bool _HasUriScheme(GISharp.Lib.GLib.UnownedUtf8 uriScheme);
+        public delegate bool _HasUriScheme(GISharp.Runtime.UnownedUtf8 uriScheme);
 
         /// <summary>
         /// Unmanaged callback
@@ -711,7 +711,7 @@ byte* uriScheme);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var uriScheme = new GISharp.Lib.GLib.UnownedUtf8(uriScheme_);
+                        var uriScheme = new GISharp.Runtime.UnownedUtf8(uriScheme_);
                         var doHasUriScheme = (_HasUriScheme)methodInfo.CreateDelegate(typeof(_HasUriScheme), file);
                         var ret = doHasUriScheme(uriScheme);
                         var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
@@ -730,7 +730,7 @@ byte* uriScheme);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetUriScheme']/*" />
-        public delegate GISharp.Lib.GLib.Utf8? _GetUriScheme();
+        public delegate GISharp.Runtime.Utf8? _GetUriScheme();
 
         /// <summary>
         /// Unmanaged callback
@@ -777,7 +777,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetBasename']/*" />
-        public delegate GISharp.Lib.GLib.Filename? _GetBasename();
+        public delegate GISharp.Runtime.Filename? _GetBasename();
 
         /// <summary>
         /// Unmanaged callback
@@ -824,7 +824,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetPath']/*" />
-        public delegate GISharp.Lib.GLib.Filename? _GetPath();
+        public delegate GISharp.Runtime.Filename? _GetPath();
 
         /// <summary>
         /// Unmanaged callback
@@ -871,7 +871,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetUri']/*" />
-        public delegate GISharp.Lib.GLib.Utf8 _GetUri();
+        public delegate GISharp.Runtime.Utf8 _GetUri();
 
         /// <summary>
         /// Unmanaged callback
@@ -918,7 +918,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetParseName']/*" />
-        public delegate GISharp.Lib.GLib.Utf8 _GetParseName();
+        public delegate GISharp.Runtime.Utf8 _GetParseName();
 
         /// <summary>
         /// Unmanaged callback
@@ -1063,7 +1063,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetRelativePath']/*" />
-        public delegate GISharp.Lib.GLib.Filename? _GetRelativePath(GISharp.Lib.Gio.IFile descendant);
+        public delegate GISharp.Runtime.Filename? _GetRelativePath(GISharp.Lib.Gio.IFile descendant);
 
         /// <summary>
         /// Unmanaged callback
@@ -1114,7 +1114,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* descendant);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_ResolveRelativePath']/*" />
-        public delegate GISharp.Lib.Gio.IFile _ResolveRelativePath(GISharp.Lib.GLib.Filename relativePath);
+        public delegate GISharp.Lib.Gio.IFile _ResolveRelativePath(GISharp.Runtime.Filename relativePath);
 
         /// <summary>
         /// Unmanaged callback
@@ -1146,7 +1146,7 @@ byte* relativePath);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var relativePath = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)relativePath_, GISharp.Runtime.Transfer.None)!;
+                        var relativePath = GISharp.Runtime.Filename.GetInstance<GISharp.Runtime.Filename>((System.IntPtr)relativePath_, GISharp.Runtime.Transfer.None)!;
                         var doResolveRelativePath = (_ResolveRelativePath)methodInfo.CreateDelegate(typeof(_ResolveRelativePath), file);
                         var ret = doResolveRelativePath(relativePath);
                         var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take();
@@ -1165,7 +1165,7 @@ byte* relativePath);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_GetChildForDisplayName']/*" />
-        public delegate GISharp.Lib.Gio.IFile _GetChildForDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName);
+        public delegate GISharp.Lib.Gio.IFile _GetChildForDisplayName(GISharp.Runtime.UnownedUtf8 displayName);
 
         /// <summary>
         /// Unmanaged callback
@@ -1200,7 +1200,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_);
+                        var displayName = new GISharp.Runtime.UnownedUtf8(displayName_);
                         var doGetChildForDisplayName = (_GetChildForDisplayName)methodInfo.CreateDelegate(typeof(_GetChildForDisplayName), file);
                         var ret = doGetChildForDisplayName(displayName);
                         var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take();
@@ -1223,7 +1223,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_EnumerateChildrenAsync']/*" />
-        public delegate void _EnumerateChildrenAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void _EnumerateChildrenAsync(GISharp.Runtime.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -1270,7 +1270,7 @@ System.IntPtr userData);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_);
+                        var attributes = new GISharp.Runtime.UnownedUtf8(attributes_);
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
                         var ioPriority = (int)ioPriority_;
                         var callback = callback_ is null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
@@ -1289,7 +1289,7 @@ System.IntPtr userData);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_QueryInfo']/*" />
-        public delegate GISharp.Lib.Gio.FileInfo _QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate GISharp.Lib.Gio.FileInfo _QueryInfo(GISharp.Runtime.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -1330,7 +1330,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_);
+                        var attributes = new GISharp.Runtime.UnownedUtf8(attributes_);
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryInfo = (_QueryInfo)methodInfo.CreateDelegate(typeof(_QueryInfo), file);
@@ -1355,7 +1355,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_QueryInfoAsync']/*" />
-        public delegate void _QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void _QueryInfoAsync(GISharp.Runtime.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -1402,7 +1402,7 @@ System.IntPtr userData);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_);
+                        var attributes = new GISharp.Runtime.UnownedUtf8(attributes_);
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
                         var ioPriority = (int)ioPriority_;
                         var callback = callback_ is null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
@@ -1479,7 +1479,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_QueryFilesystemInfo']/*" />
-        public delegate GISharp.Lib.Gio.FileInfo _QueryFilesystemInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate GISharp.Lib.Gio.FileInfo _QueryFilesystemInfo(GISharp.Runtime.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -1517,7 +1517,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_);
+                        var attributes = new GISharp.Runtime.UnownedUtf8(attributes_);
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryFilesystemInfo = (_QueryFilesystemInfo)methodInfo.CreateDelegate(typeof(_QueryFilesystemInfo), file);
                         var ret = doQueryFilesystemInfo(attributes, cancellable);
@@ -1541,7 +1541,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_QueryFilesystemInfoAsync']/*" />
-        public delegate void _QueryFilesystemInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void _QueryFilesystemInfoAsync(GISharp.Runtime.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -1585,7 +1585,7 @@ System.IntPtr userData);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_);
+                        var attributes = new GISharp.Runtime.UnownedUtf8(attributes_);
                         var ioPriority = (int)ioPriority_;
                         var callback = callback_ is null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
@@ -1719,7 +1719,7 @@ System.IntPtr userData);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_SetDisplayName']/*" />
-        public delegate GISharp.Lib.Gio.IFile _SetDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate GISharp.Lib.Gio.IFile _SetDisplayName(GISharp.Runtime.UnownedUtf8 displayName, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -1757,7 +1757,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_);
+                        var displayName = new GISharp.Runtime.UnownedUtf8(displayName_);
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
                         var doSetDisplayName = (_SetDisplayName)methodInfo.CreateDelegate(typeof(_SetDisplayName), file);
                         var ret = doSetDisplayName(displayName, cancellable);
@@ -1781,7 +1781,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_SetDisplayNameAsync']/*" />
-        public delegate void _SetDisplayNameAsync(GISharp.Lib.GLib.UnownedUtf8 displayName, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void _SetDisplayNameAsync(GISharp.Runtime.UnownedUtf8 displayName, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -1825,7 +1825,7 @@ System.IntPtr userData);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_);
+                        var displayName = new GISharp.Runtime.UnownedUtf8(displayName_);
                         var ioPriority = (int)ioPriority_;
                         var callback = callback_ is null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
@@ -2017,7 +2017,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_SetAttribute']/*" />
-        public delegate void _SetAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void _SetAttribute(GISharp.Runtime.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -2064,7 +2064,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var attribute = new GISharp.Lib.GLib.UnownedUtf8(attribute_);
+                        var attribute = new GISharp.Runtime.UnownedUtf8(attribute_);
                         var type = (GISharp.Lib.Gio.FileAttributeType)type_;
                         var valueP = (System.IntPtr)valueP_;
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
@@ -2820,7 +2820,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_Replace']/*" />
-        public delegate GISharp.Lib.Gio.FileOutputStream _Replace(GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate GISharp.Lib.Gio.FileOutputStream _Replace(GISharp.Runtime.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -2864,7 +2864,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_);
+                        var etag = new GISharp.Runtime.NullableUnownedUtf8(etag_);
                         var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
@@ -2890,7 +2890,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_ReplaceAsync']/*" />
-        public delegate void _ReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void _ReplaceAsync(GISharp.Runtime.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -2940,7 +2940,7 @@ System.IntPtr userData);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_);
+                        var etag = new GISharp.Runtime.NullableUnownedUtf8(etag_);
                         var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (int)ioPriority_;
@@ -3534,7 +3534,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_MakeSymbolicLink']/*" />
-        public delegate void _MakeSymbolicLink(GISharp.Lib.GLib.Filename symlinkValue, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void _MakeSymbolicLink(GISharp.Runtime.Filename symlinkValue, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -3572,7 +3572,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var symlinkValue = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)symlinkValue_, GISharp.Runtime.Transfer.None)!;
+                        var symlinkValue = GISharp.Runtime.Filename.GetInstance<GISharp.Runtime.Filename>((System.IntPtr)symlinkValue_, GISharp.Runtime.Transfer.None)!;
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
                         var doMakeSymbolicLink = (_MakeSymbolicLink)methodInfo.CreateDelegate(typeof(_MakeSymbolicLink), file);
                         doMakeSymbolicLink(symlinkValue, cancellable);
@@ -4454,7 +4454,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_ReplaceReadwrite']/*" />
-        public delegate GISharp.Lib.Gio.FileIOStream _ReplaceReadwrite(GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate GISharp.Lib.Gio.FileIOStream _ReplaceReadwrite(GISharp.Runtime.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -4498,7 +4498,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_);
+                        var etag = new GISharp.Runtime.NullableUnownedUtf8(etag_);
                         var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
@@ -4524,7 +4524,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="FileIface.xmldoc" path="declaration/member[@name='_ReplaceReadwriteAsync']/*" />
-        public delegate void _ReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void _ReplaceReadwriteAsync(GISharp.Runtime.NullableUnownedUtf8 etag, bool makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -4574,7 +4574,7 @@ System.IntPtr userData);
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!;
-                        var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_);
+                        var etag = new GISharp.Runtime.NullableUnownedUtf8(etag_);
                         var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (int)ioPriority_;

@@ -6,7 +6,7 @@ private <see cref="ParamSpec"/> portion
 </summary>
 </member>
 
-<member name='ParamSpecPointer.ParamSpecPointer(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.ParamFlags)'>
+<member name='ParamSpecPointer.ParamSpecPointer(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.ParamFlags)'>
 <summary>
 Creates a new <see cref="ParamSpecPointer"/> instance specifying a pointer property.
 Where possible, it is better to use g_param_spec_object() or

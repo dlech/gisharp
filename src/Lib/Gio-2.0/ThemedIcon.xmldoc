@@ -41,7 +41,7 @@ Gets the names of icons from within this instance.
 </summary>
 </member>
 
-<member name='ThemedIcon.ThemedIcon(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='ThemedIcon.ThemedIcon(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Runtime.Utf8&gt;)'>
 <summary>
 Creates a new themed icon for <paramref name="iconnames"/>.
 </summary>
@@ -50,7 +50,7 @@ an array of strings containing icon names.
 </param>
 </member>
 
-<member name='ThemedIcon.AppendName(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ThemedIcon.AppendName(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Append a name to the list of icons from within this instance.
 </summary>
@@ -65,7 +65,7 @@ name of icon to append to list of icons from within this instance.
 </param>
 </member>
 
-<member name='ThemedIcon.PrependName(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ThemedIcon.PrependName(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Prepend a name to the list of icons from within this instance.
 </summary>

@@ -23,7 +23,7 @@ namespace GISharp.Lib.GIRepository
         public bool Fundamental { get => GetFundamental(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.GetValueFunction']/*" />
-        public GISharp.Lib.GLib.NullableUnownedUtf8 GetValueFunction { get => GetGetValueFunction(); }
+        public GISharp.Runtime.NullableUnownedUtf8 GetValueFunction { get => GetGetValueFunction(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.NConstants']/*" />
         private int NConstants { get => GetNConstants(); }
@@ -50,19 +50,19 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GIRepository.ObjectInfo? Parent { get => GetParent(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.RefFunction']/*" />
-        public GISharp.Lib.GLib.NullableUnownedUtf8 RefFunction { get => GetRefFunction(); }
+        public GISharp.Runtime.NullableUnownedUtf8 RefFunction { get => GetRefFunction(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.SetValueFunction']/*" />
-        public GISharp.Lib.GLib.NullableUnownedUtf8 SetValueFunction { get => GetSetValueFunction(); }
+        public GISharp.Runtime.NullableUnownedUtf8 SetValueFunction { get => GetSetValueFunction(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.TypeInit']/*" />
-        public new GISharp.Lib.GLib.UnownedUtf8 TypeInit { get => GetTypeInit(); }
+        public new GISharp.Runtime.UnownedUtf8 TypeInit { get => GetTypeInit(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.TypeName']/*" />
-        public new GISharp.Lib.GLib.UnownedUtf8 TypeName { get => GetTypeName(); }
+        public new GISharp.Runtime.UnownedUtf8 TypeName { get => GetTypeName(); }
 
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.UnrefFunction']/*" />
-        public GISharp.Lib.GLib.NullableUnownedUtf8 UnrefFunction { get => GetUnrefFunction(); }
+        public GISharp.Runtime.NullableUnownedUtf8 UnrefFunction { get => GetUnrefFunction(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -96,10 +96,10 @@ namespace GISharp.Lib.GIRepository
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckFindMethodArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckFindMethodArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public GISharp.Lib.GIRepository.FunctionInfo? FindMethod(GISharp.Lib.GLib.UnownedUtf8 name)
+        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindMethod(GISharp.Runtime.UnownedUtf8)']/*" />
+        public GISharp.Lib.GIRepository.FunctionInfo? FindMethod(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckFindMethodArgs(name);
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
@@ -147,10 +147,10 @@ namespace GISharp.Lib.GIRepository
         /* <type name="ObjectInfo" type="GIObjectInfo**" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct** implementor);
-        partial void CheckFindMethodUsingInterfacesArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckFindMethodUsingInterfacesArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindMethodUsingInterfaces(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)']/*" />
-        public GISharp.Lib.GIRepository.FunctionInfo? FindMethodUsingInterfaces(GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GIRepository.ObjectInfo implementor)
+        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindMethodUsingInterfaces(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)']/*" />
+        public GISharp.Lib.GIRepository.FunctionInfo? FindMethodUsingInterfaces(GISharp.Runtime.UnownedUtf8 name, out GISharp.Lib.GIRepository.ObjectInfo implementor)
         {
             CheckFindMethodUsingInterfacesArgs(name);
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
@@ -185,10 +185,10 @@ namespace GISharp.Lib.GIRepository
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckFindSignalArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckFindSignalArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindSignal(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public GISharp.Lib.GIRepository.SignalInfo? FindSignal(GISharp.Lib.GLib.UnownedUtf8 name)
+        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindSignal(GISharp.Runtime.UnownedUtf8)']/*" />
+        public GISharp.Lib.GIRepository.SignalInfo? FindSignal(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckFindSignalArgs(name);
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
@@ -228,10 +228,10 @@ namespace GISharp.Lib.GIRepository
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckFindVFuncArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckFindVFuncArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindVFunc(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public GISharp.Lib.GIRepository.VFuncInfo? FindVFunc(GISharp.Lib.GLib.UnownedUtf8 name)
+        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindVFunc(GISharp.Runtime.UnownedUtf8)']/*" />
+        public GISharp.Lib.GIRepository.VFuncInfo? FindVFunc(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckFindVFuncArgs(name);
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
@@ -282,10 +282,10 @@ namespace GISharp.Lib.GIRepository
         /* <type name="ObjectInfo" type="GIObjectInfo**" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct** implementor);
-        partial void CheckFindVFuncUsingInterfacesArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckFindVFuncUsingInterfacesArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindVFuncUsingInterfaces(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)']/*" />
-        public GISharp.Lib.GIRepository.VFuncInfo? FindVFuncUsingInterfaces(GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GIRepository.ObjectInfo implementor)
+        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.FindVFuncUsingInterfaces(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)']/*" />
+        public GISharp.Lib.GIRepository.VFuncInfo? FindVFuncUsingInterfaces(GISharp.Runtime.UnownedUtf8 name, out GISharp.Lib.GIRepository.ObjectInfo implementor)
         {
             CheckFindVFuncUsingInterfacesArgs(name);
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
@@ -480,13 +480,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetGetValueFunctionArgs();
 
-        private GISharp.Lib.GLib.NullableUnownedUtf8 GetGetValueFunction()
+        private GISharp.Runtime.NullableUnownedUtf8 GetGetValueFunction()
         {
             CheckGetGetValueFunctionArgs();
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_object_info_get_get_value_function(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -844,13 +844,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetRefFunctionArgs();
 
-        private GISharp.Lib.GLib.NullableUnownedUtf8 GetRefFunction()
+        private GISharp.Runtime.NullableUnownedUtf8 GetRefFunction()
         {
             CheckGetRefFunctionArgs();
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_object_info_get_ref_function(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -876,13 +876,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetSetValueFunctionArgs();
 
-        private GISharp.Lib.GLib.NullableUnownedUtf8 GetSetValueFunction()
+        private GISharp.Runtime.NullableUnownedUtf8 GetSetValueFunction()
         {
             CheckGetSetValueFunctionArgs();
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_object_info_get_set_value_function(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -941,13 +941,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetTypeInitArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetTypeInit()
+        private GISharp.Runtime.UnownedUtf8 GetTypeInit()
         {
             CheckGetTypeInitArgs();
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_object_info_get_type_init(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -969,13 +969,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetTypeNameArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetTypeName()
+        private GISharp.Runtime.UnownedUtf8 GetTypeName()
         {
             CheckGetTypeNameArgs();
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_object_info_get_type_name(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -1000,13 +1000,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
         partial void CheckGetUnrefFunctionArgs();
 
-        private GISharp.Lib.GLib.NullableUnownedUtf8 GetUnrefFunction()
+        private GISharp.Runtime.NullableUnownedUtf8 GetUnrefFunction()
         {
             CheckGetUnrefFunctionArgs();
             var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_object_info_get_unref_function(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 

@@ -8,7 +8,7 @@ using GISharp.Runtime;
 using ArgFuncList = System.Collections.Generic.List<GISharp.Lib.GLib.UnmanagedOptionArgFunc>;
 using ArgList = System.Collections.Generic.List<System.IntPtr>;
 using CallbackList = System.Collections.Generic.List<System.Action>;
-using StringList = System.Collections.Generic.List<GISharp.Lib.GLib.Utf8>;
+using StringList = System.Collections.Generic.List<GISharp.Runtime.Utf8>;
 
 namespace GISharp.Lib.GLib
 {

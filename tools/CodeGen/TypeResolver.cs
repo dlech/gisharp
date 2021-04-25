@@ -134,8 +134,8 @@ namespace GISharp.CodeGen
                 "gunichar" => "System.Text.Rune",
                 "gunichar2" => "char",
                 "GType" => "GISharp.Runtime.GType",
-                "utf8" => "GISharp.Lib.GLib.Utf8",
-                "filename" => "GISharp.Lib.GLib.Filename",
+                "utf8" => "GISharp.Runtime.Utf8",
+                "filename" => "GISharp.Runtime.Filename",
                 "bytestring" => "GISharp.Runtime.ByteString",
                 "va_list" =>
                     // va_list should be filtered out, but just in case...

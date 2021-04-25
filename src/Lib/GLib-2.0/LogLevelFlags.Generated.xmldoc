@@ -65,7 +65,7 @@ Flags specifying the level of log messages.
 <remarks>
 <para>
 It is possible to change how GLib treats messages of the various
-levels using g_log_set_handler() and <see cref="Log.SetFatalMask(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.LogLevelFlags)"/>.
+levels using g_log_set_handler() and <see cref="Log.SetFatalMask(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.LogLevelFlags)"/>.
 </para>
 </remarks>
 </member>

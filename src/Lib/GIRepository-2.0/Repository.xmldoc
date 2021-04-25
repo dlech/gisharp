@@ -38,7 +38,7 @@ Return the list of currently loaded namespaces.
 </summary>
 </member>
 
-<member name='Repository.Dump(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.Dump(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 </summary>
 <remarks>
@@ -58,10 +58,10 @@ On error
 </exception>
 </member>
 
-<member name='Repository.PrependLibraryPath(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.PrependLibraryPath(GISharp.Runtime.UnownedUtf8)'>
 </member>
 
-<member name='Repository.PrependSearchPath(GISharp.Lib.GLib.Filename)'>
+<member name='Repository.PrependSearchPath(GISharp.Runtime.Filename)'>
 <summary>
 Prepends <paramref name="directory"/> to the typelib search path.
 </summary>
@@ -76,7 +76,7 @@ directory name to prepend to the typelib
 </param>
 </member>
 
-<member name='Repository.EnumerateVersions(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.EnumerateVersions(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Obtain an unordered list of versions (either currently loaded or
 available) for <paramref name="namespace"/> in this this instance.
@@ -93,7 +93,7 @@ the array of versions.
 <summary>
 Searches for the enum type corresponding to the given #GError
 domain. Before calling this function for a particular namespace,
-you must call <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> once to load the namespace, or
+you must call <see cref="Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> once to load the namespace, or
 otherwise ensure the namespace has already been loaded.
 </summary>
 <param name="domain">
@@ -122,11 +122,11 @@ GType to search for
 </returns>
 </member>
 
-<member name='Repository.FindByName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.FindByName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Searches for a particular entry in a namespace.  Before calling
 this function for a particular namespace, you must call
-<see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> once to load the namespace, or otherwise
+<see cref="Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> once to load the namespace, or otherwise
 ensure the namespace has already been loaded.
 </summary>
 <param name="namespace">
@@ -140,7 +140,7 @@ Entry name to find
 </returns>
 </member>
 
-<member name='Repository.GetCPrefix(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.GetCPrefix(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 This function returns the "C prefix", or the C level namespace
 associated with the given introspection namespace.  Each C symbol
@@ -149,7 +149,7 @@ starts with this prefix, as well each #GType in the library.
 <remarks>
 <para>
 Note: The namespace must have already been loaded using a function
-such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
+such as <see cref="Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
 </para>
 </remarks>
 <param name="namespace">
@@ -160,7 +160,7 @@ C namespace prefix, or <c>null</c> if none associated
 </returns>
 </member>
 
-<member name='Repository.GetDependencies(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.GetDependencies(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Return an array of all (transitive) versioned dependencies for
 <paramref name="namespace"/>. Returned strings are of the form
@@ -169,11 +169,11 @@ Return an array of all (transitive) versioned dependencies for
 <remarks>
 <para>
 Note: <paramref name="namespace"/> must have already been loaded using a function
-such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
+such as <see cref="Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
 </para>
 <para>
 To get only the immediate dependencies for <paramref name="namespace"/>, use
-<see cref="Repository.GetImmediateDependencies(GISharp.Lib.GLib.UnownedUtf8)"/>.
+<see cref="Repository.GetImmediateDependencies(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 <param name="namespace">
@@ -185,7 +185,7 @@ Zero-terminated string array of all versioned
 </returns>
 </member>
 
-<member name='Repository.GetImmediateDependencies(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.GetImmediateDependencies(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Return an array of the immediate versioned dependencies for <paramref name="namespace"/>.
 Returned strings are of the form &lt;code&gt;namespace-version&lt;/code&gt;.
@@ -193,11 +193,11 @@ Returned strings are of the form &lt;code&gt;namespace-version&lt;/code&gt;.
 <remarks>
 <para>
 Note: <paramref name="namespace"/> must have already been loaded using a function
-such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
+such as <see cref="Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
 </para>
 <para>
 To get the transitive closure of dependencies for <paramref name="namespace"/>, use
-<see cref="Repository.GetDependencies(GISharp.Lib.GLib.UnownedUtf8)"/>.
+<see cref="Repository.GetDependencies(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 <param name="namespace">
@@ -234,7 +234,7 @@ Interfaces for <paramref name="gtype"/>
 </param>
 </member>
 
-<member name='Repository.GetSharedLibrary(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.GetSharedLibrary(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 This function returns a comma-separated list of paths to the
 shared C libraries associated with the given namespace <paramref name="namespace"/>.
@@ -244,7 +244,7 @@ function will return <c>null</c>.
 <remarks>
 <para>
 Note: The namespace must have already been loaded using a function
-such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
+such as <see cref="Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
 </para>
 </remarks>
 <param name="namespace">
@@ -256,7 +256,7 @@ Comma-separated list of paths to shared libraries,
 </returns>
 </member>
 
-<member name='Repository.GetTypelibPath(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.GetTypelibPath(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 If namespace <paramref name="namespace"/> is loaded, return the full path to the
 .typelib file it was loaded from.  If the typelib for
@@ -271,7 +271,7 @@ Filesystem path (or $lt;builtin$gt;) if successful, <c>null</c> if namespace is 
 </returns>
 </member>
 
-<member name='Repository.GetVersion(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Repository.GetVersion(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 This function returns the loaded version associated with the given
 namespace <paramref name="namespace"/>.
@@ -279,7 +279,7 @@ namespace <paramref name="namespace"/>.
 <remarks>
 <para>
 Note: The namespace must have already been loaded using a function
-such as <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
+such as <see cref="Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
 </para>
 </remarks>
 <param name="namespace">
@@ -290,12 +290,12 @@ Loaded version
 </returns>
 </member>
 
-<member name='Repository.IsRegistered(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Repository.IsRegistered(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Check whether a particular namespace (and optionally, a specific
 version thereof) is currently loaded.  This function is likely to
 only be useful in unusual circumstances; in order to act upon
-metadata in the namespace, you should call <see cref="Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/>
+metadata in the namespace, you should call <see cref="Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/>
 instead which will ensure the namespace is loaded, and return as
 quickly as this function will if it has already been loaded.
 </summary>
@@ -325,7 +325,7 @@ On error
 </exception>
 </member>
 
-<member name='Repository.Require(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)'>
+<member name='Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)'>
 <summary>
 Force the namespace <paramref name="namespace"/> to be loaded if it isn't already.
 If <paramref name="namespace"/> is not loaded, this function will search for a
@@ -347,7 +347,7 @@ On error
 </exception>
 </member>
 
-<member name='Repository.RequirePrivate(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)'>
+<member name='Repository.RequirePrivate(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)'>
 <summary>
 Force the namespace <paramref name="namespace"/> to be loaded if it isn't already.
 If <paramref name="namespace"/> is not loaded, this function will search for a
@@ -387,10 +387,10 @@ under the library directory used when compiling gobject-introspection.
 </para>
 <para>
 It is possible to control the search paths programmatically, using
-<see cref="Repository.PrependSearchPath(GISharp.Lib.GLib.Filename)"/>. It is also possible to modify
+<see cref="Repository.PrependSearchPath(GISharp.Runtime.Filename)"/>. It is also possible to modify
 the search paths by using the `GI_TYPELIB_PATH` environment variable.
 The environment variable takes precedence over the default search path
-and the <see cref="Repository.PrependSearchPath(GISharp.Lib.GLib.Filename)"/> calls.
+and the <see cref="Repository.PrependSearchPath(GISharp.Runtime.Filename)"/> calls.
 </para>
 </remarks>
 </member>

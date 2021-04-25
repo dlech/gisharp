@@ -38,7 +38,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='_LookupAction']/*" />
-        public delegate GISharp.Lib.Gio.IAction? _LookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        public delegate GISharp.Lib.Gio.IAction? _LookupAction(GISharp.Runtime.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -70,7 +70,7 @@ byte* actionName);
                     try
                     {
                         var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!;
-                        var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_);
+                        var actionName = new GISharp.Runtime.UnownedUtf8(actionName_);
                         var doLookupAction = (_LookupAction)methodInfo.CreateDelegate(typeof(_LookupAction), actionMap);
                         var ret = doLookupAction(actionName);
                         var ret_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)(ret?.UnsafeHandle ?? System.IntPtr.Zero);
@@ -136,7 +136,7 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         }
 
         /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='_RemoveAction']/*" />
-        public delegate void _RemoveAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        public delegate void _RemoveAction(GISharp.Runtime.UnownedUtf8 actionName);
 
         /// <summary>
         /// Unmanaged callback
@@ -168,7 +168,7 @@ byte* actionName);
                     try
                     {
                         var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!;
-                        var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_);
+                        var actionName = new GISharp.Runtime.UnownedUtf8(actionName_);
                         var doRemoveAction = (_RemoveAction)methodInfo.CreateDelegate(typeof(_RemoveAction), actionMap);
                         doRemoveAction(actionName);
                     }

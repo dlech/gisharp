@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
-using NUnit.Framework;
-
 using GISharp.Lib.GLib;
-
+using GISharp.Runtime;
+using NUnit.Framework;
 using static GISharp.TestHelpers;
 
 namespace GISharp.Test.GLib
@@ -152,7 +151,7 @@ namespace GISharp.Test.GLib
                 ThrowsGErrorException(KeyFileError.GroupNotFound),
                 "Trying to get a non-existant group should throw an exception");
 
-            var expected = new Runtime.Boolean[] { Runtime.Boolean.True, Runtime.Boolean.False };
+            var expected = new Boolean[] { Boolean.True, Boolean.False };
             keyFile.SetBooleanList(TestGroup, TestKey1, expected);
             var actual = keyFile.GetBooleanList(TestGroup, TestKey1);
             Assert.That(actual, Is.EquivalentTo(expected));

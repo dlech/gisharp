@@ -12,7 +12,7 @@ a #GType whose subtypes can occur as values
 </summary>
 </member>
 
-<member name='ParamSpecGType.ParamSpecGType(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)'>
+<member name='ParamSpecGType.ParamSpecGType(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)'>
 <summary>
 Creates a new <see cref="ParamSpecGType"/> instance specifying a
 %G_TYPE_GTYPE property.

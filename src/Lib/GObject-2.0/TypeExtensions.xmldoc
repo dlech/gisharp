@@ -109,7 +109,7 @@ an instance of a type
 <member name='TypeExtensions.FundamentalNext()'>
 <summary>
 Returns the next free fundamental type id which can be used to
-register a new fundamental type with <see cref="TypeExtensions.RegisterFundamental(GISharp.Runtime.GType,GISharp.Lib.GLib.UnownedUtf8,in GISharp.Lib.GObject.TypeInfo,in GISharp.Lib.GObject.TypeFundamentalInfo,GISharp.Lib.GObject.TypeFlags)"/>.
+register a new fundamental type with <see cref="TypeExtensions.RegisterFundamental(GISharp.Runtime.GType,GISharp.Runtime.UnownedUtf8,in GISharp.Lib.GObject.TypeInfo,in GISharp.Lib.GObject.TypeFundamentalInfo,GISharp.Lib.GObject.TypeFlags)"/>.
 The returned type ID represents the highest currently registered
 fundamental type identifier.
 </summary>
@@ -318,7 +318,7 @@ a user provided structure that is
 </param>
 </member>
 
-<member name='TypeExtensions.RegisterFundamental(GISharp.Runtime.GType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeFundamentalInfo,GISharp.Lib.GObject.TypeFlags)'>
+<member name='TypeExtensions.RegisterFundamental(GISharp.Runtime.GType,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.TypeInfo,GISharp.Lib.GObject.TypeFundamentalInfo,GISharp.Lib.GObject.TypeFlags)'>
 <summary>
 Registers <paramref name="typeId"/> as the predefined identifier and <paramref name="typeName"/> as the
 name of a fundamental type. If <paramref name="typeId"/> is already registered, or a

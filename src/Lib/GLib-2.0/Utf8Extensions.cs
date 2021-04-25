@@ -23,7 +23,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
+        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Runtime.UnownedUtf8,System.Int32)']/*" />
         public static Utf8 CaseFold(this UnownedUtf8 str)
         {
             var str_ = (byte*)str.UnsafeHandle;
@@ -34,10 +34,10 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
+        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Runtime.UnownedUtf8,System.Int32)']/*" />
         public static Utf8 CaseFold(this Utf8 str) => str.AsUnownedUtf8().CaseFold();
 
-        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
+        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Runtime.UnownedUtf8,System.Int32)']/*" />
         public static Utf8 Substring(this Utf8 str, clong startPos, clong endPos) => str.AsUnownedUtf8().Substring(startPos, endPos);
     }
 }

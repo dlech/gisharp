@@ -84,7 +84,7 @@ a <see cref="BaseInfo"/>
 </returns>
 </member>
 
-<member name='BaseInfo.GetAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='BaseInfo.GetAttribute(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Retrieve an arbitrary attribute associated with this node.
 </summary>
@@ -100,7 +100,7 @@ The value of the attribute, or <c>null</c> if no such attribute exists
 <summary>
 GIBaseInfo is the common base struct of all other *Info structs
 accessible through the <see cref="Repository"/> API.
-<see cref="Repository.FindByName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Runtime.GType)"/> or <see cref="Repository.GetInfo(GISharp.Lib.GLib.UnownedUtf8,int)"/>.
+<see cref="Repository.FindByName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Runtime.GType)"/> or <see cref="Repository.GetInfo(GISharp.Runtime.UnownedUtf8,int)"/>.
 </summary>
 </member>
 

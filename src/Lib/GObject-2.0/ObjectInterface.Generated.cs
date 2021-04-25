@@ -36,11 +36,11 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* propertyName);
-        static partial void CheckFindPropertyArgs(this GISharp.Lib.GObject.TypeInterface gIface, GISharp.Lib.GLib.UnownedUtf8 propertyName);
+        static partial void CheckFindPropertyArgs(this GISharp.Lib.GObject.TypeInterface gIface, GISharp.Runtime.UnownedUtf8 propertyName);
 
-        /// <include file="ObjectInterface.xmldoc" path="declaration/member[@name='ObjectInterface.FindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ObjectInterface.xmldoc" path="declaration/member[@name='ObjectInterface.FindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
-        public static GISharp.Lib.GObject.ParamSpec? FindProperty(this GISharp.Lib.GObject.TypeInterface gIface, GISharp.Lib.GLib.UnownedUtf8 propertyName)
+        public static GISharp.Lib.GObject.ParamSpec? FindProperty(this GISharp.Lib.GObject.TypeInterface gIface, GISharp.Runtime.UnownedUtf8 propertyName)
         {
             CheckFindPropertyArgs(gIface, propertyName);
             var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;

@@ -114,10 +114,10 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        static partial void CheckGetValueByNameArgs(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Lib.GLib.UnownedUtf8 name);
+        static partial void CheckGetValueByNameArgs(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.GetValueByName(GISharp.Lib.GObject.FlagsClass,GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static ref readonly GISharp.Lib.GObject.FlagsValue GetValueByName(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Lib.GLib.UnownedUtf8 name)
+        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.GetValueByName(GISharp.Lib.GObject.FlagsClass,GISharp.Runtime.UnownedUtf8)']/*" />
+        public static ref readonly GISharp.Lib.GObject.FlagsValue GetValueByName(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Runtime.UnownedUtf8 name)
         {
             CheckGetValueByNameArgs(flagsClass, name);
             var flagsClass_ = (GISharp.Lib.GObject.FlagsClass.UnmanagedStruct*)flagsClass.UnsafeHandle;
@@ -151,10 +151,10 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* nick);
-        static partial void CheckGetValueByNickArgs(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Lib.GLib.UnownedUtf8 nick);
+        static partial void CheckGetValueByNickArgs(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Runtime.UnownedUtf8 nick);
 
-        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.GetValueByNick(GISharp.Lib.GObject.FlagsClass,GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static ref readonly GISharp.Lib.GObject.FlagsValue GetValueByNick(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Lib.GLib.UnownedUtf8 nick)
+        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.GetValueByNick(GISharp.Lib.GObject.FlagsClass,GISharp.Runtime.UnownedUtf8)']/*" />
+        public static ref readonly GISharp.Lib.GObject.FlagsValue GetValueByNick(GISharp.Lib.GObject.FlagsClass flagsClass, GISharp.Runtime.UnownedUtf8 nick)
         {
             CheckGetValueByNickArgs(flagsClass, nick);
             var flagsClass_ = (GISharp.Lib.GObject.FlagsClass.UnmanagedStruct*)flagsClass.UnsafeHandle;
@@ -198,10 +198,10 @@ namespace GISharp.Lib.GObject
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.FlagsValue* constStaticValues);
-        static partial void CheckRegisterStaticArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.FlagsValue> constStaticValues);
+        static partial void CheckRegisterStaticArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.FlagsValue> constStaticValues);
 
-        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.RegisterStatic(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.FlagsValue&gt;)']/*" />
-        public static GISharp.Runtime.GType RegisterStatic(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.FlagsValue> constStaticValues)
+        /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.RegisterStatic(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.FlagsValue&gt;)']/*" />
+        public static GISharp.Runtime.GType RegisterStatic(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.FlagsValue> constStaticValues)
         {
             fixed (GISharp.Lib.GObject.FlagsValue* constStaticValuesData_ = constStaticValues)
             {
@@ -249,14 +249,14 @@ namespace GISharp.Lib.GObject
 
         /// <include file="Flags.xmldoc" path="declaration/member[@name='Flags.ToString(GISharp.Runtime.GType,uint)']/*" />
         [GISharp.Runtime.SinceAttribute("2.54")]
-        public static GISharp.Lib.GLib.Utf8 ToString(GISharp.Runtime.GType flagsType, uint value)
+        public static GISharp.Runtime.Utf8 ToString(GISharp.Runtime.GType flagsType, uint value)
         {
             CheckToStringArgs(flagsType, value);
             var flagsType_ = (GISharp.Runtime.GType)flagsType;
             var value_ = (uint)value;
             var ret_ = g_flags_to_string(flagsType_,value_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
     }

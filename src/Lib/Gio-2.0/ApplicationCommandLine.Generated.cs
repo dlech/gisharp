@@ -45,15 +45,15 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Arguments']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename> Arguments { get => GetArguments(); }
+        public GISharp.Runtime.CPtrArray<GISharp.Runtime.Filename> Arguments { get => GetArguments(); }
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Cwd']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.Lib.GLib.Filename? Cwd { get => GetCwd(); }
+        public GISharp.Runtime.Filename? Cwd { get => GetCwd(); }
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Environment']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Filename> Environment { get => GetEnvironment(); }
+        public GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Filename> Environment { get => GetEnvironment(); }
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.ExitStatus']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -119,11 +119,11 @@ namespace GISharp.Lib.Gio
         /* <type name="filename" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* arg);
-        partial void CheckCreateFileForArgArgs(GISharp.Lib.GLib.Filename arg);
+        partial void CheckCreateFileForArgArgs(GISharp.Runtime.Filename arg);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.CreateFileForArg(GISharp.Runtime.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public GISharp.Lib.Gio.IFile CreateFileForArg(GISharp.Lib.GLib.Filename arg)
+        public GISharp.Lib.Gio.IFile CreateFileForArg(GISharp.Runtime.Filename arg)
         {
             CheckCreateFileForArgArgs(arg);
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
@@ -178,14 +178,14 @@ namespace GISharp.Lib.Gio
         partial void CheckGetArgumentsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename> GetArguments()
+        private GISharp.Runtime.CPtrArray<GISharp.Runtime.Filename> GetArguments()
         {
             CheckGetArgumentsArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             int argc_;
             var ret_ = g_application_command_line_get_arguments(cmdline_,&argc_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, (int)argc_, GISharp.Runtime.Transfer.Full);
+            var ret = new GISharp.Runtime.CPtrArray<GISharp.Runtime.Filename>((System.IntPtr)ret_, (int)argc_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -220,13 +220,13 @@ namespace GISharp.Lib.Gio
         partial void CheckGetCwdArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private GISharp.Lib.GLib.Filename? GetCwd()
+        private GISharp.Runtime.Filename? GetCwd()
         {
             CheckGetCwdArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_cwd(cmdline_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Filename.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Filename.GetInstance<GISharp.Runtime.Filename>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -272,13 +272,13 @@ namespace GISharp.Lib.Gio
         partial void CheckGetEnvironmentArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Filename> GetEnvironment()
+        private GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Filename> GetEnvironment()
         {
             CheckGetEnvironmentArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_environ(cmdline_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Lib.GLib.Filename>(ret_, -1);
+            var ret = new GISharp.Runtime.UnownedZeroTerminatedCPtrArray<GISharp.Runtime.Filename>(ret_, -1);
             return ret;
         }
 
@@ -506,18 +506,18 @@ namespace GISharp.Lib.Gio
         /* <type name="filename" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckGetEnvironmentVariableArgs(GISharp.Lib.GLib.Filename name);
+        partial void CheckGetEnvironmentVariableArgs(GISharp.Runtime.Filename name);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.GetEnvironmentVariable(GISharp.Runtime.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.Lib.GLib.NullableUnownedUtf8 GetEnvironmentVariable(GISharp.Lib.GLib.Filename name)
+        public GISharp.Runtime.NullableUnownedUtf8 GetEnvironmentVariable(GISharp.Runtime.Filename name)
         {
             CheckGetEnvironmentVariableArgs(name);
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_application_command_line_getenv(cmdline_,name_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -590,9 +590,9 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoPrintLiteral(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrintLiteral))]
-        protected virtual void DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
+        protected virtual void DoPrintLiteral(GISharp.Runtime.UnownedUtf8 message)
         {
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var message_ = (byte*)message.UnsafeHandle;
@@ -600,9 +600,9 @@ namespace GISharp.Lib.Gio
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoPrinterrLiteral(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrinterrLiteral))]
-        protected virtual void DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
+        protected virtual void DoPrinterrLiteral(GISharp.Runtime.UnownedUtf8 message)
         {
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var message_ = (byte*)message.UnsafeHandle;

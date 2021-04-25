@@ -67,7 +67,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.Check(uint,uint,uint)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public static GISharp.Lib.GLib.NullableUnownedUtf8 Check(uint requiredMajor, uint requiredMinor, uint requiredMicro)
+        public static GISharp.Runtime.NullableUnownedUtf8 Check(uint requiredMajor, uint requiredMinor, uint requiredMicro)
         {
             CheckCheckArgs(requiredMajor, requiredMinor, requiredMicro);
             var requiredMajor_ = (uint)requiredMajor;
@@ -75,7 +75,7 @@ namespace GISharp.Lib.GLib
             var requiredMicro_ = (uint)requiredMicro;
             var ret_ = glib_check_version(requiredMajor_,requiredMinor_,requiredMicro_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
     }

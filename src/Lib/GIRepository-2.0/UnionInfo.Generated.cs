@@ -65,10 +65,10 @@ namespace GISharp.Lib.GIRepository
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckFindMethodArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckFindMethodArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public GISharp.Lib.GIRepository.FunctionInfo FindMethod(GISharp.Lib.GLib.UnownedUtf8 name)
+        /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.FindMethod(GISharp.Runtime.UnownedUtf8)']/*" />
+        public GISharp.Lib.GIRepository.FunctionInfo FindMethod(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckFindMethodArgs(name);
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;

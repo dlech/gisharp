@@ -728,11 +728,11 @@ namespace GISharp.Lib.GLib
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong endPos);
-        static partial void CheckSubstringArgs(this GISharp.Lib.GLib.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos);
+        static partial void CheckSubstringArgs(this GISharp.Runtime.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos);
 
-        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.Substring(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.CLong,GISharp.Runtime.CLong)']/*" />
+        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.Substring(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.CLong,GISharp.Runtime.CLong)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static GISharp.Lib.GLib.Utf8 Substring(this GISharp.Lib.GLib.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos)
+        public static GISharp.Runtime.Utf8 Substring(this GISharp.Runtime.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos)
         {
             CheckSubstringArgs(str, startPos, endPos);
             var str_ = (byte*)str.UnsafeHandle;
@@ -740,7 +740,7 @@ namespace GISharp.Lib.GLib
             var endPos_ = (GISharp.Runtime.CLong)endPos;
             var ret_ = g_utf8_substring(str_,startPos_,endPos_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

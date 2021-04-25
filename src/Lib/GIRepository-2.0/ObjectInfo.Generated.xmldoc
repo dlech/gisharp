@@ -120,7 +120,7 @@ see <see cref="ObjectInfo.GetUnrefFunction()"/>.
 </summary>
 </member>
 
-<member name='ObjectInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ObjectInfo.FindMethod(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Obtain a method of the object type given a <paramref name="name"/>. <c>null</c> will be
 returned if there's no method available with that name.
@@ -134,7 +134,7 @@ the <see cref="FunctionInfo"/>. Free the struct by calling
 </returns>
 </member>
 
-<member name='ObjectInfo.FindMethodUsingInterfaces(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)'>
+<member name='ObjectInfo.FindMethodUsingInterfaces(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)'>
 <summary>
 Obtain a method of the object given a <paramref name="name"/>, searching both the
 object this instance and any interfaces it implements.  <c>null</c> will be
@@ -158,7 +158,7 @@ the <see cref="FunctionInfo"/>. Free the struct by calling
 </returns>
 </member>
 
-<member name='ObjectInfo.FindSignal(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ObjectInfo.FindSignal(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 TODO
 </summary>
@@ -170,7 +170,7 @@ Info for the signal with name <paramref name="name"/> in this instance, or <c>nu
 </returns>
 </member>
 
-<member name='ObjectInfo.FindVFunc(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ObjectInfo.FindVFunc(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Locate a virtual function slot with name <paramref name="name"/>. Note that the namespace
 for virtuals is distinct from that of methods; there may or may not be
@@ -189,7 +189,7 @@ the <see cref="VFuncInfo"/>, or <c>null</c>. Free it with
 </returns>
 </member>
 
-<member name='ObjectInfo.FindVFuncUsingInterfaces(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)'>
+<member name='ObjectInfo.FindVFuncUsingInterfaces(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)'>
 <summary>
 Locate a virtual function slot with name <paramref name="name"/>, searching both the object
 this instance and any interfaces it implements.  Note that the namespace for

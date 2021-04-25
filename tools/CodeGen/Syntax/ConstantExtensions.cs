@@ -19,7 +19,7 @@ namespace GISharp.CodeGen.Syntax
         public static FieldDeclarationSyntax GetDeclaration(this Constant constant)
         {
             var type = constant.Type.GetManagedType();
-            if (type == "GISharp.Lib.GLib.Utf8") {
+            if (type == "GISharp.Runtime.Utf8") {
                 type = "string";
             }
 

@@ -14,10 +14,10 @@ namespace GISharp.Lib.GModule
         }
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.Name']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 Name { get => GetName(); }
+        public GISharp.Runtime.UnownedUtf8 Name { get => GetName(); }
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.Error']/*" />
-        public static GISharp.Lib.GLib.UnownedUtf8 Error { get => GetError(); }
+        public static GISharp.Runtime.UnownedUtf8 Error { get => GetError(); }
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.Supported']/*" />
         public static bool Supported { get => GetSupported(); }
@@ -71,17 +71,17 @@ namespace GISharp.Lib.GModule
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* moduleName);
-        static partial void CheckBuildPathArgs(GISharp.Lib.GLib.NullableUnownedUtf8 directory, GISharp.Lib.GLib.UnownedUtf8 moduleName);
+        static partial void CheckBuildPathArgs(GISharp.Runtime.NullableUnownedUtf8 directory, GISharp.Runtime.UnownedUtf8 moduleName);
 
-        /// <include file="Module.xmldoc" path="declaration/member[@name='Module.BuildPath(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static GISharp.Lib.GLib.Utf8 BuildPath(GISharp.Lib.GLib.NullableUnownedUtf8 directory, GISharp.Lib.GLib.UnownedUtf8 moduleName)
+        /// <include file="Module.xmldoc" path="declaration/member[@name='Module.BuildPath(GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.UnownedUtf8)']/*" />
+        public static GISharp.Runtime.Utf8 BuildPath(GISharp.Runtime.NullableUnownedUtf8 directory, GISharp.Runtime.UnownedUtf8 moduleName)
         {
             CheckBuildPathArgs(directory, moduleName);
             var directory_ = (byte*)directory.UnsafeHandle;
             var moduleName_ = (byte*)moduleName.UnsafeHandle;
             var ret_ = g_module_build_path(directory_,moduleName_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -97,12 +97,12 @@ namespace GISharp.Lib.GModule
         private static extern byte* g_module_error();
         static partial void CheckGetErrorArgs();
 
-        private static GISharp.Lib.GLib.UnownedUtf8 GetError()
+        private static GISharp.Runtime.UnownedUtf8 GetError()
         {
             CheckGetErrorArgs();
             var ret_ = g_module_error();
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -144,10 +144,10 @@ namespace GISharp.Lib.GModule
         /* <type name="ModuleFlags" type="GModuleFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.ModuleFlags flags);
-        static partial void CheckOpenArgs(GISharp.Lib.GLib.NullableUnownedUtf8 fileName, GISharp.Lib.GModule.ModuleFlags flags = default);
+        static partial void CheckOpenArgs(GISharp.Runtime.NullableUnownedUtf8 fileName, GISharp.Lib.GModule.ModuleFlags flags = default);
 
-        /// <include file="Module.xmldoc" path="declaration/member[@name='Module.Open(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)']/*" />
-        public static GISharp.Lib.GModule.Module? Open(GISharp.Lib.GLib.NullableUnownedUtf8 fileName, GISharp.Lib.GModule.ModuleFlags flags = default)
+        /// <include file="Module.xmldoc" path="declaration/member[@name='Module.Open(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)']/*" />
+        public static GISharp.Lib.GModule.Module? Open(GISharp.Runtime.NullableUnownedUtf8 fileName, GISharp.Lib.GModule.ModuleFlags flags = default)
         {
             CheckOpenArgs(fileName, flags);
             var fileName_ = (byte*)fileName.UnsafeHandle;
@@ -258,13 +258,13 @@ namespace GISharp.Lib.GModule
         GISharp.Lib.GModule.Module.UnmanagedStruct* module);
         partial void CheckGetNameArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetName()
+        private GISharp.Runtime.UnownedUtf8 GetName()
         {
             CheckGetNameArgs();
             var module_ = (GISharp.Lib.GModule.Module.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_module_name(module_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -297,10 +297,10 @@ namespace GISharp.Lib.GModule
         /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 */
         System.IntPtr* symbol);
-        partial void CheckTrySymbolArgs(GISharp.Lib.GLib.UnownedUtf8 symbolName);
+        partial void CheckTrySymbolArgs(GISharp.Runtime.UnownedUtf8 symbolName);
 
-        /// <include file="Module.xmldoc" path="declaration/member[@name='Module.TrySymbol(GISharp.Lib.GLib.UnownedUtf8,System.IntPtr)']/*" />
-        public bool TrySymbol(GISharp.Lib.GLib.UnownedUtf8 symbolName, out System.IntPtr symbol)
+        /// <include file="Module.xmldoc" path="declaration/member[@name='Module.TrySymbol(GISharp.Runtime.UnownedUtf8,System.IntPtr)']/*" />
+        public bool TrySymbol(GISharp.Runtime.UnownedUtf8 symbolName, out System.IntPtr symbol)
         {
             CheckTrySymbolArgs(symbolName);
             var module_ = (GISharp.Lib.GModule.Module.UnmanagedStruct*)UnsafeHandle;

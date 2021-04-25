@@ -2,6 +2,7 @@
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GLib;
+using GISharp.Runtime;
 using NUnit.Framework;
 
 namespace GISharp.Test.GLib

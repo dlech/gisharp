@@ -56,7 +56,7 @@ context is the default #GMainContext.
 
 <member name='Task.Name'>
 <summary>
-Gets this instance’s name. See <see cref="Task.SetName(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
+Gets this instance’s name. See <see cref="Task.SetName(GISharp.Runtime.NullableUnownedUtf8)"/>.
 </summary>
 </member>
 

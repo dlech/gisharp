@@ -21,15 +21,15 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedAddAction))]
         void DoAddAction(GISharp.Lib.Gio.IAction action);
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoLookupAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoLookupAction(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedLookupAction))]
-        GISharp.Lib.Gio.IAction? DoLookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        GISharp.Lib.Gio.IAction? DoLookupAction(GISharp.Runtime.UnownedUtf8 actionName);
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoRemoveAction(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedRemoveAction))]
-        void DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        void DoRemoveAction(GISharp.Runtime.UnownedUtf8 actionName);
     }
 
     /// <summary>
@@ -114,11 +114,11 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* actionName);
-        static partial void CheckLookupActionArgs(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName);
+        static partial void CheckLookupActionArgs(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Runtime.UnownedUtf8 actionName);
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static GISharp.Lib.Gio.IAction? LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static GISharp.Lib.Gio.IAction? LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Runtime.UnownedUtf8 actionName)
         {
             CheckLookupActionArgs(actionMap, actionName);
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;
@@ -154,11 +154,11 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* actionName);
-        static partial void CheckRemoveActionArgs(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName);
+        static partial void CheckRemoveActionArgs(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Runtime.UnownedUtf8 actionName);
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Runtime.UnownedUtf8 actionName)
         {
             CheckRemoveActionArgs(actionMap, actionName);
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;

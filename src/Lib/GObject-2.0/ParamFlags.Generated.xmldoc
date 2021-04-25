@@ -69,9 +69,9 @@ the string used as blurb when constructing the
 
 <member name='ParamFlags.ExplicitNotify'>
 <summary>
-calls to <see cref="Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,in GISharp.Lib.GObject.Value)"/> for this
+calls to <see cref="Object.SetProperty(GISharp.Runtime.UnownedUtf8,in GISharp.Lib.GObject.Value)"/> for this
   property will not automatically result in a "notify" signal being
-  emitted: the implementation must call <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/> themselves
+  emitted: the implementation must call <see cref="Object.Notify(GISharp.Runtime.UnownedUtf8)"/> themselves
   in case the property actually changes.
 </summary>
 </member>

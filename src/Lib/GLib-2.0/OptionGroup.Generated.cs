@@ -241,11 +241,11 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* domain);
-        partial void CheckSetTranslationDomainArgs(GISharp.Lib.GLib.UnownedUtf8 domain);
+        partial void CheckSetTranslationDomainArgs(GISharp.Runtime.UnownedUtf8 domain);
 
-        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslationDomain(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
+        public void SetTranslationDomain(GISharp.Runtime.UnownedUtf8 domain)
         {
             CheckSetTranslationDomainArgs(domain);
             var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)UnsafeHandle;

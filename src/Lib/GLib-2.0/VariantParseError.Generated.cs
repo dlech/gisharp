@@ -116,18 +116,18 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* sourceStr);
-        static partial void CheckPrintContextArgs(GISharp.Lib.GLib.Error error, GISharp.Lib.GLib.UnownedUtf8 sourceStr);
+        static partial void CheckPrintContextArgs(GISharp.Lib.GLib.Error error, GISharp.Runtime.UnownedUtf8 sourceStr);
 
-        /// <include file="VariantParseError.xmldoc" path="declaration/member[@name='VariantParseErrorDomain.PrintContext(GISharp.Lib.GLib.Error,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="VariantParseError.xmldoc" path="declaration/member[@name='VariantParseErrorDomain.PrintContext(GISharp.Lib.GLib.Error,GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public static GISharp.Lib.GLib.Utf8 PrintContext(GISharp.Lib.GLib.Error error, GISharp.Lib.GLib.UnownedUtf8 sourceStr)
+        public static GISharp.Runtime.Utf8 PrintContext(GISharp.Lib.GLib.Error error, GISharp.Runtime.UnownedUtf8 sourceStr)
         {
             CheckPrintContextArgs(error, sourceStr);
             var error_ = (GISharp.Lib.GLib.Error.UnmanagedStruct*)error.UnsafeHandle;
             var sourceStr_ = (byte*)sourceStr.UnsafeHandle;
             var ret_ = g_variant_parse_error_print_context(error_,sourceStr_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

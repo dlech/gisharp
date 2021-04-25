@@ -136,10 +136,10 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        static partial void CheckGetValueByNameArgs(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Lib.GLib.UnownedUtf8 name);
+        static partial void CheckGetValueByNameArgs(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.GetValueByName(GISharp.Lib.GObject.EnumClass,GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static ref readonly GISharp.Lib.GObject.EnumValue GetValueByName(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Lib.GLib.UnownedUtf8 name)
+        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.GetValueByName(GISharp.Lib.GObject.EnumClass,GISharp.Runtime.UnownedUtf8)']/*" />
+        public static ref readonly GISharp.Lib.GObject.EnumValue GetValueByName(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Runtime.UnownedUtf8 name)
         {
             CheckGetValueByNameArgs(enumClass, name);
             var enumClass_ = (GISharp.Lib.GObject.EnumClass.UnmanagedStruct*)enumClass.UnsafeHandle;
@@ -174,10 +174,10 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* nick);
-        static partial void CheckGetValueByNickArgs(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Lib.GLib.UnownedUtf8 nick);
+        static partial void CheckGetValueByNickArgs(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Runtime.UnownedUtf8 nick);
 
-        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.GetValueByNick(GISharp.Lib.GObject.EnumClass,GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static ref readonly GISharp.Lib.GObject.EnumValue GetValueByNick(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Lib.GLib.UnownedUtf8 nick)
+        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.GetValueByNick(GISharp.Lib.GObject.EnumClass,GISharp.Runtime.UnownedUtf8)']/*" />
+        public static ref readonly GISharp.Lib.GObject.EnumValue GetValueByNick(GISharp.Lib.GObject.EnumClass enumClass, GISharp.Runtime.UnownedUtf8 nick)
         {
             CheckGetValueByNickArgs(enumClass, nick);
             var enumClass_ = (GISharp.Lib.GObject.EnumClass.UnmanagedStruct*)enumClass.UnsafeHandle;
@@ -222,10 +222,10 @@ namespace GISharp.Lib.GObject
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.EnumValue* constStaticValues);
-        static partial void CheckRegisterStaticArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.EnumValue> constStaticValues);
+        static partial void CheckRegisterStaticArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.EnumValue> constStaticValues);
 
-        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.RegisterStatic(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.EnumValue&gt;)']/*" />
-        public static GISharp.Runtime.GType RegisterStatic(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.EnumValue> constStaticValues)
+        /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.RegisterStatic(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCArray&lt;GISharp.Lib.GObject.EnumValue&gt;)']/*" />
+        public static GISharp.Runtime.GType RegisterStatic(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedZeroTerminatedCArray<GISharp.Lib.GObject.EnumValue> constStaticValues)
         {
             fixed (GISharp.Lib.GObject.EnumValue* constStaticValuesData_ = constStaticValues)
             {
@@ -272,14 +272,14 @@ namespace GISharp.Lib.GObject
 
         /// <include file="Enum.xmldoc" path="declaration/member[@name='Enum.ToString(GISharp.Runtime.GType,int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.54")]
-        public static GISharp.Lib.GLib.Utf8 ToString(GISharp.Runtime.GType gEnumType, int value)
+        public static GISharp.Runtime.Utf8 ToString(GISharp.Runtime.GType gEnumType, int value)
         {
             CheckToStringArgs(gEnumType, value);
             var gEnumType_ = (GISharp.Runtime.GType)gEnumType;
             var value_ = (int)value;
             var ret_ = g_enum_to_string(gEnumType_,value_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Utf8.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
     }

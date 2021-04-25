@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-using NUnit.Framework;
 using System;
-
 using GISharp.Lib.GLib;
+using GISharp.Runtime;
+using NUnit.Framework;
 
 namespace GISharp.Test.GLib
 {

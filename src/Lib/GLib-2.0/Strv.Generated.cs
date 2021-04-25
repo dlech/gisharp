@@ -108,11 +108,11 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* str);
-        partial void CheckContainsArgs(GISharp.Lib.GLib.UnownedUtf8 str);
+        partial void CheckContainsArgs(GISharp.Runtime.UnownedUtf8 str);
 
-        /// <include file="Strv.xmldoc" path="declaration/member[@name='Strv.Contains(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="Strv.xmldoc" path="declaration/member[@name='Strv.Contains(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public bool Contains(GISharp.Lib.GLib.UnownedUtf8 str)
+        public bool Contains(GISharp.Runtime.UnownedUtf8 str)
         {
             CheckContainsArgs(str);
             var strv_ = (GISharp.Lib.GLib.Strv.UnmanagedStruct*)UnsafeHandle;

@@ -57,7 +57,7 @@ If the <see cref="arg"/> type is <see cref="OptionArg.Callback"/>, then <see cre
 <summary>
 the description for the option in `--help`
     output. The <see cref="description"/> is translated using the <see cref="TranslateFunc"/>
-    of the group, see <see cref="OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
+    of the group, see <see cref="OptionGroup.SetTranslationDomain(GISharp.Runtime.UnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -66,7 +66,7 @@ the description for the option in `--help`
 The placeholder to use for the extra argument parsed
     by the option in `--help` output. The <see cref="argDescription"/> is translated
     using the <see cref="TranslateFunc"/> of the group, see
-    <see cref="OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
+    <see cref="OptionGroup.SetTranslationDomain(GISharp.Runtime.UnownedUtf8)"/>.
 </summary>
 </member>
 

@@ -97,7 +97,7 @@ namespace GISharp.Lib.Gtk
         static partial void CheckCheckArgs(uint requiredMajor, uint requiredMinor, uint requiredMicro);
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.Check(uint,uint,uint)']/*" />
-        public static GISharp.Lib.GLib.NullableUnownedUtf8 Check(uint requiredMajor, uint requiredMinor, uint requiredMicro)
+        public static GISharp.Runtime.NullableUnownedUtf8 Check(uint requiredMajor, uint requiredMinor, uint requiredMicro)
         {
             CheckCheckArgs(requiredMajor, requiredMinor, requiredMicro);
             var requiredMajor_ = (uint)requiredMajor;
@@ -105,7 +105,7 @@ namespace GISharp.Lib.Gtk
             var requiredMicro_ = (uint)requiredMicro;
             var ret_ = gtk_check_version(requiredMajor_,requiredMinor_,requiredMicro_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 

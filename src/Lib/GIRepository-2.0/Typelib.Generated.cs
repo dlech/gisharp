@@ -14,7 +14,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <include file="Typelib.xmldoc" path="declaration/member[@name='Typelib.Namespace']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 Namespace { get => GetNamespace(); }
+        public GISharp.Runtime.UnownedUtf8 Namespace { get => GetNamespace(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -53,13 +53,13 @@ GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
 GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
         partial void CheckGetNamespaceArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetNamespace()
+        private GISharp.Runtime.UnownedUtf8 GetNamespace()
         {
             CheckGetNamespaceArgs();
             var typelib_ = (GISharp.Lib.GIRepository.Typelib.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_typelib_get_namespace(typelib_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 
@@ -76,10 +76,10 @@ byte* symbolName,
 /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:out caller-allocates:1 */
 System.IntPtr* symbol);
-        partial void CheckTrySymbolArgs(GISharp.Lib.GLib.UnownedUtf8 symbolName);
+        partial void CheckTrySymbolArgs(GISharp.Runtime.UnownedUtf8 symbolName);
 
-        /// <include file="Typelib.xmldoc" path="declaration/member[@name='Typelib.TrySymbol(GISharp.Lib.GLib.UnownedUtf8,System.IntPtr)']/*" />
-        public bool TrySymbol(GISharp.Lib.GLib.UnownedUtf8 symbolName, out System.IntPtr symbol)
+        /// <include file="Typelib.xmldoc" path="declaration/member[@name='Typelib.TrySymbol(GISharp.Runtime.UnownedUtf8,System.IntPtr)']/*" />
+        public bool TrySymbol(GISharp.Runtime.UnownedUtf8 symbolName, out System.IntPtr symbol)
         {
             fixed (System.IntPtr* symbol_ = &symbol)
             {

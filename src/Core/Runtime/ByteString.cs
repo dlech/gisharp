@@ -18,7 +18,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Gets the length of the string in bytes.
         /// </summary>
-        /// <seealso cref="Lib.GLib.Utf8.LengthInCharacters"/>
+        /// <seealso cref="Utf8.LengthInCharacters"/>
         public int Length {
             get {
                 if (length < 0) {

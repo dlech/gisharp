@@ -96,7 +96,7 @@ is unique within the <see cref="MainContext"/> instance passed to <see cref="Sou
 <member name='Source.Name'>
 <summary>
 Gets a name for the source, used in debugging and profiling.  The
-name may be #NULL if it has never been set with <see cref="Source.SetName(GISharp.Lib.GLib.UnownedUtf8)"/>.
+name may be #NULL if it has never been set with <see cref="Source.SetName(GISharp.Runtime.UnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -322,7 +322,7 @@ the user_data for the callback.
 </returns>
 </member>
 
-<member name='Source.SetNameById(uint,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Source.SetNameById(uint,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Sets the name of a source using its ID.
 </summary>

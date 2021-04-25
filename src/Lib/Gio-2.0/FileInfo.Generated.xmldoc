@@ -142,7 +142,7 @@ a duplicate <see cref="FileInfo"/> of this instance.
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeAsString(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets the value of a attribute, formatted as a string.
 This escapes things as needed to make the string valid
@@ -158,7 +158,7 @@ a UTF-8 string associated with the given <paramref name="attribute"/>, or
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeBoolean(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets the value of a boolean attribute. If the attribute does not
 contain a boolean value, <c>false</c> will be returned.
@@ -171,7 +171,7 @@ the boolean value contained within the attribute.
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeByteString(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets the value of a byte string attribute. If the attribute does
 not contain a byte string, <c>null</c> will be returned.
@@ -185,7 +185,7 @@ the contents of the <paramref name="attribute"/> value as a byte string, or
 </returns>
 </member>
 
-<member name='FileInfo.TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)'>
+<member name='FileInfo.TryGetAttributeData(GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)'>
 <summary>
 Gets the attribute type, value and status for an attribute key.
 </summary>
@@ -208,7 +208,7 @@ return location for the attribute status, or <c>null</c>
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeInt32(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets a signed 32-bit integer contained within the attribute. If the
 attribute does not contain a signed 32-bit integer, or is invalid,
@@ -222,7 +222,7 @@ a signed 32-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeInt64(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets a signed 64-bit integer contained within the attribute. If the
 attribute does not contain a signed 64-bit integer, or is invalid,
@@ -236,7 +236,7 @@ a signed 64-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeObject(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeObject(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets the value of a #GObject attribute. If the attribute does
 not contain a #GObject, <c>null</c> will be returned.
@@ -250,7 +250,7 @@ or <c>null</c> otherwise.
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeStatus(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets the attribute status for an attribute key.
 </summary>
@@ -263,7 +263,7 @@ a <see cref="FileAttributeStatus"/> for the given <paramref name="attribute"/>, 
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeString(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeString(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets the value of a string attribute. If the attribute does
 not contain a string, <c>null</c> will be returned.
@@ -277,7 +277,7 @@ or <c>null</c> otherwise.
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeStringv(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets the value of a stringv attribute. If the attribute does
 not contain a stringv, <c>null</c> will be returned.
@@ -291,7 +291,7 @@ or <c>null</c> otherwise. Do not free. These returned strings are UTF-8.
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeType(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeType(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets the attribute type for an attribute key.
 </summary>
@@ -304,7 +304,7 @@ a <see cref="FileAttributeType"/> for the given <paramref name="attribute"/>, or
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeUint32(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets an unsigned 32-bit integer contained within the attribute. If the
 attribute does not contain an unsigned 32-bit integer, or is invalid,
@@ -318,7 +318,7 @@ an unsigned 32-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='FileInfo.GetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeUint64(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Gets a unsigned 64-bit integer contained within the attribute. If the
 attribute does not contain an unsigned 64-bit integer, or is invalid,
@@ -342,7 +342,7 @@ a #GTimeVal.
 </param>
 </member>
 
-<member name='FileInfo.HasAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.HasAttribute(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if a file info structure has an attribute named <paramref name="attribute"/>.
 </summary>
@@ -355,7 +355,7 @@ a file attribute key.
 </returns>
 </member>
 
-<member name='FileInfo.HasNamespace(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.HasNamespace(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Checks if a file info structure has an attribute in the
 specified <paramref name="nameSpace"/>.
@@ -369,7 +369,7 @@ a file attribute namespace.
 </returns>
 </member>
 
-<member name='FileInfo.ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='FileInfo.ListAttributes(GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 Lists the file info structure's attributes.
 </summary>
@@ -384,7 +384,7 @@ types for the given <paramref name="nameSpace"/>, or <c>null</c> on error.
 </returns>
 </member>
 
-<member name='FileInfo.RemoveAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.RemoveAttribute(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Removes all cases of <paramref name="attribute"/> from this instance if it exists.
 </summary>
@@ -393,7 +393,7 @@ a file attribute key.
 </param>
 </member>
 
-<member name='FileInfo.SetAttribute(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)'>
+<member name='FileInfo.SetAttribute(GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given value, if possible. To unset the
 attribute, use <see cref="FileAttributeType.Invalid"/> for <paramref name="type"/>.
@@ -409,7 +409,7 @@ pointer to the value
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8,bool)'>
+<member name='FileInfo.SetAttributeBoolean(GISharp.Runtime.UnownedUtf8,bool)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -422,7 +422,7 @@ a boolean value.
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.SetAttributeByteString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -435,7 +435,7 @@ a byte string.
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8,int)'>
+<member name='FileInfo.SetAttributeInt32(GISharp.Runtime.UnownedUtf8,int)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -448,7 +448,7 @@ a signed 32-bit integer
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8,long)'>
+<member name='FileInfo.SetAttributeInt64(GISharp.Runtime.UnownedUtf8,long)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -470,7 +470,7 @@ a <see cref="FileAttributeMatcher"/>.
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeObject(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object)'>
+<member name='FileInfo.SetAttributeObject(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -483,7 +483,7 @@ a #GObject.
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeStatus)'>
+<member name='FileInfo.SetAttributeStatus(GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.FileAttributeStatus)'>
 <summary>
 Sets the attribute status for an attribute key. This is only
 needed by external code that implement <see cref="File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>
@@ -506,7 +506,7 @@ a <see cref="FileAttributeStatus"/>
 </returns>
 </member>
 
-<member name='FileInfo.SetAttributeString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.SetAttributeString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -519,7 +519,7 @@ a UTF-8 string.
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='FileInfo.SetAttributeStringv(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Runtime.Utf8&gt;)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -538,7 +538,7 @@ a <c>null</c>
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8,uint)'>
+<member name='FileInfo.SetAttributeUint32(GISharp.Runtime.UnownedUtf8,uint)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -551,7 +551,7 @@ an unsigned 32-bit integer.
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8,ulong)'>
+<member name='FileInfo.SetAttributeUint64(GISharp.Runtime.UnownedUtf8,ulong)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -594,10 +594,10 @@ See [GFileAttribute][gio-GFileAttribute] for more information on how
 GIO handles file attributes.
 </para>
 <para>
-To obtain a <see cref="FileInfo"/> for a <see cref="IFile"/>, use <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> (or its
+To obtain a <see cref="FileInfo"/> for a <see cref="IFile"/>, use <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> (or its
 async variant). To obtain a <see cref="FileInfo"/> for a file input or output
-stream, use <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> or
-<see cref="FileOutputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> (or their async variants).
+stream, use <see cref="FileInputStream.QueryInfo(GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> or
+<see cref="FileOutputStream.QueryInfo(GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> (or their async variants).
 </para>
 <para>
 To change the actual attributes of a file, you should then set the

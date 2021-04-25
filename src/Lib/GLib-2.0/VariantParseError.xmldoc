@@ -123,7 +123,7 @@ Error codes returned by parsing text-format GVariants.
 <member name='VariantParseErrorDomain.Quark'>
 </member>
 
-<member name='VariantParseErrorDomain.PrintContext(GISharp.Lib.GLib.Error,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='VariantParseErrorDomain.PrintContext(GISharp.Lib.GLib.Error,GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Pretty-prints a message showing the context of a <see cref="Variant"/> parse
 error within the string for which parsing was attempted.
@@ -157,10 +157,10 @@ unable to find a common type:
 The format of the message may change in a future version.
 </para>
 <para>
-<paramref name="error"/> must have come from a failed attempt to <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> and
+<paramref name="error"/> must have come from a failed attempt to <see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)"/> and
 <paramref name="sourceStr"/> must be exactly the same string that caused the error.
 If <paramref name="sourceStr"/> was not nul-terminated when you passed it to
-<see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> then you must add nul termination before using this
+<see cref="Variant.Parse(GISharp.Lib.GLib.VariantType,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8)"/> then you must add nul termination before using this
 function.
 </para>
 </remarks>

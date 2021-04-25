@@ -3,10 +3,10 @@
 
 using System.Collections.Generic;
 using GISharp.Lib.GLib;
+using GISharp.Runtime;
 using NUnit.Framework;
-
-using static GISharp.TestHelpers;
 using static GISharp.Test.GLib.Helpers;
+using static GISharp.TestHelpers;
 
 namespace GISharp.Test.GLib
 {

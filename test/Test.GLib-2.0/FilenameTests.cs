@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2019-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.IO;
-using NUnit.Framework;
 using GISharp.Lib.GLib;
-
+using GISharp.Runtime;
+using NUnit.Framework;
 using static GISharp.TestHelpers;
 
 namespace GISharp.Test.GLib
@@ -17,7 +17,7 @@ namespace GISharp.Test.GLib
         {
             var fullPath = Path.GetFullPath("test");
             using var f = (Filename)fullPath;
-            using var baseName = f.DisplayBasename;
+            using var baseName = f.DisplayBasename();
             Assert.That<string>(baseName, Is.EqualTo(Path.GetFileName(fullPath)));
         }
 
@@ -26,23 +26,23 @@ namespace GISharp.Test.GLib
         {
             var fullPath = Path.GetFullPath("test");
             using var f = (Filename)fullPath;
-            using var displayName = f.DisplayName;
+            using var displayName = f.DisplayName();
             Assert.That<string>(displayName, Is.EqualTo(fullPath));
         }
 
         [Test]
         public void TestFromUri()
         {
-            Assert.That(() => Filename.FromUri("test"),
+            Assert.That(() => FilenameExtensions.FromUri("test"),
                 ThrowsGErrorException(ConvertError.BadUri));
 
             var uri = new Uri(Path.GetFullPath("test"));
-            using (var f = Filename.FromUri(uri.ToString())) {
-                Assert.That<string>(f, Is.EqualTo(uri.LocalPath));
+            using (var f = FilenameExtensions.FromUri(uri.ToString())) {
+                Assert.That(f.ToString(), Is.EqualTo(uri.LocalPath));
             }
 
-            using (var f = Filename.FromUri(uri.ToString(), out var hostname)) {
-                Assert.That<string>(f, Is.EqualTo(uri.LocalPath));
+            using (var f = FilenameExtensions.FromUri(uri.ToString(), out var hostname)) {
+                Assert.That(f.ToString(), Is.EqualTo(uri.LocalPath));
                 Assert.That(hostname, Is.Null);
             }
         }

@@ -20,7 +20,7 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GIRepository.PropertyInfo Property { get => GetProperty(); }
 
         /// <include file="FunctionInfo.xmldoc" path="declaration/member[@name='FunctionInfo.Symbol']/*" />
-        public GISharp.Lib.GLib.UnownedUtf8 Symbol { get => GetSymbol(); }
+        public GISharp.Runtime.UnownedUtf8 Symbol { get => GetSymbol(); }
 
         /// <include file="FunctionInfo.xmldoc" path="declaration/member[@name='FunctionInfo.VFunc']/*" />
         public GISharp.Lib.GIRepository.VFuncInfo VFunc { get => GetVFunc(); }
@@ -113,13 +113,13 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* info);
         partial void CheckGetSymbolArgs();
 
-        private GISharp.Lib.GLib.UnownedUtf8 GetSymbol()
+        private GISharp.Runtime.UnownedUtf8 GetSymbol()
         {
             CheckGetSymbolArgs();
             var info_ = (GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_function_info_get_symbol(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+            var ret = new GISharp.Runtime.UnownedUtf8(ret_);
             return ret;
         }
 

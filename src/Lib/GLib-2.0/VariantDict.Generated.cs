@@ -106,11 +106,11 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* key);
-        partial void CheckContainsArgs(GISharp.Lib.GLib.UnownedUtf8 key);
+        partial void CheckContainsArgs(GISharp.Runtime.UnownedUtf8 key);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Contains(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Contains(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public bool Contains(GISharp.Lib.GLib.UnownedUtf8 key)
+        public bool Contains(GISharp.Runtime.UnownedUtf8 key)
         {
             CheckContainsArgs(key);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -192,11 +192,11 @@ namespace GISharp.Lib.GLib
         /* <type name="Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
-        partial void CheckInsertArgs(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.Variant value);
+        partial void CheckInsertArgs(GISharp.Runtime.UnownedUtf8 key, GISharp.Lib.GLib.Variant value);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Insert(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Insert(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public void Insert(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.Variant value)
+        public void Insert(GISharp.Runtime.UnownedUtf8 key, GISharp.Lib.GLib.Variant value)
         {
             CheckInsertArgs(key, value);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -250,11 +250,11 @@ namespace GISharp.Lib.GLib
         /* <type name="VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* expectedType);
-        partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null);
+        partial void CheckLookupArgs(GISharp.Runtime.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Lookup(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public GISharp.Lib.GLib.Variant Lookup(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null)
+        public GISharp.Lib.GLib.Variant Lookup(GISharp.Runtime.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null)
         {
             CheckLookupArgs(key, expectedType);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -319,11 +319,11 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* key);
-        partial void CheckRemoveArgs(GISharp.Lib.GLib.UnownedUtf8 key);
+        partial void CheckRemoveArgs(GISharp.Runtime.UnownedUtf8 key);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Remove(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Remove(GISharp.Runtime.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public bool Remove(GISharp.Lib.GLib.UnownedUtf8 key)
+        public bool Remove(GISharp.Runtime.UnownedUtf8 key)
         {
             CheckRemoveArgs(key);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;

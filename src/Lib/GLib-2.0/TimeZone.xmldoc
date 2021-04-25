@@ -8,7 +8,7 @@ if the system administrator changes it.
 </summary>
 <remarks>
 <para>
-This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)"/> with the value of
+This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Runtime.NullableUnownedUtf8)"/> with the value of
 the `TZ` environment variable (including the possibility of <c>null</c>).
 </para>
 </remarks>
@@ -20,7 +20,7 @@ Creates a <see cref="TimeZone"/> corresponding to UTC.
 </summary>
 <remarks>
 <para>
-This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)"/> with a value like
+This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Runtime.NullableUnownedUtf8)"/> with a value like
 "Z", "UTC", "+00", etc.
 </para>
 </remarks>
@@ -28,7 +28,7 @@ This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Lib.GLib.Null
 
 <member name='TimeZone.Identifier'>
 <summary>
-Get the identifier of this <see cref="TimeZone"/>, as passed to <see cref="TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
+Get the identifier of this <see cref="TimeZone"/>, as passed to <see cref="TimeZone.TimeZone(GISharp.Runtime.NullableUnownedUtf8)"/>.
 If the identifier passed at construction time was not recognised, `UTC` will
 be returned. If it was <c>null</c>, the identifier of the local timezone at
 construction time will be returned.
@@ -42,7 +42,7 @@ this function.
 </remarks>
 </member>
 
-<member name='TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='TimeZone.TimeZone(GISharp.Runtime.NullableUnownedUtf8)'>
 <summary>
 A version of g_time_zone_new_identifier() which returns the UTC time zone
 if <paramref name="identifier"/> could not be parsed or loaded.
@@ -65,7 +65,7 @@ in seconds.
 </summary>
 <remarks>
 <para>
-This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)"/> with a string in the form
+This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Runtime.NullableUnownedUtf8)"/> with a string in the form
 `[+|-]hh[:mm[:ss]]`.
 </para>
 </remarks>

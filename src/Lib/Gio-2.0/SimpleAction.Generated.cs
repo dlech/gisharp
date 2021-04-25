@@ -24,7 +24,7 @@ namespace GISharp.Lib.Gio
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Utf8? Name { get => (GISharp.Lib.GLib.Utf8?)GetProperty("name")!; set => SetProperty("name", value); }
+        public GISharp.Runtime.Utf8? Name { get => (GISharp.Runtime.Utf8?)GetProperty("name")!; set => SetProperty("name", value); }
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.ParameterType']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -79,10 +79,10 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* parameterType);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
+        static GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
         {
             CheckNewArgs(name, parameterType);
             var name_ = (byte*)name.UnsafeHandle;
@@ -92,9 +92,9 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType) : this((System.IntPtr)New(name, parameterType), GISharp.Runtime.Transfer.Full)
+        public SimpleAction(GISharp.Runtime.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType) : this((System.IntPtr)New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -137,10 +137,10 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* state);
-        static partial void CheckNewStatefulArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state);
+        static partial void CheckNewStatefulArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
+        static GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* NewStateful(GISharp.Runtime.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
         {
             CheckNewStatefulArgs(name, parameterType, state);
             var name_ = (byte*)name.UnsafeHandle;
@@ -151,9 +151,9 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this((System.IntPtr)NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
+        public SimpleAction(GISharp.Runtime.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this((System.IntPtr)NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -356,7 +356,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.GLib.UnownedUtf8 GISharp.Lib.Gio.IAction.DoGetName()
+        GISharp.Runtime.UnownedUtf8 GISharp.Lib.Gio.IAction.DoGetName()
         {
             throw new System.NotImplementedException();
         }

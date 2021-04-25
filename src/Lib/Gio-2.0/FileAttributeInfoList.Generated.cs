@@ -97,10 +97,10 @@ namespace GISharp.Lib.Gio
         /* <type name="FileAttributeInfoFlags" type="GFileAttributeInfoFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileAttributeInfoFlags flags);
-        partial void CheckAddArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags);
+        partial void CheckAddArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags);
 
-        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Add(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)']/*" />
-        public void Add(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
+        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Add(GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)']/*" />
+        public void Add(GISharp.Runtime.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
         {
             CheckAddArgs(name, type, flags);
             var list_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)UnsafeHandle;
@@ -163,10 +163,10 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
-        partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 name);
+        partial void CheckLookupArgs(GISharp.Runtime.UnownedUtf8 name);
 
-        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Lookup(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public ref readonly GISharp.Lib.Gio.FileAttributeInfo Lookup(GISharp.Lib.GLib.UnownedUtf8 name)
+        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Lookup(GISharp.Runtime.UnownedUtf8)']/*" />
+        public ref readonly GISharp.Lib.Gio.FileAttributeInfo Lookup(GISharp.Runtime.UnownedUtf8 name)
         {
             CheckLookupArgs(name);
             var list_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)UnsafeHandle;

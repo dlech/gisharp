@@ -84,9 +84,9 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamFlags" type="GParamFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamFlags flags);
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Runtime.GType flagsType, uint defaultValue, GISharp.Lib.GObject.ParamFlags flags);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Runtime.GType flagsType, uint defaultValue, GISharp.Lib.GObject.ParamFlags flags);
 
-        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Runtime.GType flagsType, uint defaultValue, GISharp.Lib.GObject.ParamFlags flags)
+        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Runtime.GType flagsType, uint defaultValue, GISharp.Lib.GObject.ParamFlags flags)
         {
             CheckNewArgs(name, nick, blurb, flagsType, defaultValue, flags);
             var name_ = (byte*)name.UnsafeHandle;
@@ -100,8 +100,8 @@ namespace GISharp.Lib.GObject
             return ret_;
         }
 
-        /// <include file="ParamSpecFlags.xmldoc" path="declaration/member[@name='ParamSpecFlags.ParamSpecFlags(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GObject.ParamFlags)']/*" />
-        public ParamSpecFlags(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 nick, GISharp.Lib.GLib.UnownedUtf8 blurb, GISharp.Runtime.GType flagsType, uint defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, flagsType, defaultValue, flags), GISharp.Runtime.Transfer.None)
+        /// <include file="ParamSpecFlags.xmldoc" path="declaration/member[@name='ParamSpecFlags.ParamSpecFlags(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GObject.ParamFlags)']/*" />
+        public ParamSpecFlags(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Runtime.GType flagsType, uint defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, flagsType, defaultValue, flags), GISharp.Runtime.Transfer.None)
         {
         }
     }
