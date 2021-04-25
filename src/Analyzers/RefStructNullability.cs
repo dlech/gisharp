@@ -25,7 +25,6 @@ namespace GISharp.Analyzers
             context.EnableConcurrentExecution();
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics);
             context.RegisterSyntaxNodeAction(AnalyzeInvocation, SyntaxKind.InvocationExpression);
-            context.RegisterOperationAction(AnalyzeAssignment, OperationKind.SimpleAssignment);
         }
 
         private void AnalyzeInvocation(SyntaxNodeAnalysisContext context)
@@ -63,19 +62,6 @@ namespace GISharp.Analyzers
                     || arg.Expression is DefaultExpressionSyntax
                 ) {
                     context.ReportDiagnostic(Diagnostic.Create(descriptor, arg.GetLocation()));
-                }
-            }
-        }
-
-        private void AnalyzeAssignment(OperationAnalysisContext context)
-        {
-            var type = context.Operation.Type;
-            if (type is null) {
-                return;
-            }
-            if (type.IsRefLikeType) {
-                if (context.Operation.Syntax is LiteralExpressionSyntax literal && literal.IsKind(SyntaxKind.DefaultLiteralExpression)) {
-                    context.ReportDiagnostic(Diagnostic.Create(descriptor, context.Operation.Syntax.GetLocation()));
                 }
             }
         }

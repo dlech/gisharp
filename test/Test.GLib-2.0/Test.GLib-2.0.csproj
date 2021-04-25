@@ -12,7 +12,6 @@
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
     <CoverletOutput>../../.coverage/glib-2.0.info</CoverletOutput>
-    <Include>[GISharp.Lib.GLib.2.0]*,[GISharp.Runtime]*</Include> 
   </PropertyGroup>
 
   <ItemGroup>

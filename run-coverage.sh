@@ -9,7 +9,7 @@ dotnet test /p:CollectCoverage=true /maxcpucount:1
 
 cd .coverage
 
-lcov -o lcov.info -a core.info -t core \
+lcov -o lcov.info -a runtime.info -t runtime \
     -a glib-2.0.info -t glib-2.0 \
     -a gobject-2.0.info -t gobject-2.0 \
     -a gio-2.0.info -t gio-2.0 \

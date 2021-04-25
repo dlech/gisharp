@@ -10,7 +10,6 @@
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
     <CoverletOutput>../../.coverage/girepository-2.0.info</CoverletOutput>
-    <Include>[GISharp.Lib.GIRepository.2.0]*</Include> 
   </PropertyGroup>
 
   <ItemGroup>

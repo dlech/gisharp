@@ -62,7 +62,7 @@ public static class Test
             const string testCode = @"
 #nullable enable
 using System.Diagnostics.CodeAnalysis;
-using GISharp.Lib.GLib;
+using GISharp.Runtime;
 
 public static class Test
 {
@@ -88,37 +88,6 @@ public static class Test
             await new CSharpAnalyzerTest<GISharp.Analyzers.RefStructNullability, NUnitVerifier> {
                 TestCode = testCode,
                 ExpectedDiagnostics = { expected1, expected2, expected3 },
-                ReferenceAssemblies = refAsm
-            }.RunAsync();
-        }
-
-        [Test]
-        public async Task Test2()
-        {
-            const string testCode = @"
-#nullable enable
-using GISharp.Lib.GLib;
-
-public static class Test
-{
-    private static extern UnownedUtf8 GetP1();
-    private static extern void SetP1(UnownedUtf8 value);
-
-    public static UnownedUtf8 P1 { get => GetP1(); set => SetP1(value); }
-
-    public static void M2()
-    {
-        P1 = default;
-    }
-}
-";
-            var expected = Verify.Diagnostic().WithLocation(13, 12).WithSeverity(Warning);
-            var refAsm = ReferenceAssemblies.Net.Net50.AddPackages(
-                ImmutableArray.Create(new PackageIdentity("GISharp.Runtime", "1.0.0"))
-            ).WithNuGetConfigFilePath(NugetConfig);
-            await new CSharpAnalyzerTest<GISharp.Analyzers.RefStructNullability, NUnitVerifier> {
-                TestCode = testCode,
-                ExpectedDiagnostics = { expected },
                 ReferenceAssemblies = refAsm
             }.RunAsync();
         }

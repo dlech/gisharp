@@ -12,7 +12,6 @@
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
     <CoverletOutput>../../.coverage/gio-2.0.info</CoverletOutput>
-    <Include>[GISharp.Lib.Gio.2.0]*</Include>
   </PropertyGroup>
 
   <ItemGroup>
