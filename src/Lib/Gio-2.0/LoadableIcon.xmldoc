@@ -1,0 +1,123 @@
+<declaration>
+
+<member name='ILoadableIcon.DoLoad(int,GISharp.Runtime.Utf8,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Loads a loadable icon. For the asynchronous version of this function,
+see <see cref="LoadableIcon.LoadAsync(GISharp.Lib.Gio.ILoadableIcon,int,GISharp.Lib.Gio.Cancellable)"/>.
+</summary>
+<param name="size">
+an integer.
+</param>
+<param name="type">
+a location to store the type of the loaded
+icon, <c>null</c> to ignore.
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object, <c>null</c> to
+ignore.
+</param>
+<returns>
+a <see cref="InputStream"/> to read the icon from.
+</returns>
+<exception name="GISharp.Lib.GLib.Error.Exception">
+On error
+</exception>
+</member>
+
+<member name='ILoadableIcon.DoLoadAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Loads an icon asynchronously.
+</summary>
+<remarks>
+<para>
+For the synchronous, blocking
+version of this function, see <see cref="LoadableIcon.Load(GISharp.Lib.Gio.ILoadableIcon,int,out GISharp.Runtime.Utf8,GISharp.Lib.Gio.Cancellable)"/>.
+</para>
+</remarks>
+<param name="size">
+an integer.
+</param>
+<param name="callback">
+a <see cref="AsyncReadyCallback"/> to call when the
+           request is satisfied
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
+</param>
+</member>
+
+<member name='ILoadableIcon.DoLoadFinish(GISharp.Lib.Gio.IAsyncResult,GISharp.Runtime.Utf8)'>
+<summary>
+Finishes an asynchronous icon load started in <see cref="LoadableIcon.LoadAsync(GISharp.Lib.Gio.ILoadableIcon,int,GISharp.Lib.Gio.Cancellable)"/>.
+</summary>
+<param name="res">
+a <see cref="IAsyncResult"/>.
+</param>
+<param name="type">
+a location to store the type of the loaded
+       icon, <c>null</c> to ignore.
+</param>
+<returns>
+a <see cref="InputStream"/> to read the icon from.
+</returns>
+<exception name="GISharp.Lib.GLib.Error.Exception">
+On error
+</exception>
+</member>
+
+<member name='ILoadableIcon'>
+<summary>
+Extends the <see cref="IIcon"/> interface and adds the ability to
+load icons from streams.
+</summary>
+</member>
+
+<member name='LoadableIcon.Load(GISharp.Lib.Gio.ILoadableIcon,int,GISharp.Runtime.Utf8,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Loads a loadable icon. For the asynchronous version of this function,
+see <see cref="LoadableIcon.LoadAsync(GISharp.Lib.Gio.ILoadableIcon,int,GISharp.Lib.Gio.Cancellable)"/>.
+</summary>
+<param name="icon">
+a <see cref="ILoadableIcon"/>.
+</param>
+<param name="size">
+an integer.
+</param>
+<param name="type">
+a location to store the type of the loaded
+icon, <c>null</c> to ignore.
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object, <c>null</c> to
+ignore.
+</param>
+<returns>
+a <see cref="InputStream"/> to read the icon from.
+</returns>
+<exception name="GISharp.Lib.GLib.Error.Exception">
+On error
+</exception>
+</member>
+
+<member name='LoadableIcon.LoadAsync(GISharp.Lib.Gio.ILoadableIcon,int,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Loads an icon asynchronously.
+</summary>
+<remarks>
+<para>
+For the synchronous, blocking
+version of this function, see <see cref="LoadableIcon.Load(GISharp.Lib.Gio.ILoadableIcon,int,out GISharp.Runtime.Utf8,GISharp.Lib.Gio.Cancellable)"/>.
+</para>
+</remarks>
+<param name="icon">
+a <see cref="ILoadableIcon"/>.
+</param>
+<param name="size">
+an integer.
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
+</param>
+</member>
+
+</declaration>

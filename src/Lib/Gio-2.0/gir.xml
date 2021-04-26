@@ -27693,6 +27693,451 @@ of the request.</doc>
         <type name="gpointer" c:type="gpointer" gs:is-pointer="1" />
       </field>
     </record>
+    <interface name="LoadableIcon" c:symbol-prefix="loadable_icon" c:type="GLoadableIcon" glib:type-name="GLoadableIcon" glib:get-type="g_loadable_icon_get_type" glib:type-struct="LoadableIconIface" gs:managed-name="ILoadableIcon">
+      <doc xml:space="preserve" filename="gio-2.0.c" line="6907">Extends the #GIcon interface and adds the ability to
+load icons from streams.</doc>
+      <source-position filename="gloadableicon.h" line="74" />
+      <prerequisite name="Icon" gs:managed-name="Icon" />
+      <virtual-method name="load" invoker="load" throws="1" gs:dll-name="gio-2.0" gs:managed-name="DoLoad">
+        <doc xml:space="preserve" filename="gio-2.0.c" line="27592">Loads a loadable icon. For the asynchronous version of this function,
+see g_loadable_icon_load_async().</doc>
+        <source-position filename="gloadableicon.h" line="60" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gio-2.0.c" line="27606">a #GInputStream to read the icon from.</doc>
+          <type name="InputStream" c:type="GInputStream*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27594">a #GLoadableIcon.</doc>
+            <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27595">an integer.</doc>
+            <type name="gint" c:type="int" />
+          </parameter>
+          <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27596">a location to store the type of the loaded
+icon, %NULL to ignore.</doc>
+            <type name="utf8" c:type="char**" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27598">optional #GCancellable object, %NULL to
+ignore.</doc>
+            <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+          </parameter>
+          <gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error">
+            <doc>return location for a #GError</doc>
+            <type name="GLib.Error" c:type="GError**" gs:is-pointer="1" />
+          </gs:error-parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27595">an integer.</doc>
+            <type name="gint" c:type="int" />
+          </parameter>
+          <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27596">a location to store the type of the loaded
+icon, %NULL to ignore.</doc>
+            <type name="utf8" c:type="char**" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27598">optional #GCancellable object, %NULL to
+ignore.</doc>
+            <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </virtual-method>
+      <virtual-method name="load_async" invoker="load_async" gs:dll-name="gio-2.0" gs:managed-name="DoLoadAsync">
+        <doc xml:space="preserve" filename="gio-2.0.c" line="27610">Loads an icon asynchronously. To finish this function, see
+g_loadable_icon_load_finish(). For the synchronous, blocking
+version of this function, see g_loadable_icon_load().</doc>
+        <source-position filename="gloadableicon.h" line="65" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27612">a #GLoadableIcon.</doc>
+            <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27613">an integer.</doc>
+            <type name="gint" c:type="int" />
+          </parameter>
+          <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27614">optional #GCancellable object, %NULL to ignore.</doc>
+            <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="callback" transfer-ownership="none" nullable="1" allow-none="1" scope="async" closure="3" gs:managed-name="callback" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27615">a #GAsyncReadyCallback to call when the
+           request is satisfied</doc>
+            <type name="AsyncReadyCallback" c:type="GAsyncReadyCallback" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="3" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27617">the data to pass to callback function</doc>
+            <type name="gpointer" c:type="gpointer" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27613">an integer.</doc>
+            <type name="gint" c:type="int" />
+          </parameter>
+          <parameter name="callback" transfer-ownership="none" nullable="1" allow-none="1" scope="async" closure="3" gs:managed-name="callback" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27615">a #GAsyncReadyCallback to call when the
+           request is satisfied</doc>
+            <type name="AsyncReadyCallback" c:type="GAsyncReadyCallback" />
+          </parameter>
+          <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27614">optional #GCancellable object, %NULL to ignore.</doc>
+            <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </virtual-method>
+      <virtual-method name="load_finish" invoker="load_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="DoLoadFinish">
+        <doc xml:space="preserve" filename="gio-2.0.c" line="27625">Finishes an asynchronous icon load started in g_loadable_icon_load_async().</doc>
+        <source-position filename="gloadableicon.h" line="70" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gio-2.0.c" line="27636">a #GInputStream to read the icon from.</doc>
+          <type name="InputStream" c:type="GInputStream*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27627">a #GLoadableIcon.</doc>
+            <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="res" transfer-ownership="none" gs:managed-name="res" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27628">a #GAsyncResult.</doc>
+            <type name="AsyncResult" c:type="GAsyncResult*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27629">a location to store the type of the loaded
+       icon, %NULL to ignore.</doc>
+            <type name="utf8" c:type="char**" gs:is-pointer="1" />
+          </parameter>
+          <gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error">
+            <doc>return location for a #GError</doc>
+            <type name="GLib.Error" c:type="GError**" gs:is-pointer="1" />
+          </gs:error-parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="res" transfer-ownership="none" gs:managed-name="res" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27628">a #GAsyncResult.</doc>
+            <type name="AsyncResult" c:type="GAsyncResult*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27629">a location to store the type of the loaded
+       icon, %NULL to ignore.</doc>
+            <type name="utf8" c:type="char**" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </virtual-method>
+      <method name="load" c:identifier="g_loadable_icon_load" throws="1" gs:dll-name="gio-2.0" gs:managed-name="Load" gs:extension-method="1">
+        <doc xml:space="preserve" filename="gio-2.0.c" line="27592">Loads a loadable icon. For the asynchronous version of this function,
+see g_loadable_icon_load_async().</doc>
+        <source-position filename="gloadableicon.h" line="80" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gio-2.0.c" line="27606">a #GInputStream to read the icon from.</doc>
+          <type name="InputStream" c:type="GInputStream*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27594">a #GLoadableIcon.</doc>
+            <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27595">an integer.</doc>
+            <type name="gint" c:type="int" />
+          </parameter>
+          <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27596">a location to store the type of the loaded
+icon, %NULL to ignore.</doc>
+            <type name="utf8" c:type="char**" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27598">optional #GCancellable object, %NULL to
+ignore.</doc>
+            <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+          </parameter>
+          <gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error">
+            <doc>return location for a #GError</doc>
+            <type name="GLib.Error" c:type="GError**" gs:is-pointer="1" />
+          </gs:error-parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27594">a #GLoadableIcon.</doc>
+            <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27595">an integer.</doc>
+            <type name="gint" c:type="int" />
+          </parameter>
+          <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27596">a location to store the type of the loaded
+icon, %NULL to ignore.</doc>
+            <type name="utf8" c:type="char**" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27598">optional #GCancellable object, %NULL to
+ignore.</doc>
+            <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="load_async" c:identifier="g_loadable_icon_load_async" gs:dll-name="gio-2.0" gs:managed-name="LoadAsync" gs:async="1" gs:async-finish="LoadFinish" gs:extension-method="1">
+        <doc xml:space="preserve" filename="gio-2.0.c" line="27610">Loads an icon asynchronously. To finish this function, see
+g_loadable_icon_load_finish(). For the synchronous, blocking
+version of this function, see g_loadable_icon_load().</doc>
+        <source-position filename="gloadableicon.h" line="86" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
+            <type name="InputStream" c:type="GInputStream*" gs:is-pointer="1" />
+            <type name="utf8" c:type="char**" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27612">a #GLoadableIcon.</doc>
+            <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27613">an integer.</doc>
+            <type name="gint" c:type="int" />
+          </parameter>
+          <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27614">optional #GCancellable object, %NULL to ignore.</doc>
+            <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="callback" transfer-ownership="none" nullable="1" allow-none="1" scope="async" closure="3" gs:managed-name="callback" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27615">a #GAsyncReadyCallback to call when the
+           request is satisfied</doc>
+            <type name="AsyncReadyCallback" c:type="GAsyncReadyCallback" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27617">the data to pass to callback function</doc>
+            <type name="gpointer" c:type="gpointer" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27612">a #GLoadableIcon.</doc>
+            <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27613">an integer.</doc>
+            <type name="gint" c:type="int" />
+          </parameter>
+          <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27614">optional #GCancellable object, %NULL to ignore.</doc>
+            <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="load_finish" c:identifier="g_loadable_icon_load_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="LoadFinish" gs:pinvoke-only="1" gs:finish-for="load_async" gs:extension-method="1">
+        <doc xml:space="preserve" filename="gio-2.0.c" line="27625">Finishes an asynchronous icon load started in g_loadable_icon_load_async().</doc>
+        <source-position filename="gloadableicon.h" line="92" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="gio-2.0.c" line="27636">a #GInputStream to read the icon from.</doc>
+          <type name="InputStream" c:type="GInputStream*" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27627">a #GLoadableIcon.</doc>
+            <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="res" transfer-ownership="none" gs:managed-name="res" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27628">a #GAsyncResult.</doc>
+            <type name="AsyncResult" c:type="GAsyncResult*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27629">a location to store the type of the loaded
+       icon, %NULL to ignore.</doc>
+            <type name="utf8" c:type="char**" gs:is-pointer="1" />
+          </parameter>
+          <gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error">
+            <doc>return location for a #GError</doc>
+            <type name="GLib.Error" c:type="GError**" gs:is-pointer="1" />
+          </gs:error-parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27627">a #GLoadableIcon.</doc>
+            <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+          </instance-parameter>
+          <parameter name="res" transfer-ownership="none" gs:managed-name="res" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27628">a #GAsyncResult.</doc>
+            <type name="AsyncResult" c:type="GAsyncResult*" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27629">a location to store the type of the loaded
+       icon, %NULL to ignore.</doc>
+            <type name="utf8" c:type="char**" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_loadable_icon_get_type" gs:access-modifiers="private" gs:dll-name="gio-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </interface>
+    <record name="LoadableIconIface" c:type="GLoadableIconIface" glib:is-gtype-struct-for="LoadableIcon" gs:managed-name="LoadableIconIface">
+      <doc xml:space="preserve" filename="gloadableicon.h" line="45">Interface for icons that can be loaded as a stream.</doc>
+      <source-position filename="gloadableicon.h" line="74" />
+      <field name="g_iface" gs:managed-name="GIface">
+        <doc xml:space="preserve" filename="gloadableicon.h" line="47">The parent interface.</doc>
+        <type name="GObject.TypeInterface" c:type="GTypeInterface" />
+      </field>
+      <field name="load" gs:managed-name="Load">
+        <callback name="load" throws="1" gs:dll-name="gio-2.0" gs:managed-name="Load">
+          <source-position filename="gloadableicon.h" line="60" />
+          <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27606">a #GInputStream to read the icon from.</doc>
+            <type name="InputStream" c:type="GInputStream*" gs:is-pointer="1" />
+          </return-value>
+          <parameters>
+            <parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27594">a #GLoadableIcon.</doc>
+              <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27595">an integer.</doc>
+              <type name="gint" c:type="int" />
+            </parameter>
+            <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27596">a location to store the type of the loaded
+icon, %NULL to ignore.</doc>
+              <type name="utf8" c:type="char**" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27598">optional #GCancellable object, %NULL to
+ignore.</doc>
+              <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+            </parameter>
+            <gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error">
+              <doc>return location for a #GError</doc>
+              <type name="GLib.Error" c:type="GError**" gs:is-pointer="1" />
+            </gs:error-parameter>
+          </parameters>
+          <gs:managed-parameters>
+            <parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27594">a #GLoadableIcon.</doc>
+              <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27595">an integer.</doc>
+              <type name="gint" c:type="int" />
+            </parameter>
+            <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27596">a location to store the type of the loaded
+icon, %NULL to ignore.</doc>
+              <type name="utf8" c:type="char**" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27598">optional #GCancellable object, %NULL to
+ignore.</doc>
+              <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+            </parameter>
+          </gs:managed-parameters>
+        </callback>
+      </field>
+      <field name="load_async" gs:managed-name="LoadAsync">
+        <callback name="load_async" gs:dll-name="gio-2.0" gs:managed-name="LoadAsync">
+          <source-position filename="gloadableicon.h" line="65" />
+          <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+            <type name="none" c:type="void" />
+          </return-value>
+          <parameters>
+            <parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27612">a #GLoadableIcon.</doc>
+              <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27613">an integer.</doc>
+              <type name="gint" c:type="int" />
+            </parameter>
+            <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27614">optional #GCancellable object, %NULL to ignore.</doc>
+              <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="callback" transfer-ownership="none" nullable="1" allow-none="1" scope="async" closure="4" gs:managed-name="callback" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27615">a #GAsyncReadyCallback to call when the
+           request is satisfied</doc>
+              <type name="AsyncReadyCallback" c:type="GAsyncReadyCallback" />
+            </parameter>
+            <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="4" gs:managed-name="userData" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27617">the data to pass to callback function</doc>
+              <type name="gpointer" c:type="gpointer" gs:is-pointer="1" />
+            </parameter>
+          </parameters>
+          <gs:managed-parameters>
+            <parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27612">a #GLoadableIcon.</doc>
+              <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27613">an integer.</doc>
+              <type name="gint" c:type="int" />
+            </parameter>
+            <parameter name="callback" transfer-ownership="none" nullable="1" allow-none="1" scope="async" closure="4" gs:managed-name="callback" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27615">a #GAsyncReadyCallback to call when the
+           request is satisfied</doc>
+              <type name="AsyncReadyCallback" c:type="GAsyncReadyCallback" />
+            </parameter>
+            <parameter name="cancellable" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="cancellable" direction="in" gs:default="null">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27614">optional #GCancellable object, %NULL to ignore.</doc>
+              <type name="Cancellable" c:type="GCancellable*" gs:is-pointer="1" />
+            </parameter>
+          </gs:managed-parameters>
+        </callback>
+      </field>
+      <field name="load_finish" gs:managed-name="LoadFinish">
+        <callback name="load_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="LoadFinish">
+          <source-position filename="gloadableicon.h" line="70" />
+          <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="27636">a #GInputStream to read the icon from.</doc>
+            <type name="InputStream" c:type="GInputStream*" gs:is-pointer="1" />
+          </return-value>
+          <parameters>
+            <parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27627">a #GLoadableIcon.</doc>
+              <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="res" transfer-ownership="none" gs:managed-name="res" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27628">a #GAsyncResult.</doc>
+              <type name="AsyncResult" c:type="GAsyncResult*" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27629">a location to store the type of the loaded
+       icon, %NULL to ignore.</doc>
+              <type name="utf8" c:type="char**" gs:is-pointer="1" />
+            </parameter>
+            <gs:error-parameter name="error" direction="inout" transfer-ownership="full" gs:managed-name="error">
+              <doc>return location for a #GError</doc>
+              <type name="GLib.Error" c:type="GError**" gs:is-pointer="1" />
+            </gs:error-parameter>
+          </parameters>
+          <gs:managed-parameters>
+            <parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27627">a #GLoadableIcon.</doc>
+              <type name="LoadableIcon" c:type="GLoadableIcon*" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="res" transfer-ownership="none" gs:managed-name="res" direction="in">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27628">a #GAsyncResult.</doc>
+              <type name="AsyncResult" c:type="GAsyncResult*" gs:is-pointer="1" />
+            </parameter>
+            <parameter name="type" direction="out" caller-allocates="0" transfer-ownership="full" optional="1" allow-none="1" gs:managed-name="type">
+              <doc xml:space="preserve" filename="gio-2.0.c" line="27629">a location to store the type of the loaded
+       icon, %NULL to ignore.</doc>
+              <type name="utf8" c:type="char**" gs:is-pointer="1" />
+            </parameter>
+          </gs:managed-parameters>
+        </callback>
+      </field>
+    </record>
     <class name="OutputStream" c:symbol-prefix="output_stream" c:type="GOutputStream" parent="GObject.Object" abstract="1" glib:type-name="GOutputStream" glib:get-type="g_output_stream_get_type" glib:type-struct="OutputStreamClass" gs:managed-name="OutputStream">
       <doc xml:space="preserve" filename="gio-2.0.c" line="7331">#GOutputStream has functions to write to a stream (g_output_stream_write()),
 to close a stream (g_output_stream_close()) and to flush pending writes

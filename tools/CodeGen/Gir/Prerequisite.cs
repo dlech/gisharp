@@ -18,8 +18,8 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public new Interface ParentNode => (Interface)base.ParentNode;
 
-        public Class Type => _Type.Value;
-        readonly Lazy<Class> _Type;
+        public GIRegisteredType Type => _Type.Value;
+        readonly Lazy<GIRegisteredType> _Type;
 
         public Prerequisite(XElement element, GirNode parent) : base(element, parent)
         {
@@ -30,6 +30,6 @@ namespace GISharp.CodeGen.Gir
             _Type = new(LazyGetType);
         }
 
-        Class LazyGetType() => TypeResolver.ResolveType<Class>(ParentNode.Namespace, GirName);
+        GIRegisteredType LazyGetType() => TypeResolver.ResolveType<GIRegisteredType>(ParentNode.Namespace, GirName);
     }
 }

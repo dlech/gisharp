@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='UnmanagedStruct.GIface'>
+<summary>
+The parent interface.
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Load'>
+</member>
+
+<member name='UnmanagedStruct.LoadAsync'>
+</member>
+
+<member name='UnmanagedStruct.LoadFinish'>
+</member>
+
+<member name='_Load'>
+</member>
+
+<member name='_LoadAsync'>
+</member>
+
+<member name='_LoadFinish'>
+</member>
+
+<member name='LoadableIconIface'>
+<summary>
+Interface for icons that can be loaded as a stream.
+</summary>
+</member>
+
+</declaration>
