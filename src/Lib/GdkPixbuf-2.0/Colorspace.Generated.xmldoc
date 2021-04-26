@@ -1,0 +1,21 @@
+<declaration>
+
+<member name='Colorspace.Rgb'>
+<summary>
+Indicates a red/green/blue additive color space.
+</summary>
+</member>
+
+<member name='Colorspace'>
+<summary>
+This enumeration defines the color spaces that are supported by
+the gdk-pixbuf library.
+</summary>
+<remarks>
+<para>
+Currently only RGB is supported.
+</para>
+</remarks>
+</member>
+
+</declaration>

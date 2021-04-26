@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="$(MSBuildThisFileDirectory)../test.props"/>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Lib\GObject-2.0\GObject-2.0.csproj" />
+    <ProjectReference Include="..\..\src\Lib\GdkPixbuf-2.0\GdkPixbuf-2.0.csproj" />
+  </ItemGroup>
+</Project>

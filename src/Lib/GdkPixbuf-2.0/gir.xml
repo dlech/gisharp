@@ -7,5 +7,22 @@ and/or use gtk-doc annotations.  -->
   <include name="Gio" version="2.0" gs:managed-name="Gio" />
   <package name="gdk-pixbuf-2.0" gs:managed-name="GdkPixbuf2.0" />
   <c:include name="gdk-pixbuf/gdk-pixbuf.h" gs:managed-name="GdkPixbuf/gdkPixbuf.h" />
-  <namespace name="GdkPixbuf" version="2.0" shared-library="libgdk_pixbuf-2.0.0.dylib" c:identifier-prefixes="Gdk" c:symbol-prefixes="gdk" gs:managed-name="GdkPixbuf" />
+  <namespace name="GdkPixbuf" version="2.0" shared-library="libgdk_pixbuf-2.0.0.dylib" c:identifier-prefixes="Gdk" c:symbol-prefixes="gdk" gs:managed-name="GdkPixbuf">
+    <enumeration name="Colorspace" glib:type-name="GdkColorspace" glib:get-type="gdk_colorspace_get_type" c:type="GdkColorspace" gs:managed-name="Colorspace">
+      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="71">This enumeration defines the color spaces that are supported by
+the gdk-pixbuf library.
+
+Currently only RGB is supported.</doc>
+      <member name="rgb" value="0" c:identifier="GDK_COLORSPACE_RGB" glib:nick="rgb" gs:managed-name="Rgb">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="73">Indicates a red/green/blue additive color space.</doc>
+      </member>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gdk_colorspace_get_type" gs:access-modifiers="private" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </enumeration>
+  </namespace>
 </repository>
