@@ -27,5 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="$(MSBuildThisFileDirectory)TestHelpers\TestHelpers.csproj" />
     <ProjectReference Include="$(MSBuildThisFileDirectory)..\src\Runtime\Runtime.csproj" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\src\Lib\GIRepository-2.0\GIRepository-2.0.csproj" />
   </ItemGroup>
 </Project>

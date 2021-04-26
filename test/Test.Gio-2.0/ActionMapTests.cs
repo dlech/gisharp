@@ -3,12 +3,16 @@
 
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using GISharp.Lib.Gio;
+using GISharp.Lib.GIRepository;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 using ActionSet = System.Collections.Generic.HashSet<GISharp.Lib.Gio.IAction>;
+using InterfaceInfo = GISharp.Lib.GIRepository.InterfaceInfo;
 using Object = GISharp.Lib.GObject.Object;
+using Transfer = GISharp.Runtime.Transfer;
 
 namespace GISharp.Test.Gio
 {
@@ -19,6 +23,8 @@ namespace GISharp.Test.Gio
         {
             var gtype = typeof(IActionMap).ToGType();
             Assert.That(gtype.Name, Is.EqualTo("GActionMap"));
+            var info = (InterfaceInfo)Repository.Default.FindByGtype(gtype);
+            Assert.That(Marshal.SizeOf<ActionMapInterface.UnmanagedStruct>(), Is.EqualTo(info.IfaceStruct.Size));
         }
 
         [Test]

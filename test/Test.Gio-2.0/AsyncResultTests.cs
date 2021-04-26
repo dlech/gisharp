@@ -1,16 +1,18 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
-
 using System;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 using GISharp.Lib.Gio;
+using GISharp.Lib.GIRepository;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
-
-using Object = GISharp.Lib.GObject.Object;
 using IAsyncResult = GISharp.Lib.Gio.IAsyncResult;
-using System.ComponentModel;
+using InterfaceInfo = GISharp.Lib.GIRepository.InterfaceInfo;
+using Object = GISharp.Lib.GObject.Object;
+using Transfer = GISharp.Runtime.Transfer;
 
 namespace GISharp.Test.Gio
 {
@@ -21,6 +23,8 @@ namespace GISharp.Test.Gio
         {
             var gtype = typeof(IAsyncResult).ToGType();
             Assert.That(gtype.Name, Is.EqualTo("GAsyncResult"));
+            var info = (InterfaceInfo)Repository.Default.FindByGtype(gtype);
+            Assert.That(Marshal.SizeOf<AsyncResultIface.UnmanagedStruct>(), Is.EqualTo(info.IfaceStruct.Size));
         }
 
         [Test]

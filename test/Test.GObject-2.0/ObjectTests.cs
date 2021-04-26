@@ -4,15 +4,27 @@
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using GISharp.Lib.GIRepository;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 using Object = GISharp.Lib.GObject.Object;
+using Transfer = GISharp.Runtime.Transfer;
 
 namespace GISharp.Test.GObject
 {
     public class ObjectTests
     {
+        [Test]
+        public void TestGType()
+        {
+            var gtype = typeof(Object).ToGType();
+            Assert.That(gtype, Is.EqualTo(GType.Object));
+            Assert.That(gtype.Name, Is.EqualTo("GObject"));
+            var info = (ObjectInfo)Repository.Default.FindByGtype(gtype);
+            Assert.That(Marshal.SizeOf<ObjectClass.UnmanagedStruct>(), Is.EqualTo(info.ClassStruct!.Size));
+        }
+
         [Test]
         public void TestReferences()
         {

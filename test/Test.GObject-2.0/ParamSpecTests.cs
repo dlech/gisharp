@@ -4,6 +4,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
+using GISharp.Lib.GIRepository;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -11,6 +12,7 @@ using NUnit.Framework;
 
 using clong = GISharp.Runtime.CLong;
 using culong = GISharp.Runtime.CULong;
+using Transfer = GISharp.Runtime.Transfer;
 
 namespace GISharp.Test.GObject
 {
@@ -46,6 +48,8 @@ namespace GISharp.Test.GObject
             var gtype = typeof(ParamSpec).ToGType();
             Assert.That(gtype, Is.EqualTo(GType.Param));
             Assert.That(gtype.Name, Is.EqualTo("GParam"));
+            var info = (ObjectInfo)Repository.Default.FindByGtype(gtype);
+            Assert.That(Marshal.SizeOf<ParamSpecClass.UnmanagedStruct>(), Is.EqualTo(info.ClassStruct!.Size));
         }
 
         [Test]

@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2021 David Lechner <david@lechnology.com>
 
+using System.Runtime.InteropServices;
+using GISharp.Lib.GIRepository;
 using GISharp.Lib.GObject;
 using NUnit.Framework;
 using static System.Reflection.BindingFlags;
@@ -23,6 +25,8 @@ namespace GISharp.Test.GObject
         {
             var gtype = typeof(InitiallyUnowned).ToGType();
             Assert.That(gtype.Name, Is.EqualTo("GInitiallyUnowned"));
+            var info = (ObjectInfo)Repository.Default.FindByGtype(gtype);
+            Assert.That(Marshal.SizeOf<InitiallyUnownedClass.UnmanagedStruct>(), Is.EqualTo(info.ClassStruct!.Size));
         }
     }
 }
