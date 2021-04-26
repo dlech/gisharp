@@ -1039,6 +1039,14 @@ namespace GISharp.CodeGen
                 name = name[3..];
                 var matchingGetter = element.Parent.Elements(element.Name)
                     .SingleOrDefault(e => e.Attribute(gs + "property-getter-for").AsString() == name);
+
+                if (matchingGetter is null) {
+                    // try property with "Is" prefix
+                    name = $"Is{name}";
+                    matchingGetter = element.Parent.Elements(element.Name)
+                        .SingleOrDefault(e => e.Attribute(gs + "property-getter-for").AsString() == name);
+                }
+
                 if (matchingGetter is null) {
                     // we don't want set-only properties
                     continue;
