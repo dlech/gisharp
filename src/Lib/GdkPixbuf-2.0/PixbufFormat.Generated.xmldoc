@@ -1,0 +1,157 @@
+<declaration>
+
+<member name='UnmanagedStruct.Name'>
+<summary>
+the name of the image format
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Signature'>
+<summary>
+the signature of the module
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Domain'>
+<summary>
+the message domain for the `description`
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Description'>
+<summary>
+a description of the image format
+</summary>
+</member>
+
+<member name='UnmanagedStruct.MimeTypes'>
+<summary>
+the MIME types for the image format
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Extensions'>
+<summary>
+typical filename extensions for the
+  image format
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Flags'>
+<summary>
+a combination of `GdkPixbufFormatFlags`
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Disabled'>
+<summary>
+a boolean determining whether the loader is disabled`
+</summary>
+</member>
+
+<member name='UnmanagedStruct.License'>
+<summary>
+a string containing license information, typically set to
+  shorthands like "GPL", "LGPL", etc.
+</summary>
+</member>
+
+<member name='PixbufFormat.Description'>
+<summary>
+Returns a description of the format.
+</summary>
+</member>
+
+<member name='PixbufFormat.Extensions'>
+<summary>
+Returns the filename extensions typically used for files in the
+given format.
+</summary>
+</member>
+
+<member name='PixbufFormat.License'>
+<summary>
+Returns information about the license of the image loader for the format.
+</summary>
+<remarks>
+<para>
+The returned string should be a shorthand for a well known license, e.g.
+"LGPL", "GPL", "QPL", "GPL/QPL", or "other" to indicate some other license.
+</para>
+</remarks>
+</member>
+
+<member name='PixbufFormat.MimeTypes'>
+<summary>
+Returns the mime types supported by the format.
+</summary>
+</member>
+
+<member name='PixbufFormat.Name'>
+<summary>
+Returns the name of the format.
+</summary>
+</member>
+
+<member name='PixbufFormat.IsDisabled'>
+<summary>
+Returns whether this image format is disabled.
+</summary>
+<remarks>
+<para>
+See <see cref="PixbufFormat.SetDisabled(bool)"/>.
+</para>
+</remarks>
+</member>
+
+<member name='PixbufFormat.IsScalable'>
+<summary>
+Returns whether this image format is scalable.
+</summary>
+<remarks>
+<para>
+If a file is in a scalable format, it is preferable to load it at
+the desired size, rather than loading it at the default size and
+scaling the resulting pixbuf to the desired size.
+</para>
+</remarks>
+</member>
+
+<member name='PixbufFormat.IsWritable'>
+<summary>
+Returns whether pixbufs can be saved in the given format.
+</summary>
+</member>
+
+<member name='PixbufFormat.IsSaveOptionSupported(GISharp.Runtime.UnownedUtf8)'>
+<summary>
+Returns `TRUE` if the save option specified by <paramref name="optionKey"/> is supported when
+saving a pixbuf using the module implementing this instance.
+</summary>
+<remarks>
+<para>
+See gdk_pixbuf_save() for more information about option keys.
+</para>
+</remarks>
+<param name="optionKey">
+the name of an option
+</param>
+<returns>
+`TRUE` if the specified option is supported
+</returns>
+</member>
+
+<member name='PixbufFormat'>
+<summary>
+A `GdkPixbufFormat` contains information about the image format accepted
+by a module.
+</summary>
+<remarks>
+<para>
+Only modules should access the fields directly, applications should
+use the `gdk_pixbuf_format_*` family of functions.
+</para>
+</remarks>
+</member>
+
+</declaration>
