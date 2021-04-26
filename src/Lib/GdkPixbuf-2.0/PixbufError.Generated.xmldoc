@@ -1,0 +1,61 @@
+<declaration>
+
+<member name='PixbufError.CorruptImage'>
+<summary>
+An image file was broken somehow.
+</summary>
+</member>
+
+<member name='PixbufError.InsufficientMemory'>
+<summary>
+Not enough memory.
+</summary>
+</member>
+
+<member name='PixbufError.BadOption'>
+<summary>
+A bad option was passed to a pixbuf save module.
+</summary>
+</member>
+
+<member name='PixbufError.UnknownType'>
+<summary>
+Unknown image type.
+</summary>
+</member>
+
+<member name='PixbufError.UnsupportedOperation'>
+<summary>
+Don't know how to perform the
+ given operation on the type of image at hand.
+</summary>
+</member>
+
+<member name='PixbufError.Failed'>
+<summary>
+Generic failure code, something went wrong.
+</summary>
+</member>
+
+<member name='PixbufError.IncompleteAnimation'>
+<summary>
+Only part of the animation was loaded.
+</summary>
+</member>
+
+<member name='PixbufError'>
+<summary>
+An error code in the `GDK_PIXBUF_ERROR` domain.
+</summary>
+<remarks>
+<para>
+Many gdk-pixbuf operations can cause errors in this domain, or in
+the `G_FILE_ERROR` domain.
+</para>
+</remarks>
+</member>
+
+<member name='PixbufErrorDomain.Quark'>
+</member>
+
+</declaration>

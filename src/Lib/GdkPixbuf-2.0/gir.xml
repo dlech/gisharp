@@ -105,5 +105,54 @@ For now both cases fall back to a bilevel clipping mask.</doc>
         <gs:managed-parameters />
       </function>
     </enumeration>
+    <enumeration name="PixbufError" glib:type-name="GdkPixbufError" glib:get-type="gdk_pixbuf_error_get_type" c:type="GdkPixbufError" glib:error-domain="gdk-pixbuf-error-quark" gs:managed-name="PixbufError">
+      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="123">An error code in the `GDK_PIXBUF_ERROR` domain.
+
+Many gdk-pixbuf operations can cause errors in this domain, or in
+the `G_FILE_ERROR` domain.</doc>
+      <member name="corrupt_image" value="0" c:identifier="GDK_PIXBUF_ERROR_CORRUPT_IMAGE" glib:nick="corrupt-image" gs:managed-name="CorruptImage">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="125">An image file was broken somehow.</doc>
+      </member>
+      <member name="insufficient_memory" value="1" c:identifier="GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY" glib:nick="insufficient-memory" gs:managed-name="InsufficientMemory">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="126">Not enough memory.</doc>
+      </member>
+      <member name="bad_option" value="2" c:identifier="GDK_PIXBUF_ERROR_BAD_OPTION" glib:nick="bad-option" gs:managed-name="BadOption">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="127">A bad option was passed to a pixbuf save module.</doc>
+      </member>
+      <member name="unknown_type" value="3" c:identifier="GDK_PIXBUF_ERROR_UNKNOWN_TYPE" glib:nick="unknown-type" gs:managed-name="UnknownType">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="128">Unknown image type.</doc>
+      </member>
+      <member name="unsupported_operation" value="4" c:identifier="GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION" glib:nick="unsupported-operation" gs:managed-name="UnsupportedOperation">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="129">Don't know how to perform the
+ given operation on the type of image at hand.</doc>
+      </member>
+      <member name="failed" value="5" c:identifier="GDK_PIXBUF_ERROR_FAILED" glib:nick="failed" gs:managed-name="Failed">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="131">Generic failure code, something went wrong.</doc>
+      </member>
+      <member name="incomplete_animation" value="6" c:identifier="GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION" glib:nick="incomplete-animation" gs:managed-name="IncompleteAnimation">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="132">Only part of the animation was loaded.</doc>
+      </member>
+      <gs:managed-property name="get_quark" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="Quark">
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="GLib.Quark" c:type="GQuark" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <function name="get_quark" c:identifier="gdk_pixbuf_error_quark" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetQuark" gs:property-getter-for="Quark" gs:access-modifiers="private">
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="GLib.Quark" c:type="GQuark" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gdk_pixbuf_error_get_type" gs:access-modifiers="private" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </enumeration>
   </namespace>
 </repository>
