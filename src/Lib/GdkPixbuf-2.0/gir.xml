@@ -169,5 +169,29 @@ operations.</doc>
     ignores modules that are not marked as threadsafe. ().</doc>
       </member>
     </bitfield>
+    <enumeration name="PixbufRotation" glib:type-name="GdkPixbufRotation" glib:get-type="gdk_pixbuf_rotation_get_type" c:type="GdkPixbufRotation" gs:managed-name="PixbufRotation">
+      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="80">The possible rotations which can be passed to gdk_pixbuf_rotate_simple().
+
+To make them easier to use, their numerical values are the actual degrees.</doc>
+      <member name="none" value="0" c:identifier="GDK_PIXBUF_ROTATE_NONE" glib:nick="none" gs:managed-name="None">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="82">No rotation.</doc>
+      </member>
+      <member name="counterclockwise" value="90" c:identifier="GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE" glib:nick="counterclockwise" gs:managed-name="Counterclockwise">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="83">Rotate by 90 degrees.</doc>
+      </member>
+      <member name="upsidedown" value="180" c:identifier="GDK_PIXBUF_ROTATE_UPSIDEDOWN" glib:nick="upsidedown" gs:managed-name="Upsidedown">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="84">Rotate by 180 degrees.</doc>
+      </member>
+      <member name="clockwise" value="270" c:identifier="GDK_PIXBUF_ROTATE_CLOCKWISE" glib:nick="clockwise" gs:managed-name="Clockwise">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="85">Rotate by 270 degrees.</doc>
+      </member>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gdk_pixbuf_rotation_get_type" gs:access-modifiers="private" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </enumeration>
   </namespace>
 </repository>

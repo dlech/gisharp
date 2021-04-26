@@ -1,0 +1,38 @@
+<declaration>
+
+<member name='PixbufRotation.None'>
+<summary>
+No rotation.
+</summary>
+</member>
+
+<member name='PixbufRotation.Counterclockwise'>
+<summary>
+Rotate by 90 degrees.
+</summary>
+</member>
+
+<member name='PixbufRotation.Upsidedown'>
+<summary>
+Rotate by 180 degrees.
+</summary>
+</member>
+
+<member name='PixbufRotation.Clockwise'>
+<summary>
+Rotate by 270 degrees.
+</summary>
+</member>
+
+<member name='PixbufRotation'>
+<summary>
+The possible rotations which can be passed to gdk_pixbuf_rotate_simple().
+</summary>
+<remarks>
+<para>
+To make them easier to use, their numerical values are the actual degrees.
+</para>
+</remarks>
+</member>
+
+</declaration>
