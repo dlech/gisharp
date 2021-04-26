@@ -19,16 +19,15 @@ namespace GISharp.CodeGen.Gir
         public bool IsAsync { get; }
 
         /// <summary>
-        /// Gets the GIR name of the matching callable that finishes this
+        /// Gets the managed name of the matching callable that finishes this
         /// callable if this callable is async,
         /// </summary>
         public string AsyncFinish { get; }
 
         /// <summary>
-        /// Gets the GIR name of the matching async callable that this callable
-        /// is a finish method for, if any
+        /// Indicates that this callable is a finish function for an async method
         /// </summary>
-        public string FinishFor { get; }
+        public bool IsFinish { get; }
 
         /// <summary>
         /// Indicates that a method should be generated to check the return value.
@@ -59,7 +58,7 @@ namespace GISharp.CodeGen.Gir
             ThrowsGErrorException = Element.Attribute("throws").AsBool();
             IsAsync = Element.Attribute(gs + "async").AsBool();
             AsyncFinish = Element.Attribute(gs + "async-finish").AsString();
-            FinishFor = Element.Attribute(gs + "finish-for").AsString();
+            IsFinish = Element.Attribute(gs + "finish").AsBool();
             IsCheckReturn = Element.Attribute(gs + "check-return").AsBool();
             _ReturnValue = new(LazyGetReturnValue, false);
             _Parameters = new(LazyGetParameters, false);

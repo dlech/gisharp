@@ -71,6 +71,6 @@ namespace GISharp.CodeGen.Gir
         GIFunction LazyGetFinishForFunction =>
             (GIFunction)GetNode(Element.Parent.Elements(gi + "function")
                 .Concat(Element.Parent.Elements(gi + "method"))
-                .FirstOrDefault(x => x.Attribute("name")?.Value == FinishFor));
+                .FirstOrDefault(x => x.Attribute("async-finish")?.Value == ManagedName));
     }
 }

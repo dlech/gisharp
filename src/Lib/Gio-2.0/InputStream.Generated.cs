@@ -171,7 +171,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_input_stream_close_async(
         /* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
@@ -553,9 +553,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="gsize" type="gsize*" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_input_stream_read_all_async(
         /* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
@@ -731,9 +729,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="gssize" type="gssize" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_input_stream_read_async(
         /* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
@@ -913,9 +909,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="GLib.Bytes" type="GBytes*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_input_stream_read_bytes_async(
         /* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */
@@ -1232,9 +1226,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="gssize" type="gssize" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_input_stream_skip_async(
         /* <type name="InputStream" type="GInputStream*" is-pointer="1" /> */

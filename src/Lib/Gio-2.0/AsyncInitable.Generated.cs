@@ -48,9 +48,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="GObject.Object" type="GObject*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_async_initable_newv_async(
         /* <type name="GType" type="GType" /> */
@@ -247,7 +245,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_async_initable_init_async(
         /* <type name="AsyncInitable" type="GAsyncInitable*" is-pointer="1" /> */

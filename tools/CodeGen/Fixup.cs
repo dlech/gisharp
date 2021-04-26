@@ -683,6 +683,17 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "managed-name", name);
             }
 
+            // can't have async constructors
+
+            foreach (
+                var element in document.Descendants(gi + "constructor")
+                    .Where(x => x.Attribute("name")?.Value is string name
+                        && (name.EndsWith("_async") || name.EndsWith("_finish")))
+                    .ToList()
+            ) {
+                element.Name = gi + "function";
+            }
+
             // flag async methods
 
             foreach (var element in document.Descendants(gi + "method")
@@ -709,26 +720,23 @@ namespace GISharp.CodeGen
 
                 // see if the fixup file specified a finish-for method
                 var asyncMethodName = element.Attribute("name").Value;
-                var finishMethodElement = element.Parent.Elements()
-                    .SingleOrDefault(x => x.Attribute(gs + "finish-for").AsString() == asyncMethodName);
+                // try to find a matching method heuristically if it was not specified in the fixup
+                var finishMethodName = element.Attribute(gs + "async-finish")
+                    .AsString(asyncMethodName.Replace("_async", "_finish"));
+                var finishMethodElement = element.Parent.Elements(gi + "function")
+                    .Concat(element.Parent.Elements(gi + "method"))
+                    .SingleOrDefault(x => x.Attribute("name").AsString() == finishMethodName);
 
                 if (finishMethodElement is null) {
-                    // try to find a matching method heuristically
-                    var finishMethodName = asyncMethodName.Replace("_async", "_finish");
-                    finishMethodElement = element.Parent.Elements(gi + "function")
-                        .Concat(element.Parent.Elements(gi + "method"))
-                        .SingleOrDefault(x => x.Attribute("name").AsString() == finishMethodName);
-
-                    if (finishMethodElement is null) {
-                        logger.LogWarning($"missing finish function for {element.GetXPath()}");
-                        continue;
-                    }
-
-                    finishMethodElement.Name = element.Name;
-                    finishMethodElement.SetAttributeValue(gs + "pinvoke-only", "1");
-                    finishMethodElement.SetAttributeValue(gs + "finish-for", asyncMethodName);
+                    logger.LogWarning($"missing finish function for {element.GetXPath()}");
+                    continue;
                 }
 
+                finishMethodElement.Name = element.Name;
+                finishMethodElement.SetAttributeValue(gs + "pinvoke-only", "1");
+                finishMethodElement.SetAttributeValue(gs + "finish", "1");
+
+                // set/replace "async-finish" with managed name
                 element.SetAttributeValue(gs + "async-finish", finishMethodElement.Attribute(gs + "managed-name").Value);
             }
 
@@ -954,34 +962,6 @@ namespace GISharp.CodeGen
                     managedParametersElement.Add(new XElement(managedParameterElement));
                 }
                 element.Parent.Add(managedParametersElement);
-            }
-
-            // fix up the async method return value based on the finish method
-
-            foreach (var element in document.Descendants().Where(x => x.Attribute(gs + "finish-for") is not null)) {
-                var returnValues = new List<XElement>();
-                var finishReturnValueElement = element.Element(gi + "return-value");
-                if (!finishReturnValueElement.Attribute("skip").AsBool() &&
-                    finishReturnValueElement.Attribute(gs + "managed-name").Value != typeof(void).ToString()) {
-                    returnValues.Add(finishReturnValueElement);
-                }
-                foreach (var p in element.Element(gs + "managed-parameters").Elements(gi + "parameter")
-                    .Where(x => x.Attribute("direction").AsString("in") != "in")) {
-                    returnValues.Add(p);
-                }
-
-                var asyncMethodName = element.Attribute(gs + "finish-for").Value;
-                foreach (var asyncMethodElement in element.Parent.Elements(gi + "function")
-                        .Concat(element.Parent.Elements(gi + "method"))
-                        .Where(x => x.Attribute("name")?.Value == asyncMethodName)) {
-                    var asyncReturnValueType = asyncMethodElement.Element(gi + "return-value").Element(gi + "type");
-                    asyncReturnValueType.SetAttributeValue(gs + "managed-name", typeof(Task));
-
-                    foreach (var r in returnValues) {
-                        var newElement = new XElement(r.Element(gi + "type") ?? r.Element(gi + "array"));
-                        asyncReturnValueType.Add(newElement);
-                    }
-                }
             }
 
             // flag getters as properties

@@ -41,7 +41,7 @@ namespace GISharp.CodeGen.Syntax
                     }
                 }
 
-                if (function.FinishFor is not null) {
+                if (function.IsFinish) {
                     yield return function.GetFinishMethodDeclaration()
                         .WithBody(Block(function.GetFinishMethodStatements()));
                 }

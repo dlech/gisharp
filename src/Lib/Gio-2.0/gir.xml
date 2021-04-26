@@ -6129,9 +6129,7 @@ for any errors.</doc>
 g_async_initable_init_async() instead. See #GParameter for more information.</doc-deprecated>
         <source-position filename="gasyncinitable.h" line="102" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="GObject.Object" c:type="GObject*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <parameter name="object_type" transfer-ownership="none" gs:managed-name="objectType" direction="in">
@@ -6334,7 +6332,7 @@ threads, just implement the #GAsyncInitable interface without overriding
 any interface methods.</doc>
         <source-position filename="gasyncinitable.h" line="80" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="initable" transfer-ownership="none" gs:managed-name="initable" direction="in">
@@ -6373,7 +6371,7 @@ any interface methods.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="init_finish" c:identifier="g_async_initable_init_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="InitFinish" gs:pinvoke-only="1" gs:finish-for="init_async" gs:extension-method="1">
+      <method name="init_finish" c:identifier="g_async_initable_init_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="InitFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="12730">Finishes asynchronous initialization and returns the result.
 See g_async_initable_init_async().</doc>
         <source-position filename="gasyncinitable.h" line="86" />
@@ -6407,7 +6405,7 @@ will return %FALSE and set @error appropriately if present.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <function name="new_finish" c:identifier="g_async_initable_new_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="NewFinish" gs:pinvoke-only="1" gs:finish-for="new_async">
+      <function name="new_finish" c:identifier="g_async_initable_new_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="NewFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="12770">Finishes the async construction for the various g_async_initable_new
 calls, returning the created object or %NULL on error.</doc>
         <source-position filename="gasyncinitable.h" line="121" />
@@ -11231,9 +11229,7 @@ You can then call g_file_append_to_finish() to get the result
 of the operation.</doc>
         <source-position filename="gfile.h" line="692" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileOutputStream" c:type="GFileOutputStream*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -11283,7 +11279,7 @@ of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="append_to_finish" c:identifier="g_file_append_to_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="AppendToFinish" gs:pinvoke-only="1" gs:finish-for="append_to_async" gs:extension-method="1">
+      <method name="append_to_finish" c:identifier="g_file_append_to_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="AppendToFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="21161">Finishes an asynchronous file append operation started with
 g_file_append_to_async().</doc>
         <source-position filename="gfile.h" line="699" />
@@ -11434,7 +11430,7 @@ When the operation is finished, @callback will be called. You can then call
 g_file_copy_finish() to get the result of the operation.</doc>
         <source-position filename="gfile.h" line="908" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="source" transfer-ownership="none" gs:managed-name="source" direction="in">
@@ -11563,7 +11559,7 @@ is useful when implementing move by copy + delete source.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="copy_finish" c:identifier="g_file_copy_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CopyFinish" gs:pinvoke-only="1" gs:finish-for="copy_async" gs:extension-method="1">
+      <method name="copy_finish" c:identifier="g_file_copy_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CopyFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="21522">Finishes copying the file started with g_file_copy_async().</doc>
         <source-position filename="gfile.h" line="918" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">
@@ -11669,9 +11665,7 @@ You can then call g_file_create_finish() to get the result
 of the operation.</doc>
         <source-position filename="gfile.h" line="703" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileOutputStream" c:type="GFileOutputStream*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -11721,7 +11715,7 @@ of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="create_finish" c:identifier="g_file_create_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CreateFinish" gs:pinvoke-only="1" gs:finish-for="create_async" gs:extension-method="1">
+      <method name="create_finish" c:identifier="g_file_create_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CreateFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="21591">Finishes an asynchronous file create operation started with
 g_file_create_async().</doc>
         <source-position filename="gfile.h" line="710" />
@@ -11833,9 +11827,7 @@ You can then call g_file_create_readwrite_finish() to get
 the result of the operation.</doc>
         <source-position filename="gfile.h" line="746" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileIOStream" c:type="GFileIOStream*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -11885,7 +11877,7 @@ the result of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="create_readwrite_finish" c:identifier="g_file_create_readwrite_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CreateReadwriteFinish" gs:pinvoke-only="1" gs:finish-for="create_readwrite_async" gs:extension-method="1">
+      <method name="create_readwrite_finish" c:identifier="g_file_create_readwrite_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CreateReadwriteFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="21669">Finishes an asynchronous file create operation started with
 g_file_create_readwrite_async().</doc>
         <source-position filename="gfile.h" line="753" />
@@ -11979,7 +11971,7 @@ only be deleted if it is empty.  This has the same semantics as
 g_unlink().</doc>
         <source-position filename="gfile.h" line="871" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -12021,7 +12013,7 @@ g_unlink().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="delete_finish" c:identifier="g_file_delete_finish" version="2.34" throws="1" gs:dll-name="gio-2.0" gs:managed-name="DeleteFinish" gs:pinvoke-only="1" gs:finish-for="delete_async" gs:extension-method="1">
+      <method name="delete_finish" c:identifier="g_file_delete_finish" version="2.34" throws="1" gs:dll-name="gio-2.0" gs:managed-name="DeleteFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="21735">Finishes deleting a file started with g_file_delete_async().</doc>
         <source-position filename="gfile.h" line="878" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">
@@ -12700,10 +12692,7 @@ asynchronous operation.
 See g_file_load_bytes() for more information.</doc>
         <source-position filename="gfile.h" line="1276" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="GLib.Bytes" c:type="GBytes*" gs:is-pointer="1" />
-            <type name="utf8" c:type="gchar**" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -12735,7 +12724,7 @@ See g_file_load_bytes() for more information.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="load_bytes_finish" c:identifier="g_file_load_bytes_finish" version="2.56" throws="1" gs:dll-name="gio-2.0" gs:managed-name="LoadBytesFinish" gs:pinvoke-only="1" gs:finish-for="load_bytes_async" gs:extension-method="1">
+      <method name="load_bytes_finish" c:identifier="g_file_load_bytes_finish" version="2.56" throws="1" gs:dll-name="gio-2.0" gs:managed-name="LoadBytesFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="23460">Completes an asynchronous request to g_file_load_bytes_async().
 
 For resources, @etag_out will be set to %NULL.
@@ -12868,12 +12857,7 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.</doc>
         <source-position filename="gfile.h" line="1208" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <array length="2" zero-terminated="0" c:type="char**" gs:is-pointer="1">
-              <type name="guint8" />
-            </array>
-            <type name="utf8" c:type="char**" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -12904,7 +12888,7 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="load_contents_finish" c:identifier="g_file_load_contents_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="LoadContentsFinish" gs:pinvoke-only="1" gs:finish-for="load_contents_async" gs:extension-method="1">
+      <method name="load_contents_finish" c:identifier="g_file_load_contents_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="LoadContentsFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="23531">Finishes an asynchronous load of the @file's contents.
 The contents are placed in @contents, and @length is set to the
 size of the @contents string. The @contents should be freed with
@@ -13083,7 +13067,7 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.</doc>
         <doc xml:space="preserve" filename="gio-2.0.c" line="23626">Asynchronously creates a directory.</doc>
         <source-position filename="gfile.h" line="934" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -13125,7 +13109,7 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="make_directory_finish" c:identifier="g_file_make_directory_finish" version="2.38" throws="1" gs:dll-name="gio-2.0" gs:managed-name="MakeDirectoryFinish" gs:pinvoke-only="1" gs:finish-for="make_directory_async" gs:extension-method="1">
+      <method name="make_directory_finish" c:identifier="g_file_make_directory_finish" version="2.38" throws="1" gs:dll-name="gio-2.0" gs:managed-name="MakeDirectoryFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="23642">Finishes an asynchronous directory creation, started with
 g_file_make_directory_async().</doc>
         <source-position filename="gfile.h" line="940" />
@@ -13539,9 +13523,7 @@ You can then call g_file_open_readwrite_finish() to get
 the result of the operation.</doc>
         <source-position filename="gfile.h" line="731" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileIOStream" c:type="GFileIOStream*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -13583,7 +13565,7 @@ the result of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="open_readwrite_finish" c:identifier="g_file_open_readwrite_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="OpenReadwriteFinish" gs:pinvoke-only="1" gs:finish-for="open_readwrite_async" gs:extension-method="1">
+      <method name="open_readwrite_finish" c:identifier="g_file_open_readwrite_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="OpenReadwriteFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="24203">Finishes an asynchronous file read operation started with
 g_file_open_readwrite_async().</doc>
         <source-position filename="gfile.h" line="737" />
@@ -13905,9 +13887,7 @@ then call g_file_query_info_finish() to get the result of the
 operation.</doc>
         <source-position filename="gfile.h" line="807" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileInfo" c:type="GFileInfo*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -13957,7 +13937,7 @@ operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="query_filesystem_info_finish" c:identifier="g_file_query_filesystem_info_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryFilesystemInfoFinish" gs:pinvoke-only="1" gs:finish-for="query_filesystem_info_async" gs:extension-method="1">
+      <method name="query_filesystem_info_finish" c:identifier="g_file_query_filesystem_info_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryFilesystemInfoFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="24525">Finishes an asynchronous filesystem info query.
 See g_file_query_filesystem_info_async().</doc>
         <source-position filename="gfile.h" line="814" />
@@ -14084,9 +14064,7 @@ When the operation is finished, @callback will be called. You can
 then call g_file_query_info_finish() to get the result of the operation.</doc>
         <source-position filename="gfile.h" line="790" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileInfo" c:type="GFileInfo*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -14144,7 +14122,7 @@ then call g_file_query_info_finish() to get the result of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="query_info_finish" c:identifier="g_file_query_info_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryInfoFinish" gs:pinvoke-only="1" gs:finish-for="query_info_async" gs:extension-method="1">
+      <method name="query_info_finish" c:identifier="g_file_query_info_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryInfoFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="24609">Finishes an asynchronous file info query.
 See g_file_query_info_async().</doc>
         <source-position filename="gfile.h" line="798" />
@@ -14320,9 +14298,7 @@ You can then call g_file_read_finish() to get the result
 of the operation.</doc>
         <source-position filename="gfile.h" line="665" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileInputStream" c:type="GFileInputStream*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -14364,7 +14340,7 @@ of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="read_finish" c:identifier="g_file_read_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReadFinish" gs:pinvoke-only="1" gs:finish-for="read_async" gs:extension-method="1">
+      <method name="read_finish" c:identifier="g_file_read_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReadFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="24713">Finishes an asynchronous file read operation started with
 g_file_read_async().</doc>
         <source-position filename="gfile.h" line="671" />
@@ -14511,9 +14487,7 @@ You can then call g_file_replace_finish() to get the result
 of the operation.</doc>
         <source-position filename="gfile.h" line="714" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileOutputStream" c:type="GFileOutputStream*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -14705,9 +14679,7 @@ for a #GBytes version that will automatically hold a reference to the
 contents (without copying) for the duration of the call.</doc>
         <source-position filename="gfile.h" line="1243" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="utf8" c:type="char**" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -14789,9 +14761,7 @@ When this operation has completed, @callback will be called with
 g_file_replace_contents_finish().</doc>
         <source-position filename="gfile.h" line="1253" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="utf8" c:type="char**" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -14854,7 +14824,7 @@ g_file_replace_contents_finish().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="replace_contents_finish" c:identifier="g_file_replace_contents_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReplaceContentsFinish" gs:pinvoke-only="1" gs:finish-for="replace_contents_async" gs:extension-method="1">
+      <method name="replace_contents_finish" c:identifier="g_file_replace_contents_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReplaceContentsFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="24906">Finishes an asynchronous replace of the given @file. See
 g_file_replace_contents_async(). Sets @new_etag to the new entity
 tag for the document, if present.</doc>
@@ -14900,7 +14870,7 @@ tag for the document, if present.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="replace_finish" c:identifier="g_file_replace_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReplaceFinish" gs:pinvoke-only="1" gs:finish-for="replace_async" gs:extension-method="1">
+      <method name="replace_finish" c:identifier="g_file_replace_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReplaceFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="24923">Finishes an asynchronous file replace operation started with
 g_file_replace_async().</doc>
         <source-position filename="gfile.h" line="723" />
@@ -15017,9 +14987,7 @@ You can then call g_file_replace_readwrite_finish() to get
 the result of the operation.</doc>
         <source-position filename="gfile.h" line="764" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileIOStream" c:type="GFileIOStream*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -15087,7 +15055,7 @@ the result of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="replace_readwrite_finish" c:identifier="g_file_replace_readwrite_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReplaceReadwriteFinish" gs:pinvoke-only="1" gs:finish-for="replace_readwrite_async" gs:extension-method="1">
+      <method name="replace_readwrite_finish" c:identifier="g_file_replace_readwrite_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReplaceReadwriteFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="24994">Finishes an asynchronous file replace operation started with
 g_file_replace_readwrite_async().</doc>
         <source-position filename="gfile.h" line="773" />
@@ -15622,9 +15590,7 @@ You can then call g_file_set_attributes_finish() to get
 the result of the operation.</doc>
         <source-position filename="gfile.h" line="976" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileInfo" c:type="GFileInfo**" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -15681,7 +15647,7 @@ the result of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="set_attributes_finish" c:identifier="g_file_set_attributes_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SetAttributesFinish" gs:pinvoke-only="1" gs:finish-for="set_attributes_async" gs:extension-method="1">
+      <method name="set_attributes_finish" c:identifier="g_file_set_attributes_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SetAttributesFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="25202">Finishes setting an attribute started in g_file_set_attributes_async().</doc>
         <source-position filename="gfile.h" line="984" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">
@@ -15851,9 +15817,7 @@ You can then call g_file_set_display_name_finish() to get
 the result of the operation.</doc>
         <source-position filename="gfile.h" line="855" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="File" c:type="GFile*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -15903,7 +15867,7 @@ the result of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="set_display_name_finish" c:identifier="g_file_set_display_name_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SetDisplayNameFinish" gs:pinvoke-only="1" gs:finish-for="set_display_name_async" gs:extension-method="1">
+      <method name="set_display_name_finish" c:identifier="g_file_set_display_name_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SetDisplayNameFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="25293">Finishes setting a display name started with
 g_file_set_display_name_async().</doc>
         <source-position filename="gfile.h" line="862" />
@@ -16079,7 +16043,7 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.</doc>
         <doc xml:space="preserve" filename="gio-2.0.c" line="25428">Asynchronously sends @file to the Trash location, if possible.</doc>
         <source-position filename="gfile.h" line="888" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="file" transfer-ownership="none" gs:managed-name="file" direction="in">
@@ -16121,7 +16085,7 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="trash_finish" c:identifier="g_file_trash_finish" version="2.38" throws="1" gs:dll-name="gio-2.0" gs:managed-name="TrashFinish" gs:pinvoke-only="1" gs:finish-for="trash_async" gs:extension-method="1">
+      <method name="trash_finish" c:identifier="g_file_trash_finish" version="2.38" throws="1" gs:dll-name="gio-2.0" gs:managed-name="TrashFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="25444">Finishes an asynchronous file trashing operation, started with
 g_file_trash_async().</doc>
         <source-position filename="gfile.h" line="895" />
@@ -17129,9 +17093,7 @@ For the synchronous version of this function, see
 g_file_io_stream_query_info().</doc>
         <source-position filename="gfileiostream.h" line="106" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileInfo" c:type="GFileInfo*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -17174,7 +17136,7 @@ g_file_io_stream_query_info().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="query_info_finish" c:identifier="g_file_io_stream_query_info_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryInfoFinish" gs:pinvoke-only="1" gs:finish-for="query_info_async">
+      <method name="query_info_finish" c:identifier="g_file_io_stream_query_info_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryInfoFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="23378">Finalizes the asynchronous query started
 by g_file_io_stream_query_info_async().</doc>
         <source-position filename="gfileiostream.h" line="113" />
@@ -23015,9 +22977,7 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error %G_IO_ERROR_CANCELLED will be set</doc>
         <source-position filename="gfileinputstream.h" line="101" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileInfo" c:type="GFileInfo*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -23060,7 +23020,7 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be set</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="query_info_finish" c:identifier="g_file_input_stream_query_info_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryInfoFinish" gs:pinvoke-only="1" gs:finish-for="query_info_async">
+      <method name="query_info_finish" c:identifier="g_file_input_stream_query_info_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryInfoFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="23302">Finishes an asynchronous info query operation.</doc>
         <source-position filename="gfileinputstream.h" line="108" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
@@ -23830,9 +23790,7 @@ For the synchronous version of this function, see
 g_file_output_stream_query_info().</doc>
         <source-position filename="gfileoutputstream.h" line="107" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="FileInfo" c:type="GFileInfo*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -23875,7 +23833,7 @@ g_file_output_stream_query_info().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="query_info_finish" c:identifier="g_file_output_stream_query_info_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryInfoFinish" gs:pinvoke-only="1" gs:finish-for="query_info_async">
+      <method name="query_info_finish" c:identifier="g_file_output_stream_query_info_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="QueryInfoFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="24277">Finalizes the asynchronous query started
 by g_file_output_stream_query_info_async().</doc>
         <source-position filename="gfileoutputstream.h" line="114" />
@@ -24640,7 +24598,7 @@ the wrapper stream is idle. Note that the semantics of such operations may
 not be well-defined due to the state the wrapper stream leaves the base
 stream in (though they are guaranteed not to crash).</doc>
       <source-position filename="giostream.h" line="84" />
-      <method name="splice_finish" c:identifier="g_io_stream_splice_finish" version="2.28" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SpliceFinish" gs:pinvoke-only="1" gs:finish-for="splice_async">
+      <method name="splice_finish" c:identifier="g_io_stream_splice_finish" version="2.28" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SpliceFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="27255">Finishes an asynchronous io stream splice operation.</doc>
         <source-position filename="giostream.h" line="104" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">
@@ -24888,7 +24846,7 @@ to implement asynchronicity, so they are optional for inheriting
 classes. However, if you override one you must override all.</doc>
         <source-position filename="giostream.h" line="113" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -24923,7 +24881,7 @@ classes. However, if you override one you must override all.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="close_finish" c:identifier="g_io_stream_close_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CloseFinish" gs:pinvoke-only="1" gs:finish-for="close_async">
+      <method name="close_finish" c:identifier="g_io_stream_close_finish" version="2.22" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CloseFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="27156">Closes a stream.</doc>
         <source-position filename="giostream.h" line="119" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">
@@ -25095,7 +25053,7 @@ You can then call g_io_stream_splice_finish() to get the
 result of the operation.</doc>
         <source-position filename="giostream.h" line="95" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream1" transfer-ownership="none" gs:managed-name="stream1" direction="in">
@@ -26484,7 +26442,7 @@ asynchronicity, so they are optional for inheriting classes. However, if you
 override one you must override all.</doc>
         <source-position filename="ginputstream.h" line="192" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -26519,7 +26477,7 @@ override one you must override all.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="close_finish" c:identifier="g_input_stream_close_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CloseFinish" gs:pinvoke-only="1" gs:finish-for="close_async">
+      <method name="close_finish" c:identifier="g_input_stream_close_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CloseFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="26322">Finishes closing a stream asynchronously, started from g_input_stream_close_async().</doc>
         <source-position filename="ginputstream.h" line="198" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">
@@ -26743,9 +26701,7 @@ value) will be executed before an outstanding request with lower
 priority. Default priority is %G_PRIORITY_DEFAULT.</doc>
         <source-position filename="ginputstream.h" line="156" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="gsize" c:type="gsize*" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -26798,7 +26754,7 @@ priority. Default priority is %G_PRIORITY_DEFAULT.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="read_all_finish" c:identifier="g_input_stream_read_all_finish" version="2.44" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReadAllFinish" gs:pinvoke-only="1" gs:finish-for="read_all_async">
+      <method name="read_all_finish" c:identifier="g_input_stream_read_all_finish" version="2.44" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReadAllFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="26450">Finishes an asynchronous stream read operation started with
 g_input_stream_read_all_async().
 
@@ -26868,9 +26824,7 @@ asynchronicity, so they are optional for inheriting classes. However, if you
 override one you must override all.</doc>
         <source-position filename="ginputstream.h" line="143" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="gssize" c:type="gssize" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -27008,9 +26962,7 @@ value) will be executed before an outstanding request with lower
 priority. Default priority is %G_PRIORITY_DEFAULT.</doc>
         <source-position filename="ginputstream.h" line="170" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="GLib.Bytes" c:type="GBytes*" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -27053,7 +27005,7 @@ priority. Default priority is %G_PRIORITY_DEFAULT.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="read_bytes_finish" c:identifier="g_input_stream_read_bytes_finish" version="2.34" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReadBytesFinish" gs:pinvoke-only="1" gs:finish-for="read_bytes_async">
+      <method name="read_bytes_finish" c:identifier="g_input_stream_read_bytes_finish" version="2.34" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReadBytesFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="26581">Finishes an asynchronous stream read-into-#GBytes operation.</doc>
         <source-position filename="ginputstream.h" line="177" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
@@ -27081,7 +27033,7 @@ priority. Default priority is %G_PRIORITY_DEFAULT.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="read_finish" c:identifier="g_input_stream_read_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReadFinish" gs:pinvoke-only="1" gs:finish-for="read_async">
+      <method name="read_finish" c:identifier="g_input_stream_read_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="ReadFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="26595">Finishes an asynchronous stream read operation.</doc>
         <source-position filename="ginputstream.h" line="151" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -27205,9 +27157,7 @@ implement asynchronicity, so they are optional for inheriting classes.
 However, if you override one, you must override all.</doc>
         <source-position filename="ginputstream.h" line="181" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="gssize" c:type="gssize" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -27250,7 +27200,7 @@ However, if you override one, you must override all.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="skip_finish" c:identifier="g_input_stream_skip_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SkipFinish" gs:pinvoke-only="1" gs:finish-for="skip_async">
+      <method name="skip_finish" c:identifier="g_input_stream_skip_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SkipFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="26683">Finishes a stream skip operation.</doc>
         <source-position filename="ginputstream.h" line="188" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -27891,10 +27841,7 @@ g_loadable_icon_load_finish(). For the synchronous, blocking
 version of this function, see g_loadable_icon_load().</doc>
         <source-position filename="gloadableicon.h" line="86" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="InputStream" c:type="GInputStream*" gs:is-pointer="1" />
-            <type name="utf8" c:type="char**" gs:is-pointer="1" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="icon" transfer-ownership="none" gs:managed-name="icon" direction="in">
@@ -27934,7 +27881,7 @@ version of this function, see g_loadable_icon_load().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="load_finish" c:identifier="g_loadable_icon_load_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="LoadFinish" gs:pinvoke-only="1" gs:finish-for="load_async" gs:extension-method="1">
+      <method name="load_finish" c:identifier="g_loadable_icon_load_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="LoadFinish" gs:pinvoke-only="1" gs:finish="1" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="27625">Finishes an asynchronous icon load started in g_loadable_icon_load_async().</doc>
         <source-position filename="gloadableicon.h" line="92" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
@@ -28978,7 +28925,7 @@ to implement asynchronicity, so they are optional for inheriting
 classes. However, if you override one you must override all.</doc>
         <source-position filename="goutputstream.h" line="307" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -29013,7 +28960,7 @@ classes. However, if you override one you must override all.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="close_finish" c:identifier="g_output_stream_close_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CloseFinish" gs:pinvoke-only="1" gs:finish-for="close_async">
+      <method name="close_finish" c:identifier="g_output_stream_close_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CloseFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="30130">Closes an output stream.</doc>
         <source-position filename="goutputstream.h" line="313" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">
@@ -29087,7 +29034,7 @@ called. You can then call g_output_stream_flush_finish() to get the
 result of the operation.</doc>
         <source-position filename="goutputstream.h" line="297" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -29122,7 +29069,7 @@ result of the operation.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="flush_finish" c:identifier="g_output_stream_flush_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="FlushFinish" gs:pinvoke-only="1" gs:finish-for="flush_async">
+      <method name="flush_finish" c:identifier="g_output_stream_flush_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="FlushFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="30181">Finishes flushing an output stream.</doc>
         <source-position filename="goutputstream.h" line="303" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">
@@ -29310,9 +29257,7 @@ For the synchronous, blocking version of this function, see
 g_output_stream_splice().</doc>
         <source-position filename="goutputstream.h" line="285" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="gssize" c:type="gssize" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -29363,7 +29308,7 @@ g_output_stream_splice().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="splice_finish" c:identifier="g_output_stream_splice_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SpliceFinish" gs:pinvoke-only="1" gs:finish-for="splice_async">
+      <method name="splice_finish" c:identifier="g_output_stream_splice_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="SpliceFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="30309">Finishes an asynchronous stream splice operation.</doc>
         <source-position filename="goutputstream.h" line="293" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -29547,9 +29492,7 @@ Note that no copy of @buffer will be made, so it must stay valid
 until @callback is called.</doc>
         <source-position filename="goutputstream.h" line="230" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="gsize" c:type="gsize*" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -29600,7 +29543,7 @@ until @callback is called.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="write_all_finish" c:identifier="g_output_stream_write_all_finish" version="2.44" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WriteAllFinish" gs:pinvoke-only="1" gs:finish-for="write_all_async">
+      <method name="write_all_finish" c:identifier="g_output_stream_write_all_finish" version="2.44" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WriteAllFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="30450">Finishes an asynchronous stream write operation started with
 g_output_stream_write_all_async().
 
@@ -29683,9 +29626,7 @@ for a #GBytes version that will automatically hold a reference to
 the contents (without copying) for the duration of the call.</doc>
         <source-position filename="goutputstream.h" line="217" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="gssize" c:type="gssize" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -29798,9 +29739,7 @@ For the synchronous, blocking version of this function, see
 g_output_stream_write_bytes().</doc>
         <source-position filename="goutputstream.h" line="274" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="gssize" c:type="gssize" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -29843,7 +29782,7 @@ g_output_stream_write_bytes().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="write_bytes_finish" c:identifier="g_output_stream_write_bytes_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WriteBytesFinish" gs:pinvoke-only="1" gs:finish-for="write_bytes_async">
+      <method name="write_bytes_finish" c:identifier="g_output_stream_write_bytes_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WriteBytesFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="30569">Finishes a stream write-from-#GBytes operation.</doc>
         <source-position filename="goutputstream.h" line="281" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -29871,7 +29810,7 @@ g_output_stream_write_bytes().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="write_finish" c:identifier="g_output_stream_write_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WriteFinish" gs:pinvoke-only="1" gs:finish-for="write_async">
+      <method name="write_finish" c:identifier="g_output_stream_write_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WriteFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="30582">Finishes a stream write operation.</doc>
         <source-position filename="goutputstream.h" line="225" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -30069,9 +30008,7 @@ until @callback is called. The content of the individual elements
 of @vectors might be changed by this function.</doc>
         <source-position filename="goutputstream.h" line="259" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="gsize" c:type="gsize*" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -30122,7 +30059,7 @@ of @vectors might be changed by this function.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="writev_all_finish" c:identifier="g_output_stream_writev_all_finish" version="2.60" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WritevAllFinish" gs:pinvoke-only="1" gs:finish-for="writev_all_async">
+      <method name="writev_all_finish" c:identifier="g_output_stream_writev_all_finish" version="2.60" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WritevAllFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="30703">Finishes an asynchronous stream write operation started with
 g_output_stream_writev_all_async().
 
@@ -30200,9 +30137,7 @@ Note that no copy of @vectors will be made, so it must stay valid
 until @callback is called.</doc>
         <source-position filename="goutputstream.h" line="245" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task">
-            <type name="gsize" c:type="gsize*" />
-          </type>
+          <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="stream" transfer-ownership="none" gs:managed-name="stream" direction="in">
@@ -30253,7 +30188,7 @@ until @callback is called.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="writev_finish" c:identifier="g_output_stream_writev_finish" version="2.60" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WritevFinish" gs:pinvoke-only="1" gs:finish-for="writev_async">
+      <method name="writev_finish" c:identifier="g_output_stream_writev_finish" version="2.60" throws="1" gs:dll-name="gio-2.0" gs:managed-name="WritevFinish" gs:pinvoke-only="1" gs:finish="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="30771">Finishes a stream writev operation.</doc>
         <source-position filename="goutputstream.h" line="253" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">

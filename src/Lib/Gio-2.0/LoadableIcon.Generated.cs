@@ -129,10 +129,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="InputStream" type="GInputStream*" is-pointer="1" />
-*   <type name="utf8" type="char**" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_loadable_icon_load_async(
         /* <type name="LoadableIcon" type="GLoadableIcon*" is-pointer="1" /> */

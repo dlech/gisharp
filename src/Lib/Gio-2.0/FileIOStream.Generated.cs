@@ -183,9 +183,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileInfo" type="GFileInfo*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_io_stream_query_info_async(
         /* <type name="FileIOStream" type="GFileIOStream*" is-pointer="1" /> */

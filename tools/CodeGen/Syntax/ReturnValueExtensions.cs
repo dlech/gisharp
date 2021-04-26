@@ -77,11 +77,10 @@ namespace GISharp.CodeGen.Syntax
         internal static IEnumerable<string> GetAsyncReturnTypes(this ReturnValue returnValue)
         {
             var callable = returnValue.Ancestors.OfType<GICallable>().Single();
-            var finishFunction = callable.FinishFor is null ?
+            var finishFunction = callable.IsFinish ? callable :
                 (GICallable)callable.ParentNode.Element.Elements()
                     .Select(x => GirNode.GetNode(x))
-                    .Single(x => x is GICallable c && c.FinishFor == callable.GirName) :
-                callable;
+                    .Single(x => x is GICallable c && c.ManagedName == callable.AsyncFinish);
             var returnTypes = finishFunction.ManagedParameters
                 .Where(x => x.Direction != "in")
                 .Select(x => x.Type.GetManagedType());

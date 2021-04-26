@@ -740,9 +740,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_append_to_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -1018,7 +1016,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_copy_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -1314,9 +1312,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_create_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -1538,9 +1534,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileIOStream" type="GFileIOStream*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_create_readwrite_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -1733,7 +1727,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_delete_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -2753,10 +2747,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.56")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="GLib.Bytes" type="GBytes*" is-pointer="1" />
-*   <type name="utf8" type="gchar**" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_load_bytes_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -2984,12 +2975,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <array length="2" zero-terminated="0" type="char**" is-pointer="1">
-*     <type name="guint8" />
-*   </array>
-*   <type name="utf8" type="char**" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_load_contents_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -3271,7 +3257,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_make_directory_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -3900,9 +3886,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileIOStream" type="GFileIOStream*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_open_readwrite_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -4396,9 +4380,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileInfo" type="GFileInfo*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_query_filesystem_info_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -4634,9 +4616,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileInfo" type="GFileInfo*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_query_info_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -4959,9 +4939,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileInputStream" type="GFileInputStream*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_read_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -5217,9 +5195,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_replace_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -5441,9 +5417,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="utf8" type="char**" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_replace_contents_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -5535,9 +5509,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.40")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="utf8" type="char**" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_replace_contents_bytes_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -5841,9 +5813,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileIOStream" type="GFileIOStream*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_replace_readwrite_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -6577,9 +6547,7 @@ namespace GISharp.Lib.Gio
         /// a #gpointer
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="FileInfo" type="GFileInfo**" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_set_attributes_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -6874,9 +6842,7 @@ namespace GISharp.Lib.Gio
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
-*   <type name="File" type="GFile*" is-pointer="1" />
-* </type> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_set_display_name_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -7197,7 +7163,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
+        /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_file_trash_async(
         /* <type name="File" type="GFile*" is-pointer="1" /> */
