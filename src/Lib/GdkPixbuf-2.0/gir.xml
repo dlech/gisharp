@@ -71,5 +71,39 @@ interpolation is just as fast and results in higher quality.</doc>
         <gs:managed-parameters />
       </function>
     </enumeration>
+    <enumeration name="PixbufAlphaMode" deprecated="1" deprecated-version="2.42" glib:type-name="GdkPixbufAlphaMode" glib:get-type="gdk_pixbuf_alpha_mode_get_type" c:type="GdkPixbufAlphaMode" gs:managed-name="PixbufAlphaMode">
+      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="39">Control the alpha channel for drawables.
+
+These values can be passed to gdk_pixbuf_xlib_render_to_drawable_alpha()
+in gdk-pixbuf-xlib to control how the alpha channel of an image should
+be handled.
+
+This function can create a bilevel clipping mask (black and white) and use
+it while painting the image.
+
+In the future, when the X Window System gets an alpha channel extension,
+it will be possible to do full alpha compositing onto arbitrary drawables.
+For now both cases fall back to a bilevel clipping mask.</doc>
+      <doc-deprecated xml:space="preserve">There is no user of GdkPixbufAlphaMode in GdkPixbuf,
+  and the Xlib utility functions have been split out to their own
+  library, gdk-pixbuf-xlib</doc-deprecated>
+      <member name="bilevel" value="0" c:identifier="GDK_PIXBUF_ALPHA_BILEVEL" glib:nick="bilevel" gs:managed-name="Bilevel">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="41">A bilevel clipping mask (black and white)
+ will be created and used to draw the image.  Pixels below 0.5 opacity
+ will be considered fully transparent, and all others will be
+ considered fully opaque.</doc>
+      </member>
+      <member name="full" value="1" c:identifier="GDK_PIXBUF_ALPHA_FULL" glib:nick="full" gs:managed-name="Full">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="45">For now falls back to #GDK_PIXBUF_ALPHA_BILEVEL.
+ In the future it will do full alpha compositing.</doc>
+      </member>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gdk_pixbuf_alpha_mode_get_type" gs:access-modifiers="private" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </enumeration>
   </namespace>
 </repository>
