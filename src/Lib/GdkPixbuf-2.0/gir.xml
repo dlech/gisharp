@@ -154,5 +154,20 @@ the `G_FILE_ERROR` domain.</doc>
         <gs:managed-parameters />
       </function>
     </enumeration>
+    <bitfield name="PixbufFormatFlags" version="2.2" c:type="GdkPixbufFormatFlags" gs:managed-name="PixbufFormatFlags">
+      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="292">Flags which allow a module to specify further details about the supported
+operations.</doc>
+      <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="309" />
+      <member name="writable" value="1" c:identifier="GDK_PIXBUF_FORMAT_WRITABLE" gs:managed-name="Writable">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="294">the module can write out images in the format.</doc>
+      </member>
+      <member name="scalable" value="2" c:identifier="GDK_PIXBUF_FORMAT_SCALABLE" gs:managed-name="Scalable">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="295">the image format is scalable</doc>
+      </member>
+      <member name="threadsafe" value="4" c:identifier="GDK_PIXBUF_FORMAT_THREADSAFE" version="2.28" gs:managed-name="Threadsafe">
+        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="296">the module is threadsafe. gdk-pixbuf
+    ignores modules that are not marked as threadsafe. ().</doc>
+      </member>
+    </bitfield>
   </namespace>
 </repository>

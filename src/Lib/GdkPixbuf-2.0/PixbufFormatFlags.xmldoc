@@ -1,0 +1,29 @@
+<declaration>
+
+<member name='PixbufFormatFlags.Writable'>
+<summary>
+the module can write out images in the format.
+</summary>
+</member>
+
+<member name='PixbufFormatFlags.Scalable'>
+<summary>
+the image format is scalable
+</summary>
+</member>
+
+<member name='PixbufFormatFlags.Threadsafe'>
+<summary>
+the module is threadsafe. gdk-pixbuf
+    ignores modules that are not marked as threadsafe. ().
+</summary>
+</member>
+
+<member name='PixbufFormatFlags'>
+<summary>
+Flags which allow a module to specify further details about the supported
+operations.
+</summary>
+</member>
+
+</declaration>
