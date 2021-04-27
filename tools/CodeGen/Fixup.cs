@@ -545,8 +545,13 @@ namespace GISharp.CodeGen
             // add error parameters for anything that throws
 
             var elementsThatThrow = document.Descendants()
-                .Where(d => d.Attribute("throws") is not null);
+                .Where(d => d.Attribute("throws").AsBool());
             foreach (var element in elementsThatThrow) {
+                // sometimes, bindings my contain an error parameter already
+                if (element.Element(gi + "parameters")?.Element(gs + "error-parameter") is not null) {
+                    continue;
+                }
+
                 var errorElement = new XElement(gs + "error-parameter",
                     new XAttribute("name", "error"),
                     new XAttribute("direction", "inout"),
@@ -646,7 +651,7 @@ namespace GISharp.CodeGen
                 }
 
                 // if method returns bool and does not throw and contains out parameters, add try_ prefix
-                if (element.Name == gi + "function" || element.Name == gi + "method" || element.Name == gi + "virtual-method" || element.Name == gi + "callback") {
+                if (element.Name == gi + "function" || element.Name == gi + "method" || element.Name == gi + "virtual-method") {
                     var returnTypeElement = element.Element(gi + "return-value")?.Element(gi + "type");
                     if (returnTypeElement?.Attribute("name")?.Value == "gboolean" && !element.Attribute("throws").AsBool()) {
                         var paramElements = element.Element(gi + "parameters").Elements(gi + "parameter");

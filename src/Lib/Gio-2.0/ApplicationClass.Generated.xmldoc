@@ -81,7 +81,7 @@
 <member name='_CommandLine'>
 </member>
 
-<member name='_TryLocalCommandLine'>
+<member name='_LocalCommandLine'>
 </member>
 
 <member name='_BeforeEmit'>

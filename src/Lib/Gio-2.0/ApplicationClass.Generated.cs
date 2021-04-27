@@ -95,7 +95,7 @@ namespace GISharp.Lib.Gio
             int commandLineOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CommandLine));
             RegisterVirtualMethod(commandLineOffset, CommandLineMarshal.Create);
             int localCommandLineOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.LocalCommandLine));
-            RegisterVirtualMethod(localCommandLineOffset, TryLocalCommandLineMarshal.Create);
+            RegisterVirtualMethod(localCommandLineOffset, LocalCommandLineMarshal.Create);
             int beforeEmitOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.BeforeEmit));
             RegisterVirtualMethod(beforeEmitOffset, BeforeEmitMarshal.Create);
             int afterEmitOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AfterEmit));
@@ -307,8 +307,8 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine);
             }
         }
 
-        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='_TryLocalCommandLine']/*" />
-        public delegate bool _TryLocalCommandLine(ref GISharp.Lib.GLib.Strv<GISharp.Runtime.Utf8> arguments, out int exitStatus);
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='_LocalCommandLine']/*" />
+        public delegate bool _LocalCommandLine(ref GISharp.Lib.GLib.Strv<GISharp.Runtime.Utf8> arguments, out int exitStatus);
 
         /// <summary>
         /// Unmanaged callback
@@ -317,7 +317,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine);
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate GISharp.Runtime.Boolean UnmanagedTryLocalCommandLine(
+        public unsafe delegate GISharp.Runtime.Boolean UnmanagedLocalCommandLine(
 /* <type name="Application" type="GApplication*" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -331,23 +331,23 @@ byte*** arguments,
 int* exitStatus);
 
         /// <summary>
-        /// Class for marshalling <see cref="_TryLocalCommandLine"/> methods.
+        /// Class for marshalling <see cref="_LocalCommandLine"/> methods.
         /// </summary>
-        public static unsafe class TryLocalCommandLineMarshal
+        public static unsafe class LocalCommandLineMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static UnmanagedTryLocalCommandLine Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedLocalCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedTryLocalCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, byte*** arguments_, int* exitStatus_)
+                GISharp.Runtime.Boolean unmanagedLocalCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, byte*** arguments_, int* exitStatus_)
                 {
                     try
                     {
                         var application = GISharp.Lib.Gio.Application.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
                         var arguments = new GISharp.Lib.GLib.Strv<GISharp.Runtime.Utf8>((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full);
-                        var doTryLocalCommandLine = (_TryLocalCommandLine)methodInfo.CreateDelegate(typeof(_TryLocalCommandLine), application);
-                        var ret = doTryLocalCommandLine(ref arguments,out var exitStatus);
+                        var doLocalCommandLine = (_LocalCommandLine)methodInfo.CreateDelegate(typeof(_LocalCommandLine), application);
+                        var ret = doLocalCommandLine(ref arguments,out var exitStatus);
                         *arguments_ = (byte**)arguments.Take();
                         *exitStatus_ = (int)exitStatus;
                         var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
@@ -361,7 +361,7 @@ int* exitStatus);
                     return default(GISharp.Runtime.Boolean);
                 }
 
-                return unmanagedTryLocalCommandLine;
+                return unmanagedLocalCommandLine;
             }
         }
 

@@ -2121,13 +2121,13 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv&lt;GISharp.Runtime.Utf8&gt;,int)']/*" />
-        [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedTryLocalCommandLine))]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedLocalCommandLine))]
         protected virtual bool DoTryLocalCommandLine(ref GISharp.Lib.GLib.Strv<GISharp.Runtime.Utf8> arguments, out int exitStatus)
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var arguments_ = (byte**)arguments.Take();
             int exitStatus_;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedTryLocalCommandLine>(_GType)!(application_,&arguments_,&exitStatus_);
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedLocalCommandLine>(_GType)!(application_,&arguments_,&exitStatus_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             arguments = new GISharp.Lib.GLib.Strv<GISharp.Runtime.Utf8>((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full);
             exitStatus = (int)exitStatus_;

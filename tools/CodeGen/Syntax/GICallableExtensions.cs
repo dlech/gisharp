@@ -155,7 +155,7 @@ namespace GISharp.CodeGen.Syntax
                 }
             }
 
-            foreach (var arg in callable.Parameters.Where(x => x.Direction == "out" && !x.IsCallerAllocates)) {
+            foreach (var arg in callable.Parameters.RegularParameters.Where(x => x.Direction == "out" && !x.IsCallerAllocates)) {
                 block = block.AddStatements(arg.GetOutVariableDeclaration());
             }
 

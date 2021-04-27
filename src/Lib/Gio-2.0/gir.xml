@@ -4885,7 +4885,7 @@ after registration. See g_application_register().</doc>
         </callback>
       </field>
       <field name="local_command_line" gs:managed-name="LocalCommandLine">
-        <callback name="local_command_line" gs:dll-name="gio-2.0" gs:managed-name="TryLocalCommandLine">
+        <callback name="local_command_line" gs:dll-name="gio-2.0" gs:managed-name="LocalCommandLine">
           <source-position filename="gapplication.h" line="92" />
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <doc xml:space="preserve" filename="gapplication.h" line="90">%TRUE if the commandline has been completely handled</doc>
