@@ -7,5 +7,6 @@ namespace GISharp.Lib.Gio
 {
     partial interface IIcon : IEquatable<IIcon>
     {
+        bool IEquatable<IIcon>.Equals(IIcon? icon) => Icon.Equals(this, icon);
     }
 }

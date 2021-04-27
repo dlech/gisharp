@@ -2,7 +2,6 @@
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Lib.Gio;
 using GISharp.Lib.GIRepository;
@@ -72,11 +71,6 @@ namespace GISharp.Test.Gio
         }
 
         Variant? IIcon.DoSerialize()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Equals(IIcon? other)
         {
             throw new NotImplementedException();
         }
