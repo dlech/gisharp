@@ -776,7 +776,8 @@ namespace GISharp.CodeGen
 
             var elementsWithCopyMethod = document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "copy"
-                   && !d.Element(gi + "parameters").Elements(gi + "parameter").Any());
+                   && !d.Element(gi + "parameters").Elements(gi + "parameter").Any()
+                   && !d.Ancestors(gi + "class").Any());
             foreach (var element in elementsWithCopyMethod) {
                 element.SetAttributeValue(gs + "special-func", "copy");
                 element.SetAttributeValue(gs + "pinvoke-only", "1");
@@ -794,7 +795,8 @@ namespace GISharp.CodeGen
 
             var elementsWithFreeMethod = document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "free"
-                   && !d.Element(gi + "parameters").Elements(gi + "parameter").Any());
+                   && !d.Element(gi + "parameters").Elements(gi + "parameter").Any()
+                   && !d.Ancestors(gi + "class").Any());
             foreach (var element in elementsWithFreeMethod) {
                 element.SetAttributeValue(gs + "special-func", "free");
                 element.SetAttributeValue(gs + "pinvoke-only", "1");
