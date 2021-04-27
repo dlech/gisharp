@@ -391,7 +391,11 @@ namespace GISharp.CodeGen.Syntax
             if (!callable.ReturnValue.IsSkip && callable.ReturnValue.Type.GirName != "none") {
                 var statements = callable.ReturnValue.GetMarshalUnmanagedToManagedStatements();
                 tryStatement = tryStatement.AddBlockStatements(statements);
-                returnValues.Insert(0, "ret");
+                var ret = "ret";
+                if (callable.ThrowsGErrorException && callable.ReturnValue.IsNullable) {
+                    ret += "!";
+                }
+                returnValues.Insert(0, ret);
             }
 
             var returnValue = returnValues.Any() ? $"({string.Join(", ", returnValues)})" : $"default({typeof(ValueTuple)})";
