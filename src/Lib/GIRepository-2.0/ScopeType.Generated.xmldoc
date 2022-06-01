@@ -9,22 +9,29 @@ The argument is not of callback type.
 <member name='ScopeType.Call'>
 <summary>
 The callback and associated user_data is only
-used during the call to this function.
+  used during the call to this function.
 </summary>
 </member>
 
 <member name='ScopeType.Async'>
 <summary>
 The callback and associated user_data is
-only used until the callback is invoked, and the callback.
-is invoked always exactly once.
+  only used until the callback is invoked, and the callback.
+  is invoked always exactly once.
 </summary>
 </member>
 
 <member name='ScopeType.Notified'>
 <summary>
-The callback and and associated
-user_data is used until the caller is notfied via the destroy_notify.
+The callback and associated
+  user_data is used until the caller is notfied via the destroy_notify.
+</summary>
+</member>
+
+<member name='ScopeType.Forever'>
+<summary>
+The callback and associated user_data is
+  used until the process terminates
 </summary>
 </member>
 

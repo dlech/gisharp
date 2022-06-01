@@ -8,8 +8,7 @@ Unknown failure.
 
 <member name='CssParserError.Syntax'>
 <summary>
-The given text does not form valid
-    syntax
+The given text does not form valid syntax
 </summary>
 </member>
 
@@ -27,8 +26,7 @@ The given name has not been defined
 
 <member name='CssParserError.UnknownValue'>
 <summary>
-The given value is not
-    correct
+The given value is not correct
 </summary>
 </member>
 

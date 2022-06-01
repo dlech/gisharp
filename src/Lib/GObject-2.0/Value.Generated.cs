@@ -51,7 +51,7 @@ namespace GISharp.Lib.GObject
         public long Int64 { get => GetInt64(); set => SetInt64(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Long']/*" />
-        public GISharp.Runtime.CLong Long { get => GetLong(); set => SetLong(value); }
+        public System.Runtime.InteropServices.CLong Long { get => GetLong(); set => SetLong(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Object']/*" />
         [System.Diagnostics.CodeAnalysis.AllowNullAttribute]
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GObject
         public ulong UInt64 { get => GetUInt64(); set => SetUInt64(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.ULong']/*" />
-        public GISharp.Runtime.CULong ULong { get => GetULong(); set => SetULong(value); }
+        public System.Runtime.InteropServices.CULong ULong { get => GetULong(); set => SetULong(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Variant']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -688,13 +688,13 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CLong g_value_get_long(
+        private static extern System.Runtime.InteropServices.CLong g_value_get_long(
         /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetLongArgs();
 
-        private GISharp.Runtime.CLong GetLong()
+        private System.Runtime.InteropServices.CLong GetLong()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -702,7 +702,7 @@ namespace GISharp.Lib.GObject
                 var value_ = this_;
                 var ret_ = g_value_get_long(value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = (GISharp.Runtime.CLong)ret_;
+                var ret = (System.Runtime.InteropServices.CLong)ret_;
                 return ret;
             }
         }
@@ -969,13 +969,13 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CULong g_value_get_ulong(
+        private static extern System.Runtime.InteropServices.CULong g_value_get_ulong(
         /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetULongArgs();
 
-        private GISharp.Runtime.CULong GetULong()
+        private System.Runtime.InteropServices.CULong GetULong()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -983,7 +983,7 @@ namespace GISharp.Lib.GObject
                 var value_ = this_;
                 var ret_ = g_value_get_ulong(value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = (GISharp.Runtime.CULong)ret_;
+                var ret = (System.Runtime.InteropServices.CULong)ret_;
                 return ret;
             }
         }
@@ -1556,16 +1556,16 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Value* value,
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CLong vLong);
-        partial void CheckSetLongArgs(GISharp.Runtime.CLong vLong);
+        System.Runtime.InteropServices.CLong vLong);
+        partial void CheckSetLongArgs(System.Runtime.InteropServices.CLong vLong);
 
-        private void SetLong(GISharp.Runtime.CLong vLong)
+        private void SetLong(System.Runtime.InteropServices.CLong vLong)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
                 CheckSetLongArgs(vLong);
                 var value_ = this_;
-                var vLong_ = (GISharp.Runtime.CLong)vLong;
+                var vLong_ = (System.Runtime.InteropServices.CLong)vLong;
                 g_value_set_long(value_, vLong_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
             }
@@ -1721,9 +1721,13 @@ namespace GISharp.Lib.GObject
 
         /// <summary>
         /// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
+        /// </summary>
+        /// <remarks>
+        /// <para>
         /// The boxed value is assumed to be static, and is thus not duplicated
         /// when setting the #GValue.
-        /// </summary>
+        /// </para>
+        /// </remarks>
         /// <param name="value">
         /// a valid #GValue of %G_TYPE_BOXED derived type
         /// </param>
@@ -1784,7 +1788,7 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Set the contents of a %G_TYPE_STRING #GValue to @v_string.
+        /// Set the contents of a %G_TYPE_STRING #GValue to a copy of @v_string.
         /// </summary>
         /// <param name="value">
         /// a valid #GValue of type %G_TYPE_STRING
@@ -1955,16 +1959,16 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Value* value,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong vUlong);
-        partial void CheckSetULongArgs(GISharp.Runtime.CULong vUlong);
+        System.Runtime.InteropServices.CULong vUlong);
+        partial void CheckSetULongArgs(System.Runtime.InteropServices.CULong vUlong);
 
-        private void SetULong(GISharp.Runtime.CULong vUlong)
+        private void SetULong(System.Runtime.InteropServices.CULong vUlong)
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
                 CheckSetULongArgs(vUlong);
                 var value_ = this_;
-                var vUlong_ = (GISharp.Runtime.CULong)vUlong;
+                var vUlong_ = (System.Runtime.InteropServices.CULong)vUlong;
                 g_value_set_ulong(value_, vUlong_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
             }

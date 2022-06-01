@@ -218,6 +218,12 @@ Hangul LVT Syllable (H3)
 
 <member name='UnicodeBreakType.CloseParanthesis'>
 <summary>
+Closing Parenthesis (CP). Deprecated: 2.70: Use <see cref="UnicodeBreakType.CloseParenthesis"/> instead.
+</summary>
+</member>
+
+<member name='UnicodeBreakType.CloseParenthesis'>
+<summary>
 Closing Parenthesis (CP).
 </summary>
 </member>

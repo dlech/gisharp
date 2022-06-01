@@ -99,7 +99,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Adds an emission hook for a signal, which will get called for any emission
         /// of that signal, independent of the instance. This is possible only
-        /// for signals which don't have #G_SIGNAL_NO_HOOKS flag set.
+        /// for signals which don't have %G_SIGNAL_NO_HOOKS flag set.
         /// </summary>
         /// <param name="signalId">
         /// the signal identifier, as returned by g_signal_lookup().
@@ -122,7 +122,7 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CULong g_signal_add_emission_hook(
+        private static extern System.Runtime.InteropServices.CULong g_signal_add_emission_hook(
         /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint signalId,
@@ -141,7 +141,7 @@ namespace GISharp.Lib.GObject
         static partial void CheckAddEmissionHookArgs(uint signalId, GISharp.Lib.GLib.Quark detail, GISharp.Lib.GObject.SignalEmissionHook hookFunc);
 
         /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.AddEmissionHook(uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.SignalEmissionHook)']/*" />
-        public static GISharp.Runtime.CULong AddEmissionHook(uint signalId, GISharp.Lib.GLib.Quark detail, GISharp.Lib.GObject.SignalEmissionHook hookFunc)
+        public static System.Runtime.InteropServices.CULong AddEmissionHook(uint signalId, GISharp.Lib.GLib.Quark detail, GISharp.Lib.GObject.SignalEmissionHook hookFunc)
         {
             CheckAddEmissionHookArgs(signalId, detail, hookFunc);
             var signalId_ = (uint)signalId;
@@ -152,7 +152,7 @@ namespace GISharp.Lib.GObject
             var dataDestroy_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var ret_ = g_signal_add_emission_hook(signalId_,detail_,hookFunc_,hookData_,dataDestroy_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Runtime.CULong)ret_;
+            var ret = (System.Runtime.InteropServices.CULong)ret_;
             return ret;
         }
 
@@ -221,7 +221,7 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CULong g_signal_connect_closure(
+        private static extern System.Runtime.InteropServices.CULong g_signal_connect_closure(
         /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
@@ -237,7 +237,7 @@ namespace GISharp.Lib.GObject
         static partial void CheckConnectArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.UnownedUtf8 detailedSignal, GISharp.Lib.GObject.Closure closure, bool after = false);
 
         /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Connect(GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)']/*" />
-        public static GISharp.Runtime.CULong Connect(GISharp.Lib.GObject.Object instance, GISharp.Runtime.UnownedUtf8 detailedSignal, GISharp.Lib.GObject.Closure closure, bool after = false)
+        public static System.Runtime.InteropServices.CULong Connect(GISharp.Lib.GObject.Object instance, GISharp.Runtime.UnownedUtf8 detailedSignal, GISharp.Lib.GObject.Closure closure, bool after = false)
         {
             CheckConnectArgs(instance, detailedSignal, closure, after);
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
@@ -246,7 +246,7 @@ namespace GISharp.Lib.GObject
             var after_ = GISharp.Runtime.BooleanExtensions.ToBoolean(after);
             var ret_ = g_signal_connect_closure(instance_,detailedSignal_,closure_,after_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Runtime.CULong)ret_;
+            var ret = (System.Runtime.InteropServices.CULong)ret_;
             return ret;
         }
 
@@ -275,7 +275,7 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CULong g_signal_connect_closure_by_id(
+        private static extern System.Runtime.InteropServices.CULong g_signal_connect_closure_by_id(
         /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
@@ -294,7 +294,7 @@ namespace GISharp.Lib.GObject
         static partial void CheckConnectArgs(GISharp.Lib.GObject.Object instance, uint signalId, GISharp.Lib.GLib.Quark detail, GISharp.Lib.GObject.Closure closure, bool after = false);
 
         /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.Connect(GISharp.Lib.GObject.Object,uint,GISharp.Lib.GLib.Quark,GISharp.Lib.GObject.Closure,bool)']/*" />
-        public static GISharp.Runtime.CULong Connect(GISharp.Lib.GObject.Object instance, uint signalId, GISharp.Lib.GLib.Quark detail, GISharp.Lib.GObject.Closure closure, bool after = false)
+        public static System.Runtime.InteropServices.CULong Connect(GISharp.Lib.GObject.Object instance, uint signalId, GISharp.Lib.GLib.Quark detail, GISharp.Lib.GObject.Closure closure, bool after = false)
         {
             CheckConnectArgs(instance, signalId, detail, closure, after);
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
@@ -304,7 +304,7 @@ namespace GISharp.Lib.GObject
             var after_ = GISharp.Runtime.BooleanExtensions.ToBoolean(after);
             var ret_ = g_signal_connect_closure_by_id(instance_,signalId_,detail_,closure_,after_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Runtime.CULong)ret_;
+            var ret = (System.Runtime.InteropServices.CULong)ret_;
             return ret;
         }
 
@@ -339,7 +339,7 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CULong g_signal_connect_data(
+        private static extern System.Runtime.InteropServices.CULong g_signal_connect_data(
         /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
@@ -360,7 +360,8 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.ConnectFlags connectFlags);
 
         /// <summary>
-        /// Emits a signal.
+        /// Emits a signal. Signal emission is done synchronously.
+        /// The method will only return control after all handlers are called or signal emission was stopped.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -479,15 +480,15 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong handlerId);
-        static partial void CheckHandlerBlockArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId);
+        System.Runtime.InteropServices.CULong handlerId);
+        static partial void CheckHandlerBlockArgs(GISharp.Lib.GObject.Object instance, System.Runtime.InteropServices.CULong handlerId);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.HandlerBlock(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)']/*" />
-        public static void HandlerBlock(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.HandlerBlock(GISharp.Lib.GObject.Object,System.Runtime.InteropServices.CULong)']/*" />
+        public static void HandlerBlock(GISharp.Lib.GObject.Object instance, System.Runtime.InteropServices.CULong handlerId)
         {
             CheckHandlerBlockArgs(instance, handlerId);
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
-            var handlerId_ = (GISharp.Runtime.CULong)handlerId;
+            var handlerId_ = (System.Runtime.InteropServices.CULong)handlerId;
             g_signal_handler_block(instance_, handlerId_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }
@@ -518,15 +519,15 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong handlerId);
-        static partial void CheckHandlerDisconnectArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId);
+        System.Runtime.InteropServices.CULong handlerId);
+        static partial void CheckHandlerDisconnectArgs(GISharp.Lib.GObject.Object instance, System.Runtime.InteropServices.CULong handlerId);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.HandlerDisconnect(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)']/*" />
-        public static void HandlerDisconnect(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.HandlerDisconnect(GISharp.Lib.GObject.Object,System.Runtime.InteropServices.CULong)']/*" />
+        public static void HandlerDisconnect(GISharp.Lib.GObject.Object instance, System.Runtime.InteropServices.CULong handlerId)
         {
             CheckHandlerDisconnectArgs(instance, handlerId);
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
-            var handlerId_ = (GISharp.Runtime.CULong)handlerId;
+            var handlerId_ = (System.Runtime.InteropServices.CULong)handlerId;
             g_signal_handler_disconnect(instance_, handlerId_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }
@@ -566,7 +567,7 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CULong g_signal_handler_find(
+        private static extern System.Runtime.InteropServices.CULong g_signal_handler_find(
         /* <type name="Object" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
@@ -610,15 +611,15 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong handlerId);
-        static partial void CheckHandlerIsConnectedArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId);
+        System.Runtime.InteropServices.CULong handlerId);
+        static partial void CheckHandlerIsConnectedArgs(GISharp.Lib.GObject.Object instance, System.Runtime.InteropServices.CULong handlerId);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.HandlerIsConnected(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)']/*" />
-        public static bool HandlerIsConnected(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.HandlerIsConnected(GISharp.Lib.GObject.Object,System.Runtime.InteropServices.CULong)']/*" />
+        public static bool HandlerIsConnected(GISharp.Lib.GObject.Object instance, System.Runtime.InteropServices.CULong handlerId)
         {
             CheckHandlerIsConnectedArgs(instance, handlerId);
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
-            var handlerId_ = (GISharp.Runtime.CULong)handlerId;
+            var handlerId_ = (System.Runtime.InteropServices.CULong)handlerId;
             var ret_ = g_signal_handler_is_connected(instance_,handlerId_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -658,15 +659,15 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Object.UnmanagedStruct* instance,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong handlerId);
-        static partial void CheckHandlerUnblockArgs(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId);
+        System.Runtime.InteropServices.CULong handlerId);
+        static partial void CheckHandlerUnblockArgs(GISharp.Lib.GObject.Object instance, System.Runtime.InteropServices.CULong handlerId);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.HandlerUnblock(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)']/*" />
-        public static void HandlerUnblock(GISharp.Lib.GObject.Object instance, GISharp.Runtime.CULong handlerId)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.HandlerUnblock(GISharp.Lib.GObject.Object,System.Runtime.InteropServices.CULong)']/*" />
+        public static void HandlerUnblock(GISharp.Lib.GObject.Object instance, System.Runtime.InteropServices.CULong handlerId)
         {
             CheckHandlerUnblockArgs(instance, handlerId);
             var instance_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)instance.UnsafeHandle;
-            var handlerId_ = (GISharp.Runtime.CULong)handlerId;
+            var handlerId_ = (System.Runtime.InteropServices.CULong)handlerId;
             g_signal_handler_unblock(instance_, handlerId_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }
@@ -1144,7 +1145,7 @@ namespace GISharp.Lib.GObject
         ///     invocations or %NULL
         /// </param>
         /// <param name="returnType">
-        /// the type of return value, or #G_TYPE_NONE for a signal
+        /// the type of return value, or %G_TYPE_NONE for a signal
         ///     without a return value
         /// </param>
         /// <param name="nParams">
@@ -1360,15 +1361,15 @@ namespace GISharp.Lib.GObject
         uint signalId,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong hookId);
-        static partial void CheckRemoveEmissionHookArgs(uint signalId, GISharp.Runtime.CULong hookId);
+        System.Runtime.InteropServices.CULong hookId);
+        static partial void CheckRemoveEmissionHookArgs(uint signalId, System.Runtime.InteropServices.CULong hookId);
 
-        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.RemoveEmissionHook(uint,GISharp.Runtime.CULong)']/*" />
-        public static void RemoveEmissionHook(uint signalId, GISharp.Runtime.CULong hookId)
+        /// <include file="Signal.xmldoc" path="declaration/member[@name='Signal.RemoveEmissionHook(uint,System.Runtime.InteropServices.CULong)']/*" />
+        public static void RemoveEmissionHook(uint signalId, System.Runtime.InteropServices.CULong hookId)
         {
             CheckRemoveEmissionHookArgs(signalId, hookId);
             var signalId_ = (uint)signalId;
-            var hookId_ = (GISharp.Runtime.CULong)hookId;
+            var hookId_ = (System.Runtime.InteropServices.CULong)hookId;
             g_signal_remove_emission_hook(signalId_, hookId_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }

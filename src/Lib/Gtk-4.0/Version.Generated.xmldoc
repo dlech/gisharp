@@ -2,7 +2,7 @@
 
 <member name='Version.CompileTimeBinaryAge'>
 <summary>
-Like <see cref="Version.GetRunTimeBinaryAge()"/>, but from the headers used at
+Like [func<c>getBinaryAge</c>], but from the headers used at
 application compile time, rather than from the library linked
 against at application run time.
 </summary>
@@ -10,7 +10,7 @@ against at application run time.
 
 <member name='Version.CompileTimeInterfaceAge'>
 <summary>
-Like <see cref="Version.GetRunTimeInterfaceAge()"/>, but from the headers used at
+Like [func<c>getInterfaceAge</c>], but from the headers used at
 application compile time, rather than from the library linked
 against at application run time.
 </summary>
@@ -18,7 +18,7 @@ against at application run time.
 
 <member name='Version.majorVersion'>
 <summary>
-Like <see cref="Version.GetMajorVersion()"/>, but from the headers used at
+Like [func<c>getMajorVersion</c>], but from the headers used at
 application compile time, rather than from the library linked
 against at application run time.
 </summary>
@@ -26,7 +26,7 @@ against at application run time.
 
 <member name='Version.microVersion'>
 <summary>
-Like <see cref="Version.GetMicroVersion()"/>, but from the headers used at
+Like [func<c>getMicroVersion</c>], but from the headers used at
 application compile time, rather than from the library linked
 against at application run time.
 </summary>
@@ -34,7 +34,7 @@ against at application run time.
 
 <member name='Version.minorVersion'>
 <summary>
-Like <see cref="Version.GetMinorVersion()"/>, but from the headers used at
+Like [func<c>getMinorVersion</c>], but from the headers used at
 application compile time, rather than from the library linked
 against at application run time.
 </summary>

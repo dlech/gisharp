@@ -29,14 +29,14 @@ The interval given in terms of monotonic time, not wall clock time.
 </remarks>
 <param name="interval">
 the time between calls to the function, in milliseconds
-            (1/1000ths of a second)
+  (1/1000ths of a second)
 </param>
 <param name="function">
 function to call
 </param>
 <param name="priority">
 the priority of the timeout source. Typically this will be in
-           the range between <see cref="Priority.Default"/> and <see cref="Priority.High"/>.
+  the range between <see cref="Priority.Default"/> and <see cref="Priority.High"/>.
 </param>
 <returns>
 the ID (greater than 0) of the event source.
@@ -46,19 +46,21 @@ the ID (greater than 0) of the event source.
 <member name='Timeout.AddSeconds(uint,GISharp.Lib.GLib.SourceFunc,int)'>
 <summary>
 Sets a function to be called at regular intervals, with <paramref name="priority"/>.
-The function is called repeatedly until it returns <c>false</c>, at which
-point the timeout is automatically destroyed and the function will
-not be called again.
 </summary>
 <remarks>
+<para>
+The function is called repeatedly until it returns <see cref="Source.Remove"/>
+or <c>false</c>, at which point the timeout is automatically destroyed and
+the function will not be called again.
+</para>
 <para>
 Unlike <see cref="Add"/>, this function operates at whole second granularity.
 The initial starting point of the timer is determined by the implementation
 and the implementation is expected to group multiple timers together so that
-they fire all at the same time.
-To allow this grouping, the <paramref name="interval"/> to the first timer is rounded
-and can deviate up to one second from the specified interval.
-Subsequent timer iterations will generally run at the specified interval.
+they fire all at the same time. To allow this grouping, the <paramref name="interval"/> to the
+first timer is rounded and can deviate up to one second from the specified
+interval. Subsequent timer iterations will generally run at the specified
+interval.
 </para>
 <para>
 Note that timeout functions may be delayed, due to the processing of other
@@ -98,7 +100,7 @@ function to call
 </param>
 <param name="priority">
 the priority of the timeout source. Typically this will be in
-           the range between <see cref="Priority.Default"/> and <see cref="Priority.High"/>.
+  the range between <see cref="Priority.Default"/> and <see cref="Priority.High"/>.
 </param>
 <returns>
 the ID (greater than 0) of the event source.

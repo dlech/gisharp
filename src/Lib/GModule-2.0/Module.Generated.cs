@@ -107,29 +107,15 @@ namespace GISharp.Lib.GModule
         }
 
         /// <summary>
-        /// Opens a module. If the module has already been opened,
-        /// its reference count is incremented.
+        /// A thin wrapper function around g_module_open_full()
         /// </summary>
-        /// <remarks>
-        /// <para>
-        /// First of all g_module_open() tries to open @file_name as a module.
-        /// If that fails and @file_name has the ".la"-suffix (and is a libtool
-        /// archive) it tries to open the corresponding module. If that fails
-        /// and it doesn't have the proper module suffix for the platform
-        /// (#G_MODULE_SUFFIX), this suffix will be appended and the corresponding
-        /// module will be opened. If that fails and @file_name doesn't have the
-        /// ".la"-suffix, this suffix is appended and g_module_open() tries to open
-        /// the corresponding module. If eventually that fails as well, %NULL is
-        /// returned.
-        /// </para>
-        /// </remarks>
         /// <param name="fileName">
         /// the name of the file containing the module, or %NULL
         ///     to obtain a #GModule representing the main program itself
         /// </param>
         /// <param name="flags">
         /// the flags used for opening the module. This can be the
-        ///     logical OR of any of the #GModuleFlags
+        ///     logical OR of any of the #GModuleFlags.
         /// </param>
         /// <returns>
         /// a #GModule on success, or %NULL on failure
@@ -270,7 +256,7 @@ namespace GISharp.Lib.GModule
 
         /// <summary>
         /// Gets a symbol pointer from a module, such as one exported
-        /// by #G_MODULE_EXPORT. Note that a valid symbol can be %NULL.
+        /// by %G_MODULE_EXPORT. Note that a valid symbol can be %NULL.
         /// </summary>
         /// <param name="module">
         /// a #GModule

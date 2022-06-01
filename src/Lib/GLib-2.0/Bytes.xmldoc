@@ -116,6 +116,49 @@ a pointer to a <see cref="Bytes"/> to compare with this instance
 </returns>
 </member>
 
+<member name='Bytes.GetRegion(int,int,int)'>
+<summary>
+Gets a pointer to a region in this instance.
+</summary>
+<remarks>
+<para>
+The region starts at <paramref name="offset"/> many bytes from the start of the data
+and contains <paramref name="nElements"/> many elements of <paramref name="elementSize"/> size.
+</para>
+<para>
+<paramref name="nElements"/> may be zero, but <paramref name="elementSize"/> must always be non-zero.
+Ideally, <paramref name="elementSize"/> is a static constant (eg: sizeof a struct).
+</para>
+<para>
+This function does careful bounds checking (including checking for
+arithmetic overflows) and returns a non-<c>null</c> pointer if the
+specified region lies entirely within the this instance. If the region is
+in some way out of range, or if an overflow has occurred, then <c>null</c>
+is returned.
+</para>
+<para>
+Note: it is possible to have a valid zero-size region. In this case,
+the returned pointer will be equal to the base pointer of the data of
+this instance, plus <paramref name="offset"/>.  This will be non-<c>null</c> except for the case
+where this instance itself was a zero-sized region.  Since it is unlikely
+that you will be using this function to check for a zero-sized region
+in a zero-sized this instance, <c>null</c> effectively always means "error".
+</para>
+</remarks>
+<param name="elementSize">
+a non-zero element size
+</param>
+<param name="offset">
+an offset to the start of the region within the this instance
+</param>
+<param name="nElements">
+the number of elements in the region
+</param>
+<returns>
+the requested region, or <c>null</c> in case of an error
+</returns>
+</member>
+
 <member name='Bytes.GetHashCode()'>
 <summary>
 Creates an integer hash code for the byte data in the <see cref="Bytes"/>.

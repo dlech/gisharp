@@ -5,8 +5,13 @@ namespace GISharp.Lib.GObject
 {
     /// <summary>
     /// A callback function used for notification when the state
-    /// of a toggle reference changes. See g_object_add_toggle_ref().
+    /// of a toggle reference changes.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// See also: g_object_add_toggle_ref()
+    /// </para>
+    /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" /> */

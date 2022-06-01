@@ -1027,7 +1027,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// <para>
-        /// If @result is %NULL then a #GValue of type #G_TYPE_POINTER
+        /// If @result is %NULL then a #GValue of type %G_TYPE_POINTER
         /// with a value of %NULL will be used for the result.
         /// </para>
         /// <para>
@@ -1083,9 +1083,9 @@ namespace GISharp.Lib.Gio
         /// <para>
         /// Although GLib currently rate-limits the tasks queued via
         /// g_task_run_in_thread(), you should not assume that it will always
-        /// do this. If you have a very large number of tasks to run, but don't
-        /// want them to all run at once, you should only queue a limited
-        /// number of them at a time.
+        /// do this. If you have a very large number of tasks to run (several tens of
+        /// tasks), but don't want them to all run at once, you should only queue a
+        /// limited number of them (around ten) at a time.
         /// </para>
         /// </remarks>
         /// <param name="task">
@@ -1209,7 +1209,8 @@ namespace GISharp.Lib.Gio
         /// </para>
         /// <para>
         /// This function may only be called before the @task is first used in a thread
-        /// other than the one it was constructed in.
+        /// other than the one it was constructed in. It is called automatically by
+        /// g_task_set_source_tag() if not called already.
         /// </para>
         /// </remarks>
         /// <param name="task">
@@ -1357,13 +1358,23 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Sets @task's source tag. You can use this to tag a task return
+        /// Sets @task's source tag.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// You can use this to tag a task return
         /// value with a particular pointer (usually a pointer to the function
         /// doing the tagging) and then later check it using
         /// g_task_get_source_tag() (or g_async_result_is_tagged()) in the
         /// task's "finish" function, to figure out if the response came from a
         /// particular place.
-        /// </summary>
+        /// </para>
+        /// <para>
+        /// A macro wrapper around this function will automatically set the
+        /// task’s name to the string form of @source_tag if it’s not already
+        /// set, for convenience.
+        /// </para>
+        /// </remarks>
         /// <param name="task">
         /// the #GTask
         /// </param>

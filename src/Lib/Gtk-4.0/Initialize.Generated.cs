@@ -40,12 +40,12 @@ namespace GISharp.Lib.Gtk
         /// <summary>
         /// Call this function before using any other GTK functions in your GUI
         /// applications.  It will initialize everything needed to operate the
-        /// toolkit and parses some standard command line options.
+        /// toolkit.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// If you are using #GtkApplication, you don't have to call gtk_init()
-        /// or gtk_init_check(); the #GApplication::startup handler
+        /// If you are using `GtkApplication`, you don't have to call gtk_init()
+        /// or gtk_init_check(); the `GApplication::startup` handler
         /// does it for you.
         /// </para>
         /// <para>
@@ -91,7 +91,7 @@ namespace GISharp.Lib.Gtk
         /// </remarks>
         /// <returns>
         /// %TRUE if the windowing system has been successfully
-        ///     initialized, %FALSE otherwise
+        ///   initialized, %FALSE otherwise
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */

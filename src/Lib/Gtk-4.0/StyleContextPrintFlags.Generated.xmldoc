@@ -9,21 +9,21 @@ Default value.
 <member name='StyleContextPrintFlags.Recurse'>
 <summary>
 Print the entire tree of
-    CSS nodes starting at the style context's node
+  CSS nodes starting at the style context's node
 </summary>
 </member>
 
 <member name='StyleContextPrintFlags.ShowStyle'>
 <summary>
 Show the values of the
-    CSS properties for each node
+  CSS properties for each node
 </summary>
 </member>
 
 <member name='StyleContextPrintFlags.ShowChange'>
 <summary>
 Show information about
-    what changes affect the styles
+  what changes affect the styles
 </summary>
 </member>
 

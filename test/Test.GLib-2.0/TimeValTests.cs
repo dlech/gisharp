@@ -2,6 +2,7 @@
 // Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
 using System;
+using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
@@ -14,8 +15,8 @@ namespace GISharp.Test.GLib
         public void TestFromIso6801()
         {
             Assert.That(TimeVal.TryFromIso8601("1970-01-01T00:00:00Z", out var tv), Is.True);
-            Assert.That(tv.Seconds, Is.EqualTo(0));
-            Assert.That(tv.Microseconds, Is.EqualTo(0));
+            Assert.That(tv.Seconds, Is.EqualTo(new CLong(0)));
+            Assert.That(tv.Microseconds, Is.EqualTo(new CLong(0)));
         }
 
         [Test]
@@ -23,9 +24,9 @@ namespace GISharp.Test.GLib
         public void TestAdd()
         {
             var tv = default(TimeVal);
-            tv.Add(1234567890);
-            Assert.That(tv.Seconds, Is.EqualTo(1234));
-            Assert.That(tv.Microseconds, Is.EqualTo(567890));
+            tv.Add(new(1234567890));
+            Assert.That(tv.Seconds, Is.EqualTo(new CLong(1234)));
+            Assert.That(tv.Microseconds, Is.EqualTo(new CLong(567890)));
         }
 
         [Test]

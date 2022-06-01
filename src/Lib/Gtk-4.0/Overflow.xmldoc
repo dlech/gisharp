@@ -3,14 +3,14 @@
 <member name='Overflow.Visible'>
 <summary>
 No change is applied. Content is drawn at the specified
-    position.
+  position.
 </summary>
 </member>
 
 <member name='Overflow.Hidden'>
 <summary>
 Content is clipped to the bounds of the area. Content
-    outside the area is not drawn and cannot be interacted with.
+  outside the area is not drawn and cannot be interacted with.
 </summary>
 </member>
 

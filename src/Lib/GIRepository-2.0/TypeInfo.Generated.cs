@@ -104,7 +104,7 @@ namespace GISharp.Lib.GIRepository
 
         /// <summary>
         /// Obtain the fixed array size of the type. The type tag must be a
-        /// #GI_TYPE_TAG_ARRAY or -1 will returned.
+        /// #GI_TYPE_TAG_ARRAY or -1 will be returned.
         /// </summary>
         /// <param name="info">
         /// a #GITypeInfo
@@ -132,8 +132,8 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <summary>
-        /// Obtain the array length of the type. The type tag must be a
-        /// #GI_TYPE_TAG_ARRAY or -1 will returned.
+        /// Obtain the position of the argument which gives the array length of the type.
+        /// The type tag must be a #GI_TYPE_TAG_ARRAY or -1 will be returned.
         /// </summary>
         /// <param name="info">
         /// a #GITypeInfo
@@ -411,7 +411,7 @@ namespace GISharp.Lib.GIRepository
 
         /// <summary>
         /// Obtain if the last element of the array is %NULL. The type tag must be a
-        /// #GI_TYPE_TAG_ARRAY or %FALSE will returned.
+        /// #GI_TYPE_TAG_ARRAY or %FALSE will be returned.
         /// </summary>
         /// <param name="info">
         /// a #GITypeInfo

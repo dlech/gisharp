@@ -9,8 +9,6 @@ using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using static System.Reflection.BindingFlags;
-using clong = GISharp.Runtime.CLong;
-using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
 {
@@ -43,8 +41,8 @@ namespace GISharp.Lib.GObject
                 Add(GType.Boolean, typeof(bool));
                 Add(GType.Int, typeof(int));
                 Add(GType.UInt, typeof(uint));
-                Add(GType.Long, typeof(clong));
-                Add(GType.ULong, typeof(culong));
+                Add(GType.Long, typeof(CLong));
+                Add(GType.ULong, typeof(CULong));
                 Add(GType.Int64, typeof(long));
                 Add(GType.UInt64, typeof(ulong));
                 Add(GType.Enum, typeof(System.Enum));

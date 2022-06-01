@@ -15,6 +15,13 @@ Indicates an abstract value type, i.e. a type
 </summary>
 </member>
 
+<member name='TypeFlags.Final'>
+<summary>
+Indicates a final type. A final type is a non-derivable
+ leaf node in a deep derivable type hierarchy tree.
+</summary>
+</member>
+
 <member name='TypeFlags'>
 <summary>
 Bit masks used to check or determine characteristics of a type.

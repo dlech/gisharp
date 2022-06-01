@@ -39,21 +39,21 @@ Suggest to capitalize all text
 <member name='InputHints.UppercaseWords'>
 <summary>
 Suggest to capitalize the first
-    character of each word
+  character of each word
 </summary>
 </member>
 
 <member name='InputHints.UppercaseSentences'>
 <summary>
 Suggest to capitalize the
-    first word of each sentence
+  first word of each sentence
 </summary>
 </member>
 
 <member name='InputHints.InhibitOsk'>
 <summary>
 Suggest to not show an onscreen keyboard
-    (e.g for a calculator that already has all the keys).
+  (e.g for a calculator that already has all the keys).
 </summary>
 </member>
 
@@ -90,7 +90,7 @@ or applications.
 <remarks>
 <para>
 Note that input methods may already tailor their behaviour according
-to the `GtkInputPurpose` of the entry.
+to the [enum<c>inputPurpose</c>] of the entry.
 </para>
 <para>
 Some common sense is expected when using these flags - mixing

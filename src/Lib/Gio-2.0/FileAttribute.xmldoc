@@ -3,346 +3,570 @@
 <member name='FileAttribute.AccessCanDelete'>
 <summary>
 A key in the "access" namespace for checking deletion privileges.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
-This attribute will be <c>true</c> if the user is able to delete the file.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+<para>
+This attribute will be <c>true</c> if the user is able to delete the file.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.AccessCanExecute'>
 <summary>
 A key in the "access" namespace for getting execution privileges.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
-This attribute will be <c>true</c> if the user is able to execute the file.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+<para>
+This attribute will be <c>true</c> if the user is able to execute the file.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.AccessCanRead'>
 <summary>
 A key in the "access" namespace for getting read privileges.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
-This attribute will be <c>true</c> if the user is able to read the file.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+<para>
+This attribute will be <c>true</c> if the user is able to read the file.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.AccessCanRename'>
 <summary>
 A key in the "access" namespace for checking renaming privileges.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
-This attribute will be <c>true</c> if the user is able to rename the file.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+<para>
+This attribute will be <c>true</c> if the user is able to rename the file.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.AccessCanTrash'>
 <summary>
 A key in the "access" namespace for checking trashing privileges.
+</summary>
+<remarks>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+<para>
 This attribute will be <c>true</c> if the user is able to move the file to
 the trash.
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.AccessCanWrite'>
 <summary>
 A key in the "access" namespace for getting write privileges.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
-This attribute will be <c>true</c> if the user is able to write to the file.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+<para>
+This attribute will be <c>true</c> if the user is able to write to the file.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.DosIsArchive'>
 <summary>
 A key in the "dos" namespace for checking if the file's archive flag
-is set. This attribute is <c>true</c> if the archive flag is set. This attribute
-is only available for DOS file systems. Corresponding <see cref="FileAttributeType"/>
-is <see cref="FileAttributeType.Boolean"/>.
+is set.
 </summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if the archive flag is set.
+</para>
+<para>
+This attribute is only available for DOS file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.DosIsMountpoint'>
 <summary>
 A key in the "dos" namespace for checking if the file is a NTFS mount point
 (a volume mount or a junction point).
+</summary>
+<remarks>
+<para>
 This attribute is <c>true</c> if file is a reparse point of type
 [IO_REPARSE_TAG_MOUNT_POINT](https://msdn.microsoft.com/en-us/library/dd541667.aspx).
+</para>
+<para>
 This attribute is only available for DOS file systems.
+</para>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.DosIsSystem'>
 <summary>
 A key in the "dos" namespace for checking if the file's backup flag
-is set. This attribute is <c>true</c> if the backup flag is set. This attribute
-is only available for DOS file systems. Corresponding <see cref="FileAttributeType"/>
-is <see cref="FileAttributeType.Boolean"/>.
+is set.
 </summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if the backup flag is set.
+</para>
+<para>
+This attribute is only available for DOS file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.DosReparsePointTag'>
 <summary>
 A key in the "dos" namespace for getting the file NTFS reparse tag.
-This value is 0 for files that are not reparse points.
-See the [Reparse Tags](https://msdn.microsoft.com/en-us/library/dd541667.aspx)
-page for possible reparse tag values. Corresponding <see cref="FileAttributeType"/>
-is <see cref="FileAttributeType.Uint32"/>.
 </summary>
+<remarks>
+<para>
+This value is 0 for files that are not reparse points.
+</para>
+<para>
+See the [Reparse Tags](https://msdn.microsoft.com/en-us/library/dd541667.aspx)
+page for possible reparse tag values.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.EtagValue'>
 <summary>
 A key in the "etag" namespace for getting the value of the file's
-entity tag. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.String"/>.
+entity tag.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.FilesystemFree'>
 <summary>
-A key in the "filesystem" namespace for getting the number of bytes of free space left on the
-file system. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint64"/>.
+A key in the "filesystem" namespace for getting the number of bytes
+of free space left on the file system.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.FilesystemReadonly'>
 <summary>
 A key in the "filesystem" namespace for checking if the file system
-is read only. Is set to <c>true</c> if the file system is read only.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+is read only.
 </summary>
+<remarks>
+<para>
+Is set to <c>true</c> if the file system is read only.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.FilesystemRemote'>
 <summary>
 A key in the "filesystem" namespace for checking if the file system
-is remote. Is set to <c>true</c> if the file system is remote.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+is remote.
 </summary>
+<remarks>
+<para>
+Is set to <c>true</c> if the file system is remote.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.FilesystemSize'>
 <summary>
-A key in the "filesystem" namespace for getting the total size (in bytes) of the file system,
-used in <see cref="File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>. Corresponding <see cref="FileAttributeType"/>
-is <see cref="FileAttributeType.Uint64"/>.
+A key in the "filesystem" namespace for getting the total size (in
+bytes) of the file system, used in <see cref="File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.FilesystemType'>
 <summary>
 A key in the "filesystem" namespace for getting the file system's type.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.FilesystemUsed'>
 <summary>
-A key in the "filesystem" namespace for getting the number of bytes of used on the
-file system. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint64"/>.
+A key in the "filesystem" namespace for getting the number of bytes
+used by data on the file system.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.FilesystemUsePreview'>
 <summary>
 A key in the "filesystem" namespace for hinting a file manager
 application whether it should preview (e.g. thumbnail) files on the
-file system. The value for this key contain a
-<see cref="FilesystemPreviewType"/>.
+file system.
 </summary>
+<remarks>
+<para>
+The value for this key contain a <see cref="FilesystemPreviewType"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.GvfsBackend'>
 <summary>
 A key in the "gvfs" namespace that gets the name of the current
-GVFS backend in use. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.String"/>.
+GVFS backend in use.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.IdFile'>
 <summary>
 A key in the "id" namespace for getting a file identifier.
+</summary>
+<remarks>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+<para>
 An example use would be during listing files, to avoid recursive
 directory scanning.
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.IdFilesystem'>
 <summary>
 A key in the "id" namespace for getting the file system identifier.
+</summary>
+<remarks>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+<para>
 An example use would be during drag and drop to see if the source
 and target are on the same filesystem (default to move) or not (default
 to copy).
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableCanEject'>
 <summary>
-A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be ejected.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+A key in the "mountable" namespace for checking if a file (of
+type G_FILE_TYPE_MOUNTABLE) can be ejected.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableCanMount'>
 <summary>
-A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) is mountable.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+A key in the "mountable" namespace for checking if a file (of
+type G_FILE_TYPE_MOUNTABLE) is mountable.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableCanPoll'>
 <summary>
-A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be polled.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+A key in the "mountable" namespace for checking if a file (of
+type G_FILE_TYPE_MOUNTABLE) can be polled.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableCanStart'>
 <summary>
-A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be started.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+A key in the "mountable" namespace for checking if a file (of
+type G_FILE_TYPE_MOUNTABLE) can be started.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableCanStartDegraded'>
 <summary>
-A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be started
-degraded.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+A key in the "mountable" namespace for checking if a file (of
+type G_FILE_TYPE_MOUNTABLE) can be started degraded.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableCanStop'>
 <summary>
-A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be stopped.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+A key in the "mountable" namespace for checking if a file (of
+type G_FILE_TYPE_MOUNTABLE) can be stopped.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableCanUnmount'>
 <summary>
-A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE)  is unmountable.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+A key in the "mountable" namespace for checking if a file (of
+type G_FILE_TYPE_MOUNTABLE)  is unmountable.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableHalUdi'>
 <summary>
 A key in the "mountable" namespace for getting the HAL UDI for the mountable
-file. Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+file.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableIsMediaCheckAutomatic'>
 <summary>
-A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE)
-is automatically polled for media.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+A key in the "mountable" namespace for checking if a file (of
+type G_FILE_TYPE_MOUNTABLE) is automatically polled for media.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableStartStopType'>
 <summary>
 A key in the "mountable" namespace for getting the #GDriveStartStopType.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableUnixDevice'>
 <summary>
 A key in the "mountable" namespace for getting the unix device.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.MountableUnixDeviceFile'>
 <summary>
 A key in the "mountable" namespace for getting the unix device file.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.OwnerGroup'>
 <summary>
 A key in the "owner" namespace for getting the file owner's group.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.OwnerUser'>
 <summary>
 A key in the "owner" namespace for getting the user name of the
-file's owner. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.String"/>.
+file's owner.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.OwnerUserReal'>
 <summary>
 A key in the "owner" namespace for getting the real name of the
-user that owns the file. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.String"/>.
+user that owns the file.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.PreviewIcon'>
 <summary>
 A key in the "preview" namespace for getting a <see cref="IIcon"/> that can be
-used to get preview of the file. For example, it may be a low
-resolution thumbnail without metadata. Corresponding
-<see cref="FileAttributeType"/> is <see cref="FileAttributeType.Object"/>.  The value
-for this key should contain a <see cref="IIcon"/>.
+used to get preview of the file.
 </summary>
+<remarks>
+<para>
+For example, it may be a low resolution thumbnail without metadata.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Object"/>.
+</para>
+<para>
+The value for this key should contain a <see cref="IIcon"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.RecentModified'>
 <summary>
 A key in the "recent" namespace for getting time, when the metadata for the
-file in `recent:///` was last changed. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Int64"/>.
+file in `recent:///` was last changed.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Int64"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.SelinuxContext'>
 <summary>
 A key in the "selinux" namespace for getting the file's SELinux
-context. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.String"/>. Note that this attribute is only
-available if GLib has been built with SELinux support.
+context.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+<para>
+Note that this attribute is only available if GLib has been built
+with SELinux support.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardAllocatedSize'>
 <summary>
 A key in the "standard" namespace for getting the amount of disk space
-that is consumed by the file (in bytes).  This will generally be larger
-than the file size (due to block size overhead) but can occasionally be
-smaller (for example, for sparse files).
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+that is consumed by the file (in bytes).
 </summary>
+<remarks>
+<para>
+This will generally be larger than the file size (due to block size
+overhead) but can occasionally be smaller (for example, for sparse files).
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardContentType'>
 <summary>
 A key in the "standard" namespace for getting the content type of the file.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
-The value for this key should contain a valid content type.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+<para>
+The value for this key should contain a valid content type.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardCopyName'>
 <summary>
 A key in the "standard" namespace for getting the copy name of the file.
+</summary>
+<remarks>
+<para>
 The copy name is an optional version of the name. If available it's always
 in UTF8, and corresponds directly to the original filename (only transcoded to
 UTF8). This is useful if you want to copy the file to another filesystem that
 might have a different encoding. If the filename is not a valid string in the
 encoding selected for the filesystem it is in then the copy name will not be set.
-</summary>
-<remarks>
+</para>
 <para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
 </para>
@@ -352,13 +576,15 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.St
 <member name='FileAttribute.StandardDescription'>
 <summary>
 A key in the "standard" namespace for getting the description of the file.
+</summary>
+<remarks>
+<para>
 The description is a utf8 string that describes the file, generally containing
 the filename, but can also contain further information. Example descriptions
 could be "filename (on hostname)" for a remote file or "filename (in trash)"
 for a file in the trash. This is useful for instance as the window title
 when displaying a directory or for a bookmarks menu.
-</summary>
-<remarks>
+</para>
 <para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
 </para>
@@ -368,21 +594,29 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.St
 <member name='FileAttribute.StandardDisplayName'>
 <summary>
 A key in the "standard" namespace for getting the display name of the file.
+</summary>
+<remarks>
+<para>
 A display name is guaranteed to be in UTF-8 and can thus be displayed in
 the UI. It is guaranteed to be set on every file.
+</para>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardEditName'>
 <summary>
 A key in the "standard" namespace for edit name of the file.
+</summary>
+<remarks>
+<para>
 An edit name is similar to the display name, but it is meant to be
 used when you want to rename the file in the UI. The display name
 might contain information you don't want in the new filename (such as
 "(invalid unicode)" if the filename was in an invalid encoding).
-</summary>
-<remarks>
+</para>
 <para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
 </para>
@@ -392,33 +626,53 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.St
 <member name='FileAttribute.StandardFastContentType'>
 <summary>
 A key in the "standard" namespace for getting the fast content type.
+</summary>
+<remarks>
+<para>
 The fast content type isn't as reliable as the regular one, as it
 only uses the filename to guess it, but it is faster to calculate than the
 regular content type.
+</para>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardIcon'>
 <summary>
 A key in the "standard" namespace for getting the icon for the file.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Object"/>.
-The value for this key should contain a <see cref="IIcon"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Object"/>.
+</para>
+<para>
+The value for this key should contain a <see cref="IIcon"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardIsBackup'>
 <summary>
 A key in the "standard" namespace for checking if a file is a backup file.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardIsHidden'>
 <summary>
 A key in the "standard" namespace for checking if a file is hidden.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardIsSymlink'>
@@ -426,16 +680,26 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Bo
 A key in the "standard" namespace for checking if the file is a symlink.
 Typically the actual type is something else, if we followed the symlink
 to get the type.
-On Windows NTFS mountpoints are considered to be symlinks as well.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
 </summary>
+<remarks>
+<para>
+On Windows NTFS mountpoints are considered to be symlinks as well.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardIsVirtual'>
 <summary>
 A key in the "standard" namespace for checking if a file is virtual.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardIsVolatile'>
@@ -455,80 +719,124 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Bo
 <member name='FileAttribute.StandardName'>
 <summary>
 A key in the "standard" namespace for getting the name of the file.
+</summary>
+<remarks>
+<para>
 The name is the on-disk filename which may not be in any known encoding,
 and can thus not be generally displayed as is. It is guaranteed to be set on
 every file.
 Use <see cref="FileAttribute.StandardDisplayName"/> if you need to display the
 name in a user interface.
+</para>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardSize'>
 <summary>
 A key in the "standard" namespace for getting the file's size (in bytes).
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardSortOrder'>
 <summary>
 A key in the "standard" namespace for setting the sort order of a file.
+</summary>
+<remarks>
+<para>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Int32"/>.
+</para>
+<para>
 An example use would be in file managers, which would use this key
 to set the order files are displayed. Files with smaller sort order
 should be sorted first, and files without sort order as if sort order
 was zero.
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardSymbolicIcon'>
 <summary>
 A key in the "standard" namespace for getting the symbolic icon for the file.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Object"/>.
-The value for this key should contain a <see cref="IIcon"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Object"/>.
+</para>
+<para>
+The value for this key should contain a <see cref="IIcon"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardSymlinkTarget'>
 <summary>
 A key in the "standard" namespace for getting the symlink target, if the file
-is a symlink. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.ByteString"/>.
+is a symlink.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardTargetUri'>
 <summary>
 A key in the "standard" namespace for getting the target URI for the file, in
 the case of <see cref="FileType.Shortcut"/> or <see cref="FileType.Mountable"/> files.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.StandardType'>
 <summary>
 A key in the "standard" namespace for storing file types.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
-The value for this key should contain a <see cref="FileType"/>.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+<para>
+The value for this key should contain a <see cref="FileType"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.ThumbnailingFailed'>
 <summary>
 A key in the "thumbnail" namespace for checking if thumbnailing failed.
-This attribute is <c>true</c> if thumbnailing failed. Corresponding
-<see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
 </summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if thumbnailing failed.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.ThumbnailIsValid'>
 <summary>
 A key in the "thumbnail" namespace for checking whether the thumbnail is outdated.
-This attribute is <c>true</c> if the thumbnail is up-to-date with the file it represents,
-and <c>false</c> if the file has been modified since the thumbnail was generated.
 </summary>
 <remarks>
+<para>
+This attribute is <c>true</c> if the thumbnail is up-to-date with the file it represents,
+and <c>false</c> if the file has been modified since the thumbnail was generated.
+</para>
 <para>
 If <see cref="FileAttribute.ThumbnailingFailed"/> is <c>true</c> and this attribute is <c>false</c>,
 it indicates that thumbnailing may be attempted again and may succeed.
@@ -542,37 +850,55 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Bo
 <member name='FileAttribute.ThumbnailPath'>
 <summary>
 A key in the "thumbnail" namespace for getting the path to the thumbnail
-image. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.ByteString"/>.
+image.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.TimeAccess'>
 <summary>
 A key in the "time" namespace for getting the time the file was last
-accessed. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint64"/>, and contains the time since the
-file was last accessed, in seconds since the UNIX epoch.
+accessed.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>, and
+contains the time since the file was last accessed, in seconds since the
+UNIX epoch.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.TimeAccessUsec'>
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
-the file was last accessed. This should be used in conjunction with
-<see cref="FileAttribute.TimeAccess"/>. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint32"/>.
+the file was last accessed.
 </summary>
+<remarks>
+<para>
+This should be used in conjunction with <see cref="FileAttribute.TimeAccess"/>.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.TimeChanged'>
 <summary>
 A key in the "time" namespace for getting the time the file was last
-changed. Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>,
-and contains the time since the file was last changed, in seconds since the
-UNIX epoch.
+changed.
 </summary>
 <remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>,
+and contains the time since the file was last changed, in seconds since
+the UNIX epoch.
+</para>
 <para>
 This corresponds to the traditional UNIX ctime.
 </para>
@@ -582,23 +908,31 @@ This corresponds to the traditional UNIX ctime.
 <member name='FileAttribute.TimeChangedUsec'>
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
-the file was last changed. This should be used in conjunction with
-<see cref="FileAttribute.TimeChanged"/>. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint32"/>.
+the file was last changed.
 </summary>
+<remarks>
+<para>
+This should be used in conjunction with <see cref="FileAttribute.TimeChanged"/>.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.TimeCreated'>
 <summary>
 A key in the "time" namespace for getting the time the file was created.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>,
-and contains the time since the file was created, in seconds since the UNIX
-epoch.
 </summary>
 <remarks>
 <para>
-This may correspond to Linux stx_btime, FreeBSD st_birthtim, NetBSD
-st_birthtime or NTFS ctime.
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>,
+and contains the time since the file was created, in seconds since the UNIX
+epoch.
+</para>
+<para>
+This may correspond to Linux `stx_btime`, FreeBSD `st_birthtim`, NetBSD
+`st_birthtime` or NTFS `ctime`.
 </para>
 </remarks>
 </member>
@@ -606,142 +940,248 @@ st_birthtime or NTFS ctime.
 <member name='FileAttribute.TimeCreatedUsec'>
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
-the file was created. This should be used in conjunction with
-<see cref="FileAttribute.TimeCreated"/>. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint32"/>.
+the file was created.
 </summary>
+<remarks>
+<para>
+This should be used in conjunction with <see cref="FileAttribute.TimeCreated"/>.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.TimeModified'>
 <summary>
 A key in the "time" namespace for getting the time the file was last
-modified. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint64"/>, and contains the time since the
-file was modified, in seconds since the UNIX epoch.
+modified.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>, and
+contains the time since the file was modified, in seconds since the UNIX
+epoch.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.TimeModifiedUsec'>
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
-the file was last modified. This should be used in conjunction with
-<see cref="FileAttribute.TimeModified"/>. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint32"/>.
+the file was last modified.
 </summary>
+<remarks>
+<para>
+This should be used in conjunction with <see cref="FileAttribute.TimeModified"/>.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.TrashDeletionDate'>
 <summary>
-A key in the "trash" namespace.  When requested against
-items in `trash:///`, will return the date and time when the file
-was trashed. The format of the returned string is YYYY-MM-DDThh:mm:ss.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+A key in the "trash" namespace for getting the deletion date and time
+of a file inside the `trash:///` folder.
 </summary>
+<remarks>
+<para>
+The format of the returned string is `YYYY-MM-DDThh:mm:ss`.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.TrashItemCount'>
 <summary>
-A key in the "trash" namespace.  When requested against
-`trash:///` returns the number of (toplevel) items in the trash folder.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+A key in the "trash" namespace for getting the number of (toplevel) items
+that are present in the `trash:///` folder.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.TrashOrigPath'>
 <summary>
-A key in the "trash" namespace.  When requested against
-items in `trash:///`, will return the original path to the file before it
-was trashed. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.ByteString"/>.
+A key in the "trash" namespace for getting the original path of a file
+inside the `trash:///` folder before it was trashed.
 </summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixBlocks'>
 <summary>
 A key in the "unix" namespace for getting the number of blocks allocated
-for the file. This attribute is only available for UNIX file systems.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+for the file.
 </summary>
+<remarks>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixBlockSize'>
 <summary>
 A key in the "unix" namespace for getting the block size for the file
-system. This attribute is only available for UNIX file systems.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+system.
 </summary>
+<remarks>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixDevice'>
 <summary>
 A key in the "unix" namespace for getting the device id of the device the
-file is located on (see stat() documentation). This attribute is only
-available for UNIX file systems. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint32"/>.
+file is located on (see stat() documentation).
 </summary>
+<remarks>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixGid'>
 <summary>
 A key in the "unix" namespace for getting the group ID for the file.
-This attribute is only available for UNIX file systems.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
 </summary>
+<remarks>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixInode'>
 <summary>
 A key in the "unix" namespace for getting the inode of the file.
-This attribute is only available for UNIX file systems. Corresponding
-<see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
 </summary>
+<remarks>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixIsMountpoint'>
 <summary>
 A key in the "unix" namespace for checking if the file represents a
-UNIX mount point. This attribute is <c>true</c> if the file is a UNIX mount
-point. Since 2.58, `/` is considered to be a mount point.
-This attribute is only available for UNIX file systems.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+UNIX mount point.
 </summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if the file is a UNIX mount point.
+</para>
+<para>
+Since 2.58, `/` is considered to be a mount point.
+</para>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixMode'>
 <summary>
 A key in the "unix" namespace for getting the mode of the file
-(e.g. whether the file is a regular file, symlink, etc). See the
-documentation for `lstat()`: this attribute is equivalent to the `st_mode`
-member of `struct stat`, and includes both the file type and permissions.
-This attribute is only available for UNIX file systems.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+(e.g. whether the file is a regular file, symlink, etc).
 </summary>
+<remarks>
+<para>
+See the documentation for `lstat()`: this attribute is equivalent to
+the `st_mode` member of `struct stat`, and includes both the file type
+and permissions.
+</para>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixNlink'>
 <summary>
 A key in the "unix" namespace for getting the number of hard links
-for a file. See lstat() documentation. This attribute is only available
-for UNIX file systems. Corresponding <see cref="FileAttributeType"/> is
-<see cref="FileAttributeType.Uint32"/>.
+for a file.
 </summary>
+<remarks>
+<para>
+See the documentation for `lstat()`.
+</para>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixRdev'>
 <summary>
 A key in the "unix" namespace for getting the device ID for the file
-(if it is a special file). See lstat() documentation. This attribute
-is only available for UNIX file systems. Corresponding <see cref="FileAttributeType"/>
-is <see cref="FileAttributeType.Uint32"/>.
+(if it is a special file).
 </summary>
+<remarks>
+<para>
+See the documentation for `lstat()`.
+</para>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute.UnixUid'>
 <summary>
 A key in the "unix" namespace for getting the user ID for the file.
-This attribute is only available for UNIX file systems.
-Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
 </summary>
+<remarks>
+<para>
+This attribute is only available for UNIX file systems.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileAttribute'>

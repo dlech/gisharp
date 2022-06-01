@@ -133,7 +133,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, int> compareFunc,
         /* <type name="guint" type="guint*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         uint* outMatchIndex);
 
         /// <summary>
@@ -463,6 +463,30 @@ namespace GISharp.Lib.GLib
         /// functions, @clear_func is expected to clear the contents of
         /// the array element it is given, but not free the element itself.
         /// </para>
+        /// <para>
+        /// |[&lt;!-- language="C" --&gt;
+        /// typedef struct
+        /// {
+        ///   gchar *str;
+        ///   GObject *obj;
+        /// } ArrayElement;
+        /// </para>
+        /// <para>
+        /// static void
+        /// array_element_clear (ArrayElement *element)
+        /// {
+        ///   g_clear_pointer (&amp;element-&gt;str, g_free);
+        ///   g_clear_object (&amp;element-&gt;obj);
+        /// }
+        /// </para>
+        /// <para>
+        /// // main code
+        /// GArray *garray = g_array_new (FALSE, FALSE, sizeof (ArrayElement));
+        /// g_array_set_clear_func (garray, (GDestroyNotify) array_element_clear);
+        /// // assign data to the structure
+        /// g_array_free (garray, TRUE);
+        /// ]|
+        /// </para>
         /// </remarks>
         /// <param name="array">
         /// A #GArray
@@ -670,7 +694,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Array.UnmanagedStruct* array,
         /* <type name="gsize" type="gsize*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         nuint* len);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" /> */

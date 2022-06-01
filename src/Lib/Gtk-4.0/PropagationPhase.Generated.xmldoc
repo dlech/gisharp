@@ -33,7 +33,7 @@ Events are delivered in the default widget event handlers,
 
 <member name='PropagationPhase'>
 <summary>
-Describes the stage at which events are fed into a `GtkEventController`.
+Describes the stage at which events are fed into a [class<c>eventController</c>].
 </summary>
 </member>
 

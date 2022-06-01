@@ -38,11 +38,15 @@ The #GType of values conforming to this <see cref="ParamSpec"/>
 This structure is used to provide the type system with the information
 required to initialize and destruct (finalize) a parameter's class and
 instances thereof.
+</summary>
+<remarks>
+<para>
 The initialized structure is passed to the g_param_type_register_static()
 The type system will perform a deep copy of this structure, so its memory
 does not need to be persistent across invocation of
 g_param_type_register_static().
-</summary>
+</para>
+</remarks>
 </member>
 
 </declaration>

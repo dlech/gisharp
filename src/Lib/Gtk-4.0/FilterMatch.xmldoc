@@ -3,21 +3,21 @@
 <member name='FilterMatch.Some'>
 <summary>
 The filter matches some items,
-    gtk_filter_match() may return <c>true</c> or <c>false</c>
+  gtk_filter_match() may return <c>true</c> or <c>false</c>
 </summary>
 </member>
 
 <member name='FilterMatch.None'>
 <summary>
 The filter does not match any item,
-    gtk_filter_match() will always return <c>false</c>.
+  gtk_filter_match() will always return <c>false</c>.
 </summary>
 </member>
 
 <member name='FilterMatch.All'>
 <summary>
 The filter matches all items,
-    gtk_filter_match() will alays return <c>true</c>.
+  gtk_filter_match() will alays return <c>true</c>.
 </summary>
 </member>
 

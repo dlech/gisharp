@@ -5,7 +5,7 @@
 Indicates whether inputting text
    could trigger display of one or more predictions of the user's intended
    value for a combobox, searchbox, or textbox and specifies how predictions
-   would be presented if they were made. Value type: <see cref="AccessibleAutocomplete"/>
+   would be presented if they were made. Value type: [enum<c>accessibleAutocomplete</c>]
 </summary>
 </member>
 
@@ -72,7 +72,7 @@ Indicates that the user may select
 <summary>
 Indicates whether the element's
    orientation is horizontal, vertical, or unknown/ambiguous. Value type:
-   <see cref="Orientation"/>
+   [enum<c>orientation</c>]
 </summary>
 </member>
 
@@ -109,8 +109,7 @@ Defines a human-readable,
 <member name='AccessibleProperty.Sort'>
 <summary>
 Indicates if items in a table or grid are
-   sorted in ascending or descending order. Possible property values are in
-   the <see cref="AccessibleSort"/> enumeration. Value type: <see cref="AccessibleSort"/>
+   sorted in ascending or descending order. Value type: [enum<c>accessibleSort</c>]
 </summary>
 </member>
 
@@ -144,7 +143,7 @@ Defines the human readable text alternative
 
 <member name='AccessibleProperty'>
 <summary>
-The possible accessible properties of a `GtkAccessible`.
+The possible accessible properties of a [iface<c>accessible</c>].
 </summary>
 </member>
 

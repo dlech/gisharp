@@ -16,8 +16,8 @@ namespace GISharp.Lib.GLib
         ///     array of strings containing the path elements.
         /// </param>
         /// <returns>
-        /// a newly-allocated string that must be freed
-        ///     with g_free().
+        /// a newly-allocated string that
+        ///     must be freed with g_free().
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.8")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

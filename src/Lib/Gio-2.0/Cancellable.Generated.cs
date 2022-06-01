@@ -217,7 +217,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CULong g_cancellable_connect(
+        private static extern System.Runtime.InteropServices.CULong g_cancellable_connect(
         /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -234,7 +234,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Connect(GISharp.Lib.Gio.CancellableSourceFunc)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public GISharp.Runtime.CULong Connect(GISharp.Lib.Gio.CancellableSourceFunc callback)
+        public System.Runtime.InteropServices.CULong Connect(GISharp.Lib.Gio.CancellableSourceFunc callback)
         {
             CheckConnectArgs(callback);
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
@@ -244,7 +244,7 @@ namespace GISharp.Lib.Gio
             var dataDestroyFunc_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var ret_ = g_cancellable_connect(cancellable_,callback_,data_,dataDestroyFunc_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (GISharp.Runtime.CULong)ret_;
+            var ret = (System.Runtime.InteropServices.CULong)ret_;
             return ret;
         }
 
@@ -284,16 +284,16 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong handlerId);
-        partial void CheckDisconnectArgs(GISharp.Runtime.CULong handlerId);
+        System.Runtime.InteropServices.CULong handlerId);
+        partial void CheckDisconnectArgs(System.Runtime.InteropServices.CULong handlerId);
 
-        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Disconnect(GISharp.Runtime.CULong)']/*" />
+        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Disconnect(System.Runtime.InteropServices.CULong)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public void Disconnect(GISharp.Runtime.CULong handlerId)
+        public void Disconnect(System.Runtime.InteropServices.CULong handlerId)
         {
             CheckDisconnectArgs(handlerId);
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
-            var handlerId_ = (GISharp.Runtime.CULong)handlerId;
+            var handlerId_ = (System.Runtime.InteropServices.CULong)handlerId;
             g_cancellable_disconnect(cancellable_, handlerId_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }

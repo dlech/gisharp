@@ -42,20 +42,22 @@ linked against at application run time.
 <member name='Version.Check(uint,uint,uint)'>
 <summary>
 Checks that the GLib library in use is compatible with the
-given version. Generally you would pass in the constants
-#GLIB_MAJOR_VERSION, #GLIB_MINOR_VERSION, #GLIB_MICRO_VERSION
-as the three arguments to this function; that produces
-a check that the library in use is compatible with
-the version of GLib the application or module was compiled
-against.
+given version.
 </summary>
 <remarks>
 <para>
+Generally you would pass in the constants %GLIB_MAJOR_VERSION,
+%GLIB_MINOR_VERSION, %GLIB_MICRO_VERSION as the three arguments
+to this function; that produces a check that the library in use
+is compatible with the version of GLib the application or module
+was compiled against.
+</para>
+<para>
 Compatibility is defined by two things: first the version
 of the running library is newer than the version
-<paramref name="requiredMajor"/>.required_minor.<paramref name="requiredMicro"/>. Second
+`<paramref name="requiredMajor"/>.required_minor.<paramref name="requiredMicro"/>`. Second
 the running library must be binary compatible with the
-version <paramref name="requiredMajor"/>.required_minor.<paramref name="requiredMicro"/>
+version `<paramref name="requiredMajor"/>.<paramref name="requiredMinor"/>.<paramref name="requiredMicro"/>`
 (same major version.)
 </para>
 </remarks>
@@ -69,10 +71,10 @@ the required minor version
 the required micro version
 </param>
 <returns>
-<c>null</c> if the GLib library is compatible with the
-    given version, or a string describing the version mismatch.
-    The returned string is owned by GLib and must not be modified
-    or freed.
+<c>null</c> if the GLib library is
+  compatible with the given version, or a string describing the
+  version mismatch. The returned string is owned by GLib and must
+  not be modified or freed.
 </returns>
 </member>
 

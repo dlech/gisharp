@@ -264,13 +264,13 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         /// <param name="logDomain">
         /// the log domain, or %NULL for the default ""
-        ///     application domain
+        ///   application domain
         /// </param>
         /// <param name="logLevels">
         /// the log levels to apply the log handler for.
-        ///     To handle fatal and recursive messages as well, combine
-        ///     the log levels with the #G_LOG_FLAG_FATAL and
-        ///     #G_LOG_FLAG_RECURSION bit flags.
+        ///   To handle fatal and recursive messages as well, combine
+        ///   the log levels with the %G_LOG_FLAG_FATAL and
+        ///   %G_LOG_FLAG_RECURSION bit flags.
         /// </param>
         /// <param name="logFunc">
         /// the log handler function
@@ -393,7 +393,7 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// <para>
         /// The values in the @fields dictionary are likely to be of type String
-        /// (#G_VARIANT_TYPE_STRING). Array of bytes (#G_VARIANT_TYPE_BYTESTRING) is also
+        /// (%G_VARIANT_TYPE_STRING). Array of bytes (%G_VARIANT_TYPE_BYTESTRING) is also
         /// supported. In this case the message is handled as binary and will be forwarded
         /// to the log writer as such. The size of the array should not be higher than
         /// %G_MAXSSIZE. Otherwise it will be truncated to this size. For other types

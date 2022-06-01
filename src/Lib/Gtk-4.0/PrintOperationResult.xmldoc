@@ -15,14 +15,14 @@ The print settings should be stored.
 <member name='PrintOperationResult.Cancel'>
 <summary>
 The print operation has been canceled,
-    the print settings should not be stored.
+  the print settings should not be stored.
 </summary>
 </member>
 
 <member name='PrintOperationResult.InProgress'>
 <summary>
 The print operation is not complete
-    yet. This value will only be returned when running asynchronously.
+  yet. This value will only be returned when running asynchronously.
 </summary>
 </member>
 

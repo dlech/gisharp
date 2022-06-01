@@ -852,10 +852,6 @@
 - !set-attribute
   name: introspectable
   value: 0
-  xpath: gi:repository/gi:namespace/gi:constant[@name='VA_COPY_AS_ARRAY']
-- !set-attribute
-  name: introspectable
-  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='VoidFunc']
 - !set-attribute
   name: introspectable
@@ -1312,10 +1308,6 @@
 - !set-attribute
   name: introspectable
   value: 0
-  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'string_')]
-- !set-attribute
-  name: introspectable
-  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='strip_context']
 - !set-attribute
   name: introspectable
@@ -1473,3 +1465,39 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_set_fd_nonblocking')]
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:callback[@name='ErrorClearFunc']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:callback[@name='ErrorCopyFunc']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:callback[@name='ErrorInitFunc']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='StrvBuilder']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TraverseNodeFunc']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='TreeNode']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:constant[@name='macro__has_attribute___noreturn__']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[@name='memdup2']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[@name='prefix_error_literal']

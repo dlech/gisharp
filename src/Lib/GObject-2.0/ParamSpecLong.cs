@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
+using System.Runtime.InteropServices;
 using GISharp.Runtime;
-
-using clong = GISharp.Runtime.CLong;
 
 namespace GISharp.Lib.GObject
 {
@@ -12,17 +11,17 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public clong Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
+        public CLong Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public clong Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
+        public CLong Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new clong DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
+        public new CLong DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
 
         static readonly GType _GType = paramSpecTypes[5];
     }

@@ -21,7 +21,7 @@ Creates a new instance of a <see cref="Object"/> subtype and sets its properties
 </summary>
 <remarks>
 <para>
-Construction parameters (see #G_PARAM_CONSTRUCT, #G_PARAM_CONSTRUCT_ONLY)
+Construction parameters (see <see cref="ParamFlags.Construct"/>, <see cref="ParamFlags.ConstructOnly"/>)
 which are not explicitly specified are set to their default values.
 </para>
 </remarks>
@@ -53,11 +53,15 @@ and common practice is to do that only when the value has actually changed.
 This signal is typically used to obtain change notification for a
 single property, by specifying the property name as a detail in the
 g_signal_connect() call, like this:
+</para>
+<para>
 |[&lt;!-- language="C" --&gt;
 g_signal_connect (text_view-&gt;buffer, "notify::paste-target-list",
                   G_CALLBACK (gtk_text_view_target_list_notify),
                   text_view)
 ]|
+</para>
+<para>
 It is important to note that you must use
 [canonical parameter names][canonical-parameter-names] as
 detail strings for the notify signal.
@@ -81,12 +85,15 @@ the <see cref="ParamSpec"/> of the property which changed.
 <member name='Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)'>
 <summary>
 Creates a binding between <paramref name="sourceProperty"/> on this instance and <paramref name="targetProperty"/>
-on <paramref name="target"/>. Whenever the <paramref name="sourceProperty"/> is changed the <paramref name="targetProperty"/> is
-updated using the same value. For instance:
+on <paramref name="target"/>.
 </summary>
 <remarks>
 <para>
-|[
+Whenever the <paramref name="sourceProperty"/> is changed the <paramref name="targetProperty"/> is
+updated using the same value. For instance:
+</para>
+<para>
+|[&lt;!-- language="C" --&gt;
   g_object_bind_property (action, "active", widget, "sensitive", 0);
 ]|
 </para>
@@ -417,9 +424,14 @@ called.
 
 <member name='Object'>
 <summary>
-All the fields in the GObject structure are private
-to the <see cref="Object"/> implementation and should never be accessed directly.
+The base object type.
 </summary>
+<remarks>
+<para>
+All the fields in the `GObject` structure are private to the implementation
+and should never be accessed directly.
+</para>
+</remarks>
 </member>
 
 </declaration>

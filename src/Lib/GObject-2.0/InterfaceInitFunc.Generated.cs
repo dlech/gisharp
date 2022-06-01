@@ -5,10 +5,13 @@ namespace GISharp.Lib.GObject
 {
     /// <summary>
     /// A callback function used by the type system to initialize a new
-    /// interface.  This function should initialize all internal data and
-    /// allocate any resources required by the interface.
+    /// interface.
     /// </summary>
     /// <remarks>
+    /// <para>
+    /// This function should initialize all internal data and* allocate any
+    /// resources required by the interface.
+    /// </para>
     /// <para>
     /// The members of @iface_data are guaranteed to have been filled with
     /// zeros before this function is called.

@@ -22,6 +22,26 @@ at most one instantiatable prerequisite type.
 </param>
 </member>
 
+<member name='TypeInterface.InstantiatablePrerequisite(GISharp.Runtime.GType)'>
+<summary>
+Returns the most specific instantiatable prerequisite of an
+interface type. If the interface type has no instantiatable
+prerequisite, %G_TYPE_INVALID is returned.
+</summary>
+<remarks>
+<para>
+See <see cref="TypeInterface.AddPrerequisite(GISharp.Runtime.GType,GISharp.Runtime.GType)"/> for more information
+about prerequisites.
+</para>
+</remarks>
+<param name="interfaceType">
+an interface type
+</param>
+<returns>
+the instantiatable prerequisite type or %G_TYPE_INVALID if none
+</returns>
+</member>
+
 <member name='TypeInterface.Prerequisites(GISharp.Runtime.GType)'>
 <summary>
 Returns the prerequisites of an interfaces type.

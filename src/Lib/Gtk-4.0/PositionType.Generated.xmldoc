@@ -30,8 +30,8 @@ Describes which edge of a widget a certain feature is positioned at.
 </summary>
 <remarks>
 <para>
-For examples, see the tabs of a `GtkNotebook`, or the label
-of a `GtkScale`.
+For examples, see the tabs of a [class<c>notebook</c>], or the label
+of a [class<c>scale</c>].
 </para>
 </remarks>
 </member>

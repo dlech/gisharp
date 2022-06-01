@@ -10,10 +10,10 @@ namespace GISharp.Lib.GLib
     {
 #pragma warning disable CS0169, CS0414, CS0649
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.tvSec']/*" />
-        private readonly GISharp.Runtime.CLong tvSec;
+        private readonly System.Runtime.InteropServices.CLong tvSec;
 
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.tvUsec']/*" />
-        private readonly GISharp.Runtime.CLong tvUsec;
+        private readonly System.Runtime.InteropServices.CLong tvUsec;
 #pragma warning restore CS0169, CS0414, CS0649
         /// <summary>
         /// Converts a string containing an ISO 8601 encoded date and time
@@ -101,19 +101,19 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.TimeVal* time,
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CLong microseconds);
-        partial void CheckAddArgs(GISharp.Runtime.CLong microseconds);
+        System.Runtime.InteropServices.CLong microseconds);
+        partial void CheckAddArgs(System.Runtime.InteropServices.CLong microseconds);
 
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.Add(GISharp.Runtime.CLong)']/*" />
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.Add(System.Runtime.InteropServices.CLong)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use `guint64` for\n   representing microseconds since the epoch, or use #GDateTime.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
-        public void Add(GISharp.Runtime.CLong microseconds)
+        public void Add(System.Runtime.InteropServices.CLong microseconds)
         {
             fixed (GISharp.Lib.GLib.TimeVal* this_ = &this)
             {
                 CheckAddArgs(microseconds);
                 var time_ = this_;
-                var microseconds_ = (GISharp.Runtime.CLong)microseconds;
+                var microseconds_ = (System.Runtime.InteropServices.CLong)microseconds;
                 g_time_val_add(time_, microseconds_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
             }

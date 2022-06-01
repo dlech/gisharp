@@ -3,7 +3,7 @@
 <member name='KeyFileError.UnknownEncoding'>
 <summary>
 the text being parsed was in
-    an unknown encoding
+  an unknown encoding
 </summary>
 </member>
 

@@ -5,4 +5,4 @@
 
 set -e
 
-git diff **/*.Generated.xmldoc | sed 's/\.Generated\.xmldoc/.xmldoc/' | git apply -3 -v
+git diff **/*.Generated.xmldoc | sed 's/\.Generated\.xmldoc/.xmldoc/g' | git apply -3 --verbose

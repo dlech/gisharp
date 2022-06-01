@@ -1,33 +1,69 @@
 <declaration>
 
 <member name='EditableProperties.PropText'>
+<summary>
+the property id for [property<c>gtk</c>.Editable:text]
+</summary>
 </member>
 
 <member name='EditableProperties.PropCursorPosition'>
+<summary>
+the property id for [property<c>gtk</c>.Editable:cursor-position]
+</summary>
 </member>
 
 <member name='EditableProperties.PropSelectionBound'>
+<summary>
+the property id for [property<c>gtk</c>.Editable:selection-bound]
+</summary>
 </member>
 
 <member name='EditableProperties.PropEditable'>
+<summary>
+the property id for [property<c>gtk</c>.Editable:editable]
+</summary>
 </member>
 
 <member name='EditableProperties.PropWidthChars'>
+<summary>
+the property id for [property<c>gtk</c>.Editable:width-chars]
+</summary>
 </member>
 
 <member name='EditableProperties.PropMaxWidthChars'>
+<summary>
+the property id for [property<c>gtk</c>.Editable:max-width-chars]
+</summary>
 </member>
 
 <member name='EditableProperties.PropXalign'>
+<summary>
+the property id for [property<c>gtk</c>.Editable:xalign]
+</summary>
 </member>
 
 <member name='EditableProperties.PropEnableUndo'>
+<summary>
+the property id for [property<c>gtk</c>.Editable:enable-undo]
+</summary>
 </member>
 
 <member name='EditableProperties.NumProperties'>
+<summary>
+the number of properties
+</summary>
 </member>
 
 <member name='EditableProperties'>
+<summary>
+The identifiers for [iface<c>gtk</c>.Editable] properties.
+</summary>
+<remarks>
+<para>
+See [func<c>gtk</c>.Editable.install_properties] for details on how to
+implement the `GtkEditable` interface.
+</para>
+</remarks>
 </member>
 
 </declaration>

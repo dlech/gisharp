@@ -162,11 +162,13 @@ C namespace prefix, or <c>null</c> if none associated
 
 <member name='Repository.GetDependencies(GISharp.Runtime.UnownedUtf8)'>
 <summary>
-Return an array of all (transitive) versioned dependencies for
-<paramref name="namespace"/>. Returned strings are of the form
-&lt;code&gt;namespace-version&lt;/code&gt;.
+Retrieves all (transitive) versioned dependencies for
+<paramref name="namespace"/>.
 </summary>
 <remarks>
+<para>
+The strings are of the form `namespace-version`.
+</para>
 <para>
 Note: <paramref name="namespace"/> must have already been loaded using a function
 such as <see cref="Repository.Require(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GIRepository.RepositoryLoadFlags)"/> before calling this function.
@@ -180,7 +182,7 @@ To get only the immediate dependencies for <paramref name="namespace"/>, use
 Namespace of interest
 </param>
 <returns>
-Zero-terminated string array of all versioned
+all versioned
   dependencies
 </returns>
 </member>
@@ -188,7 +190,7 @@ Zero-terminated string array of all versioned
 <member name='Repository.GetImmediateDependencies(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Return an array of the immediate versioned dependencies for <paramref name="namespace"/>.
-Returned strings are of the form &lt;code&gt;namespace-version&lt;/code&gt;.
+Returned strings are of the form `namespace-version`.
 </summary>
 <remarks>
 <para>

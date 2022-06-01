@@ -64,6 +64,45 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
+        /// Returns the most specific instantiatable prerequisite of an
+        /// interface type. If the interface type has no instantiatable
+        /// prerequisite, %G_TYPE_INVALID is returned.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// See g_type_interface_add_prerequisite() for more information
+        /// about prerequisites.
+        /// </para>
+        /// </remarks>
+        /// <param name="interfaceType">
+        /// an interface type
+        /// </param>
+        /// <returns>
+        /// the instantiatable prerequisite type or %G_TYPE_INVALID if none
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Runtime.GType g_type_interface_instantiatable_prerequisite(
+        /* <type name="GType" type="GType" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Runtime.GType interfaceType);
+        static partial void CheckInstantiatablePrerequisiteArgs(GISharp.Runtime.GType interfaceType);
+
+        /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='TypeInterface.InstantiatablePrerequisite(GISharp.Runtime.GType)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        public static GISharp.Runtime.GType InstantiatablePrerequisite(GISharp.Runtime.GType interfaceType)
+        {
+            CheckInstantiatablePrerequisiteArgs(interfaceType);
+            var interfaceType_ = (GISharp.Runtime.GType)interfaceType;
+            var ret_ = g_type_interface_instantiatable_prerequisite(interfaceType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = (GISharp.Runtime.GType)ret_;
+            return ret;
+        }
+
+        /// <summary>
         /// Returns the #GTypeInterface structure of an interface to which the
         /// passed in class conforms.
         /// </summary>

@@ -25,7 +25,7 @@ a command line string
 </param>
 <returns>
 a new <see cref="IFile"/>.
-   Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 </member>
 
@@ -67,7 +67,7 @@ operation if <paramref name="path"/> is malformed.
 </summary>
 <param name="path">
 a string containing a relative or absolute path.
-    The string must be encoded in the glib filename encoding.
+  The string must be encoded in the glib filename encoding.
 </param>
 <returns>
 a new <see cref="IFile"/> for the given <paramref name="path"/>.
@@ -87,7 +87,7 @@ a UTF-8 string containing a URI
 </param>
 <returns>
 a new <see cref="IFile"/> for the given <paramref name="uri"/>.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 </member>
 
@@ -117,7 +117,7 @@ on return, a <see cref="FileIOStream"/> for the created file
 </param>
 <returns>
 a new <see cref="IFile"/>.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -147,7 +147,7 @@ If the file doesn't already exist it is created.
 <remarks>
 <para>
 By default files created are generally readable by everyone,
-but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
+but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level that
 is supported on the target filesystem.
 </para>
@@ -169,11 +169,11 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileOutputStream"/>, or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -203,11 +203,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -221,8 +221,8 @@ Finishes an asynchronous file append operation started with
 </param>
 <returns>
 a valid <see cref="FileOutputStream"/>
-    or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  or <c>null</c> on error.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -236,16 +236,16 @@ Can not handle recursive copies of directories.
 </summary>
 <remarks>
 <para>
-If the flag #G_FILE_COPY_OVERWRITE is specified an already
+If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
 </para>
 <para>
-If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
+If the flag <see cref="FileCopyFlags.NoFollowSymlinks"/> is specified then symlinks
 will be copied as symlinks, otherwise the target of the
 this instance symlink will be copied.
 </para>
 <para>
-If the flag #G_FILE_COPY_ALL_METADATA is specified then all the metadata
+If the flag <see cref="FileCopyFlags.AllMetadata"/> is specified then all the metadata
 that is possible to copy is copied, not just the default subset (which,
 for instance, does not include the owner, see <see cref="FileInfo"/>).
 </para>
@@ -266,7 +266,7 @@ If the this instance file does not exist, then the <see cref="IOErrorEnum.NotFou
 is returned, independent on the status of the <paramref name="destination"/>.
 </para>
 <para>
-If #G_FILE_COPY_OVERWRITE is not specified and the target exists, then
+If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists, then
 the error <see cref="IOErrorEnum.Exists"/> is returned.
 </para>
 <para>
@@ -276,7 +276,7 @@ error is returned. If trying to overwrite a directory with a directory the
 </para>
 <para>
 If the source is a directory and the target does not exist, or
-#G_FILE_COPY_OVERWRITE is specified and the target is a file, then the
+<see cref="FileCopyFlags.Overwrite"/> is specified and the target is a file, then the
 <see cref="IOErrorEnum.WouldRecurse"/> error is returned.
 </para>
 <para>
@@ -292,11 +292,11 @@ set of <see cref="FileCopyFlags"/>
 </param>
 <param name="progressCallback">
 function to callback with
-    progress information, or <c>null</c> if progress information is not needed
+  progress information, or <c>null</c> if progress information is not needed
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 <c>true</c> on success, <c>false</c> otherwise.
@@ -334,14 +334,14 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="progressCallback">
 function to callback with progress
-    information, or <c>null</c> if progress information is not needed
+  information, or <c>null</c> if progress information is not needed
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -368,7 +368,7 @@ The file must not already exist.
 <remarks>
 <para>
 By default files created are generally readable by everyone,
-but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
+but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level
 that is supported on the target filesystem.
 </para>
@@ -392,12 +392,12 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileOutputStream"/> for the newly created
-    file, or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  file, or <c>null</c> on error.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -428,11 +428,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -446,7 +446,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 a <see cref="FileOutputStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -461,7 +461,7 @@ writing to it. The file must not already exist.
 <remarks>
 <para>
 By default files created are generally readable by everyone,
-but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
+but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level
 that is supported on the target filesystem.
 </para>
@@ -490,12 +490,12 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileIOStream"/> for the newly created
-    file, or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  file, or <c>null</c> on error.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -526,11 +526,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -544,7 +544,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 a <see cref="FileIOStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -581,7 +581,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 <c>true</c> if the file was deleted. <c>false</c> otherwise.
@@ -602,11 +602,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -644,7 +644,7 @@ This call does no blocking I/O.
 </remarks>
 <returns>
 a new <see cref="IFile"/> that is a duplicate
-    of the given <see cref="IFile"/>.
+  of the given <see cref="IFile"/>.
 </returns>
 </member>
 
@@ -658,7 +658,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 <c>true</c> if the this instance was ejected successfully.
-    <c>false</c> otherwise.
+  <c>false</c> otherwise.
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -675,7 +675,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 <c>true</c> if the this instance was ejected successfully.
-    <c>false</c> otherwise.
+  <c>false</c> otherwise.
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -710,11 +710,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call when the
-    request is satisfied
+  request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -763,8 +763,8 @@ This call does no blocking I/O.
 </remarks>
 <returns>
 string containing the <see cref="IFile"/>'s
-    base name, or <c>null</c> if given <see cref="IFile"/> is invalid. The returned string
-    should be freed with g_free() when no longer needed.
+  base name, or <c>null</c> if given <see cref="IFile"/> is invalid. The returned string
+  should be freed with g_free() when no longer needed.
 </returns>
 </member>
 
@@ -787,8 +787,8 @@ string to a possible child
 </param>
 <returns>
 a <see cref="IFile"/> to the specified child, or
-    <c>null</c> if the display name couldn't be converted.
-    Free the returned object with g_object_unref().
+  <c>null</c> if the display name couldn't be converted.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -808,8 +808,8 @@ This call does no blocking I/O.
 </remarks>
 <returns>
 a <see cref="IFile"/> structure to the
-    parent of the given <see cref="IFile"/> or <c>null</c> if there is no parent. Free
-    the returned object with g_object_unref().
+  parent of the given <see cref="IFile"/> or <c>null</c> if there is no parent. Free
+  the returned object with g_object_unref().
 </returns>
 </member>
 
@@ -837,8 +837,8 @@ This call does no blocking I/O.
 </remarks>
 <returns>
 a string containing the <see cref="IFile"/>'s parse name.
-    The returned string should be freed with g_free()
-    when no longer needed.
+  The returned string should be freed with g_free()
+  when no longer needed.
 </returns>
 </member>
 
@@ -854,8 +854,8 @@ This call does no blocking I/O.
 </remarks>
 <returns>
 string containing the <see cref="IFile"/>'s path,
-    or <c>null</c> if no such path exists. The returned string should be freed
-    with g_free() when no longer needed.
+  or <c>null</c> if no such path exists. The returned string should be freed
+  with g_free() when no longer needed.
 </returns>
 </member>
 
@@ -873,9 +873,9 @@ input <see cref="IFile"/>
 </param>
 <returns>
 string with the relative path from
-    <paramref name="descendant"/> to this instance, or <c>null</c> if <paramref name="descendant"/> doesn't have this instance as
-    prefix. The returned string should be freed with g_free() when
-    no longer needed.
+  <paramref name="descendant"/> to this instance, or <c>null</c> if <paramref name="descendant"/> doesn't have this instance as
+  prefix. The returned string should be freed with g_free() when
+  no longer needed.
 </returns>
 </member>
 
@@ -890,9 +890,9 @@ This call does no blocking I/O.
 </remarks>
 <returns>
 a string containing the <see cref="IFile"/>'s URI. If the <see cref="IFile"/> was constructed
-    with an invalid URI, an invalid URI is returned.
-    The returned string should be freed with g_free()
-    when no longer needed.
+  with an invalid URI, an invalid URI is returned.
+  The returned string should be freed with g_free()
+  when no longer needed.
 </returns>
 </member>
 
@@ -916,8 +916,8 @@ This call does no blocking I/O.
 </remarks>
 <returns>
 a string containing the URI scheme for the given
-    <see cref="IFile"/> or <c>null</c> if the <see cref="IFile"/> was constructed with an invalid URI. The
-    returned string should be freed with g_free() when no longer needed.
+  <see cref="IFile"/> or <c>null</c> if the <see cref="IFile"/> was constructed with an invalid URI. The
+  returned string should be freed with g_free() when no longer needed.
 </returns>
 </member>
 
@@ -935,8 +935,8 @@ a string containing a URI scheme
 </param>
 <returns>
 <c>true</c> if <see cref="IFile"/>'s backend supports the
-    given URI scheme, <c>false</c> if URI scheme is <c>null</c>,
-    not supported, or <see cref="IFile"/> is invalid.
+  given URI scheme, <c>false</c> if URI scheme is <c>null</c>,
+  not supported, or <see cref="IFile"/> is invalid.
 </returns>
 </member>
 
@@ -951,9 +951,9 @@ This call does no blocking I/O.
 </remarks>
 <returns>
 0 if this instance is not a valid <see cref="IFile"/>, otherwise an
-    integer that can be used as hash value for the <see cref="IFile"/>.
-    This function is intended for easily hashing a <see cref="IFile"/> to
-    add to a #GHashTable or similar data structure.
+  integer that can be used as hash value for the <see cref="IFile"/>.
+  This function is intended for easily hashing a <see cref="IFile"/> to
+  add to a #GHashTable or similar data structure.
 </returns>
 </member>
 
@@ -1004,7 +1004,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 <c>true</c> on successful creation, <c>false</c> otherwise.
@@ -1023,11 +1023,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -1061,11 +1061,11 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 </remarks>
 <param name="symlinkValue">
 a string with the path for the target
-    of the new symlink
+  of the new symlink
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 <c>true</c> on the creation of a new symlink, <c>false</c> otherwise.
@@ -1095,7 +1095,7 @@ the number of non-directories encountered
 </param>
 <returns>
 <c>true</c> if successful, with the out parameters set.
-         <c>false</c> otherwise, with <see cref="GISharp.Lib.GLib.Error.Exception"/> set.
+  <c>false</c> otherwise, with <see cref="GISharp.Lib.GLib.Error.Exception"/> set.
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1111,8 +1111,8 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 <c>true</c> if successful. If an error has occurred,
-    this function will return <c>false</c> and set <see cref="GISharp.Lib.GLib.Error.Exception"/>
-    appropriately if present.
+  this function will return <c>false</c> and set <see cref="GISharp.Lib.GLib.Error.Exception"/>
+  appropriately if present.
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1134,7 +1134,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 a <see cref="IFile"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1151,7 +1151,7 @@ inside the same filesystem), but the fallback code does not.
 </summary>
 <remarks>
 <para>
-If the flag #G_FILE_COPY_OVERWRITE is specified an already
+If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
 </para>
 <para>
@@ -1171,7 +1171,7 @@ If the this instance file does not exist, then the <see cref="IOErrorEnum.NotFou
 error is returned, independent on the status of the <paramref name="destination"/>.
 </para>
 <para>
-If #G_FILE_COPY_OVERWRITE is not specified and the target exists,
+If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists,
 then the error <see cref="IOErrorEnum.Exists"/> is returned.
 </para>
 <para>
@@ -1181,7 +1181,7 @@ error is returned. If trying to overwrite a directory with a directory the
 </para>
 <para>
 If the source is a directory and the target does not exist, or
-#G_FILE_COPY_OVERWRITE is specified and the target is a file, then
+<see cref="FileCopyFlags.Overwrite"/> is specified and the target is a file, then
 the <see cref="IOErrorEnum.WouldRecurse"/> error may be returned (if the native
 move operation isn't available).
 </para>
@@ -1194,11 +1194,11 @@ set of <see cref="FileCopyFlags"/>
 </param>
 <param name="progressCallback">
 <see cref="FileProgressCallback"/>
-    function for updates
+  function for updates
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 <c>true</c> on successful move, <c>false</c> otherwise.
@@ -1236,7 +1236,7 @@ a <see cref="Cancellable"/>
 </param>
 <returns>
 <see cref="FileIOStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1263,11 +1263,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -1281,7 +1281,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 a <see cref="FileIOStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1290,7 +1290,7 @@ On error
 
 <member name='IFile.DoPollMountable(GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Polls a file of type #G_FILE_TYPE_MOUNTABLE.
+Polls a file of type <see cref="FileType.Mountable"/>.
 </summary>
 <remarks>
 <para>
@@ -1306,7 +1306,7 @@ the result of the operation.
 </remarks>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied, or <c>null</c>
+  when the request is satisfied, or <c>null</c>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore
@@ -1362,7 +1362,7 @@ input <see cref="IFile"/>
 </param>
 <returns>
 <c>true</c> if the <paramref name="file"/>'s parent, grandparent, etc is this instance,
-    <c>false</c> otherwise.
+  <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -1383,9 +1383,9 @@ attributes or attribute wildcards. The wildcard "*" means all
 attributes, and a wildcard like "filesystem::*" means all attributes
 in the filesystem namespace. The standard namespace for filesystem
 attributes is "filesystem". Common attributes of interest are
-#G_FILE_ATTRIBUTE_FILESYSTEM_SIZE (the total size of the filesystem
-in bytes), #G_FILE_ATTRIBUTE_FILESYSTEM_FREE (number of bytes available),
-and #G_FILE_ATTRIBUTE_FILESYSTEM_TYPE (type of the filesystem).
+<see cref="FileAttribute.FilesystemSize"/> (the total size of the filesystem
+in bytes), <see cref="FileAttribute.FilesystemFree"/> (number of bytes available),
+and <see cref="FileAttribute.FilesystemType"/> (type of the filesystem).
 </para>
 <para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
@@ -1404,11 +1404,11 @@ an attribute query string
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileInfo"/> or <c>null</c> if there was an error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1441,11 +1441,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -1459,8 +1459,8 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 <see cref="FileInfo"/> for given this instance
-    or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  or <c>null</c> on error.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1484,7 +1484,7 @@ The wildcard "*" means all attributes, and a wildcard like
 "standard::*" means all attributes in the standard namespace.
 An example attribute query be "standard::*,owner::user".
 The standard attributes are available as defines, like
-#G_FILE_ATTRIBUTE_STANDARD_NAME.
+<see cref="FileAttribute.StandardName"/>.
 </para>
 <para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
@@ -1495,7 +1495,7 @@ returned.
 <para>
 For symlinks, normally the information about the target of the
 symlink is returned, rather than information about the symlink
-itself. However if you pass #G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS
+itself. However if you pass <see cref="FileQueryInfoFlags.NoFollowSymlinks"/>
 in <paramref name="flags"/> the information about the symlink itself will be returned.
 Also, for symlinks that point to non-existing files the information
 about the symlink itself will be returned.
@@ -1514,11 +1514,11 @@ a set of <see cref="FileQueryInfoFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileInfo"/> for the given this instance, or <c>null</c>
-    on error. Free the returned object with g_object_unref().
+  on error. Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1552,11 +1552,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call when the
-    request is satisfied
+  request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -1570,8 +1570,8 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 <see cref="FileInfo"/> for given this instance
-    or <c>null</c> on error. Free the returned object with
-    g_object_unref().
+  or <c>null</c> on error. Free the returned object with
+  g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1597,12 +1597,12 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileAttributeInfoList"/> describing the settable attributes.
-    When you are done with it, release it with
-    <see cref="FileAttributeInfoList.Unref()"/>
+  When you are done with it, release it with
+  <see cref="FileAttributeInfoList.Unref()"/>
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1624,12 +1624,12 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileAttributeInfoList"/> describing the writable namespaces.
-    When you are done with it, release it with
-    <see cref="FileAttributeInfoList.Unref()"/>
+  When you are done with it, release it with
+  <see cref="FileAttributeInfoList.Unref()"/>
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1656,11 +1656,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -1674,7 +1674,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 a <see cref="FileInputStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1704,7 +1704,7 @@ a <see cref="Cancellable"/>
 </param>
 <returns>
 <see cref="FileInputStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1727,7 +1727,7 @@ the destination when the stream is closed.
 </para>
 <para>
 By default files created are generally readable by everyone,
-but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
+but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level that
 is supported on the target filesystem.
 </para>
@@ -1765,7 +1765,7 @@ possible too, and depend on what kind of filesystem the file is on.
 </remarks>
 <param name="etag">
 an optional [entity tag][gfile-etag]
-    for the current <see cref="IFile"/>, or #NULL to ignore
+  for the current <see cref="IFile"/>, or #NULL to ignore
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -1775,11 +1775,11 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileOutputStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1804,7 +1804,7 @@ of the operation.
 </remarks>
 <param name="etag">
 an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-    or <c>null</c> to ignore
+  or <c>null</c> to ignore
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -1817,11 +1817,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -1835,7 +1835,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 a <see cref="FileOutputStream"/>, or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1861,7 +1861,7 @@ rather than just opening for reading or writing.
 </remarks>
 <param name="etag">
 an optional [entity tag][gfile-etag]
-    for the current <see cref="IFile"/>, or #NULL to ignore
+  for the current <see cref="IFile"/>, or #NULL to ignore
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -1871,11 +1871,11 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileIOStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1901,7 +1901,7 @@ the result of the operation.
 </remarks>
 <param name="etag">
 an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-    or <c>null</c> to ignore
+  or <c>null</c> to ignore
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -1914,11 +1914,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -1932,7 +1932,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 a <see cref="FileIOStream"/>, or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -1947,14 +1947,16 @@ Resolves a relative path for this instance to an absolute path.
 <para>
 This call does no blocking I/O.
 </para>
+<para>
+If the <paramref name="relativePath"/> is an absolute path name, the resolution
+is done absolutely (without taking this instance path as base).
+</para>
 </remarks>
 <param name="relativePath">
 a given relative path string
 </param>
 <returns>
-<see cref="IFile"/> to the resolved path.
-    <c>null</c> if <paramref name="relativePath"/> is <c>null</c> or if this instance is invalid.
-    Free the returned object with g_object_unref().
+a <see cref="IFile"/> for the resolved path.
 </returns>
 </member>
 
@@ -1981,14 +1983,14 @@ The type of the attribute
 </param>
 <param name="valueP">
 a pointer to the value (or the pointer
-    itself if the type is a pointer type)
+  itself if the type is a pointer type)
 </param>
 <param name="flags">
 a set of <see cref="FileQueryInfoFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 <c>true</c> if the attribute was set, <c>false</c> otherwise.
@@ -2027,7 +2029,7 @@ a <see cref="AsyncReadyCallback"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -2076,7 +2078,7 @@ a <see cref="FileInfo"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 <c>false</c> if there was any error, <c>true</c> otherwise.
@@ -2097,7 +2099,7 @@ for the target filesystem if possible and the this instance is renamed to this.
 </para>
 <para>
 If you want to implement a rename operation in the user interface the
-edit name (#G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) should be used as the
+edit name (<see cref="FileAttribute.StandardEditName"/>) should be used as the
 initial value in the rename widget, and then the result after editing
 should be passed to <see cref="File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
 </para>
@@ -2115,12 +2117,12 @@ a string
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="IFile"/> specifying what this instance was renamed to,
-    or <c>null</c> if there was an error.
-    Free the returned object with g_object_unref().
+  or <c>null</c> if there was an error.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2150,11 +2152,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -2168,7 +2170,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 a <see cref="IFile"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2212,7 +2214,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 <c>true</c> if the operation finished successfully.
-    <c>false</c> otherwise.
+  <c>false</c> otherwise.
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2237,7 +2239,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 </remarks>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 <c>true</c> on successful trash, <c>false</c> otherwise.
@@ -2256,11 +2258,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied
+  when the request is satisfied
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -2295,7 +2297,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 <c>true</c> if the operation finished successfully.
-    <c>false</c> otherwise.
+  <c>false</c> otherwise.
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2318,7 +2320,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 <c>true</c> if the operation finished successfully.
-    <c>false</c> otherwise.
+  <c>false</c> otherwise.
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2431,7 +2433,7 @@ If the file doesn't already exist it is created.
 <remarks>
 <para>
 By default files created are generally readable by everyone,
-but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
+but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level that
 is supported on the target filesystem.
 </para>
@@ -2456,11 +2458,11 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileOutputStream"/>, or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2493,8 +2495,42 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
+</member>
+
+<member name='File.BuildAttributeListForCopy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Prepares the file attribute query string for copying to <paramref name="file"/>.
+</summary>
+<remarks>
+<para>
+This function prepares an attribute query string to be
+passed to <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> to get a list of attributes
+normally copied with the file (see <see cref="File.CopyAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.Cancellable)"/>
+for the detailed description). This function is used by the
+implementation of <see cref="File.CopyAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.Cancellable)"/> and is useful
+when one needs to query and set the attributes in two
+stages (e.g., for recursive move of a directory).
+</para>
+</remarks>
+<param name="file">
+a <see cref="IFile"/> to copy attributes to
+</param>
+<param name="flags">
+a set of <see cref="FileCopyFlags"/>
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object,
+  <c>null</c> to ignore
+</param>
+<returns>
+an attribute query string for <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>,
+  or <c>null</c> if an error occurs.
+</returns>
+<exception name="GISharp.Lib.GLib.Error.Exception">
+On error
+</exception>
 </member>
 
 <member name='File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)'>
@@ -2504,16 +2540,16 @@ Can not handle recursive copies of directories.
 </summary>
 <remarks>
 <para>
-If the flag #G_FILE_COPY_OVERWRITE is specified an already
+If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
 </para>
 <para>
-If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
+If the flag <see cref="FileCopyFlags.NoFollowSymlinks"/> is specified then symlinks
 will be copied as symlinks, otherwise the target of the
 <paramref name="source"/> symlink will be copied.
 </para>
 <para>
-If the flag #G_FILE_COPY_ALL_METADATA is specified then all the metadata
+If the flag <see cref="FileCopyFlags.AllMetadata"/> is specified then all the metadata
 that is possible to copy is copied, not just the default subset (which,
 for instance, does not include the owner, see <see cref="FileInfo"/>).
 </para>
@@ -2534,7 +2570,7 @@ If the <paramref name="source"/> file does not exist, then the <see cref="IOErro
 is returned, independent on the status of the <paramref name="destination"/>.
 </para>
 <para>
-If #G_FILE_COPY_OVERWRITE is not specified and the target exists, then
+If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists, then
 the error <see cref="IOErrorEnum.Exists"/> is returned.
 </para>
 <para>
@@ -2544,7 +2580,7 @@ error is returned. If trying to overwrite a directory with a directory the
 </para>
 <para>
 If the source is a directory and the target does not exist, or
-#G_FILE_COPY_OVERWRITE is specified and the target is a file, then the
+<see cref="FileCopyFlags.Overwrite"/> is specified and the target is a file, then the
 <see cref="IOErrorEnum.WouldRecurse"/> error is returned.
 </para>
 <para>
@@ -2563,11 +2599,11 @@ set of <see cref="FileCopyFlags"/>
 </param>
 <param name="progressCallback">
 function to callback with
-    progress information, or <c>null</c> if progress information is not needed
+  progress information, or <c>null</c> if progress information is not needed
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2605,11 +2641,11 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <param name="progressCallback">
 function to callback with progress
-    information, or <c>null</c> if progress information is not needed
+  information, or <c>null</c> if progress information is not needed
 </param>
 </member>
 
@@ -2622,7 +2658,7 @@ Copies the file attributes from <paramref name="source"/> to <paramref name="des
 Normally only a subset of the file attributes are copied,
 those that are copies in a normal file copy operation
 (which for instance does not include e.g. owner). However
-if #G_FILE_COPY_ALL_METADATA is specified in <paramref name="flags"/>, then
+if <see cref="FileCopyFlags.AllMetadata"/> is specified in <paramref name="flags"/>, then
 all the metadata that is possible to copy is copied. This
 is useful when implementing move by copy + delete source.
 </para>
@@ -2638,7 +2674,7 @@ a set of <see cref="FileCopyFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2653,7 +2689,7 @@ The file must not already exist.
 <remarks>
 <para>
 By default files created are generally readable by everyone,
-but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
+but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level
 that is supported on the target filesystem.
 </para>
@@ -2680,12 +2716,12 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileOutputStream"/> for the newly created
-    file, or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  file, or <c>null</c> on error.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2719,7 +2755,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -2731,7 +2767,7 @@ writing to it. The file must not already exist.
 <remarks>
 <para>
 By default files created are generally readable by everyone,
-but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
+but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level
 that is supported on the target filesystem.
 </para>
@@ -2763,12 +2799,12 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileIOStream"/> for the newly created
-    file, or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  file, or <c>null</c> on error.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2802,7 +2838,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -2839,7 +2875,7 @@ input <see cref="IFile"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2860,7 +2896,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -2886,7 +2922,7 @@ input <see cref="IFile"/>
 </param>
 <returns>
 a new <see cref="IFile"/> that is a duplicate
-    of the given <see cref="IFile"/>.
+  of the given <see cref="IFile"/>.
 </returns>
 </member>
 
@@ -2973,8 +3009,8 @@ input <see cref="IFile"/>
 </param>
 <returns>
 string containing the <see cref="IFile"/>'s
-    base name, or <c>null</c> if given <see cref="IFile"/> is invalid. The returned string
-    should be freed with g_free() when no longer needed.
+  base name, or <c>null</c> if given <see cref="IFile"/> is invalid. The returned string
+  should be freed with g_free() when no longer needed.
 </returns>
 </member>
 
@@ -3000,7 +3036,7 @@ string containing the child's basename
 </param>
 <returns>
 a <see cref="IFile"/> to a child specified by <paramref name="name"/>.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 </member>
 
@@ -3026,8 +3062,8 @@ string to a possible child
 </param>
 <returns>
 a <see cref="IFile"/> to the specified child, or
-    <c>null</c> if the display name couldn't be converted.
-    Free the returned object with g_object_unref().
+  <c>null</c> if the display name couldn't be converted.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -3050,8 +3086,8 @@ input <see cref="IFile"/>
 </param>
 <returns>
 a <see cref="IFile"/> structure to the
-    parent of the given <see cref="IFile"/> or <c>null</c> if there is no parent. Free
-    the returned object with g_object_unref().
+  parent of the given <see cref="IFile"/> or <c>null</c> if there is no parent. Free
+  the returned object with g_object_unref().
 </returns>
 </member>
 
@@ -3082,8 +3118,8 @@ input <see cref="IFile"/>
 </param>
 <returns>
 a string containing the <see cref="IFile"/>'s parse name.
-    The returned string should be freed with g_free()
-    when no longer needed.
+  The returned string should be freed with g_free()
+  when no longer needed.
 </returns>
 </member>
 
@@ -3102,8 +3138,8 @@ input <see cref="IFile"/>
 </param>
 <returns>
 string containing the <see cref="IFile"/>'s path,
-    or <c>null</c> if no such path exists. The returned string should be freed
-    with g_free() when no longer needed.
+  or <c>null</c> if no such path exists. The returned string should be freed
+  with g_free() when no longer needed.
 </returns>
 </member>
 
@@ -3124,9 +3160,9 @@ input <see cref="IFile"/>
 </param>
 <returns>
 string with the relative path from
-    <paramref name="descendant"/> to <paramref name="parent"/>, or <c>null</c> if <paramref name="descendant"/> doesn't have <paramref name="parent"/> as
-    prefix. The returned string should be freed with g_free() when
-    no longer needed.
+  <paramref name="descendant"/> to <paramref name="parent"/>, or <c>null</c> if <paramref name="descendant"/> doesn't have <paramref name="parent"/> as
+  prefix. The returned string should be freed with g_free() when
+  no longer needed.
 </returns>
 </member>
 
@@ -3144,9 +3180,9 @@ input <see cref="IFile"/>
 </param>
 <returns>
 a string containing the <see cref="IFile"/>'s URI. If the <see cref="IFile"/> was constructed
-    with an invalid URI, an invalid URI is returned.
-    The returned string should be freed with g_free()
-    when no longer needed.
+  with an invalid URI, an invalid URI is returned.
+  The returned string should be freed with g_free()
+  when no longer needed.
 </returns>
 </member>
 
@@ -3173,8 +3209,8 @@ input <see cref="IFile"/>
 </param>
 <returns>
 a string containing the URI scheme for the given
-    <see cref="IFile"/> or <c>null</c> if the <see cref="IFile"/> was constructed with an invalid URI. The
-    returned string should be freed with g_free() when no longer needed.
+  <see cref="IFile"/> or <c>null</c> if the <see cref="IFile"/> was constructed with an invalid URI. The
+  returned string should be freed with g_free() when no longer needed.
 </returns>
 </member>
 
@@ -3197,7 +3233,7 @@ the parent to check for, or <c>null</c>
 </param>
 <returns>
 <c>true</c> if <paramref name="file"/> is an immediate child of <paramref name="parent"/> (or any parent in
-         the case that <paramref name="parent"/> is <c>null</c>).
+  the case that <paramref name="parent"/> is <c>null</c>).
 </returns>
 </member>
 
@@ -3231,7 +3267,7 @@ input <see cref="IFile"/>
 </param>
 <returns>
 <c>true</c> if the <paramref name="file"/>'s parent, grandparent, etc is <paramref name="prefix"/>,
-    <c>false</c> otherwise.
+  <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -3252,8 +3288,8 @@ a string containing a URI scheme
 </param>
 <returns>
 <c>true</c> if <see cref="IFile"/>'s backend supports the
-    given URI scheme, <c>false</c> if URI scheme is <c>null</c>,
-    not supported, or <see cref="IFile"/> is invalid.
+  given URI scheme, <c>false</c> if URI scheme is <c>null</c>,
+  not supported, or <see cref="IFile"/> is invalid.
 </returns>
 </member>
 
@@ -3271,9 +3307,9 @@ This call does no blocking I/O.
 </param>
 <returns>
 0 if <paramref name="file"/> is not a valid <see cref="IFile"/>, otherwise an
-    integer that can be used as hash value for the <see cref="IFile"/>.
-    This function is intended for easily hashing a <see cref="IFile"/> to
-    add to a #GHashTable or similar data structure.
+  integer that can be used as hash value for the <see cref="IFile"/>.
+  This function is intended for easily hashing a <see cref="IFile"/> to
+  add to a #GHashTable or similar data structure.
 </returns>
 </member>
 
@@ -3328,7 +3364,7 @@ a <see cref="IFile"/>
 </param>
 <param name="etagOut">
 a location to place the current
-    entity tag for the file, or <c>null</c> if the entity tag is not needed
+  entity tag for the file, or <c>null</c> if the entity tag is not needed
 </param>
 <param name="cancellable">
 a <see cref="Cancellable"/> or <c>null</c>
@@ -3389,7 +3425,7 @@ a location to place the contents of the file
 </param>
 <param name="etagOut">
 a location to place the current entity tag for the file,
-   or <c>null</c> if the entity tag is not needed
+  or <c>null</c> if the entity tag is not needed
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore
@@ -3447,7 +3483,7 @@ a location to place the contents of the file
 </param>
 <param name="etagOut">
 a location to place the current entity tag for the file,
-    or <c>null</c> if the entity tag is not needed
+  or <c>null</c> if the entity tag is not needed
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -3480,7 +3516,7 @@ input <see cref="IFile"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -3499,7 +3535,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -3528,7 +3564,7 @@ input <see cref="IFile"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -3552,11 +3588,11 @@ a <see cref="IFile"/> with the name of the symlink to create
 </param>
 <param name="symlinkValue">
 a string with the path for the target
-    of the new symlink
+  of the new symlink
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -3622,7 +3658,7 @@ a <see cref="IAsyncResult"/>
 </param>
 <returns>
 a <see cref="IFile"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -3639,7 +3675,7 @@ inside the same filesystem), but the fallback code does not.
 </summary>
 <remarks>
 <para>
-If the flag #G_FILE_COPY_OVERWRITE is specified an already
+If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
 </para>
 <para>
@@ -3659,7 +3695,7 @@ If the <paramref name="source"/> file does not exist, then the <see cref="IOErro
 error is returned, independent on the status of the <paramref name="destination"/>.
 </para>
 <para>
-If #G_FILE_COPY_OVERWRITE is not specified and the target exists,
+If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists,
 then the error <see cref="IOErrorEnum.Exists"/> is returned.
 </para>
 <para>
@@ -3669,7 +3705,7 @@ error is returned. If trying to overwrite a directory with a directory the
 </para>
 <para>
 If the source is a directory and the target does not exist, or
-#G_FILE_COPY_OVERWRITE is specified and the target is a file, then
+<see cref="FileCopyFlags.Overwrite"/> is specified and the target is a file, then
 the <see cref="IOErrorEnum.WouldRecurse"/> error may be returned (if the native
 move operation isn't available).
 </para>
@@ -3685,11 +3721,11 @@ set of <see cref="FileCopyFlags"/>
 </param>
 <param name="progressCallback">
 <see cref="FileProgressCallback"/>
-    function for updates
+  function for updates
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -3727,7 +3763,7 @@ a <see cref="Cancellable"/>
 </param>
 <returns>
 <see cref="FileIOStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -3757,7 +3793,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -3779,13 +3815,13 @@ input <see cref="IFile"/>
 </param>
 <returns>
 string containing the <see cref="IFile"/>'s path,
-    or <c>null</c> if no such path exists. The returned string is owned by <paramref name="file"/>.
+  or <c>null</c> if no such path exists. The returned string is owned by <paramref name="file"/>.
 </returns>
 </member>
 
 <member name='File.PollMountable(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Polls a file of type #G_FILE_TYPE_MOUNTABLE.
+Polls a file of type <see cref="FileType.Mountable"/>.
 </summary>
 <remarks>
 <para>
@@ -3804,7 +3840,7 @@ input <see cref="IFile"/>
 </param>
 <param name="callback">
 a <see cref="AsyncReadyCallback"/> to call
-    when the request is satisfied, or <c>null</c>
+  when the request is satisfied, or <c>null</c>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore
@@ -3867,11 +3903,11 @@ input <see cref="IFile"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 <c>true</c> if the file exists (and can be detected without error),
-    <c>false</c> otherwise (or if cancelled).
+  <c>false</c> otherwise (or if cancelled).
 </returns>
 </member>
 
@@ -3894,11 +3930,11 @@ a set of <see cref="FileQueryInfoFlags"/> passed to <see cref="File.QueryInfo(GI
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
-The <see cref="FileType"/> of the file and #G_FILE_TYPE_UNKNOWN
-    if the file does not exist
+The <see cref="FileType"/> of the file and <see cref="FileType.Unknown"/>
+  if the file does not exist
 </returns>
 </member>
 
@@ -3919,9 +3955,9 @@ attributes or attribute wildcards. The wildcard "*" means all
 attributes, and a wildcard like "filesystem::*" means all attributes
 in the filesystem namespace. The standard namespace for filesystem
 attributes is "filesystem". Common attributes of interest are
-#G_FILE_ATTRIBUTE_FILESYSTEM_SIZE (the total size of the filesystem
-in bytes), #G_FILE_ATTRIBUTE_FILESYSTEM_FREE (number of bytes available),
-and #G_FILE_ATTRIBUTE_FILESYSTEM_TYPE (type of the filesystem).
+<see cref="FileAttribute.FilesystemSize"/> (the total size of the filesystem
+in bytes), <see cref="FileAttribute.FilesystemFree"/> (number of bytes available),
+and <see cref="FileAttribute.FilesystemType"/> (type of the filesystem).
 </para>
 <para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
@@ -3943,11 +3979,11 @@ an attribute query string
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileInfo"/> or <c>null</c> if there was an error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -3983,7 +4019,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -4004,7 +4040,7 @@ The wildcard "*" means all attributes, and a wildcard like
 "standard::*" means all attributes in the standard namespace.
 An example attribute query be "standard::*,owner::user".
 The standard attributes are available as defines, like
-#G_FILE_ATTRIBUTE_STANDARD_NAME.
+<see cref="FileAttribute.StandardName"/>.
 </para>
 <para>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
@@ -4015,7 +4051,7 @@ returned.
 <para>
 For symlinks, normally the information about the target of the
 symlink is returned, rather than information about the symlink
-itself. However if you pass #G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS
+itself. However if you pass <see cref="FileQueryInfoFlags.NoFollowSymlinks"/>
 in <paramref name="flags"/> the information about the symlink itself will be returned.
 Also, for symlinks that point to non-existing files the information
 about the symlink itself will be returned.
@@ -4037,11 +4073,11 @@ a set of <see cref="FileQueryInfoFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileInfo"/> for the given <paramref name="file"/>, or <c>null</c>
-    on error. Free the returned object with g_object_unref().
+  on error. Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4078,7 +4114,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -4104,12 +4140,12 @@ input <see cref="IFile"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileAttributeInfoList"/> describing the settable attributes.
-    When you are done with it, release it with
-    <see cref="FileAttributeInfoList.Unref()"/>
+  When you are done with it, release it with
+  <see cref="FileAttributeInfoList.Unref()"/>
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4134,12 +4170,12 @@ input <see cref="IFile"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileAttributeInfoList"/> describing the writable namespaces.
-    When you are done with it, release it with
-    <see cref="FileAttributeInfoList.Unref()"/>
+  When you are done with it, release it with
+  <see cref="FileAttributeInfoList.Unref()"/>
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4172,7 +4208,7 @@ a <see cref="Cancellable"/>
 </param>
 <returns>
 <see cref="FileInputStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4202,7 +4238,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -4222,7 +4258,7 @@ the destination when the stream is closed.
 </para>
 <para>
 By default files created are generally readable by everyone,
-but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
+but if you pass <see cref="FileCreateFlags.Private"/> in <paramref name="flags"/> the file
 will be made readable only to the current user, to the level that
 is supported on the target filesystem.
 </para>
@@ -4263,7 +4299,7 @@ input <see cref="IFile"/>
 </param>
 <param name="etag">
 an optional [entity tag][gfile-etag]
-    for the current <see cref="IFile"/>, or #NULL to ignore
+  for the current <see cref="IFile"/>, or #NULL to ignore
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -4273,11 +4309,11 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileOutputStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4305,7 +4341,7 @@ input <see cref="IFile"/>
 </param>
 <param name="etag">
 an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-    or <c>null</c> to ignore
+  or <c>null</c> to ignore
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -4318,7 +4354,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -4355,7 +4391,7 @@ a string containing the new contents for <paramref name="file"/>
 </param>
 <param name="etag">
 the old [entity-tag][gfile-etag] for the document,
-    or <c>null</c>
+  or <c>null</c>
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -4365,8 +4401,8 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="newEtag">
 a location to a new [entity tag][gfile-etag]
-     for the document. This should be freed with g_free() when no longer
-     needed, or <c>null</c>
+  for the document. This should be freed with g_free() when no longer
+  needed, or <c>null</c>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore
@@ -4480,7 +4516,7 @@ a <see cref="IFile"/>
 </param>
 <param name="etag">
 an optional [entity tag][gfile-etag]
-    for the current <see cref="IFile"/>, or #NULL to ignore
+  for the current <see cref="IFile"/>, or #NULL to ignore
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -4490,11 +4526,11 @@ a set of <see cref="FileCreateFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="FileIOStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4523,7 +4559,7 @@ input <see cref="IFile"/>
 </param>
 <param name="etag">
 an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-    or <c>null</c> to ignore
+  or <c>null</c> to ignore
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -4536,7 +4572,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -4548,6 +4584,10 @@ Resolves a relative path for <paramref name="file"/> to an absolute path.
 <para>
 This call does no blocking I/O.
 </para>
+<para>
+If the <paramref name="relativePath"/> is an absolute path name, the resolution
+is done absolutely (without taking <paramref name="file"/> path as base).
+</para>
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -4556,9 +4596,7 @@ input <see cref="IFile"/>
 a given relative path string
 </param>
 <returns>
-<see cref="IFile"/> to the resolved path.
-    <c>null</c> if <paramref name="relativePath"/> is <c>null</c> or if <paramref name="file"/> is invalid.
-    Free the returned object with g_object_unref().
+a <see cref="IFile"/> for the resolved path.
 </returns>
 </member>
 
@@ -4588,14 +4626,14 @@ The type of the attribute
 </param>
 <param name="valueP">
 a pointer to the value (or the pointer
-    itself if the type is a pointer type)
+  itself if the type is a pointer type)
 </param>
 <param name="flags">
 a set of <see cref="FileQueryInfoFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4629,7 +4667,7 @@ a <see cref="FileQueryInfoFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4662,7 +4700,7 @@ a <see cref="FileQueryInfoFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4695,7 +4733,7 @@ a <see cref="FileQueryInfoFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4728,7 +4766,7 @@ a string containing the attribute's value
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4761,7 +4799,7 @@ a <see cref="FileQueryInfoFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4794,7 +4832,7 @@ a <see cref="FileQueryInfoFlags"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4830,7 +4868,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -4864,7 +4902,7 @@ a <see cref="FileInfo"/>
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4882,7 +4920,7 @@ for the target filesystem if possible and the <paramref name="file"/> is renamed
 </para>
 <para>
 If you want to implement a rename operation in the user interface the
-edit name (#G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) should be used as the
+edit name (<see cref="FileAttribute.StandardEditName"/>) should be used as the
 initial value in the rename widget, and then the result after editing
 should be passed to <see cref="File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Runtime.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
 </para>
@@ -4903,12 +4941,12 @@ a string
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <returns>
 a <see cref="IFile"/> specifying what <paramref name="file"/> was renamed to,
-    or <c>null</c> if there was an error.
-    Free the returned object with g_object_unref().
+  or <c>null</c> if there was an error.
+  Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -4941,7 +4979,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 
@@ -5023,7 +5061,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -5042,7 +5080,7 @@ the [I/O priority][io-priority] of the request
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
+  <c>null</c> to ignore
 </param>
 </member>
 

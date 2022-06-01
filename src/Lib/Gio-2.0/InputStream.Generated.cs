@@ -379,7 +379,7 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:1 transfer-ownership:none */
         byte* buffer,
         /* <type name="gsize" type="gsize" /> */
-        /* direction:in caller-allocates:0 transfer-ownership:full */
+        /* transfer-ownership:none direction:in */
         nuint count,
         /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
@@ -475,7 +475,7 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:1 transfer-ownership:none */
         byte* buffer,
         /* <type name="gsize" type="gsize" /> */
-        /* direction:in caller-allocates:0 transfer-ownership:full */
+        /* transfer-ownership:none direction:in */
         nuint count,
         /* <type name="gsize" type="gsize*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
@@ -565,7 +565,7 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:1 transfer-ownership:none */
         byte* buffer,
         /* <type name="gsize" type="gsize" /> */
-        /* direction:in caller-allocates:0 transfer-ownership:full */
+        /* transfer-ownership:none direction:in */
         nuint count,
         /* <type name="gint" type="int" /> */
         /* transfer-ownership:none direction:in */
@@ -741,7 +741,7 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:1 transfer-ownership:none */
         byte* buffer,
         /* <type name="gsize" type="gsize" /> */
-        /* direction:in caller-allocates:0 transfer-ownership:full */
+        /* transfer-ownership:none direction:in */
         nuint count,
         /* <type name="gint" type="int" /> */
         /* transfer-ownership:none direction:in */

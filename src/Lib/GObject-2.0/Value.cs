@@ -4,10 +4,9 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
-using clong = GISharp.Runtime.CLong;
-using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
 {
@@ -147,10 +146,10 @@ namespace GISharp.Lib.GObject
                     UInt64 = (ulong)obj!;
                 }
                 else if (fundamentalType == GType.Long) {
-                    Long = (clong)obj!;
+                    Long = (CLong)obj!;
                 }
                 else if (fundamentalType == GType.ULong) {
-                    ULong = (culong)obj!;
+                    ULong = (CULong)obj!;
                 }
                 else if (fundamentalType == GType.Object) {
                     Object = (Object?)obj;
@@ -369,43 +368,43 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Converts a <see cref="Value"/> to a <see cref="clong"/>.
+        /// Converts a <see cref="Value"/> to a <see cref="CLong"/>.
         /// </summary>
-        public static explicit operator clong(Value value)
+        public static explicit operator CLong(Value value)
         {
             try {
                 return value.Long;
             }
             catch (Exception ex) {
-                throw new InvalidCastException("Cannot cast to clong", ex);
+                throw new InvalidCastException("Cannot cast to CLong", ex);
             }
         }
 
         /// <summary>
-        /// Converts a <see cref="clong"/> to a <see cref="Value"/>.
+        /// Converts a <see cref="CLong"/> to a <see cref="Value"/>.
         /// </summary>
-        public static explicit operator Value(clong value)
+        public static explicit operator Value(CLong value)
         {
             return new Value(GType.Long, value);
         }
 
         /// <summary>
-        /// Converts a <see cref="Value"/> to a <see cref="culong"/>.
+        /// Converts a <see cref="Value"/> to a <see cref="CULong"/>.
         /// </summary>
-        public static explicit operator culong(Value value)
+        public static explicit operator CULong(Value value)
         {
             try {
                 return value.ULong;
             }
             catch (Exception ex) {
-                throw new InvalidCastException("Cannot cast to culong", ex);
+                throw new InvalidCastException("Cannot cast to CULong", ex);
             }
         }
 
         /// <summary>
-        /// Converts a <see cref="culong"/> to a <see cref="Value"/>.
+        /// Converts a <see cref="CULong"/> to a <see cref="Value"/>.
         /// </summary>
-        public static explicit operator Value(culong value)
+        public static explicit operator Value(CULong value)
         {
             return new Value(GType.ULong, value);
         }
@@ -680,7 +679,7 @@ namespace GISharp.Lib.GObject
             AssertType(GType.Type);
         }
 
-        partial void CheckSetGTypeArgs(GType vGType)
+        partial void CheckSetGTypeArgs(GType vGtype)
         {
             AssertType(GType.Type);
         }
@@ -710,7 +709,7 @@ namespace GISharp.Lib.GObject
             AssertType(GType.Long);
         }
 
-        partial void CheckSetLongArgs(clong vLong)
+        partial void CheckSetLongArgs(CLong vLong)
         {
             AssertType(GType.Long);
         }
@@ -730,7 +729,7 @@ namespace GISharp.Lib.GObject
             AssertType(GType.Param);
         }
 
-        partial void CheckSetParamArgs(ParamSpec? vParam)
+        partial void CheckSetParamArgs(ParamSpec? param)
         {
             AssertType(GType.Param);
         }
@@ -800,7 +799,7 @@ namespace GISharp.Lib.GObject
             AssertType(GType.ULong);
         }
 
-        partial void CheckSetULongArgs(culong vULong)
+        partial void CheckSetULongArgs(CULong vUlong)
         {
             AssertType(GType.ULong);
         }
@@ -810,7 +809,7 @@ namespace GISharp.Lib.GObject
             AssertType(GType.Variant);
         }
 
-        partial void CheckSetVariantArgs(Variant? vVariant)
+        partial void CheckSetVariantArgs(Variant? variant)
         {
             AssertType(GType.Variant);
         }

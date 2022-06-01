@@ -80,6 +80,84 @@ namespace GISharp.Lib.GObject
         private static extern GISharp.Runtime.GType g_binding_get_type();
 
         /// <summary>
+        /// Retrieves the #GObject instance used as the source of the binding.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// A #GBinding can outlive the source #GObject as the binding does not hold a
+        /// strong reference to the source. If the source is destroyed before the
+        /// binding then this function will return %NULL.
+        /// </para>
+        /// </remarks>
+        /// <param name="binding">
+        /// a #GBinding
+        /// </param>
+        /// <returns>
+        /// the source #GObject, or %NULL if the
+        ///     source does not exist any more.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:in */
+        private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_binding_dup_source(
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
+        partial void CheckDupSourceArgs();
+
+        /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.DupSource()']/*" />
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        public GISharp.Lib.GObject.Object? DupSource()
+        {
+            CheckDupSourceArgs();
+            var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_binding_dup_source(binding_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Retrieves the #GObject instance used as the target of the binding.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// A #GBinding can outlive the target #GObject as the binding does not hold a
+        /// strong reference to the target. If the target is destroyed before the
+        /// binding then this function will return %NULL.
+        /// </para>
+        /// </remarks>
+        /// <param name="binding">
+        /// a #GBinding
+        /// </param>
+        /// <returns>
+        /// the target #GObject, or %NULL if the
+        ///     target does not exist any more.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Object" type="GObject*" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:in */
+        private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_binding_dup_target(
+        /* <type name="Binding" type="GBinding*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GObject.Binding.UnmanagedStruct* binding);
+        partial void CheckDupTargetArgs();
+
+        /// <include file="Binding.xmldoc" path="declaration/member[@name='Binding.DupTarget()']/*" />
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        public GISharp.Lib.GObject.Object? DupTarget()
+        {
+            CheckDupTargetArgs();
+            var binding_ = (GISharp.Lib.GObject.Binding.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_binding_dup_target(binding_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
         /// Retrieves the flags passed when constructing the #GBinding.
         /// </summary>
         /// <param name="binding">

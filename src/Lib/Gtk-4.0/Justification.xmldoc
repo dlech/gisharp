@@ -26,7 +26,7 @@ The text is placed is distributed across the label.
 
 <member name='Justification'>
 <summary>
-Used for justifying the text inside a `GtkLabel` widget.
+Used for justifying the text inside a [class<c>label</c>] widget.
 </summary>
 </member>
 

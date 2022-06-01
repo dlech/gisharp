@@ -51,3 +51,13 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ModuleUnload']
+
+# TODO
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ModuleError']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='Module']/gi:function[@name='error_quark']

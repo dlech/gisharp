@@ -14,7 +14,7 @@ The layer rendered above the text.
 
 <member name='TextViewLayer'>
 <summary>
-Used to reference the layers of #GtkTextView for the purpose of customized
+Used to reference the layers of `GtkTextView` for the purpose of customized
 drawing with the ::snapshot_layer vfunc.
 </summary>
 </member>

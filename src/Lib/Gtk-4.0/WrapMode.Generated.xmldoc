@@ -9,8 +9,8 @@ do not wrap lines; just make the text area wider
 <member name='WrapMode.Char'>
 <summary>
 wrap text, breaking lines anywhere the cursor can
-    appear (between characters, usually - if you want to be technical,
-    between graphemes, see pango_get_log_attrs())
+  appear (between characters, usually - if you want to be technical,
+  between graphemes, see pango_get_log_attrs())
 </summary>
 </member>
 
@@ -23,7 +23,7 @@ wrap text, breaking lines in between words
 <member name='WrapMode.WordChar'>
 <summary>
 wrap text, breaking lines in between words, or if
-    that is not enough, also between graphemes
+  that is not enough, also between graphemes
 </summary>
 </member>
 

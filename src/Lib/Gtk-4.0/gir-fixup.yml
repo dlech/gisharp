@@ -2590,3 +2590,31 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='value_take_expression']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='NaturalWrapMode']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:class[@name='PasswordEntryBuffer']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='PasswordEntryBufferClass']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SymbolicColor']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:interface[@name='SymbolicPaintable']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='SymbolicPaintableInterface']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:constant[@name='INVALID_LIST_POSITION']

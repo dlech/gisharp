@@ -11,8 +11,6 @@ using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
-using culong = GISharp.Runtime.CULong;
-
 namespace GISharp.Lib.GObject
 {
     unsafe partial class Object : INotifyPropertyChanged
@@ -98,7 +96,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        readonly ConcurrentDictionary<string, LinkedList<(IntPtr, culong)>> eventSignalHandlers = new();
+        readonly ConcurrentDictionary<string, LinkedList<(IntPtr, CULong)>> eventSignalHandlers = new();
 
         /// <summary>
         /// Connects event handler as signal.
@@ -111,7 +109,7 @@ namespace GISharp.Lib.GObject
 
             var (ret, data, data_) = this.ConnectData(signal, handler);
 
-            if (ret == 0) {
+            if (ret.Value == 0) {
                 // TODO: better exception
                 throw new Exception("Failed to connect signal.");
             }
@@ -178,7 +176,7 @@ namespace GISharp.Lib.GObject
 
         PropertyChangedEventHandler? propertyChangedHandler;
         readonly object propertyChangedHandlerLock = new();
-        culong notifySignalHandler;
+        CULong notifySignalHandler;
 
         private readonly Utf8 notifySignalName = "notify";
 
@@ -208,7 +206,7 @@ namespace GISharp.Lib.GObject
                 lock (propertyChangedHandlerLock) {
                     propertyChangedHandler -= value;
                     if (propertyChangedHandler is null) {
-                        if (notifySignalHandler != default) {
+                        if (notifySignalHandler.Value != default) {
                             Signal.HandlerDisconnect(this, notifySignalHandler);
                             notifySignalHandler = default;
                         }

@@ -2,16 +2,16 @@
 
 <member name='SpinButtonUpdatePolicy.Always'>
 <summary>
-When refreshing your #GtkSpinButton, the value is
-    always displayed
+When refreshing your `GtkSpinButton`, the value is
+  always displayed
 </summary>
 </member>
 
 <member name='SpinButtonUpdatePolicy.IfValid'>
 <summary>
-When refreshing your #GtkSpinButton, the value is
-    only displayed if it is valid within the bounds of the spin button's
-    adjustment
+When refreshing your `GtkSpinButton`, the value is
+  only displayed if it is valid within the bounds of the spin button's
+  adjustment
 </summary>
 </member>
 

@@ -9,14 +9,14 @@ A “busy” state. This state has boolean values
 <member name='AccessibleState.Checked'>
 <summary>
 A “checked” state; indicates the current
-  state of a #GtkCheckButton. Value type: <see cref="AccessibleTristate"/>
+  state of a [class<c>checkButton</c>]. Value type: [enum<c>accessibleTristate</c>]
 </summary>
 </member>
 
 <member name='AccessibleState.Disabled'>
 <summary>
 A “disabled” state; corresponds to the
-  #GtkWidget:sensitive property on #GtkWidget. It indicates a UI element
+  [property<c>widget</c>:sensitive] property. It indicates a UI element
   that is perceivable, but not editable or operable. Value type: boolean
 </summary>
 </member>
@@ -24,7 +24,7 @@ A “disabled” state; corresponds to the
 <member name='AccessibleState.Expanded'>
 <summary>
 An “expanded” state; corresponds to the
-  #GtkExpander:expanded property on #GtkExpander. Value type: boolean
+  [property<c>expander</c>:expanded] property. Value type: boolean
   or undefined
 </summary>
 </member>
@@ -32,7 +32,7 @@ An “expanded” state; corresponds to the
 <member name='AccessibleState.Hidden'>
 <summary>
 A “hidden” state; corresponds to the
-  #GtkWidget:visible property on #GtkWidget. You can use this state
+  [property<c>widget</c>:visible] property. You can use this state
   explicitly on UI elements that should not be exposed to an assistive
   technology. Value type: boolean
   See also: <see cref="AccessibleState.Disabled"/>
@@ -42,14 +42,14 @@ A “hidden” state; corresponds to the
 <member name='AccessibleState.Invalid'>
 <summary>
 An “invalid” state; set when a widget
-  is showing an error. Value type: <see cref="AccessibleInvalidState"/>
+  is showing an error. Value type: [enum<c>accessibleInvalidState</c>]
 </summary>
 </member>
 
 <member name='AccessibleState.Pressed'>
 <summary>
 A “pressed” state; indicates the current
-  state of a #GtkToggleButton. Value type: <see cref="AccessibleTristate"/>
+  state of a [class<c>toggleButton</c>]. Value type: [enum<c>accessibleTristate</c>]
   enumeration
 </summary>
 </member>
@@ -63,7 +63,7 @@ A “selected” state; set when a widget
 
 <member name='AccessibleState'>
 <summary>
-The possible accessible states of a `GtkAccessible`.
+The possible accessible states of a [iface<c>accessible</c>].
 </summary>
 </member>
 

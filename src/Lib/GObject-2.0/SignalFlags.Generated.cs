@@ -26,6 +26,9 @@ namespace GISharp.Lib.GObject
         MustCollect = 0b0000_0000_0000_0000_0000_0000_1000_0000,
         /// <include file="SignalFlags.xmldoc" path="declaration/member[@name='SignalFlags.Deprecated']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        Deprecated = 0b0000_0000_0000_0000_0000_0001_0000_0000
+        Deprecated = 0b0000_0000_0000_0000_0000_0001_0000_0000,
+        /// <include file="SignalFlags.xmldoc" path="declaration/member[@name='SignalFlags.AccumulatorFirstRun']/*" />
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        AccumulatorFirstRun = 0b0000_0000_0000_0010_0000_0000_0000_0000
     }
 }

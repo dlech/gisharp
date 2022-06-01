@@ -19,6 +19,10 @@ namespace GISharp.Lib.GIRepository
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.ClassStruct']/*" />
         public GISharp.Lib.GIRepository.StructInfo? ClassStruct { get => GetClassStruct(); }
 
+        /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.Final']/*" />
+        [GISharp.Runtime.SinceAttribute("1.70")]
+        public bool Final { get => GetFinal(); }
+
         /// <include file="ObjectInfo.xmldoc" path="declaration/member[@name='ObjectInfo.Fundamental']/*" />
         public bool Fundamental { get => GetFundamental(); }
 
@@ -426,6 +430,37 @@ namespace GISharp.Lib.GIRepository
             var ret_ = g_object_info_get_field(info_,n_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FieldInfo.GetInstance<GISharp.Lib.GIRepository.FieldInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks whether the object type is a final type, i.e. if it cannot
+        /// be derived
+        /// </summary>
+        /// <param name="info">
+        /// a #GIObjectInfo
+        /// </param>
+        /// <returns>
+        /// %TRUE if the object type is final
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("1.70")]
+        [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Runtime.Boolean g_object_info_get_final(
+        /* <type name="ObjectInfo" type="GIObjectInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct* info);
+        partial void CheckGetFinalArgs();
+
+        [GISharp.Runtime.SinceAttribute("1.70")]
+        private bool GetFinal()
+        {
+            CheckGetFinalArgs();
+            var info_ = (GISharp.Lib.GIRepository.ObjectInfo.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_object_info_get_final(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

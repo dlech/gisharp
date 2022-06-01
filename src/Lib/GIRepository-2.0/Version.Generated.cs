@@ -16,7 +16,7 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.compileTimeMinorVersion']/*" />
         [GISharp.Runtime.SinceAttribute("1.60")]
-        private const int compileTimeMinorVersion = 68;
+        private const int compileTimeMinorVersion = 72;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.RunTimeMajorVersion']/*" />
         [GISharp.Runtime.SinceAttribute("1.60")]

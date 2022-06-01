@@ -16,7 +16,9 @@ The detail passed on for this emission
 <summary>
 The stage the signal emission is currently in, this
  field will contain one of <see cref="SignalFlags.RunFirst"/>,
- <see cref="SignalFlags.RunLast"/> or <see cref="SignalFlags.RunCleanup"/>.
+ <see cref="SignalFlags.RunLast"/> or <see cref="SignalFlags.RunCleanup"/> and <see cref="SignalFlags.AccumulatorFirstRun"/>.
+ <see cref="SignalFlags.AccumulatorFirstRun"/> is only set for the first run of the accumulator
+ function for a signal emission.
 </summary>
 </member>
 

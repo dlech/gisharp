@@ -287,7 +287,7 @@ wrong source.
 the ID of the source to remove.
 </param>
 <returns>
-For historical reasons, this function always returns <c>true</c>
+<c>true</c> if the source was found and removed.
 </returns>
 </member>
 
@@ -477,6 +477,10 @@ This does not dispose the <see cref="Source"/> object.
 This function is safe to call from any thread, regardless of which thread
 the <see cref="MainContext"/> is running in.
 </para>
+<para>
+If the source is currently attached to a <see cref="MainContext"/>, destroying it
+will effectively unset the callback similar to calling <see cref="Source.SetCallback(GISharp.Lib.GLib.SourceFunc)"/>.
+</para>
 </remarks>
 </member>
 
@@ -616,6 +620,10 @@ It is safe to call this function multiple times on a source which has already
 been attached to a context. The changes will take effect for the next time
 the source is dispatched after this call returns.
 </para>
+<para>
+Note that <see cref="Source.Destroy()"/> for a currently attached source has the effect
+of also unsetting the callback.
+</para>
 </remarks>
 <param name="func">
 a callback function
@@ -654,6 +662,17 @@ default implementations) of an unattached source.
 </summary>
 <param name="funcs">
 the new <see cref="SourceFuncs"/>
+</param>
+</member>
+
+<member name='Source.SetStaticName(GISharp.Runtime.UnownedUtf8)'>
+<summary>
+A variant of <see cref="Source.SetName(GISharp.Runtime.UnownedUtf8)"/> that does not
+duplicate the <paramref name="name"/>, and can only be used with
+string literals.
+</summary>
+<param name="name">
+debug name for the source
 </param>
 </member>
 

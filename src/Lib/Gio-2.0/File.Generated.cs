@@ -34,7 +34,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a new #GFile.
-        ///    Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -116,7 +116,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <param name="path">
         /// a string containing a relative or absolute path.
-        ///     The string must be encoded in the glib filename encoding.
+        ///   The string must be encoded in the glib filename encoding.
         /// </param>
         /// <returns>
         /// a new #GFile for the given @path.
@@ -153,7 +153,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a new #GFile for the given @uri.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -203,7 +203,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a new #GFile.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -349,7 +349,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.IFile DoDup();
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoEjectMountableFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
-        [System.ObsoleteAttribute("Use g_file_eject_mountable_with_operation_finish()\n    instead.")]
+        [System.ObsoleteAttribute("Use g_file_eject_mountable_with_operation_finish()\n  instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedEjectMountableFinish))]
         void DoEjectMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
@@ -603,7 +603,7 @@ namespace GISharp.Lib.Gio
         void DoTrashFinish(GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoUnmountMountableFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
-        [System.ObsoleteAttribute("Use g_file_unmount_mountable_with_operation_finish()\n    instead.")]
+        [System.ObsoleteAttribute("Use g_file_unmount_mountable_with_operation_finish()\n  instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedUnmountMountableFinish))]
         void DoUnmountMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
@@ -633,7 +633,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// <para>
         /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in @flags the file
+        /// but if you pass %G_FILE_CREATE_PRIVATE in @flags the file
         /// will be made readable only to the current user, to the level that
         /// is supported on the target filesystem.
         /// </para>
@@ -658,14 +658,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFileOutputStream, or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" /> */
@@ -730,11 +730,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -794,8 +794,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a valid #GFileOutputStream
-        ///     or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   or %NULL on error.
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" /> */
@@ -838,21 +838,92 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Prepares the file attribute query string for copying to @file.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This function prepares an attribute query string to be
+        /// passed to g_file_query_info() to get a list of attributes
+        /// normally copied with the file (see g_file_copy_attributes()
+        /// for the detailed description). This function is used by the
+        /// implementation of g_file_copy_attributes() and is useful
+        /// when one needs to query and set the attributes in two
+        /// stages (e.g., for recursive move of a directory).
+        /// </para>
+        /// </remarks>
+        /// <param name="file">
+        /// a #GFile to copy attributes to
+        /// </param>
+        /// <param name="flags">
+        /// a set of #GFileCopyFlags
+        /// </param>
+        /// <param name="cancellable">
+        /// optional #GCancellable object,
+        ///   %NULL to ignore
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// an attribute query string for g_file_query_info(),
+        ///   or %NULL if an error occurs.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="char*" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        private static extern byte* g_file_build_attribute_list_for_copy(
+        /* <type name="File" type="GFile*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.File.UnmanagedStruct* file,
+        /* <type name="FileCopyFlags" type="GFileCopyFlags" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.FileCopyFlags flags,
+        /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
+        static partial void CheckBuildAttributeListForCopyArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='File.BuildAttributeListForCopy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        public static GISharp.Runtime.Utf8 BuildAttributeListForCopy(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            CheckBuildAttributeListForCopyArgs(file, flags, cancellable);
+            var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
+            var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
+            var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+            var ret_ = g_file_build_attribute_list_for_copy(file_,flags_,cancellable_,&error_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            if (error_ is not null)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Lib.GLib.Error.Exception(error);
+            }
+
+            var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
         /// Copies the file @source to the location specified by @destination.
         /// Can not handle recursive copies of directories.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// If the flag #G_FILE_COPY_OVERWRITE is specified an already
+        /// If the flag %G_FILE_COPY_OVERWRITE is specified an already
         /// existing @destination file is overwritten.
         /// </para>
         /// <para>
-        /// If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
+        /// If the flag %G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
         /// will be copied as symlinks, otherwise the target of the
         /// @source symlink will be copied.
         /// </para>
         /// <para>
-        /// If the flag #G_FILE_COPY_ALL_METADATA is specified then all the metadata
+        /// If the flag %G_FILE_COPY_ALL_METADATA is specified then all the metadata
         /// that is possible to copy is copied, not just the default subset (which,
         /// for instance, does not include the owner, see #GFileInfo).
         /// </para>
@@ -873,7 +944,7 @@ namespace GISharp.Lib.Gio
         /// is returned, independent on the status of the @destination.
         /// </para>
         /// <para>
-        /// If #G_FILE_COPY_OVERWRITE is not specified and the target exists, then
+        /// If %G_FILE_COPY_OVERWRITE is not specified and the target exists, then
         /// the error %G_IO_ERROR_EXISTS is returned.
         /// </para>
         /// <para>
@@ -883,7 +954,7 @@ namespace GISharp.Lib.Gio
         /// </para>
         /// <para>
         /// If the source is a directory and the target does not exist, or
-        /// #G_FILE_COPY_OVERWRITE is specified and the target is a file, then the
+        /// %G_FILE_COPY_OVERWRITE is specified and the target is a file, then the
         /// %G_IO_ERROR_WOULD_RECURSE error is returned.
         /// </para>
         /// <para>
@@ -902,11 +973,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="progressCallback">
         /// function to callback with
-        ///     progress information, or %NULL if progress information is not needed
+        ///   progress information, or %NULL if progress information is not needed
         /// </param>
         /// <param name="progressCallbackData">
         /// user data to pass to @progress_callback
@@ -1000,11 +1071,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="progressCallback">
         /// function to callback with progress
-        ///     information, or %NULL if progress information is not needed
+        ///   information, or %NULL if progress information is not needed
         /// </param>
         /// <param name="progressCallbackData">
         /// user data to pass to @progress_callback
@@ -1076,7 +1147,7 @@ namespace GISharp.Lib.Gio
         /// Normally only a subset of the file attributes are copied,
         /// those that are copies in a normal file copy operation
         /// (which for instance does not include e.g. owner). However
-        /// if #G_FILE_COPY_ALL_METADATA is specified in @flags, then
+        /// if %G_FILE_COPY_ALL_METADATA is specified in @flags, then
         /// all the metadata that is possible to copy is copied. This
         /// is useful when implementing move by copy + delete source.
         /// </para>
@@ -1092,14 +1163,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// %TRUE if the attributes were copied successfully,
-        ///     %FALSE otherwise.
+        ///   %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -1201,7 +1272,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// <para>
         /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in @flags the file
+        /// but if you pass %G_FILE_CREATE_PRIVATE in @flags the file
         /// will be made readable only to the current user, to the level
         /// that is supported on the target filesystem.
         /// </para>
@@ -1228,15 +1299,15 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFileOutputStream for the newly created
-        ///     file, or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   file, or %NULL on error.
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" /> */
@@ -1302,11 +1373,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -1366,7 +1437,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFileOutputStream or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" /> */
@@ -1415,7 +1486,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// <para>
         /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in @flags the file
+        /// but if you pass %G_FILE_CREATE_PRIVATE in @flags the file
         /// will be made readable only to the current user, to the level
         /// that is supported on the target filesystem.
         /// </para>
@@ -1447,15 +1518,15 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFileIOStream for the newly created
-        ///     file, or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   file, or %NULL on error.
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -1523,11 +1594,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -1589,7 +1660,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFileIOStream or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -1664,7 +1735,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -1716,11 +1787,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -1839,7 +1910,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a new #GFile that is a duplicate
-        ///     of the given #GFile.
+        ///   of the given #GFile.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -1876,9 +1947,9 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if the @file was ejected successfully.
-        ///     %FALSE otherwise.
+        ///   %FALSE otherwise.
         /// </returns>
-        [System.ObsoleteAttribute("Use g_file_eject_mountable_with_operation_finish()\n    instead.")]
+        [System.ObsoleteAttribute("Use g_file_eject_mountable_with_operation_finish()\n  instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -1896,7 +1967,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckEjectMountableFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.EjectMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
-        [System.ObsoleteAttribute("Use g_file_eject_mountable_with_operation_finish()\n    instead.")]
+        [System.ObsoleteAttribute("Use g_file_eject_mountable_with_operation_finish()\n  instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         public static void EjectMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -1928,7 +1999,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if the @file was ejected successfully.
-        ///     %FALSE otherwise.
+        ///   %FALSE otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -2034,8 +2105,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// string containing the #GFile's
-        ///     base name, or %NULL if given #GFile is invalid. The returned string
-        ///     should be freed with g_free() when no longer needed.
+        ///   base name, or %NULL if given #GFile is invalid. The returned string
+        ///   should be freed with g_free() when no longer needed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="filename" type="char*" is-pointer="1" /> */
@@ -2078,7 +2149,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFile to a child specified by @name.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -2128,8 +2199,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFile to the specified child, or
-        ///     %NULL if the display name couldn't be converted.
-        ///     Free the returned object with g_object_unref().
+        ///   %NULL if the display name couldn't be converted.
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -2180,8 +2251,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFile structure to the
-        ///     parent of the given #GFile or %NULL if there is no parent. Free
-        ///     the returned object with g_object_unref().
+        ///   parent of the given #GFile or %NULL if there is no parent. Free
+        ///   the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -2229,8 +2300,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a string containing the #GFile's parse name.
-        ///     The returned string should be freed with g_free()
-        ///     when no longer needed.
+        ///   The returned string should be freed with g_free()
+        ///   when no longer needed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" is-pointer="1" /> */
@@ -2266,8 +2337,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// string containing the #GFile's path,
-        ///     or %NULL if no such path exists. The returned string should be freed
-        ///     with g_free() when no longer needed.
+        ///   or %NULL if no such path exists. The returned string should be freed
+        ///   with g_free() when no longer needed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="filename" type="char*" is-pointer="1" /> */
@@ -2305,9 +2376,9 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// string with the relative path from
-        ///     @descendant to @parent, or %NULL if @descendant doesn't have @parent as
-        ///     prefix. The returned string should be freed with g_free() when
-        ///     no longer needed.
+        ///   @descendant to @parent, or %NULL if @descendant doesn't have @parent as
+        ///   prefix. The returned string should be freed with g_free() when
+        ///   no longer needed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="filename" type="char*" is-pointer="1" /> */
@@ -2346,9 +2417,9 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a string containing the #GFile's URI. If the #GFile was constructed
-        ///     with an invalid URI, an invalid URI is returned.
-        ///     The returned string should be freed with g_free()
-        ///     when no longer needed.
+        ///   with an invalid URI, an invalid URI is returned.
+        ///   The returned string should be freed with g_free()
+        ///   when no longer needed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" is-pointer="1" /> */
@@ -2392,8 +2463,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a string containing the URI scheme for the given
-        ///     #GFile or %NULL if the #GFile was constructed with an invalid URI. The
-        ///     returned string should be freed with g_free() when no longer needed.
+        ///   #GFile or %NULL if the #GFile was constructed with an invalid URI. The
+        ///   returned string should be freed with g_free() when no longer needed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" is-pointer="1" /> */
@@ -2433,7 +2504,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if @file is an immediate child of @parent (or any parent in
-        ///          the case that @parent is %NULL).
+        ///   the case that @parent is %NULL).
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -2490,7 +2561,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if the @file's parent, grandparent, etc is @prefix,
-        ///     %FALSE otherwise.
+        ///   %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -2532,8 +2603,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if #GFile's backend supports the
-        ///     given URI scheme, %FALSE if URI scheme is %NULL,
-        ///     not supported, or #GFile is invalid.
+        ///   given URI scheme, %FALSE if URI scheme is %NULL,
+        ///   not supported, or #GFile is invalid.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -2572,9 +2643,9 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// 0 if @file is not a valid #GFile, otherwise an
-        ///     integer that can be used as hash value for the #GFile.
-        ///     This function is intended for easily hashing a #GFile to
-        ///     add to a #GHashTable or similar data structure.
+        ///   integer that can be used as hash value for the #GFile.
+        ///   This function is intended for easily hashing a #GFile to
+        ///   add to a #GHashTable or similar data structure.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
@@ -2666,7 +2737,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="etagOut">
         /// a location to place the current
-        ///     entity tag for the file, or %NULL if the entity tag is not needed
+        ///   entity tag for the file, or %NULL if the entity tag is not needed
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -2740,7 +2811,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call when the
-        ///     request is satisfied
+        ///   request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -2803,7 +2874,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="etagOut">
         /// a location to place the current
-        ///     entity tag for the file, or %NULL if the entity tag is not needed
+        ///   entity tag for the file, or %NULL if the entity tag is not needed
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -2881,18 +2952,18 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="length">
         /// a location to place the length of the contents of the file,
-        ///    or %NULL if the length is not needed
+        ///   or %NULL if the length is not needed
         /// </param>
         /// <param name="etagOut">
         /// a location to place the current entity tag for the file,
-        ///    or %NULL if the entity tag is not needed
+        ///   or %NULL if the entity tag is not needed
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// %TRUE if the @file's contents were successfully loaded.
-        ///     %FALSE if there were errors.
+        ///   %FALSE if there were errors.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -3024,18 +3095,18 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="length">
         /// a location to place the length of the contents of the file,
-        ///     or %NULL if the length is not needed
+        ///   or %NULL if the length is not needed
         /// </param>
         /// <param name="etagOut">
         /// a location to place the current entity tag for the file,
-        ///     or %NULL if the entity tag is not needed
+        ///   or %NULL if the entity tag is not needed
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// %TRUE if the load was successful. If %FALSE and @error is
-        ///     present, it will be set appropriately.
+        ///   present, it will be set appropriately.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -3110,18 +3181,18 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="length">
         /// a location to place the length of the contents of the file,
-        ///     or %NULL if the length is not needed
+        ///   or %NULL if the length is not needed
         /// </param>
         /// <param name="etagOut">
         /// a location to place the current entity tag for the file,
-        ///     or %NULL if the entity tag is not needed
+        ///   or %NULL if the entity tag is not needed
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// %TRUE if the load was successful. If %FALSE and @error is
-        ///     present, it will be set appropriately.
+        ///   present, it will be set appropriately.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -3196,7 +3267,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -3246,11 +3317,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -3373,7 +3444,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -3431,11 +3502,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="symlinkValue">
         /// a string with the path for the target
-        ///     of the new symlink
+        ///   of the new symlink
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -3503,7 +3574,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if successful, with the out parameters set.
-        ///          %FALSE otherwise, with @error set.
+        ///   %FALSE otherwise, with @error set.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -3568,8 +3639,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if successful. If an error has occurred,
-        ///     this function will return %FALSE and set @error
-        ///     appropriately if present.
+        ///   this function will return %FALSE and set @error
+        ///   appropriately if present.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -3622,7 +3693,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFile or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -3667,7 +3738,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// <para>
-        /// If the flag #G_FILE_COPY_OVERWRITE is specified an already
+        /// If the flag %G_FILE_COPY_OVERWRITE is specified an already
         /// existing @destination file is overwritten.
         /// </para>
         /// <para>
@@ -3687,7 +3758,7 @@ namespace GISharp.Lib.Gio
         /// error is returned, independent on the status of the @destination.
         /// </para>
         /// <para>
-        /// If #G_FILE_COPY_OVERWRITE is not specified and the target exists,
+        /// If %G_FILE_COPY_OVERWRITE is not specified and the target exists,
         /// then the error %G_IO_ERROR_EXISTS is returned.
         /// </para>
         /// <para>
@@ -3697,7 +3768,7 @@ namespace GISharp.Lib.Gio
         /// </para>
         /// <para>
         /// If the source is a directory and the target does not exist, or
-        /// #G_FILE_COPY_OVERWRITE is specified and the target is a file, then
+        /// %G_FILE_COPY_OVERWRITE is specified and the target is a file, then
         /// the %G_IO_ERROR_WOULD_RECURSE error may be returned (if the native
         /// move operation isn't available).
         /// </para>
@@ -3713,15 +3784,15 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="progressCallback">
         /// #GFileProgressCallback
-        ///     function for updates
+        ///   function for updates
         /// </param>
         /// <param name="progressCallbackData">
         /// gpointer to user data for
-        ///     the callback function
+        ///   the callback function
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -3815,7 +3886,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// #GFileIOStream or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -3875,11 +3946,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -3937,7 +4008,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFileIOStream or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -3997,7 +4068,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// string containing the #GFile's path,
-        ///     or %NULL if no such path exists. The returned string is owned by @file.
+        ///   or %NULL if no such path exists. The returned string is owned by @file.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.56")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -4022,7 +4093,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Polls a file of type #G_FILE_TYPE_MOUNTABLE.
+        /// Polls a file of type %G_FILE_TYPE_MOUNTABLE.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -4044,7 +4115,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied, or %NULL
+        ///   when the request is satisfied, or %NULL
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -4171,11 +4242,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <returns>
         /// %TRUE if the file exists (and can be detected without error),
-        ///     %FALSE otherwise (or if cancelled).
+        ///   %FALSE otherwise (or if cancelled).
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -4219,11 +4290,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <returns>
-        /// The #GFileType of the file and #G_FILE_TYPE_UNKNOWN
-        ///     if the file does not exist
+        /// The #GFileType of the file and %G_FILE_TYPE_UNKNOWN
+        ///   if the file does not exist
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.18")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -4271,9 +4342,9 @@ namespace GISharp.Lib.Gio
         /// attributes, and a wildcard like "filesystem::*" means all attributes
         /// in the filesystem namespace. The standard namespace for filesystem
         /// attributes is "filesystem". Common attributes of interest are
-        /// #G_FILE_ATTRIBUTE_FILESYSTEM_SIZE (the total size of the filesystem
-        /// in bytes), #G_FILE_ATTRIBUTE_FILESYSTEM_FREE (number of bytes available),
-        /// and #G_FILE_ATTRIBUTE_FILESYSTEM_TYPE (type of the filesystem).
+        /// %G_FILE_ATTRIBUTE_FILESYSTEM_SIZE (the total size of the filesystem
+        /// in bytes), %G_FILE_ATTRIBUTE_FILESYSTEM_FREE (number of bytes available),
+        /// and %G_FILE_ATTRIBUTE_FILESYSTEM_TYPE (type of the filesystem).
         /// </para>
         /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled
@@ -4295,14 +4366,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFileInfo or %NULL if there was an error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
@@ -4370,11 +4441,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -4434,8 +4505,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// #GFileInfo for given @file
-        ///     or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   or %NULL on error.
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
@@ -4493,7 +4564,7 @@ namespace GISharp.Lib.Gio
         /// "standard::*" means all attributes in the standard namespace.
         /// An example attribute query be "standard::*,owner::user".
         /// The standard attributes are available as defines, like
-        /// #G_FILE_ATTRIBUTE_STANDARD_NAME.
+        /// %G_FILE_ATTRIBUTE_STANDARD_NAME.
         /// </para>
         /// <para>
         /// If @cancellable is not %NULL, then the operation can be cancelled
@@ -4504,7 +4575,7 @@ namespace GISharp.Lib.Gio
         /// <para>
         /// For symlinks, normally the information about the target of the
         /// symlink is returned, rather than information about the symlink
-        /// itself. However if you pass #G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS
+        /// itself. However if you pass %G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS
         /// in @flags the information about the symlink itself will be returned.
         /// Also, for symlinks that point to non-existing files the information
         /// about the symlink itself will be returned.
@@ -4526,14 +4597,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFileInfo for the given @file, or %NULL
-        ///     on error. Free the returned object with g_object_unref().
+        ///   on error. Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
@@ -4606,11 +4677,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call when the
-        ///     request is satisfied
+        ///   request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -4674,8 +4745,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// #GFileInfo for given @file
-        ///     or %NULL on error. Free the returned object with
-        ///     g_object_unref().
+        ///   or %NULL on error. Free the returned object with
+        ///   g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
@@ -4738,15 +4809,15 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFileAttributeInfoList describing the settable attributes.
-        ///     When you are done with it, release it with
-        ///     g_file_attribute_info_list_unref()
+        ///   When you are done with it, release it with
+        ///   g_file_attribute_info_list_unref()
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" is-pointer="1" /> */
@@ -4799,15 +4870,15 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFileAttributeInfoList describing the writable namespaces.
-        ///     When you are done with it, release it with
-        ///     g_file_attribute_info_list_unref()
+        ///   When you are done with it, release it with
+        ///   g_file_attribute_info_list_unref()
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" is-pointer="1" /> */
@@ -4871,7 +4942,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// #GFileInputStream or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInputStream" type="GFileInputStream*" is-pointer="1" /> */
@@ -4929,11 +5000,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -4989,7 +5060,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFileInputStream or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInputStream" type="GFileInputStream*" is-pointer="1" /> */
@@ -5046,7 +5117,7 @@ namespace GISharp.Lib.Gio
         /// </para>
         /// <para>
         /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in @flags the file
+        /// but if you pass %G_FILE_CREATE_PRIVATE in @flags the file
         /// will be made readable only to the current user, to the level that
         /// is supported on the target filesystem.
         /// </para>
@@ -5087,7 +5158,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="etag">
         /// an optional [entity tag][gfile-etag]
-        ///     for the current #GFile, or #NULL to ignore
+        ///   for the current #GFile, or #NULL to ignore
         /// </param>
         /// <param name="makeBackup">
         /// %TRUE if a backup should be created
@@ -5097,14 +5168,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFileOutputStream or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" /> */
@@ -5172,7 +5243,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="etag">
         /// an [entity tag][gfile-etag] for the current #GFile,
-        ///     or %NULL to ignore
+        ///   or %NULL to ignore
         /// </param>
         /// <param name="makeBackup">
         /// %TRUE if a backup should be created
@@ -5185,11 +5256,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -5277,7 +5348,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="etag">
         /// the old [entity-tag][gfile-etag] for the document,
-        ///     or %NULL
+        ///   or %NULL
         /// </param>
         /// <param name="makeBackup">
         /// %TRUE if a backup should be created
@@ -5287,8 +5358,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="newEtag">
         /// a location to a new [entity tag][gfile-etag]
-        ///      for the document. This should be freed with g_free() when no longer
-        ///      needed, or %NULL
+        ///   for the document. This should be freed with g_free() when no longer
+        ///   needed, or %NULL
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object, %NULL to ignore
@@ -5298,7 +5369,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if successful. If an error has occurred, this function
-        ///     will return %FALSE and set @error appropriately if present.
+        ///   will return %FALSE and set @error appropriately if present.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -5570,8 +5641,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="newEtag">
         /// a location of a new [entity tag][gfile-etag]
-        ///     for the document. This should be freed with g_free() when it is no
-        ///     longer needed, or %NULL
+        ///   for the document. This should be freed with g_free() when it is no
+        ///   longer needed, or %NULL
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -5638,7 +5709,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFileOutputStream, or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" is-pointer="1" /> */
@@ -5701,7 +5772,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="etag">
         /// an optional [entity tag][gfile-etag]
-        ///     for the current #GFile, or #NULL to ignore
+        ///   for the current #GFile, or #NULL to ignore
         /// </param>
         /// <param name="makeBackup">
         /// %TRUE if a backup should be created
@@ -5711,14 +5782,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFileIOStream or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -5789,7 +5860,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="etag">
         /// an [entity tag][gfile-etag] for the current #GFile,
-        ///     or %NULL to ignore
+        ///   or %NULL to ignore
         /// </param>
         /// <param name="makeBackup">
         /// %TRUE if a backup should be created
@@ -5802,11 +5873,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -5876,7 +5947,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFileIOStream, or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -5926,6 +5997,10 @@ namespace GISharp.Lib.Gio
         /// <para>
         /// This call does no blocking I/O.
         /// </para>
+        /// <para>
+        /// If the @relative_path is an absolute path name, the resolution
+        /// is done absolutely (without taking @file path as base).
+        /// </para>
         /// </remarks>
         /// <param name="file">
         /// input #GFile
@@ -5934,9 +6009,7 @@ namespace GISharp.Lib.Gio
         /// a given relative path string
         /// </param>
         /// <returns>
-        /// #GFile to the resolved path.
-        ///     %NULL if @relative_path is %NULL or if @file is invalid.
-        ///     Free the returned object with g_object_unref().
+        /// a #GFile for the resolved path.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -5987,14 +6060,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="valueP">
         /// a pointer to the value (or the pointer
-        ///     itself if the type is a pointer type)
+        ///   itself if the type is a pointer type)
         /// </param>
         /// <param name="flags">
         /// a set of #GFileQueryInfoFlags
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -6075,14 +6148,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// %TRUE if the @attribute was successfully set to @value
-        ///     in the @file, %FALSE otherwise.
+        ///   in the @file, %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -6152,14 +6225,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// %TRUE if the @attribute was successfully set to @value
-        ///     in the @file, %FALSE otherwise.
+        ///   in the @file, %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -6229,7 +6302,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -6305,7 +6378,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -6381,14 +6454,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// %TRUE if the @attribute was successfully set to @value
-        ///     in the @file, %FALSE otherwise.
+        ///   in the @file, %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -6458,14 +6531,14 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// %TRUE if the @attribute was successfully set to @value
-        ///     in the @file, %FALSE otherwise.
+        ///   in the @file, %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -6538,7 +6611,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback
@@ -6681,7 +6754,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -6738,7 +6811,7 @@ namespace GISharp.Lib.Gio
         /// </para>
         /// <para>
         /// If you want to implement a rename operation in the user interface the
-        /// edit name (#G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) should be used as the
+        /// edit name (%G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) should be used as the
         /// initial value in the rename widget, and then the result after editing
         /// should be passed to g_file_set_display_name().
         /// </para>
@@ -6759,15 +6832,15 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
         /// </param>
         /// <returns>
         /// a #GFile specifying what @file was renamed to,
-        ///     or %NULL if there was an error.
-        ///     Free the returned object with g_object_unref().
+        ///   or %NULL if there was an error.
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -6832,11 +6905,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -6896,7 +6969,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// a #GFile or %NULL on error.
-        ///     Free the returned object with g_object_unref().
+        ///   Free the returned object with g_object_unref().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" is-pointer="1" /> */
@@ -7013,7 +7086,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if the operation finished successfully.
-        ///     %FALSE otherwise.
+        ///   %FALSE otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -7102,7 +7175,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -7152,11 +7225,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object,
-        ///     %NULL to ignore
+        ///   %NULL to ignore
         /// </param>
         /// <param name="callback">
         /// a #GAsyncReadyCallback to call
-        ///     when the request is satisfied
+        ///   when the request is satisfied
         /// </param>
         /// <param name="userData">
         /// the data to pass to callback function
@@ -7275,9 +7348,9 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if the operation finished successfully.
-        ///     %FALSE otherwise.
+        ///   %FALSE otherwise.
         /// </returns>
-        [System.ObsoleteAttribute("Use g_file_unmount_mountable_with_operation_finish()\n    instead.")]
+        [System.ObsoleteAttribute("Use g_file_unmount_mountable_with_operation_finish()\n  instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -7295,7 +7368,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckUnmountMountableFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.UnmountMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
-        [System.ObsoleteAttribute("Use g_file_unmount_mountable_with_operation_finish()\n    instead.")]
+        [System.ObsoleteAttribute("Use g_file_unmount_mountable_with_operation_finish()\n  instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         public static void UnmountMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -7333,7 +7406,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <returns>
         /// %TRUE if the operation finished successfully.
-        ///     %FALSE otherwise.
+        ///   %FALSE otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

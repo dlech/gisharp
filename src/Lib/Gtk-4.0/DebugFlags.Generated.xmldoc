@@ -1,63 +1,130 @@
 <declaration>
 
 <member name='DebugFlags.Text'>
+<summary>
+Information about GtkTextView
+</summary>
 </member>
 
 <member name='DebugFlags.Tree'>
+<summary>
+Information about GtkTreeView
+</summary>
 </member>
 
 <member name='DebugFlags.Keybindings'>
+<summary>
+Information about keyboard shortcuts
+</summary>
 </member>
 
 <member name='DebugFlags.Modules'>
+<summary>
+Information about modules and extensions
+</summary>
 </member>
 
 <member name='DebugFlags.Geometry'>
+<summary>
+Information about size allocation
+</summary>
 </member>
 
 <member name='DebugFlags.Icontheme'>
+<summary>
+Information about icon themes
+</summary>
 </member>
 
 <member name='DebugFlags.Printing'>
+<summary>
+Information about printing
+</summary>
 </member>
 
 <member name='DebugFlags.Builder'>
+<summary>
+Trace GtkBuilder operation
+</summary>
 </member>
 
 <member name='DebugFlags.SizeRequest'>
+<summary>
+Information about size requests
+</summary>
 </member>
 
 <member name='DebugFlags.NoCssCache'>
+<summary>
+Disable the style property cache
+</summary>
 </member>
 
 <member name='DebugFlags.Interactive'>
+<summary>
+Open the GTK inspector
+</summary>
 </member>
 
 <member name='DebugFlags.Touchscreen'>
+<summary>
+Pretend the pointer is a touchscreen
+</summary>
 </member>
 
 <member name='DebugFlags.Actions'>
+<summary>
+Information about actions and menu models
+</summary>
 </member>
 
 <member name='DebugFlags.Layout'>
+<summary>
+Information from layout managers
+</summary>
 </member>
 
 <member name='DebugFlags.Snapshot'>
+<summary>
+Include debug render nodes in the generated snapshots
+</summary>
 </member>
 
 <member name='DebugFlags.Constraints'>
+<summary>
+Information from the constraints solver
+</summary>
 </member>
 
 <member name='DebugFlags.BuilderObjects'>
+<summary>
+Log unused GtkBuilder objects
+</summary>
 </member>
 
 <member name='DebugFlags.A11y'>
+<summary>
+Information about accessibility state changes
+</summary>
 </member>
 
 <member name='DebugFlags.Iconfallback'>
+<summary>
+Information about icon fallback.
+</summary>
 </member>
 
 <member name='DebugFlags'>
+<summary>
+Flags to use with <see cref="DebugFlags.SetCurrent(GISharp.Lib.Gtk.DebugFlags)"/>.
+</summary>
+<remarks>
+<para>
+Settings these flags causes GTK to print out different
+types of debugging information. Some of these flags are
+only available when GTK has been configured with `-Ddebug=true`.
+</para>
+</remarks>
 </member>
 
 <member name='DebugFlagsExtensions.Current'>

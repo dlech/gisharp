@@ -5,13 +5,19 @@ namespace GISharp.Lib.GObject
 {
     /// <summary>
     /// A callback function used by the type system to finalize a class.
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// This function is rarely needed, as dynamically allocated class resources
     /// should be handled by GBaseInitFunc() and GBaseFinalizeFunc().
+    /// </para>
+    /// <para>
     /// Also, specification of a GClassFinalizeFunc() in the #GTypeInfo
     /// structure of a static type is invalid, because classes of static types
     /// will never be finalized (they are artificially kept alive when their
     /// reference count drops to zero).
-    /// </summary>
+    /// </para>
+    /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" /> */

@@ -49,7 +49,7 @@ unspecified error.
 
 <member name='RecentManagerError'>
 <summary>
-Error codes for #GtkRecentManager operations
+Error codes for `GtkRecentManager` operations
 </summary>
 </member>
 

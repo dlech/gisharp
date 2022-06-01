@@ -414,11 +414,13 @@ byte* directory);
         }
 
         /// <summary>
-        /// Return an array of all (transitive) versioned dependencies for
-        /// @namespace_. Returned strings are of the form
-        /// &lt;code&gt;namespace-version&lt;/code&gt;.
+        /// Retrieves all (transitive) versioned dependencies for
+        /// @namespace_.
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// The strings are of the form `namespace-version`.
+        /// </para>
         /// <para>
         /// Note: @namespace_ must have already been loaded using a function
         /// such as g_irepository_require() before calling this function.
@@ -436,7 +438,7 @@ byte* directory);
         /// Namespace of interest
         /// </param>
         /// <returns>
-        /// Zero-terminated string array of all versioned
+        /// all versioned
         ///   dependencies
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -467,7 +469,7 @@ byte* directory);
 
         /// <summary>
         /// Return an array of the immediate versioned dependencies for @namespace_.
-        /// Returned strings are of the form &lt;code&gt;namespace-version&lt;/code&gt;.
+        /// Returned strings are of the form `namespace-version`.
         /// </summary>
         /// <remarks>
         /// <para>

@@ -11,8 +11,8 @@ meant for language bindings.
     array of strings containing the path elements.
 </param>
 <returns>
-a newly-allocated string that must be freed
-    with g_free().
+a newly-allocated string that
+    must be freed with g_free().
 </returns>
 </member>
 

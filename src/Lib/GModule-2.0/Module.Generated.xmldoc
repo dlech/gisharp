@@ -59,29 +59,15 @@ the complete path of the module, including the standard library
 
 <member name='Module.Open(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)'>
 <summary>
-Opens a module. If the module has already been opened,
-its reference count is incremented.
+A thin wrapper function around g_module_open_full()
 </summary>
-<remarks>
-<para>
-First of all <see cref="Module.Open(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)"/> tries to open <paramref name="fileName"/> as a module.
-If that fails and <paramref name="fileName"/> has the ".la"-suffix (and is a libtool
-archive) it tries to open the corresponding module. If that fails
-and it doesn't have the proper module suffix for the platform
-(#G_MODULE_SUFFIX), this suffix will be appended and the corresponding
-module will be opened. If that fails and <paramref name="fileName"/> doesn't have the
-".la"-suffix, this suffix is appended and <see cref="Module.Open(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)"/> tries to open
-the corresponding module. If eventually that fails as well, <c>null</c> is
-returned.
-</para>
-</remarks>
 <param name="fileName">
 the name of the file containing the module, or <c>null</c>
     to obtain a <see cref="Module"/> representing the main program itself
 </param>
 <param name="flags">
 the flags used for opening the module. This can be the
-    logical OR of any of the <see cref="ModuleFlags"/>
+    logical OR of any of the <see cref="ModuleFlags"/>.
 </param>
 <returns>
 a <see cref="Module"/> on success, or <c>null</c> on failure
@@ -107,7 +93,7 @@ Any future <see cref="Module.Close()"/> calls on the module will be ignored.
 <member name='Module.TrySymbol(GISharp.Runtime.UnownedUtf8,System.IntPtr)'>
 <summary>
 Gets a symbol pointer from a module, such as one exported
-by #G_MODULE_EXPORT. Note that a valid symbol can be <c>null</c>.
+by %G_MODULE_EXPORT. Note that a valid symbol can be <c>null</c>.
 </summary>
 <param name="symbolName">
 the name of the symbol to find

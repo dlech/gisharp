@@ -30,7 +30,7 @@ The strength of a constraint, expressed as a symbolic constant.
 </summary>
 <remarks>
 <para>
-The strength of a #GtkConstraint can be expressed with any positive
+The strength of a [class<c>constraint</c>] can be expressed with any positive
 integer; the values of this enumeration can be used for readability.
 </para>
 </remarks>

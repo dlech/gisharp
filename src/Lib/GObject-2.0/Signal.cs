@@ -7,7 +7,6 @@ using System.Text.RegularExpressions;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using Boolean = GISharp.Runtime.Boolean;
-using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
 {
@@ -54,11 +53,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the hook id, for later use with <see cref="RemoveEmissionHook"/>.
         /// </returns>
-        public static culong AddEmissionHook(uint signalId, SignalEmissionHook hookFunc)
+        public static CULong AddEmissionHook(uint signalId, SignalEmissionHook hookFunc)
         {
             return AddEmissionHook(signalId, default, hookFunc);
         }
-        internal static (culong id, CClosureData data, IntPtr data_) ConnectData<T>(this Object instance, UnownedUtf8 detailedSignal,
+        internal static (CULong id, CClosureData data, IntPtr data_) ConnectData<T>(this Object instance, UnownedUtf8 detailedSignal,
                     T handler, ConnectFlags connectFlags = default) where T : Delegate
         {
             var instance_ = (Object.UnmanagedStruct*)instance.UnsafeHandle;
@@ -70,10 +69,12 @@ namespace GISharp.Lib.GObject
             var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, Closure.UnmanagedStruct*, void>)&Closure.ManagedDestroyNotify;
             var ret = g_signal_connect_data(instance_, detailedSignal_, handler_, data_, notify_, connectFlags);
             GMarshal.PopUnhandledException();
-            if (ret == default) {
+
+            if (ret.Value == 0) {
                 dataHandle.Free();
                 data_ = IntPtr.Zero;
             }
+            
             return (ret, data, data_);
         }
 
@@ -99,7 +100,7 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        public static culong Connect<T>(this Object instance, UnownedUtf8 detailedSignal,
+        public static CULong Connect<T>(this Object instance, UnownedUtf8 detailedSignal,
             T handler, ConnectFlags connectFlags = default) where T : Delegate
         {
             var (ret, _, _) = ConnectData(instance, detailedSignal, handler, connectFlags);
@@ -315,7 +316,7 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// A valid non-0 signal handler id for a successful match.
         /// </returns>
-        public static culong HandlerFind(Object instance, uint? signalId = default,
+        public static CULong HandlerFind(Object instance, uint? signalId = default,
             Quark? detail = default, Closure? closure = default, IntPtr? func = default,
             IntPtr? data = default, bool unblocked = default)
         {

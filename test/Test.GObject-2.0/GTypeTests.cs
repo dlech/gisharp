@@ -10,8 +10,6 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
-using clong = GISharp.Runtime.CLong;
-using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Test.GObject
 {
@@ -62,13 +60,13 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestLong()
         {
-            Assert.That(() => GType.Long.ToType(), Is.EqualTo(typeof(clong)));
+            Assert.That(() => GType.Long.ToType(), Is.EqualTo(typeof(CLong)));
         }
 
         [Test]
         public void TestULong()
         {
-            Assert.That(() => GType.ULong.ToType(), Is.EqualTo(typeof(culong)));
+            Assert.That(() => GType.ULong.ToType(), Is.EqualTo(typeof(CULong)));
         }
 
         [Test]

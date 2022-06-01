@@ -13,6 +13,8 @@ namespace GISharp.Lib.GIRepository
         /// <include file="ScopeType.xmldoc" path="declaration/member[@name='ScopeType.Async']/*" />
         Async = 2,
         /// <include file="ScopeType.xmldoc" path="declaration/member[@name='ScopeType.Notified']/*" />
-        Notified = 3
+        Notified = 3,
+        /// <include file="ScopeType.xmldoc" path="declaration/member[@name='ScopeType.Forever']/*" />
+        Forever = 4
     }
 }

@@ -27,8 +27,12 @@ the size of the instance structure
 <member name='TypeQuery'>
 <summary>
 A structure holding information for a specific type.
-It is filled in by the <see cref="TypeExtensions.Query(GISharp.Runtime.GType,out GISharp.Lib.GObject.TypeQuery)"/> function.
 </summary>
+<remarks>
+<para>
+See also: <see cref="TypeExtensions.Query(GISharp.Runtime.GType,out GISharp.Lib.GObject.TypeQuery)"/>
+</para>
+</remarks>
 </member>
 
 </declaration>

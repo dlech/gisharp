@@ -5,8 +5,12 @@ namespace GISharp.Lib.GObject
 {
     /// <summary>
     /// A callback called after an interface vtable is initialized.
-    /// See g_type_add_interface_check().
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// See g_type_add_interface_check().
+    /// </para>
+    /// </remarks>
     [GISharp.Runtime.SinceAttribute("2.4")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]

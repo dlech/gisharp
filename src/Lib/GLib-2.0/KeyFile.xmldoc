@@ -33,8 +33,8 @@ string giving the tooltip for the desktop entry.
 
 <member name='KeyFile.DesktopKeyDbusActivatable'>
 <summary>
-A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a boolean set to true
-if the application is D-Bus activatable.
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a boolean
+set to true if the application is D-Bus activatable.
 </summary>
 </member>
 
@@ -134,9 +134,12 @@ older applications.
 <summary>
 A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a boolean
 stating whether the program should be run in a terminal window.
-It is only valid for desktop entries with the
-`Application` type.
 </summary>
+<remarks>
+<para>
+It is only valid for desktop entries with the `Application` type.
+</para>
+</remarks>
 </member>
 
 <member name='KeyFile.DesktopKeyTryExec'>
@@ -151,11 +154,15 @@ with the `Application` type.
 <member name='KeyFile.DesktopKeyType'>
 <summary>
 A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a string
-giving the type of the desktop entry. Usually
-<see cref="KeyFile.DesktopTypeApplication"/>,
+giving the type of the desktop entry.
+</summary>
+<remarks>
+<para>
+Usually <see cref="KeyFile.DesktopTypeApplication"/>,
 <see cref="KeyFile.DesktopTypeLink"/>, or
 <see cref="KeyFile.DesktopTypeDirectory"/>.
-</summary>
+</para>
+</remarks>
 </member>
 
 <member name='KeyFile.DesktopKeyUrl'>

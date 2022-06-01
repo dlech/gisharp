@@ -333,14 +333,20 @@ structure.
 <member name='Value'>
 <summary>
 An opaque structure used to hold different types of values.
+</summary>
+<remarks>
+<para>
 The data within the structure has protected scope: it is accessible only
 to functions within a <see cref="TypeValueTable"/> structure, or implementations of
 the g_value_*() API. That is, code portions which implement new fundamental
 types.
+</para>
+<para>
 <see cref="Value"/> users cannot make any assumptions about how data is stored
 within the 2 element <c>data</c> union, and the <see cref="GType"/> member should
 only be accessed through the G_VALUE_TYPE() macro.
-</summary>
+</para>
+</remarks>
 </member>
 
 </declaration>

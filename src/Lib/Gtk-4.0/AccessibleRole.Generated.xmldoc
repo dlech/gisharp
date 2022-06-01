@@ -119,7 +119,7 @@ An item in a grid or tree grid.
 <member name='AccessibleRole.Group'>
 <summary>
 An element that groups multiple widgets. GTK uses
-  this role for various containers, like #GtkBox, #GtkViewport, and #GtkHeaderBar.
+  this role for various containers, like [class<c>box</c>], [class<c>viewport</c>], and [class<c>headerBar</c>].
 </summary>
 </member>
 
@@ -490,7 +490,7 @@ An application window.
 
 <member name='AccessibleRole'>
 <summary>
-The accessible role for a `GtkAccessible` implementation.
+The accessible role for a [iface<c>accessible</c>] implementation.
 </summary>
 <remarks>
 <para>

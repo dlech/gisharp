@@ -3,42 +3,42 @@
 <member name='PrintStatus.Initial'>
 <summary>
 The printing has not started yet; this
-    status is set initially, and while the print dialog is shown.
+  status is set initially, and while the print dialog is shown.
 </summary>
 </member>
 
 <member name='PrintStatus.Preparing'>
 <summary>
 This status is set while the begin-print
-    signal is emitted and during pagination.
+  signal is emitted and during pagination.
 </summary>
 </member>
 
 <member name='PrintStatus.GeneratingData'>
 <summary>
 This status is set while the
-    pages are being rendered.
+  pages are being rendered.
 </summary>
 </member>
 
 <member name='PrintStatus.SendingData'>
 <summary>
 The print job is being sent off to the
-    printer.
+  printer.
 </summary>
 </member>
 
 <member name='PrintStatus.Pending'>
 <summary>
 The print job has been sent to the printer,
-    but is not printed for some reason, e.g. the printer may be stopped.
+  but is not printed for some reason, e.g. the printer may be stopped.
 </summary>
 </member>
 
 <member name='PrintStatus.PendingIssue'>
 <summary>
 Some problem has occurred during
-    printing, e.g. a paper jam.
+  printing, e.g. a paper jam.
 </summary>
 </member>
 

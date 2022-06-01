@@ -20,7 +20,7 @@ The sequence is denied.
 
 <member name='EventSequenceState'>
 <summary>
-Describes the state of a `GdkEventSequence` in a `GtkGesture`.
+Describes the state of a [struct<c>gdk</c>.EventSequence] in a [class<c>gesture</c>].
 </summary>
 </member>
 

@@ -26,7 +26,7 @@ panned downwards
 
 <member name='PanDirection'>
 <summary>
-Describes the panning direction of a `GtkGesturePan`
+Describes the panning direction of a [class<c>gesturePan</c>].
 </summary>
 </member>
 

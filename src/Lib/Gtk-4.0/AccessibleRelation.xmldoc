@@ -135,7 +135,7 @@ Defines the number of items in the current
 
 <member name='AccessibleRelation'>
 <summary>
-The possible accessible relations of a `GtkAccessible`.
+The possible accessible relations of a [iface<c>accessible</c>].
 </summary>
 <remarks>
 <para>

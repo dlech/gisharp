@@ -416,6 +416,83 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Gets a pointer to a region in @bytes.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The region starts at @offset many bytes from the start of the data
+        /// and contains @n_elements many elements of @element_size size.
+        /// </para>
+        /// <para>
+        /// @n_elements may be zero, but @element_size must always be non-zero.
+        /// Ideally, @element_size is a static constant (eg: sizeof a struct).
+        /// </para>
+        /// <para>
+        /// This function does careful bounds checking (including checking for
+        /// arithmetic overflows) and returns a non-%NULL pointer if the
+        /// specified region lies entirely within the @bytes. If the region is
+        /// in some way out of range, or if an overflow has occurred, then %NULL
+        /// is returned.
+        /// </para>
+        /// <para>
+        /// Note: it is possible to have a valid zero-size region. In this case,
+        /// the returned pointer will be equal to the base pointer of the data of
+        /// @bytes, plus @offset.  This will be non-%NULL except for the case
+        /// where @bytes itself was a zero-sized region.  Since it is unlikely
+        /// that you will be using this function to check for a zero-sized region
+        /// in a zero-sized @bytes, %NULL effectively always means "error".
+        /// </para>
+        /// </remarks>
+        /// <param name="bytes">
+        /// a #GBytes
+        /// </param>
+        /// <param name="elementSize">
+        /// a non-zero element size
+        /// </param>
+        /// <param name="offset">
+        /// an offset to the start of the region within the @bytes
+        /// </param>
+        /// <param name="nElements">
+        /// the number of elements in the region
+        /// </param>
+        /// <returns>
+        /// the requested region, or %NULL in case of an error
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gpointer" type="gconstpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern System.IntPtr g_bytes_get_region(
+        /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes,
+        /* <type name="gsize" type="gsize" /> */
+        /* transfer-ownership:none direction:in */
+        nuint elementSize,
+        /* <type name="gsize" type="gsize" /> */
+        /* transfer-ownership:none direction:in */
+        nuint offset,
+        /* <type name="gsize" type="gsize" /> */
+        /* transfer-ownership:none direction:in */
+        nuint nElements);
+        partial void CheckGetRegionArgs(int elementSize, int offset, int nElements);
+
+        /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.GetRegion(int,int,int)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        public System.IntPtr GetRegion(int elementSize, int offset, int nElements)
+        {
+            CheckGetRegionArgs(elementSize, offset, nElements);
+            var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)UnsafeHandle;
+            var elementSize_ = (nuint)elementSize;
+            var offset_ = (nuint)offset;
+            var nElements_ = (nuint)nElements;
+            var ret_ = g_bytes_get_region(bytes_,elementSize_,offset_,nElements_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = (System.IntPtr)ret_;
+            return ret;
+        }
+
+        /// <summary>
         /// Get the size of the byte data in the #GBytes.
         /// </summary>
         /// <remarks>

@@ -194,7 +194,8 @@ namespace GISharp.Lib.Gio
         /// a #GSeekable.
         /// </param>
         /// <returns>
-        /// the offset from the beginning of the buffer.
+        /// the (positive or zero) offset from the beginning of the
+        /// buffer, zero if the target is not seekable.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="goffset" /> */

@@ -1,5 +1,82 @@
 <declaration>
 
+<member name='LogWriter.DefaultSetUseStderr(bool)'>
+<summary>
+Configure whether the built-in log functions
+(<see cref="Log.DefaultHandler(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Runtime.NullableUnownedUtf8,System.IntPtr)"/> for the old-style API, and both
+<see cref="LogWriter.Default(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan{GISharp.Lib.GLib.LogField},System.IntPtr)"/> and <see cref="LogWriter.StandardStreams(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan{GISharp.Lib.GLib.LogField},System.IntPtr)"/> for the
+structured API) will output all log messages to `stderr`.
+</summary>
+<remarks>
+<para>
+By default, log messages of levels <see cref="LogLevelFlags.Info"/> and
+<see cref="LogLevelFlags.Debug"/> are sent to `stdout`, and other log messages are
+sent to `stderr`. This is problematic for applications that intend
+to reserve `stdout` for structured output such as JSON or XML.
+</para>
+<para>
+This function sets global state. It is not thread-aware, and should be
+called at the very start of a program, before creating any other threads
+or creating objects that could create worker threads of their own.
+</para>
+</remarks>
+<param name="useStderr">
+If <c>true</c>, use `stderr` for log messages that would
+ normally have appeared on `stdout`
+</param>
+</member>
+
+<member name='LogWriter.DefaultWouldDrop(GISharp.Lib.GLib.LogLevelFlags,GISharp.Runtime.NullableUnownedUtf8)'>
+<summary>
+Check whether <see cref="LogWriter.Default(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan{GISharp.Lib.GLib.LogField},System.IntPtr)"/> and <see cref="Log.DefaultHandler(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Runtime.NullableUnownedUtf8,System.IntPtr)"/> would
+ignore a message with the given domain and level.
+</summary>
+<remarks>
+<para>
+As with <see cref="Log.DefaultHandler(GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.LogLevelFlags,GISharp.Runtime.NullableUnownedUtf8,System.IntPtr)"/>, this function drops debug and informational
+messages unless their log domain (or `all`) is listed in the space-separated
+`G_MESSAGES_DEBUG` environment variable.
+</para>
+<para>
+This can be used when implementing log writers with the same filtering
+behaviour as the default, but a different destination or output format:
+</para>
+<para>
+|[&lt;!-- language="C" --&gt;
+  if (g_log_writer_default_would_drop (log_level, log_domain))
+    return G_LOG_WRITER_HANDLED;
+]|
+</para>
+<para>
+or to skip an expensive computation if it is only needed for a debugging
+message, and `G_MESSAGES_DEBUG` is not set:
+</para>
+<para>
+|[&lt;!-- language="C" --&gt;
+  if (!g_log_writer_default_would_drop (G_LOG_LEVEL_DEBUG, G_LOG_DOMAIN))
+    {
+      gchar *result = expensive_computation (my_object);
+</para>
+<para>
+      g_debug ("my_object result: %s", result);
+      g_free (result);
+    }
+]|
+</para>
+</remarks>
+<param name="logLevel">
+log level, either from <see cref="LogLevelFlags"/>, or a user-defined
+   level
+</param>
+<param name="logDomain">
+log domain
+</param>
+<returns>
+<c>true</c> if the log message would be dropped by GLib's
+ default log handlers
+</returns>
+</member>
+
 <member name='LogWriter.FormatFields(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan&lt;GISharp.Lib.GLib.LogField&gt;,bool)'>
 <summary>
 Format a structured log message as a string suitable for outputting to the

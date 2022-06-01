@@ -13,6 +13,13 @@ namespace GISharp.Lib.Gio
     /// #GAsyncReadyCallback must likewise call it asynchronously in a
     /// later iteration of the main context.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The asynchronous operation is guaranteed to have held a reference to
+    /// @source_object from the time when the `*_async()` function was called, until
+    /// after this callback returns.
+    /// </para>
+    /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" /> */

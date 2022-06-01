@@ -48,7 +48,7 @@ a <see cref="TimeVal"/>
 </returns>
 </member>
 
-<member name='TimeVal.Add(GISharp.Runtime.CLong)'>
+<member name='TimeVal.Add(System.Runtime.InteropServices.CLong)'>
 <summary>
 Adds the given number of microseconds to this instance. <paramref name="microseconds"/> can
 also be negative to decrease the value of this instance.
@@ -111,10 +111,12 @@ a newly allocated string containing an ISO 8601 date,
 <member name='TimeVal'>
 <summary>
 Represents a precise time, with seconds and microseconds.
-Similar to the struct timeval returned by the gettimeofday()
-UNIX system call.
 </summary>
 <remarks>
+<para>
+Similar to the struct timeval returned by the `gettimeofday()`
+UNIX system call.
+</para>
 <para>
 GLib is attempting to unify around the use of 64-bit integers to
 represent microsecond-precision time. As such, this type will be

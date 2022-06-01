@@ -40,11 +40,11 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         /// <param name="priority">
         /// the priority of the timeout source. Typically this will be in
-        ///            the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.
+        ///   the range between %G_PRIORITY_DEFAULT and %G_PRIORITY_HIGH.
         /// </param>
         /// <param name="interval">
         /// the time between calls to the function, in milliseconds
-        ///             (1/1000ths of a second)
+        ///   (1/1000ths of a second)
         /// </param>
         /// <param name="function">
         /// function to call
@@ -97,19 +97,21 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Sets a function to be called at regular intervals, with @priority.
-        /// The function is called repeatedly until it returns %FALSE, at which
-        /// point the timeout is automatically destroyed and the function will
-        /// not be called again.
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// The function is called repeatedly until it returns %G_SOURCE_REMOVE
+        /// or %FALSE, at which point the timeout is automatically destroyed and
+        /// the function will not be called again.
+        /// </para>
         /// <para>
         /// Unlike g_timeout_add(), this function operates at whole second granularity.
         /// The initial starting point of the timer is determined by the implementation
         /// and the implementation is expected to group multiple timers together so that
-        /// they fire all at the same time.
-        /// To allow this grouping, the @interval to the first timer is rounded
-        /// and can deviate up to one second from the specified interval.
-        /// Subsequent timer iterations will generally run at the specified interval.
+        /// they fire all at the same time. To allow this grouping, the @interval to the
+        /// first timer is rounded and can deviate up to one second from the specified
+        /// interval. Subsequent timer iterations will generally run at the specified
+        /// interval.
         /// </para>
         /// <para>
         /// Note that timeout functions may be delayed, due to the processing of other
@@ -147,7 +149,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         /// <param name="priority">
         /// the priority of the timeout source. Typically this will be in
-        ///            the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.
+        ///   the range between %G_PRIORITY_DEFAULT and %G_PRIORITY_HIGH.
         /// </param>
         /// <param name="interval">
         /// the time between calls to the function, in seconds

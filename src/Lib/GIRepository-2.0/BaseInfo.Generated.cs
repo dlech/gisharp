@@ -379,9 +379,7 @@ namespace GISharp.Lib.GIRepository
         /// and must not be freed.
         /// </para>
         /// <para>
-        /// &lt;example&gt;
-        /// &lt;title&gt;Iterating over attributes&lt;/title&gt;
-        /// &lt;programlisting&gt;
+        /// |[&lt;!-- language="C" --&gt;
         /// void
         /// print_attributes (GIBaseInfo *info)
         /// {
@@ -393,8 +391,7 @@ namespace GISharp.Lib.GIRepository
         ///       g_print ("attribute name: %s value: %s", name, value);
         ///     }
         /// }
-        /// &lt;/programlisting&gt;
-        /// &lt;/example&gt;
+        /// ]|
         /// </para>
         /// </remarks>
         /// <param name="info">

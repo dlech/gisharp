@@ -74,10 +74,14 @@ the <see cref="ParamSpec"/> to remove
 <member name='ParamSpecPool'>
 <summary>
 A <see cref="ParamSpecPool"/> maintains a collection of #GParamSpecs which can be
-quickly accessed by owner and name. The implementation of the <see cref="Object"/> property
-system uses such a pool to store the #GParamSpecs of the properties all object
-types.
+quickly accessed by owner and name.
 </summary>
+<remarks>
+<para>
+The implementation of the <see cref="Object"/> property system uses such a pool to
+store the #GParamSpecs of the properties all object types.
+</para>
+</remarks>
 </member>
 
 </declaration>

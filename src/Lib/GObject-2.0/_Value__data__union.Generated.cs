@@ -18,11 +18,11 @@ namespace GISharp.Lib.GObject
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vLong']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        private readonly GISharp.Runtime.CLong vLong;
+        private readonly System.Runtime.InteropServices.CLong vLong;
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vUlong']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        private readonly GISharp.Runtime.CULong vUlong;
+        private readonly System.Runtime.InteropServices.CULong vUlong;
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='_Value__data__union.vInt64']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]

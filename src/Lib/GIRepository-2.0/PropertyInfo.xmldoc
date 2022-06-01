@@ -7,11 +7,34 @@ more information about possible flag values.
 </summary>
 </member>
 
+<member name='PropertyInfo.Getter'>
+<summary>
+Obtains the getter function associated with this <see cref="PropertyInfo"/>.
+</summary>
+<remarks>
+<para>
+The setter is only available for %G_PARAM_READABLE properties.
+</para>
+</remarks>
+</member>
+
 <member name='PropertyInfo.OwnershipTransfer'>
 <summary>
 Obtain the ownership transfer for this property. See <see cref="Transfer"/> for more
 information about transfer values.
 </summary>
+</member>
+
+<member name='PropertyInfo.Setter'>
+<summary>
+Obtains the setter function associated with this <see cref="PropertyInfo"/>.
+</summary>
+<remarks>
+<para>
+The setter is only available for %G_PARAM_WRITABLE properties that
+are also not %G_PARAM_CONSTRUCT_ONLY.
+</para>
+</remarks>
 </member>
 
 <member name='PropertyInfo.Type'>

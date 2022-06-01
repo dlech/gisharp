@@ -70,11 +70,11 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.vLong']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        private readonly GISharp.Runtime.CLong vLong;
+        private readonly System.Runtime.InteropServices.CLong vLong;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.vULong']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        private readonly GISharp.Runtime.CULong vULong;
+        private readonly System.Runtime.InteropServices.CULong vULong;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.vSSize']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]

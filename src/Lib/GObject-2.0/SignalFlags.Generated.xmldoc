@@ -65,11 +65,17 @@ The signal is deprecated and will be removed
 </summary>
 </member>
 
+<member name='SignalFlags.AccumulatorFirstRun'>
+<summary>
+Only used in <see cref="SignalAccumulator"/> accumulator
+  functions for the <see cref="SignalInvocationHint"/>::run_type field to mark the first
+  call to the accumulator function for a signal emission.
+</summary>
+</member>
+
 <member name='SignalFlags'>
 <summary>
-The signal flags are used to specify a signal's behaviour, the overall
-signal description outlines how especially the RUN flags control the
-stages of a signal emission.
+The signal flags are used to specify a signal's behaviour.
 </summary>
 </member>
 

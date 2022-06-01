@@ -85,7 +85,7 @@ the signal leaves a race condition where this is still happening.
 <para>
 In order to make it safe and easy to connect handlers there
 are two helper functions: <see cref="Cancellable.Connect(GISharp.Lib.Gio.CancellableSourceFunc)"/> and
-<see cref="Cancellable.Disconnect(GISharp.Runtime.CULong)"/> which protect against problems
+<see cref="Cancellable.Disconnect(System.Runtime.InteropServices.CULong)"/> which protect against problems
 like this.
 </para>
 <para>
@@ -196,7 +196,7 @@ The id of the signal handler or 0 if this instance has already
 </returns>
 </member>
 
-<member name='Cancellable.Disconnect(GISharp.Runtime.CULong)'>
+<member name='Cancellable.Disconnect(System.Runtime.InteropServices.CULong)'>
 <summary>
 Disconnects a handler from a cancellable instance similar to
 g_signal_handler_disconnect().  Additionally, in the event that a

@@ -5,14 +5,21 @@ namespace GISharp.Lib.GObject
 {
     /// <summary>
     /// A callback function used by the type system to do base initialization
-    /// of the class structures of derived types. It is called as part of the
-    /// initialization process of all derived classes and should reallocate
-    /// or reset all dynamic class members copied over from the parent class.
+    /// of the class structures of derived types.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// This function is called as part of the initialization process of all derived
+    /// classes and should reallocate or reset all dynamic class members copied over
+    /// from the parent class.
+    /// </para>
+    /// <para>
     /// For example, class members (such as strings) that are not sufficiently
     /// handled by a plain memory copy of the parent class into the derived class
     /// have to be altered. See GClassInitFunc() for a discussion of the class
     /// initialization process.
-    /// </summary>
+    /// </para>
+    /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" /> */

@@ -5,9 +5,13 @@ namespace GISharp.Lib.GObject
 {
     /// <summary>
     /// A callback function used by the type system to finalize an interface.
+    /// </summary>
+    /// <remarks>
+    /// <para>
     /// This function should destroy any internal data and release any resources
     /// allocated by the corresponding GInterfaceInitFunc() function.
-    /// </summary>
+    /// </para>
+    /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" /> */

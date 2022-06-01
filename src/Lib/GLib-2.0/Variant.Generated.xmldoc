@@ -75,42 +75,42 @@ For an empty array, <paramref name="length"/> will be set to 0 and a pointer to 
 
 <member name='Variant.Data'>
 <summary>
-Returns a pointer to the serialised form of a <see cref="Variant"/> instance.
+Returns a pointer to the serialized form of a <see cref="Variant"/> instance.
 The returned data may not be in fully-normalised form if read from an
 untrusted source.  The returned data must not be freed; it remains
 valid for as long as this instance exists.
 </summary>
 <remarks>
 <para>
-If this instance is a fixed-sized value that was deserialised from a
-corrupted serialised container then <c>null</c> may be returned.  In this
+If this instance is a fixed-sized value that was deserialized from a
+corrupted serialized container then <c>null</c> may be returned.  In this
 case, the proper thing to do is typically to use the appropriate
 number of nul bytes in place of this instance.  If this instance is not fixed-sized
 then <c>null</c> is never returned.
 </para>
 <para>
-In the case that this instance is already in serialised form, this function
-is O(1).  If the value is not already in serialised form,
-serialisation occurs implicitly and is approximately O(n) in the size
+In the case that this instance is already in serialized form, this function
+is O(1).  If the value is not already in serialized form,
+serialization occurs implicitly and is approximately O(n) in the size
 of the result.
 </para>
 <para>
-To deserialise the data returned by this function, in addition to the
-serialised data, you must know the type of the <see cref="Variant"/>, and (if the
+To deserialize the data returned by this function, in addition to the
+serialized data, you must know the type of the <see cref="Variant"/>, and (if the
 machine might be different) the endianness of the machine that stored
 it. As a result, file formats or network messages that incorporate
-serialised <see cref="Variant"/>s must include this information either
+serialized <see cref="Variant"/>s must include this information either
 implicitly (for instance "the file always contains a
 %G_VARIANT_TYPE_VARIANT and it is always in little-endian order") or
 explicitly (by storing the type and/or endianness in addition to the
-serialised data).
+serialized data).
 </para>
 </remarks>
 </member>
 
 <member name='Variant.DataAsBytes'>
 <summary>
-Returns a pointer to the serialised form of a <see cref="Variant"/> instance.
+Returns a pointer to the serialized form of a <see cref="Variant"/> instance.
 The semantics of this function are exactly the same as
 <see cref="Variant.GetData()"/>, except that the returned <see cref="Bytes"/> holds
 a reference to the variant data.
@@ -210,7 +210,7 @@ If this instance is found not to be in normal form then a new trusted
 </para>
 <para>
 It makes sense to call this function if you've received <see cref="Variant"/>
-data from untrusted sources and you want to ensure your serialised
+data from untrusted sources and you want to ensure your serialized
 output is definitely in normal form.
 </para>
 <para>
@@ -254,7 +254,7 @@ If this instance has a fixed-sized type then this function always returned
 that fixed size.
 </para>
 <para>
-In the case that this instance is already in serialised form or the size has
+In the case that this instance is already in serialized form or the size has
 already been calculated (ie: this function has been called before)
 then this function is O(1).  Otherwise, the size is calculated, an
 operation which is approximately O(n) in the number of values
@@ -376,7 +376,7 @@ Checks if this instance is in normal form.
 <remarks>
 <para>
 The main reason to do this is to detect if a given chunk of
-serialised data is in normal form: load the data into a <see cref="Variant"/>
+serialized data is in normal form: load the data into a <see cref="Variant"/>
 using <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},bool,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> and then use this function to
 check.
 </para>
@@ -518,7 +518,7 @@ fixed-size as are tuples containing only other fixed-sized types.
 <paramref name="elementSize"/> must be the size of a single element in the array.
 For example, if calling this function for an array of 32-bit integers,
 you might say sizeof(gint32). This value isn't used except for the purpose
-of a double-check that the form of the serialised data matches the caller's
+of a double-check that the form of the serialized data matches the caller's
 expectation.
 </para>
 <para>
@@ -541,8 +541,8 @@ the size of each element
 
 <member name='Variant.Variant(GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Bytes,bool)'>
 <summary>
-Constructs a new serialised-mode <see cref="Variant"/> instance.  This is the
-inner interface for creation of new serialised values that gets
+Constructs a new serialized-mode <see cref="Variant"/> instance.  This is the
+inner interface for creation of new serialized values that gets
 called from various functions in gvariant.c.
 </summary>
 <remarks>
@@ -1166,21 +1166,21 @@ concurrently accessed in any way from any number of threads without
 problems.
 </para>
 <para>
-<see cref="Variant"/> is heavily optimised for dealing with data in serialised
+<see cref="Variant"/> is heavily optimised for dealing with data in serialized
 form.  It works particularly well with data located in memory-mapped
-files.  It can perform nearly all deserialisation operations in a
+files.  It can perform nearly all deserialization operations in a
 small constant time, usually touching only a single memory page.
-Serialised <see cref="Variant"/> data can also be sent over the network.
+Serialized <see cref="Variant"/> data can also be sent over the network.
 </para>
 <para>
 <see cref="Variant"/> is largely compatible with D-Bus.  Almost all types of
 <see cref="Variant"/> instances can be sent over D-Bus.  See <see cref="VariantType"/> for
-exceptions.  (However, <see cref="Variant"/>'s serialisation format is not the same
-as the serialisation format of a D-Bus message body: use #GDBusMessage,
+exceptions.  (However, <see cref="Variant"/>'s serialization format is not the same
+as the serialization format of a D-Bus message body: use #GDBusMessage,
 in the gio library, for those.)
 </para>
 <para>
-For space-efficiency, the <see cref="Variant"/> serialisation format does not
+For space-efficiency, the <see cref="Variant"/> serialization format does not
 automatically include the variant's length, type or endianness,
 which must either be implied from context (such as knowledge that a
 particular file format always contains a little-endian
@@ -1216,16 +1216,16 @@ in the future.
 </para>
 <para>
 The memory allocated by <see cref="Variant"/> can be grouped into 4 broad
-purposes: memory for serialised data, memory for the type
+purposes: memory for serialized data, memory for the type
 information cache, buffer management memory and memory for the
 <see cref="Variant"/> structure itself.
 </para>
 <para>
-## Serialised Data Memory
+## Serialized Data Memory
 </para>
 <para>
 This is the memory that is used for storing GVariant data in
-serialised form.  This is what would be sent over the network or
+serialized form.  This is what would be sent over the network or
 what would end up on disk, not counting any indicator of the
 endianness, or of the length or type of the top-level variant.
 </para>
@@ -1265,7 +1265,7 @@ item inside the variant.
 <para>
 As an example, consider a dictionary mapping strings to variants.
 In the case that the dictionary is empty, 0 bytes are required for
-the serialisation.
+the serialization.
 </para>
 <para>
 If we add an item "width" that maps to the int32 value of 500 then
@@ -1296,7 +1296,7 @@ dictionary.
 <para>
 For each GVariant type that currently exists in the program a type
 information structure is kept in the type information cache.  The
-type information structure is required for rapid deserialisation.
+type information structure is required for rapid deserialization.
 </para>
 <para>
 Continuing with the above example, if a <see cref="Variant"/> exists with the
@@ -1350,7 +1350,7 @@ structure is required for many different values of the same type.
 </para>
 <para>
 <see cref="Variant"/> uses an internal buffer management structure to deal
-with the various different possible sources of serialised data
+with the various different possible sources of serialized data
 that it uses.  The buffer is responsible for ensuring that the
 correct call is made when the data is no longer in use by
 <see cref="Variant"/>.  This may involve a g_free() or a g_slice_free() or
@@ -1358,7 +1358,7 @@ even g_mapped_file_unref().
 </para>
 <para>
 One buffer management structure is used for each chunk of
-serialised data.  The size of the buffer management structure
+serialized data.  The size of the buffer management structure
 is 4 * (void *).  On 32-bit systems, that's 16 bytes.
 </para>
 <para>
@@ -1371,7 +1371,7 @@ systems, that's 24 bytes.
 <para>
 <see cref="Variant"/> structures only exist if they are explicitly created
 with API calls.  For example, if a <see cref="Variant"/> is constructed out of
-serialised data for the example given above (with the dictionary)
+serialized data for the example given above (with the dictionary)
 then although there are 9 individual values that comprise the
 entire dictionary (two keys, two values, two variants containing
 the values, two dictionary entries, plus the dictionary itself),
@@ -1382,8 +1382,8 @@ dictionary.
 If calls are made to start accessing the other values then
 <see cref="Variant"/> instances will exist for those values only for as long
 as they are in use (ie: until you call <see cref="Variant.Unref()"/>).  The
-type information is shared.  The serialised data and the buffer
-management structure for that serialised data is shared by the
+type information is shared.  The serialized data and the buffer
+management structure for that serialized data is shared by the
 child.
 </para>
 <para>
@@ -1393,12 +1393,12 @@ child.
 To put the entire example together, for our dictionary mapping
 strings to variants (with two entries, as given above), we are
 using 91 bytes of memory for type information, 29 bytes of memory
-for the serialised data, 16 bytes for buffer management and 24
+for the serialized data, 16 bytes for buffer management and 24
 bytes for the <see cref="Variant"/> instance, or a total of 160 bytes, plus
 malloc overhead.  If we were to use <see cref="Variant.GetChildValue(int)"/> to
 access the two dictionary entries, we would use an additional 48
 bytes.  If we were to have other dictionaries of the same type, we
-would use more memory for the serialised data and buffer
+would use more memory for the serialized data and buffer
 management for those dictionaries, but the type information would
 be shared.
 </para>

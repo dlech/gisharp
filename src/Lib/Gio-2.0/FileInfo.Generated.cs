@@ -17,8 +17,18 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.AccessDateTime']/*" />
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        [System.Diagnostics.CodeAnalysis.DisallowNullAttribute]
+        public GISharp.Lib.GLib.DateTime? AccessDateTime { get => GetAccessDateTime(); set => SetAccessDateTime(value!); }
+
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.ContentType']/*" />
         public GISharp.Runtime.NullableUnownedUtf8 ContentType { get => GetContentType(); set => SetContentType(value.Value); }
+
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.CreationDateTime']/*" />
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        [System.Diagnostics.CodeAnalysis.DisallowNullAttribute]
+        public GISharp.Lib.GLib.DateTime? CreationDateTime { get => GetCreationDateTime(); set => SetCreationDateTime(value!); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.DeletionDate']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -191,6 +201,44 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_dup(other_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.Gio.FileInfo.GetInstance<GISharp.Lib.Gio.FileInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the access time of the current @info and returns it as a
+        /// #GDateTime.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This requires the %G_FILE_ATTRIBUTE_TIME_ACCESS attribute. If
+        /// %G_FILE_ATTRIBUTE_TIME_ACCESS_USEC is provided, the resulting #GDateTime
+        /// will have microsecond precision.
+        /// </para>
+        /// </remarks>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// access time, or %NULL if unknown
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.DateTime" type="GDateTime*" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:in */
+        private static extern GISharp.Lib.GLib.DateTime.UnmanagedStruct* g_file_info_get_access_date_time(
+        /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info);
+        partial void CheckGetAccessDateTimeArgs();
+
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        private GISharp.Lib.GLib.DateTime? GetAccessDateTime()
+        {
+            CheckGetAccessDateTimeArgs();
+            var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_file_info_get_access_date_time(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -741,6 +789,44 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_get_content_type(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the creation time of the current @info and returns it as a
+        /// #GDateTime.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This requires the %G_FILE_ATTRIBUTE_TIME_CREATED attribute. If
+        /// %G_FILE_ATTRIBUTE_TIME_CREATED_USEC is provided, the resulting #GDateTime
+        /// will have microsecond precision.
+        /// </para>
+        /// </remarks>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// creation time, or %NULL if unknown
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.DateTime" type="GDateTime*" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:in */
+        private static extern GISharp.Lib.GLib.DateTime.UnmanagedStruct* g_file_info_get_creation_date_time(
+        /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info);
+        partial void CheckGetCreationDateTimeArgs();
+
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        private GISharp.Lib.GLib.DateTime? GetCreationDateTime()
+        {
+            CheckGetCreationDateTimeArgs();
+            var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_file_info_get_creation_date_time(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Lib.GLib.DateTime.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1373,6 +1459,40 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_TIME_ACCESS and
+        /// %G_FILE_ATTRIBUTE_TIME_ACCESS_USEC attributes in the file info to the
+        /// given date/time value.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="atime">
+        /// a #GDateTime.
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_file_info_set_access_date_time(
+        /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info,
+        /* <type name="GLib.DateTime" type="GDateTime*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.DateTime.UnmanagedStruct* atime);
+        partial void CheckSetAccessDateTimeArgs(GISharp.Lib.GLib.DateTime atime);
+
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        private void SetAccessDateTime(GISharp.Lib.GLib.DateTime atime)
+        {
+            CheckSetAccessDateTimeArgs(atime);
+            var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
+            var atime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)atime.UnsafeHandle;
+            g_file_info_set_access_date_time(info_, atime_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+        }
+
+        /// <summary>
         /// Sets the @attribute to contain the given value, if possible. To unset the
         /// attribute, use %G_FILE_ATTRIBUTE_TYPE_INVALID for @type.
         /// </summary>
@@ -1892,6 +2012,40 @@ namespace GISharp.Lib.Gio
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
             var contentType_ = (byte*)contentType.UnsafeHandle;
             g_file_info_set_content_type(info_, contentType_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+        }
+
+        /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_TIME_CREATED and
+        /// %G_FILE_ATTRIBUTE_TIME_CREATED_USEC attributes in the file info to the
+        /// given date/time value.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="creationTime">
+        /// a #GDateTime.
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_file_info_set_creation_date_time(
+        /* <type name="FileInfo" type="GFileInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info,
+        /* <type name="GLib.DateTime" type="GDateTime*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.DateTime.UnmanagedStruct* creationTime);
+        partial void CheckSetCreationDateTimeArgs(GISharp.Lib.GLib.DateTime creationTime);
+
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        private void SetCreationDateTime(GISharp.Lib.GLib.DateTime creationTime)
+        {
+            CheckSetCreationDateTimeArgs(creationTime);
+            var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
+            var creationTime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)creationTime.UnsafeHandle;
+            g_file_info_set_creation_date_time(info_, creationTime_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 

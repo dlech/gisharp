@@ -2,12 +2,11 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
+using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
-using clong = GISharp.Runtime.CLong;
-using culong = GISharp.Runtime.CULong;
 using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.GObject
@@ -121,9 +120,9 @@ namespace GISharp.Test.GObject
         {
             var v = new Value(GType.Long);
             Assert.That(v.ValueGType, Is.EqualTo(GType.Long));
-            clong expected = 1;
+            CLong expected = new(1);
             v.Set(expected);
-            Assert.That((clong)v, Is.EqualTo(expected));
+            Assert.That((CLong)v, Is.EqualTo(expected));
             Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
@@ -132,7 +131,7 @@ namespace GISharp.Test.GObject
             }, Throws.ArgumentException);
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
-                var _ = (clong)v2;
+                var _ = (CLong)v2;
             }, Throws.InstanceOf<InvalidCastException>());
         }
 
@@ -141,9 +140,9 @@ namespace GISharp.Test.GObject
         {
             var v = new Value(GType.ULong);
             Assert.That(v.ValueGType, Is.EqualTo(GType.ULong));
-            culong expected = 1;
+            CULong expected = new(1);
             v.Set(expected);
-            Assert.That((culong)v, Is.EqualTo(expected));
+            Assert.That((CULong)v, Is.EqualTo(expected));
             Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
@@ -152,7 +151,7 @@ namespace GISharp.Test.GObject
             }, Throws.ArgumentException);
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
-                var _ = (culong)v2;
+                var _ = (CULong)v2;
             }, Throws.InstanceOf<InvalidCastException>());
         }
 

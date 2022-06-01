@@ -21,7 +21,7 @@ A memory allocation failed.
 <member name='PrintError.InvalidFile'>
 <summary>
 An error occurred while loading a page setup
-    or paper size from a key file.
+  or paper size from a key file.
 </summary>
 </member>
 

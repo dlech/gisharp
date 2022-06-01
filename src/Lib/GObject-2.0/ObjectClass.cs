@@ -11,9 +11,6 @@ using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
-using clong = GISharp.Runtime.CLong;
-using culong = GISharp.Runtime.CULong;
-
 using static System.Reflection.BindingFlags;
 
 namespace GISharp.Lib.GObject
@@ -174,10 +171,10 @@ namespace GISharp.Lib.GObject
                         pspec = new ParamSpecUInt64(name, nick, blurb, ulong.MinValue, ulong.MaxValue, (ulong)(defaultValue ?? default(ulong)), flags);
                     }
                     else if (fundamentalGType == GType.Long) {
-                        pspec = new ParamSpecLong(name, nick, blurb, clong.MinValue, clong.MaxValue, (clong)(defaultValue ?? default(clong)), flags);
+                        pspec = new ParamSpecLong(name, nick, blurb, new CLong(int.MinValue), new CLong(int.MaxValue), (CLong)(defaultValue ?? default(CLong)), flags);
                     }
                     else if (fundamentalGType == GType.ULong) {
-                        pspec = new ParamSpecULong(name, nick, blurb, culong.MinValue, culong.MaxValue, (culong)(defaultValue ?? default(culong)), flags);
+                        pspec = new ParamSpecULong(name, nick, blurb, new CULong(uint.MinValue), new CULong(uint.MaxValue), (CULong)(defaultValue ?? default(CULong)), flags);
                     }
                     else if (fundamentalGType == GType.Object) {
                         pspec = new ParamSpecObject(name, nick, blurb, propertyGType, flags);

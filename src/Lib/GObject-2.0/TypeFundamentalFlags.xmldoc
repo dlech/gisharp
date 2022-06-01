@@ -8,7 +8,7 @@ Indicates a classed type
 
 <member name='TypeFundamentalFlags.Instantiatable'>
 <summary>
-Indicates an instantiable type (implies classed)
+Indicates an instantiatable type (implies classed)
 </summary>
 </member>
 

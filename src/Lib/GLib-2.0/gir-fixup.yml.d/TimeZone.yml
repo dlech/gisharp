@@ -8,6 +8,9 @@
 - !change-element
   new-name: gi:function
   xpath: gi:repository/gi:namespace/gi:record[@name='TimeZone']/gi:constructor[@name='new_utc']
+- !change-element
+  new-name: gi:function
+  xpath: gi:repository/gi:namespace/gi:record[@name='TimeZone']/gi:constructor[@name='new_identifier']
 - !change-attribute
   name: name
   regex: new_(.*)

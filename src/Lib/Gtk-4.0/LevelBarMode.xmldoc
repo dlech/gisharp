@@ -14,7 +14,7 @@ the bar has a discrete mode
 
 <member name='LevelBarMode'>
 <summary>
-Describes how `GtkLevelBar` contents should be rendered.
+Describes how [class<c>levelBar</c>] contents should be rendered.
 </summary>
 <remarks>
 <para>

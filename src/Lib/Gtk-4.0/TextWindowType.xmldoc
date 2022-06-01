@@ -38,7 +38,7 @@ Bottom border window.
 
 <member name='TextWindowType'>
 <summary>
-Used to reference the parts of #GtkTextView.
+Used to reference the parts of `GtkTextView`.
 </summary>
 </member>
 

@@ -3,8 +3,13 @@
 <member name='ToggleNotify'>
 <summary>
 A callback function used for notification when the state
-of a toggle reference changes. See <see cref="Object.AddToggleRef(GISharp.Lib.GObject.ToggleNotify)"/>.
+of a toggle reference changes.
 </summary>
+<remarks>
+<para>
+See also: <see cref="Object.AddToggleRef(GISharp.Lib.GObject.ToggleNotify)"/>
+</para>
+</remarks>
 </member>
 
 </declaration>

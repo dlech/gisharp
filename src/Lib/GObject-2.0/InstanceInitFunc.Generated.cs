@@ -5,10 +5,13 @@ namespace GISharp.Lib.GObject
 {
     /// <summary>
     /// A callback function used by the type system to initialize a new
-    /// instance of a type. This function initializes all instance members and
-    /// allocates any resources required by it.
+    /// instance of a type.
     /// </summary>
     /// <remarks>
+    /// <para>
+    /// This function initializes all instance members and allocates any resources
+    /// required by it.
+    /// </para>
     /// <para>
     /// Initialization of a derived instance involves calling all its parent
     /// types instance initializers, so the class member of the instance

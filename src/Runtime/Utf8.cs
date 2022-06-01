@@ -10,8 +10,6 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-using clong = GISharp.Runtime.CLong;
-
 namespace GISharp.Runtime
 {
     /// <summary>
@@ -792,15 +790,15 @@ namespace GISharp.Runtime
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern byte* g_utf16_to_utf8(
             char* str,
-            clong len,
-            clong* itemsRead,
-            clong* itemsWritten,
+            CLong len,
+            CLong* itemsRead,
+            CLong* itemsWritten,
             void** error);
 
         static byte* NewFromManaged(string value)
         {
             fixed (char* value_ = value) {
-                var len_ = (clong)value.Length;
+                var len_ = new CLong(value.Length);
                 var ret = g_utf16_to_utf8(value_, len_, null, null, null);
                 GMarshal.PopUnhandledException();
                 return ret;
@@ -948,9 +946,9 @@ namespace GISharp.Runtime
         /// the length of the string in characters
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
+        /* <type name="glong" type="glong" managed-name="System.Runtime.InteropServices.CLong" /> */
         /* transfer-ownership:none direction:out */
-        private static extern clong g_utf8_strlen(
+        private static extern CLong g_utf8_strlen(
             /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
             /* transfer-ownership:none direction:in */
             byte* p,
@@ -967,9 +965,10 @@ namespace GISharp.Runtime
         public int LengthInCharacters {
             get {
                 if (lengthInCharacters == -1) {
-                    lengthInCharacters = (int)g_utf8_strlen((byte*)UnsafeHandle, -1);
+                    lengthInCharacters = (int)g_utf8_strlen((byte*)UnsafeHandle, -1).Value;
                     GMarshal.PopUnhandledException();
                 }
+
                 return lengthInCharacters;
             }
         }

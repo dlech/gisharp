@@ -17,7 +17,7 @@ Selects the current line. It is triggered by
 <member name='TextExtendSelection'>
 <summary>
 Granularity types that extend the text selection. Use the
-#GtkTextView::extend-selection signal to customize the selection.
+`GtkTextView::extend-selection` signal to customize the selection.
 </summary>
 </member>
 

@@ -58,6 +58,116 @@ namespace GISharp.Lib.GIRepository
     public static unsafe partial class TypeTagExtensions
     {
         /// <summary>
+        /// GLib data structures, such as #GList, #GSList, and #GHashTable, all store
+        /// data pointers.
+        /// In the case where the list or hash table is storing single types rather than
+        /// structs, these data pointers may have values stuffed into them via macros
+        /// such as %GPOINTER_TO_INT.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Use this function to ensure that all values are correctly extracted from
+        /// stuffed pointers, regardless of the machine's architecture or endianness.
+        /// </para>
+        /// <para>
+        /// This function fills in the appropriate field of @arg with the value extracted
+        /// from @hash_pointer, depending on @storage_type.
+        /// </para>
+        /// </remarks>
+        /// <param name="storageType">
+        /// a #GITypeTag obtained from g_type_info_get_storage_type()
+        /// </param>
+        /// <param name="hashPointer">
+        /// A pointer, such as a #GHashTable data pointer
+        /// </param>
+        /// <param name="arg">
+        /// A #GIArgument to fill in
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("1.72")]
+        [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void gi_type_tag_argument_from_hash_pointer(
+        /* <type name="TypeTag" type="GITypeTag" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.TypeTag storageType,
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr hashPointer,
+        /* <type name="Argument" type="GIArgument*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.Argument* arg);
+        static partial void CheckArgumentFromHashPointerArgs(this GISharp.Lib.GIRepository.TypeTag storageType, System.IntPtr hashPointer, ref GISharp.Lib.GIRepository.Argument arg);
+
+        /// <include file="TypeTag.xmldoc" path="declaration/member[@name='TypeTagExtensions.ArgumentFromHashPointer(GISharp.Lib.GIRepository.TypeTag,System.IntPtr,GISharp.Lib.GIRepository.Argument)']/*" />
+        [GISharp.Runtime.SinceAttribute("1.72")]
+        public static void ArgumentFromHashPointer(this GISharp.Lib.GIRepository.TypeTag storageType, System.IntPtr hashPointer, ref GISharp.Lib.GIRepository.Argument arg)
+        {
+            fixed (GISharp.Lib.GIRepository.Argument* arg_ = &arg)
+            {
+                CheckArgumentFromHashPointerArgs(storageType, hashPointer, ref arg);
+                var storageType_ = (GISharp.Lib.GIRepository.TypeTag)storageType;
+                var hashPointer_ = (System.IntPtr)hashPointer;
+                gi_type_tag_argument_from_hash_pointer(storageType_, hashPointer_, arg_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// GLib data structures, such as #GList, #GSList, and #GHashTable, all store
+        /// data pointers.
+        /// In the case where the list or hash table is storing single types rather than
+        /// structs, these data pointers may have values stuffed into them via macros
+        /// such as %GPOINTER_TO_INT.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Use this function to ensure that all values are correctly stuffed into
+        /// pointers, regardless of the machine's architecture or endianness.
+        /// </para>
+        /// <para>
+        /// This function returns a pointer stuffed with the appropriate field of @arg,
+        /// depending on @storage_type.
+        /// </para>
+        /// </remarks>
+        /// <param name="storageType">
+        /// a #GITypeTag obtained from g_type_info_get_storage_type()
+        /// </param>
+        /// <param name="arg">
+        /// A #GIArgument with the value to stuff into a pointer
+        /// </param>
+        /// <returns>
+        /// A stuffed pointer, that can be stored in a #GHashTable, for example
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("1.72")]
+        [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern System.IntPtr gi_type_tag_hash_pointer_from_argument(
+        /* <type name="TypeTag" type="GITypeTag" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.TypeTag storageType,
+        /* <type name="Argument" type="GIArgument*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.Argument* arg);
+        static partial void CheckHashPointerFromArgumentArgs(this GISharp.Lib.GIRepository.TypeTag storageType, ref GISharp.Lib.GIRepository.Argument arg);
+
+        /// <include file="TypeTag.xmldoc" path="declaration/member[@name='TypeTagExtensions.HashPointerFromArgument(GISharp.Lib.GIRepository.TypeTag,GISharp.Lib.GIRepository.Argument)']/*" />
+        [GISharp.Runtime.SinceAttribute("1.72")]
+        public static System.IntPtr HashPointerFromArgument(this GISharp.Lib.GIRepository.TypeTag storageType, ref GISharp.Lib.GIRepository.Argument arg)
+        {
+            fixed (GISharp.Lib.GIRepository.Argument* arg_ = &arg)
+            {
+                CheckHashPointerFromArgumentArgs(storageType, ref arg);
+                var storageType_ = (GISharp.Lib.GIRepository.TypeTag)storageType;
+                var ret_ = gi_type_tag_hash_pointer_from_argument(storageType_,arg_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
+                var ret = (System.IntPtr)ret_;
+                return ret;
+            }
+        }
+
+        /// <summary>
         /// Obtain a string representation of @type
         /// </summary>
         /// <param name="type">

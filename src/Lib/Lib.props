@@ -1,11 +1,11 @@
 <!-- Common properties shared by all libs. -->
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>CS0618</NoWarn>
+    <NoWarn>CS0618,CA2255</NoWarn>
     <RootNamespace>GISharp.Lib.$([System.Text.RegularExpressions.Regex]::Replace($(MSBuildProjectName),'-\d+\.\d+$',''))</RootNamespace>
     <AssemblyName>GISharp.Lib.$(MSBuildProjectName.Replace('-', '.'))</AssemblyName>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>

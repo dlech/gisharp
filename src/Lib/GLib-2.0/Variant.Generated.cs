@@ -456,7 +456,7 @@ namespace GISharp.Lib.GLib
         /// @element_size must be the size of a single element in the array.
         /// For example, if calling this function for an array of 32-bit integers,
         /// you might say sizeof(gint32). This value isn't used except for the purpose
-        /// of a double-check that the form of the serialised data matches the caller's
+        /// of a double-check that the form of the serialized data matches the caller's
         /// expectation.
         /// </para>
         /// <para>
@@ -517,8 +517,8 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Constructs a new serialised-mode #GVariant instance.  This is the
-        /// inner interface for creation of new serialised values that gets
+        /// Constructs a new serialized-mode #GVariant instance.  This is the
+        /// inner interface for creation of new serialized values that gets
         /// called from various functions in gvariant.c.
         /// </summary>
         /// <remarks>
@@ -578,7 +578,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Creates a new #GVariant instance from serialised data.
+        /// Creates a new #GVariant instance from serialized data.
         /// </summary>
         /// <remarks>
         /// <para>
@@ -592,8 +592,8 @@ namespace GISharp.Lib.GLib
         /// the result is undefined.
         /// </para>
         /// <para>
-        /// If @data is trusted to be serialised data in normal form then
-        /// @trusted should be %TRUE.  This applies to serialised data created
+        /// If @data is trusted to be serialized data in normal form then
+        /// @trusted should be %TRUE.  This applies to serialized data created
         /// within this process or read from a trusted location on the disk (such
         /// as a file installed in /usr/lib alongside your application).  You
         /// should set trusted to %FALSE if @data is read from the network, a
@@ -620,7 +620,7 @@ namespace GISharp.Lib.GLib
         /// a definite #GVariantType
         /// </param>
         /// <param name="data">
-        /// the serialised data
+        /// the serialized data
         /// </param>
         /// <param name="size">
         /// the size of @data
@@ -2246,7 +2246,7 @@ namespace GISharp.Lib.GLib
         /// <para>
         /// Note that values borrowed from the returned child are not guaranteed to
         /// still be valid after the child is freed even if you still hold a reference
-        /// to @value, if @value has not been serialised at the time this function is
+        /// to @value, if @value has not been serialized at the time this function is
         /// called. To avoid this, you can serialize @value by calling
         /// g_variant_get_data() and optionally ignoring the return value.
         /// </para>
@@ -2295,42 +2295,42 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Returns a pointer to the serialised form of a #GVariant instance.
+        /// Returns a pointer to the serialized form of a #GVariant instance.
         /// The returned data may not be in fully-normalised form if read from an
         /// untrusted source.  The returned data must not be freed; it remains
         /// valid for as long as @value exists.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// If @value is a fixed-sized value that was deserialised from a
-        /// corrupted serialised container then %NULL may be returned.  In this
+        /// If @value is a fixed-sized value that was deserialized from a
+        /// corrupted serialized container then %NULL may be returned.  In this
         /// case, the proper thing to do is typically to use the appropriate
         /// number of nul bytes in place of @value.  If @value is not fixed-sized
         /// then %NULL is never returned.
         /// </para>
         /// <para>
-        /// In the case that @value is already in serialised form, this function
-        /// is O(1).  If the value is not already in serialised form,
-        /// serialisation occurs implicitly and is approximately O(n) in the size
+        /// In the case that @value is already in serialized form, this function
+        /// is O(1).  If the value is not already in serialized form,
+        /// serialization occurs implicitly and is approximately O(n) in the size
         /// of the result.
         /// </para>
         /// <para>
-        /// To deserialise the data returned by this function, in addition to the
-        /// serialised data, you must know the type of the #GVariant, and (if the
+        /// To deserialize the data returned by this function, in addition to the
+        /// serialized data, you must know the type of the #GVariant, and (if the
         /// machine might be different) the endianness of the machine that stored
         /// it. As a result, file formats or network messages that incorporate
-        /// serialised #GVariants must include this information either
+        /// serialized #GVariants must include this information either
         /// implicitly (for instance "the file always contains a
         /// %G_VARIANT_TYPE_VARIANT and it is always in little-endian order") or
         /// explicitly (by storing the type and/or endianness in addition to the
-        /// serialised data).
+        /// serialized data).
         /// </para>
         /// </remarks>
         /// <param name="value">
         /// a #GVariant instance
         /// </param>
         /// <returns>
-        /// the serialised form of @value, or %NULL
+        /// the serialized form of @value, or %NULL
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -2354,7 +2354,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Returns a pointer to the serialised form of a #GVariant instance.
+        /// Returns a pointer to the serialized form of a #GVariant instance.
         /// The semantics of this function are exactly the same as
         /// g_variant_get_data(), except that the returned #GBytes holds
         /// a reference to the variant data.
@@ -2622,7 +2622,7 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// <para>
         /// It makes sense to call this function if you've received #GVariant
-        /// data from untrusted sources and you want to ensure your serialised
+        /// data from untrusted sources and you want to ensure your serialized
         /// output is definitely in normal form.
         /// </para>
         /// <para>
@@ -2723,7 +2723,7 @@ namespace GISharp.Lib.GLib
         /// that fixed size.
         /// </para>
         /// <para>
-        /// In the case that @value is already in serialised form or the size has
+        /// In the case that @value is already in serialized form or the size has
         /// already been calculated (ie: this function has been called before)
         /// then this function is O(1).  Otherwise, the size is calculated, an
         /// operation which is approximately O(n) in the number of values
@@ -2734,7 +2734,7 @@ namespace GISharp.Lib.GLib
         /// a #GVariant instance
         /// </param>
         /// <returns>
-        /// the serialised size of @value
+        /// the serialized size of @value
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -3199,7 +3199,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// <para>
         /// The main reason to do this is to detect if a given chunk of
-        /// serialised data is in normal form: load the data into a #GVariant
+        /// serialized data is in normal form: load the data into a #GVariant
         /// using g_variant_new_from_data() and then use this function to
         /// check.
         /// </para>
@@ -3511,7 +3511,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
 
         /// <summary>
-        /// Stores the serialised form of @value at @data.  @data should be
+        /// Stores the serialized form of @value at @data.  @data should be
         /// large enough.  See g_variant_get_size().
         /// </summary>
         /// <remarks>
@@ -3521,8 +3521,8 @@ namespace GISharp.Lib.GLib
         /// g_variant_get_normal_form() for a solution.
         /// </para>
         /// <para>
-        /// As with g_variant_get_data(), to be able to deserialise the
-        /// serialised variant successfully, its type and (if the destination
+        /// As with g_variant_get_data(), to be able to deserialize the
+        /// serialized variant successfully, its type and (if the destination
         /// machine might be different) its endianness must also be available.
         /// </para>
         /// <para>
@@ -3533,7 +3533,7 @@ namespace GISharp.Lib.GLib
         /// the #GVariant to store
         /// </param>
         /// <param name="data">
-        /// the location to store the serialised data at
+        /// the location to store the serialized data at
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.24")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

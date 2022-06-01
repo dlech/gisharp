@@ -139,6 +139,64 @@ The type tag of a <see cref="TypeInfo"/>.
 </summary>
 </member>
 
+<member name='TypeTagExtensions.ArgumentFromHashPointer(GISharp.Lib.GIRepository.TypeTag,System.IntPtr,GISharp.Lib.GIRepository.Argument)'>
+<summary>
+GLib data structures, such as #GList, #GSList, and #GHashTable, all store
+data pointers.
+In the case where the list or hash table is storing single types rather than
+structs, these data pointers may have values stuffed into them via macros
+such as %GPOINTER_TO_INT.
+</summary>
+<remarks>
+<para>
+Use this function to ensure that all values are correctly extracted from
+stuffed pointers, regardless of the machine's architecture or endianness.
+</para>
+<para>
+This function fills in the appropriate field of <paramref name="arg"/> with the value extracted
+from <paramref name="hashPointer"/>, depending on <paramref name="storageType"/>.
+</para>
+</remarks>
+<param name="storageType">
+a <see cref="TypeTag"/> obtained from <see cref="TypeInfo.GetStorageType()"/>
+</param>
+<param name="hashPointer">
+A pointer, such as a #GHashTable data pointer
+</param>
+<param name="arg">
+A <see cref="Argument"/> to fill in
+</param>
+</member>
+
+<member name='TypeTagExtensions.HashPointerFromArgument(GISharp.Lib.GIRepository.TypeTag,GISharp.Lib.GIRepository.Argument)'>
+<summary>
+GLib data structures, such as #GList, #GSList, and #GHashTable, all store
+data pointers.
+In the case where the list or hash table is storing single types rather than
+structs, these data pointers may have values stuffed into them via macros
+such as %GPOINTER_TO_INT.
+</summary>
+<remarks>
+<para>
+Use this function to ensure that all values are correctly stuffed into
+pointers, regardless of the machine's architecture or endianness.
+</para>
+<para>
+This function returns a pointer stuffed with the appropriate field of <paramref name="arg"/>,
+depending on <paramref name="storageType"/>.
+</para>
+</remarks>
+<param name="storageType">
+a <see cref="TypeTag"/> obtained from <see cref="TypeInfo.GetStorageType()"/>
+</param>
+<param name="arg">
+A <see cref="Argument"/> with the value to stuff into a pointer
+</param>
+<returns>
+A stuffed pointer, that can be stored in a #GHashTable, for example
+</returns>
+</member>
+
 <member name='TypeTagExtensions.ToString(GISharp.Lib.GIRepository.TypeTag)'>
 <summary>
 Obtain a string representation of <paramref name="type"/>

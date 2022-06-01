@@ -13,7 +13,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <param name="priority">
         /// the priority of the signal source. Typically this will be in
-        ///            the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.
+        ///            the range between %G_PRIORITY_DEFAULT and %G_PRIORITY_HIGH.
         /// </param>
         /// <param name="signum">
         /// Signal number

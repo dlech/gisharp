@@ -147,13 +147,13 @@ This has no effect if structured logging is enabled.
 </remarks>
 <param name="logDomain">
 the log domain, or <c>null</c> for the default ""
-    application domain
+  application domain
 </param>
 <param name="logLevels">
 the log levels to apply the log handler for.
-    To handle fatal and recursive messages as well, combine
-    the log levels with the <see cref="LogLevelFlags.Fatal"/> and
-    <see cref="LogLevelFlags.Recursion"/> bit flags.
+  To handle fatal and recursive messages as well, combine
+  the log levels with the <see cref="LogLevelFlags.Fatal"/> and
+  <see cref="LogLevelFlags.Recursion"/> bit flags.
 </param>
 <param name="logFunc">
 the log handler function

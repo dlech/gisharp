@@ -14,6 +14,13 @@ structure.  This function returns the metadata for the class structure.
 </summary>
 </member>
 
+<member name='ObjectInfo.Final'>
+<summary>
+Checks whether the object type is a final type, i.e. if it cannot
+be derived
+</summary>
+</member>
+
 <member name='ObjectInfo.Fundamental'>
 <summary>
 Obtain if the object type is of a fundamental type which is not

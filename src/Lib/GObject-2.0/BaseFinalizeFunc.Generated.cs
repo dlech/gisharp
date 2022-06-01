@@ -6,10 +6,17 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// A callback function used by the type system to finalize those portions
     /// of a derived types class structure that were setup from the corresponding
-    /// GBaseInitFunc() function. Class finalization basically works the inverse
-    /// way in which class initialization is performed.
-    /// See GClassInitFunc() for a discussion of the class initialization process.
+    /// GBaseInitFunc() function.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Class finalization basically works the inverse way in which class
+    /// initialization is performed.
+    /// </para>
+    /// <para>
+    /// See GClassInitFunc() for a discussion of the class initialization process.
+    /// </para>
+    /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" /> */

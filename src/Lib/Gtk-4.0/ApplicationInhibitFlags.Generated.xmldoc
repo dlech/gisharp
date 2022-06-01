@@ -3,7 +3,7 @@
 <member name='ApplicationInhibitFlags.Logout'>
 <summary>
 Inhibit ending the user session
-    by logging out or by shutting down the computer
+  by logging out or by shutting down the computer
 </summary>
 </member>
 
@@ -16,14 +16,14 @@ Inhibit user switching
 <member name='ApplicationInhibitFlags.Suspend'>
 <summary>
 Inhibit suspending the
-    session or computer
+  session or computer
 </summary>
 </member>
 
 <member name='ApplicationInhibitFlags.Idle'>
 <summary>
 Inhibit the session being
-    marked as idle (and possibly locked)
+  marked as idle (and possibly locked)
 </summary>
 </member>
 

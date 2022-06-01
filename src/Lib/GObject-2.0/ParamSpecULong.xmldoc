@@ -24,7 +24,7 @@ default value for the property specified
 </summary>
 </member>
 
-<member name='ParamSpecULong.ParamSpecULong(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.CULong,GISharp.Runtime.CULong,GISharp.Runtime.CULong,GISharp.Lib.GObject.ParamFlags)'>
+<member name='ParamSpecULong.ParamSpecULong(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,System.Runtime.InteropServices.CULong,System.Runtime.InteropServices.CULong,System.Runtime.InteropServices.CULong,GISharp.Lib.GObject.ParamFlags)'>
 <summary>
 Creates a new <see cref="ParamSpecULong"/> instance specifying a %G_TYPE_ULONG
 property.

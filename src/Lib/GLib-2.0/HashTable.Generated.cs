@@ -383,7 +383,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable,
         /* <type name="guint" type="guint*" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         uint* length);
 
         /// <summary>

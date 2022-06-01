@@ -91,10 +91,13 @@ data to store in the <paramref name="data"/> field of the newly allocated <see c
 Sets a flag on the closure to indicate that its calling
 environment has become invalid, and thus causes any future
 invocations of <see cref="Closure.Invoke(out GISharp.Lib.GObject.Value,System.ReadOnlySpan{GISharp.Lib.GObject.Value},System.IntPtr)"/> on this this instance to be
-ignored. Also, invalidation notifiers installed on the closure will
-be called at this point.
+ignored.
 </summary>
 <remarks>
+<para>
+Also, invalidation notifiers installed on the closure will
+be called at this point.
+</para>
 <para>
 Note that <see cref="Closure.Invalidate()"/> will also be called when the
 reference count of a closure drops to zero (unless it has already
@@ -124,14 +127,16 @@ a context-dependent invocation hint
 
 <member name='Closure'>
 <summary>
-A <see cref="Closure"/> represents a callback supplied by the programmer. It
-will generally comprise a function of some kind and a marshaller
+A <see cref="Closure"/> represents a callback supplied by the programmer.
+</summary>
+<remarks>
+<para>
+It will generally comprise a function of some kind and a marshaller
 used to call it. It is the responsibility of the marshaller to
 convert the arguments for the invocation from <see cref="Value"/>s into
 a suitable form, perform the callback on the converted arguments,
 and transform the return value back into a <see cref="Value"/>.
-</summary>
-<remarks>
+</para>
 <para>
 In the case of C programs, a closure usually just holds a pointer
 to a function and maybe a data argument, and the marshaller

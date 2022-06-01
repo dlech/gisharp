@@ -235,7 +235,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr needle,
         /* <type name="guint" type="guint*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         uint* index);
 
         /// <summary>
@@ -287,7 +287,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, GISharp.Runtime.Boolean> equalFunc,
         /* <type name="guint" type="guint*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         uint* index);
 
         /// <summary>
@@ -933,7 +933,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PtrArray.UnmanagedStruct* array,
         /* <type name="gsize" type="gsize*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         nuint* len);
 
         /// <summary>

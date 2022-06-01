@@ -61,7 +61,7 @@ strong reference to the source. If the source is destroyed before the
 binding then this function will return <c>null</c>.
 </para>
 <para>
-Use g_binding_dup_source() if the source or binding are used from different
+Use <see cref="Binding.DupSource()"/> if the source or binding are used from different
 threads as otherwise the pointer returned from this function might become
 invalid if the source is finalized from another thread in the meantime.
 </para>
@@ -86,7 +86,7 @@ strong reference to the target. If the target is destroyed before the
 binding then this function will return <c>null</c>.
 </para>
 <para>
-Use g_binding_dup_target() if the target or binding are used from different
+Use <see cref="Binding.DupTarget()"/> if the target or binding are used from different
 threads as otherwise the pointer returned from this function might become
 invalid if the target is finalized from another thread in the meantime.
 </para>
@@ -100,15 +100,51 @@ of the binding.
 </summary>
 </member>
 
+<member name='Binding.DupSource()'>
+<summary>
+Retrieves the <see cref="Object"/> instance used as the source of the binding.
+</summary>
+<remarks>
+<para>
+A <see cref="Binding"/> can outlive the source <see cref="Object"/> as the binding does not hold a
+strong reference to the source. If the source is destroyed before the
+binding then this function will return <c>null</c>.
+</para>
+</remarks>
+<returns>
+the source <see cref="Object"/>, or <c>null</c> if the
+    source does not exist any more.
+</returns>
+</member>
+
+<member name='Binding.DupTarget()'>
+<summary>
+Retrieves the <see cref="Object"/> instance used as the target of the binding.
+</summary>
+<remarks>
+<para>
+A <see cref="Binding"/> can outlive the target <see cref="Object"/> as the binding does not hold a
+strong reference to the target. If the target is destroyed before the
+binding then this function will return <c>null</c>.
+</para>
+</remarks>
+<returns>
+the target <see cref="Object"/>, or <c>null</c> if the
+    target does not exist any more.
+</returns>
+</member>
+
 <member name='Binding'>
 <summary>
 <see cref="Binding"/> is the representation of a binding between a property on a
 <see cref="Object"/> instance (or source) and another property on another <see cref="Object"/>
-instance (or target). Whenever the source property changes, the same
-value is applied to the target property; for instance, the following
-binding:
+instance (or target).
 </summary>
 <remarks>
+<para>
+Whenever the source property changes, the same value is applied to the
+target property; for instance, the following binding:
+</para>
 <para>
 |[&lt;!-- language="C" --&gt;
   g_object_bind_property (object1, "property-a",
@@ -180,7 +216,7 @@ can be avoided if the objects emit the <see cref="Object"/>::notify signal only
 if the value has effectively been changed. A binding is implemented
 using the <see cref="Object"/>::notify signal, so it is susceptible to all the
 various ways of blocking a signal emission, like <see cref="Signal.StopEmission(GISharp.Lib.GObject.Object,uint,GISharp.Lib.GLib.Quark)"/>
-or <see cref="Signal.HandlerBlock(GISharp.Lib.GObject.Object,GISharp.Runtime.CULong)"/>.
+or <see cref="Signal.HandlerBlock(GISharp.Lib.GObject.Object,System.Runtime.InteropServices.CULong)"/>.
 </para>
 <para>
 A binding will be severed, and the resources it allocates freed, whenever

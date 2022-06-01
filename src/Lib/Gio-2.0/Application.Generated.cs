@@ -1143,6 +1143,9 @@ namespace GISharp.Lib.Gio
         /// <para>
         /// To cancel the busy indication, use g_application_unmark_busy().
         /// </para>
+        /// <para>
+        /// The application must be registered before calling this function.
+        /// </para>
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -1445,7 +1448,7 @@ namespace GISharp.Lib.Gio
         /// and override local_command_line(). In this case, you most likely want
         /// to return %TRUE from your local_command_line() implementation to
         /// suppress the default handling. See
-        /// [gapplication-example-cmdline2.c][gapplication-example-cmdline2]
+        /// [gapplication-example-cmdline2.c][https://gitlab.gnome.org/GNOME/glib/-/blob/HEAD/gio/tests/gapplication-example-cmdline2.c]
         /// for an example.
         /// </para>
         /// <para>

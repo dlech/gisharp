@@ -16,8 +16,14 @@ namespace GISharp.Lib.GIRepository
         /// <include file="PropertyInfo.xmldoc" path="declaration/member[@name='PropertyInfo.Flags']/*" />
         public GISharp.Lib.GObject.ParamFlags Flags { get => GetFlags(); }
 
+        /// <include file="PropertyInfo.xmldoc" path="declaration/member[@name='PropertyInfo.Getter']/*" />
+        public GISharp.Lib.GIRepository.FunctionInfo? Getter { get => GetGetter(); }
+
         /// <include file="PropertyInfo.xmldoc" path="declaration/member[@name='PropertyInfo.OwnershipTransfer']/*" />
         public GISharp.Lib.GIRepository.Transfer OwnershipTransfer { get => GetOwnershipTransfer(); }
+
+        /// <include file="PropertyInfo.xmldoc" path="declaration/member[@name='PropertyInfo.Setter']/*" />
+        public GISharp.Lib.GIRepository.FunctionInfo? Setter { get => GetSetter(); }
 
         /// <include file="PropertyInfo.xmldoc" path="declaration/member[@name='PropertyInfo.Type']/*" />
         public GISharp.Lib.GIRepository.TypeInfo Type { get => GetType_(); }
@@ -60,6 +66,40 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <summary>
+        /// Obtains the getter function associated with this #GIPropertyInfo.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The setter is only available for %G_PARAM_READABLE properties.
+        /// </para>
+        /// </remarks>
+        /// <param name="info">
+        /// a #GIPropertyInfo
+        /// </param>
+        /// <returns>
+        /// the function info or %NULL if not set.
+        ///   Free it with g_base_info_unref() when done.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FunctionInfo" type="GIFunctionInfo*" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:in */
+        private static extern GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* g_property_info_get_getter(
+        /* <type name="PropertyInfo" type="GIPropertyInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.PropertyInfo.UnmanagedStruct* info);
+        partial void CheckGetGetterArgs();
+
+        private GISharp.Lib.GIRepository.FunctionInfo? GetGetter()
+        {
+            CheckGetGetterArgs();
+            var info_ = (GISharp.Lib.GIRepository.PropertyInfo.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_property_info_get_getter(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
         /// Obtain the ownership transfer for this property. See #GITransfer for more
         /// information about transfer values.
         /// </summary>
@@ -85,6 +125,41 @@ namespace GISharp.Lib.GIRepository
             var ret_ = g_property_info_get_ownership_transfer(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GIRepository.Transfer)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Obtains the setter function associated with this #GIPropertyInfo.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The setter is only available for %G_PARAM_WRITABLE properties that
+        /// are also not %G_PARAM_CONSTRUCT_ONLY.
+        /// </para>
+        /// </remarks>
+        /// <param name="info">
+        /// a #GIPropertyInfo
+        /// </param>
+        /// <returns>
+        /// the function info or %NULL if not set.
+        ///   Free it with g_base_info_unref() when done.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FunctionInfo" type="GIFunctionInfo*" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:in */
+        private static extern GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* g_property_info_get_setter(
+        /* <type name="PropertyInfo" type="GIPropertyInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.PropertyInfo.UnmanagedStruct* info);
+        partial void CheckGetSetterArgs();
+
+        private GISharp.Lib.GIRepository.FunctionInfo? GetSetter()
+        {
+            CheckGetSetterArgs();
+            var info_ = (GISharp.Lib.GIRepository.PropertyInfo.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_property_info_get_setter(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Lib.GIRepository.FunctionInfo.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

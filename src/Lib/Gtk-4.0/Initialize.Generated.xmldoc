@@ -28,12 +28,12 @@ Most programs should not need to call this function.
 <summary>
 Call this function before using any other GTK functions in your GUI
 applications.  It will initialize everything needed to operate the
-toolkit and parses some standard command line options.
+toolkit.
 </summary>
 <remarks>
 <para>
-If you are using #GtkApplication, you don't have to call <see cref="Initialize.Init()"/>
-or <see cref="Initialize.TryInit()"/>; the #GApplication::startup handler
+If you are using `GtkApplication`, you don't have to call <see cref="Initialize.Init()"/>
+or <see cref="Initialize.TryInit()"/>; the `GApplication::startup` handler
 does it for you.
 </para>
 <para>
@@ -68,7 +68,7 @@ interface.
 </remarks>
 <returns>
 <c>true</c> if the windowing system has been successfully
-    initialized, <c>false</c> otherwise
+  initialized, <c>false</c> otherwise
 </returns>
 </member>
 

@@ -14,9 +14,8 @@ the value to set the parameter to
 
 <member name='ObjectConstructParam'>
 <summary>
-The GObjectConstructParam struct is an auxiliary
-structure used to hand <see cref="ParamSpec"/>/<see cref="Value"/> pairs to the <c>constructor</c> of
-a <see cref="ObjectClass"/>.
+The GObjectConstructParam struct is an auxiliary structure used to hand
+<see cref="ParamSpec"/>/<see cref="Value"/> pairs to the <c>constructor</c> of a <see cref="ObjectClass"/>.
 </summary>
 </member>
 

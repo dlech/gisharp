@@ -3,7 +3,7 @@
 <member name='ResponseType.None'>
 <summary>
 Returned if an action widget has no response id,
-    or if the dialog gets programmatically hidden or destroyed
+  or if the dialog gets programmatically hidden or destroyed
 </summary>
 </member>
 

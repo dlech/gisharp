@@ -5,10 +5,12 @@ namespace GISharp.Lib.GObject
 {
     /// <summary>
     /// A callback function used by the type system to initialize the class
-    /// of a specific type. This function should initialize all static class
-    /// members.
+    /// of a specific type.
     /// </summary>
     /// <remarks>
+    /// <para>
+    /// This function should initialize all static class members.
+    /// </para>
     /// <para>
     /// The initialization process of a class involves:
     /// </para>
@@ -82,6 +84,8 @@ namespace GISharp.Lib.GObject
     ///   class-&gt;static_float = 3.14159265358979323846;
     /// }
     /// ]|
+    /// </para>
+    /// <para>
     /// Initialization of TypeBClass will first cause initialization of
     /// TypeAClass (derived classes reference their parent classes, see
     /// g_type_class_ref() on this).

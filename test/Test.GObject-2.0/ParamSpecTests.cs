@@ -10,8 +10,6 @@ using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 
-using clong = GISharp.Runtime.CLong;
-using culong = GISharp.Runtime.CULong;
 using Transfer = GISharp.Runtime.Transfer;
 
 namespace GISharp.Test.GObject
@@ -126,9 +124,9 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestParamSpecLong()
         {
-            clong min = 1;
-            clong max = 5;
-            clong defaultValue = 3;
+            CLong min = new(1);
+            CLong max = new(5);
+            CLong defaultValue = new(3);
 
             var param = TestParamSpec(GType.Long, (name, nick, blurb, flags) =>
                                       new ParamSpecLong(name, nick, blurb, min, max, defaultValue, flags));
@@ -141,9 +139,9 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestParamSpecULong()
         {
-            culong min = 1;
-            culong max = 5;
-            culong defaultValue = 3;
+            CULong min = new(1);
+            CULong max = new(5);
+            CULong defaultValue = new(3);
 
             var param = TestParamSpec(GType.ULong, (name, nick, blurb, flags) =>
                                       new ParamSpecULong(name, nick, blurb, min, max, defaultValue, flags));

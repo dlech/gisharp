@@ -14,13 +14,13 @@ the widget contains a named icon
 
 <member name='ImageType.Gicon'>
 <summary>
-the widget contains a #GIcon
+the widget contains a `GIcon`
 </summary>
 </member>
 
 <member name='ImageType.Paintable'>
 <summary>
-the widget contains a #GdkPaintable
+the widget contains a `GdkPaintable`
 </summary>
 </member>
 

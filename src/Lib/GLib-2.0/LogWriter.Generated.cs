@@ -111,6 +111,123 @@ namespace GISharp.Lib.GLib
         System.IntPtr userData);
 
         /// <summary>
+        /// Configure whether the built-in log functions
+        /// (g_log_default_handler() for the old-style API, and both
+        /// g_log_writer_default() and g_log_writer_standard_streams() for the
+        /// structured API) will output all log messages to `stderr`.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// By default, log messages of levels %G_LOG_LEVEL_INFO and
+        /// %G_LOG_LEVEL_DEBUG are sent to `stdout`, and other log messages are
+        /// sent to `stderr`. This is problematic for applications that intend
+        /// to reserve `stdout` for structured output such as JSON or XML.
+        /// </para>
+        /// <para>
+        /// This function sets global state. It is not thread-aware, and should be
+        /// called at the very start of a program, before creating any other threads
+        /// or creating objects that could create worker threads of their own.
+        /// </para>
+        /// </remarks>
+        /// <param name="useStderr">
+        /// If %TRUE, use `stderr` for log messages that would
+        ///  normally have appeared on `stdout`
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_log_writer_default_set_use_stderr(
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Runtime.Boolean useStderr);
+        static partial void CheckDefaultSetUseStderrArgs(bool useStderr);
+
+        /// <include file="LogWriter.xmldoc" path="declaration/member[@name='LogWriter.DefaultSetUseStderr(bool)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        public static void DefaultSetUseStderr(bool useStderr)
+        {
+            CheckDefaultSetUseStderrArgs(useStderr);
+            var useStderr_ = GISharp.Runtime.BooleanExtensions.ToBoolean(useStderr);
+            g_log_writer_default_set_use_stderr(useStderr_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+        }
+
+        /// <summary>
+        /// Check whether g_log_writer_default() and g_log_default_handler() would
+        /// ignore a message with the given domain and level.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// As with g_log_default_handler(), this function drops debug and informational
+        /// messages unless their log domain (or `all`) is listed in the space-separated
+        /// `G_MESSAGES_DEBUG` environment variable.
+        /// </para>
+        /// <para>
+        /// This can be used when implementing log writers with the same filtering
+        /// behaviour as the default, but a different destination or output format:
+        /// </para>
+        /// <para>
+        /// |[&lt;!-- language="C" --&gt;
+        ///   if (g_log_writer_default_would_drop (log_level, log_domain))
+        ///     return G_LOG_WRITER_HANDLED;
+        /// ]|
+        /// </para>
+        /// <para>
+        /// or to skip an expensive computation if it is only needed for a debugging
+        /// message, and `G_MESSAGES_DEBUG` is not set:
+        /// </para>
+        /// <para>
+        /// |[&lt;!-- language="C" --&gt;
+        ///   if (!g_log_writer_default_would_drop (G_LOG_LEVEL_DEBUG, G_LOG_DOMAIN))
+        ///     {
+        ///       gchar *result = expensive_computation (my_object);
+        /// </para>
+        /// <para>
+        ///       g_debug ("my_object result: %s", result);
+        ///       g_free (result);
+        ///     }
+        /// ]|
+        /// </para>
+        /// </remarks>
+        /// <param name="logLevel">
+        /// log level, either from #GLogLevelFlags, or a user-defined
+        ///    level
+        /// </param>
+        /// <param name="logDomain">
+        /// log domain
+        /// </param>
+        /// <returns>
+        /// %TRUE if the log message would be dropped by GLib's
+        ///  default log handlers
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Runtime.Boolean g_log_writer_default_would_drop(
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.LogLevelFlags logLevel,
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        byte* logDomain);
+        static partial void CheckDefaultWouldDropArgs(GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Runtime.NullableUnownedUtf8 logDomain);
+
+        /// <include file="LogWriter.xmldoc" path="declaration/member[@name='LogWriter.DefaultWouldDrop(GISharp.Lib.GLib.LogLevelFlags,GISharp.Runtime.NullableUnownedUtf8)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.68")]
+        public static bool DefaultWouldDrop(GISharp.Lib.GLib.LogLevelFlags logLevel, GISharp.Runtime.NullableUnownedUtf8 logDomain)
+        {
+            CheckDefaultWouldDropArgs(logLevel, logDomain);
+            var logLevel_ = (GISharp.Lib.GLib.LogLevelFlags)logLevel;
+            var logDomain_ = (byte*)logDomain.UnsafeHandle;
+            var ret_ = g_log_writer_default_would_drop(logLevel_,logDomain_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+            return ret;
+        }
+
+        /// <summary>
         /// Format a structured log message as a string suitable for outputting to the
         /// terminal (or elsewhere). This will include the values of all fields it knows
         /// how to interpret, which includes `MESSAGE` and `GLIB_DOMAIN` (see the

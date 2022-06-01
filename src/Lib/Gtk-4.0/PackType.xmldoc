@@ -18,7 +18,7 @@ Represents the packing location of a children in its parent.
 </summary>
 <remarks>
 <para>
-See `GtkWindowControls` for example.
+See [class<c>windowControls</c>] for example.
 </para>
 </remarks>
 </member>

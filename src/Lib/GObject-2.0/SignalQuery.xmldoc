@@ -51,9 +51,13 @@ The individual parameter types for
 
 <member name='SignalQuery'>
 <summary>
-A structure holding in-depth information for a specific signal. It is
-filled in by the <see cref="Signal.Query(uint,out GISharp.Lib.GObject.SignalQuery)"/> function.
+A structure holding in-depth information for a specific signal.
 </summary>
+<remarks>
+<para>
+See also: <see cref="Signal.Query(uint,out GISharp.Lib.GObject.SignalQuery)"/>
+</para>
+</remarks>
 </member>
 
 </declaration>

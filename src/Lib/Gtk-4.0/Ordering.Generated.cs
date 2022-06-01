@@ -32,6 +32,7 @@ namespace GISharp.Lib.Gtk
         /// <returns>
         /// the corresponding `GtkOrdering`
         /// </returns>
+        [GISharp.Runtime.SinceAttribute("4.2")]
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Ordering" type="GtkOrdering" /> */
         /* transfer-ownership:none direction:in */
@@ -42,6 +43,7 @@ namespace GISharp.Lib.Gtk
         static partial void CheckFromCompareResultArgs(int cmpfuncResult);
 
         /// <include file="Ordering.xmldoc" path="declaration/member[@name='OrderingExtensions.FromCompareResult(int)']/*" />
+        [GISharp.Runtime.SinceAttribute("4.2")]
         public static GISharp.Lib.Gtk.Ordering FromCompareResult(int cmpfuncResult)
         {
             CheckFromCompareResultArgs(cmpfuncResult);

@@ -189,7 +189,7 @@ namespace GISharp.Lib.GLib
         /// the ID of the source to remove.
         /// </param>
         /// <returns>
-        /// For historical reasons, this function always returns %TRUE
+        /// %TRUE if the source was found and removed.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" /> */
@@ -587,6 +587,11 @@ namespace GISharp.Lib.GLib
         /// <para>
         /// This function is safe to call from any thread, regardless of which thread
         /// the #GMainContext is running in.
+        /// </para>
+        /// <para>
+        /// If the source is currently attached to a #GMainContext, destroying it
+        /// will effectively unset the callback similar to calling g_source_set_callback().
+        /// This can mean, that the data's #GDestroyNotify gets called right away.
         /// </para>
         /// </remarks>
         /// <param name="source">
@@ -1288,6 +1293,10 @@ namespace GISharp.Lib.GLib
         /// been attached to a context. The changes will take effect for the next time
         /// the source is dispatched after this call returns.
         /// </para>
+        /// <para>
+        /// Note that g_source_destroy() for a currently attached source has the effect
+        /// of also unsetting the callback.
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// the source
@@ -1476,6 +1485,9 @@ namespace GISharp.Lib.GLib
         /// the value, and changing the value will free it while the other thread
         /// may be attempting to use it.
         /// </para>
+        /// <para>
+        /// Also see g_source_set_static_name().
+        /// </para>
         /// </remarks>
         /// <param name="source">
         /// a #GSource
@@ -1604,6 +1616,41 @@ namespace GISharp.Lib.GLib
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var readyTime_ = (long)readyTime;
             g_source_set_ready_time(source_, readyTime_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+        }
+
+        /// <summary>
+        /// A variant of g_source_set_name() that does not
+        /// duplicate the @name, and can only be used with
+        /// string literals.
+        /// </summary>
+        /// <param name="source">
+        /// a #GSource
+        /// </param>
+        /// <param name="name">
+        /// debug name for the source
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_source_set_static_name(
+        /* <type name="Source" type="GSource*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.Source.UnmanagedStruct* source,
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        byte* name);
+        partial void CheckSetStaticNameArgs(GISharp.Runtime.UnownedUtf8 name);
+
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.SetStaticName(GISharp.Runtime.UnownedUtf8)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        public void SetStaticName(GISharp.Runtime.UnownedUtf8 name)
+        {
+            CheckSetStaticNameArgs(name);
+            var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
+            g_source_set_static_name(source_, name_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 

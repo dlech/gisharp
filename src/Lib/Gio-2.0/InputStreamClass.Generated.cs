@@ -286,7 +286,7 @@ GISharp.Lib.Gio.InputStream.UnmanagedStruct* stream,
 /* direction:out caller-allocates:1 transfer-ownership:none nullable:1 */
 byte* buffer,
 /* <type name="gsize" type="gsize" /> */
-/* direction:in caller-allocates:0 transfer-ownership:full */
+/* transfer-ownership:none direction:in */
 nuint count,
 /* <type name="gint" type="int" /> */
 /* transfer-ownership:none direction:in */

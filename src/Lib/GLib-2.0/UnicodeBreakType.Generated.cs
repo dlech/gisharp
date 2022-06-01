@@ -81,6 +81,9 @@ namespace GISharp.Lib.GLib
         /// <include file="UnicodeBreakType.xmldoc" path="declaration/member[@name='UnicodeBreakType.CloseParanthesis']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         CloseParanthesis = 36,
+        /// <include file="UnicodeBreakType.xmldoc" path="declaration/member[@name='UnicodeBreakType.CloseParenthesis']/*" />
+        [GISharp.Runtime.SinceAttribute("2.70")]
+        CloseParenthesis = 36,
         /// <include file="UnicodeBreakType.xmldoc" path="declaration/member[@name='UnicodeBreakType.ConditionalJapaneseStarter']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         ConditionalJapaneseStarter = 37,

@@ -15,7 +15,7 @@ Destroy the dialog when its parent is destroyed
 <member name='DialogFlags.UseHeaderBar'>
 <summary>
 Create dialog with actions in header
-    bar instead of action area
+  bar instead of action area
 </summary>
 </member>
 

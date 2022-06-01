@@ -3,7 +3,7 @@
 set -e
 
 # macOS 10.15 hack
-export DYLD_LIBRARY_PATH=/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources:/usr/local/lib
+export DYLD_LIBRARY_PATH=/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources:/opt/homebrew/lib::/usr/local/lib
 
 export GenerateFullPaths=true
 

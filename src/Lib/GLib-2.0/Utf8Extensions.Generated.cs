@@ -51,6 +51,13 @@ namespace GISharp.Lib.GLib
         /// compare the keys with strcmp() when sorting instead of sorting
         /// the original strings.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If the two strings are not comparable due to being in different collation
+        /// sequences, the result is undefined. This can happen if the strings are in
+        /// different language scripts, for example.
+        /// </para>
+        /// </remarks>
         /// <param name="str1">
         /// a UTF-8 encoded string
         /// </param>
@@ -411,7 +418,7 @@ namespace GISharp.Lib.GLib
         byte* str,
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CLong offset);
+        System.Runtime.InteropServices.CLong offset);
 
         /// <summary>
         /// Converts from a pointer to position within a string to an integer
@@ -435,7 +442,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CLong g_utf8_pointer_to_offset(
+        private static extern System.Runtime.InteropServices.CLong g_utf8_pointer_to_offset(
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* str,
@@ -549,7 +556,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        private static extern GISharp.Runtime.CLong g_utf8_strlen(
+        private static extern System.Runtime.InteropServices.CLong g_utf8_strlen(
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* p,
@@ -701,6 +708,12 @@ namespace GISharp.Lib.GLib
         /// Copies a substring out of a UTF-8 encoded string.
         /// The substring will contain @end_pos - @start_pos characters.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Since GLib 2.72, `-1` can be passed to @end_pos to indicate the
+        /// end of the string.
+        /// </para>
+        /// </remarks>
         /// <param name="str">
         /// a UTF-8 encoded string
         /// </param>
@@ -708,7 +721,8 @@ namespace GISharp.Lib.GLib
         /// a character offset within @str
         /// </param>
         /// <param name="endPos">
-        /// another character offset within @str
+        /// another character offset within @str,
+        ///   or `-1` to indicate the end of the string
         /// </param>
         /// <returns>
         /// a newly allocated copy of the requested
@@ -724,20 +738,20 @@ namespace GISharp.Lib.GLib
         byte* str,
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CLong startPos,
+        System.Runtime.InteropServices.CLong startPos,
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CLong endPos);
-        static partial void CheckSubstringArgs(this GISharp.Runtime.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos);
+        System.Runtime.InteropServices.CLong endPos);
+        static partial void CheckSubstringArgs(this GISharp.Runtime.UnownedUtf8 str, System.Runtime.InteropServices.CLong startPos, System.Runtime.InteropServices.CLong endPos);
 
-        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.Substring(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.CLong,GISharp.Runtime.CLong)']/*" />
+        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.Substring(GISharp.Runtime.UnownedUtf8,System.Runtime.InteropServices.CLong,System.Runtime.InteropServices.CLong)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static GISharp.Runtime.Utf8 Substring(this GISharp.Runtime.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos)
+        public static GISharp.Runtime.Utf8 Substring(this GISharp.Runtime.UnownedUtf8 str, System.Runtime.InteropServices.CLong startPos, System.Runtime.InteropServices.CLong endPos)
         {
             CheckSubstringArgs(str, startPos, endPos);
             var str_ = (byte*)str.UnsafeHandle;
-            var startPos_ = (GISharp.Runtime.CLong)startPos;
-            var endPos_ = (GISharp.Runtime.CLong)endPos;
+            var startPos_ = (System.Runtime.InteropServices.CLong)startPos;
+            var endPos_ = (System.Runtime.InteropServices.CLong)endPos;
             var ret_ = g_utf8_substring(str_,startPos_,endPos_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
@@ -786,13 +800,13 @@ namespace GISharp.Lib.GLib
         byte* str,
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CLong len,
+        System.Runtime.InteropServices.CLong len,
         /* <type name="glong" type="glong*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
-        GISharp.Runtime.CLong* itemsRead,
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        System.Runtime.InteropServices.CLong* itemsRead,
         /* <type name="glong" type="glong*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
-        GISharp.Runtime.CLong* itemsWritten,
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        System.Runtime.InteropServices.CLong* itemsWritten,
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -828,10 +842,10 @@ namespace GISharp.Lib.GLib
         byte* str,
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CLong len,
+        System.Runtime.InteropServices.CLong len,
         /* <type name="glong" type="glong*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
-        GISharp.Runtime.CLong* itemsWritten);
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        System.Runtime.InteropServices.CLong* itemsWritten);
 
         /// <summary>
         /// Convert a string from UTF-8 to UTF-16. A 0 character will be
@@ -872,13 +886,13 @@ namespace GISharp.Lib.GLib
         byte* str,
         /* <type name="glong" type="glong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CLong len,
+        System.Runtime.InteropServices.CLong len,
         /* <type name="glong" type="glong*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
-        GISharp.Runtime.CLong* itemsRead,
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        System.Runtime.InteropServices.CLong* itemsRead,
         /* <type name="glong" type="glong*" /> */
-        /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
-        GISharp.Runtime.CLong* itemsWritten,
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        System.Runtime.InteropServices.CLong* itemsWritten,
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);

@@ -10,8 +10,8 @@
 | `gushort`, `guint16`        | `ushort`                            |                                                                                                              |
 | `gint`, `gint32`            | `int`                               |                                                                                                              |
 | `guint`, `guint32`          | `uint`                              |                                                                                                              |
-| `glong`                     | `GISharp.Runtime.CLong`             | 32-bit on Windows, pointer-sized elsewhere                                                                   |
-| `gulong`                    | `GISharp.Runtime.CULong`            | 32-bit on Windows, pointer-sized elsewhere                                                                   |
+| `glong`                     | `System.Runtime.InteropServices.CLong`             | 32-bit on Windows, pointer-sized elsewhere                                                                   |
+| `gulong`                    | `System.Runtime.InteropServices.CULong`            | 32-bit on Windows, pointer-sized elsewhere                                                                   |
 | `gint64`, `goffset`         | `long`                              |                                                                                                              |
 | `guint64`                   | `ulong`                             |                                                                                                              |
 | `gfloat`                    | `float`                             |                                                                                                              |

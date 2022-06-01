@@ -9,7 +9,7 @@ Show the print dialog.
 <member name='PrintOperationAction.Print'>
 <summary>
 Start to print without showing
-    the print dialog, based on the current print settings.
+  the print dialog, based on the current print settings.
 </summary>
 </member>
 
@@ -22,7 +22,7 @@ Show the print preview.
 <member name='PrintOperationAction.Export'>
 <summary>
 Export to a file. This requires
-    the export-filename property to be set.
+  the export-filename property to be set.
 </summary>
 </member>
 

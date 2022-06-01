@@ -5,10 +5,14 @@
 
 <member name='InitiallyUnowned'>
 <summary>
-All the fields in the GInitiallyUnowned structure
-are private to the <see cref="InitiallyUnowned"/> implementation and should never be
-accessed directly.
+A type for objects that have an initially floating reference.
 </summary>
+<remarks>
+<para>
+All the fields in the `GInitiallyUnowned` structure are private to the
+implementation and should never be accessed directly.
+</para>
+</remarks>
 </member>
 
 </declaration>

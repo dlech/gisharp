@@ -3,13 +3,13 @@
 <member name='BuilderError.InvalidTypeFunction'>
 <summary>
 A type-func attribute didn’t name
- a function that returns a #GType.
+ a function that returns a `GType`.
 </summary>
 </member>
 
 <member name='BuilderError.UnhandledTag'>
 <summary>
-The input contained a tag that #GtkBuilder
+The input contained a tag that `GtkBuilder`
  can’t handle.
 </summary>
 </member>
@@ -17,20 +17,20 @@ The input contained a tag that #GtkBuilder
 <member name='BuilderError.MissingAttribute'>
 <summary>
 An attribute that is required by
- #GtkBuilder was missing.
+ `GtkBuilder` was missing.
 </summary>
 </member>
 
 <member name='BuilderError.InvalidAttribute'>
 <summary>
-#GtkBuilder found an attribute that
+`GtkBuilder` found an attribute that
  it doesn’t understand.
 </summary>
 </member>
 
 <member name='BuilderError.InvalidTag'>
 <summary>
-#GtkBuilder found a tag that
+`GtkBuilder` found a tag that
  it doesn’t understand.
 </summary>
 </member>
@@ -44,7 +44,7 @@ A required property value was
 
 <member name='BuilderError.InvalidValue'>
 <summary>
-#GtkBuilder couldn’t parse
+`GtkBuilder` couldn’t parse
  some attribute value.
 </summary>
 </member>
@@ -96,15 +96,15 @@ An object id is unknown.
 <member name='BuilderError.InvalidFunction'>
 <summary>
 A function could not be found. This often happens
-    when symbols are set to be kept private. Compiling code with -rdynamic or using the
-    `gmodule-export-2.0` pkgconfig module can fix this problem.
+  when symbols are set to be kept private. Compiling code with -rdynamic or using the
+  `gmodule-export-2.0` pkgconfig module can fix this problem.
 </summary>
 </member>
 
 <member name='BuilderError'>
 <summary>
 Error codes that identify various errors that can occur while using
-#GtkBuilder.
+`GtkBuilder`.
 </summary>
 </member>
 

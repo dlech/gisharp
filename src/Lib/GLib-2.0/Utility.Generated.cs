@@ -128,7 +128,9 @@ namespace GISharp.Lib.GLib
         /// taking the last component of @argv[0].
         /// </para>
         /// <para>
-        /// Note that for thread-safety reasons this function can only be called once.
+        /// Since GLib 2.72, this function can be called multiple times
+        /// and is fully thread safe. Prior to GLib 2.72, this function
+        /// could only be called once per process.
         /// </para>
         /// </remarks>
         /// <param name="prgname">

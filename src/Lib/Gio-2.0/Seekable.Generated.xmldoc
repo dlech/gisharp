@@ -65,7 +65,8 @@ On error
 Tells the current position within the stream.
 </summary>
 <returns>
-the offset from the beginning of the buffer.
+the (positive or zero) offset from the beginning of the
+buffer, zero if the target is not seekable.
 </returns>
 </member>
 
@@ -196,7 +197,8 @@ Tells the current position within the stream.
 a <see cref="ISeekable"/>.
 </param>
 <returns>
-the offset from the beginning of the buffer.
+the (positive or zero) offset from the beginning of the
+buffer, zero if the target is not seekable.
 </returns>
 </member>
 

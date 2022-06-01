@@ -336,7 +336,7 @@ Sets this instance's result to <paramref name="result"/> (by copying it) and com
 </summary>
 <remarks>
 <para>
-If <paramref name="result"/> is <c>null</c> then a #GValue of type #G_TYPE_POINTER
+If <paramref name="result"/> is <c>null</c> then a #GValue of type %G_TYPE_POINTER
 with a value of <c>null</c> will be used for the result.
 </para>
 <para>
@@ -424,6 +424,11 @@ loop first, if necessary). The caller will pass the <see cref="Task"/> back to
 the operation's finish function (as a <see cref="IAsyncResult"/>), and you can
 use <see cref="Task.PropagatePointer()"/> or the like to extract the
 return value.
+</para>
+<para>
+Using <see cref="Task"/> requires the thread-default #GMainContext from when the
+<see cref="Task"/> was constructed to be running at least until the task has completed
+and its data has been freed.
 </para>
 <para>
 Here is an example for using GTask as a GAsyncResult:

@@ -6,11 +6,16 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// The signal accumulator is a special callback function that can be used
     /// to collect return values of the various callbacks that are called
-    /// during a signal emission. The signal accumulator is specified at signal
-    /// creation time, if it is left %NULL, no accumulation of callback return
-    /// values is performed. The return value of signal emissions is then the
-    /// value returned by the last callback.
+    /// during a signal emission.
     /// </summary>
+    /// <remarks>
+    /// <para>
+    /// The signal accumulator is specified at signal creation time, if it is
+    /// left %NULL, no accumulation of callback return values is performed.
+    /// The return value of signal emissions is then the value returned by the
+    /// last callback.
+    /// </para>
+    /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gboolean" type="gboolean" /> */

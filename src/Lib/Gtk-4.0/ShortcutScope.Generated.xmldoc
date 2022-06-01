@@ -3,28 +3,28 @@
 <member name='ShortcutScope.Local'>
 <summary>
 Shortcuts are handled inside
-    the widget the controller belongs to.
+  the widget the controller belongs to.
 </summary>
 </member>
 
 <member name='ShortcutScope.Managed'>
 <summary>
 Shortcuts are handled by
-    the first ancestor that is a #GtkShortcutManager
+  the first ancestor that is a [iface<c>shortcutManager</c>]
 </summary>
 </member>
 
 <member name='ShortcutScope.Global'>
 <summary>
 Shortcuts are handled by
-    the root widget.
+  the root widget.
 </summary>
 </member>
 
 <member name='ShortcutScope'>
 <summary>
-Describes where `GtkShortcut`s added to a
-`GtkShortcutController` get handled.
+Describes where [class<c>shortcut</c>]s added to a
+[class<c>shortcutController</c>] get handled.
 </summary>
 </member>
 

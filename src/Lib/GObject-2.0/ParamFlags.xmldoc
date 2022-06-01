@@ -87,8 +87,13 @@ the parameter is deprecated and will be removed
 <member name='ParamFlags'>
 <summary>
 Through the <see cref="ParamFlags"/> flag values, certain aspects of parameters
-can be configured. See also #G_PARAM_STATIC_STRINGS.
+can be configured.
 </summary>
+<remarks>
+<para>
+See also: <see cref="ParamSpec.staticStrings"/>
+</para>
+</remarks>
 </member>
 
 </declaration>

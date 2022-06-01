@@ -8,10 +8,13 @@ namespace GISharp.Lib.GLib
     {
         /// <summary>
         /// Adds a function to be called whenever there are no higher priority
-        /// events pending.  If the function returns %FALSE it is automatically
-        /// removed from the list of event sources and will not be called again.
+        /// events pending.
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// If the function returns %G_SOURCE_REMOVE or %FALSE it is automatically
+        /// removed from the list of event sources and will not be called again.
+        /// </para>
         /// <para>
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle the return value and memory management of @data.
@@ -26,7 +29,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         /// <param name="priority">
         /// the priority of the idle source. Typically this will be in the
-        ///            range between #G_PRIORITY_DEFAULT_IDLE and #G_PRIORITY_HIGH_IDLE.
+        ///   range between %G_PRIORITY_DEFAULT_IDLE and %G_PRIORITY_HIGH_IDLE.
         /// </param>
         /// <param name="function">
         /// function to call

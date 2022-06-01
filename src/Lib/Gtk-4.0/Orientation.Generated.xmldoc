@@ -18,7 +18,7 @@ Represents the orientation of widgets and other objects.
 </summary>
 <remarks>
 <para>
-Typical examples are `GtkBox or `GtkGesturePan`.
+Typical examples are [class<c>box</c>] or [class<c>gesturePan</c>].
 </para>
 </remarks>
 </member>

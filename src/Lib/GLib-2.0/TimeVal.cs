@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2021 David Lechner <david@lechnology.com>
 
-using clong = GISharp.Runtime.CLong;
+using System.Runtime.InteropServices;
 
 namespace GISharp.Lib.GLib
 {
@@ -10,11 +10,11 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// seconds
         /// </summary>
-        public clong Seconds => tvSec;
+        public CLong Seconds => tvSec;
 
         /// <summary>
         /// microseconds
         /// </summary>
-        public clong Microseconds => tvUsec;
+        public CLong Microseconds => tvUsec;
     }
 }

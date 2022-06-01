@@ -3,23 +3,23 @@
 <member name='FilterChange.Different'>
 <summary>
 The filter change cannot be
-    described with any of the other enumeration values.
+  described with any of the other enumeration values.
 </summary>
 </member>
 
 <member name='FilterChange.LessStrict'>
 <summary>
 The filter is less strict than
-    it was before: All items that it used to return <c>true</c> for
-    still return <c>true</c>, others now may, too.
+  it was before: All items that it used to return <c>true</c> for
+  still return <c>true</c>, others now may, too.
 </summary>
 </member>
 
 <member name='FilterChange.MoreStrict'>
 <summary>
 The filter is more strict than
-    it was before: All items that it used to return <c>false</c> for
-    still return <c>false</c>, others now may, too.
+  it was before: All items that it used to return <c>false</c> for
+  still return <c>false</c>, others now may, too.
 </summary>
 </member>
 

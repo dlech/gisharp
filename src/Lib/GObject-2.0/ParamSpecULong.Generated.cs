@@ -17,13 +17,13 @@ namespace GISharp.Lib.GObject
             public readonly GISharp.Lib.GObject.ParamSpec.UnmanagedStruct ParentInstance;
 
             /// <include file="ParamSpecULong.xmldoc" path="declaration/member[@name='UnmanagedStruct.Minimum']/*" />
-            public readonly GISharp.Runtime.CULong Minimum;
+            public readonly System.Runtime.InteropServices.CULong Minimum;
 
             /// <include file="ParamSpecULong.xmldoc" path="declaration/member[@name='UnmanagedStruct.Maximum']/*" />
-            public readonly GISharp.Runtime.CULong Maximum;
+            public readonly System.Runtime.InteropServices.CULong Maximum;
 
             /// <include file="ParamSpecULong.xmldoc" path="declaration/member[@name='UnmanagedStruct.DefaultValue']/*" />
-            public readonly GISharp.Runtime.CULong DefaultValue;
+            public readonly System.Runtime.InteropServices.CULong DefaultValue;
 #pragma warning restore CS0169, CS0414, CS0649
         }
 
@@ -83,35 +83,35 @@ namespace GISharp.Lib.GObject
         byte* blurb,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong minimum,
+        System.Runtime.InteropServices.CULong minimum,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong maximum,
+        System.Runtime.InteropServices.CULong maximum,
         /* <type name="gulong" type="gulong" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.CULong defaultValue,
+        System.Runtime.InteropServices.CULong defaultValue,
         /* <type name="ParamFlags" type="GParamFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamFlags flags);
-        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Runtime.CULong minimum, GISharp.Runtime.CULong maximum, GISharp.Runtime.CULong defaultValue, GISharp.Lib.GObject.ParamFlags flags);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, System.Runtime.InteropServices.CULong minimum, System.Runtime.InteropServices.CULong maximum, System.Runtime.InteropServices.CULong defaultValue, GISharp.Lib.GObject.ParamFlags flags);
 
-        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Runtime.CULong minimum, GISharp.Runtime.CULong maximum, GISharp.Runtime.CULong defaultValue, GISharp.Lib.GObject.ParamFlags flags)
+        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, System.Runtime.InteropServices.CULong minimum, System.Runtime.InteropServices.CULong maximum, System.Runtime.InteropServices.CULong defaultValue, GISharp.Lib.GObject.ParamFlags flags)
         {
             CheckNewArgs(name, nick, blurb, minimum, maximum, defaultValue, flags);
             var name_ = (byte*)name.UnsafeHandle;
             var nick_ = (byte*)nick.UnsafeHandle;
             var blurb_ = (byte*)blurb.UnsafeHandle;
-            var minimum_ = (GISharp.Runtime.CULong)minimum;
-            var maximum_ = (GISharp.Runtime.CULong)maximum;
-            var defaultValue_ = (GISharp.Runtime.CULong)defaultValue;
+            var minimum_ = (System.Runtime.InteropServices.CULong)minimum;
+            var maximum_ = (System.Runtime.InteropServices.CULong)maximum;
+            var defaultValue_ = (System.Runtime.InteropServices.CULong)defaultValue;
             var flags_ = (GISharp.Lib.GObject.ParamFlags)flags;
             var ret_ = g_param_spec_ulong(name_,nick_,blurb_,minimum_,maximum_,defaultValue_,flags_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             return ret_;
         }
 
-        /// <include file="ParamSpecULong.xmldoc" path="declaration/member[@name='ParamSpecULong.ParamSpecULong(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.CULong,GISharp.Runtime.CULong,GISharp.Runtime.CULong,GISharp.Lib.GObject.ParamFlags)']/*" />
-        public ParamSpecULong(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Runtime.CULong minimum, GISharp.Runtime.CULong maximum, GISharp.Runtime.CULong defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, minimum, maximum, defaultValue, flags), GISharp.Runtime.Transfer.None)
+        /// <include file="ParamSpecULong.xmldoc" path="declaration/member[@name='ParamSpecULong.ParamSpecULong(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,System.Runtime.InteropServices.CULong,System.Runtime.InteropServices.CULong,System.Runtime.InteropServices.CULong,GISharp.Lib.GObject.ParamFlags)']/*" />
+        public ParamSpecULong(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, System.Runtime.InteropServices.CULong minimum, System.Runtime.InteropServices.CULong maximum, System.Runtime.InteropServices.CULong defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, minimum, maximum, defaultValue, flags), GISharp.Runtime.Transfer.None)
         {
         }
     }

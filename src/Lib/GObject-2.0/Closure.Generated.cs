@@ -70,10 +70,12 @@ namespace GISharp.Lib.GObject
 
         /// <summary>
         /// Allocates a struct of the given size and initializes the initial
-        /// part as a #GClosure. This function is mainly useful when
-        /// implementing new types of closures.
+        /// part as a #GClosure.
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// This function is mainly useful when implementing new types of closures:
+        /// </para>
         /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// typedef struct _MyClosure MyClosure;
@@ -154,12 +156,16 @@ namespace GISharp.Lib.GObject
 
         /// <summary>
         /// Registers a finalization notifier which will be called when the
-        /// reference count of @closure goes down to 0. Multiple finalization
-        /// notifiers on a single closure are invoked in unspecified order. If
-        /// a single call to g_closure_unref() results in the closure being
-        /// both invalidated and finalized, then the invalidate notifiers will
-        /// be run before the finalize notifiers.
+        /// reference count of @closure goes down to 0.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Multiple finalization notifiers on a single closure are invoked in
+        /// unspecified order. If a single call to g_closure_unref() results in
+        /// the closure being both invalidated and finalized, then the invalidate
+        /// notifiers will be run before the finalize notifiers.
+        /// </para>
+        /// </remarks>
         /// <param name="closure">
         /// a #GClosure
         /// </param>
@@ -185,10 +191,14 @@ namespace GISharp.Lib.GObject
 
         /// <summary>
         /// Registers an invalidation notifier which will be called when the
-        /// @closure is invalidated with g_closure_invalidate(). Invalidation
-        /// notifiers are invoked before finalization notifiers, in an
-        /// unspecified order.
+        /// @closure is invalidated with g_closure_invalidate().
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Invalidation notifiers are invoked before finalization notifiers,
+        /// in an unspecified order.
+        /// </para>
+        /// </remarks>
         /// <param name="closure">
         /// a #GClosure
         /// </param>
@@ -214,10 +224,15 @@ namespace GISharp.Lib.GObject
 
         /// <summary>
         /// Adds a pair of notifiers which get invoked before and after the
-        /// closure callback, respectively. This is typically used to protect
-        /// the extra arguments for the duration of the callback. See
-        /// g_object_watch_closure() for an example of marshal guards.
+        /// closure callback, respectively.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This is typically used to protect the extra arguments for the
+        /// duration of the callback. See g_object_watch_closure() for an
+        /// example of marshal guards.
+        /// </para>
+        /// </remarks>
         /// <param name="closure">
         /// a #GClosure
         /// </param>
@@ -259,14 +274,17 @@ namespace GISharp.Lib.GObject
         /// Sets a flag on the closure to indicate that its calling
         /// environment has become invalid, and thus causes any future
         /// invocations of g_closure_invoke() on this @closure to be
-        /// ignored. Also, invalidation notifiers installed on the closure will
+        /// ignored.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Also, invalidation notifiers installed on the closure will
         /// be called at this point. Note that unless you are holding a
         /// reference to the closure yourself, the invalidation notifiers may
         /// unref the closure and cause it to be destroyed, so if you need to
         /// access the closure after calling g_closure_invalidate(), make sure
         /// that you've previously called g_closure_ref().
-        /// </summary>
-        /// <remarks>
+        /// </para>
         /// <para>
         /// Note that g_closure_invalidate() will also be called when the
         /// reference count of a closure drops to zero (unless it has already
@@ -446,13 +464,22 @@ namespace GISharp.Lib.GObject
         delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> notifyFunc);
 
         /// <summary>
-        /// Sets the marshaller of @closure. The `marshal_data`
-        /// of @marshal provides a way for a meta marshaller to provide additional
-        /// information to the marshaller. (See g_closure_set_meta_marshal().) For
-        /// GObject's C predefined marshallers (the g_cclosure_marshal_*()
+        /// Sets the marshaller of @closure.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// The `marshal_data` of @marshal provides a way for a meta marshaller to
+        /// provide additional information to the marshaller.
+        /// </para>
+        /// <para>
+        /// For GObject's C predefined marshallers (the `g_cclosure_marshal_*()`
         /// functions), what it provides is a callback function to use instead of
         /// @closure-&gt;callback.
-        /// </summary>
+        /// </para>
+        /// <para>
+        /// See also: g_closure_set_meta_marshal()
+        /// </para>
+        /// </remarks>
         /// <param name="closure">
         /// a #GClosure
         /// </param>
@@ -471,16 +498,21 @@ namespace GISharp.Lib.GObject
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Closure.UnmanagedStruct*, GISharp.Lib.GObject.Value*, uint, GISharp.Lib.GObject.Value*, System.IntPtr, System.IntPtr, void> marshal);
 
         /// <summary>
-        /// Sets the meta marshaller of @closure.  A meta marshaller wraps
-        /// @closure-&gt;marshal and modifies the way it is called in some
-        /// fashion. The most common use of this facility is for C callbacks.
-        /// The same marshallers (generated by [glib-genmarshal][glib-genmarshal]),
-        /// are used everywhere, but the way that we get the callback function
-        /// differs. In most cases we want to use @closure-&gt;callback, but in
-        /// other cases we want to use some different technique to retrieve the
-        /// callback function.
+        /// Sets the meta marshaller of @closure.
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// A meta marshaller wraps the @closure's marshal and modifies the way
+        /// it is called in some fashion. The most common use of this facility
+        /// is for C callbacks.
+        /// </para>
+        /// <para>
+        /// The same marshallers (generated by [glib-genmarshal][glib-genmarshal]),
+        /// are used everywhere, but the way that we get the callback function
+        /// differs. In most cases we want to use the @closure's callback, but in
+        /// other cases we want to use some different technique to retrieve the
+        /// callback function.
+        /// </para>
         /// <para>
         /// For example, class closures for signals (see
         /// g_signal_type_cclosure_new()) retrieve the callback function from a
@@ -514,29 +546,43 @@ namespace GISharp.Lib.GObject
         delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Closure.UnmanagedStruct*, GISharp.Lib.GObject.Value*, uint, GISharp.Lib.GObject.Value*, System.IntPtr, System.IntPtr, void> metaMarshal);
 
         /// <summary>
-        /// Takes over the initial ownership of a closure.  Each closure is
-        /// initially created in a "floating" state, which means that the initial
-        /// reference count is not owned by any caller. g_closure_sink() checks
-        /// to see if the object is still floating, and if so, unsets the
-        /// floating state and decreases the reference count. If the closure
-        /// is not floating, g_closure_sink() does nothing. The reason for the
-        /// existence of the floating state is to prevent cumbersome code
-        /// sequences like:
+        /// Takes over the initial ownership of a closure.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Each closure is initially created in a "floating" state, which means
+        /// that the initial reference count is not owned by any caller.
+        /// </para>
+        /// <para>
+        /// This function checks to see if the object is still floating, and if so,
+        /// unsets the floating state and decreases the reference count. If the
+        /// closure is not floating, g_closure_sink() does nothing.
+        /// </para>
+        /// <para>
+        /// The reason for the existence of the floating state is to prevent
+        /// cumbersome code sequences like:
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// closure = g_cclosure_new (cb_func, cb_data);
         /// g_source_set_closure (source, closure);
         /// g_closure_unref (closure); // GObject doesn't really need this
         /// ]|
+        /// </para>
+        /// <para>
         /// Because g_source_set_closure() (and similar functions) take ownership of the
         /// initial reference count, if it is unowned, we instead can write:
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// g_source_set_closure (source, g_cclosure_new (cb_func, cb_data));
         /// ]|
-        /// </summary>
-        /// <remarks>
+        /// </para>
         /// <para>
         /// Generally, this function is used together with g_closure_ref(). An example
         /// of storing a closure for later notification looks like:
+        /// </para>
+        /// <para>
         /// |[&lt;!-- language="C" --&gt;
         /// static GClosure *notify_closure = NULL;
         /// void
@@ -573,9 +619,14 @@ namespace GISharp.Lib.GObject
 
         /// <summary>
         /// Decrements the reference count of a closure after it was previously
-        /// incremented by the same caller. If no other callers are using the
-        /// closure, then the closure will be destroyed and freed.
+        /// incremented by the same caller.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If no other callers are using the closure, then the closure will be
+        /// destroyed and freed.
+        /// </para>
+        /// </remarks>
         /// <param name="closure">
         /// #GClosure to decrement the reference count on
         /// </param>

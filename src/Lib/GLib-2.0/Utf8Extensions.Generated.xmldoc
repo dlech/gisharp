@@ -1,10 +1,16 @@
 <declaration>
 
-<member name='Utf8Extensions.Substring(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.CLong,GISharp.Runtime.CLong)'>
+<member name='Utf8Extensions.Substring(GISharp.Runtime.UnownedUtf8,System.Runtime.InteropServices.CLong,System.Runtime.InteropServices.CLong)'>
 <summary>
 Copies a substring out of a UTF-8 encoded string.
 The substring will contain <paramref name="endPos"/> - <paramref name="startPos"/> characters.
 </summary>
+<remarks>
+<para>
+Since GLib 2.72, `-1` can be passed to <paramref name="endPos"/> to indicate the
+end of the string.
+</para>
+</remarks>
 <param name="str">
 a UTF-8 encoded string
 </param>
@@ -12,7 +18,8 @@ a UTF-8 encoded string
 a character offset within <paramref name="str"/>
 </param>
 <param name="endPos">
-another character offset within <paramref name="str"/>
+another character offset within <paramref name="str"/>,
+  or `-1` to indicate the end of the string
 </param>
 <returns>
 a newly allocated copy of the requested

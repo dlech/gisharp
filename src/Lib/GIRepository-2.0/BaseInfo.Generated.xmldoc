@@ -107,46 +107,55 @@ The value of the attribute, or <c>null</c> if no such attribute exists
 
 <member name='BaseInfo'>
 <summary>
-GIBaseInfo is the common base struct of all other *Info structs
+GIBaseInfo is the common base struct of all other Info structs
 accessible through the <see cref="Repository"/> API.
-All other structs can be casted to a <see cref="BaseInfo"/>, for instance:
-&lt;example&gt;
-&lt;title&gt;Casting a <see cref="FunctionInfo"/> to <see cref="BaseInfo"/>&lt;/title&gt;
-&lt;programlisting&gt;
-   GIFunctionInfo *function_info = ...;
-   GIBaseInfo *info = (GIBaseInfo*)function_info;
-&lt;/programlisting&gt;
-&lt;/example&gt;
-Most <see cref="Repository"/> APIs returning a <see cref="BaseInfo"/> is actually creating a new struct, in other
-words, <see cref="BaseInfo.Unref()"/> has to be called when done accessing the data.
-GIBaseInfos are normally accessed by calling either
-<see cref="Repository.FindByName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Runtime.GType)"/> or <see cref="Repository.GetInfo(GISharp.Runtime.UnownedUtf8,int)"/>.
 </summary>
 <remarks>
 <para>
-&lt;example&gt;
-&lt;title&gt;Getting the Button of the Gtk typelib&lt;/title&gt;
-&lt;programlisting&gt;
-   GIBaseInfo *button_info = g_irepository_find_by_name(NULL, "Gtk", "Button");
-   ... use button_info ...
-   g_base_info_unref(button_info);
-&lt;/programlisting&gt;
-&lt;/example&gt;
+All info structures can be cast to a <see cref="BaseInfo"/>, for instance:
 </para>
 <para>
-&lt;refsect1 id="gi-gibaseinfo.struct-hierarchy" role="struct_hierarchy"&gt;
-&lt;title role="struct_hierarchy.title"&gt;Struct hierarchy&lt;/title&gt;
-&lt;synopsis&gt;
+|[&lt;!-- language="C" --&gt;
+   GIFunctionInfo *function_info = ...;
+   GIBaseInfo *info = (GIBaseInfo *) function_info;
+]|
+</para>
+<para>
+Most <see cref="Repository"/> APIs returning a <see cref="BaseInfo"/> is actually
+creating a new struct; in other words, <see cref="BaseInfo.Unref()"/> has to
+be called when done accessing the data.
+</para>
+<para>
+<see cref="BaseInfo"/> structuress are normally accessed by calling either
+<see cref="Repository.FindByName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Runtime.GType)"/> or
+<see cref="Repository.GetInfo(GISharp.Runtime.UnownedUtf8,int)"/>.
+</para>
+<para>
+|[&lt;!-- language="C" --&gt;
+GIBaseInfo *button_info =
+  g_irepository_find_by_name (NULL, "Gtk", "Button");
+</para>
+<para>
+// ... use button_info ...
+</para>
+<para>
+g_base_info_unref (button_info);
+]|
+</para>
+<para>
+## Hierarchy
+</para>
+<para>
+|[&lt;!-- language="plain" --&gt;
   GIBaseInfo
-   +----&lt;link linkend="gi-GIArgInfo"&gt;GIArgInfo&lt;/link&gt;
-   +----&lt;link linkend="gi-GICallableInfo"&gt;GICallableInfo&lt;/link&gt;
-   +----&lt;link linkend="gi-GIConstantInfo"&gt;GIConstantInfo&lt;/link&gt;
-   +----&lt;link linkend="gi-GIFieldInfo"&gt;GIFieldInfo&lt;/link&gt;
-   +----&lt;link linkend="gi-GIPropertyInfo"&gt;GIPropertyInfo&lt;/link&gt;
-   +----&lt;link linkend="gi-GIRegisteredTypeInfo"&gt;GIRegisteredTypeInfo&lt;/link&gt;
-   +----&lt;link linkend="gi-GITypeInfo"&gt;GITypeInfo&lt;/link&gt;
-&lt;/synopsis&gt;
-&lt;/refsect1&gt;
+   +---- GIArgInfo
+   +---- GICallableInfo
+   +---- GIConstantInfo
+   +---- GIFieldInfo
+   +---- GIPropertyInfo
+   +---- GIRegisteredTypeInfo
+   +---- GITypeInfo
+]|
 </para>
 </remarks>
 </member>

@@ -36,7 +36,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         /// <remarks>
         /// <para>
-        /// Construction parameters (see #G_PARAM_CONSTRUCT, #G_PARAM_CONSTRUCT_ONLY)
+        /// Construction parameters (see %G_PARAM_CONSTRUCT, %G_PARAM_CONSTRUCT_ONLY)
         /// which are not explicitly specified are set to their default values.
         /// </para>
         /// </remarks>
@@ -212,12 +212,15 @@ System.IntPtr data);
 
         /// <summary>
         /// Creates a binding between @source_property on @source and @target_property
-        /// on @target. Whenever the @source_property is changed the @target_property is
-        /// updated using the same value. For instance:
+        /// on @target.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// |[
+        /// Whenever the @source_property is changed the @target_property is
+        /// updated using the same value. For instance:
+        /// </para>
+        /// <para>
+        /// |[&lt;!-- language="C" --&gt;
         ///   g_object_bind_property (action, "active", widget, "sensitive", 0);
         /// ]|
         /// </para>
@@ -1063,7 +1066,8 @@ System.IntPtr data);
         ///  the last reference.
         /// </param>
         /// <param name="data">
-        /// data to pass to @notify
+        /// data to pass to @notify, or %NULL to
+        ///  match any toggle refs with the @notify argument.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.8")]
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
