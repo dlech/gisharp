@@ -1,0 +1,12 @@
+{
+    "yaml.customTags": [
+        "!add-element mapping",
+        "!change-attribute mapping",
+        "!change-element mapping",
+        "!move-element mapping",
+        "!set-attribute mapping",
+    ],
+    "yaml.schemas": {
+        "tools/gir-fixup.schema.json": ["**/gir-fixup.d/*.yml", "**/gir-fixup.yml"]
+    }
+}
