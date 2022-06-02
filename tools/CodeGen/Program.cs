@@ -122,7 +122,7 @@ namespace GISharp.CodeGen
 
             }
             catch (Exception ex) {
-                logger.LogError($"Failed to load project: {ex.Message}");
+                logger.LogError("Failed to load project: {ExceptionMessage}", ex.Message);
                 context.ExitCode = 1;
                 return;
             }
@@ -135,14 +135,14 @@ namespace GISharp.CodeGen
 
             // load the GIR XML file
 
-            logger.LogInformation($"Loading GIR XML file '{girFilePath}'...");
+            logger.LogInformation("Loading GIR XML file '{Path}'...", girFilePath);
             XDocument girXml;
 
             try {
                 girXml = XDocument.Load(girFilePath);
             }
             catch (Exception ex) {
-                logger.LogError($"Failed to load GIR XML: {ex.Message}");
+                logger.LogError("Failed to load GIR XML: {ExceptionMessage}", ex.Message);
                 context.ExitCode = 1;
                 return;
             }
@@ -170,15 +170,14 @@ namespace GISharp.CodeGen
             // Handle the create-fixup command
 
             if (command == createFixupCommandName) {
-                logger.LogInformation($"Generating '{defaultFixupFilePath}'");
+                logger.LogInformation("Generating '{Path}'", defaultFixupFilePath);
                 try {
                     Directory.CreateDirectory(fixupDirPath);
                     using var writer = new StreamWriter(defaultFixupFilePath);
                     girXml.Generate(writer);
                 }
                 catch (Exception ex) {
-                    var msg = $"Failed to create fixup file: {ex.Message}";
-                    logger.LogError(msg);
+                    logger.LogError("Failed to create fixup file: {ExceptionMessage}", ex.Message);
                     context.ExitCode = 1;
                 }
                 return;
@@ -195,8 +194,7 @@ namespace GISharp.CodeGen
                     commands.AddRange(Fixup.Parse(reader));
                 }
                 catch (Exception ex) {
-                    var msg = $"Fixup file error: {ex.Message} in '{file}'";
-                    logger.LogError(msg);
+                    logger.LogError("Fixup file error: {ExceptionMessage} in '{Path}'", ex.Message, file);
                 }
             }
 

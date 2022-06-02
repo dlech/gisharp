@@ -51,15 +51,8 @@ namespace GISharp.CodeGen
         /// </summary>
         /// <param name="gir">The GIR XML document</param>
         /// <param name="writer">TextWriter where the YAML will be written</param>
-        public static void Generate(this XDocument gir, TextWriter writer)
+        public static void Generate(this XDocument gir!!, TextWriter writer!!)
         {
-            if (gir is null) {
-                throw new ArgumentNullException(nameof(gir));
-            }
-            if (writer is null) {
-                throw new ArgumentNullException(nameof(writer));
-            }
-
             // we want everything lower-case and hyphenated
             var hyphenator = HyphenatedNamingConvention.Instance;
 
@@ -115,12 +108,8 @@ namespace GISharp.CodeGen
         /// Parses data from a gir-fixup/*.yml file
         /// </summary>
         /// <param name="yaml"/>YAML text data</param>
-        public static Command[] Parse(TextReader reader)
+        public static Command[] Parse(TextReader reader!!)
         {
-            if (reader is null) {
-                throw new ArgumentNullException(nameof(reader));
-            }
-
             // we expect everything lower-case and hyphenated
             var hyphenator = HyphenatedNamingConvention.Instance;
 
@@ -143,22 +132,15 @@ namespace GISharp.CodeGen
             return commands;
         }
 
-        public static void ApplyFixup(this XDocument document, IEnumerable<Command> commands)
+        public static void ApplyFixup(this XDocument document!!, IEnumerable<Command> commands!!)
         {
-            if (document is null) {
-                throw new ArgumentNullException(nameof(document));
-            }
-            if (commands is null) {
-                throw new ArgumentNullException(nameof(commands));
-            }
-
             foreach (var command in commands) {
                 switch (command) {
                 case AddElement addElement:
                     var newElement = ParseElement(addElement.Xml);
                     var addParent = document.XPathSelectElement(addElement.Xpath, Manager);
                     if (addParent is null) {
-                        logger.LogWarning($"Could not find element at '{addElement.Xpath}'");
+                        logger.LogWarning("Could not find element at '{XPath}'", addElement.Xpath);
                         break;
                     }
                     addParent.Add(newElement);
@@ -173,7 +155,7 @@ namespace GISharp.CodeGen
                     }
                     var setAttrElements = document.XPathSelectElements(setAttr.Xpath, Manager).ToList();
                     if (setAttrElements.Count == 0) {
-                        logger.LogWarning($"Could not find any elements matching '{setAttr.Xpath}'");
+                        logger.LogWarning("Could not find any elements matching '{XPath}'", setAttr.Xpath);
                         break;
                     }
                     foreach (var element in setAttrElements) {
@@ -196,7 +178,7 @@ namespace GISharp.CodeGen
                     }
                     var changeAttrElements = document.XPathSelectElements(changeAttr.Xpath, Manager).ToList();
                     if (changeAttrElements.Count == 0) {
-                        logger.LogWarning($"Could not find any elements matching '{changeAttr.Xpath}'");
+                        logger.LogWarning("Could not find any elements matching '{XPath}'", changeAttr.Xpath);
                         break;
                     }
                     foreach (var element in changeAttrElements) {
@@ -217,7 +199,7 @@ namespace GISharp.CodeGen
                     }
                     var elementsToChange = document.XPathSelectElements(changeElement.Xpath, Manager);
                     if (elementsToChange is null) {
-                        logger.LogWarning($"Could not find elements matching '{changeElement.Xpath}'");
+                        logger.LogWarning("Could not find elements matching '{XPath}'", changeElement.Xpath);
                         break;
                     }
                     foreach (var element in elementsToChange) {
@@ -227,11 +209,11 @@ namespace GISharp.CodeGen
                 case MoveElement moveElement:
                     var moveElements = document.XPathSelectElements(moveElement.Xpath, Manager).ToList();
                     if (moveElements.Count == 0) {
-                        logger.LogWarning($"Could not find any elements matching '{moveElement.Xpath}'");
+                        logger.LogWarning("Could not find any elements matching '{XPath}'", moveElement.Xpath);
                     }
                     var moveParent = document.XPathSelectElement(moveElement.NewParentXpath, Manager);
                     if (moveParent is null) {
-                        logger.LogWarning($"Could not find element at '{moveElement.NewParentXpath}'");
+                        logger.LogWarning("Could not find element at '{XPath}'", moveElement.NewParentXpath);
                         break;
                     }
                     foreach (var element in moveElements) {
@@ -242,7 +224,7 @@ namespace GISharp.CodeGen
                 case RemoveElement removeElement:
                     var removeElements = document.XPathSelectElements(removeElement.Xpath, Manager).ToList();
                     if (removeElements.Count == 0) {
-                        logger.LogWarning($"Could not find any elements matching '{removeElement.Xpath}'");
+                        logger.LogWarning("Could not find any elements matching '{XPath}'", removeElement.Xpath);
                     }
                     foreach (var element in removeElements) {
                         element.Remove();
@@ -303,7 +285,7 @@ namespace GISharp.CodeGen
             var dllName = Path.GetFileNameWithoutExtension(sharedLibrary);
             // strip the ABI version, if any
             if (Regex.Match(dllName, @"\d+\.\d+\.\d+$").Success) {
-                dllName = dllName.Substring(0, dllName.LastIndexOf("."));
+                dllName = dllName[..dllName.LastIndexOf(".")];
             }
             // strip the lib prefix
             if (dllName.StartsWith("lib")) {
@@ -732,7 +714,7 @@ namespace GISharp.CodeGen
                     .SingleOrDefault(x => x.Attribute("name").AsString() == finishMethodName);
 
                 if (finishMethodElement is null) {
-                    logger.LogWarning($"missing finish function for {element.GetXPath()}");
+                    logger.LogWarning("missing finish function for {XPath}", element.GetXPath());
                     continue;
                 }
 
@@ -1075,18 +1057,18 @@ namespace GISharp.CodeGen
         {
             foreach (var e in doc.Descendants().Where(d => ElementsThatDefineAType.Contains(d.Name))) {
                 if (e.Attribute("name") is null) {
-                    logger.LogWarning($"Missing name attribute at {e.GetXPath()}");
+                    logger.LogWarning("Missing name attribute at {XPath}", e.GetXPath());
                 }
                 if (e.Attribute(gs + "managed-name") is null) {
-                    logger.LogWarning($"Missing gs:managed-name attribute at {e.GetXPath()}");
+                    logger.LogWarning("Missing gs:managed-name attribute at {XPath}", e.GetXPath());
                 }
             }
 
             foreach (var e in doc.Descendants(gi + "namespace").Elements(gi + "constant").Where(x => !x.IsSkipped())) {
-                logger.LogWarning($"Unused constant at {e.GetXPath()}");
+                logger.LogWarning("Unused constant at {XPath}", e.GetXPath());
             }
             foreach (var e in doc.Descendants(gi + "namespace").Elements(gi + "function").Where(x => !x.IsSkipped())) {
-                logger.LogWarning($"Unused function at {e.GetXPath()}");
+                logger.LogWarning("Unused function at {XPath}", e.GetXPath());
             }
         }
 
@@ -1214,12 +1196,8 @@ namespace GISharp.CodeGen
             }
         }
 
-        public static string GetXPath(this XElement element)
+        public static string GetXPath(this XElement element!!)
         {
-            if (element is null) {
-                throw new ArgumentNullException(nameof(element));
-            }
-
             var builder = new StringBuilder();
             foreach (var e in element.AncestorsAndSelf().Reverse()) {
                 builder.Append('/');
@@ -1297,7 +1275,7 @@ namespace GISharp.CodeGen
                 if (str == str.ToUpper()) {
                     str = str.ToLower();
                 }
-                str = ((str.Length > 0) ? str.Substring(0, 1).ToUpper() : "")
+                str = ((str.Length > 0) ? str[..1].ToUpper() : "")
                     + ((str.Length > 1) ? str[1..] : "");
             }
 
@@ -1310,7 +1288,7 @@ namespace GISharp.CodeGen
                 return null;
             }
             str = str.ToPascalCase();
-            str = ((str.Length > 0) ? str.Substring(0, 1).ToLower() : "")
+            str = ((str.Length > 0) ? str[..1].ToLower() : "")
                 + ((str.Length > 1) ? str[1..] : "");
             if (ParseToken(str).IsReservedKeyword()) {
                 str = "@" + str;

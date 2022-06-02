@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.CodeGen.Gir;
-using GISharp.Runtime;
 
 namespace GISharp.CodeGen
 {
@@ -80,7 +79,7 @@ namespace GISharp.CodeGen
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported"),
                 var n when n is not null && n.EndsWith("Private") => "System.IntPtr",
-                var n when n is not null && n.Contains(".") => type switch {
+                var n when n is not null && n.Contains('.') => type switch {
                     var t when t.Interface is Alias alias && alias.Type.Interface is Callback callback => callback.GetUnmanagedType(),
                     var t when t.Interface is Callback callback => callback.GetUnmanagedType(),
                     var t when t.IsValueType() => $"GISharp.Lib.{type.GirName}{pointer}",

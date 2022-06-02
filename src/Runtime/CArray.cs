@@ -132,7 +132,7 @@ namespace GISharp.Runtime
     /// </summary>
     public unsafe class ZeroTerminatedCArray<T> : Opaque where T : unmanaged
     {
-        private int length;
+        private readonly int length;
 
         /// <summary>
         /// Indicates whether the current instance is empty.

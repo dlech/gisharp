@@ -177,7 +177,8 @@ namespace GISharp.CodeGen.Syntax
                 // These references look like "prefix_name()"
                 foreach (var prefix in ns.CSymbolPrefixes) {
                     var functions = Regex.Matches(text, prefix + @"_\w+(?=\(\))");
-                    foreach (Match f in functions) {
+                    
+                    foreach (var f in functions.Cast<Match>()) {
                         var callable = (GICallable)ns.FindNodeByCIdentifier(f.Value);
                         if (callable is null) {
                             continue;

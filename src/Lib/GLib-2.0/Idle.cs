@@ -37,7 +37,7 @@ namespace GISharp.Lib.GLib
             var functionHandle = GCHandle.Alloc((function, CallbackScope.Notified));
             data = (IntPtr)functionHandle;
             var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
-            g_idle_add_full(priority, function_, data, notify_);
+            _ = g_idle_add_full(priority, function_, data, notify_);
             GMarshal.PopUnhandledException();
         }
     }

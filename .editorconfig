@@ -14,7 +14,7 @@ dotnet_diagnostic.IDE0004.severity = suggestion # Cast is redundant
 dotnet_diagnostic.IDE0005.severity = suggestion # remove unused using
 dotnet_diagnostic.IDE0047.severity = suggestion # Parentheses can be removed
 dotnet_diagnostic.IDE0060.severity = silent # Remove unused parameter
-dotnet_diagnostic.IDE1006.severity = silent # naming rule violation - temporary until https://github.com/dotnet/roslyn/pull/51728 is released
+dotnet_diagnostic.IDE0230.severity = silent # Use UTF-8 string literal
 
 [*.yml]
 end_of_line = lf

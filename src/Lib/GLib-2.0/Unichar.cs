@@ -20,7 +20,7 @@ namespace GISharp.Lib.GLib
             var ch_ = (uint)ch.Value;
             var outbuf_ = (byte*)GMarshal.Alloc0(6);
             // TODO: pass length to Utf8 constructor
-            g_unichar_to_utf8(ch_, outbuf_);
+            _ = g_unichar_to_utf8(ch_, outbuf_);
             GMarshal.PopUnhandledException();
             var outbuf = new Utf8((IntPtr)outbuf_, Transfer.Full);
             return outbuf;
@@ -38,7 +38,7 @@ namespace GISharp.Lib.GLib
             var resultLen_ = (nuint)result.Length;
             var ret = g_unichar_fully_decompose(ch_, compat_, result_, resultLen_);
             GMarshal.PopUnhandledException();
-            return result.Slice(0, (int)ret);
+            return result[..(int)ret];
         }
     }
 }

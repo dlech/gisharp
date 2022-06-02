@@ -93,8 +93,8 @@ namespace GISharp.CodeGen.Syntax
 
         internal static void LogException(this GIBase member, Exception ex)
         {
-            logger.LogWarning($"Problem with {member.Element.GetXPath()}: {ex.Message}");
-            logger.LogDebug(ex.StackTrace);
+            logger.LogWarning("Problem with {XPath}: {ExceptionMessage}", member.Element.GetXPath(), ex.Message);
+            logger.LogDebug("{StackTrace}", ex.StackTrace);
         }
     }
 }

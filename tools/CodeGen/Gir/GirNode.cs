@@ -43,9 +43,9 @@ namespace GISharp.CodeGen.Gir
         public Doc Doc => _Doc.Value;
         readonly Lazy<Doc> _Doc;
 
-        protected GirNode(XElement element, GirNode parent)
+        protected GirNode(XElement element!!, GirNode parent)
         {
-            Element = element ?? throw new ArgumentNullException(nameof(element));
+            Element = element;
             ParentNode = parent;
             _Ancestors = new(() => LazyGetAncestors().ToList());
             _Doc = new(LazyGetDoc, false);

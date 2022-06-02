@@ -188,7 +188,7 @@ namespace GISharp.CodeGen.Syntax
                 else if (arg.IsParams) {
                     yield return Token(ParamsKeyword);
                 }
-                else if (arg is InstanceParameter && !(arg.ParentNode.ParentNode is Signal)) {
+                else if (arg is InstanceParameter && arg.ParentNode.ParentNode is not Signal) {
                     yield return Token(ThisKeyword);
                 }
                 else if (arg.Direction == "in" && arg.IsByRefValueType()) {
