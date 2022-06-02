@@ -162,7 +162,7 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
-        /// Raises the excpetion set with <see cref="PushUnhandledException"/>
+        /// Raises the exception set with <see cref="PushUnhandledException"/>
         /// and clears the thread-local storage.
         /// </summary>
         public static void PopUnhandledException()
