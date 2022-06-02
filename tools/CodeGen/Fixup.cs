@@ -46,7 +46,7 @@ namespace GISharp.CodeGen
         private readonly static ILogger logger = Globals.LoggerFactory.CreateLogger("Fixup");
 
         /// <summary>
-        /// Creates a new gir-fixup.yml file that skips everything in the GIR
+        /// Creates a new gir-fixup/*.yml file that skips everything in the GIR
         /// XML file.
         /// </summary>
         /// <param name="gir">The GIR XML document</param>
@@ -112,7 +112,7 @@ namespace GISharp.CodeGen
         }
 
         /// <summary>
-        /// Parses data from a gir-fixup.yml file
+        /// Parses data from a gir-fixup/*.yml file
         /// </summary>
         /// <param name="yaml"/>YAML text data</param>
         public static Command[] Parse(TextReader reader)

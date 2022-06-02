@@ -7,6 +7,6 @@
         "!set-attribute mapping",
     ],
     "yaml.schemas": {
-        "tools/gir-fixup.schema.json": ["**/gir-fixup.d/*.yml", "**/gir-fixup.yml"]
+        "tools/gir-fixup.schema.json": ["**/gir-fixup/*.yml"]
     }
 }

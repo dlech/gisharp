@@ -54,7 +54,7 @@ namespace GISharp.CodeGen
 
             var createFixupCommand = new Command(
                 createFixupCommandName,
-                "Create a new gir-fixup.yml file for a project"
+                "Create a new gir-fixup/_default.yml file for a project"
             ) {
                 projectOption,
                 girDirOption,
@@ -147,27 +147,22 @@ namespace GISharp.CodeGen
                 return;
             }
 
-            // load the gir-fixup.yml file
-
-            const string fixupFileName = "gir-fixup.yml";
-            const string fixupDirName = fixupFileName + ".d";
+            // load the gir-fixup/*.yml files
 
             var projectDirPath = Path.GetDirectoryName(projectAnalyzer.ProjectFile.Path);
-
-            var fixupFilePath = Path.Combine(projectDirPath, fixupFileName);
-            var fixupFileExists = File.Exists(fixupFilePath);
-            var fixupDirPath = Path.Combine(projectDirPath, fixupDirName);
-            var fixupDirExists = Directory.Exists(fixupDirPath);
+            var fixupDirPath = Path.Combine(projectDirPath, "gir-fixup");
+            var defaultFixupFilePath = Path.Combine(fixupDirPath, "_default.yml");
+            var defaultFixupFileExists = File.Exists(defaultFixupFilePath);
 
             // for most commands, we need an existing fixup file
-            if (command != createFixupCommandName && !fixupFileExists && !fixupDirExists) {
-                logger.LogError("gir-fixup.yml does not exist. Create it using create-fixup command.");
+            if (command != createFixupCommandName && !defaultFixupFileExists) {
+                logger.LogError("gir-fixup/_default.yml does not exist. Create it using create-fixup command.");
                 context.ExitCode = 1;
                 return;
             }
             // for the create-fixup command, we want to make sure we aren't overwriting an existing file
-            else if (command == createFixupCommandName == !force && fixupFileExists) {
-                logger.LogError("gir-fixup.yml already exists in project. Use --force to overwrite.");
+            else if (command == createFixupCommandName == !force && defaultFixupFileExists) {
+                logger.LogError("gir-fixup/_default.yml already exists in project. Use --force to overwrite.");
                 context.ExitCode = 1;
                 return;
             }
@@ -175,9 +170,10 @@ namespace GISharp.CodeGen
             // Handle the create-fixup command
 
             if (command == createFixupCommandName) {
-                logger.LogInformation($"Generating '{fixupFilePath}'");
+                logger.LogInformation($"Generating '{defaultFixupFilePath}'");
                 try {
-                    using var writer = new StreamWriter(fixupFilePath);
+                    Directory.CreateDirectory(fixupDirPath);
+                    using var writer = new StreamWriter(defaultFixupFilePath);
                     girXml.Generate(writer);
                 }
                 catch (Exception ex) {
@@ -192,14 +188,8 @@ namespace GISharp.CodeGen
 
             logger.LogInformation($"Loading fixup file(s)...");
             var commands = new Generic.List<Fixup.Command>();
-            var fixupFiles = new Generic.List<string>();
-            if (fixupFileExists) {
-                fixupFiles.Add(fixupFilePath);
-            }
-            if (fixupDirExists) {
-                fixupFiles.AddRange(Directory.EnumerateFiles(fixupDirPath, "*.yml"));
-            }
-            foreach (var file in fixupFiles) {
+
+            foreach (var file in Directory.EnumerateFiles(fixupDirPath, "*.yml")) {
                 try {
                     using var reader = new StreamReader(file);
                     commands.AddRange(Fixup.Parse(reader));
