@@ -9,8 +9,13 @@ namespace GISharp.Lib.GObject
 {
     unsafe partial class CClosure
     {
-        private static Closure.UnmanagedStruct* New(Delegate callbackFunc!!)
+        private static Closure.UnmanagedStruct* New(Delegate callbackFunc)
         {
+            if (callbackFunc is null)
+            {
+                throw new ArgumentNullException(nameof(callbackFunc));
+            }
+
             var callbackFunc_ = (delegate* unmanaged[Cdecl]<void>)callbackFunc.GetCClosureUnmanagedFunctionPointer();
             var userData_ = (IntPtr)GCHandle.Alloc(new CClosureData(callbackFunc));
             var destroyNotify_ = (delegate* unmanaged[Cdecl]<IntPtr, Closure.UnmanagedStruct*, void>)&ManagedDestroyNotify;

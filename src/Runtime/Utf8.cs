@@ -1091,8 +1091,13 @@ namespace GISharp.Runtime
         /// <summary>
         /// Compares two strings for byte-by-byte equality.
         /// </summary>
-        public bool Equals(Utf8 other!!)
+        public bool Equals(Utf8 other)
         {
+            if (other is null)
+            {
+                throw new ArgumentNullException(nameof(other));
+            }
+
             var this_ = (byte*)UnsafeHandle;
             var other_ = (byte*)other.UnsafeHandle;
             var ret_ = g_str_equal(this_, other_);

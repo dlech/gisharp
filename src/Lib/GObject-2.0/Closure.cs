@@ -68,8 +68,13 @@ namespace GISharp.Lib.GObject
         /// invoke the callback of this closure
         /// </param>
         /// <returns>The return value of the closure invocation</returns>
-        public T Invoke<T>(params object?[] paramValues!!)
+        public T Invoke<T>(params object?[] paramValues)
         {
+            if (paramValues is null)
+            {
+                throw new ArgumentNullException(nameof(paramValues));
+            }
+
             var this_ = (UnmanagedStruct*)UnsafeHandle;
             var returnValue = new Value(typeof(T).ToGType());
             var paramValues_ = stackalloc Value[paramValues.Length];

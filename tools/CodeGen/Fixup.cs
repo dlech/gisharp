@@ -51,8 +51,17 @@ namespace GISharp.CodeGen
         /// </summary>
         /// <param name="gir">The GIR XML document</param>
         /// <param name="writer">TextWriter where the YAML will be written</param>
-        public static void Generate(this XDocument gir!!, TextWriter writer!!)
+        public static void Generate(this XDocument gir, TextWriter writer)
         {
+            if (gir is null)
+            {
+                throw new ArgumentNullException(nameof(gir));
+            }
+
+            if (writer is null)
+            {
+                throw new ArgumentNullException(nameof(writer));
+            }
             // we want everything lower-case and hyphenated
             var hyphenator = HyphenatedNamingConvention.Instance;
 
@@ -108,8 +117,13 @@ namespace GISharp.CodeGen
         /// Parses data from a gir-fixup/*.yml file
         /// </summary>
         /// <param name="yaml"/>YAML text data</param>
-        public static Command[] Parse(TextReader reader!!)
+        public static Command[] Parse(TextReader reader)
         {
+            if (reader is null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
             // we expect everything lower-case and hyphenated
             var hyphenator = HyphenatedNamingConvention.Instance;
 
@@ -132,8 +146,18 @@ namespace GISharp.CodeGen
             return commands;
         }
 
-        public static void ApplyFixup(this XDocument document!!, IEnumerable<Command> commands!!)
+        public static void ApplyFixup(this XDocument document, IEnumerable<Command> commands)
         {
+            if (document is null)
+            {
+                throw new ArgumentNullException(nameof(document));
+            }
+
+            if (commands is null)
+            {
+                throw new ArgumentNullException(nameof(commands));
+            }
+
             foreach (var command in commands) {
                 switch (command) {
                 case AddElement addElement:
@@ -1196,8 +1220,13 @@ namespace GISharp.CodeGen
             }
         }
 
-        public static string GetXPath(this XElement element!!)
+        public static string GetXPath(this XElement element)
         {
+            if (element is null)
+            {
+                throw new ArgumentNullException(nameof(element));
+            }
+
             var builder = new StringBuilder();
             foreach (var e in element.AncestorsAndSelf().Reverse()) {
                 builder.Append('/');

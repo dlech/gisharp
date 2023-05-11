@@ -51,8 +51,11 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static UnmanagedStruct* NewFromNames(string[] iconNames!!)
+        static UnmanagedStruct* NewFromNames(string[] iconNames)
         {
+            if (iconNames is null) {
+                throw new ArgumentNullException(nameof(iconNames));
+            }
             if (iconNames.Length == 0) {
                 throw new ArgumentException("Must have at least one name", nameof(iconNames));
             }
