@@ -488,6 +488,13 @@ An application window.
 </summary>
 </member>
 
+<member name='AccessibleRole.ToggleButton'>
+<summary>
+A type of push button
+   which stays pressed until depressed by a second activation.
+</summary>
+</member>
+
 <member name='AccessibleRole'>
 <summary>
 The accessible role for a [iface<c>accessible</c>] implementation.

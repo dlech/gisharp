@@ -42,7 +42,7 @@ namespace GISharp.Lib.GLib
         /// the new #GByteArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -84,7 +84,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -130,7 +130,7 @@ namespace GISharp.Lib.GLib
         /// the new #GByteArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -176,12 +176,12 @@ namespace GISharp.Lib.GLib
         /// the #GByteArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* skip:1 transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_byte_array_append(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -230,7 +230,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint8" type="guint8*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_byte_array_free(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -278,7 +278,7 @@ namespace GISharp.Lib.GLib
         /* <type name="Bytes" type="GBytes*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Bytes.UnmanagedStruct* g_byte_array_free_to_bytes(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -314,12 +314,12 @@ namespace GISharp.Lib.GLib
         /// the #GByteArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* skip:1 transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_byte_array_prepend(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -360,12 +360,12 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_byte_array_ref(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -391,12 +391,12 @@ namespace GISharp.Lib.GLib
         /// the #GByteArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* skip:1 transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_byte_array_remove_index(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -432,12 +432,12 @@ namespace GISharp.Lib.GLib
         /// the #GByteArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* skip:1 transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_byte_array_remove_index_fast(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -475,12 +475,12 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* skip:1 transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_byte_array_remove_range(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -518,12 +518,12 @@ namespace GISharp.Lib.GLib
         /// the #GByteArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* skip:1 transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_byte_array_set_size(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -568,7 +568,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_byte_array_sort(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -594,7 +594,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_byte_array_sort_with_data(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -620,7 +620,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_byte_array_unref(
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */

@@ -8,7 +8,7 @@
 
 # move constants
 - !move-element
-  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'LOG_')]
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'LOG_') and not(@name='LOG_2_BASE_10')]
   new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Log']
 - !set-attribute
   name: gs:access-modifiers

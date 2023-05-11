@@ -42,8 +42,8 @@ Use this for high priority idle functions.
 </summary>
 <remarks>
 <para>
-GTK+ uses <see cref="HighIdle"/> + 10 for resizing operations,
-and  <see cref="HighIdle"/> + 20 for redrawing operations. (This is
+GTK+ uses <see cref="Priority.HighIdle"/> + 10 for resizing operations,
+and <see cref="Priority.HighIdle"/> + 20 for redrawing operations. (This is
 done to ensure that any pending resizes are processed before any
 pending redraws, so that widgets are not redrawn twice unnecessarily.)
 </para>

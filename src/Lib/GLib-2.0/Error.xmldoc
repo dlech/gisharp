@@ -2,7 +2,7 @@
 
 <member name='UnmanagedStruct.Domain'>
 <summary>
-error domain, e.g. #G_FILE_ERROR
+error domain, e.g. %G_FILE_ERROR
 </summary>
 </member>
 

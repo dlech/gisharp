@@ -38,7 +38,8 @@ namespace GISharp.Lib.GLib
         /// Creates a new #GMainLoop structure.
         /// </summary>
         /// <param name="context">
-        /// a #GMainContext  (if %NULL, the default context will be used).
+        /// a #GMainContext  (if %NULL, the global-default
+        ///   main context will be used).
         /// </param>
         /// <param name="isRunning">
         /// set to %TRUE to indicate that the loop is running. This

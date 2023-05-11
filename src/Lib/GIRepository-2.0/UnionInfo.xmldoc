@@ -6,6 +6,12 @@ Obtain the required alignment of the union.
 </summary>
 </member>
 
+<member name='UnionInfo.CopyFunction'>
+<summary>
+Retrieves the name of the copy function for this instance, if any is set.
+</summary>
+</member>
+
 <member name='UnionInfo.DiscriminatorOffset'>
 <summary>
 Returns offset of the discriminator field in the structure.
@@ -15,6 +21,12 @@ Returns offset of the discriminator field in the structure.
 <member name='UnionInfo.DiscriminatorType'>
 <summary>
 Obtain the type information of the union discriminator.
+</summary>
+</member>
+
+<member name='UnionInfo.FreeFunction'>
+<summary>
+Retrieves the name of the free function for this instance, if any is set.
 </summary>
 </member>
 

@@ -1,0 +1,17 @@
+<declaration>
+
+<member name='EqualFuncFull'>
+<summary>
+Specifies the type of a function used to test two values for
+equality. The function should return <c>true</c> if both values are equal
+and <c>false</c> otherwise.
+</summary>
+<remarks>
+<para>
+This is a version of <see cref="EqualFunc"/> which provides a closure from
+the caller.
+</para>
+</remarks>
+</member>
+
+</declaration>

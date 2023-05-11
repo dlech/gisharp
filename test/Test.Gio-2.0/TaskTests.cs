@@ -16,6 +16,7 @@ namespace GISharp.Test.Gio
         {
             using var task = new Task(null, null);
             Assert.That(task.SourceObject, Is.Null);
+            task.ReturnBoolean(true);
         }
 
         [Test]
@@ -24,6 +25,7 @@ namespace GISharp.Test.Gio
             using var task = new Task(null, null);
             task.Priority = Priority.Low;
             Assert.That(task.Priority, Is.EqualTo(Priority.Low));
+            task.ReturnBoolean(true);
         }
 
         [Test]
@@ -32,6 +34,7 @@ namespace GISharp.Test.Gio
             using var task = new Task(null, null);
             task.CheckCancellable = false;
             Assert.That(task.CheckCancellable, Is.False);
+            task.ReturnBoolean(true);
         }
 
         [Test]
@@ -40,6 +43,7 @@ namespace GISharp.Test.Gio
             using var task = new Task(null, null);
             Assert.That(task.SetReturnOnCancel(true), Is.True);
             Assert.That(task.ReturnOnCancel, Is.True);
+            task.ReturnBoolean(true);
         }
 
         [Test]
@@ -49,6 +53,7 @@ namespace GISharp.Test.Gio
             var expected = new IntPtr(5);
             task.SourceTag = expected;
             Assert.That(task.SourceTag, Is.EqualTo(expected));
+            task.ReturnBoolean(true);
         }
 
         [Test]
@@ -63,6 +68,9 @@ namespace GISharp.Test.Gio
             using var c = new Cancellable();
             using var task = new Task(null, null, cancellable: c);
             Assert.That(task.Cancellable, Is.SameAs(c));
+            Assert.That(task.CheckCancellable, Is.True);
+            c.Cancel();
+            Assert.That(task.ReturnErrorIfCancelled(), Is.True);
         }
     }
 }

@@ -1,15 +1,22 @@
 <declaration>
 
+<member name='ConnectFlags.Default'>
+<summary>
+Default behaviour (no special flags).
+</summary>
+</member>
+
 <member name='ConnectFlags.After'>
 <summary>
-whether the handler should be called before or after the
- default handler of the signal.
+If set, the handler should be called after the
+ default handler of the signal. Normally, the handler is called before
+ the default handler.
 </summary>
 </member>
 
 <member name='ConnectFlags.Swapped'>
 <summary>
-whether the instance and data should be swapped when
+If set, the instance and data should be swapped when
  calling the handler; see g_signal_connect_swapped() for an example.
 </summary>
 </member>

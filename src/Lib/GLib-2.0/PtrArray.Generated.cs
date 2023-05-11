@@ -49,7 +49,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_add(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -75,7 +75,8 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// <para>
         /// The copy of @array will have the same #GDestroyNotify for its elements as
-        /// @array.
+        /// @array. The copy will also be %NULL terminated if (and only if) the source
+        /// array is.
         /// </para>
         /// </remarks>
         /// <param name="array">
@@ -92,12 +93,12 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.62")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_ptr_array_copy(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -126,6 +127,9 @@ namespace GISharp.Lib.GLib
         /// If @func is %NULL, then only the pointers (and not what they are
         /// pointing to) are copied to the new #GPtrArray.
         /// </para>
+        /// <para>
+        /// Whether @array_to_extend is %NULL terminated stays unchanged by this function.
+        /// </para>
         /// </remarks>
         /// <param name="arrayToExtend">
         /// a #GPtrArray.
@@ -144,12 +148,12 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_extend(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PtrArray.UnmanagedStruct* arrayToExtend,
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -185,12 +189,12 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_extend_and_steal(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.PtrArray.UnmanagedStruct* arrayToExtend,
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:container direction:in */
@@ -226,7 +230,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_ptr_array_find(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -275,7 +279,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_ptr_array_find_with_equal_func(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -308,7 +312,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_foreach(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -335,6 +339,11 @@ namespace GISharp.Lib.GLib
         /// function has been set for @array.
         /// </para>
         /// <para>
+        /// Note that if the array is %NULL terminated and @free_seg is %FALSE
+        /// then this will always return an allocated %NULL terminated buffer.
+        /// If pdata is previously %NULL, a new buffer will be allocated.
+        /// </para>
+        /// <para>
         /// This function is not thread-safe. If using a #GPtrArray from multiple
         /// threads, use only the atomic g_ptr_array_ref() and g_ptr_array_unref()
         /// functions.
@@ -354,7 +363,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern System.IntPtr g_ptr_array_free(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -381,7 +390,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_insert(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -394,17 +403,172 @@ namespace GISharp.Lib.GLib
         System.IntPtr data);
 
         /// <summary>
+        /// Gets whether the @array was constructed as %NULL-terminated.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This will only return %TRUE for arrays constructed by passing %TRUE to the
+        /// `null_terminated` argument of g_ptr_array_new_null_terminated(). It will not
+        /// return %TRUE for normal arrays which have had a %NULL element appended to
+        /// them.
+        /// </para>
+        /// </remarks>
+        /// <param name="array">
+        /// the #GPtrArray
+        /// </param>
+        /// <returns>
+        /// %TRUE if the array is made to be %NULL terminated.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Runtime.Boolean g_ptr_array_is_null_terminated(
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.PtrArray.UnmanagedStruct* array);
+
+        /// <summary>
         /// Creates a new #GPtrArray with a reference count of 1.
         /// </summary>
         /// <returns>
         /// the new #GPtrArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_ptr_array_new();
+
+        /// <summary>
+        /// Creates a new #GPtrArray, copying @len pointers from @data, and setting
+        /// the array’s reference count to 1.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This avoids having to manually add each element one by one.
+        /// </para>
+        /// <para>
+        /// If @copy_func is provided, then it is used to copy each element before
+        /// adding them to the new array. If it is %NULL then the pointers are copied
+        /// directly.
+        /// </para>
+        /// <para>
+        /// It also sets @element_free_func for freeing each element when the array is
+        /// destroyed either via g_ptr_array_unref(), when g_ptr_array_free() is called
+        /// with @free_segment set to %TRUE or when removing elements.
+        /// </para>
+        /// <para>
+        /// Do not use it if @len is greater than %G_MAXUINT. #GPtrArray
+        /// stores the length of its data in #guint, which may be shorter than
+        /// #gsize.
+        /// </para>
+        /// </remarks>
+        /// <param name="data">
+        /// an array of pointers,
+        /// or %NULL for an empty array
+        /// </param>
+        /// <param name="len">
+        /// the number of pointers in @data
+        /// </param>
+        /// <param name="copyFunc">
+        /// a copy function used to copy every element in the
+        ///   array or %NULL.
+        /// </param>
+        /// <param name="copyFuncUserData">
+        /// user data passed to @copy_func, or %NULL
+        /// </param>
+        /// <param name="elementFreeFunc">
+        /// a function to free elements on @array
+        ///   destruction or %NULL
+        /// </param>
+        /// <returns>
+        /// A new #GPtrArray
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_ptr_array_new_from_array(
+        /* <array length="1" zero-terminated="0" type="gpointer*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr* data,
+        /* <type name="gsize" type="gsize" /> */
+        /* transfer-ownership:none direction:in */
+        nuint len,
+        /* <type name="CopyFunc" type="GCopyFunc" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:3 destroy:4 direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr> copyFunc,
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr copyFuncUserData,
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> elementFreeFunc);
+
+        /// <summary>
+        /// Creates a new #GPtrArray copying the pointers from @data after having
+        /// computed the length of it and with a reference count of 1.
+        /// This avoids having to manually add each element one by one.
+        /// If @copy_func is provided, then it is used to copy the data in the new
+        /// array.
+        /// It also set @element_free_func for freeing each element when the array is
+        /// destroyed either via g_ptr_array_unref(), when g_ptr_array_free() is called
+        /// with @free_segment set to %TRUE or when removing elements.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Do not use it if the @data has more than %G_MAXUINT elements. #GPtrArray
+        /// stores the length of its data in #guint, which may be shorter than
+        /// #gsize.
+        /// </para>
+        /// </remarks>
+        /// <param name="data">
+        /// an array of
+        ///   pointers, %NULL terminated; or %NULL for an empty array
+        /// </param>
+        /// <param name="copyFunc">
+        /// a copy function used to copy every element in the
+        ///   array or %NULL.
+        /// </param>
+        /// <param name="copyFuncUserData">
+        /// user data passed to @copy_func, or %NULL
+        /// </param>
+        /// <param name="elementFreeFunc">
+        /// a function to free elements on @array
+        ///   destruction or %NULL
+        /// </param>
+        /// <returns>
+        /// A new #GPtrArray
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_ptr_array_new_from_null_terminated_array(
+        /* <array type="gpointer*" zero-terminated="1" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr* data,
+        /* <type name="CopyFunc" type="GCopyFunc" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:2 destroy:3 direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr> copyFunc,
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr copyFuncUserData,
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> elementFreeFunc);
 
         /// <summary>
         /// Creates a new #GPtrArray with @reserved_size pointers preallocated
@@ -427,7 +591,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -435,6 +599,164 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint reservedSize,
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> elementFreeFunc);
+
+        /// <summary>
+        /// Like g_ptr_array_new_full() but also allows to set the array to
+        /// be %NULL terminated. A %NULL terminated pointer array has an
+        /// additional %NULL pointer after the last element, beyond the
+        /// current length.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// #GPtrArray created by other constructors are not automatically %NULL
+        /// terminated.
+        /// </para>
+        /// <para>
+        /// Note that if the @array's length is zero and currently no
+        /// data array is allocated, then pdata will still be %NULL.
+        /// %GPtrArray will only %NULL terminate pdata, if an actual
+        /// array is allocated. It does not guarantee that an array
+        /// is always allocated. In other words, if the length is zero,
+        /// then pdata may either point to a %NULL terminated array of length
+        /// zero or be %NULL.
+        /// </para>
+        /// </remarks>
+        /// <param name="reservedSize">
+        /// number of pointers preallocated.
+        ///     If @null_terminated is %TRUE, the actually allocated
+        ///     buffer size is @reserved_size plus 1, unless @reserved_size
+        ///     is zero, in which case no initial buffer gets allocated.
+        /// </param>
+        /// <param name="elementFreeFunc">
+        /// A function to free elements with
+        ///     destroy @array or %NULL
+        /// </param>
+        /// <param name="nullTerminated">
+        /// whether to make the array as %NULL terminated.
+        /// </param>
+        /// <returns>
+        /// A new #GPtrArray
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_ptr_array_new_null_terminated(
+        /* <type name="guint" type="guint" /> */
+        /* transfer-ownership:none direction:in */
+        uint reservedSize,
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> elementFreeFunc,
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Runtime.Boolean nullTerminated);
+
+        /// <summary>
+        /// Creates a new #GPtrArray with @data as pointers, @len as length and a
+        /// reference count of 1.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This avoids having to copy such data manually. @data will eventually be
+        /// freed using g_free(), so must have been allocated with a suitable allocator.
+        /// </para>
+        /// <para>
+        /// It also sets @element_free_func for freeing each element when the array is
+        /// destroyed either via g_ptr_array_unref(), when g_ptr_array_free() is called
+        /// with @free_segment set to %TRUE or when removing elements.
+        /// </para>
+        /// <para>
+        /// Do not use it if @len is greater than %G_MAXUINT. #GPtrArray
+        /// stores the length of its data in #guint, which may be shorter than
+        /// #gsize.
+        /// </para>
+        /// </remarks>
+        /// <param name="data">
+        /// an array of pointers,
+        ///    or %NULL for an empty array
+        /// </param>
+        /// <param name="len">
+        /// the number of pointers in @data
+        /// </param>
+        /// <param name="elementFreeFunc">
+        /// A function to free elements on @array
+        ///   destruction or %NULL
+        /// </param>
+        /// <returns>
+        /// A new #GPtrArray
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_ptr_array_new_take(
+        /* <array length="1" zero-terminated="0" type="gpointer*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
+        System.IntPtr* data,
+        /* <type name="gsize" type="gsize" /> */
+        /* transfer-ownership:none direction:in */
+        nuint len,
+        /* <type name="DestroyNotify" type="GDestroyNotify" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> elementFreeFunc);
+
+        /// <summary>
+        /// Creates a new #GPtrArray with @data as pointers, computing the length of it
+        /// and setting the reference count to 1.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This avoids having to copy such data manually. @data will eventually be
+        /// freed using g_free(), so must have been allocated with a suitable allocator.
+        /// </para>
+        /// <para>
+        /// The length is calculated by iterating through @data until the first %NULL
+        /// element is found.
+        /// </para>
+        /// <para>
+        /// It also sets @element_free_func for freeing each element when the array is
+        /// destroyed either via g_ptr_array_unref(), when g_ptr_array_free() is called
+        /// with @free_segment set to %TRUE or when removing elements.
+        /// </para>
+        /// <para>
+        /// Do not use it if the @data length is greater than %G_MAXUINT. #GPtrArray
+        /// stores the length of its data in #guint, which may be shorter than
+        /// #gsize.
+        /// </para>
+        /// </remarks>
+        /// <param name="data">
+        /// an array
+        ///  of pointers, %NULL terminated, or %NULL for an empty array
+        /// </param>
+        /// <param name="elementFreeFunc">
+        /// a function to free elements on @array
+        ///   destruction or %NULL
+        /// </param>
+        /// <returns>
+        /// A new #GPtrArray
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_ptr_array_new_take_null_terminated(
+        /* <array type="gpointer*" zero-terminated="1" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
+        System.IntPtr* data,
         /* <type name="DestroyNotify" type="GDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> elementFreeFunc);
@@ -454,7 +776,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -489,7 +811,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_ptr_array_remove(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -524,7 +846,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_ptr_array_remove_fast(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -553,7 +875,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_ptr_array_remove_index(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -584,7 +906,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern System.IntPtr g_ptr_array_remove_index_fast(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -613,12 +935,12 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_ptr_array_remove_range(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -647,7 +969,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_set_free_func(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -672,7 +994,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_set_size(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -694,7 +1016,7 @@ namespace GISharp.Lib.GLib
         /// the new #GPtrArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -706,14 +1028,18 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Sorts the array, using @compare_func which should be a qsort()-style
         /// comparison function (returns less than zero for first arg is less
-        /// than second arg, zero for equal, greater than zero if irst arg is
+        /// than second arg, zero for equal, greater than zero if first arg is
         /// greater than second arg).
         /// </summary>
         /// <remarks>
         /// <para>
         /// Note that the comparison function for g_ptr_array_sort() doesn't
         /// take the pointers from the array as arguments, it takes pointers to
-        /// the pointers in the array. Here is a full example of usage:
+        /// the pointers in the array.
+        /// </para>
+        /// <para>
+        /// Use g_ptr_array_sort_with_data() if you want to use normal
+        /// #GCompareFuncs, otherwise here is a full example of use:
         /// </para>
         /// <para>
         /// |[&lt;!-- language="C" --&gt;
@@ -759,7 +1085,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_sort(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -769,6 +1095,72 @@ namespace GISharp.Lib.GLib
         delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, int> compareFunc);
 
         /// <summary>
+        /// Sorts the array, using @compare_func which should be a qsort()-style
+        /// comparison function (returns less than zero for first arg is less
+        /// than second arg, zero for equal, greater than zero if first arg is
+        /// greater than second arg).
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This is guaranteed to be a stable sort.
+        /// </para>
+        /// </remarks>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="compareFunc">
+        /// a #GCompareFunc comparison function
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_ptr_array_sort_values(
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.PtrArray.UnmanagedStruct* array,
+        /* <type name="CompareFunc" type="GCompareFunc" /> */
+        /* transfer-ownership:none direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, int> compareFunc);
+
+        /// <summary>
+        /// Like g_ptr_array_sort_values(), but the comparison function has an extra
+        /// user data argument.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This is guaranteed to be a stable sort.
+        /// </para>
+        /// </remarks>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="compareFunc">
+        /// a #GCompareDataFunc comparison function
+        /// </param>
+        /// <param name="userData">
+        /// data to pass to @compare_func
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_ptr_array_sort_values_with_data(
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.PtrArray.UnmanagedStruct* array,
+        /* <type name="CompareDataFunc" type="GCompareDataFunc" /> */
+        /* transfer-ownership:none closure:2 direction:in */
+        delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, int> compareFunc,
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr userData);
+
+        /// <summary>
         /// Like g_ptr_array_sort(), but the comparison function has an extra
         /// user data argument.
         /// </summary>
@@ -776,7 +1168,11 @@ namespace GISharp.Lib.GLib
         /// <para>
         /// Note that the comparison function for g_ptr_array_sort_with_data()
         /// doesn't take the pointers from the array as arguments, it takes
-        /// pointers to the pointers in the array. Here is a full example of use:
+        /// pointers to the pointers in the array.
+        /// </para>
+        /// <para>
+        /// Use g_ptr_array_sort_with_data() if you want to use normal
+        /// #GCompareDataFuncs, otherwise here is a full example of use:
         /// </para>
         /// <para>
         /// |[&lt;!-- language="C" --&gt;
@@ -846,7 +1242,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_sort_with_data(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -864,6 +1260,11 @@ namespace GISharp.Lib.GLib
         /// to the caller.
         /// </summary>
         /// <remarks>
+        /// <para>
+        /// Note that if the array is %NULL terminated this may still return
+        /// %NULL if the length of the array was zero and pdata was not yet
+        /// allocated.
+        /// </para>
         /// <para>
         /// Even if set, the #GDestroyNotify function will never be called
         /// on the current contents of the array and the caller is
@@ -920,14 +1321,15 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the element data, which should be
-        ///     freed using g_free().
+        ///     freed using g_free(). This may be %NULL if the array doesn’t have any
+        ///     elements (i.e. if `*len` is zero).
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.64")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer*" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern System.IntPtr g_ptr_array_steal(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -956,7 +1358,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern System.IntPtr g_ptr_array_steal_index(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -987,7 +1389,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern System.IntPtr g_ptr_array_steal_index_fast(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -1012,12 +1414,12 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_ptr_array_ref(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -1043,7 +1445,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_ptr_array_unref(
-        /* <array name="GLib.PtrArray" type="GPtrArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */

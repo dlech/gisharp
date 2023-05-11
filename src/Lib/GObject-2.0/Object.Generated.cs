@@ -927,12 +927,11 @@ System.IntPtr data);
         /// </para>
         /// <para>
         /// |[&lt;!-- language="C" --&gt;
-        ///   enum
+        ///   typedef enum
         ///   {
-        ///     PROP_0,
-        ///     PROP_FOO,
+        ///     PROP_FOO = 1,
         ///     PROP_LAST
-        ///   };
+        ///   } MyObjectProperty;
         /// </para>
         /// <para>
         ///   static GParamSpec *properties[PROP_LAST];
@@ -944,7 +943,7 @@ System.IntPtr data);
         ///     properties[PROP_FOO] = g_param_spec_int ("foo", "Foo", "The foo",
         ///                                              0, 100,
         ///                                              50,
-        ///                                              G_PARAM_READWRITE);
+        ///                                              G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
         ///     g_object_class_install_property (gobject_class,
         ///                                      PROP_FOO,
         ///                                      properties[PROP_FOO]);

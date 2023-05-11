@@ -2,17 +2,26 @@
 
 <member name='FilenameExtensions.Build(GISharp.Runtime.UnownedZeroTerminatedCPtrArray&lt;GISharp.Runtime.Filename&gt;)'>
 <summary>
-Behaves exactly like g_build_filename(), but takes the path elements
-as a string array, instead of varargs. This function is mainly
-meant for language bindings.
+Creates a filename from a vector of elements using the correct
+separator for the current platform.
 </summary>
+<remarks>
+<para>
+This function behaves exactly like g_build_filename(), but takes the path
+elements as a string array, instead of varargs. This function is mainly
+meant for language bindings.
+</para>
+<para>
+If you are building a path programmatically you may want to use
+#GPathBuf instead.
+</para>
+</remarks>
 <param name="args">
 <c>null</c>-terminated
-    array of strings containing the path elements.
+  array of strings containing the path elements.
 </param>
 <returns>
-a newly-allocated string that
-    must be freed with g_free().
+the newly allocated path
 </returns>
 </member>
 
@@ -158,7 +167,7 @@ to use the current working directory
 </param>
 <returns>
 a newly allocated string with the
-canonical file path
+  canonical file path
 </returns>
 </member>
 

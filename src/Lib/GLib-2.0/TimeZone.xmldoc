@@ -68,6 +68,12 @@ in seconds.
 This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Runtime.NullableUnownedUtf8)"/> with a string in the form
 `[+|-]hh[:mm[:ss]]`.
 </para>
+<para>
+It is possible for this function to fail if <paramref name="seconds"/> is too big (greater than
+24 hours), in which case this function will return the UTC timezone for
+backwards compatibility. To detect failures like this, use
+<see cref="TimeZone.GetIdentifier(GISharp.Runtime.NullableUnownedUtf8)"/> directly.
+</para>
 </remarks>
 <param name="seconds">
 offset to UTC, in seconds

@@ -239,7 +239,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.40")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_variant_dict_lookup_value(
         /* <type name="VariantDict" type="GVariantDict*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -254,7 +254,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Lookup(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public GISharp.Lib.GLib.Variant Lookup(GISharp.Runtime.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null)
+        public GISharp.Lib.GLib.Variant? Lookup(GISharp.Runtime.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null)
         {
             CheckLookupArgs(key, expectedType);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -262,7 +262,7 @@ namespace GISharp.Lib.GLib
             var expectedType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(expectedType?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_variant_dict_lookup_value(dict_,key_,expectedType_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

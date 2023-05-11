@@ -12,7 +12,7 @@ namespace GISharp.Lib.GObject
     /// trap all emissions of that signal, from any object.
     /// </para>
     /// <para>
-    /// You may not attach these to signals created with the #G_SIGNAL_NO_HOOKS flag.
+    /// You may not attach these to signals created with the %G_SIGNAL_NO_HOOKS flag.
     /// </para>
     /// </remarks>
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]

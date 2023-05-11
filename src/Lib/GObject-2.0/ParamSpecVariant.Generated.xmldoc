@@ -30,7 +30,7 @@ a #GVariant, or <c>null</c>
 <member name='UnmanagedStruct.Padding3'>
 </member>
 
-<member name='ParamSpecVariant.ParamSpecVariant(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant?,GISharp.Lib.GObject.ParamFlags)'>
+<member name='ParamSpecVariant.ParamSpecVariant(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant?,GISharp.Lib.GObject.ParamFlags)'>
 <summary>
 Creates a new <see cref="ParamSpecVariant"/> instance specifying a #GVariant
 property.

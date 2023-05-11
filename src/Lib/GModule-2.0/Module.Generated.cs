@@ -61,6 +61,8 @@ namespace GISharp.Lib.GModule
         /// the complete path of the module, including the standard library
         ///     prefix and suffix. This should be freed when no longer needed
         /// </returns>
+        [System.ObsoleteAttribute("Use g_module_open() instead with @module_name as the\nbasename of the file_name argument. See %G_MODULE_SUFFIX for why.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.76")]
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
@@ -74,6 +76,8 @@ namespace GISharp.Lib.GModule
         static partial void CheckBuildPathArgs(GISharp.Runtime.NullableUnownedUtf8 directory, GISharp.Runtime.UnownedUtf8 moduleName);
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.BuildPath(GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.UnownedUtf8)']/*" />
+        [System.ObsoleteAttribute("Use g_module_open() instead with @module_name as the\nbasename of the file_name argument. See %G_MODULE_SUFFIX for why.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.76")]
         public static GISharp.Runtime.Utf8 BuildPath(GISharp.Runtime.NullableUnownedUtf8 directory, GISharp.Runtime.UnownedUtf8 moduleName)
         {
             CheckBuildPathArgs(directory, moduleName);
@@ -110,8 +114,8 @@ namespace GISharp.Lib.GModule
         /// A thin wrapper function around g_module_open_full()
         /// </summary>
         /// <param name="fileName">
-        /// the name of the file containing the module, or %NULL
-        ///     to obtain a #GModule representing the main program itself
+        /// the name or path to the file containing the module,
+        ///     or %NULL to obtain a #GModule representing the main program itself
         /// </param>
         /// <param name="flags">
         /// the flags used for opening the module. This can be the

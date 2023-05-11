@@ -283,5 +283,10 @@ namespace GISharp.Lib.Gio
         {
             throw new System.NotImplementedException();
         }
+
+        bool GISharp.Lib.Gio.IIcon.DoTryToTokens(GISharp.Lib.GLib.WeakPtrArray<GISharp.Runtime.Utf8> tokens, out int outVersion)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

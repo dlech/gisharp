@@ -18,7 +18,9 @@ namespace GISharp.Test.GModule
         [Test]
         public void TestBuildPath()
         {
+#pragma warning disable CS0618 // obsolete method
             using var path = Module.BuildPath(default, "test");
+#pragma warning restore CS0618
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 Assert.That(path, Is.EqualTo("test.dll"));

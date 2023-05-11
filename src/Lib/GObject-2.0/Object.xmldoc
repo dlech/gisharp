@@ -281,12 +281,11 @@ instead, is to store the GParamSpec used with
 </para>
 <para>
 |[&lt;!-- language="C" --&gt;
-  enum
+  typedef enum
   {
-    PROP_0,
-    PROP_FOO,
+    PROP_FOO = 1,
     PROP_LAST
-  };
+  } MyObjectProperty;
 </para>
 <para>
   static GParamSpec *properties[PROP_LAST];
@@ -298,7 +297,7 @@ instead, is to store the GParamSpec used with
     properties[PROP_FOO] = g_param_spec_int ("foo", "Foo", "The foo",
                                              0, 100,
                                              50,
-                                             G_PARAM_READWRITE);
+                                             G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
     g_object_class_install_property (gobject_class,
                                      PROP_FOO,
                                      properties[PROP_FOO]);
@@ -423,6 +422,15 @@ The base object type.
 <para>
 All the fields in the `GObject` structure are private to the implementation
 and should never be accessed directly.
+</para>
+<para>
+Since GLib 2.72, all <see cref="Object"/>s are guaranteed to be aligned to at least the
+alignment of the largest basic GLib type (typically this is #guint64 or
+#gdouble). If you need larger alignment for an element in a <see cref="Object"/>, you
+should allocate it on the heap (aligned), or arrange for your <see cref="Object"/> to be
+appropriately padded. This guarantee applies to the <see cref="Object"/> (or derived)
+struct, the <see cref="ObjectClass"/> (or derived) struct, and any private data allocated
+by G_ADD_PRIVATE().
 </para>
 </remarks>
 </member>

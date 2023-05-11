@@ -1,0 +1,40 @@
+<declaration>
+
+<member name='FontLevel.Family'>
+<summary>
+Select a font family
+</summary>
+</member>
+
+<member name='FontLevel.Face'>
+<summary>
+Select a font face (i.e. a family and a style)
+</summary>
+</member>
+
+<member name='FontLevel.Font'>
+<summary>
+Select a font (i.e. a face with a size, and possibly font variations)
+</summary>
+</member>
+
+<member name='FontLevel.Features'>
+<summary>
+Select a font and font features
+</summary>
+</member>
+
+<member name='FontLevel'>
+<summary>
+The level of granularity for the font selection.
+</summary>
+<remarks>
+<para>
+Depending on this value, the `PangoFontDescription` that
+is returned by [method<c>gtk</c>.FontDialogButton.get_font_desc]
+will have more or less fields set.
+</para>
+</remarks>
+</member>
+
+</declaration>

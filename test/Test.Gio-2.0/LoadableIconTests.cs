@@ -82,6 +82,11 @@ namespace GISharp.Test.Gio
             throw new NotImplementedException();
         }
 
+        bool IIcon.DoTryToTokens(WeakPtrArray<Utf8> tokens, out int outVersion)
+        {
+            throw new NotImplementedException();
+        }
+
         public TestLoadableIcon(IntPtr handle, Transfer ownership)
             : base(handle, ownership) { }
     }

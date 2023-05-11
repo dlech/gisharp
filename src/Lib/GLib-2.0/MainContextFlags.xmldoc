@@ -1,0 +1,25 @@
+<declaration>
+
+<member name='MainContextFlags.None'>
+<summary>
+Default behaviour.
+</summary>
+</member>
+
+<member name='MainContextFlags.OwnerlessPolling'>
+<summary>
+Assume that polling for events will
+free the thread to process other jobs. That's useful if you're using
+`g_main_context_{prepare,query,check,dispatch}` to integrate GMainContext in
+other event loops.
+</summary>
+</member>
+
+<member name='MainContextFlags'>
+<summary>
+Flags to pass to <see cref="MainContext.MainContext(GISharp.Lib.GLib.MainContextFlags)"/> which affect the behaviour
+of a <see cref="MainContext"/>.
+</summary>
+</member>
+
+</declaration>

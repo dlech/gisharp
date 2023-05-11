@@ -1,0 +1,123 @@
+<declaration>
+
+<member name='BindingGroup.Source'>
+<summary>
+The source object used for binding properties.
+</summary>
+</member>
+
+<member name='BindingGroup.BindingGroup()'>
+<summary>
+Creates a new <see cref="BindingGroup"/>.
+</summary>
+</member>
+
+<member name='BindingGroup.Bind(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)'>
+<summary>
+Creates a binding between <paramref name="sourceProperty"/> on the source object
+and <paramref name="targetProperty"/> on <paramref name="target"/>. Whenever the <paramref name="sourceProperty"/>
+is changed the <paramref name="targetProperty"/> is updated using the same value.
+The binding flag <see cref="BindingFlags.SyncCreate"/> is automatically specified.
+</summary>
+<remarks>
+<para>
+See <see cref="Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)"/> for more information.
+</para>
+</remarks>
+<param name="sourceProperty">
+the property on the source to bind
+</param>
+<param name="target">
+the target <see cref="Object"/>
+</param>
+<param name="targetProperty">
+the property on <paramref name="target"/> to bind
+</param>
+<param name="flags">
+the flags used to create the <see cref="Binding"/>
+</param>
+</member>
+
+<member name='BindingGroup.BindFull(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.Closure?,GISharp.Lib.GObject.Closure?)'>
+<summary>
+Creates a binding between <paramref name="sourceProperty"/> on the source object and
+<paramref name="targetProperty"/> on <paramref name="target"/>, allowing you to set the transformation
+functions to be used by the binding. The binding flag
+<see cref="BindingFlags.SyncCreate"/> is automatically specified.
+</summary>
+<remarks>
+<para>
+This function is the language bindings friendly version of
+g_binding_group_bind_property_full(), using #GClosures
+instead of function pointers.
+</para>
+<para>
+See <see cref="Object.BindProperty(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Closure)"/> for more information.
+</para>
+</remarks>
+<param name="sourceProperty">
+the property on the source to bind
+</param>
+<param name="target">
+the target <see cref="Object"/>
+</param>
+<param name="targetProperty">
+the property on <paramref name="target"/> to bind
+</param>
+<param name="flags">
+the flags used to create the <see cref="Binding"/>
+</param>
+<param name="transformTo">
+a <see cref="Closure"/> wrapping the
+    transformation function from the source object to the <paramref name="target"/>,
+    or <c>null</c> to use the default
+</param>
+<param name="transformFrom">
+a <see cref="Closure"/> wrapping the
+    transformation function from the <paramref name="target"/> to the source object,
+    or <c>null</c> to use the default
+</param>
+</member>
+
+<member name='BindingGroup.DupSource()'>
+<summary>
+Gets the source object used for binding properties.
+</summary>
+<returns>
+a <see cref="Object"/> or <c>null</c>.
+</returns>
+</member>
+
+<member name='BindingGroup.SetSource(GISharp.Lib.GObject.Object?)'>
+<summary>
+Sets <paramref name="source"/> as the source object used for creating property
+bindings. If there is already a source object all bindings from it
+will be removed.
+</summary>
+<remarks>
+<para>
+Note that all properties that have been bound must exist on <paramref name="source"/>.
+</para>
+</remarks>
+<param name="source">
+the source <see cref="Object"/>,
+  or <c>null</c> to clear it
+</param>
+</member>
+
+<member name='BindingGroup'>
+<summary>
+The <see cref="BindingGroup"/> can be used to bind multiple properties
+from an object collectively.
+</summary>
+<remarks>
+<para>
+Use the various methods to bind properties from a single source
+object to multiple destination objects. Properties can be bound
+bidirectionally and are connected when the source object is set
+with <see cref="BindingGroup.SetSource(GISharp.Lib.GObject.Object)"/>.
+</para>
+</remarks>
+</member>
+
+</declaration>

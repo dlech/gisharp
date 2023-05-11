@@ -16,6 +16,14 @@ namespace GISharp.Lib.GIRepository
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.Alignment']/*" />
         public int Alignment { get => GetAlignment(); }
 
+        /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.CopyFunction']/*" />
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        public GISharp.Runtime.NullableUnownedUtf8 CopyFunction { get => GetCopyFunction(); }
+
+        /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.FreeFunction']/*" />
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        public GISharp.Runtime.NullableUnownedUtf8 FreeFunction { get => GetFreeFunction(); }
+
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.NFields']/*" />
         private int NFields { get => GetNFields(); }
 
@@ -144,6 +152,36 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <summary>
+        /// Retrieves the name of the copy function for @info, if any is set.
+        /// </summary>
+        /// <param name="info">
+        /// a struct information blob
+        /// </param>
+        /// <returns>
+        /// the name of the copy function
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern byte* g_struct_info_get_copy_function(
+        /* <type name="StructInfo" type="GIStructInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info);
+        partial void CheckGetCopyFunctionArgs();
+
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        private GISharp.Runtime.NullableUnownedUtf8 GetCopyFunction()
+        {
+            CheckGetCopyFunctionArgs();
+            var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_struct_info_get_copy_function(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
+            return ret;
+        }
+
+        /// <summary>
         /// Obtain the type information for field with specified index.
         /// </summary>
         /// <param name="info">
@@ -176,6 +214,36 @@ namespace GISharp.Lib.GIRepository
             var ret_ = g_struct_info_get_field(info_,n_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FieldInfo.GetInstance<GISharp.Lib.GIRepository.FieldInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
+        /// Retrieves the name of the free function for @info, if any is set.
+        /// </summary>
+        /// <param name="info">
+        /// a struct information blob
+        /// </param>
+        /// <returns>
+        /// the name of the free function
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern byte* g_struct_info_get_free_function(
+        /* <type name="StructInfo" type="GIStructInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info);
+        partial void CheckGetFreeFunctionArgs();
+
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        private GISharp.Runtime.NullableUnownedUtf8 GetFreeFunction()
+        {
+            CheckGetFreeFunctionArgs();
+            var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_struct_info_get_free_function(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 

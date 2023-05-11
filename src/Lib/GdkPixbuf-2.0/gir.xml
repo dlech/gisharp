@@ -9,12 +9,12 @@ and/or use gtk-doc annotations.  -->
   <c:include name="gdk-pixbuf/gdk-pixbuf.h" gs:managed-name="GdkPixbuf/gdkPixbuf.h" />
   <namespace name="GdkPixbuf" version="2.0" shared-library="libgdk_pixbuf-2.0.0.dylib" c:identifier-prefixes="Gdk" c:symbol-prefixes="gdk" gs:managed-name="GdkPixbuf">
     <enumeration name="Colorspace" glib:type-name="GdkColorspace" glib:get-type="gdk_colorspace_get_type" c:type="GdkColorspace" gs:managed-name="Colorspace">
-      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="71">This enumeration defines the color spaces that are supported by
+      <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="71">This enumeration defines the color spaces that are supported by
 the gdk-pixbuf library.
 
 Currently only RGB is supported.</doc>
       <member name="rgb" value="0" c:identifier="GDK_COLORSPACE_RGB" glib:nick="rgb" glib:name="GDK_COLORSPACE_RGB" gs:managed-name="Rgb">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="73">Indicates a red/green/blue additive color space.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="73">Indicates a red/green/blue additive color space.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gdk_colorspace_get_type" gs:access-modifiers="private" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
@@ -25,7 +25,7 @@ Currently only RGB is supported.</doc>
       </function>
     </enumeration>
     <enumeration name="InterpType" glib:type-name="GdkInterpType" glib:get-type="gdk_interp_type_get_type" c:type="GdkInterpType" gs:managed-name="InterpType">
-      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="39">Interpolation modes for scaling functions.
+      <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="39">Interpolation modes for scaling functions.
 
 The `GDK_INTERP_NEAREST` mode is the fastest scaling method, but has
 horrible quality when scaling down; `GDK_INTERP_BILINEAR` is the best
@@ -35,26 +35,26 @@ balance.
 **Note**: Cubic filtering is missing from the list; hyperbolic
 interpolation is just as fast and results in higher quality.</doc>
       <member name="nearest" value="0" c:identifier="GDK_INTERP_NEAREST" glib:nick="nearest" glib:name="GDK_INTERP_NEAREST" gs:managed-name="Nearest">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="41">Nearest neighbor sampling; this is the fastest
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="41">Nearest neighbor sampling; this is the fastest
  and lowest quality mode. Quality is normally unacceptable when scaling
  down, but may be OK when scaling up.</doc>
       </member>
       <member name="tiles" value="1" c:identifier="GDK_INTERP_TILES" glib:nick="tiles" glib:name="GDK_INTERP_TILES" gs:managed-name="Tiles">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="44">This is an accurate simulation of the PostScript
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="44">This is an accurate simulation of the PostScript
  image operator without any interpolation enabled.  Each pixel is
  rendered as a tiny parallelogram of solid color, the edges of which
  are implemented with antialiasing.  It resembles nearest neighbor for
  enlargement, and bilinear for reduction.</doc>
       </member>
       <member name="bilinear" value="2" c:identifier="GDK_INTERP_BILINEAR" glib:nick="bilinear" glib:name="GDK_INTERP_BILINEAR" gs:managed-name="Bilinear">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="49">Best quality/speed balance; use this mode by
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="49">Best quality/speed balance; use this mode by
  default. Bilinear interpolation.  For enlargement, it is
  equivalent to point-sampling the ideal bilinear-interpolated image.
  For reduction, it is equivalent to laying down small tiles and
  integrating over the coverage area.</doc>
       </member>
       <member name="hyper" value="3" c:identifier="GDK_INTERP_HYPER" glib:nick="hyper" glib:name="GDK_INTERP_HYPER" version="2.38" gs:managed-name="Hyper">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="54">This is the slowest and highest quality
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="54">This is the slowest and highest quality
  reconstruction function. It is derived from the hyperbolic filters in
  Wolberg's "Digital Image Warping", and is formally defined as the
  hyperbolic-filter sampling the ideal hyperbolic-filter interpolated
@@ -72,7 +72,7 @@ interpolation is just as fast and results in higher quality.</doc>
       </function>
     </enumeration>
     <enumeration name="PixbufAlphaMode" deprecated="1" deprecated-version="2.42" glib:type-name="GdkPixbufAlphaMode" glib:get-type="gdk_pixbuf_alpha_mode_get_type" c:type="GdkPixbufAlphaMode" gs:managed-name="PixbufAlphaMode">
-      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="39">Control the alpha channel for drawables.
+      <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="39">Control the alpha channel for drawables.
 
 These values can be passed to gdk_pixbuf_xlib_render_to_drawable_alpha()
 in gdk-pixbuf-xlib to control how the alpha channel of an image should
@@ -88,13 +88,13 @@ For now both cases fall back to a bilevel clipping mask.</doc>
   and the Xlib utility functions have been split out to their own
   library, gdk-pixbuf-xlib</doc-deprecated>
       <member name="bilevel" value="0" c:identifier="GDK_PIXBUF_ALPHA_BILEVEL" glib:nick="bilevel" glib:name="GDK_PIXBUF_ALPHA_BILEVEL" gs:managed-name="Bilevel">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="41">A bilevel clipping mask (black and white)
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="41">A bilevel clipping mask (black and white)
  will be created and used to draw the image.  Pixels below 0.5 opacity
  will be considered fully transparent, and all others will be
  considered fully opaque.</doc>
       </member>
       <member name="full" value="1" c:identifier="GDK_PIXBUF_ALPHA_FULL" glib:nick="full" glib:name="GDK_PIXBUF_ALPHA_FULL" gs:managed-name="Full">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="45">For now falls back to #GDK_PIXBUF_ALPHA_BILEVEL.
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="45">For now falls back to #GDK_PIXBUF_ALPHA_BILEVEL.
  In the future it will do full alpha compositing.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gdk_pixbuf_alpha_mode_get_type" gs:access-modifiers="private" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetGType">
@@ -106,31 +106,31 @@ For now both cases fall back to a bilevel clipping mask.</doc>
       </function>
     </enumeration>
     <enumeration name="PixbufError" glib:type-name="GdkPixbufError" glib:get-type="gdk_pixbuf_error_get_type" c:type="GdkPixbufError" glib:error-domain="gdk-pixbuf-error-quark" gs:managed-name="PixbufError">
-      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="123">An error code in the `GDK_PIXBUF_ERROR` domain.
+      <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="123">An error code in the `GDK_PIXBUF_ERROR` domain.
 
 Many gdk-pixbuf operations can cause errors in this domain, or in
 the `G_FILE_ERROR` domain.</doc>
       <member name="corrupt_image" value="0" c:identifier="GDK_PIXBUF_ERROR_CORRUPT_IMAGE" glib:nick="corrupt-image" glib:name="GDK_PIXBUF_ERROR_CORRUPT_IMAGE" gs:managed-name="CorruptImage">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="125">An image file was broken somehow.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="125">An image file was broken somehow.</doc>
       </member>
       <member name="insufficient_memory" value="1" c:identifier="GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY" glib:nick="insufficient-memory" glib:name="GDK_PIXBUF_ERROR_INSUFFICIENT_MEMORY" gs:managed-name="InsufficientMemory">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="126">Not enough memory.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="126">Not enough memory.</doc>
       </member>
       <member name="bad_option" value="2" c:identifier="GDK_PIXBUF_ERROR_BAD_OPTION" glib:nick="bad-option" glib:name="GDK_PIXBUF_ERROR_BAD_OPTION" gs:managed-name="BadOption">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="127">A bad option was passed to a pixbuf save module.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="127">A bad option was passed to a pixbuf save module.</doc>
       </member>
       <member name="unknown_type" value="3" c:identifier="GDK_PIXBUF_ERROR_UNKNOWN_TYPE" glib:nick="unknown-type" glib:name="GDK_PIXBUF_ERROR_UNKNOWN_TYPE" gs:managed-name="UnknownType">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="128">Unknown image type.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="128">Unknown image type.</doc>
       </member>
       <member name="unsupported_operation" value="4" c:identifier="GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION" glib:nick="unsupported-operation" glib:name="GDK_PIXBUF_ERROR_UNSUPPORTED_OPERATION" gs:managed-name="UnsupportedOperation">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="129">Don't know how to perform the
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="129">Don't know how to perform the
  given operation on the type of image at hand.</doc>
       </member>
       <member name="failed" value="5" c:identifier="GDK_PIXBUF_ERROR_FAILED" glib:nick="failed" glib:name="GDK_PIXBUF_ERROR_FAILED" gs:managed-name="Failed">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="131">Generic failure code, something went wrong.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="131">Generic failure code, something went wrong.</doc>
       </member>
       <member name="incomplete_animation" value="6" c:identifier="GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION" glib:nick="incomplete-animation" glib:name="GDK_PIXBUF_ERROR_INCOMPLETE_ANIMATION" gs:managed-name="IncompleteAnimation">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-core.h" line="132">Only part of the animation was loaded.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-core.h" line="132">Only part of the animation was loaded.</doc>
       </member>
       <gs:managed-property name="get_quark" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="Quark">
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -155,121 +155,121 @@ the `G_FILE_ERROR` domain.</doc>
       </function>
     </enumeration>
     <glib:boxed name="PixbufFormat" c:type="GdkPixbufFormat" version="2.2" glib:type-name="GdkPixbufFormat" glib:get-type="gdk_pixbuf_format_get_type" c:symbol-prefix="pixbuf_format" gs:managed-name="PixbufFormat">
-      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="443">A `GdkPixbufFormat` contains information about the image format accepted
+      <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="443">A `GdkPixbufFormat` contains information about the image format accepted
 by a module.
 
 Only modules should access the fields directly, applications should
 use the `gdk_pixbuf_format_*` family of functions.</doc>
-      <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="475" />
+      <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="475" />
       <field name="name" writable="1" gs:managed-name="Name">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="445">the name of the image format</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="445">the name of the image format</doc>
         <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
       </field>
       <field name="signature" writable="1" gs:managed-name="Signature">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="446">the signature of the module</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="446">the signature of the module</doc>
         <type name="PixbufModulePattern" c:type="GdkPixbufModulePattern*" gs:is-pointer="1" />
       </field>
       <field name="domain" writable="1" gs:managed-name="Domain">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="447">the message domain for the `description`</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="447">the message domain for the `description`</doc>
         <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
       </field>
       <field name="description" writable="1" gs:managed-name="Description">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="448">a description of the image format</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="448">a description of the image format</doc>
         <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
       </field>
       <field name="mime_types" writable="1" gs:managed-name="MimeTypes">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="449">the MIME types for the image format</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="449">the MIME types for the image format</doc>
         <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
           <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </array>
       </field>
       <field name="extensions" writable="1" gs:managed-name="Extensions">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="450">typical filename extensions for the
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="450">typical filename extensions for the
   image format</doc>
         <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
           <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </array>
       </field>
       <field name="flags" writable="1" gs:managed-name="Flags">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="452">a combination of `GdkPixbufFormatFlags`</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="452">a combination of `GdkPixbufFormatFlags`</doc>
         <type name="guint32" c:type="guint32" />
       </field>
       <field name="disabled" writable="1" gs:managed-name="Disabled">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="453">a boolean determining whether the loader is disabled`</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="453">a boolean determining whether the loader is disabled`</doc>
         <type name="gboolean" c:type="gboolean" />
       </field>
       <field name="license" writable="1" gs:managed-name="License">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="454">a string containing license information, typically set to
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="454">a string containing license information, typically set to
   shorthands like "GPL", "LGPL", etc.</doc>
         <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
       </field>
       <method name="copy" c:identifier="gdk_pixbuf_format_copy" version="2.22" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="Copy" gs:special-func="copy" gs:pinvoke-only="1">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3453">Creates a copy of `format`.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="92" />
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3452">Creates a copy of `format`.</doc>
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="92" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3459">the newly allocated copy of a `GdkPixbufFormat`. Use
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3458">the newly allocated copy of a `GdkPixbufFormat`. Use
   gdk_pixbuf_format_free() to free the resources when done</doc>
           <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3455">a pixbuf format</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3454">a pixbuf format</doc>
             <type name="PixbufFormat" c:type="const GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <method name="free" c:identifier="gdk_pixbuf_format_free" version="2.22" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="Free" gs:special-func="free" gs:pinvoke-only="1">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3473">Frees the resources allocated when copying a `GdkPixbufFormat`
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3472">Frees the resources allocated when copying a `GdkPixbufFormat`
 using gdk_pixbuf_format_copy()</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="94" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="94" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3475">a pixbuf format</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3474">a pixbuf format</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <gs:managed-property name="get_description" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="Description">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3250">Returns a description of the format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="56" />
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3249">Returns a description of the format.</doc>
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="56" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3256">a description of the format.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3255">a description of the format.</doc>
           <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3252">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3251">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
       <method name="get_description" c:identifier="gdk_pixbuf_format_get_description" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetDescription" gs:property-getter-for="Description" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3250">Returns a description of the format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="56" />
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3249">Returns a description of the format.</doc>
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="56" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3256">a description of the format.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3255">a description of the format.</doc>
           <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3252">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3251">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <gs:managed-property name="get_extensions" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="Extensions">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3294">Returns the filename extensions typically used for files in the
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3293">Returns the filename extensions typically used for files in the
 given format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="60" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="60" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3301">an array of
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3300">an array of
   filename extensions</doc>
           <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
@@ -277,18 +277,18 @@ given format.</doc>
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3296">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3295">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
       <method name="get_extensions" c:identifier="gdk_pixbuf_format_get_extensions" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetExtensions" gs:property-getter-for="Extensions" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3294">Returns the filename extensions typically used for files in the
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3293">Returns the filename extensions typically used for files in the
 given format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="60" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="60" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3301">an array of
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3300">an array of
   filename extensions</doc>
           <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
@@ -296,266 +296,266 @@ given format.</doc>
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3296">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3295">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <gs:managed-property name="get_license" version="2.6" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="License">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3398">Returns information about the license of the image loader for the format.
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3397">Returns information about the license of the image loader for the format.
 
 The returned string should be a shorthand for a well known license, e.g.
 "LGPL", "GPL", "QPL", "GPL/QPL", or "other" to indicate some other license.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="74" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="74" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3407">a string describing the license of the pixbuf format</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3406">a string describing the license of the pixbuf format</doc>
           <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3400">a pixbuf format</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3399">a pixbuf format</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
       <method name="get_license" c:identifier="gdk_pixbuf_format_get_license" version="2.6" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetLicense" gs:property-getter-for="License" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3398">Returns information about the license of the image loader for the format.
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3397">Returns information about the license of the image loader for the format.
 
 The returned string should be a shorthand for a well known license, e.g.
 "LGPL", "GPL", "QPL", "GPL/QPL", or "other" to indicate some other license.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="74" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="74" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3407">a string describing the license of the pixbuf format</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3406">a string describing the license of the pixbuf format</doc>
           <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3400">a pixbuf format</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3399">a pixbuf format</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <gs:managed-property name="get_mime_types" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="MimeTypes">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3276">Returns the mime types supported by the format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="58" />
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3275">Returns the mime types supported by the format.</doc>
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="58" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3282">an array of mime types</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3281">an array of mime types</doc>
           <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
           </array>
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3278">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3277">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
       <method name="get_mime_types" c:identifier="gdk_pixbuf_format_get_mime_types" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetMimeTypes" gs:property-getter-for="MimeTypes" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3276">Returns the mime types supported by the format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="58" />
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3275">Returns the mime types supported by the format.</doc>
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="58" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3282">an array of mime types</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3281">an array of mime types</doc>
           <array c:type="gchar**" zero-terminated="1" gs:is-pointer="1">
             <type name="utf8" gs:is-pointer="1" />
           </array>
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3278">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3277">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <gs:managed-property name="get_name" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="Name">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3232">Returns the name of the format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="54" />
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3231">Returns the name of the format.</doc>
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="54" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3238">the name of the format.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3237">the name of the format.</doc>
           <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3234">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3233">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
       <method name="get_name" c:identifier="gdk_pixbuf_format_get_name" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetName" gs:property-getter-for="Name" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3232">Returns the name of the format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="54" />
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3231">Returns the name of the format.</doc>
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="54" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3238">the name of the format.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3237">the name of the format.</doc>
           <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3234">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3233">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <gs:managed-property name="is_disabled" version="2.6" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="IsDisabled">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3354">Returns whether this image format is disabled.
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3353">Returns whether this image format is disabled.
 
 See gdk_pixbuf_format_set_disabled().</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="69" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="69" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3362">whether this image format is disabled.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3361">whether this image format is disabled.</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3356">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3355">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
       <method name="is_disabled" c:identifier="gdk_pixbuf_format_is_disabled" version="2.6" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetIsDisabled" gs:property-getter-for="IsDisabled" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3354">Returns whether this image format is disabled.
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3353">Returns whether this image format is disabled.
 
 See gdk_pixbuf_format_set_disabled().</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="69" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="69" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3362">whether this image format is disabled.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3361">whether this image format is disabled.</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3356">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3355">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <method name="is_save_option_supported" c:identifier="gdk_pixbuf_format_is_save_option_supported" version="2.36" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="IsSaveOptionSupported">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3489">Returns `TRUE` if the save option specified by @option_key is supported when
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3488">Returns `TRUE` if the save option specified by @option_key is supported when
 saving a pixbuf using the module implementing @format.
 
 See gdk_pixbuf_save() for more information about option keys.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="62" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="62" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3499">`TRUE` if the specified option is supported</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3498">`TRUE` if the specified option is supported</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3491">a pixbuf format</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3490">a pixbuf format</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
           <parameter name="option_key" transfer-ownership="none" gs:managed-name="optionKey" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3492">the name of an option</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3491">the name of an option</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="option_key" transfer-ownership="none" gs:managed-name="optionKey" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3492">the name of an option</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3491">the name of an option</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
       </method>
       <gs:managed-property name="is_scalable" version="2.6" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="IsScalable">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3332">Returns whether this image format is scalable.
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3331">Returns whether this image format is scalable.
 
 If a file is in a scalable format, it is preferable to load it at
 the desired size, rather than loading it at the default size and
 scaling the resulting pixbuf to the desired size.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="67" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="67" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3342">whether this image format is scalable.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3341">whether this image format is scalable.</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3334">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3333">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
       <method name="is_scalable" c:identifier="gdk_pixbuf_format_is_scalable" version="2.6" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetIsScalable" gs:property-getter-for="IsScalable" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3332">Returns whether this image format is scalable.
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3331">Returns whether this image format is scalable.
 
 If a file is in a scalable format, it is preferable to load it at
 the desired size, rather than loading it at the default size and
 scaling the resulting pixbuf to the desired size.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="67" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="67" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3342">whether this image format is scalable.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3341">whether this image format is scalable.</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3334">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3333">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <gs:managed-property name="is_writable" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="IsWritable">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3314">Returns whether pixbufs can be saved in the given format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="65" />
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3313">Returns whether pixbufs can be saved in the given format.</doc>
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="65" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3320">whether pixbufs can be saved in the given format.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3319">whether pixbufs can be saved in the given format.</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3316">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3315">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
       <method name="is_writable" c:identifier="gdk_pixbuf_format_is_writable" version="2.2" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetIsWritable" gs:property-getter-for="IsWritable" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3314">Returns whether pixbufs can be saved in the given format.</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="65" />
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3313">Returns whether pixbufs can be saved in the given format.</doc>
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="65" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3320">whether pixbufs can be saved in the given format.</doc>
+          <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3319">whether pixbufs can be saved in the given format.</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3316">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3315">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <method name="set_disabled" c:identifier="gdk_pixbuf_format_set_disabled" version="2.6" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="SetDisabled" gs:property-setter-for="IsDisabled" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3374">Disables or enables an image format.
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3373">Disables or enables an image format.
 
 If a format is disabled, GdkPixbuf won't use the image loader for
 this format to load images.
 
 Applications can use this to avoid using image loaders with an
 inappropriate license, see gdk_pixbuf_format_get_license().</doc>
-        <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="71" />
+        <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="71" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="format" transfer-ownership="none" gs:managed-name="format" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3376">a `GdkPixbufFormat`</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3375">a `GdkPixbufFormat`</doc>
             <type name="PixbufFormat" c:type="GdkPixbufFormat*" gs:is-pointer="1" />
           </instance-parameter>
           <parameter name="disabled" transfer-ownership="none" gs:managed-name="disabled" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3377">`TRUE` to disable the format @format</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3376">`TRUE` to disable the format @format</doc>
             <type name="gboolean" c:type="gboolean" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="disabled" transfer-ownership="none" gs:managed-name="disabled" direction="in">
-            <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.c" line="3377">`TRUE` to disable the format @format</doc>
+            <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.c" line="3376">`TRUE` to disable the format @format</doc>
             <type name="gboolean" c:type="gboolean" />
           </parameter>
         </gs:managed-parameters>
@@ -569,22 +569,22 @@ inappropriate license, see gdk_pixbuf_format_get_license().</doc>
       </function>
     </glib:boxed>
     <bitfield name="PixbufFormatFlags" version="2.2" c:type="GdkPixbufFormatFlags" gs:managed-name="PixbufFormatFlags">
-      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="424">Flags which allow a module to specify further details about the supported
+      <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="424">Flags which allow a module to specify further details about the supported
 operations.</doc>
-      <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="441" />
+      <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="441" />
       <member name="writable" value="1" c:identifier="GDK_PIXBUF_FORMAT_WRITABLE" gs:managed-name="Writable">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="426">the module can write out images in the format.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="426">the module can write out images in the format.</doc>
       </member>
       <member name="scalable" value="2" c:identifier="GDK_PIXBUF_FORMAT_SCALABLE" gs:managed-name="Scalable">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="427">the image format is scalable</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="427">the image format is scalable</doc>
       </member>
       <member name="threadsafe" value="4" c:identifier="GDK_PIXBUF_FORMAT_THREADSAFE" version="2.28" gs:managed-name="Threadsafe">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="428">the module is threadsafe. gdk-pixbuf
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="428">the module is threadsafe. gdk-pixbuf
     ignores modules that are not marked as threadsafe. ().</doc>
       </member>
     </bitfield>
     <record name="PixbufModulePattern" c:type="GdkPixbufModulePattern" version="2.2" gs:managed-name="PixbufModulePattern">
-      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="170">The signature prefix for a module.
+      <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="170">The signature prefix for a module.
 
 The signature of a module is a set of prefixes. Prefixes are encoded as
 pairs of ordinary strings, where the second string, called the mask, if
@@ -614,36 +614,36 @@ GdkPixbufModulePattern *signature[] = {
 
 In the example above, the signature matches e.g. "auud\0" with
 relevance 100, and "blau" with relevance 90.</doc>
-      <source-position filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="215" />
+      <source-position filename="gdk-pixbuf/gdk-pixbuf-io.h" line="215" />
       <field name="prefix" writable="1" gs:managed-name="Prefix">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="172">the prefix for this pattern</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="172">the prefix for this pattern</doc>
         <type name="utf8" c:type="char*" gs:is-pointer="1" />
       </field>
       <field name="mask" writable="1" gs:managed-name="Mask">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="173">mask containing bytes which modify how the prefix is matched against
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="173">mask containing bytes which modify how the prefix is matched against
  test data</doc>
         <type name="utf8" c:type="char*" gs:is-pointer="1" />
       </field>
       <field name="relevance" writable="1" gs:managed-name="Relevance">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-io.h" line="175">relevance of this pattern</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-io.h" line="175">relevance of this pattern</doc>
         <type name="gint" c:type="int" />
       </field>
     </record>
     <enumeration name="PixbufRotation" glib:type-name="GdkPixbufRotation" glib:get-type="gdk_pixbuf_rotation_get_type" c:type="GdkPixbufRotation" gs:managed-name="PixbufRotation">
-      <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="80">The possible rotations which can be passed to gdk_pixbuf_rotate_simple().
+      <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="80">The possible rotations which can be passed to gdk_pixbuf_rotate_simple().
 
 To make them easier to use, their numerical values are the actual degrees.</doc>
       <member name="none" value="0" c:identifier="GDK_PIXBUF_ROTATE_NONE" glib:nick="none" glib:name="GDK_PIXBUF_ROTATE_NONE" gs:managed-name="None">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="82">No rotation.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="82">No rotation.</doc>
       </member>
       <member name="counterclockwise" value="90" c:identifier="GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE" glib:nick="counterclockwise" glib:name="GDK_PIXBUF_ROTATE_COUNTERCLOCKWISE" gs:managed-name="Counterclockwise">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="83">Rotate by 90 degrees.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="83">Rotate by 90 degrees.</doc>
       </member>
       <member name="upsidedown" value="180" c:identifier="GDK_PIXBUF_ROTATE_UPSIDEDOWN" glib:nick="upsidedown" glib:name="GDK_PIXBUF_ROTATE_UPSIDEDOWN" gs:managed-name="Upsidedown">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="84">Rotate by 180 degrees.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="84">Rotate by 180 degrees.</doc>
       </member>
       <member name="clockwise" value="270" c:identifier="GDK_PIXBUF_ROTATE_CLOCKWISE" glib:nick="clockwise" glib:name="GDK_PIXBUF_ROTATE_CLOCKWISE" gs:managed-name="Clockwise">
-        <doc xml:space="preserve" filename="../gdk-pixbuf/gdk-pixbuf-transform.h" line="85">Rotate by 270 degrees.</doc>
+        <doc xml:space="preserve" filename="gdk-pixbuf/gdk-pixbuf-transform.h" line="85">Rotate by 270 degrees.</doc>
       </member>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="gdk_pixbuf_rotation_get_type" gs:access-modifiers="private" gs:dll-name="gdk_pixbuf-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">

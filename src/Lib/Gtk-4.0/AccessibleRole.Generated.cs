@@ -162,7 +162,10 @@ namespace GISharp.Lib.Gtk
         /// <include file="AccessibleRole.xmldoc" path="declaration/member[@name='AccessibleRole.Widget']/*" />
         Widget = 76,
         /// <include file="AccessibleRole.xmldoc" path="declaration/member[@name='AccessibleRole.Window']/*" />
-        Window = 77
+        Window = 77,
+        /// <include file="AccessibleRole.xmldoc" path="declaration/member[@name='AccessibleRole.ToggleButton']/*" />
+        [GISharp.Runtime.SinceAttribute("4.10")]
+        ToggleButton = 78
     }
 
     /// <summary>

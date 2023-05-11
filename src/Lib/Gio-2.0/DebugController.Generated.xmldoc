@@ -1,0 +1,59 @@
+<declaration>
+
+<member name='IDebugController.DebugEnabled'>
+<summary>
+<c>true</c> if debug output should be exposed (for example by forwarding it to
+the journal), <c>false</c> otherwise.
+</summary>
+</member>
+
+<member name='IDebugController'>
+<summary>
+<see cref="IDebugController"/> is an interface to expose control of debugging features and
+debug output.
+</summary>
+<remarks>
+<para>
+It is implemented on Linux using <see cref="IDebugController"/>DBus, which exposes a D-Bus
+interface to allow authenticated peers to control debug features in this
+process.
+</para>
+<para>
+Whether debug output is enabled is exposed as
+<see cref="IDebugController"/>:debug-enabled. This controls g_log_set_debug_enabled() by
+default. Application code may connect to the #GObject::notify signal for it
+to control other parts of its debug infrastructure as necessary.
+</para>
+<para>
+If your application or service is using the default GLib log writer function,
+creating one of the built-in implementations of <see cref="IDebugController"/> should be
+all that’s needed to dynamically enable or disable debug output.
+</para>
+</remarks>
+</member>
+
+<member name='DebugController.GetDebugEnabled(GISharp.Lib.Gio.IDebugController)'>
+<summary>
+Get the value of <see cref="IDebugController"/>:debug-enabled.
+</summary>
+<param name="self">
+a <see cref="IDebugController"/>
+</param>
+<returns>
+<c>true</c> if debug output should be exposed, <c>false</c> otherwise
+</returns>
+</member>
+
+<member name='DebugController.SetDebugEnabled(GISharp.Lib.Gio.IDebugController,bool)'>
+<summary>
+Set the value of <see cref="IDebugController"/>:debug-enabled.
+</summary>
+<param name="self">
+a <see cref="IDebugController"/>
+</param>
+<param name="debugEnabled">
+<c>true</c> if debug output should be exposed, <c>false</c> otherwise
+</param>
+</member>
+
+</declaration>

@@ -54,6 +54,23 @@ Higher bits can be used for user-defined log levels.
 </summary>
 </member>
 
+<member name='Log.DebugEnabled'>
+<summary>
+Return whether debug output from the GLib logging system is enabled.
+</summary>
+<remarks>
+<para>
+Note that this should not be used to conditionalise calls to g_debug() or
+other logging functions; it should only be used from %GLogWriterFunc
+implementations.
+</para>
+<para>
+Note also that the value of this does not depend on `G_MESSAGES_DEBUG`; see
+the docs for <see cref="Log.SetDebugEnabled(bool)"/>.
+</para>
+</remarks>
+</member>
+
 <member name='Log.RemoveHandler(GISharp.Runtime.UnownedUtf8,uint)'>
 <summary>
 Removes the log handler.

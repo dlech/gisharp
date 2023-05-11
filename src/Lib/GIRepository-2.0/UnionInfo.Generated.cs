@@ -16,11 +16,19 @@ namespace GISharp.Lib.GIRepository
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.Alignment']/*" />
         public int Alignment { get => GetAlignment(); }
 
+        /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.CopyFunction']/*" />
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        public GISharp.Runtime.NullableUnownedUtf8 CopyFunction { get => GetCopyFunction(); }
+
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.DiscriminatorOffset']/*" />
         public int DiscriminatorOffset { get => GetDiscriminatorOffset(); }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.DiscriminatorType']/*" />
         public GISharp.Lib.GIRepository.TypeInfo DiscriminatorType { get => GetDiscriminatorType(); }
+
+        /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.FreeFunction']/*" />
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        public GISharp.Runtime.NullableUnownedUtf8 FreeFunction { get => GetFreeFunction(); }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.NFields']/*" />
         private int NFields { get => GetNFields(); }
@@ -104,6 +112,36 @@ namespace GISharp.Lib.GIRepository
             var ret_ = g_union_info_get_alignment(info_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (int)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Retrieves the name of the copy function for @info, if any is set.
+        /// </summary>
+        /// <param name="info">
+        /// a union information blob
+        /// </param>
+        /// <returns>
+        /// the name of the copy function
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern byte* g_union_info_get_copy_function(
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
+        partial void CheckGetCopyFunctionArgs();
+
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        private GISharp.Runtime.NullableUnownedUtf8 GetCopyFunction()
+        {
+            CheckGetCopyFunctionArgs();
+            var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_union_info_get_copy_function(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -236,6 +274,36 @@ namespace GISharp.Lib.GIRepository
             var ret_ = g_union_info_get_field(info_,n_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Lib.GIRepository.FieldInfo.GetInstance<GISharp.Lib.GIRepository.FieldInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
+        /// Retrieves the name of the free function for @info, if any is set.
+        /// </summary>
+        /// <param name="info">
+        /// a union information blob
+        /// </param>
+        /// <returns>
+        /// the name of the free function
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern byte* g_union_info_get_free_function(
+        /* <type name="UnionInfo" type="GIUnionInfo*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
+        partial void CheckGetFreeFunctionArgs();
+
+        [GISharp.Runtime.SinceAttribute("1.76")]
+        private GISharp.Runtime.NullableUnownedUtf8 GetFreeFunction()
+        {
+            CheckGetFreeFunctionArgs();
+            var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_union_info_get_free_function(info_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
             return ret;
         }
 

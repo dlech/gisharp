@@ -30,6 +30,9 @@ namespace GISharp.Lib.GObject
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ValuesCmp']/*" />
             public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*, GISharp.Lib.GObject.Value*, GISharp.Lib.GObject.Value*, int> ValuesCmp;
 
+            /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ValueIsValid']/*" />
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*, GISharp.Lib.GObject.Value*, GISharp.Runtime.Boolean> ValueIsValid;
+
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy0']/*" />
             internal readonly System.IntPtr Dummy0;
 
@@ -38,9 +41,6 @@ namespace GISharp.Lib.GObject
 
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy2']/*" />
             internal readonly System.IntPtr Dummy2;
-
-            /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy3']/*" />
-            internal readonly System.IntPtr Dummy3;
 #pragma warning restore CS0169, CS0414, CS0649
         }
 
@@ -54,6 +54,8 @@ namespace GISharp.Lib.GObject
             RegisterVirtualMethod(valueValidateOffset, ValueValidateMarshal.Create);
             int valuesCmpOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ValuesCmp));
             RegisterVirtualMethod(valuesCmpOffset, ValuesCmpMarshal.Create);
+            int valueIsValidOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ValueIsValid));
+            RegisterVirtualMethod(valueIsValidOffset, ValueIsValidMarshal.Create);
         }
 
         /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='_Finalize']/*" />
@@ -249,6 +251,57 @@ GISharp.Lib.GObject.Value* value2);
                 }
 
                 return unmanagedValuesCmp;
+            }
+        }
+
+        /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='_ValueIsValid']/*" />
+        public delegate bool _ValueIsValid(in GISharp.Lib.GObject.Value value);
+
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        public unsafe delegate GISharp.Runtime.Boolean UnmanagedValueIsValid(
+/* <type name="ParamSpec" type="GParamSpec*" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec,
+/* <type name="Value" type="const GValue*" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+GISharp.Lib.GObject.Value* value);
+
+        /// <summary>
+        /// Class for marshalling <see cref="_ValueIsValid"/> methods.
+        /// </summary>
+        public static unsafe class ValueIsValidMarshal
+        {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
+            public static UnmanagedValueIsValid Create(System.Reflection.MethodInfo methodInfo)
+            {
+                GISharp.Runtime.Boolean unmanagedValueIsValid(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value_)
+                {
+                    try
+                    {
+                        var pspec = GISharp.Lib.GObject.ParamSpec.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!;
+                        ref var value = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.Value>(value_);
+                        var doValueIsValid = (_ValueIsValid)methodInfo.CreateDelegate(typeof(_ValueIsValid), pspec);
+                        var ret = doValueIsValid(value);
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
+                        return ret_;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Runtime.GMarshal.PushUnhandledException(ex);
+                    }
+
+                    return default(GISharp.Runtime.Boolean);
+                }
+
+                return unmanagedValueIsValid;
             }
         }
 

@@ -2,7 +2,7 @@
 
 <member name='OptionArg.None'>
 <summary>
-No extra argument. This is useful for simple flags.
+No extra argument. This is useful for simple flags or booleans.
 </summary>
 </member>
 

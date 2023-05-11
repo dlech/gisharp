@@ -33,7 +33,7 @@ the replacement byte for bytes which don't match <c>csetFirst</c> or <c>csetNth<
 <member name='UnmanagedStruct.Bits5'>
 </member>
 
-<member name='ParamSpecString.ParamSpecString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GObject.ParamFlags)'>
+<member name='ParamSpecString.ParamSpecString(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GObject.ParamFlags)'>
 <summary>
 Creates a new <see cref="ParamSpecString"/> instance.
 </summary>

@@ -79,7 +79,7 @@ a file attribute key.
 
 <member name='FileAttributeMatcher.MatchesOnly(GISharp.Runtime.UnownedUtf8)'>
 <summary>
-Checks if a attribute matcher only matches a given attribute. Always
+Checks if an attribute matcher only matches a given attribute. Always
 returns <c>false</c> if "*" was used when creating the matcher.
 </summary>
 <param name="attribute">

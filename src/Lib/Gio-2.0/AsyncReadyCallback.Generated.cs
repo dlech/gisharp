@@ -33,7 +33,7 @@ namespace GISharp.Lib.Gio
     GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
     /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
-    System.IntPtr userData);
+    System.IntPtr data);
 
     /// <include file="AsyncReadyCallback.xmldoc" path="declaration/member[@name='AsyncReadyCallback']/*" />
     public delegate void AsyncReadyCallback(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.IAsyncResult res);
@@ -48,11 +48,12 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public static GISharp.Lib.Gio.AsyncReadyCallback FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
+            var data_ = userData_;
             void managedCallback(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.IAsyncResult res)
             {
                 var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero);
                 var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;
-                callback_(sourceObject_, res_, userData_);
+                callback_(sourceObject_, res_, data_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
@@ -63,18 +64,18 @@ namespace GISharp.Lib.Gio
         /// For runtime use only.
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-        public static void Callback(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        public static void Callback(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr data_)
         {
             try
             {
                 var sourceObject = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)sourceObject_, GISharp.Runtime.Transfer.None);
                 var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!;
-                var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var (userData, userDataScope) = ((AsyncReadyCallback, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
-                userData.Invoke(sourceObject, res);
-                if (userDataScope == GISharp.Runtime.CallbackScope.Async)
+                var dataHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var (data, dataScope) = ((AsyncReadyCallback, GISharp.Runtime.CallbackScope))dataHandle.Target!;
+                data.Invoke(sourceObject, res);
+                if (dataScope == GISharp.Runtime.CallbackScope.Async)
                 {
-                    userDataHandle.Free();
+                    dataHandle.Free();
                 }
             }
             catch (System.Exception ex)

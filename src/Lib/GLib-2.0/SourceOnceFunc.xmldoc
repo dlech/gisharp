@@ -1,0 +1,15 @@
+<declaration>
+
+<member name='SourceOnceFunc'>
+<summary>
+A source function that is only called once before being removed from the main
+context automatically.
+</summary>
+<remarks>
+<para>
+See: g_idle_add_once(), g_timeout_add_once()
+</para>
+</remarks>
+</member>
+
+</declaration>

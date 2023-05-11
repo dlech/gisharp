@@ -700,7 +700,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.ByteArray" type="GByteArray*" is-pointer="1">
 *   <type name="guint8" type="guint8" />
 * </array> */
         /* transfer-ownership:full direction:in */

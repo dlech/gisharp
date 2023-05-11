@@ -22,7 +22,7 @@ namespace GISharp.Lib.Gio
             public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Icon.UnmanagedStruct*, GISharp.Lib.Gio.Icon.UnmanagedStruct*, GISharp.Runtime.Boolean> Equal;
 
             /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ToTokens']/*" />
-            public readonly System.IntPtr ToTokens;
+            public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Icon.UnmanagedStruct*, GISharp.Lib.GLib.PtrArray.UnmanagedStruct*, int*, GISharp.Runtime.Boolean> ToTokens;
 
             /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.FromTokens']/*" />
             public readonly System.IntPtr FromTokens;
@@ -38,6 +38,8 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(hashOffset, HashMarshal.Create);
             int equalOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Equal));
             RegisterVirtualMethod(equalOffset, EqualMarshal.Create);
+            int toTokensOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ToTokens));
+            RegisterVirtualMethod(toTokensOffset, ToTokensMarshal.Create);
             int serializeOffset = (int)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Serialize));
             RegisterVirtualMethod(serializeOffset, SerializeMarshal.Create);
         }
@@ -137,6 +139,63 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2);
                 }
 
                 return unmanagedEqual;
+            }
+        }
+
+        /// <include file="IconIface.xmldoc" path="declaration/member[@name='_ToTokens']/*" />
+        public delegate bool _ToTokens(GISharp.Lib.GLib.WeakPtrArray<GISharp.Runtime.Utf8> tokens, out int outVersion);
+
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        public unsafe delegate GISharp.Runtime.Boolean UnmanagedToTokens(
+/* <type name="Icon" type="GIcon*" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+GISharp.Lib.Gio.Icon.UnmanagedStruct* icon,
+/* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="utf8" is-pointer="1" />
+* </array> */
+/* direction:in caller-allocates:1 transfer-ownership:none */
+GISharp.Lib.GLib.PtrArray.UnmanagedStruct* tokens,
+/* <type name="gint" type="gint*" /> */
+/* direction:out caller-allocates:0 transfer-ownership:full */
+int* outVersion);
+
+        /// <summary>
+        /// Class for marshalling <see cref="_ToTokens"/> methods.
+        /// </summary>
+        public static unsafe class ToTokensMarshal
+        {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
+            public static UnmanagedToTokens Create(System.Reflection.MethodInfo methodInfo)
+            {
+                GISharp.Runtime.Boolean unmanagedToTokens(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_, GISharp.Lib.GLib.PtrArray.UnmanagedStruct* tokens_, int* outVersion_)
+                {
+                    try
+                    {
+                        var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!;
+                        var tokens = GISharp.Lib.GLib.WeakPtrArray<GISharp.Runtime.Utf8>.GetInstance<GISharp.Lib.GLib.WeakPtrArray<GISharp.Runtime.Utf8>>((System.IntPtr)tokens_, GISharp.Runtime.Transfer.None)!;
+                        var doToTokens = (_ToTokens)methodInfo.CreateDelegate(typeof(_ToTokens), icon);
+                        var ret = doToTokens(tokens,out var outVersion);
+                        *outVersion_ = (int)outVersion;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
+                        return ret_;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Runtime.GMarshal.PushUnhandledException(ex);
+                    }
+
+                    return default(GISharp.Runtime.Boolean);
+                }
+
+                return unmanagedToTokens;
             }
         }
 

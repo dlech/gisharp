@@ -129,7 +129,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_closure_new_simple(
         /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */

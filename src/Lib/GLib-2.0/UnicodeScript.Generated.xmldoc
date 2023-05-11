@@ -949,6 +949,54 @@ Yezidi.
 </summary>
 </member>
 
+<member name='UnicodeScript.CyproMinoan'>
+<summary>
+Cypro-Minoan.
+</summary>
+</member>
+
+<member name='UnicodeScript.OldUyghur'>
+<summary>
+Old Uyghur.
+</summary>
+</member>
+
+<member name='UnicodeScript.Tangsa'>
+<summary>
+Tangsa.
+</summary>
+</member>
+
+<member name='UnicodeScript.Toto'>
+<summary>
+Toto.
+</summary>
+</member>
+
+<member name='UnicodeScript.Vithkuqi'>
+<summary>
+Vithkuqi.
+</summary>
+</member>
+
+<member name='UnicodeScript.Math'>
+<summary>
+Mathematical notation.
+</summary>
+</member>
+
+<member name='UnicodeScript.Kawi'>
+<summary>
+Kawi.
+</summary>
+</member>
+
+<member name='UnicodeScript.NagMundari'>
+<summary>
+Nag Mundari.
+</summary>
+</member>
+
 <member name='UnicodeScript'>
 <summary>
 The <see cref="UnicodeScript"/> enumeration identifies different writing

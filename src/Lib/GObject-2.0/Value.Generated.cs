@@ -54,8 +54,7 @@ namespace GISharp.Lib.GObject
         public System.Runtime.InteropServices.CLong Long { get => GetLong(); set => SetLong(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Object']/*" />
-        [System.Diagnostics.CodeAnalysis.AllowNullAttribute]
-        public GISharp.Lib.GObject.Object Object { get => GetObject(); set => SetObject(value); }
+        public GISharp.Lib.GObject.Object? Object { get => GetObject(); set => SetObject(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.Param']/*" />
         [System.Diagnostics.CodeAnalysis.AllowNullAttribute]
@@ -69,8 +68,7 @@ namespace GISharp.Lib.GObject
         public sbyte Char { get => GetChar(); set => SetChar(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.String']/*" />
-        [System.Diagnostics.CodeAnalysis.AllowNullAttribute]
-        public GISharp.Runtime.UnownedUtf8 String { get => GetString(); set => SetString(value); }
+        public GISharp.Runtime.NullableUnownedUtf8 String { get => GetString(); set => SetString(value); }
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.UChar']/*" />
         public byte UChar { get => GetUChar(); set => SetUChar(value); }
@@ -267,7 +265,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern System.IntPtr g_value_dup_boxed(
         /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -287,7 +285,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Object" type="gpointer" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_value_dup_object(
         /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -295,7 +293,7 @@ namespace GISharp.Lib.GObject
         partial void CheckDupObjectArgs();
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.DupObject()']/*" />
-        public GISharp.Lib.GObject.Object DupObject()
+        public GISharp.Lib.GObject.Object? DupObject()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -303,7 +301,7 @@ namespace GISharp.Lib.GObject
                 var value_ = this_;
                 var ret_ = g_value_dup_object(value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
                 return ret;
             }
         }
@@ -319,7 +317,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" is-pointer="1" /> */
-        /* transfer-ownership:full direction:in */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern byte* g_value_dup_string(
         /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -327,7 +325,7 @@ namespace GISharp.Lib.GObject
         partial void CheckDupStringArgs();
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.DupString()']/*" />
-        public GISharp.Runtime.Utf8 DupString()
+        public GISharp.Runtime.Utf8? DupString()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -335,7 +333,7 @@ namespace GISharp.Lib.GObject
                 var value_ = this_;
                 var ret_ = g_value_dup_string(value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                var ret = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
                 return ret;
             }
         }
@@ -718,14 +716,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Object" type="gpointer" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_value_get_object(
         /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetObjectArgs();
 
-        private GISharp.Lib.GObject.Object GetObject()
+        private GISharp.Lib.GObject.Object? GetObject()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -733,7 +731,7 @@ namespace GISharp.Lib.GObject
                 var value_ = this_;
                 var ret_ = g_value_get_object(value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+                var ret = GISharp.Lib.GObject.Object.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
                 return ret;
             }
         }
@@ -844,14 +842,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_value_get_string(
         /* <type name="Value" type="const GValue*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
         partial void CheckGetStringArgs();
 
-        private GISharp.Runtime.UnownedUtf8 GetString()
+        private GISharp.Runtime.NullableUnownedUtf8 GetString()
         {
             fixed (GISharp.Lib.GObject.Value* this_ = &this)
             {
@@ -859,7 +857,7 @@ namespace GISharp.Lib.GObject
                 var value_ = this_;
                 var ret_ = g_value_get_string(value_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
-                var ret = new GISharp.Runtime.UnownedUtf8(ret_);
+                var ret = new GISharp.Runtime.NullableUnownedUtf8(ret_);
                 return ret;
             }
         }
@@ -2051,7 +2049,7 @@ namespace GISharp.Lib.GObject
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value,
         /* <type name="utf8" type="gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
         byte* vString);
 
         /// <summary>

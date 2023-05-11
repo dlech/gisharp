@@ -399,6 +399,20 @@ whether the task returns automatically when
 </returns>
 </member>
 
+<member name='Task.SetStaticName(GISharp.Runtime.NullableUnownedUtf8)'>
+<summary>
+Sets this instance’s name, used in debugging and profiling.
+</summary>
+<remarks>
+<para>
+This is a variant of <see cref="Task.SetName(GISharp.Runtime.NullableUnownedUtf8)"/> that avoids copying <paramref name="name"/>.
+</para>
+</remarks>
+<param name="name">
+a human readable name for the task. Must be a string literal
+</param>
+</member>
+
 <member name='Task'>
 <summary>
 A <see cref="Task"/> represents and manages a cancellable "task".
@@ -429,6 +443,11 @@ return value.
 Using <see cref="Task"/> requires the thread-default #GMainContext from when the
 <see cref="Task"/> was constructed to be running at least until the task has completed
 and its data has been freed.
+</para>
+<para>
+If a <see cref="Task"/> has been constructed and its callback set, it is an error to
+not call `g_task_return_*()` on it. GLib will warn at runtime if this happens
+(since 2.76).
 </para>
 <para>
 Here is an example for using GTask as a GAsyncResult:
@@ -965,6 +984,30 @@ in several ways:
   having come from the `_async()` wrapper
   function (for "short-circuit" results, such as when passing
   0 to <see cref="InputStream.ReadAsync(System.Memory{byte},int,GISharp.Lib.Gio.Cancellable)"/>).
+</para>
+<para>
+## Thread-safety considerations
+</para>
+<para>
+Due to some infelicities in the API design, there is a
+thread-safety concern that users of GTask have to be aware of:
+</para>
+<para>
+If the `main` thread drops its last reference to the source object
+or the task data before the task is finalized, then the finalizers
+of these objects may be called on the worker thread.
+</para>
+<para>
+This is a problem if the finalizers use non-threadsafe API, and
+can lead to hard-to-debug crashes. Possible workarounds include:
+</para>
+<para>
+- Clear task data in a signal handler for `notify::completed`
+</para>
+<para>
+- Keep iterating a main context in the main thread and defer
+  dropping the reference to the source object to that main
+  context when the task is finalized
 </para>
 </remarks>
 </member>

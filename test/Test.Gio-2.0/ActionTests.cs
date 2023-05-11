@@ -216,7 +216,7 @@ namespace GISharp.Test.Gio
             try
             {
                 Assert.That<string>(actionName, Is.EqualTo("action"));
-                Assert.That((string)target, Is.EqualTo("target"));
+                Assert.That((string)target!, Is.EqualTo("target"));
             }
             finally
             {
@@ -232,7 +232,7 @@ namespace GISharp.Test.Gio
             try
             {
                 Assert.That<string>(actionName, Is.EqualTo("action"));
-                Assert.That((int)target, Is.EqualTo(42));
+                Assert.That((int)target!, Is.EqualTo(42));
             }
             finally
             {

@@ -202,7 +202,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Checks if a attribute matcher only matches a given attribute. Always
+        /// Checks if an attribute matcher only matches a given attribute. Always
         /// returns %FALSE if "*" was used when creating the matcher.
         /// </summary>
         /// <param name="matcher">

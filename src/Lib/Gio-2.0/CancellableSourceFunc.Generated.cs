@@ -18,7 +18,7 @@ namespace GISharp.Lib.Gio
     GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
     /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
-    System.IntPtr userData);
+    System.IntPtr data);
 
     /// <include file="CancellableSourceFunc.xmldoc" path="declaration/member[@name='CancellableSourceFunc']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
@@ -34,10 +34,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public static GISharp.Lib.Gio.CancellableSourceFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
+            var data_ = userData_;
             bool managedCallback(GISharp.Lib.Gio.Cancellable? cancellable)
             {
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-                var ret_ = callback_(cancellable_,userData_);
+                var ret_ = callback_(cancellable_,data_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
@@ -50,17 +51,17 @@ namespace GISharp.Lib.Gio
         /// For runtime use only.
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-        public static GISharp.Runtime.Boolean Callback(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr userData_)
+        public static GISharp.Runtime.Boolean Callback(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr data_)
         {
             try
             {
                 var cancellable = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
-                var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var (userData, userDataScope) = ((CancellableSourceFunc, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
-                var ret = userData.Invoke(cancellable);
-                if (userDataScope == GISharp.Runtime.CallbackScope.Async)
+                var dataHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var (data, dataScope) = ((CancellableSourceFunc, GISharp.Runtime.CallbackScope))dataHandle.Target!;
+                var ret = data.Invoke(cancellable);
+                if (dataScope == GISharp.Runtime.CallbackScope.Async)
                 {
-                    userDataHandle.Free();
+                    dataHandle.Free();
                 }
 
                 var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);

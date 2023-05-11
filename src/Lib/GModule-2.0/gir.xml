@@ -7,110 +7,110 @@ and/or use gtk-doc annotations.  -->
   <package name="gmodule-2.0" gs:managed-name="Gmodule2.0" />
   <c:include name="gmodule.h" gs:managed-name="Gmodule.h" />
   <namespace name="GModule" version="2.0" shared-library="/opt/homebrew/opt/glib/lib/libgmodule-2.0.0.dylib" c:identifier-prefixes="G" c:symbol-prefixes="g" gs:managed-name="GModule">
-    <record name="Module" c:type="GModule" disguised="1" gs:managed-name="Module">
+    <record name="Module" c:type="GModule" disguised="1" opaque="1" gs:managed-name="Module">
       <doc xml:space="preserve" filename="gmodule-2.0.c" line="5">The #GModule struct is an opaque data structure to represent a
 [dynamically-loaded module][glib-Dynamic-Loading-of-Modules].
 It should only be accessed via the following functions.</doc>
-      <source-position filename="gmodule.h" line="65" />
+      <source-position filename="gmodule.h" line="70" />
       <method name="close" c:identifier="g_module_close" gs:check-return="1" gs:dll-name="gmodule-2.0" gs:managed-name="Close">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="185">Closes a module.</doc>
-        <source-position filename="gmodule.h" line="105" />
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="207">Closes a module.</doc>
+        <source-position filename="gmodule.h" line="110" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="191">%TRUE on success</doc>
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="213">%TRUE on success</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="187">a #GModule to close</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="209">a #GModule to close</doc>
             <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <method name="make_resident" c:identifier="g_module_make_resident" gs:dll-name="gmodule-2.0" gs:managed-name="MakeResident">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="204">Ensures that a module will never be unloaded.
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="226">Ensures that a module will never be unloaded.
 Any future g_module_close() calls on the module will be ignored.</doc>
-        <source-position filename="gmodule.h" line="109" />
+        <source-position filename="gmodule.h" line="114" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
           <type name="none" c:type="void" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="206">a #GModule to make permanently resident</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="228">a #GModule to make permanently resident</doc>
             <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <gs:managed-property name="get_name" gs:dll-name="gmodule-2.0" gs:managed-name="Name">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="213">Returns the filename that the module was opened with.
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="235">Returns the filename that the module was opened with.
 
 If @module refers to the application itself, "main" is returned.</doc>
-        <source-position filename="gmodule.h" line="123" />
+        <source-position filename="gmodule.h" line="128" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="221">the filename of the module</doc>
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="243">the filename of the module</doc>
           <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="215">a #GModule</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="237">a #GModule</doc>
             <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </gs:managed-property>
       <method name="get_name" c:identifier="g_module_name" gs:dll-name="gmodule-2.0" gs:managed-name="GetName" gs:property-getter-for="Name" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="213">Returns the filename that the module was opened with.
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="235">Returns the filename that the module was opened with.
 
 If @module refers to the application itself, "main" is returned.</doc>
-        <source-position filename="gmodule.h" line="123" />
+        <source-position filename="gmodule.h" line="128" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="221">the filename of the module</doc>
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="243">the filename of the module</doc>
           <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="215">a #GModule</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="237">a #GModule</doc>
             <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
         </parameters>
         <gs:managed-parameters />
       </method>
       <method name="symbol" c:identifier="g_module_symbol" gs:dll-name="gmodule-2.0" gs:managed-name="TrySymbol">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="273">Gets a symbol pointer from a module, such as one exported
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="299">Gets a symbol pointer from a module, such as one exported
 by %G_MODULE_EXPORT. Note that a valid symbol can be %NULL.</doc>
-        <source-position filename="gmodule.h" line="117" />
+        <source-position filename="gmodule.h" line="122" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="282">%TRUE on success</doc>
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="308">%TRUE on success</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters>
           <instance-parameter name="module" transfer-ownership="none" gs:managed-name="module" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="275">a #GModule</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="301">a #GModule</doc>
             <type name="Module" c:type="GModule*" gs:is-pointer="1" />
           </instance-parameter>
           <parameter name="symbol_name" transfer-ownership="none" gs:managed-name="symbolName" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="276">the name of the symbol to find</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="302">the name of the symbol to find</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="symbol" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" gs:managed-name="symbol">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="277">returns the pointer to the symbol value</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="303">returns the pointer to the symbol value</doc>
             <type name="gpointer" c:type="gpointer*" gs:is-pointer="1" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="symbol_name" transfer-ownership="none" gs:managed-name="symbolName" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="276">the name of the symbol to find</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="302">the name of the symbol to find</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="symbol" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" gs:managed-name="symbol">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="277">returns the pointer to the symbol value</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="303">returns the pointer to the symbol value</doc>
             <type name="gpointer" c:type="gpointer*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
       </method>
-      <function name="build_path" c:identifier="g_module_build_path" gs:dll-name="gmodule-2.0" gs:managed-name="BuildPath">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="159">A portable way to build the filename of a module. The platform-specific
+      <function name="build_path" c:identifier="g_module_build_path" deprecated="1" deprecated-version="2.76" gs:dll-name="gmodule-2.0" gs:managed-name="BuildPath">
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="179">A portable way to build the filename of a module. The platform-specific
 prefix and suffix are added to the filename, if needed, and the result
 is added to the directory, using the correct separator character.
 
@@ -123,104 +123,106 @@ For example, calling g_module_build_path() on a Linux system with a
 @directory of `/lib` and a @module_name of "mylibrary" will return
 `/lib/libmylibrary.so`. On a Windows system, using `\Windows` as the
 directory it will return `\Windows\mylibrary.dll`.</doc>
-        <source-position filename="gmodule.h" line="137" />
+        <doc-deprecated xml:space="preserve">Use g_module_open() instead with @module_name as the
+basename of the file_name argument. See %G_MODULE_SUFFIX for why.</doc-deprecated>
+        <source-position filename="gmodule.h" line="142" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="180">the complete path of the module, including the standard library
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="200">the complete path of the module, including the standard library
     prefix and suffix. This should be freed when no longer needed</doc>
           <type name="utf8" c:type="gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <parameter name="directory" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="directory" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="161">the directory where the module is. This can be
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="181">the directory where the module is. This can be
     %NULL or the empty string to indicate that the standard platform-specific
     directories will be used, though that is not recommended</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="module_name" transfer-ownership="none" gs:managed-name="moduleName" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="164">the name of the module</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="184">the name of the module</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="directory" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="directory" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="161">the directory where the module is. This can be
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="181">the directory where the module is. This can be
     %NULL or the empty string to indicate that the standard platform-specific
     directories will be used, though that is not recommended</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="module_name" transfer-ownership="none" gs:managed-name="moduleName" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="164">the name of the module</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="184">the name of the module</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
       </function>
       <gs:managed-property name="get_error" gs:dll-name="gmodule-2.0" gs:managed-name="Error">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="195">Gets a string describing the last module error.</doc>
-        <source-position filename="gmodule.h" line="113" />
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="217">Gets a string describing the last module error.</doc>
+        <source-position filename="gmodule.h" line="118" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="200">a string describing the last module error</doc>
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="222">a string describing the last module error</doc>
           <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
       </gs:managed-property>
       <function name="get_error" c:identifier="g_module_error" gs:dll-name="gmodule-2.0" gs:managed-name="GetError" gs:property-getter-for="Error" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="195">Gets a string describing the last module error.</doc>
-        <source-position filename="gmodule.h" line="113" />
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="217">Gets a string describing the last module error.</doc>
+        <source-position filename="gmodule.h" line="118" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="200">a string describing the last module error</doc>
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="222">a string describing the last module error</doc>
           <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
       </function>
       <function name="open" c:identifier="g_module_open" introspectable="1" gs:dll-name="gmodule-2.0" gs:managed-name="Open">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="225">A thin wrapper function around g_module_open_full()</doc>
-        <source-position filename="gmodule.h" line="95" />
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="247">A thin wrapper function around g_module_open_full()</doc>
+        <source-position filename="gmodule.h" line="100" />
         <return-value nullable="1" transfer-ownership="full" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="234">a #GModule on success, or %NULL on failure</doc>
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="256">a #GModule on success, or %NULL on failure</doc>
           <type name="Module" c:type="GModule*" gs:is-pointer="1" />
         </return-value>
         <parameters>
           <parameter name="file_name" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="fileName" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="227">the name of the file containing the module, or %NULL
-    to obtain a #GModule representing the main program itself</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="249">the name or path to the file containing the module,
+    or %NULL to obtain a #GModule representing the main program itself</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="flags" transfer-ownership="none" gs:default="default" gs:managed-name="flags" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="229">the flags used for opening the module. This can be the
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="251">the flags used for opening the module. This can be the
     logical OR of any of the #GModuleFlags.</doc>
             <type name="ModuleFlags" c:type="GModuleFlags" />
           </parameter>
         </parameters>
         <gs:managed-parameters>
           <parameter name="file_name" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="fileName" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="227">the name of the file containing the module, or %NULL
-    to obtain a #GModule representing the main program itself</doc>
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="249">the name or path to the file containing the module,
+    or %NULL to obtain a #GModule representing the main program itself</doc>
             <type name="utf8" c:type="const gchar*" gs:is-pointer="1" />
           </parameter>
           <parameter name="flags" transfer-ownership="none" gs:default="default" gs:managed-name="flags" direction="in">
-            <doc xml:space="preserve" filename="gmodule-2.0.c" line="229">the flags used for opening the module. This can be the
+            <doc xml:space="preserve" filename="gmodule-2.0.c" line="251">the flags used for opening the module. This can be the
     logical OR of any of the #GModuleFlags.</doc>
             <type name="ModuleFlags" c:type="GModuleFlags" />
           </parameter>
         </gs:managed-parameters>
       </function>
       <gs:managed-property name="get_supported" gs:dll-name="gmodule-2.0" gs:managed-name="Supported">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="264">Checks if modules are supported on the current platform.</doc>
-        <source-position filename="gmodule.h" line="91" />
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="290">Checks if modules are supported on the current platform.</doc>
+        <source-position filename="gmodule.h" line="96" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="269">%TRUE if modules are supported</doc>
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="295">%TRUE if modules are supported</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters />
         <gs:managed-parameters />
       </gs:managed-property>
       <function name="get_supported" c:identifier="g_module_supported" gs:dll-name="gmodule-2.0" gs:managed-name="GetSupported" gs:property-getter-for="Supported" gs:access-modifiers="private">
-        <doc xml:space="preserve" filename="gmodule-2.0.c" line="264">Checks if modules are supported on the current platform.</doc>
-        <source-position filename="gmodule.h" line="91" />
+        <doc xml:space="preserve" filename="gmodule-2.0.c" line="290">Checks if modules are supported on the current platform.</doc>
+        <source-position filename="gmodule.h" line="96" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <doc xml:space="preserve" filename="gmodule-2.0.c" line="269">%TRUE if modules are supported</doc>
+          <doc xml:space="preserve" filename="gmodule-2.0.c" line="295">%TRUE if modules are supported</doc>
           <type name="gboolean" c:type="gboolean" />
         </return-value>
         <parameters />
@@ -228,26 +230,26 @@ directory it will return `\Windows\mylibrary.dll`.</doc>
       </function>
     </record>
     <bitfield name="ModuleFlags" c:type="GModuleFlags" gs:managed-name="ModuleFlags">
-      <doc xml:space="preserve" filename="gmodule.h" line="44">Flags passed to g_module_open().
+      <doc xml:space="preserve" filename="gmodule.h" line="49">Flags passed to g_module_open().
 Note that these flags are not supported on all platforms.</doc>
-      <source-position filename="gmodule.h" line="63" />
+      <source-position filename="gmodule.h" line="68" />
       <member name="lazy" value="1" c:identifier="G_MODULE_BIND_LAZY" gs:managed-name="Lazy">
-        <doc xml:space="preserve" filename="gmodule.h" line="46">specifies that symbols are only resolved when
+        <doc xml:space="preserve" filename="gmodule.h" line="51">specifies that symbols are only resolved when
     needed. The default action is to bind all symbols when the module
     is loaded.</doc>
       </member>
       <member name="local" value="2" c:identifier="G_MODULE_BIND_LOCAL" gs:managed-name="Local">
-        <doc xml:space="preserve" filename="gmodule.h" line="49">specifies that symbols in the module should
+        <doc xml:space="preserve" filename="gmodule.h" line="54">specifies that symbols in the module should
     not be added to the global name space. The default action on most
     platforms is to place symbols in the module in the global name space,
     which may cause conflicts with existing symbols.</doc>
       </member>
       <member name="mask" value="3" c:identifier="G_MODULE_BIND_MASK" gs:managed-name="Mask">
-        <doc xml:space="preserve" filename="gmodule.h" line="53">mask for all flags.</doc>
+        <doc xml:space="preserve" filename="gmodule.h" line="58">mask for all flags.</doc>
       </member>
     </bitfield>
     <docsection name="modules" gs:managed-name="Modules">
-      <doc xml:space="preserve" filename="gmodule-2.0.c" line="79">These functions provide a portable way to dynamically load object files
+      <doc xml:space="preserve" filename="gmodule-2.0.c" line="99">These functions provide a portable way to dynamically load object files
 (commonly known as 'plug-ins'). The current implementation supports all
 systems that provide an implementation of dlopen() (e.g. Linux/Sun), as
 well as Windows platforms via DLLs.

@@ -7,6 +7,9 @@ namespace GISharp.Lib.GObject
     [System.FlagsAttribute]
     public enum ConnectFlags : uint
     {
+        /// <include file="ConnectFlags.xmldoc" path="declaration/member[@name='ConnectFlags.Default']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        Default = 0b0000_0000_0000_0000_0000_0000_0000_0000,
         /// <include file="ConnectFlags.xmldoc" path="declaration/member[@name='ConnectFlags.After']/*" />
         After = 0b0000_0000_0000_0000_0000_0000_0000_0001,
         /// <include file="ConnectFlags.xmldoc" path="declaration/member[@name='ConnectFlags.Swapped']/*" />

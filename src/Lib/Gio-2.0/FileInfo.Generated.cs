@@ -210,9 +210,14 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This requires the %G_FILE_ATTRIBUTE_TIME_ACCESS attribute. If
-        /// %G_FILE_ATTRIBUTE_TIME_ACCESS_USEC is provided, the resulting #GDateTime
-        /// will have microsecond precision.
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_TIME_ACCESS. If %G_FILE_ATTRIBUTE_TIME_ACCESS_USEC is
+        /// provided, the resulting #GDateTime will additionally have microsecond
+        /// precision.
+        /// </para>
+        /// <para>
+        /// If nanosecond precision is needed, %G_FILE_ATTRIBUTE_TIME_ACCESS_NSEC must
+        /// be queried separately using g_file_info_get_attribute_uint32().
         /// </para>
         /// </remarks>
         /// <param name="info">
@@ -243,7 +248,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Gets the value of a attribute, formatted as a string.
+        /// Gets the value of an attribute, formatted as a string.
         /// This escapes things as needed to make the string valid
         /// UTF-8.
         /// </summary>
@@ -766,6 +771,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the file's content type.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -798,9 +809,14 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This requires the %G_FILE_ATTRIBUTE_TIME_CREATED attribute. If
-        /// %G_FILE_ATTRIBUTE_TIME_CREATED_USEC is provided, the resulting #GDateTime
-        /// will have microsecond precision.
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_TIME_CREATED. If %G_FILE_ATTRIBUTE_TIME_CREATED_USEC is
+        /// provided, the resulting #GDateTime will additionally have microsecond
+        /// precision.
+        /// </para>
+        /// <para>
+        /// If nanosecond precision is needed, %G_FILE_ATTRIBUTE_TIME_CREATED_NSEC must
+        /// be queried separately using g_file_info_get_attribute_uint32().
         /// </para>
         /// </remarks>
         /// <param name="info">
@@ -832,8 +848,8 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Returns the #GDateTime representing the deletion date of the file, as
-        /// available in G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the
-        /// G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, %NULL is returned.
+        /// available in %G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the
+        /// %G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, %NULL is returned.
         /// </summary>
         /// <param name="info">
         /// a #GFileInfo.
@@ -865,6 +881,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets a display name for a file. This is guaranteed to always be set.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -893,6 +915,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the edit name for a file.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -922,6 +950,12 @@ namespace GISharp.Lib.Gio
         /// Gets the [entity tag][gfile-etag] for a given
         /// #GFileInfo. See %G_FILE_ATTRIBUTE_ETAG_VALUE.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_ETAG_VALUE.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -951,6 +985,12 @@ namespace GISharp.Lib.Gio
         /// Gets a file's type (whether it is a regular file, symlink, etc).
         /// This is different from the file's content type, see g_file_info_get_content_type().
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_TYPE.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -979,6 +1019,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the icon for a file.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_ICON.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1007,6 +1053,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Checks if a file is a backup file.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_IS_BACKUP.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1035,6 +1087,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Checks if a file is hidden.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1063,6 +1121,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Checks if a file is a symlink.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1094,9 +1158,14 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This requires the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute. If
-        /// %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is provided, the resulting #GDateTime
-        /// will have microsecond precision.
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_TIME_MODIFIED. If %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is
+        /// provided, the resulting #GDateTime will additionally have microsecond
+        /// precision.
+        /// </para>
+        /// <para>
+        /// If nanosecond precision is needed, %G_FILE_ATTRIBUTE_TIME_MODIFIED_NSEC must
+        /// be queried separately using g_file_info_get_attribute_uint32().
         /// </para>
         /// </remarks>
         /// <param name="info">
@@ -1130,6 +1199,13 @@ namespace GISharp.Lib.Gio
         /// Gets the modification time of the current @info and sets it
         /// in @result.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_TIME_MODIFIED. If %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is
+        /// provided it will be used too.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1167,6 +1243,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the name for a file. This is guaranteed to always be set.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_NAME.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1197,6 +1279,12 @@ namespace GISharp.Lib.Gio
         /// the %G_FILE_ATTRIBUTE_STANDARD_SIZE attribute and is converted
         /// from #guint64 to #goffset before returning the result.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_SIZE.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1226,6 +1314,12 @@ namespace GISharp.Lib.Gio
         /// Gets the value of the sort_order attribute from the #GFileInfo.
         /// See %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1254,6 +1348,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the symbolic icon for a file.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1284,6 +1384,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the symlink target for a given #GFileInfo.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It is an error to call this if the #GFileInfo does not contain
+        /// %G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1463,6 +1569,11 @@ namespace GISharp.Lib.Gio
         /// %G_FILE_ATTRIBUTE_TIME_ACCESS_USEC attributes in the file info to the
         /// given date/time value.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// %G_FILE_ATTRIBUTE_TIME_ACCESS_NSEC will be cleared.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -2020,6 +2131,11 @@ namespace GISharp.Lib.Gio
         /// %G_FILE_ATTRIBUTE_TIME_CREATED_USEC attributes in the file info to the
         /// given date/time value.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// %G_FILE_ATTRIBUTE_TIME_CREATED_NSEC will be cleared.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -2240,6 +2356,11 @@ namespace GISharp.Lib.Gio
         /// %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
         /// given date/time value.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// %G_FILE_ATTRIBUTE_TIME_MODIFIED_NSEC will be cleared.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -2274,6 +2395,11 @@ namespace GISharp.Lib.Gio
         /// %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
         /// given time value.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// %G_FILE_ATTRIBUTE_TIME_MODIFIED_NSEC will be cleared.
+        /// </para>
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>

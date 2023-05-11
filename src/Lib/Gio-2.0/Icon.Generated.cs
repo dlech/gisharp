@@ -111,6 +111,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.38")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedSerialize))]
         GISharp.Lib.GLib.Variant? DoSerialize();
+
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoTryToTokens(GISharp.Lib.GLib.WeakPtrArray&lt;GISharp.Runtime.Utf8&gt;,int)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedToTokens))]
+        bool DoTryToTokens(GISharp.Lib.GLib.WeakPtrArray<GISharp.Runtime.Utf8> tokens, out int outVersion);
     }
 
     /// <summary>
@@ -123,36 +128,6 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public struct UnmanagedStruct
         {
-        }
-
-        /// <summary>
-        /// Gets a hash for an icon.
-        /// </summary>
-        /// <param name="icon">
-        /// #gconstpointer to an icon object.
-        /// </param>
-        /// <returns>
-        /// a #guint containing a hash for the @icon, suitable for
-        /// use in a #GHashTable or similar data structure.
-        /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="guint" type="guint" managed-name="System.Int32" /> */
-        /* transfer-ownership:none direction:in */
-        private static extern uint g_icon_hash(
-        /* <type name="Icon" type="gconstpointer" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
-        static partial void CheckGetHashCodeArgs(this GISharp.Lib.Gio.IIcon icon);
-
-        /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.GetHashCode(GISharp.Lib.Gio.IIcon)']/*" />
-        public static System.Int32 GetHashCode(this GISharp.Lib.Gio.IIcon icon)
-        {
-            CheckGetHashCodeArgs(icon);
-            var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
-            var ret_ = g_icon_hash(icon_);
-            GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = (System.Int32)ret_;
-            return ret;
         }
 
         /// <summary>
@@ -188,6 +163,36 @@ namespace GISharp.Lib.Gio
             var ret_ = g_icon_equal(icon1_,icon2_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets a hash for an icon.
+        /// </summary>
+        /// <param name="icon">
+        /// #gconstpointer to an icon object.
+        /// </param>
+        /// <returns>
+        /// a #guint containing a hash for the @icon, suitable for
+        /// use in a #GHashTable or similar data structure.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="guint" type="guint" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern uint g_icon_hash(
+        /* <type name="Icon" type="gconstpointer" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
+        static partial void CheckGetHashCodeArgs(this GISharp.Lib.Gio.IIcon icon);
+
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.GetHashCode(GISharp.Lib.Gio.IIcon)']/*" />
+        public static System.Int32 GetHashCode(this GISharp.Lib.Gio.IIcon icon)
+        {
+            CheckGetHashCodeArgs(icon);
+            var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
+            var ret_ = g_icon_hash(icon_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = (System.Int32)ret_;
             return ret;
         }
 

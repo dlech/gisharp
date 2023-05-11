@@ -70,6 +70,23 @@ a <see cref="GLib.Variant"/>, or <c>null</c> when serialization fails.
 </returns>
 </member>
 
+<member name='IIcon.DoTryToTokens(GISharp.Lib.GLib.WeakPtrArray&lt;GISharp.Runtime.Utf8&gt;,int)'>
+<summary>
+Serializes the this instance into string tokens.
+This is can be invoked when <see cref="Icon.NewForString(GISharp.Runtime.UnownedUtf8)"/> is called.
+</summary>
+<param name="tokens">
+
+  The array to fill with tokens
+</param>
+<param name="outVersion">
+version of serialized tokens
+</param>
+<returns>
+<c>true</c> if serialization took place, <c>false</c> otherwise
+</returns>
+</member>
+
 <member name='IIcon'>
 <summary>
 <see cref="IIcon"/> is a very minimal interface for icons. It provides functions
@@ -111,19 +128,6 @@ types.
 </remarks>
 </member>
 
-<member name='Icon.GetHashCode(GISharp.Lib.Gio.IIcon)'>
-<summary>
-Gets a hash for an icon.
-</summary>
-<param name="icon">
-#gconstpointer to an icon object.
-</param>
-<returns>
-a #guint containing a hash for the <paramref name="icon"/>, suitable for
-use in a #GHashTable or similar data structure.
-</returns>
-</member>
-
 <member name='Icon.Equals(GISharp.Lib.Gio.IIcon?,GISharp.Lib.Gio.IIcon?)'>
 <summary>
 Checks if two icons are equal.
@@ -136,6 +140,19 @@ pointer to the second <see cref="IIcon"/>.
 </param>
 <returns>
 <c>true</c> if <paramref name="icon1"/> is equal to <paramref name="icon2"/>. <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='Icon.GetHashCode(GISharp.Lib.Gio.IIcon)'>
+<summary>
+Gets a hash for an icon.
+</summary>
+<param name="icon">
+#gconstpointer to an icon object.
+</param>
+<returns>
+a #guint containing a hash for the <paramref name="icon"/>, suitable for
+use in a #GHashTable or similar data structure.
 </returns>
 </member>
 

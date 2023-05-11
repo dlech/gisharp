@@ -71,13 +71,49 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Returns the global default main context. This is the main context
+        /// Creates a new #GMainContext structure.
+        /// </summary>
+        /// <param name="flags">
+        /// a bitwise-OR combination of #GMainContextFlags flags that can only be
+        ///         set at creation time.
+        /// </param>
+        /// <returns>
+        /// the new #GMainContext
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_new_with_flags(
+        /* <type name="MainContextFlags" type="GMainContextFlags" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.MainContextFlags flags);
+        static partial void CheckNewWithFlagsArgs(GISharp.Lib.GLib.MainContextFlags flags);
+
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        static GISharp.Lib.GLib.MainContext.UnmanagedStruct* NewWithFlags(GISharp.Lib.GLib.MainContextFlags flags)
+        {
+            CheckNewWithFlagsArgs(flags);
+            var flags_ = (GISharp.Lib.GLib.MainContextFlags)flags;
+            var ret_ = g_main_context_new_with_flags(flags_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            return ret_;
+        }
+
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.MainContext(GISharp.Lib.GLib.MainContextFlags)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        public MainContext(GISharp.Lib.GLib.MainContextFlags flags) : this((System.IntPtr)NewWithFlags(flags), GISharp.Runtime.Transfer.Full)
+        {
+        }
+
+        /// <summary>
+        /// Returns the global-default main context. This is the main context
         /// used for main loop functions when a main loop is not explicitly
         /// specified, and corresponds to the "main" main loop. See also
         /// g_main_context_get_thread_default().
         /// </summary>
         /// <returns>
-        /// the global default main context.
+        /// the global-default main context.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
@@ -99,7 +135,7 @@ namespace GISharp.Lib.GLib
         /// g_main_context_get_thread_default(), but also adds a reference to
         /// it with g_main_context_ref(). In addition, unlike
         /// g_main_context_get_thread_default(), if the thread-default context
-        /// is the global default context, this will return that #GMainContext
+        /// is the global-default context, this will return that #GMainContext
         /// (with a ref added to it) rather than returning %NULL.
         /// </summary>
         /// <returns>
@@ -349,9 +385,14 @@ namespace GISharp.Lib.GLib
         /// can call g_main_context_prepare(), g_main_context_query(),
         /// g_main_context_check(), g_main_context_dispatch().
         /// </para>
+        /// <para>
+        /// Since 2.76 @context can be %NULL to use the global-default
+        /// main context.
+        /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <returns>
         /// %TRUE if the operation succeeded, and
@@ -362,7 +403,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_acquire(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckAcquireArgs();
 
@@ -383,7 +424,8 @@ namespace GISharp.Lib.GLib
         /// a typical event source will use g_source_add_unix_fd() instead.
         /// </summary>
         /// <param name="context">
-        /// a #GMainContext (or %NULL for the default context)
+        /// a #GMainContext (or %NULL for the global-default
+        ///   main context)
         /// </param>
         /// <param name="fd">
         /// a #GPollFD structure holding information about a file
@@ -433,9 +475,14 @@ namespace GISharp.Lib.GLib
         /// You must have successfully acquired the context with
         /// g_main_context_acquire() before you may call this function.
         /// </para>
+        /// <para>
+        /// Since 2.76 @context can be %NULL to use the global-default
+        /// main context.
+        /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <param name="maxPriority">
         /// the maximum numerical priority of sources to check
@@ -455,7 +502,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_check(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
@@ -495,16 +542,21 @@ namespace GISharp.Lib.GLib
         /// You must have successfully acquired the context with
         /// g_main_context_acquire() before you may call this function.
         /// </para>
+        /// <para>
+        /// Since 2.76 @context can be %NULL to use the global-default
+        /// main context.
+        /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_dispatch(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckDispatchArgs();
 
@@ -523,7 +575,8 @@ namespace GISharp.Lib.GLib
         /// the first one found will be returned.
         /// </summary>
         /// <param name="context">
-        /// a #GMainContext (if %NULL, the default context will be used).
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used).
         /// </param>
         /// <param name="funcs">
         /// the @source_funcs passed to g_source_new().
@@ -583,7 +636,8 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext (if %NULL, the default context will be used)
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <param name="sourceId">
         /// the source ID, as returned by g_source_get_id().
@@ -621,7 +675,8 @@ namespace GISharp.Lib.GLib
         /// one found will be returned.
         /// </summary>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <param name="userData">
         /// the user_data for the callback.
@@ -634,7 +689,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Source.UnmanagedStruct* g_main_context_find_source_by_user_data(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
@@ -669,7 +724,8 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext, or %NULL
+        /// a #GMainContext, or %NULL for the global-default
+        ///   main context
         /// </param>
         /// <param name="priority">
         /// the priority at which to run @function
@@ -727,7 +783,8 @@ namespace GISharp.Lib.GLib
         /// blocking to get ownership of @context.
         /// </summary>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <returns>
         /// %TRUE if current thread is owner of @context.
@@ -738,7 +795,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_is_owner(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckGetIsOwnerArgs();
 
@@ -771,7 +828,8 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext (if %NULL, the default context will be used)
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <param name="mayBlock">
         /// whether the call may block.
@@ -807,7 +865,8 @@ namespace GISharp.Lib.GLib
         /// Checks if any sources have pending events for the given context.
         /// </summary>
         /// <param name="context">
-        /// a #GMainContext (if %NULL, the default context will be used)
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <returns>
         /// %TRUE if events are pending.
@@ -836,7 +895,8 @@ namespace GISharp.Lib.GLib
         /// it was on the top of the stack).
         /// </summary>
         /// <param name="context">
-        /// a #GMainContext object, or %NULL
+        /// a #GMainContext, or %NULL for the global-default
+        ///   main context
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -869,7 +929,8 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <param name="priority">
         /// location to store priority of highest priority
@@ -884,7 +945,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_main_context_prepare(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="gint" type="gint*" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
@@ -910,7 +971,7 @@ namespace GISharp.Lib.GLib
         /// (such as most [gio][gio]-based I/O) which are
         /// started in this thread to run under @context and deliver their
         /// results to its main loop, rather than running under the global
-        /// default context in the main thread. Note that calling this function
+        /// default main context in the main thread. Note that calling this function
         /// changes the context returned by g_main_context_get_thread_default(),
         /// not the one returned by g_main_context_default(), so it does not affect
         /// the context used by functions like g_idle_add().
@@ -951,7 +1012,8 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext, or %NULL for the global default context
+        /// a #GMainContext, or %NULL for the global-default
+        ///   main context
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -986,7 +1048,8 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <param name="maxPriority">
         /// maximum priority source to check
@@ -1011,7 +1074,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         private static extern int g_main_context_query(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="gint" type="gint" /> */
         /* transfer-ownership:none direction:in */
@@ -1078,14 +1141,15 @@ namespace GISharp.Lib.GLib
         /// is called as many times as it was acquired.
         /// </summary>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_release(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckReleaseArgs();
 
@@ -1103,7 +1167,8 @@ namespace GISharp.Lib.GLib
         /// polled for a particular context.
         /// </summary>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <param name="fd">
         /// a #GPollFD descriptor previously added with g_main_context_add_poll()
@@ -1113,7 +1178,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_remove_poll(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="PollFD" type="GPollFD*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -1196,14 +1261,15 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// </remarks>
         /// <param name="context">
-        /// a #GMainContext
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_main_context_wakeup(
         /* <type name="MainContext" type="GMainContext*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context);
         partial void CheckWakeUpArgs();
 

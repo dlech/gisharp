@@ -737,6 +737,16 @@ namespace GISharp.Lib.GLib
     }
 
     /// <summary>
+    /// Array of objects. The array does not own the data, so caution must
+    /// be used since the data could be freed at any time.
+    /// </summary>
+    public sealed unsafe class WeakPtrArray<T> : PtrArray
+        where T : Opaque
+    {
+        // TODO
+    }
+
+    /// <summary>
     /// Extension methods for <see cref="PtrArray{T}"/>.
     /// </summary>
     public static class PtrArrayExtensions

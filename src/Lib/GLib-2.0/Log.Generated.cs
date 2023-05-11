@@ -15,6 +15,10 @@ namespace GISharp.Lib.GLib
         /// <include file="Log.xmldoc" path="declaration/member[@name='Log.levelUserShift']/*" />
         private const int levelUserShift = 8;
 
+        /// <include file="Log.xmldoc" path="declaration/member[@name='Log.DebugEnabled']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        public static bool DebugEnabled { get => GetDebugEnabled(); set => SetDebugEnabled(value); }
+
         /// <summary>
         /// The default log handler set up by GLib; g_log_set_default_handler()
         /// allows to install an alternate default log handler.
@@ -79,6 +83,40 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr unusedData);
+
+        /// <summary>
+        /// Return whether debug output from the GLib logging system is enabled.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Note that this should not be used to conditionalise calls to g_debug() or
+        /// other logging functions; it should only be used from %GLogWriterFunc
+        /// implementations.
+        /// </para>
+        /// <para>
+        /// Note also that the value of this does not depend on `G_MESSAGES_DEBUG`; see
+        /// the docs for g_log_set_debug_enabled().
+        /// </para>
+        /// </remarks>
+        /// <returns>
+        /// %TRUE if debug output is enabled, %FALSE otherwise
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern GISharp.Runtime.Boolean g_log_get_debug_enabled();
+        static partial void CheckGetDebugEnabledArgs();
+
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        private static bool GetDebugEnabled()
+        {
+            CheckGetDebugEnabledArgs();
+            var ret_ = g_log_get_debug_enabled();
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+            return ret;
+        }
 
         /// <summary>
         /// Removes the log handler.
@@ -166,6 +204,39 @@ namespace GISharp.Lib.GLib
             GISharp.Runtime.GMarshal.PopUnhandledException();
             var ret = (GISharp.Lib.GLib.LogLevelFlags)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Enable or disable debug output from the GLib logging system for all domains.
+        /// This value interacts disjunctively with `G_MESSAGES_DEBUG` — if either of
+        /// them would allow a debug message to be outputted, it will be.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Note that this should not be used from within library code to enable debug
+        /// output — it is intended for external use.
+        /// </para>
+        /// </remarks>
+        /// <param name="enabled">
+        /// %TRUE to enable debug output, %FALSE otherwise
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_log_set_debug_enabled(
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Runtime.Boolean enabled);
+        static partial void CheckSetDebugEnabledArgs(bool enabled);
+
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        private static void SetDebugEnabled(bool enabled)
+        {
+            CheckSetDebugEnabledArgs(enabled);
+            var enabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(enabled);
+            g_log_set_debug_enabled(enabled_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
         /// <summary>

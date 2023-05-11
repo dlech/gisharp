@@ -24,7 +24,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Cancellable']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public GISharp.Lib.Gio.Cancellable Cancellable { get => GetCancellable(); }
+        public GISharp.Lib.Gio.Cancellable? Cancellable { get => GetCancellable(); }
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.CheckCancellable']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -272,7 +272,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.Gio.Cancellable.UnmanagedStruct* g_task_get_cancellable(
         /* <type name="Task" type="GTask*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -280,13 +280,13 @@ namespace GISharp.Lib.Gio
         partial void CheckGetCancellableArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
-        private GISharp.Lib.Gio.Cancellable GetCancellable()
+        private GISharp.Lib.Gio.Cancellable? GetCancellable()
         {
             CheckGetCancellableArgs();
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_cancellable(task_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.Gio.Cancellable.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -1401,6 +1401,44 @@ namespace GISharp.Lib.Gio
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             g_task_set_source_tag(task_, sourceTag_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+        }
+
+        /// <summary>
+        /// Sets @task’s name, used in debugging and profiling.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This is a variant of g_task_set_name() that avoids copying @name.
+        /// </para>
+        /// </remarks>
+        /// <param name="task">
+        /// a #GTask
+        /// </param>
+        /// <param name="name">
+        /// a human readable name for the task. Must be a string literal
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_task_set_static_name(
+        /* <type name="Task" type="GTask*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
+        /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        byte* name);
+        partial void CheckSetStaticNameArgs(GISharp.Runtime.NullableUnownedUtf8 name);
+
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.SetStaticName(GISharp.Runtime.NullableUnownedUtf8)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public void SetStaticName(GISharp.Runtime.NullableUnownedUtf8 name)
+        {
+            CheckSetStaticNameArgs(name);
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
+            g_task_set_static_name(task_, name_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 

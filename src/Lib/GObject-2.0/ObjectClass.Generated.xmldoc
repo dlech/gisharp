@@ -36,6 +36,15 @@ the parent class
 <member name='UnmanagedStruct.Flags'>
 </member>
 
+<member name='UnmanagedStruct.NConstructProperties'>
+</member>
+
+<member name='UnmanagedStruct.Pspecs'>
+</member>
+
+<member name='UnmanagedStruct.NPspecs'>
+</member>
+
 <member name='UnmanagedStruct.Pdummy0'>
 </member>
 
@@ -43,15 +52,6 @@ the parent class
 </member>
 
 <member name='UnmanagedStruct.Pdummy2'>
-</member>
-
-<member name='UnmanagedStruct.Pdummy3'>
-</member>
-
-<member name='UnmanagedStruct.Pdummy4'>
-</member>
-
-<member name='UnmanagedStruct.Pdummy5'>
 </member>
 
 <member name='_Constructor'>
@@ -117,9 +117,11 @@ class initialization:
 </para>
 <para>
 |[&lt;!-- language="C" --&gt;
-enum {
-  PROP_0, PROP_FOO, PROP_BAR, N_PROPERTIES
-};
+typedef enum {
+  PROP_FOO = 1,
+  PROP_BAR,
+  N_PROPERTIES
+} MyObjectProperty;
 </para>
 <para>
 static GParamSpec *obj_properties[N_PROPERTIES] = { NULL, };
@@ -135,19 +137,19 @@ my_object_class_init (MyObjectClass *klass)
     g_param_spec_int ("foo", "Foo", "Foo",
                       -1, G_MAXINT,
                       0,
-                      G_PARAM_READWRITE);
+                      G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 </para>
 <para>
   obj_properties[PROP_BAR] =
     g_param_spec_string ("bar", "Bar", "Bar",
                          NULL,
-                         G_PARAM_READWRITE);
+                         G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
 </para>
 <para>
   gobject_class-&gt;set_property = my_object_set_property;
   gobject_class-&gt;get_property = my_object_get_property;
   g_object_class_install_properties (gobject_class,
-                                     N_PROPERTIES,
+                                     G_N_ELEMENTS (obj_properties),
                                      obj_properties);
 }
 ]|

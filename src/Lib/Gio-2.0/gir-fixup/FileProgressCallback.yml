@@ -1,0 +1,7 @@
+### FileProgressCallback ###
+
+# workaround unannotated callback closure arg
+- !set-attribute
+  name: closure
+  value: 2
+  xpath: gi:repository/gi:namespace/gi:callback[@name='FileProgressCallback']/gi:parameters/gi:parameter[@name='data']

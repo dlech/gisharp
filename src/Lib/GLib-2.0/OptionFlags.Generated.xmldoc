@@ -22,7 +22,8 @@ The option appears in the main section of the
 <member name='OptionFlags.Reverse'>
 <summary>
 For options of the <see cref="OptionArg.None"/> kind, this
-    flag indicates that the sense of the option is reversed.
+    flag indicates that the sense of the option is reversed. i.e. <c>false</c> will
+    be stored into the argument rather than <c>true</c>.
 </summary>
 </member>
 

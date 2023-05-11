@@ -41,6 +41,12 @@ Location for the return value.
 <summary>
 Connects a closure to a signal for a particular object.
 </summary>
+<remarks>
+<para>
+If <paramref name="closure"/> is a floating reference (see <see cref="Closure.Sink()"/>), this function
+takes ownership of <paramref name="closure"/>.
+</para>
+</remarks>
 <param name="instance">
 the instance to connect to.
 </param>
@@ -63,6 +69,12 @@ the handler ID (always greater than 0 for successful connections)
 <summary>
 Connects a closure to a signal for a particular object.
 </summary>
+<remarks>
+<para>
+If <paramref name="closure"/> is a floating reference (see <see cref="Closure.Sink()"/>), this function
+takes ownership of <paramref name="closure"/>.
+</para>
+</remarks>
 <param name="instance">
 the instance to connect to.
 </param>

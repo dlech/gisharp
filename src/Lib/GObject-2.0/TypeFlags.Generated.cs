@@ -7,12 +7,18 @@ namespace GISharp.Lib.GObject
     [System.FlagsAttribute]
     public enum TypeFlags : uint
     {
+        /// <include file="TypeFlags.xmldoc" path="declaration/member[@name='TypeFlags.None']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
         /// <include file="TypeFlags.xmldoc" path="declaration/member[@name='TypeFlags.Abstract']/*" />
         Abstract = 0b0000_0000_0000_0000_0000_0000_0001_0000,
         /// <include file="TypeFlags.xmldoc" path="declaration/member[@name='TypeFlags.ValueAbstract']/*" />
         ValueAbstract = 0b0000_0000_0000_0000_0000_0000_0010_0000,
         /// <include file="TypeFlags.xmldoc" path="declaration/member[@name='TypeFlags.Final']/*" />
         [GISharp.Runtime.SinceAttribute("2.70")]
-        Final = 0b0000_0000_0000_0000_0000_0000_0100_0000
+        Final = 0b0000_0000_0000_0000_0000_0000_0100_0000,
+        /// <include file="TypeFlags.xmldoc" path="declaration/member[@name='TypeFlags.Deprecated']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        Deprecated = 0b0000_0000_0000_0000_0000_0000_1000_0000
     }
 }

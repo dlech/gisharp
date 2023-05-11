@@ -61,10 +61,10 @@ namespace GISharp.Lib.GObject
         /* transfer-ownership:none direction:in */
         byte* name,
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* nick,
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* blurb,
         /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
@@ -72,9 +72,9 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamFlags" type="GParamFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamFlags flags);
-        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Runtime.GType boxedType, GISharp.Lib.GObject.ParamFlags flags);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.NullableUnownedUtf8 nick, GISharp.Runtime.NullableUnownedUtf8 blurb, GISharp.Runtime.GType boxedType, GISharp.Lib.GObject.ParamFlags flags);
 
-        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Runtime.GType boxedType, GISharp.Lib.GObject.ParamFlags flags)
+        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.NullableUnownedUtf8 nick, GISharp.Runtime.NullableUnownedUtf8 blurb, GISharp.Runtime.GType boxedType, GISharp.Lib.GObject.ParamFlags flags)
         {
             CheckNewArgs(name, nick, blurb, boxedType, flags);
             var name_ = (byte*)name.UnsafeHandle;
@@ -87,8 +87,8 @@ namespace GISharp.Lib.GObject
             return ret_;
         }
 
-        /// <include file="ParamSpecBoxed.xmldoc" path="declaration/member[@name='ParamSpecBoxed.ParamSpecBoxed(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)']/*" />
-        public ParamSpecBoxed(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Runtime.GType boxedType, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, boxedType, flags), GISharp.Runtime.Transfer.None)
+        /// <include file="ParamSpecBoxed.xmldoc" path="declaration/member[@name='ParamSpecBoxed.ParamSpecBoxed(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.GType,GISharp.Lib.GObject.ParamFlags)']/*" />
+        public ParamSpecBoxed(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.NullableUnownedUtf8 nick, GISharp.Runtime.NullableUnownedUtf8 blurb, GISharp.Runtime.GType boxedType, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, boxedType, flags), GISharp.Runtime.Transfer.None)
         {
         }
     }

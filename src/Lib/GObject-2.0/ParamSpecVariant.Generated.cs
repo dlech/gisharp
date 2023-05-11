@@ -88,10 +88,10 @@ namespace GISharp.Lib.GObject
         /* transfer-ownership:none direction:in */
         byte* name,
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* nick,
         /* <type name="utf8" type="const gchar*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* blurb,
         /* <type name="GLib.VariantType" type="const GVariantType*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -102,10 +102,10 @@ namespace GISharp.Lib.GObject
         /* <type name="ParamFlags" type="GParamFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamFlags flags);
-        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Variant? defaultValue, GISharp.Lib.GObject.ParamFlags flags);
+        static partial void CheckNewArgs(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.NullableUnownedUtf8 nick, GISharp.Runtime.NullableUnownedUtf8 blurb, GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Variant? defaultValue, GISharp.Lib.GObject.ParamFlags flags);
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Variant? defaultValue, GISharp.Lib.GObject.ParamFlags flags)
+        static GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* New(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.NullableUnownedUtf8 nick, GISharp.Runtime.NullableUnownedUtf8 blurb, GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Variant? defaultValue, GISharp.Lib.GObject.ParamFlags flags)
         {
             CheckNewArgs(name, nick, blurb, type, defaultValue, flags);
             var name_ = (byte*)name.UnsafeHandle;
@@ -119,9 +119,9 @@ namespace GISharp.Lib.GObject
             return ret_;
         }
 
-        /// <include file="ParamSpecVariant.xmldoc" path="declaration/member[@name='ParamSpecVariant.ParamSpecVariant(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant?,GISharp.Lib.GObject.ParamFlags)']/*" />
+        /// <include file="ParamSpecVariant.xmldoc" path="declaration/member[@name='ParamSpecVariant.ParamSpecVariant(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant?,GISharp.Lib.GObject.ParamFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public ParamSpecVariant(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.UnownedUtf8 nick, GISharp.Runtime.UnownedUtf8 blurb, GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Variant? defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, type, defaultValue, flags), GISharp.Runtime.Transfer.None)
+        public ParamSpecVariant(GISharp.Runtime.UnownedUtf8 name, GISharp.Runtime.NullableUnownedUtf8 nick, GISharp.Runtime.NullableUnownedUtf8 blurb, GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Variant? defaultValue, GISharp.Lib.GObject.ParamFlags flags) : this((System.IntPtr)New(name, nick, blurb, type, defaultValue, flags), GISharp.Runtime.Transfer.None)
         {
         }
     }

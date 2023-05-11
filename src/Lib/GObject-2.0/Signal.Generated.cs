@@ -202,6 +202,12 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Connects a closure to a signal for a particular object.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If @closure is a floating reference (see g_closure_sink()), this function
+        /// takes ownership of @closure.
+        /// </para>
+        /// </remarks>
         /// <param name="instance">
         /// the instance to connect to.
         /// </param>
@@ -253,6 +259,12 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Connects a closure to a signal for a particular object.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If @closure is a floating reference (see g_closure_sink()), this function
+        /// takes ownership of @closure.
+        /// </para>
+        /// </remarks>
         /// <param name="instance">
         /// the instance to connect to.
         /// </param>
@@ -1476,7 +1488,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Closure" type="GClosure*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_signal_type_cclosure_new(
         /* <type name="GType" type="GType" /> */
         /* transfer-ownership:none direction:in */
@@ -1494,7 +1506,7 @@ namespace GISharp.Lib.GObject
             var structOffset_ = (uint)structOffset;
             var ret_ = g_signal_type_cclosure_new(itype_,structOffset_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
-            var ret = GISharp.Lib.GObject.Closure.GetInstance<GISharp.Lib.GObject.Closure>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Lib.GObject.Closure.GetInstance<GISharp.Lib.GObject.Closure>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
     }

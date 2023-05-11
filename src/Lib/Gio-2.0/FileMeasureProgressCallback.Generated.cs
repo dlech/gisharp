@@ -59,12 +59,12 @@ namespace GISharp.Lib.Gio
     /* transfer-ownership:none direction:in */
     ulong numFiles,
     /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
-    /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
-    System.IntPtr userData);
+    /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+    System.IntPtr data);
 
     /// <include file="FileMeasureProgressCallback.xmldoc" path="declaration/member[@name='FileMeasureProgressCallback']/*" />
     [GISharp.Runtime.SinceAttribute("2.38")]
-    public delegate void FileMeasureProgressCallback(bool reporting, ulong currentSize, ulong numDirs, ulong numFiles);
+    public delegate void FileMeasureProgressCallback(bool reporting, ulong currentSize, ulong numDirs, ulong numFiles, System.IntPtr data);
 
     /// <summary>
     /// Class for marshalling <see cref="FileMeasureProgressCallback"/> methods.
@@ -76,43 +76,18 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public static GISharp.Lib.Gio.FileMeasureProgressCallback FromPointer(delegate* unmanaged[Cdecl]<GISharp.Runtime.Boolean, ulong, ulong, ulong, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(bool reporting, ulong currentSize, ulong numDirs, ulong numFiles)
+            void managedCallback(bool reporting, ulong currentSize, ulong numDirs, ulong numFiles, System.IntPtr data)
             {
                 var reporting_ = GISharp.Runtime.BooleanExtensions.ToBoolean(reporting);
                 var currentSize_ = (ulong)currentSize;
                 var numDirs_ = (ulong)numDirs;
                 var numFiles_ = (ulong)numFiles;
-                callback_(reporting_, currentSize_, numDirs_, numFiles_, userData_);
+                var data_ = (System.IntPtr)data;
+                callback_(reporting_, currentSize_, numDirs_, numFiles_, data_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
             return managedCallback;
-        }
-
-        /// <summary>
-        /// For runtime use only.
-        /// </summary>
-        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-        public static void Callback(GISharp.Runtime.Boolean reporting_, ulong currentSize_, ulong numDirs_, ulong numFiles_, System.IntPtr userData_)
-        {
-            try
-            {
-                var reporting = GISharp.Runtime.BooleanExtensions.IsTrue(reporting_);
-                var currentSize = (ulong)currentSize_;
-                var numDirs = (ulong)numDirs_;
-                var numFiles = (ulong)numFiles_;
-                var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var (userData, userDataScope) = ((FileMeasureProgressCallback, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
-                userData.Invoke(reporting, currentSize, numDirs, numFiles);
-                if (userDataScope == GISharp.Runtime.CallbackScope.Async)
-                {
-                    userDataHandle.Free();
-                }
-            }
-            catch (System.Exception ex)
-            {
-                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
-            }
         }
     }
 }

@@ -28,13 +28,11 @@ namespace GISharp.Lib.GLib
         /// Calling g_mutex_clear() on a locked mutex leads to undefined
         /// behaviour.
         /// </para>
-        /// <para>
-        /// Sine: 2.32
-        /// </para>
         /// </remarks>
         /// <param name="mutex">
         /// an initialized #GMutex
         /// </param>
+        [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
@@ -45,6 +43,7 @@ namespace GISharp.Lib.GLib
         partial void CheckClearArgs();
 
         /// <include file="Mutex.xmldoc" path="declaration/member[@name='Mutex.Clear()']/*" />
+        [GISharp.Runtime.SinceAttribute("2.32")]
         public void Clear()
         {
             fixed (GISharp.Lib.GLib.Mutex* this_ = &this)

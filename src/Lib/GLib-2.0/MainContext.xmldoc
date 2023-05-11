@@ -17,7 +17,7 @@ Checks if any sources have pending events for the given context.
 
 <member name='MainContext.Default'>
 <summary>
-Returns the global default main context. This is the main context
+Returns the global-default main context. This is the main context
 used for main loop functions when a main loop is not explicitly
 specified, and corresponds to the "main" main loop. See also
 <see cref="MainContext.ThreadDefault"/>.
@@ -163,6 +163,16 @@ Creates a new <see cref="MainContext"/> structure.
 </summary>
 </member>
 
+<member name='MainContext.MainContext(GISharp.Lib.GLib.MainContextFlags)'>
+<summary>
+Creates a new <see cref="MainContext"/> structure.
+</summary>
+<param name="flags">
+a bitwise-OR combination of <see cref="MainContextFlags"/> flags that can only be
+        set at creation time.
+</param>
+</member>
+
 <member name='MainContext.Poll(System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;,int)'>
 <summary>
 Polls <paramref name="fds"/>, as with the poll() system call, but portably. (On
@@ -215,6 +225,10 @@ You must be the owner of a context before you
 can call <see cref="MainContext.TryPrepare(out int)"/>, <see cref="MainContext.Query(int,out int,System.Span{GISharp.Lib.GLib.PollFD})"/>,
 <see cref="MainContext.Check(int,System.ReadOnlySpan{GISharp.Lib.GLib.PollFD})"/>, <see cref="MainContext.Dispatch()"/>.
 </para>
+<para>
+Since 2.76 this instance can be <c>null</c> to use the global-default
+main context.
+</para>
 </remarks>
 <returns>
 <c>true</c> if the operation succeeded, and
@@ -251,6 +265,10 @@ on how <paramref name="fds"/> is filled.
 You must have successfully acquired the context with
 <see cref="MainContext.Acquire()"/> before you may call this function.
 </para>
+<para>
+Since 2.76 this instance can be <c>null</c> to use the global-default
+main context.
+</para>
 </remarks>
 <param name="maxPriority">
 the maximum numerical priority of sources to check
@@ -272,6 +290,10 @@ Dispatches all pending sources.
 <para>
 You must have successfully acquired the context with
 <see cref="MainContext.Acquire()"/> before you may call this function.
+</para>
+<para>
+Since 2.76 this instance can be <c>null</c> to use the global-default
+main context.
 </para>
 </remarks>
 </member>
@@ -408,7 +430,7 @@ current thread. This will cause certain asynchronous operations
 (such as most [gio][gio]-based I/O) which are
 started in this thread to run under this instance and deliver their
 results to its main loop, rather than running under the global
-default context in the main thread. Note that calling this function
+default main context in the main thread. Note that calling this function
 changes the context returned by <see cref="MainContext.ThreadDefault"/>,
 not the one returned by <see cref="MainContext.Default"/>, so it does not affect
 the context used by functions like g_idle_add().

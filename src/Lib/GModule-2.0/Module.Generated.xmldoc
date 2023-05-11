@@ -62,8 +62,8 @@ the complete path of the module, including the standard library
 A thin wrapper function around g_module_open_full()
 </summary>
 <param name="fileName">
-the name of the file containing the module, or <c>null</c>
-    to obtain a <see cref="Module"/> representing the main program itself
+the name or path to the file containing the module,
+    or <c>null</c> to obtain a <see cref="Module"/> representing the main program itself
 </param>
 <param name="flags">
 the flags used for opening the module. This can be the

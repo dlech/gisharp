@@ -7,17 +7,26 @@ namespace GISharp.Lib.GLib
     public static unsafe partial class FilenameExtensions
     {
         /// <summary>
-        /// Behaves exactly like g_build_filename(), but takes the path elements
-        /// as a string array, instead of varargs. This function is mainly
-        /// meant for language bindings.
+        /// Creates a filename from a vector of elements using the correct
+        /// separator for the current platform.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This function behaves exactly like g_build_filename(), but takes the path
+        /// elements as a string array, instead of varargs. This function is mainly
+        /// meant for language bindings.
+        /// </para>
+        /// <para>
+        /// If you are building a path programmatically you may want to use
+        /// #GPathBuf instead.
+        /// </para>
+        /// </remarks>
         /// <param name="args">
         /// %NULL-terminated
-        ///     array of strings containing the path elements.
+        ///   array of strings containing the path elements.
         /// </param>
         /// <returns>
-        /// a newly-allocated string that
-        ///     must be freed with g_free().
+        /// the newly allocated path
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.8")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -282,7 +291,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// a newly allocated string with the
-        /// canonical file path
+        ///   canonical file path
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.58")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

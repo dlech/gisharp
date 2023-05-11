@@ -24,7 +24,7 @@ default value for the property specified
 </summary>
 </member>
 
-<member name='ParamSpecInt.ParamSpecInt(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,int,int,int,GISharp.Lib.GObject.ParamFlags)'>
+<member name='ParamSpecInt.ParamSpecInt(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,GISharp.Runtime.NullableUnownedUtf8,int,int,int,GISharp.Lib.GObject.ParamFlags)'>
 <summary>
 Creates a new <see cref="ParamSpecInt"/> instance specifying a %G_TYPE_INT property.
 </summary>

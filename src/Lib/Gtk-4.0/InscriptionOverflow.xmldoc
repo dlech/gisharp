@@ -1,0 +1,34 @@
+<declaration>
+
+<member name='InscriptionOverflow.Clip'>
+<summary>
+Clip the remaining text
+</summary>
+</member>
+
+<member name='InscriptionOverflow.EllipsizeStart'>
+<summary>
+Omit characters at the start of the text
+</summary>
+</member>
+
+<member name='InscriptionOverflow.EllipsizeMiddle'>
+<summary>
+Omit characters at the middle of the text
+</summary>
+</member>
+
+<member name='InscriptionOverflow.EllipsizeEnd'>
+<summary>
+Omit characters at the end of the text
+</summary>
+</member>
+
+<member name='InscriptionOverflow'>
+<summary>
+The different methods to handle text in <see cref="T:Inscription"/> when it doesn't
+fit the available space.
+</summary>
+</member>
+
+</declaration>

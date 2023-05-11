@@ -830,6 +830,66 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Bo
 </remarks>
 </member>
 
+<member name='FileAttribute.ThumbnailingFailedLarge'>
+<summary>
+A key in the "thumbnail" namespace for checking if thumbnailing failed
+for the large image.
+</summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if thumbnailing failed.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailingFailedNormal'>
+<summary>
+A key in the "thumbnail" namespace for checking if thumbnailing failed
+for the normal image.
+</summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if thumbnailing failed.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailingFailedXlarge'>
+<summary>
+A key in the "thumbnail" namespace for checking if thumbnailing failed
+for the x-large image.
+</summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if thumbnailing failed.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailingFailedXxlarge'>
+<summary>
+A key in the "thumbnail" namespace for checking if thumbnailing failed
+for the xx-large image.
+</summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if thumbnailing failed.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
+</member>
+
 <member name='FileAttribute.ThumbnailIsValid'>
 <summary>
 A key in the "thumbnail" namespace for checking whether the thumbnail is outdated.
@@ -849,10 +909,146 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Bo
 </remarks>
 </member>
 
+<member name='FileAttribute.ThumbnailIsValidLarge'>
+<summary>
+A key in the "thumbnail" namespace for checking whether the large
+thumbnail is outdated.
+</summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if the large thumbnail is up-to-date with the file
+it represents, and <c>false</c> if the file has been modified since the thumbnail
+was generated.
+</para>
+<para>
+If <see cref="FileAttribute.ThumbnailingFailedLarge"/> is <c>true</c> and this attribute
+is <c>false</c>, it indicates that thumbnailing may be attempted again and may
+succeed.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailIsValidNormal'>
+<summary>
+A key in the "thumbnail" namespace for checking whether the normal
+thumbnail is outdated.
+</summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if the normal thumbnail is up-to-date with the file
+it represents, and <c>false</c> if the file has been modified since the thumbnail
+was generated.
+</para>
+<para>
+If <see cref="FileAttribute.ThumbnailingFailedNormal"/> is <c>true</c> and this attribute
+is <c>false</c>, it indicates that thumbnailing may be attempted again and may
+succeed.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailIsValidXlarge'>
+<summary>
+A key in the "thumbnail" namespace for checking whether the x-large
+thumbnail is outdated.
+</summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if the x-large thumbnail is up-to-date with the file
+it represents, and <c>false</c> if the file has been modified since the thumbnail
+was generated.
+</para>
+<para>
+If <see cref="FileAttribute.ThumbnailingFailedXlarge"/> is <c>true</c> and this attribute
+is <c>false</c>, it indicates that thumbnailing may be attempted again and may
+succeed.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailIsValidXxlarge'>
+<summary>
+A key in the "thumbnail" namespace for checking whether the xx-large
+thumbnail is outdated.
+</summary>
+<remarks>
+<para>
+This attribute is <c>true</c> if the x-large thumbnail is up-to-date with the file
+it represents, and <c>false</c> if the file has been modified since the thumbnail
+was generated.
+</para>
+<para>
+If <see cref="FileAttribute.ThumbnailingFailedXxlarge"/> is <c>true</c> and this attribute
+is <c>false</c>, it indicates that thumbnailing may be attempted again and may
+succeed.
+</para>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</para>
+</remarks>
+</member>
+
 <member name='FileAttribute.ThumbnailPath'>
 <summary>
 A key in the "thumbnail" namespace for getting the path to the thumbnail
-image.
+image with the biggest size available.
+</summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailPathLarge'>
+<summary>
+A key in the "thumbnail" namespace for getting the path to the large
+thumbnail image.
+</summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailPathNormal'>
+<summary>
+A key in the "thumbnail" namespace for getting the path to the normal
+thumbnail image.
+</summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailPathXlarge'>
+<summary>
+A key in the "thumbnail" namespace for getting the path to the x-large
+thumbnail image.
+</summary>
+<remarks>
+<para>
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
+</para>
+</remarks>
+</member>
+
+<member name='FileAttribute.ThumbnailPathXxlarge'>
+<summary>
+A key in the "thumbnail" namespace for getting the path to the xx-large
+thumbnail image.
 </summary>
 <remarks>
 <para>
@@ -873,6 +1069,15 @@ contains the time since the file was last accessed, in seconds since the
 UNIX epoch.
 </para>
 </remarks>
+</member>
+
+<member name='FileAttribute.TimeAccessNsec'>
+<summary>
+A key in the "time" namespace for getting the nanoseconds of the time
+the file was last accessed. This should be used in conjunction with
+#G_FILE_ATTRIBUTE_TIME_ACCESS. Corresponding <see cref="FileAttributeType"/> is
+<see cref="FileAttributeType.Uint32"/>.
+</summary>
 </member>
 
 <member name='FileAttribute.TimeAccessUsec'>
@@ -907,6 +1112,15 @@ This corresponds to the traditional UNIX ctime.
 </remarks>
 </member>
 
+<member name='FileAttribute.TimeChangedNsec'>
+<summary>
+A key in the "time" namespace for getting the nanoseconds of the time
+the file was last changed. This should be used in conjunction with
+#G_FILE_ATTRIBUTE_TIME_CHANGED. Corresponding <see cref="FileAttributeType"/> is
+<see cref="FileAttributeType.Uint32"/>.
+</summary>
+</member>
+
 <member name='FileAttribute.TimeChangedUsec'>
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
@@ -939,6 +1153,15 @@ This may correspond to Linux `stx_btime`, FreeBSD `st_birthtim`, NetBSD
 </remarks>
 </member>
 
+<member name='FileAttribute.TimeCreatedNsec'>
+<summary>
+A key in the "time" namespace for getting the nanoseconds of the time
+the file was created. This should be used in conjunction with
+#G_FILE_ATTRIBUTE_TIME_CREATED. Corresponding <see cref="FileAttributeType"/> is
+<see cref="FileAttributeType.Uint32"/>.
+</summary>
+</member>
+
 <member name='FileAttribute.TimeCreatedUsec'>
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
@@ -966,6 +1189,15 @@ contains the time since the file was modified, in seconds since the UNIX
 epoch.
 </para>
 </remarks>
+</member>
+
+<member name='FileAttribute.TimeModifiedNsec'>
+<summary>
+A key in the "time" namespace for getting the nanoseconds of the time
+the file was last modified. This should be used in conjunction with
+#G_FILE_ATTRIBUTE_TIME_MODIFIED. Corresponding <see cref="FileAttributeType"/> is
+<see cref="FileAttributeType.Uint32"/>.
+</summary>
 </member>
 
 <member name='FileAttribute.TimeModifiedUsec'>

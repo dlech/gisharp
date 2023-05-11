@@ -283,7 +283,7 @@ namespace GISharp.Lib.GLib
         /* <type name="Variant" type="GVariant*" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_variant_new_bytestring(
-        /* <array type="const gchar*" name="bytestring" zero-terminated="1" is-pointer="1">
+        /* <array type="const gchar*" name="bytestring" is-pointer="1">
 *   <type name="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -1614,7 +1614,14 @@ namespace GISharp.Lib.GLib
         /// bytes and containers containing only these things (recursively).
         /// </para>
         /// <para>
+        /// While this function can safely handle untrusted, non-normal data, it is
+        /// recommended to check whether the input is in normal form beforehand, using
+        /// g_variant_is_normal_form(), and to reject non-normal inputs if your
+        /// application can be strict about what inputs it rejects.
+        /// </para>
+        /// <para>
         /// The returned value is always in normal form and is marked as trusted.
+        /// A full, not floating, reference is returned.
         /// </para>
         /// </remarks>
         /// <param name="value">
@@ -2155,7 +2162,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="const gchar*" name="bytestring" zero-terminated="1" is-pointer="1">
+        /* <array type="const gchar*" name="bytestring" is-pointer="1">
 *   <type name="guint8" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -2618,7 +2625,9 @@ namespace GISharp.Lib.GLib
         /// </para>
         /// <para>
         /// If @value is found not to be in normal form then a new trusted
-        /// #GVariant is created with the same value as @value.
+        /// #GVariant is created with the same value as @value. The non-normal parts of
+        /// @value will be replaced with default values which are guaranteed to be in
+        /// normal form.
         /// </para>
         /// <para>
         /// It makes sense to call this function if you've received #GVariant

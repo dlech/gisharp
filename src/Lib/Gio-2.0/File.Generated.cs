@@ -243,6 +243,245 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Asynchronously opens a file in the preferred directory for temporary files
+        ///  (as returned by g_get_tmp_dir()) as g_file_new_tmp().
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// @tmpl should be a string in the GLib file name encoding
+        /// containing a sequence of six 'X' characters, and containing no
+        /// directory components. If it is %NULL, a default template is used.
+        /// </para>
+        /// </remarks>
+        /// <param name="tmpl">
+        /// Template for the file
+        ///   name, as in g_file_open_tmp(), or %NULL for a default template
+        /// </param>
+        /// <param name="ioPriority">
+        /// the [I/O priority][io-priority] of the request
+        /// </param>
+        /// <param name="cancellable">
+        /// optional #GCancellable object, %NULL to ignore
+        /// </param>
+        /// <param name="callback">
+        /// a #GAsyncReadyCallback to call when the request is done
+        /// </param>
+        /// <param name="userData">
+        /// data to pass to @callback
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_file_new_tmp_async(
+        /* <type name="filename" type="const char*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        byte* tmpl,
+        /* <type name="gint" type="int" /> */
+        /* transfer-ownership:none direction:in */
+        int ioPriority,
+        /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
+        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
+        delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback,
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr userData);
+        static partial void CheckNewTmpAsyncArgs(GISharp.Runtime.Filename? tmpl, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewTmpAsync(GISharp.Runtime.Filename?,int,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        public static System.Threading.Tasks.Task<System.ValueTuple<GISharp.Lib.Gio.IFile, GISharp.Lib.Gio.FileIOStream>> NewTmpAsync(GISharp.Runtime.Filename? tmpl, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            CheckNewTmpAsyncArgs(tmpl, ioPriority, cancellable);
+            var tmpl_ = (byte*)(tmpl?.UnsafeHandle ?? System.IntPtr.Zero);
+            var ioPriority_ = (int)ioPriority;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Lib.Gio.IFile, GISharp.Lib.Gio.FileIOStream>>();
+            var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&NewTmpFinish;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
+            g_file_new_tmp_async(tmpl_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            return completionSource.Task;
+        }
+
+        /// <summary>
+        /// Asynchronously creates a directory in the preferred directory for
+        /// temporary files (as returned by g_get_tmp_dir()) as g_dir_make_tmp().
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// @tmpl should be a string in the GLib file name encoding
+        /// containing a sequence of six 'X' characters, and containing no
+        /// directory components. If it is %NULL, a default template is used.
+        /// </para>
+        /// </remarks>
+        /// <param name="tmpl">
+        /// Template for the file
+        ///   name, as in g_dir_make_tmp(), or %NULL for a default template
+        /// </param>
+        /// <param name="ioPriority">
+        /// the [I/O priority][io-priority] of the request
+        /// </param>
+        /// <param name="cancellable">
+        /// optional #GCancellable object, %NULL to ignore
+        /// </param>
+        /// <param name="callback">
+        /// a #GAsyncReadyCallback to call when the request is done
+        /// </param>
+        /// <param name="userData">
+        /// data to pass to @callback
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_file_new_tmp_dir_async(
+        /* <type name="filename" type="const char*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        byte* tmpl,
+        /* <type name="gint" type="int" /> */
+        /* transfer-ownership:none direction:in */
+        int ioPriority,
+        /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
+        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
+        delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback,
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr userData);
+        static partial void CheckNewTmpDirAsyncArgs(GISharp.Runtime.Filename? tmpl, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewTmpDirAsync(GISharp.Runtime.Filename?,int,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        public static System.Threading.Tasks.Task<GISharp.Lib.Gio.IFile> NewTmpDirAsync(GISharp.Runtime.Filename? tmpl, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            CheckNewTmpDirAsyncArgs(tmpl, ioPriority, cancellable);
+            var tmpl_ = (byte*)(tmpl?.UnsafeHandle ?? System.IntPtr.Zero);
+            var ioPriority_ = (int)ioPriority;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.IFile>();
+            var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&NewTmpDirFinish;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
+            g_file_new_tmp_dir_async(tmpl_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            return completionSource.Task;
+        }
+
+        /// <summary>
+        /// Finishes a temporary directory creation started by
+        /// g_file_new_tmp_dir_async().
+        /// </summary>
+        /// <param name="result">
+        /// a #GAsyncResult
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// a new #GFile.
+        ///   Free the returned object with g_object_unref().
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="File" type="GFile*" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.Gio.File.UnmanagedStruct* g_file_new_tmp_dir_finish(
+        /* <type name="AsyncResult" type="GAsyncResult*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
+
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void NewTmpDirFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        {
+            try
+            {
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.IFile>)userData.Target!;
+                userData.Free();
+                var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+                var ret_ = g_file_new_tmp_dir_finish(result_,&error_);
+                if (error_ is not null)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
+                    return;
+                }
+                var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                completionSource.SetResult((ret));
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
+            }
+        }
+
+        /// <summary>
+        /// Finishes a temporary file creation started by g_file_new_tmp_async().
+        /// </summary>
+        /// <param name="result">
+        /// a #GAsyncResult
+        /// </param>
+        /// <param name="iostream">
+        /// on return, a #GFileIOStream for the created file
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// a new #GFile.
+        ///   Free the returned object with g_object_unref().
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="File" type="GFile*" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.Gio.File.UnmanagedStruct* g_file_new_tmp_finish(
+        /* <type name="AsyncResult" type="GAsyncResult*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
+        /* <type name="FileIOStream" type="GFileIOStream**" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full */
+        GISharp.Lib.Gio.FileIOStream.UnmanagedStruct** iostream,
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
+
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void NewTmpFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        {
+            try
+            {
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Lib.Gio.IFile, GISharp.Lib.Gio.FileIOStream>>)userData.Target!;
+                userData.Free();
+                GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* iostream_;
+                var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+                var ret_ = g_file_new_tmp_finish(result_,&iostream_,&error_);
+                if (error_ is not null)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
+                    return;
+                }
+                var iostream = GISharp.Lib.Gio.FileIOStream.GetInstance<GISharp.Lib.Gio.FileIOStream>((System.IntPtr)iostream_, GISharp.Runtime.Transfer.Full)!;
+                var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+                completionSource.SetResult((ret, iostream));
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
+            }
+        }
+
+        /// <summary>
         /// Constructs a #GFile with the given @parse_name (i.e. something
         /// given by g_file_get_parse_name()). This operation never fails,
         /// but the returned object might not support any I/O operation if
@@ -429,6 +668,16 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMakeSymbolicLink))]
         void DoMakeSymbolicLink(GISharp.Runtime.Filename symlinkValue, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoMakeSymbolicLinkAsync(GISharp.Runtime.Filename,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMakeSymbolicLinkAsync))]
+        void DoMakeSymbolicLinkAsync(GISharp.Runtime.Filename symlinkValue, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoMakeSymbolicLinkFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMakeSymbolicLinkFinish))]
+        void DoMakeSymbolicLinkFinish(GISharp.Lib.Gio.IAsyncResult result);
+
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoMeasureDiskUsageFinish(GISharp.Lib.Gio.IAsyncResult,ulong,ulong,ulong)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMeasureDiskUsageFinish))]
@@ -445,6 +694,16 @@ namespace GISharp.Lib.Gio
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoMove(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMove))]
         void DoMove(GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoMoveAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,int,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMoveAsync))]
+        void DoMoveAsync(GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, int ioPriority, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoMoveFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMoveFinish))]
+        void DoMoveFinish(GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoOpenReadwrite(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
@@ -3550,6 +3809,129 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Asynchronously creates a symbolic link named @file which contains the
+        /// string @symlink_value.
+        /// </summary>
+        /// <param name="file">
+        /// a #GFile with the name of the symlink to create
+        /// </param>
+        /// <param name="symlinkValue">
+        /// a string with the path for the target
+        ///   of the new symlink
+        /// </param>
+        /// <param name="ioPriority">
+        /// the [I/O priority][io-priority] of the request
+        /// </param>
+        /// <param name="cancellable">
+        /// optional #GCancellable object,
+        ///   %NULL to ignore
+        /// </param>
+        /// <param name="callback">
+        /// a #GAsyncReadyCallback to call
+        ///   when the request is satisfied
+        /// </param>
+        /// <param name="userData">
+        /// the data to pass to callback function
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_file_make_symbolic_link_async(
+        /* <type name="File" type="GFile*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.File.UnmanagedStruct* file,
+        /* <type name="filename" type="const char*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        byte* symlinkValue,
+        /* <type name="gint" type="int" /> */
+        /* transfer-ownership:none direction:in */
+        int ioPriority,
+        /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
+        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
+        delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback,
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr userData);
+        static partial void CheckMakeSymbolicLinkAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Runtime.Filename symlinkValue, int ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='File.MakeSymbolicLinkAsync(GISharp.Lib.Gio.IFile,GISharp.Runtime.Filename,int,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        public static System.Threading.Tasks.Task MakeSymbolicLinkAsync(this GISharp.Lib.Gio.IFile file, GISharp.Runtime.Filename symlinkValue, int ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            CheckMakeSymbolicLinkAsyncArgs(file, symlinkValue, ioPriority, cancellable);
+            var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
+            var symlinkValue_ = (byte*)symlinkValue.UnsafeHandle;
+            var ioPriority_ = (int)ioPriority;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>();
+            var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&MakeSymbolicLinkFinish;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
+            g_file_make_symbolic_link_async(file_, symlinkValue_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            return completionSource.Task;
+        }
+
+        /// <summary>
+        /// Finishes an asynchronous symbolic link creation, started with
+        /// g_file_make_symbolic_link_async().
+        /// </summary>
+        /// <param name="file">
+        /// input #GFile
+        /// </param>
+        /// <param name="result">
+        /// a #GAsyncResult
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE on successful directory creation, %FALSE otherwise.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none skip:1 direction:in */
+        private static extern GISharp.Runtime.Boolean g_file_make_symbolic_link_finish(
+        /* <type name="File" type="GFile*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.File.UnmanagedStruct* file,
+        /* <type name="AsyncResult" type="GAsyncResult*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
+
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void MakeSymbolicLinkFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        {
+            try
+            {
+                var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)sourceObject_;
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>)userData.Target!;
+                userData.Free();
+                var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+                g_file_make_symbolic_link_finish(file_, result_, &error_);
+                if (error_ is not null)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
+                    return;
+                }
+                completionSource.SetResult(default(System.ValueTuple));
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
+            }
+        }
+
+        /// <summary>
         /// Collects the results from an earlier call to
         /// g_file_measure_disk_usage_async().  See g_file_measure_disk_usage() for
         /// more information.
@@ -3850,6 +4232,168 @@ namespace GISharp.Lib.Gio
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Lib.GLib.Error.Exception(error);
+            }
+        }
+
+        /// <summary>
+        /// Asynchronously moves a file @source to the location of @destination. For details of the behaviour, see g_file_move().
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// If @progress_callback is not %NULL, then that function that will be called
+        /// just like in g_file_move(). The callback will run in the default main context
+        /// of the thread calling g_file_move_async() — the same context as @callback is
+        /// run in.
+        /// </para>
+        /// <para>
+        /// When the operation is finished, @callback will be called. You can then call
+        /// g_file_move_finish() to get the result of the operation.
+        /// </para>
+        /// </remarks>
+        /// <param name="source">
+        /// #GFile pointing to the source location
+        /// </param>
+        /// <param name="destination">
+        /// #GFile pointing to the destination location
+        /// </param>
+        /// <param name="flags">
+        /// set of #GFileCopyFlags
+        /// </param>
+        /// <param name="ioPriority">
+        /// the [I/O priority][io-priority] of the request
+        /// </param>
+        /// <param name="cancellable">
+        /// optional #GCancellable object,
+        ///   %NULL to ignore
+        /// </param>
+        /// <param name="progressCallback">
+        /// #GFileProgressCallback
+        ///   function for updates
+        /// </param>
+        /// <param name="progressCallbackData">
+        /// gpointer to user data for
+        ///   the callback function
+        /// </param>
+        /// <param name="callback">
+        /// a #GAsyncReadyCallback to call
+        ///   when the request is satisfied
+        /// </param>
+        /// <param name="userData">
+        /// the data to pass to callback function
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern void g_file_move_async(
+        /* <type name="File" type="GFile*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.File.UnmanagedStruct* source,
+        /* <type name="File" type="GFile*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.File.UnmanagedStruct* destination,
+        /* <type name="FileCopyFlags" type="GFileCopyFlags" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.FileCopyFlags flags,
+        /* <type name="gint" type="int" /> */
+        /* transfer-ownership:none direction:in */
+        int ioPriority,
+        /* <type name="Cancellable" type="GCancellable*" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
+        /* <type name="FileProgressCallback" type="GFileProgressCallback" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:call closure:5 direction:in */
+        delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void> progressCallback,
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr progressCallbackData,
+        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:7 direction:in */
+        delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback,
+        /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr userData);
+        static partial void CheckMoveAsyncArgs(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, int ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='File.MoveAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,int,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        public static System.Threading.Tasks.Task MoveAsync(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, int ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            CheckMoveAsyncArgs(source, destination, flags, progressCallback, ioPriority, cancellable);
+            var source_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)source.UnsafeHandle;
+            var destination_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)destination.UnsafeHandle;
+            var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
+            var progressCallback_ = progressCallback is null ? default : (delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void>)&GISharp.Lib.Gio.FileProgressCallbackMarshal.Callback;
+            var progressCallbackHandle = progressCallback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((progressCallback, GISharp.Runtime.CallbackScope.Call));
+            var progressCallbackData_ = (System.IntPtr)progressCallbackHandle;
+            var ioPriority_ = (int)ioPriority;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>();
+            var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&MoveFinish;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
+            g_file_move_async(source_, destination_, flags_, ioPriority_, cancellable_, progressCallback_, progressCallbackData_, callback_, userData_);
+            if (progressCallback is not null)
+            {
+                progressCallbackHandle.Free();
+            }
+
+            GISharp.Runtime.GMarshal.PopUnhandledException();
+            return completionSource.Task;
+        }
+
+        /// <summary>
+        /// Finishes an asynchronous file movement, started with
+        /// g_file_move_async().
+        /// </summary>
+        /// <param name="file">
+        /// input source #GFile
+        /// </param>
+        /// <param name="result">
+        /// a #GAsyncResult
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE on successful file move, %FALSE otherwise.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none skip:1 direction:in */
+        private static extern GISharp.Runtime.Boolean g_file_move_finish(
+        /* <type name="File" type="GFile*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.File.UnmanagedStruct* file,
+        /* <type name="AsyncResult" type="GAsyncResult*" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
+        /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
+
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void MoveFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        {
+            try
+            {
+                var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)sourceObject_;
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple>)userData.Target!;
+                userData.Free();
+                var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+                g_file_move_finish(file_, result_, &error_);
+                if (error_ is not null)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Lib.GLib.Error.Exception(error));
+                    return;
+                }
+                completionSource.SetResult(default(System.ValueTuple));
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Runtime.GMarshal.PushUnhandledException(ex);
             }
         }
 

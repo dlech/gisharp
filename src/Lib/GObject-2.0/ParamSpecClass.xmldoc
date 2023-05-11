@@ -24,6 +24,9 @@ the <see cref="Value"/> type for this parameter
 <member name='UnmanagedStruct.ValuesCmp'>
 </member>
 
+<member name='UnmanagedStruct.ValueIsValid'>
+</member>
+
 <member name='UnmanagedStruct.Dummy0'>
 </member>
 
@@ -31,9 +34,6 @@ the <see cref="Value"/> type for this parameter
 </member>
 
 <member name='UnmanagedStruct.Dummy2'>
-</member>
-
-<member name='UnmanagedStruct.Dummy3'>
 </member>
 
 <member name='_Finalize'>
@@ -46,6 +46,9 @@ the <see cref="Value"/> type for this parameter
 </member>
 
 <member name='_ValuesCmp'>
+</member>
+
+<member name='_ValueIsValid'>
 </member>
 
 <member name='ParamSpecClass'>

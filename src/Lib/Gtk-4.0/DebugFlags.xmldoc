@@ -114,6 +114,9 @@ Information about icon fallback.
 </summary>
 </member>
 
+<member name='DebugFlags.InvertTextDir'>
+</member>
+
 <member name='DebugFlags'>
 <summary>
 Flags to use with <see cref="DebugFlagsExtensions.Current"/>.

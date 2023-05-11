@@ -344,7 +344,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Gets the options there were passed to g_application_command_line().
+        /// Gets the options that were passed to g_application_command_line().
         /// </summary>
         /// <remarks>
         /// <para>
@@ -356,6 +356,10 @@ namespace GISharp.Lib.Gio
         /// <para>
         /// If no options were sent then an empty dictionary is returned so that
         /// you don't need to check for %NULL.
+        /// </para>
+        /// <para>
+        /// The data has been passed via an untrusted external process, so the types of
+        /// all values must be checked before being used.
         /// </para>
         /// </remarks>
         /// <param name="cmdline">
@@ -394,6 +398,10 @@ namespace GISharp.Lib.Gio
         /// context in which the invocation occurred.  It typically contains
         /// information like the current working directory and the startup
         /// notification ID.
+        /// </para>
+        /// <para>
+        /// It comes from an untrusted external process and hence the types of all
+        /// values must be validated before being used.
         /// </para>
         /// <para>
         /// For local invocation, it will be %NULL.

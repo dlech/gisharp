@@ -62,7 +62,7 @@ a potential action name
 </returns>
 </member>
 
-<member name='IAction.ParseDetailedName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.Utf8,GISharp.Lib.GLib.Variant)'>
+<member name='IAction.ParseDetailedName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.Utf8,GISharp.Lib.GLib.Variant?)'>
 <summary>
 Parses a detailed action name into its separate name and target
 components.
@@ -74,25 +74,33 @@ Detailed action names can have three formats.
 <para>
 The first format is used to represent an action name with no target
 value and consists of just an action name containing no whitespace
-nor the characters ':', '(' or ')'.  For example: "app.action".
+nor the characters `:`, `(` or `)`.  For example: `app.action`.
 </para>
 <para>
 The second format is used to represent an action with a target value
-that is a non-empty string consisting only of alphanumerics, plus '-'
-and '.'.  In that case, the action name and target value are
-separated by a double colon ("::").  For example:
-"app.action::target".
+that is a non-empty string consisting only of alphanumerics, plus `-`
+and `.`.  In that case, the action name and target value are
+separated by a double colon (`::`).  For example:
+`app.action::target`.
 </para>
 <para>
 The third format is used to represent an action with any type of
 target value, including strings.  The target value follows the action
-name, surrounded in parens.  For example: "app.action(42)".  The
+name, surrounded in parens.  For example: `app.action(42)`.  The
 target value is parsed using g_variant_parse().  If a tuple-typed
 value is desired, it must be specified in the same way, resulting in
-two sets of parens, for example: "app.action((1,2,3))".  A string
-target can be specified this way as well: "app.action('target')".
-For strings, this third format must be used if * target value is
-empty or contains characters other than alphanumerics, '-' and '.'.
+two sets of parens, for example: `app.action((1,2,3))`.  A string
+target can be specified this way as well: `app.action('target')`.
+For strings, this third format must be used if target value is
+empty or contains characters other than alphanumerics, `-` and `.`.
+</para>
+<para>
+If this function returns <c>true</c>, a non-<c>null</c> value is guaranteed to be returned
+in <paramref name="actionName"/> (if a pointer is passed in). A <c>null</c> value may still be
+returned in <paramref name="targetValue"/>, as the <paramref name="detailedName"/> may not contain a target.
+</para>
+<para>
+If returned, the #GVariant in <paramref name="targetValue"/> is guaranteed to not be floating.
 </para>
 </remarks>
 <param name="detailedName">
@@ -102,7 +110,8 @@ a detailed action name
 the action name
 </param>
 <param name="targetValue">
-the target value, or <c>null</c> for no target
+the target value,
+  or <c>null</c> for no target
 </param>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error

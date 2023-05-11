@@ -1,5 +1,11 @@
 <declaration>
 
+<member name='TypeFlags.None'>
+<summary>
+No special flags.
+</summary>
+</member>
+
 <member name='TypeFlags.Abstract'>
 <summary>
 Indicates an abstract type. No instances can be
@@ -19,6 +25,14 @@ Indicates an abstract value type, i.e. a type
 <summary>
 Indicates a final type. A final type is a non-derivable
  leaf node in a deep derivable type hierarchy tree.
+</summary>
+</member>
+
+<member name='TypeFlags.Deprecated'>
+<summary>
+The type is deprecated and may be removed in a
+ future version. A warning will be emitted if it is instantiated while
+ running with `G_ENABLE_DIAGNOSTIC=1`.
 </summary>
 </member>
 

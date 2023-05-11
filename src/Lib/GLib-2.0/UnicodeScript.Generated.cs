@@ -411,7 +411,31 @@ namespace GISharp.Lib.GLib
         KhitanSmallScript = 155,
         /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScript.Yezidi']/*" />
         [GISharp.Runtime.SinceAttribute("2.66")]
-        Yezidi = 156
+        Yezidi = 156,
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScript.CyproMinoan']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        CyproMinoan = 157,
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScript.OldUyghur']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        OldUyghur = 158,
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScript.Tangsa']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        Tangsa = 159,
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScript.Toto']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        Toto = 160,
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScript.Vithkuqi']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        Vithkuqi = 161,
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScript.Math']/*" />
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        Math = 162,
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScript.Kawi']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        Kawi = 163,
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScript.NagMundari']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        NagMundari = 164
     }
 
     /// <summary>

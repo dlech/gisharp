@@ -1,0 +1,34 @@
+<declaration>
+
+<member name='Collation.None'>
+<summary>
+Don't do any collation
+</summary>
+</member>
+
+<member name='Collation.Unicode'>
+<summary>
+Use [func<c>gLib</c>.utf8_collate_key]
+</summary>
+</member>
+
+<member name='Collation.Filename'>
+<summary>
+Use [func<c>gLib</c>.utf8_collate_key_for_filename]
+</summary>
+</member>
+
+<member name='Collation'>
+<summary>
+Describes how a [class<c>gtk</c>.StringSorter] turns strings into sort keys to
+compare them.
+</summary>
+<remarks>
+<para>
+Note that the result of sorting will in general depend on the current locale
+unless the mode is <c>gtkCollationNone</c>.
+</para>
+</remarks>
+</member>
+
+</declaration>

@@ -1,0 +1,15 @@
+<declaration>
+
+<member name='UnmanagedStruct.GIface'>
+<summary>
+The parent interface.
+</summary>
+</member>
+
+<member name='DebugControllerInterface'>
+<summary>
+The virtual function table for <see cref="IDebugController"/>.
+</summary>
+</member>
+
+</declaration>

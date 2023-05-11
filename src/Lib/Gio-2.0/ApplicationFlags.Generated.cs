@@ -11,6 +11,9 @@ namespace GISharp.Lib.Gio
     {
         /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.FlagsNone']/*" />
         FlagsNone = 0b0000_0000_0000_0000_0000_0000_0000_0000,
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.DefaultFlags']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        DefaultFlags = 0b0000_0000_0000_0000_0000_0000_0000_0000,
         /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.IsService']/*" />
         IsService = 0b0000_0000_0000_0000_0000_0000_0000_0001,
         /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.IsLauncher']/*" />

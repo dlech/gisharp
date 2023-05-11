@@ -543,7 +543,8 @@ namespace GISharp.Lib.GLib
         /// a #GSource
         /// </param>
         /// <param name="context">
-        /// a #GMainContext (if %NULL, the default context will be used)
+        /// a #GMainContext (if %NULL, the global-default
+        ///   main context will be used)
         /// </param>
         /// <returns>
         /// the ID (greater than 0) for the source within the

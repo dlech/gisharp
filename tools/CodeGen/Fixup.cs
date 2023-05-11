@@ -716,7 +716,11 @@ namespace GISharp.CodeGen
 
             foreach (var element in document.Descendants(gi + "array"))
             {
-                if (element.Attribute("length") is null && element.Attribute("fixed-size") is null)
+                if (
+                    element.Attribute("name") is null
+                    && element.Attribute("length") is null
+                    && element.Attribute("fixed-size") is null
+                )
                 {
                     element.SetAttributeValue("zero-terminated", "1");
                 }
@@ -1459,13 +1463,13 @@ namespace GISharp.CodeGen
                 var returnValue = matchingGetter.Element(gi + "return-value");
                 var getterReturnType =
                     returnValue.Element(gi + "type") ?? returnValue.Element(gi + "array");
-                var getterReturnTypeName = getterReturnType.Attribute("name").Value;
+                var getterReturnTypeName = getterReturnType.Attribute("name")?.Value;
                 var setterParameter = element
                     .Element(gs + "managed-parameters")
                     .Element(gi + "parameter");
                 var setterParameterType =
                     setterParameter.Element(gi + "type") ?? setterParameter.Element(gi + "array");
-                var setterParameterTypeName = setterParameterType.Attribute("name").Value;
+                var setterParameterTypeName = setterParameterType.Attribute("name")?.Value;
                 if (getterReturnTypeName != setterParameterTypeName)
                 {
                     // this isn't the setter if the types don't match

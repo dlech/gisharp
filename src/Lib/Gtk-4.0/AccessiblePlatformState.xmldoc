@@ -1,0 +1,28 @@
+<declaration>
+
+<member name='AccessiblePlatformState.Focusable'>
+<summary>
+whether the accessible can be focused
+</summary>
+</member>
+
+<member name='AccessiblePlatformState.Focused'>
+<summary>
+whether the accessible has focus
+</summary>
+</member>
+
+<member name='AccessiblePlatformState.Active'>
+<summary>
+whether the accessible is active
+</summary>
+</member>
+
+<member name='AccessiblePlatformState'>
+<summary>
+The various platform states which can be queried
+using [method<c>gtk</c>.Accessible.get_platform_state].
+</summary>
+</member>
+
+</declaration>

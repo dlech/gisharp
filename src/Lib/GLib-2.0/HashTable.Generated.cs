@@ -387,6 +387,41 @@ namespace GISharp.Lib.GLib
         uint* length);
 
         /// <summary>
+        /// Retrieves every key inside @hash_table, as a #GPtrArray.
+        /// The returned data is valid until changes to the hash release those keys.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This iterates over every entry in the hash table to build its return value.
+        /// To iterate over the entries in a #GHashTable more efficiently, use a
+        /// #GHashTableIter.
+        /// </para>
+        /// <para>
+        /// You should always unref the returned array with g_ptr_array_unref().
+        /// </para>
+        /// </remarks>
+        /// <param name="hashTable">
+        /// a #GHashTable
+        /// </param>
+        /// <returns>
+        /// a #GPtrArray containing each key from
+        /// the table. Unref with with g_ptr_array_unref() when done.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:container direction:in */
+        private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_hash_table_get_keys_as_ptr_array(
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </type> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
+
+        /// <summary>
         /// Retrieves every value inside @hash_table. The returned data
         /// is valid until @hash_table is modified.
         /// </summary>
@@ -413,6 +448,41 @@ namespace GISharp.Lib.GLib
 * </type> */
         /* transfer-ownership:container direction:in */
         private static extern GISharp.Lib.GLib.List.UnmanagedStruct* g_hash_table_get_values(
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </type> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
+
+        /// <summary>
+        /// Retrieves every value inside @hash_table, as a #GPtrArray.
+        /// The returned data is valid until changes to the hash release those values.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This iterates over every entry in the hash table to build its return value.
+        /// To iterate over the entries in a #GHashTable more efficiently, use a
+        /// #GHashTableIter.
+        /// </para>
+        /// <para>
+        /// You should always unref the returned array with g_ptr_array_unref().
+        /// </para>
+        /// </remarks>
+        /// <param name="hashTable">
+        /// a #GHashTable
+        /// </param>
+        /// <returns>
+        /// a #GPtrArray containing each value from
+        /// the table. Unref with with g_ptr_array_unref() when done.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:container direction:in */
+        private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_hash_table_get_values_as_ptr_array(
         /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
@@ -646,6 +716,41 @@ namespace GISharp.Lib.GLib
         delegate* unmanaged[Cdecl]<System.IntPtr, void> valueDestroyFunc);
 
         /// <summary>
+        /// Creates a new #GHashTable like g_hash_table_new_full() with a reference
+        /// count of 1.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// It inherits the hash function, the key equal function, the key destroy function,
+        /// as well as the value destroy function, from @other_hash_table.
+        /// </para>
+        /// <para>
+        /// The returned hash table will be empty; it will not contain the keys
+        /// or values from @other_hash_table.
+        /// </para>
+        /// </remarks>
+        /// <param name="otherHashTable">
+        /// Another #GHashTable
+        /// </param>
+        /// <returns>
+        /// a new #GHashTable
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.72")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </type> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.HashTable.UnmanagedStruct* g_hash_table_new_similar(
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </type> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.HashTable.UnmanagedStruct* otherHashTable);
+
+        /// <summary>
         /// Removes a key and its associated value from a #GHashTable.
         /// </summary>
         /// <remarks>
@@ -817,6 +922,60 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
 
         /// <summary>
+        /// Removes all keys and their associated values from a #GHashTable
+        /// without calling the key destroy functions, returning the keys
+        /// as a #GPtrArray with the free func set to the @hash_table key
+        /// destroy function.
+        /// </summary>
+        /// <param name="hashTable">
+        /// a #GHashTable
+        /// </param>
+        /// <returns>
+        /// a #GPtrArray containing each key of
+        /// the table. Unref with with g_ptr_array_unref() when done.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:container direction:in */
+        private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_hash_table_steal_all_keys(
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </type> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
+
+        /// <summary>
+        /// Removes all keys and their associated values from a #GHashTable
+        /// without calling the value destroy functions, returning the values
+        /// as a #GPtrArray with the free func set to the @hash_table value
+        /// destroy function.
+        /// </summary>
+        /// <param name="hashTable">
+        /// a #GHashTable
+        /// </param>
+        /// <returns>
+        /// a #GPtrArray containing each value of
+        /// the table. Unref with with g_ptr_array_unref() when done.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.PtrArray" type="GPtrArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:container direction:in */
+        private static extern GISharp.Lib.GLib.PtrArray.UnmanagedStruct* g_hash_table_steal_all_values(
+        /* <type name="GLib.HashTable" type="GHashTable*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </type> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.HashTable.UnmanagedStruct* hashTable);
+
+        /// <summary>
         /// Looks up a key in the #GHashTable, stealing the original key and the
         /// associated value and returning %TRUE if the key was found. If the key was
         /// not found, %FALSE is returned.
@@ -825,11 +984,18 @@ namespace GISharp.Lib.GLib
         /// <para>
         /// If found, the stolen key and value are removed from the hash table without
         /// calling the key and value destroy functions, and ownership is transferred to
-        /// the caller of this method; as with g_hash_table_steal().
+        /// the caller of this method, as with g_hash_table_steal(). That is the case
+        /// regardless whether @stolen_key or @stolen_value output parameters are
+        /// requested.
         /// </para>
         /// <para>
         /// You can pass %NULL for @lookup_key, provided the hash and equal functions
         /// of @hash_table are %NULL-safe.
+        /// </para>
+        /// <para>
+        /// The dictionary implementation optimizes for having all values identical to
+        /// their keys, for example by using g_hash_table_add(). When stealing both the
+        /// key and the value from such a dictionary, the value will be %NULL.
         /// </para>
         /// </remarks>
         /// <param name="hashTable">

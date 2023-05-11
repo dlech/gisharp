@@ -533,6 +533,20 @@ namespace GISharp.Lib.GObject
             GISharp.Runtime.GMarshal.PopUnhandledException();
         }
 
+        /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DoValueIsValid(GISharp.Lib.GObject.Value)']/*" />
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(ParamSpecClass.UnmanagedValueIsValid))]
+        protected virtual bool DoValueIsValid(in GISharp.Lib.GObject.Value value)
+        {
+            fixed (GISharp.Lib.GObject.Value* value_ = &value)
+            {
+                var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
+                var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValueIsValid>(_GType)!(pspec_,value_);
+                GISharp.Runtime.GMarshal.PopUnhandledException();
+                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
+                return ret;
+            }
+        }
+
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DoValueSetDefault(GISharp.Lib.GObject.Value)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ParamSpecClass.UnmanagedValueSetDefault))]
         protected virtual void DoValueSetDefault(ref GISharp.Lib.GObject.Value value)

@@ -201,15 +201,67 @@ namespace GISharp.Lib.Gio
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailingFailed']/*" />
         public const string ThumbnailingFailed = "thumbnail::failed";
 
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailingFailedLarge']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailingFailedLarge = "thumbnail::failed-large";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailingFailedNormal']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailingFailedNormal = "thumbnail::failed-normal";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailingFailedXlarge']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailingFailedXlarge = "thumbnail::failed-xlarge";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailingFailedXxlarge']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailingFailedXxlarge = "thumbnail::failed-xxlarge";
+
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailIsValid']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public const string ThumbnailIsValid = "thumbnail::is-valid";
 
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailIsValidLarge']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailIsValidLarge = "thumbnail::is-valid-large";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailIsValidNormal']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailIsValidNormal = "thumbnail::is-valid-normal";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailIsValidXlarge']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailIsValidXlarge = "thumbnail::is-valid-xlarge";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailIsValidXxlarge']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailIsValidXxlarge = "thumbnail::is-valid-xxlarge";
+
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailPath']/*" />
         public const string ThumbnailPath = "thumbnail::path";
 
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailPathLarge']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailPathLarge = "thumbnail::path-large";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailPathNormal']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailPathNormal = "thumbnail::path-normal";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailPathXlarge']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailPathXlarge = "thumbnail::path-xlarge";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailPathXxlarge']/*" />
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        public const string ThumbnailPathXxlarge = "thumbnail::path-xxlarge";
+
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeAccess']/*" />
         public const string TimeAccess = "time::access";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeAccessNsec']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        public const string TimeAccessNsec = "time::access-nsec";
 
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeAccessUsec']/*" />
         public const string TimeAccessUsec = "time::access-usec";
@@ -217,17 +269,29 @@ namespace GISharp.Lib.Gio
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeChanged']/*" />
         public const string TimeChanged = "time::changed";
 
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeChangedNsec']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        public const string TimeChangedNsec = "time::changed-nsec";
+
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeChangedUsec']/*" />
         public const string TimeChangedUsec = "time::changed-usec";
 
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeCreated']/*" />
         public const string TimeCreated = "time::created";
 
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeCreatedNsec']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        public const string TimeCreatedNsec = "time::created-nsec";
+
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeCreatedUsec']/*" />
         public const string TimeCreatedUsec = "time::created-usec";
 
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeModified']/*" />
         public const string TimeModified = "time::modified";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeModifiedNsec']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        public const string TimeModifiedNsec = "time::modified-nsec";
 
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeModifiedUsec']/*" />
         public const string TimeModifiedUsec = "time::modified-usec";

@@ -917,10 +917,10 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:0 transfer-ownership:full */
         GISharp.Runtime.Boolean* enabled,
         /* <type name="GLib.VariantType" type="const GVariantType**" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:none optional:1 allow-none:1 */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct** parameterType,
         /* <type name="GLib.VariantType" type="const GVariantType**" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        /* direction:out caller-allocates:0 transfer-ownership:none optional:1 allow-none:1 */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct** stateType,
         /* <type name="GLib.Variant" type="GVariant**" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
@@ -945,8 +945,8 @@ namespace GISharp.Lib.Gio
             var ret_ = g_action_group_query_action(actionGroup_,actionName_,&enabled_,&parameterType_,&stateType_,&stateHint_,&state_);
             GISharp.Runtime.GMarshal.PopUnhandledException();
             enabled = GISharp.Runtime.BooleanExtensions.IsTrue(enabled_);
-            parameterType = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)parameterType_, GISharp.Runtime.Transfer.Full)!;
-            stateType = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)stateType_, GISharp.Runtime.Transfer.Full)!;
+            parameterType = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)parameterType_, GISharp.Runtime.Transfer.None)!;
+            stateType = GISharp.Lib.GLib.VariantType.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)stateType_, GISharp.Runtime.Transfer.None)!;
             stateHint = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)stateHint_, GISharp.Runtime.Transfer.Full)!;
             state = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)state_, GISharp.Runtime.Transfer.Full)!;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);

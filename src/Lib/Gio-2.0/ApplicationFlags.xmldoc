@@ -2,7 +2,14 @@
 
 <member name='ApplicationFlags.FlagsNone'>
 <summary>
-Default
+Default. Deprecated in 2.74, use
+  <see cref="ApplicationFlags.DefaultFlags"/> instead
+</summary>
+</member>
+
+<member name='ApplicationFlags.DefaultFlags'>
+<summary>
+Default flags.
 </summary>
 </member>
 

@@ -1,0 +1,161 @@
+<declaration>
+
+<member name='SignalGroup.Target'>
+<summary>
+The target instance used when connecting signals.
+</summary>
+</member>
+
+<member name='SignalGroup.TargetType'>
+<summary>
+The #GType of the target property.
+</summary>
+</member>
+
+<member name='SignalGroup.SignalGroup(GISharp.Runtime.GType)'>
+<summary>
+Creates a new <see cref="SignalGroup"/> for target instances of <paramref name="targetType"/>.
+</summary>
+<param name="targetType">
+the #GType of the target instance.
+</param>
+</member>
+
+<member name='BindSignalHandler'>
+<summary>
+This signal is emitted when <see cref="SignalGroup"/>:target is set to a new value
+other than <c>null</c>. It is similar to <see cref="Object"/>::notify on `target` except it
+will not emit when <see cref="SignalGroup"/>:target is <c>null</c> and also allows for
+receiving the <see cref="Object"/> without a data-race.
+</summary>
+<param name="signalGroup">
+the instance on which the signal was invoked
+</param>
+<param name="instance">
+a <see cref="Object"/> containing the new value for <see cref="SignalGroup"/>:target
+</param>
+</member>
+
+<member name='SignalGroup.BindSignal'>
+<seealso cref="BindSignalHandler"/>
+</member>
+
+<member name='UnbindSignalHandler'>
+<summary>
+This signal is emitted when the target instance of <c>self</c> is set to a
+new <see cref="Object"/>.
+</summary>
+<remarks>
+<para>
+This signal will only be emitted if the previous target of <c>self</c> is
+non-<c>null</c>.
+</para>
+</remarks>
+<param name="signalGroup">
+the instance on which the signal was invoked
+</param>
+</member>
+
+<member name='SignalGroup.UnbindSignal'>
+<seealso cref="UnbindSignalHandler"/>
+</member>
+
+<member name='SignalGroup.Block()'>
+<summary>
+Blocks all signal handlers managed by this instance so they will not
+be called during any signal emissions. Must be unblocked exactly
+the same number of times it has been blocked to become active again.
+</summary>
+<remarks>
+<para>
+This blocked state will be kept across changes of the target instance.
+</para>
+</remarks>
+</member>
+
+<member name='SignalGroup.ConnectClosure(GISharp.Runtime.UnownedUtf8,GISharp.Lib.GObject.Closure,bool)'>
+<summary>
+Connects <paramref name="closure"/> to the signal <paramref name="detailedSignal"/> on <see cref="SignalGroup"/>:target.
+</summary>
+<remarks>
+<para>
+You cannot connect a signal handler after <see cref="SignalGroup"/>:target has been set.
+</para>
+</remarks>
+<param name="detailedSignal">
+a string of the form `signal-name` with optional `::signal-detail`
+</param>
+<param name="closure">
+the closure to connect.
+</param>
+<param name="after">
+whether the handler should be called before or after the
+ default handler of the signal.
+</param>
+</member>
+
+<member name='SignalGroup.DupTarget()'>
+<summary>
+Gets the target instance used when connecting signals.
+</summary>
+<returns>
+The target instance
+</returns>
+</member>
+
+<member name='SignalGroup.SetTarget(GISharp.Lib.GObject.Object?)'>
+<summary>
+Sets the target instance used when connecting signals. Any signal
+that has been registered with g_signal_group_connect_object() or
+similar functions will be connected to this object.
+</summary>
+<remarks>
+<para>
+If the target instance was previously set, signals will be
+disconnected from that object prior to connecting to <paramref name="target"/>.
+</para>
+</remarks>
+<param name="target">
+The target instance used
+    when connecting signals.
+</param>
+</member>
+
+<member name='SignalGroup.Unblock()'>
+<summary>
+Unblocks all signal handlers managed by this instance so they will be
+called again during any signal emissions unless it is blocked
+again. Must be unblocked exactly the same number of times it
+has been blocked to become active again.
+</summary>
+</member>
+
+<member name='SignalGroup'>
+<summary>
+<see cref="SignalGroup"/> manages to simplify the process of connecting
+many signals to a <see cref="Object"/> as a group. As such there is no API
+to disconnect a signal from the group.
+</summary>
+<remarks>
+<para>
+In particular, this allows you to:
+</para>
+<para>
+ - Change the target instance, which automatically causes disconnection
+   of the signals from the old instance and connecting to the new instance.
+ - Block and unblock signals as a group
+ - Ensuring that blocked state transfers across target instances.
+</para>
+<para>
+One place you might want to use such a structure is with #GtkTextView and
+#GtkTextBuffer. Often times, you'll need to connect to many signals on
+#GtkTextBuffer from a #GtkTextView subclass. This allows you to create a
+signal group during instance construction, simply bind the
+#GtkTextView:buffer property to <see cref="SignalGroup"/>:target and connect
+all the signals you need. When the #GtkTextView:buffer property changes
+all of the signals will be transitioned correctly.
+</para>
+</remarks>
+</member>
+
+</declaration>

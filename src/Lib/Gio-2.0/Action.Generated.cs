@@ -87,25 +87,33 @@ namespace GISharp.Lib.Gio
         /// <para>
         /// The first format is used to represent an action name with no target
         /// value and consists of just an action name containing no whitespace
-        /// nor the characters ':', '(' or ')'.  For example: "app.action".
+        /// nor the characters `:`, `(` or `)`.  For example: `app.action`.
         /// </para>
         /// <para>
         /// The second format is used to represent an action with a target value
-        /// that is a non-empty string consisting only of alphanumerics, plus '-'
-        /// and '.'.  In that case, the action name and target value are
-        /// separated by a double colon ("::").  For example:
-        /// "app.action::target".
+        /// that is a non-empty string consisting only of alphanumerics, plus `-`
+        /// and `.`.  In that case, the action name and target value are
+        /// separated by a double colon (`::`).  For example:
+        /// `app.action::target`.
         /// </para>
         /// <para>
         /// The third format is used to represent an action with any type of
         /// target value, including strings.  The target value follows the action
-        /// name, surrounded in parens.  For example: "app.action(42)".  The
+        /// name, surrounded in parens.  For example: `app.action(42)`.  The
         /// target value is parsed using g_variant_parse().  If a tuple-typed
         /// value is desired, it must be specified in the same way, resulting in
-        /// two sets of parens, for example: "app.action((1,2,3))".  A string
-        /// target can be specified this way as well: "app.action('target')".
-        /// For strings, this third format must be used if * target value is
-        /// empty or contains characters other than alphanumerics, '-' and '.'.
+        /// two sets of parens, for example: `app.action((1,2,3))`.  A string
+        /// target can be specified this way as well: `app.action('target')`.
+        /// For strings, this third format must be used if target value is
+        /// empty or contains characters other than alphanumerics, `-` and `.`.
+        /// </para>
+        /// <para>
+        /// If this function returns %TRUE, a non-%NULL value is guaranteed to be returned
+        /// in @action_name (if a pointer is passed in). A %NULL value may still be
+        /// returned in @target_value, as the @detailed_name may not contain a target.
+        /// </para>
+        /// <para>
+        /// If returned, the #GVariant in @target_value is guaranteed to not be floating.
         /// </para>
         /// </remarks>
         /// <param name="detailedName">
@@ -115,7 +123,8 @@ namespace GISharp.Lib.Gio
         /// the action name
         /// </param>
         /// <param name="targetValue">
-        /// the target value, or %NULL for no target
+        /// the target value,
+        ///   or %NULL for no target
         /// </param>
         /// <param name="error">
         /// return location for a #GError
@@ -132,19 +141,19 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         byte* detailedName,
         /* <type name="utf8" type="gchar**" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         byte** actionName,
         /* <type name="GLib.Variant" type="GVariant**" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full */
+        /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 optional:1 allow-none:1 */
         GISharp.Lib.GLib.Variant.UnmanagedStruct** targetValue,
         /* <type name="GLib.Error" type="GError**" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckParseDetailedNameArgs(GISharp.Runtime.UnownedUtf8 detailedName);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.ParseDetailedName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.Utf8,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.ParseDetailedName(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.Utf8,GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static void ParseDetailedName(GISharp.Runtime.UnownedUtf8 detailedName, out GISharp.Runtime.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
+        public static void ParseDetailedName(GISharp.Runtime.UnownedUtf8 detailedName, out GISharp.Runtime.Utf8 actionName, out GISharp.Lib.GLib.Variant? targetValue)
         {
             CheckParseDetailedNameArgs(detailedName);
             var detailedName_ = (byte*)detailedName.UnsafeHandle;
@@ -160,7 +169,7 @@ namespace GISharp.Lib.Gio
             }
 
             actionName = GISharp.Runtime.Utf8.GetInstance<GISharp.Runtime.Utf8>((System.IntPtr)actionName_, GISharp.Runtime.Transfer.Full)!;
-            targetValue = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)targetValue_, GISharp.Runtime.Transfer.Full)!;
+            targetValue = GISharp.Lib.GLib.Variant.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)targetValue_, GISharp.Runtime.Transfer.Full);
         }
 
         /// <summary>

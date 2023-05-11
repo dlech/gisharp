@@ -124,6 +124,54 @@ On error
 </exception>
 </member>
 
+<member name='IFile.NewTmpAsync(GISharp.Runtime.Filename?,int,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Asynchronously opens a file in the preferred directory for temporary files
+ (as returned by g_get_tmp_dir()) as <see cref="File.NewTmp(GISharp.Runtime.Filename,out GISharp.Lib.Gio.FileIOStream)"/>.
+</summary>
+<remarks>
+<para>
+<paramref name="tmpl"/> should be a string in the GLib file name encoding
+containing a sequence of six 'X' characters, and containing no
+directory components. If it is <c>null</c>, a default template is used.
+</para>
+</remarks>
+<param name="tmpl">
+Template for the file
+  name, as in g_file_open_tmp(), or <c>null</c> for a default template
+</param>
+<param name="ioPriority">
+the [I/O priority][io-priority] of the request
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object, <c>null</c> to ignore
+</param>
+</member>
+
+<member name='IFile.NewTmpDirAsync(GISharp.Runtime.Filename?,int,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Asynchronously creates a directory in the preferred directory for
+temporary files (as returned by g_get_tmp_dir()) as g_dir_make_tmp().
+</summary>
+<remarks>
+<para>
+<paramref name="tmpl"/> should be a string in the GLib file name encoding
+containing a sequence of six 'X' characters, and containing no
+directory components. If it is <c>null</c>, a default template is used.
+</para>
+</remarks>
+<param name="tmpl">
+Template for the file
+  name, as in g_dir_make_tmp(), or <c>null</c> for a default template
+</param>
+<param name="ioPriority">
+the [I/O priority][io-priority] of the request
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object, <c>null</c> to ignore
+</param>
+</member>
+
 <member name='IFile.ParseName(GISharp.Runtime.UnownedUtf8)'>
 <summary>
 Constructs a <see cref="IFile"/> with the given <paramref name="parseName"/> (i.e. something
@@ -1042,6 +1090,44 @@ On error
 </exception>
 </member>
 
+<member name='IFile.DoMakeSymbolicLinkAsync(GISharp.Runtime.Filename,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Asynchronously creates a symbolic link named this instance which contains the
+string <paramref name="symlinkValue"/>.
+</summary>
+<param name="symlinkValue">
+a string with the path for the target
+  of the new symlink
+</param>
+<param name="ioPriority">
+the [I/O priority][io-priority] of the request
+</param>
+<param name="callback">
+a <see cref="AsyncReadyCallback"/> to call
+  when the request is satisfied
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object,
+  <c>null</c> to ignore
+</param>
+</member>
+
+<member name='IFile.DoMakeSymbolicLinkFinish(GISharp.Lib.Gio.IAsyncResult)'>
+<summary>
+Finishes an asynchronous symbolic link creation, started with
+<see cref="File.MakeSymbolicLinkAsync(GISharp.Lib.Gio.IFile,GISharp.Runtime.Filename,int,GISharp.Lib.Gio.Cancellable)"/>.
+</summary>
+<param name="result">
+a <see cref="IAsyncResult"/>
+</param>
+<returns>
+<c>true</c> on successful directory creation, <c>false</c> otherwise.
+</returns>
+<exception name="GISharp.Lib.GLib.Error.Exception">
+On error
+</exception>
+</member>
+
 <member name='IFile.DoMeasureDiskUsageFinish(GISharp.Lib.Gio.IAsyncResult,ulong,ulong,ulong)'>
 <summary>
 Collects the results from an earlier call to
@@ -1169,6 +1255,61 @@ optional <see cref="Cancellable"/> object,
 </param>
 <returns>
 <c>true</c> on successful move, <c>false</c> otherwise.
+</returns>
+<exception name="GISharp.Lib.GLib.Error.Exception">
+On error
+</exception>
+</member>
+
+<member name='IFile.DoMoveAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,int,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Asynchronously moves a file this instance to the location of <paramref name="destination"/>. For details of the behaviour, see <see cref="File.Move(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>.
+</summary>
+<remarks>
+<para>
+If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
+just like in <see cref="File.Move(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>. The callback will run in the default main context
+of the thread calling <see cref="File.MoveAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,int,GISharp.Lib.Gio.Cancellable)"/> — the same context as <paramref name="callback"/> is
+run in.
+</para>
+<para>
+When the operation is finished, <paramref name="callback"/> will be called. You can then call
+<see cref="File.MoveFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the operation.
+</para>
+</remarks>
+<param name="destination">
+<see cref="IFile"/> pointing to the destination location
+</param>
+<param name="flags">
+set of <see cref="FileCopyFlags"/>
+</param>
+<param name="ioPriority">
+the [I/O priority][io-priority] of the request
+</param>
+<param name="progressCallback">
+<see cref="FileProgressCallback"/>
+  function for updates
+</param>
+<param name="callback">
+a <see cref="AsyncReadyCallback"/> to call
+  when the request is satisfied
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object,
+  <c>null</c> to ignore
+</param>
+</member>
+
+<member name='IFile.DoMoveFinish(GISharp.Lib.Gio.IAsyncResult)'>
+<summary>
+Finishes an asynchronous file movement, started with
+<see cref="File.MoveAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,int,GISharp.Lib.Gio.Cancellable)"/>.
+</summary>
+<param name="result">
+a <see cref="IAsyncResult"/>
+</param>
+<returns>
+<c>true</c> on successful file move, <c>false</c> otherwise.
 </returns>
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
@@ -2262,6 +2403,8 @@ To construct a <see cref="IFile"/>, you can use:
 - <see cref="IFile.NewForUri(GISharp.Runtime.UnownedUtf8)"/> if you have a URI.
 - <see cref="IFile.NewForCommandlineArg(GISharp.Runtime.Filename)"/> for a command line argument.
 - <see cref="IFile.NewTmp(GISharp.Runtime.Filename,out GISharp.Lib.Gio.FileIOStream)"/> to create a temporary file from a template.
+- <see cref="IFile.NewTmpAsync(GISharp.Runtime.Filename,int,GISharp.Lib.Gio.Cancellable)"/> to asynchronously create a temporary file.
+- <see cref="IFile.NewTmpDirAsync(GISharp.Runtime.Filename,int,GISharp.Lib.Gio.Cancellable)"/> to asynchronously create a temporary directory.
 - <see cref="IFile.ParseName(GISharp.Runtime.UnownedUtf8)"/> from a UTF-8 string gotten from <see cref="File.GetParseName(GISharp.Lib.Gio.IFile)"/>.
 - g_file_new_build_filename() to create a file from path elements.
 </para>
@@ -3476,6 +3619,27 @@ On error
 </exception>
 </member>
 
+<member name='File.MakeSymbolicLinkAsync(GISharp.Lib.Gio.IFile,GISharp.Runtime.Filename,int,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Asynchronously creates a symbolic link named <paramref name="file"/> which contains the
+string <paramref name="symlinkValue"/>.
+</summary>
+<param name="file">
+a <see cref="IFile"/> with the name of the symlink to create
+</param>
+<param name="symlinkValue">
+a string with the path for the target
+  of the new symlink
+</param>
+<param name="ioPriority">
+the [I/O priority][io-priority] of the request
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object,
+  <c>null</c> to ignore
+</param>
+</member>
+
 <member name='File.MeasureDiskUsageFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,ulong,ulong,ulong)'>
 <summary>
 Collects the results from an earlier call to
@@ -3607,6 +3771,44 @@ optional <see cref="Cancellable"/> object,
 <exception name="GISharp.Lib.GLib.Error.Exception">
 On error
 </exception>
+</member>
+
+<member name='File.MoveAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,int,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Asynchronously moves a file <paramref name="source"/> to the location of <paramref name="destination"/>. For details of the behaviour, see <see cref="File.Move(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>.
+</summary>
+<remarks>
+<para>
+If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
+just like in <see cref="File.Move(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>. The callback will run in the default main context
+of the thread calling <see cref="File.MoveAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,int,GISharp.Lib.Gio.Cancellable)"/> — the same context as <paramref name="callback"/> is
+run in.
+</para>
+<para>
+When the operation is finished, <paramref name="callback"/> will be called. You can then call
+<see cref="File.MoveFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the operation.
+</para>
+</remarks>
+<param name="source">
+<see cref="IFile"/> pointing to the source location
+</param>
+<param name="destination">
+<see cref="IFile"/> pointing to the destination location
+</param>
+<param name="flags">
+set of <see cref="FileCopyFlags"/>
+</param>
+<param name="progressCallback">
+<see cref="FileProgressCallback"/>
+  function for updates
+</param>
+<param name="ioPriority">
+the [I/O priority][io-priority] of the request
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object,
+  <c>null</c> to ignore
+</param>
 </member>
 
 <member name='File.OpenReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)'>

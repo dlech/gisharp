@@ -98,12 +98,19 @@ namespace GISharp.Lib.GLib
         /// This is equivalent to calling g_time_zone_new() with a string in the form
         /// `[+|-]hh[:mm[:ss]]`.
         /// </para>
+        /// <para>
+        /// It is possible for this function to fail if @seconds is too big (greater than
+        /// 24 hours), in which case this function will return the UTC timezone for
+        /// backwards compatibility. To detect failures like this, use
+        /// g_time_zone_new_identifier() directly.
+        /// </para>
         /// </remarks>
         /// <param name="seconds">
         /// offset to UTC, in seconds
         /// </param>
         /// <returns>
-        /// a timezone at the given offset from UTC
+        /// a timezone at the given offset from UTC, or UTC on
+        ///   failure
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.58")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -357,8 +364,8 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeType" type="GTimeType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeType type,
-        /* <type name="gint64" type="gint64*" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
+        /* <type name="gint64" type="gint64*" /> */
+        /* direction:inout caller-allocates:0 transfer-ownership:full */
         long* time);
         partial void CheckAdjustTimeArgs(GISharp.Lib.GLib.TimeType type, ref long time);
 

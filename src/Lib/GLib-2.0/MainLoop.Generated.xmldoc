@@ -17,7 +17,8 @@ Checks to see if the main loop is currently being run via <see cref="MainLoop.Ru
 Creates a new <see cref="MainLoop"/> structure.
 </summary>
 <param name="context">
-a <see cref="MainContext"/>  (if <c>null</c>, the default context will be used).
+a <see cref="MainContext"/>  (if <c>null</c>, the global-default
+  main context will be used).
 </param>
 <param name="isRunning">
 set to <c>true</c> to indicate that the loop is running. This

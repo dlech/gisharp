@@ -46,7 +46,9 @@ namespace GISharp.Lib.Gtk
         A11y = 0b0000_0000_0000_0010_0000_0000_0000_0000,
         /// <include file="DebugFlags.xmldoc" path="declaration/member[@name='DebugFlags.Iconfallback']/*" />
         [GISharp.Runtime.SinceAttribute("4.2")]
-        Iconfallback = 0b0000_0000_0000_0100_0000_0000_0000_0000
+        Iconfallback = 0b0000_0000_0000_0100_0000_0000_0000_0000,
+        /// <include file="DebugFlags.xmldoc" path="declaration/member[@name='DebugFlags.InvertTextDir']/*" />
+        InvertTextDir = 0b0000_0000_0000_1000_0000_0000_0000_0000
     }
 
     /// <summary>

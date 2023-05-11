@@ -51,12 +51,12 @@ namespace GISharp.Lib.GLib
         /// the #GArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_append_vals(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -83,7 +83,7 @@ namespace GISharp.Lib.GLib
         /// <para>
         /// This example defines a comparison function and search an element in a #GArray:
         /// |[&lt;!-- language="C" --&gt;
-        /// static gint*
+        /// static gint
         /// cmpint (gconstpointer a, gconstpointer b)
         /// {
         ///   const gint *_a = a;
@@ -121,7 +121,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_array_binary_search(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -148,12 +148,12 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.62")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:container direction:in */
         private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_copy(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -193,7 +193,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="gchar*" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern byte* g_array_free(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -216,7 +216,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint g_array_get_element_size(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -258,12 +258,12 @@ namespace GISharp.Lib.GLib
         /// the #GArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_insert_vals(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -296,7 +296,7 @@ namespace GISharp.Lib.GLib
         /// the new #GArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -310,6 +310,123 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" /> */
         /* transfer-ownership:none direction:in */
         uint elementSize);
+
+        /// <summary>
+        /// Creates a new #GArray with @data as array data, @len as length and a
+        /// reference count of 1.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This avoids having to copy the data manually, when it can just be
+        /// inherited. @data will eventually be freed using g_free(), so must
+        /// have been allocated with a suitable allocator.
+        /// </para>
+        /// <para>
+        /// In case the elements need to be cleared when the array is freed, use
+        /// g_array_set_clear_func() to set a #GDestroyNotify function to perform
+        /// such task.
+        /// </para>
+        /// <para>
+        /// Do not use it if @len or @element_size are greater than %G_MAXUINT.
+        /// #GArray stores the length of its data in #guint, which may be shorter
+        /// than #gsize.
+        /// </para>
+        /// </remarks>
+        /// <param name="data">
+        /// an array of
+        ///   elements of @element_size, or %NULL for an empty array
+        /// </param>
+        /// <param name="len">
+        /// the number of elements in @data
+        /// </param>
+        /// <param name="clear">
+        /// %TRUE if #GArray elements should be automatically cleared
+        ///     to 0 when they are allocated
+        /// </param>
+        /// <param name="elementSize">
+        /// the size of each element in bytes
+        /// </param>
+        /// <returns>
+        /// A new #GArray
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_new_take(
+        /* <array length="1" zero-terminated="0" type="gpointer" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
+        System.IntPtr* data,
+        /* <type name="gsize" type="gsize" /> */
+        /* transfer-ownership:none direction:in */
+        nuint len,
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Runtime.Boolean clear,
+        /* <type name="gsize" type="gsize" /> */
+        /* transfer-ownership:none direction:in */
+        nuint elementSize);
+
+        /// <summary>
+        /// Creates a new #GArray with @data as array data, computing the length of it
+        /// and setting the reference count to 1.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This avoids having to copy the data manually, when it can just be
+        /// inherited. @data will eventually be freed using g_free(), so must
+        /// have been allocated with a suitable allocator.
+        /// </para>
+        /// <para>
+        /// The length is calculated by iterating through @data until the first %NULL
+        /// element is found.
+        /// </para>
+        /// <para>
+        /// In case the elements need to be cleared when the array is freed, use
+        /// g_array_set_clear_func() to set a #GDestroyNotify function to perform
+        /// such task.
+        /// </para>
+        /// <para>
+        /// Do not use it if @data length or @element_size are greater than %G_MAXUINT.
+        /// #GArray stores the length of its data in #guint, which may be shorter
+        /// than #gsize.
+        /// </para>
+        /// </remarks>
+        /// <param name="data">
+        /// an array of elements of @element_size
+        /// </param>
+        /// <param name="clear">
+        /// %TRUE if #GArray elements should be automatically cleared
+        ///     to 0 when they are allocated
+        /// </param>
+        /// <param name="elementSize">
+        /// the size of each element in bytes
+        /// </param>
+        /// <returns>
+        /// A new #GArray
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.76")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_new_take_zero_terminated(
+        /* <array type="gpointer" zero-terminated="1" is-pointer="1">
+*   <type name="gpointer" type="gpointer" is-pointer="1" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr* data,
+        /* <type name="gboolean" type="gboolean" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Runtime.Boolean clear,
+        /* <type name="gsize" type="gsize" /> */
+        /* transfer-ownership:none direction:in */
+        nuint elementSize);
 
         /// <summary>
         /// Adds @len elements onto the start of the array.
@@ -338,12 +455,12 @@ namespace GISharp.Lib.GLib
         /// the #GArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_prepend_vals(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -369,12 +486,12 @@ namespace GISharp.Lib.GLib
         /// the #GArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_remove_index(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -399,12 +516,12 @@ namespace GISharp.Lib.GLib
         /// the #GArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_remove_index_fast(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -431,12 +548,12 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.4")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_remove_range(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -499,7 +616,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_array_set_clear_func(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -522,12 +639,12 @@ namespace GISharp.Lib.GLib
         /// the #GArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_set_size(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -560,7 +677,7 @@ namespace GISharp.Lib.GLib
         /// the new #GArray
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
@@ -599,7 +716,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_array_sort(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -635,7 +752,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_array_sort_with_data(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -688,7 +805,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
         private static extern System.IntPtr g_array_steal(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -713,12 +830,12 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.Array.UnmanagedStruct* g_array_ref(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -744,7 +861,7 @@ namespace GISharp.Lib.GLib
         /* <type name="none" type="void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_array_unref(
-        /* <array name="GLib.Array" type="GArray*" zero-terminated="1" is-pointer="1">
+        /* <array name="GLib.Array" type="GArray*" is-pointer="1">
 *   <type name="gpointer" type="gpointer" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */

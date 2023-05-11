@@ -7,9 +7,14 @@ Gets the access time of the current this instance and returns it as a
 </summary>
 <remarks>
 <para>
-This requires the <see cref="FileAttribute.TimeAccess"/> attribute. If
-<see cref="FileAttribute.TimeAccessUsec"/> is provided, the resulting #GDateTime
-will have microsecond precision.
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.TimeAccess"/>. If <see cref="FileAttribute.TimeAccessUsec"/> is
+provided, the resulting #GDateTime will additionally have microsecond
+precision.
+</para>
+<para>
+If nanosecond precision is needed, <see cref="FileAttribute.TimeAccessNsec"/> must
+be queried separately using <see cref="FileInfo.GetAttributeUint32(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 </member>
@@ -18,6 +23,12 @@ will have microsecond precision.
 <summary>
 Gets the file's content type.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardContentType"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.CreationDateTime'>
@@ -27,9 +38,14 @@ Gets the creation time of the current this instance and returns it as a
 </summary>
 <remarks>
 <para>
-This requires the <see cref="FileAttribute.TimeCreated"/> attribute. If
-<see cref="FileAttribute.TimeCreatedUsec"/> is provided, the resulting #GDateTime
-will have microsecond precision.
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.TimeCreated"/>. If <see cref="FileAttribute.TimeCreatedUsec"/> is
+provided, the resulting #GDateTime will additionally have microsecond
+precision.
+</para>
+<para>
+If nanosecond precision is needed, <see cref="FileAttribute.TimeCreatedNsec"/> must
+be queried separately using <see cref="FileInfo.GetAttributeUint32(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 </member>
@@ -37,8 +53,8 @@ will have microsecond precision.
 <member name='FileInfo.DeletionDate'>
 <summary>
 Returns the #GDateTime representing the deletion date of the file, as
-available in G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the
-G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, <c>null</c> is returned.
+available in <see cref="FileAttribute.TrashDeletionDate"/>. If the
+<see cref="FileAttribute.TrashDeletionDate"/> attribute is unset, <c>null</c> is returned.
 </summary>
 </member>
 
@@ -46,12 +62,24 @@ G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, <c>null</c> is returned
 <summary>
 Gets a display name for a file. This is guaranteed to always be set.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardDisplayName"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.EditName'>
 <summary>
 Gets the edit name for a file.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardEditName"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.Etag'>
@@ -59,6 +87,12 @@ Gets the edit name for a file.
 Gets the [entity tag][gfile-etag] for a given
 <see cref="FileInfo"/>. See <see cref="FileAttribute.EtagValue"/>.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.EtagValue"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.FileType'>
@@ -66,30 +100,60 @@ Gets the [entity tag][gfile-etag] for a given
 Gets a file's type (whether it is a regular file, symlink, etc).
 This is different from the file's content type, see <see cref="FileInfo.GetContentType()"/>.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardType"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.Icon'>
 <summary>
 Gets the icon for a file.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardIcon"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.IsBackup'>
 <summary>
 Checks if a file is a backup file.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardIsBackup"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.IsHidden'>
 <summary>
 Checks if a file is hidden.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardIsHidden"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.IsSymlink'>
 <summary>
 Checks if a file is a symlink.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardIsSymlink"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.ModificationDateTime'>
@@ -99,9 +163,14 @@ Gets the modification time of the current this instance and returns it as a
 </summary>
 <remarks>
 <para>
-This requires the <see cref="FileAttribute.TimeModified"/> attribute. If
-<see cref="FileAttribute.TimeModifiedUsec"/> is provided, the resulting <see cref="GLib.DateTime"/>
-will have microsecond precision.
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.TimeModified"/>. If <see cref="FileAttribute.TimeModifiedUsec"/> is
+provided, the resulting <see cref="GLib.DateTime"/> will additionally have microsecond
+precision.
+</para>
+<para>
+If nanosecond precision is needed, <see cref="FileAttribute.TimeModifiedNsec"/> must
+be queried separately using <see cref="FileInfo.GetAttributeUint32(GISharp.Runtime.UnownedUtf8)"/>.
 </para>
 </remarks>
 </member>
@@ -110,6 +179,12 @@ will have microsecond precision.
 <summary>
 Gets the name for a file. This is guaranteed to always be set.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardName"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.Size'>
@@ -118,6 +193,12 @@ Gets the file's size (in bytes). The size is retrieved through the value of
 the <see cref="FileAttribute.StandardSize"/> attribute and is converted
 from #guint64 to #goffset before returning the result.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardSize"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.SortOrder'>
@@ -125,18 +206,36 @@ from #guint64 to #goffset before returning the result.
 Gets the value of the sort_order attribute from the <see cref="FileInfo"/>.
 See <see cref="FileAttribute.StandardSortOrder"/>.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardSortOrder"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.SymbolicIcon'>
 <summary>
 Gets the symbolic icon for a file.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardSymbolicIcon"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.SymlinkTarget'>
 <summary>
 Gets the symlink target for a given <see cref="FileInfo"/>.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.StandardSymlinkTarget"/>.
+</para>
+</remarks>
 </member>
 
 <member name='FileInfo.FileInfo()'>
@@ -172,7 +271,7 @@ a duplicate <see cref="FileInfo"/> of this instance.
 
 <member name='FileInfo.GetAttributeAsString(GISharp.Runtime.UnownedUtf8)'>
 <summary>
-Gets the value of a attribute, formatted as a string.
+Gets the value of an attribute, formatted as a string.
 This escapes things as needed to make the string valid
 UTF-8.
 </summary>
@@ -364,6 +463,13 @@ a unsigned 64-bit integer from the attribute.
 Gets the modification time of the current this instance and sets it
 in <paramref name="result"/>.
 </summary>
+<remarks>
+<para>
+It is an error to call this if the <see cref="FileInfo"/> does not contain
+<see cref="FileAttribute.TimeModified"/>. If <see cref="FileAttribute.TimeModifiedUsec"/> is
+provided it will be used too.
+</para>
+</remarks>
 <param name="result">
 a #GTimeVal.
 </param>
@@ -596,6 +702,11 @@ Sets the <see cref="FileAttribute.TimeModified"/> and
 <see cref="FileAttribute.TimeModifiedUsec"/> attributes in the file info to the
 given time value.
 </summary>
+<remarks>
+<para>
+<see cref="FileAttribute.TimeModifiedNsec"/> will be cleared.
+</para>
+</remarks>
 <param name="mtime">
 a #GTimeVal.
 </param>
@@ -642,6 +753,12 @@ The direct accessors, such as <see cref="FileInfo.GetName()"/>, are slightly mor
 optimized than the generic attribute accessors, such as
 <see cref="FileInfo.GetAttributeByteString(GISharp.Runtime.UnownedUtf8)"/>.This optimization will matter
 only if calling the API in a tight loop.
+</para>
+<para>
+It is an error to call these accessors without specifying their required file
+attributes when creating the <see cref="FileInfo"/>. Use <see cref="FileInfo.HasAttribute(GISharp.Runtime.UnownedUtf8)"/> or
+<see cref="FileInfo.ListAttributes(GISharp.Runtime.NullableUnownedUtf8)"/> to check what attributes are specified for a
+<see cref="FileInfo"/>.
 </para>
 <para>
 <see cref="FileAttributeMatcher"/> allows for searching through a <see cref="FileInfo"/> for

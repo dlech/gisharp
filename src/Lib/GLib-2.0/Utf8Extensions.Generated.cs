@@ -572,7 +572,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// <para>
-        /// Note you must ensure @dest is at least 4 * @n to fit the
+        /// Note you must ensure @dest is at least 4 * @n + 1 to fit the
         /// largest possible UTF-8 characters
         /// </para>
         /// </remarks>

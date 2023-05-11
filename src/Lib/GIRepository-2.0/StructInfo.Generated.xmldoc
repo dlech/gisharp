@@ -6,6 +6,18 @@ Obtain the required alignment of the structure.
 </summary>
 </member>
 
+<member name='StructInfo.CopyFunction'>
+<summary>
+Retrieves the name of the copy function for this instance, if any is set.
+</summary>
+</member>
+
+<member name='StructInfo.FreeFunction'>
+<summary>
+Retrieves the name of the free function for this instance, if any is set.
+</summary>
+</member>
+
 <member name='StructInfo.NFields'>
 <summary>
 Obtain the number of fields this structure has.

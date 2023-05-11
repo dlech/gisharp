@@ -5,10 +5,16 @@
 - !change-element
   new-name: gi:method
   xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']/gi:function[@name='hash']
-- !set-attribute 
-  name: name
-  value: Icon
-  xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']/gi:method[@name='hash']/gi:parameters/gi:parameter/gi:type
 - !change-element
   new-name: gi:instance-parameter
   xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']/gi:method[@name='hash']/gi:parameters/gi:parameter[1]
+
+# Fix arg direction
+- !set-attribute
+  name: direction
+  value: in
+  xpath: gi:repository/gi:namespace[@name='Gio']/gi:interface[@name='Icon']/gi:virtual-method[@name='to_tokens']/gi:parameters/gi:parameter[@name='tokens']
+- !set-attribute
+  name: direction
+  value: in
+  xpath: gi:repository/gi:namespace[@name='Gio']/gi:record[@name='IconIface']/gi:field[@name='to_tokens']/gi:callback/gi:parameters/gi:parameter[@name='tokens']

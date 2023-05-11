@@ -21,7 +21,7 @@ namespace GISharp.Lib.Gio
     long totalNumBytes,
     /* <type name="gpointer" type="gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
-    System.IntPtr userData);
+    System.IntPtr data);
 
     /// <include file="FileProgressCallback.xmldoc" path="declaration/member[@name='FileProgressCallback']/*" />
     public delegate void FileProgressCallback(long currentNumBytes, long totalNumBytes);
@@ -36,11 +36,12 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public static GISharp.Lib.Gio.FileProgressCallback FromPointer(delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
+            var data_ = userData_;
             void managedCallback(long currentNumBytes, long totalNumBytes)
             {
                 var currentNumBytes_ = (long)currentNumBytes;
                 var totalNumBytes_ = (long)totalNumBytes;
-                callback_(currentNumBytes_, totalNumBytes_, userData_);
+                callback_(currentNumBytes_, totalNumBytes_, data_);
                 GISharp.Runtime.GMarshal.PopUnhandledException();
             }
 
@@ -51,18 +52,18 @@ namespace GISharp.Lib.Gio
         /// For runtime use only.
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-        public static void Callback(long currentNumBytes_, long totalNumBytes_, System.IntPtr userData_)
+        public static void Callback(long currentNumBytes_, long totalNumBytes_, System.IntPtr data_)
         {
             try
             {
                 var currentNumBytes = (long)currentNumBytes_;
                 var totalNumBytes = (long)totalNumBytes_;
-                var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var (userData, userDataScope) = ((FileProgressCallback, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
-                userData.Invoke(currentNumBytes, totalNumBytes);
-                if (userDataScope == GISharp.Runtime.CallbackScope.Async)
+                var dataHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var (data, dataScope) = ((FileProgressCallback, GISharp.Runtime.CallbackScope))dataHandle.Target!;
+                data.Invoke(currentNumBytes, totalNumBytes);
+                if (dataScope == GISharp.Runtime.CallbackScope.Async)
                 {
-                    userDataHandle.Free();
+                    dataHandle.Free();
                 }
             }
             catch (System.Exception ex)

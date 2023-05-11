@@ -120,7 +120,10 @@ namespace GISharp.Lib.Gio
         NotConnected = 45,
         /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.MessageTooLarge']/*" />
         [GISharp.Runtime.SinceAttribute("2.48")]
-        MessageTooLarge = 46
+        MessageTooLarge = 46,
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NoSuchDevice']/*" />
+        [GISharp.Runtime.SinceAttribute("2.74")]
+        NoSuchDevice = 47
     }
 
     /// <summary>

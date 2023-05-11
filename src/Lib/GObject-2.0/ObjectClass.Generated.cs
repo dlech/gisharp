@@ -45,6 +45,15 @@ namespace GISharp.Lib.GObject
             /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Flags']/*" />
             internal readonly nuint Flags;
 
+            /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.NConstructProperties']/*" />
+            internal readonly nuint NConstructProperties;
+
+            /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Pspecs']/*" />
+            internal readonly System.IntPtr Pspecs;
+
+            /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.NPspecs']/*" />
+            internal readonly nuint NPspecs;
+
             /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Pdummy0']/*" />
             internal readonly System.IntPtr Pdummy0;
 
@@ -53,15 +62,6 @@ namespace GISharp.Lib.GObject
 
             /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Pdummy2']/*" />
             internal readonly System.IntPtr Pdummy2;
-
-            /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Pdummy3']/*" />
-            internal readonly System.IntPtr Pdummy3;
-
-            /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Pdummy4']/*" />
-            internal readonly System.IntPtr Pdummy4;
-
-            /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Pdummy5']/*" />
-            internal readonly System.IntPtr Pdummy5;
 #pragma warning restore CS0169, CS0414, CS0649
         }
 
@@ -547,9 +547,11 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         /// </para>
         /// <para>
         /// |[&lt;!-- language="C" --&gt;
-        /// enum {
-        ///   PROP_0, PROP_FOO, PROP_BAR, N_PROPERTIES
-        /// };
+        /// typedef enum {
+        ///   PROP_FOO = 1,
+        ///   PROP_BAR,
+        ///   N_PROPERTIES
+        /// } MyObjectProperty;
         /// </para>
         /// <para>
         /// static GParamSpec *obj_properties[N_PROPERTIES] = { NULL, };
@@ -565,19 +567,19 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         ///     g_param_spec_int ("foo", "Foo", "Foo",
         ///                       -1, G_MAXINT,
         ///                       0,
-        ///                       G_PARAM_READWRITE);
+        ///                       G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
         /// </para>
         /// <para>
         ///   obj_properties[PROP_BAR] =
         ///     g_param_spec_string ("bar", "Bar", "Bar",
         ///                          NULL,
-        ///                          G_PARAM_READWRITE);
+        ///                          G_PARAM_READWRITE | G_PARAM_STATIC_STRINGS);
         /// </para>
         /// <para>
         ///   gobject_class-&gt;set_property = my_object_set_property;
         ///   gobject_class-&gt;get_property = my_object_get_property;
         ///   g_object_class_install_properties (gobject_class,
-        ///                                      N_PROPERTIES,
+        ///                                      G_N_ELEMENTS (obj_properties),
         ///                                      obj_properties);
         /// }
         /// ]|

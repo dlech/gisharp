@@ -19,9 +19,6 @@ statically allocated.
 Calling <see cref="Mutex.Clear()"/> on a locked mutex leads to undefined
 behaviour.
 </para>
-<para>
-Sine: 2.32
-</para>
 </remarks>
 </member>
 

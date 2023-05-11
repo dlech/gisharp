@@ -206,7 +206,9 @@ marked as trusted and a new reference to it is returned.
 </para>
 <para>
 If this instance is found not to be in normal form then a new trusted
-<see cref="Variant"/> is created with the same value as this instance.
+<see cref="Variant"/> is created with the same value as this instance. The non-normal parts of
+this instance will be replaced with default values which are guaranteed to be in
+normal form.
 </para>
 <para>
 It makes sense to call this function if you've received <see cref="Variant"/>
@@ -942,7 +944,14 @@ contain multi-byte numeric data.  That include strings, booleans,
 bytes and containers containing only these things (recursively).
 </para>
 <para>
+While this function can safely handle untrusted, non-normal data, it is
+recommended to check whether the input is in normal form beforehand, using
+<see cref="Variant.GetIsNormalForm()"/>, and to reject non-normal inputs if your
+application can be strict about what inputs it rejects.
+</para>
+<para>
 The returned value is always in normal form and is marked as trusted.
+A full, not floating, reference is returned.
 </para>
 </remarks>
 <returns>

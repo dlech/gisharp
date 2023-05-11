@@ -27,6 +27,9 @@ The parent interface.
 <member name='_Equal'>
 </member>
 
+<member name='_ToTokens'>
+</member>
+
 <member name='_Serialize'>
 </member>
 

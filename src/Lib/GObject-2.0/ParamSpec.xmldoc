@@ -57,6 +57,14 @@ Mask containing the bits of <see cref="ParamSpec"/>.flags which are reserved for
 </summary>
 <remarks>
 <para>
+It is recommended to use this for all properties by default, as it allows for
+internal performance improvements in GObject.
+</para>
+<para>
+It is very rare that a property would have a dynamically constructed name,
+nickname or blurb.
+</para>
+<para>
 Since 2.13.0
 </para>
 </remarks>
@@ -172,6 +180,9 @@ an opaque user data pointer
 </member>
 
 <member name='ParamSpec.DoFinalize()'>
+</member>
+
+<member name='ParamSpec.DoValueIsValid(GISharp.Lib.GObject.Value)'>
 </member>
 
 <member name='ParamSpec.DoValueSetDefault(GISharp.Lib.GObject.Value)'>

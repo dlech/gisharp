@@ -480,6 +480,12 @@ a boolean that indicates whether the <see cref="IFile"/> implementation supports
 <member name='_MakeSymbolicLink'>
 </member>
 
+<member name='_MakeSymbolicLinkAsync'>
+</member>
+
+<member name='_MakeSymbolicLinkFinish'>
+</member>
+
 <member name='_Copy'>
 </member>
 
@@ -490,6 +496,12 @@ a boolean that indicates whether the <see cref="IFile"/> implementation supports
 </member>
 
 <member name='_Move'>
+</member>
+
+<member name='_MoveAsync'>
+</member>
+
+<member name='_MoveFinish'>
 </member>
 
 <member name='_MountMountableFinish'>
