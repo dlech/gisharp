@@ -22,8 +22,9 @@ namespace GISharp.Lib.GIRepository
         /// </param>
         public IndexedCollection<BaseInfo> GetInfos(UnownedUtf8 @namespace)
         {
-            return infos.GetOrAdd(@namespace, (ns) =>
-                new IndexedCollection<BaseInfo>(() => GetNInfos(ns), (i) => GetInfo(ns, i))
+            return infos.GetOrAdd(
+                @namespace,
+                (ns) => new IndexedCollection<BaseInfo>(() => GetNInfos(ns), (i) => GetInfo(ns, i))
             );
         }
     }

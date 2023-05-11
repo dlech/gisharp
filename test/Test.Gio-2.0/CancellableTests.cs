@@ -119,7 +119,8 @@ namespace GISharp.Test.Gio
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public TestCancellable(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public TestCancellable(IntPtr handle, Transfer ownership)
+            : base(handle, ownership)
         {
             tokenSource = new();
         }
@@ -131,7 +132,8 @@ namespace GISharp.Test.Gio
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing) {
+            if (disposing)
+            {
                 tokenSource?.Dispose();
             }
             base.Dispose(disposing);

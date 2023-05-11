@@ -25,7 +25,8 @@ namespace GISharp.Runtime
         /// <exception cref="ArgumentException">If size is less than 0.</exception>
         public static IntPtr Alloc(int size)
         {
-            if (size < 0) {
+            if (size < 0)
+            {
                 throw new ArgumentException("Size must be >= 0", nameof(size));
             }
             return g_malloc((UIntPtr)(uint)size);
@@ -42,7 +43,8 @@ namespace GISharp.Runtime
         /// <exception cref="ArgumentException">If size is less than 0.</exception>
         public static IntPtr Alloc0(int size)
         {
-            if (size < 0) {
+            if (size < 0)
+            {
                 throw new ArgumentException("Size must be >= 0", nameof(size));
             }
             return g_malloc0((UIntPtr)(uint)size);
@@ -72,11 +74,13 @@ namespace GISharp.Runtime
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         public static void DestroyGCHandle(IntPtr userData)
         {
-            try {
+            try
+            {
                 var gcHandle = GCHandle.FromIntPtr(userData);
                 gcHandle.Free();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 PushUnhandledException(ex);
             }
         }
@@ -93,7 +97,8 @@ namespace GISharp.Runtime
         /// </remarks>
         public static IntPtr ByteStringToPtr(byte[]? bytes)
         {
-            if (bytes is null) {
+            if (bytes is null)
+            {
                 return IntPtr.Zero;
             }
             var ptr = g_malloc(new UIntPtr((ulong)bytes.Length + 1));
@@ -112,7 +117,8 @@ namespace GISharp.Runtime
         /// </remarks>
         public static IntPtr StringToUtf8Ptr(string? str)
         {
-            if (str is null) {
+            if (str is null)
+            {
                 return IntPtr.Zero;
             }
             return ByteStringToPtr(Encoding.UTF8.GetBytes(str));
@@ -133,15 +139,26 @@ namespace GISharp.Runtime
         /// </exception>
         public static IntPtr GetCClosureUnmanagedFunctionPointer(this Delegate? handler)
         {
-            if (handler is null) {
+            if (handler is null)
+            {
                 return IntPtr.Zero;
             }
 
             var type = handler.GetType();
-            var declaringType = type.DeclaringType ?? throw new ArgumentException($"expecting signal handler delegate '{type}' to be a nested type");
+            var declaringType =
+                type.DeclaringType
+                ?? throw new ArgumentException(
+                    $"expecting signal handler delegate '{type}' to be a nested type"
+                );
 
-            var managedCallback = declaringType.GetMethod($"Managed{type.Name}", BindingFlags.Static | BindingFlags.NonPublic) ??
-                throw new ArgumentException($"missing Managed{type.Name} in {type.DeclaringType}");
+            var managedCallback =
+                declaringType.GetMethod(
+                    $"Managed{type.Name}",
+                    BindingFlags.Static | BindingFlags.NonPublic
+                )
+                ?? throw new ArgumentException(
+                    $"missing Managed{type.Name} in {type.DeclaringType}"
+                );
 
             return managedCallback.MethodHandle.GetFunctionPointer();
         }
@@ -167,7 +184,8 @@ namespace GISharp.Runtime
         /// </summary>
         public static void PopUnhandledException()
         {
-            if (unhandledException is Exception ex) {
+            if (unhandledException is Exception ex)
+            {
                 unhandledException = null;
                 throw new UnhandledException(ex);
             }

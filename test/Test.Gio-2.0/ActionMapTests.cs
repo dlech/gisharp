@@ -24,7 +24,10 @@ namespace GISharp.Test.Gio
             var gtype = typeof(IActionMap).ToGType();
             Assert.That(gtype.Name, Is.EqualTo("GActionMap"));
             var info = (InterfaceInfo)Repository.Default.FindByGtype(gtype);
-            Assert.That(Marshal.SizeOf<ActionMapInterface.UnmanagedStruct>(), Is.EqualTo(info.IfaceStruct.Size));
+            Assert.That(
+                Marshal.SizeOf<ActionMapInterface.UnmanagedStruct>(),
+                Is.EqualTo(info.IfaceStruct.Size)
+            );
         }
 
         [Test]
@@ -67,9 +70,8 @@ namespace GISharp.Test.Gio
             return CreateInstance<TestActionMap>();
         }
 
-        public TestActionMap(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public TestActionMap(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
         public ActionSet Actions { get; } = new();
 

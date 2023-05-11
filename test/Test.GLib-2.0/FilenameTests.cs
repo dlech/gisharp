@@ -33,15 +33,19 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestFromUri()
         {
-            Assert.That(() => FilenameExtensions.FromUri("test"),
-                ThrowsGErrorException(ConvertError.BadUri));
+            Assert.That(
+                () => FilenameExtensions.FromUri("test"),
+                ThrowsGErrorException(ConvertError.BadUri)
+            );
 
             var uri = new Uri(Path.GetFullPath("test"));
-            using (var f = FilenameExtensions.FromUri(uri.ToString())) {
+            using (var f = FilenameExtensions.FromUri(uri.ToString()))
+            {
                 Assert.That(f.ToString(), Is.EqualTo(uri.LocalPath));
             }
 
-            using (var f = FilenameExtensions.FromUri(uri.ToString(), out var hostname)) {
+            using (var f = FilenameExtensions.FromUri(uri.ToString(), out var hostname))
+            {
                 Assert.That(f.ToString(), Is.EqualTo(uri.LocalPath));
                 Assert.That(hostname, Is.Null);
             }
@@ -50,13 +54,14 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestToUri()
         {
-            using (var f = (Filename)"test") {
-                Assert.That(() => f.ToUri(),
-                    ThrowsGErrorException(ConvertError.NotAbsolutePath));
+            using (var f = (Filename)"test")
+            {
+                Assert.That(() => f.ToUri(), ThrowsGErrorException(ConvertError.NotAbsolutePath));
             }
 
             var fullPath = Path.GetFullPath("test");
-            using (var f = (Filename)fullPath) {
+            using (var f = (Filename)fullPath)
+            {
                 using var uri = f.ToUri();
                 Assert.That<string>(uri, Is.EqualTo(new Uri(fullPath)));
             }

@@ -76,8 +76,10 @@ namespace GISharp.Test.GIRepository
         public void TestIterateAttributes()
         {
             // TODO: Need to figure out how to add attributes.
-            foreach (var info in infos) {
-                foreach (var pair in info.Attributes) {
+            foreach (var info in infos)
+            {
+                foreach (var pair in info.Attributes)
+                {
                     Console.WriteLine(pair.Key, pair.Value);
                 }
             }

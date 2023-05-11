@@ -21,7 +21,8 @@ namespace GISharp.Test.GLib
             using var context = new MainContext();
             using var mainLoop = new MainLoop(context);
             using var source = UnixSignalSource.New((int)Signum.SIGINT);
-            source.SetCallback(() => {
+            source.SetCallback(() =>
+            {
                 mainLoop.Quit();
                 callbackInvoked = true;
                 return Source.Remove;
@@ -30,11 +31,13 @@ namespace GISharp.Test.GLib
 
             Syscall.kill(Syscall.getpid(), Signum.SIGINT);
 
-            Task.Run(() => {
-                context.PushThreadDefault();
-                mainLoop.Run();
-                context.PopThreadDefault();
-            }).Wait(100);
+            Task.Run(() =>
+                {
+                    context.PushThreadDefault();
+                    mainLoop.Run();
+                    context.PopThreadDefault();
+                })
+                .Wait(100);
 
             Assert.That(callbackInvoked, Is.True);
         }

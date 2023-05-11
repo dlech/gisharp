@@ -12,13 +12,18 @@ namespace GISharp.Lib.GObject
         /// the <see cref="FlagsClass"/> for the flags
         /// </summary>
         public FlagsClass FlagsClass =>
-            Opaque.GetInstance<FlagsClass>((IntPtr)((UnmanagedStruct*)UnsafeHandle)->FlagsClass, Transfer.None);
+            Opaque.GetInstance<FlagsClass>(
+                (IntPtr)((UnmanagedStruct*)UnsafeHandle)->FlagsClass,
+                Transfer.None
+            );
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new System.Enum DefaultValue {
-            get {
+        public new System.Enum DefaultValue
+        {
+            get
+            {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
                 var gType = ((UnmanagedStruct*)UnsafeHandle)->FlagsClass->GTypeClass.GType;
                 var ret = (System.Enum)System.Enum.ToObject(gType.ToType(), ret_);
@@ -29,9 +34,17 @@ namespace GISharp.Lib.GObject
         static readonly GType _GType = paramSpecTypes[11];
 
         /// <include file="ParamSpecFlags.xmldoc" path="declaration/member[@name='ParamSpecFlags.ParamSpecFlags(GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.UnownedUtf8,GISharp.Runtime.GType,uint,GISharp.Lib.GObject.ParamFlags)']/*" />
-        public ParamSpecFlags(UnownedUtf8 name, UnownedUtf8 nick, UnownedUtf8 blurb, GType flagsType, System.Enum defaultValue, ParamFlags flags)
-            : this((IntPtr)New(name, nick, blurb, flagsType, Convert.ToUInt32(defaultValue), flags), Transfer.None)
-        {
-        }
+        public ParamSpecFlags(
+            UnownedUtf8 name,
+            UnownedUtf8 nick,
+            UnownedUtf8 blurb,
+            GType flagsType,
+            System.Enum defaultValue,
+            ParamFlags flags
+        )
+            : this(
+                (IntPtr)New(name, nick, blurb, flagsType, Convert.ToUInt32(defaultValue), flags),
+                Transfer.None
+            ) { }
     }
 }

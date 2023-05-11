@@ -12,9 +12,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain interface type constants.
         /// </summary>
-        public IndexedCollection<ConstantInfo> Constants {
-            get {
-                if (constants is null) {
+        public IndexedCollection<ConstantInfo> Constants
+        {
+            get
+            {
+                if (constants is null)
+                {
                     constants = new(GetNConstants, GetConstant);
                 }
                 return constants;
@@ -26,9 +29,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain interface type methods.
         /// </summary>
-        public IndexedCollection<FunctionInfo> Methods {
-            get {
-                if (methods is null) {
+        public IndexedCollection<FunctionInfo> Methods
+        {
+            get
+            {
+                if (methods is null)
+                {
                     methods = new(GetNMethods, GetMethod);
                 }
                 return methods;
@@ -40,9 +46,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain interface type prerequisites.
         /// </summary>
-        public IndexedCollection<BaseInfo> Prerequisites {
-            get {
-                if (prerequisites is null) {
+        public IndexedCollection<BaseInfo> Prerequisites
+        {
+            get
+            {
+                if (prerequisites is null)
+                {
                     prerequisites = new(GetNPrerequisites, GetPrerequisite);
                 }
                 return prerequisites;
@@ -54,9 +63,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain interface type properties.
         /// </summary>
-        public IndexedCollection<PropertyInfo> Properties {
-            get {
-                if (properties is null) {
+        public IndexedCollection<PropertyInfo> Properties
+        {
+            get
+            {
+                if (properties is null)
+                {
                     properties = new(GetNProperties, GetProperty);
                 }
                 return properties;
@@ -68,9 +80,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain interface type signals.
         /// </summary>
-        public IndexedCollection<SignalInfo> Signals {
-            get {
-                if (signals is null) {
+        public IndexedCollection<SignalInfo> Signals
+        {
+            get
+            {
+                if (signals is null)
+                {
                     signals = new(GetNSignals, GetSignal);
                 }
                 return signals;
@@ -82,9 +97,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain interface type vfuncs.
         /// </summary>
-        public IndexedCollection<VFuncInfo> VFuncs {
-            get {
-                if (vFuncs is null) {
+        public IndexedCollection<VFuncInfo> VFuncs
+        {
+            get
+            {
+                if (vFuncs is null)
+                {
                     vFuncs = new(GetNVFuncs, GetVFunc);
                 }
                 return vFuncs;

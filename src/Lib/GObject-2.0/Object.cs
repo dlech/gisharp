@@ -15,8 +15,14 @@ namespace GISharp.Lib.GObject
 {
     unsafe partial class Object : INotifyPropertyChanged
     {
-        static readonly Quark toggleRefGCHandleQuark = Quark.FromString("gisharp-gobject-toggle-ref-gc-handle-quark");
-        readonly delegate* unmanaged[Cdecl]<IntPtr, UnmanagedStruct*, Runtime.Boolean, void> toggleNotifyDelegate;
+        static readonly Quark toggleRefGCHandleQuark = Quark.FromString(
+            "gisharp-gobject-toggle-ref-gc-handle-quark"
+        );
+        readonly delegate* unmanaged[Cdecl]<
+            IntPtr,
+            UnmanagedStruct*,
+            Runtime.Boolean,
+            void> toggleNotifyDelegate;
 
         uint RefCount => ((UnmanagedStruct*)UnsafeHandle)->RefCount;
 
@@ -27,14 +33,18 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Object(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public Object(IntPtr handle, Transfer ownership)
+            : base(handle, ownership)
         {
-            if (g_object_get_qdata((UnmanagedStruct*)handle, toggleRefGCHandleQuark) != IntPtr.Zero) {
-                var message = "This object already has a managed instance attached to it, use GetInstance() instead";
+            if (g_object_get_qdata((UnmanagedStruct*)handle, toggleRefGCHandleQuark) != IntPtr.Zero)
+            {
+                var message =
+                    "This object already has a managed instance attached to it, use GetInstance() instead";
                 throw new ArgumentException(message, nameof(handle));
             }
 
-            if (ownership == Transfer.None) {
+            if (ownership == Transfer.None)
+            {
                 this.handle = (IntPtr)g_object_ref_sink((UnmanagedStruct*)handle);
             }
 
@@ -54,7 +64,8 @@ namespace GISharp.Lib.GObject
 
             objectClass = (ObjectClass)GetTypeClass();
             var parentGType = GetGType().Parent;
-            if (parentGType.IsClassed) {
+            if (parentGType.IsClassed)
+            {
                 parentObjectClass = TypeClass.GetInstance<ObjectClass>(GetGType().Parent);
             }
         }
@@ -62,10 +73,18 @@ namespace GISharp.Lib.GObject
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (handle != IntPtr.Zero) {
+            if (handle != IntPtr.Zero)
+            {
                 g_object_ref((UnmanagedStruct*)handle);
-                g_object_remove_toggle_ref((UnmanagedStruct*)handle, toggleNotifyDelegate, IntPtr.Zero);
-                var gcHandle = (GCHandle)g_object_get_qdata((UnmanagedStruct*)handle, toggleRefGCHandleQuark);
+                g_object_remove_toggle_ref(
+                    (UnmanagedStruct*)handle,
+                    toggleNotifyDelegate,
+                    IntPtr.Zero
+                );
+                var gcHandle = (GCHandle)g_object_get_qdata(
+                    (UnmanagedStruct*)handle,
+                    toggleRefGCHandleQuark
+                );
                 g_object_set_qdata((UnmanagedStruct*)handle, toggleRefGCHandleQuark, IntPtr.Zero);
                 gcHandle.Free();
                 g_object_unref((UnmanagedStruct*)handle);
@@ -75,9 +94,14 @@ namespace GISharp.Lib.GObject
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        static void ToggleNotifyCallback(IntPtr data_, UnmanagedStruct* object_, Runtime.Boolean isLastRef_)
+        static void ToggleNotifyCallback(
+            IntPtr data_,
+            UnmanagedStruct* object_,
+            Runtime.Boolean isLastRef_
+        )
         {
-            try {
+            try
+            {
                 // free the existing GCHandle
                 var gcHandle = (GCHandle)g_object_get_qdata(object_, toggleRefGCHandleQuark);
                 GMarshal.PopUnhandledException();
@@ -91,25 +115,29 @@ namespace GISharp.Lib.GObject
                 g_object_set_qdata(object_, toggleRefGCHandleQuark, (IntPtr)gcHandle);
                 GMarshal.PopUnhandledException();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
 
-        readonly ConcurrentDictionary<string, LinkedList<(IntPtr, CULong)>> eventSignalHandlers = new();
+        readonly ConcurrentDictionary<string, LinkedList<(IntPtr, CULong)>> eventSignalHandlers =
+            new();
 
         /// <summary>
         /// Connects event handler as signal.
         /// </summary>
         protected void AddEventSignalHandler(string signal, Delegate? handler)
         {
-            if (handler is null) {
+            if (handler is null)
+            {
                 return;
             }
 
             var (ret, data, data_) = this.ConnectData(signal, handler);
 
-            if (ret.Value == 0) {
+            if (ret.Value == 0)
+            {
                 // TODO: better exception
                 throw new Exception("Failed to connect signal.");
             }
@@ -126,18 +154,22 @@ namespace GISharp.Lib.GObject
         /// </summary>
         protected void RemoveEventSignalHandler(string signal, Delegate? handler)
         {
-            if (handler is null) {
+            if (handler is null)
+            {
                 return;
             }
 
-            if (!eventSignalHandlers.TryGetValue(signal, out var list)) {
+            if (!eventSignalHandlers.TryGetValue(signal, out var list))
+            {
                 throw new ArgumentException($"signal not found", nameof(signal));
             }
 
-            for (var element = list.First; element is not null; element = element.Next) {
+            for (var element = list.First; element is not null; element = element.Next)
+            {
                 var (data_, id) = element.Value;
                 var dataHandle = (GCHandle)data_;
-                if (((CClosureData)dataHandle.Target!).Callback == handler) {
+                if (((CClosureData)dataHandle.Target!).Callback == handler)
+                {
                     Signal.HandlerDisconnect(this, id);
                     return;
                 }
@@ -149,27 +181,38 @@ namespace GISharp.Lib.GObject
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static void FreeEventSignalHandler(IntPtr data_)
         {
-            try {
+            try
+            {
                 var dataHandle = GCHandle.FromIntPtr(data_);
                 var data = (CClosureData)dataHandle.Target!;
                 data.Free?.Invoke();
                 dataHandle.Free();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        static void ManagedOnNotify(UnmanagedStruct* gobject_, ParamSpec.UnmanagedStruct* pspec_, IntPtr userData_)
+        static void ManagedOnNotify(
+            UnmanagedStruct* gobject_,
+            ParamSpec.UnmanagedStruct* pspec_,
+            IntPtr userData_
+        )
         {
-            try {
+            try
+            {
                 var obj = GetInstance((IntPtr)gobject_, Transfer.None)!;
                 var pspec = ParamSpec.GetInstance((IntPtr)pspec_, Transfer.None)!;
                 var propInfo = (PropertyInfo)pspec[ObjectClass.managedClassPropertyInfoQuark]!;
-                obj.propertyChangedHandler?.Invoke(obj, new PropertyChangedEventArgs(propInfo.Name));
+                obj.propertyChangedHandler?.Invoke(
+                    obj,
+                    new PropertyChangedEventArgs(propInfo.Name)
+                );
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
@@ -182,19 +225,35 @@ namespace GISharp.Lib.GObject
 
         #region INotifyPropertyChanged implementation
 
-        event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged {
-            add {
-                lock (propertyChangedHandlerLock) {
-                    if (propertyChangedHandler is null) {
-                        var (id, data, _) = this.ConnectData("notify", new NotifySignalHandler((obj, pspec) => {
-                            var propInfo = (PropertyInfo)pspec[ObjectClass.managedClassPropertyInfoQuark]!;
-                            obj.propertyChangedHandler?.Invoke(obj, new PropertyChangedEventArgs(propInfo.Name));
-                        }));
+        event PropertyChangedEventHandler? INotifyPropertyChanged.PropertyChanged
+        {
+            add
+            {
+                lock (propertyChangedHandlerLock)
+                {
+                    if (propertyChangedHandler is null)
+                    {
+                        var (id, data, _) = this.ConnectData(
+                            "notify",
+                            new NotifySignalHandler(
+                                (obj, pspec) =>
+                                {
+                                    var propInfo = (PropertyInfo)
+                                        pspec[ObjectClass.managedClassPropertyInfoQuark]!;
+                                    obj.propertyChangedHandler?.Invoke(
+                                        obj,
+                                        new PropertyChangedEventArgs(propInfo.Name)
+                                    );
+                                }
+                            )
+                        );
                         notifySignalHandler = id;
                         // if all signals are disconnected from unmanaged code
                         // then we need to clear the managed event handers as well
-                        data.Free = () => {
-                            lock (propertyChangedHandlerLock) {
+                        data.Free = () =>
+                        {
+                            lock (propertyChangedHandlerLock)
+                            {
                                 propertyChangedHandler = null;
                             }
                         };
@@ -202,11 +261,15 @@ namespace GISharp.Lib.GObject
                     propertyChangedHandler += value;
                 }
             }
-            remove {
-                lock (propertyChangedHandlerLock) {
+            remove
+            {
+                lock (propertyChangedHandlerLock)
+                {
                     propertyChangedHandler -= value;
-                    if (propertyChangedHandler is null) {
-                        if (notifySignalHandler.Value != default) {
+                    if (propertyChangedHandler is null)
+                    {
+                        if (notifySignalHandler.Value != default)
+                        {
                             Signal.HandlerDisconnect(this, notifySignalHandler);
                             notifySignalHandler = default;
                         }
@@ -219,28 +282,35 @@ namespace GISharp.Lib.GObject
 
         static partial void CheckNewvArgs(GType objectType, ReadOnlySpan<Parameter> parameters)
         {
-            if (!objectType.IsA(GType.Object)) {
+            if (!objectType.IsA(GType.Object))
+            {
                 throw new ArgumentException("Must be a GObject", nameof(objectType));
             }
-            if (!objectType.IsInstantiatable) {
+            if (!objectType.IsInstantiatable)
+            {
                 throw new ArgumentException("Must be instantiatable", nameof(objectType));
             }
         }
 
-        private static UnmanagedStruct* New<T>(params object[] parameters) where T : Object
+        private static UnmanagedStruct* New<T>(params object[] parameters)
+            where T : Object
         {
             var gtype = typeof(T).ToGType();
             var nParameters = parameters.Length / 2;
             var paramArray = stackalloc Parameter[nParameters];
-            try {
-                for (int i = 0; i < parameters.Length; i += 2) {
-                    if (parameters[i] is not string name) {
+            try
+            {
+                for (int i = 0; i < parameters.Length; i += 2)
+                {
+                    if (parameters[i] is not string name)
+                    {
                         var message = $"Expecting string at index {i}";
                         throw new ArgumentException(message, nameof(parameters));
                     }
                     var objClass = TypeClass.GetInstance<ObjectClass>(gtype);
                     var paramSpec = objClass.FindProperty(name);
-                    if (paramSpec is null) {
+                    if (paramSpec is null)
+                    {
                         var message = $"Could not find property '{name}'";
                         throw new ArgumentException(message, nameof(parameters));
                     }
@@ -253,8 +323,10 @@ namespace GISharp.Lib.GObject
 
                 return ret;
             }
-            finally {
-                for (int i = 0; i < nParameters; i++) {
+            finally
+            {
+                for (int i = 0; i < nParameters; i++)
+                {
                     paramArray[i].Free();
                 }
             }
@@ -267,7 +339,8 @@ namespace GISharp.Lib.GObject
         /// <returns>The instance.</returns>
         /// <param name="parameters">Property name and value pairs.</param>
         /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public static T CreateInstance<T>(params object[] parameters) where T : Object
+        public static T CreateInstance<T>(params object[] parameters)
+            where T : Object
         {
             var handle = New<T>(parameters);
             // Could also test if type is IntiallyUnowned
@@ -280,9 +353,11 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Creates a new instance of a <see cref="Object"/>.
         /// </summary>
-        public Object() : this((IntPtr)New<Object>(), Transfer.Full)
+        public Object()
+            : this((IntPtr)New<Object>(), Transfer.Full)
         {
-            if (GetType() != typeof(Object)) {
+            if (GetType() != typeof(Object))
+            {
                 throw new InvalidOperationException("Can't chain to this constructor");
             }
         }
@@ -333,7 +408,14 @@ namespace GISharp.Lib.GObject
         /// whenever the <see cref="Binding"/> reference count reaches zero.
         /// </returns>
         [Since("2.26")]
-        public Binding BindProperty(UnownedUtf8 sourceProperty, Object target, UnownedUtf8 targetProperty, BindingFlags flags, BindingTransformFunc? transformTo, BindingTransformFunc? transformFrom)
+        public Binding BindProperty(
+            UnownedUtf8 sourceProperty,
+            Object target,
+            UnownedUtf8 targetProperty,
+            BindingFlags flags,
+            BindingTransformFunc? transformTo,
+            BindingTransformFunc? transformFrom
+        )
         {
             var userData = new BindDataUserData();
             var source_ = (UnmanagedStruct*)UnsafeHandle;
@@ -341,12 +423,32 @@ namespace GISharp.Lib.GObject
             var target_ = (UnmanagedStruct*)target.UnsafeHandle;
             var targetProperty_ = (byte*)targetProperty.UnsafeHandle;
             userData.TransformTo = transformTo;
-            var transformTo_ = (delegate* unmanaged[Cdecl]<Binding.UnmanagedStruct*, Value*, Value*, IntPtr, Runtime.Boolean>)(transformTo is null ? null : &BindPropertyTransformTo);
+            var transformTo_ = (delegate* unmanaged[Cdecl]<
+                Binding.UnmanagedStruct*,
+                Value*,
+                Value*,
+                IntPtr,
+                Runtime.Boolean>)(transformTo is null ? null : &BindPropertyTransformTo);
             userData.TransformFrom = transformFrom;
-            var transformFrom_ = (delegate* unmanaged[Cdecl]<Binding.UnmanagedStruct*, Value*, Value*, IntPtr, Runtime.Boolean>)(transformFrom is null ? null : &BindPropertyTransformFrom);
+            var transformFrom_ = (delegate* unmanaged[Cdecl]<
+                Binding.UnmanagedStruct*,
+                Value*,
+                Value*,
+                IntPtr,
+                Runtime.Boolean>)(transformFrom is null ? null : &BindPropertyTransformFrom);
             var userData_ = (IntPtr)GCHandle.Alloc(userData);
             var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&BindPropertyNotify;
-            var ret_ = g_object_bind_property_full(source_, sourceProperty_, target_, targetProperty_, flags, transformTo_, transformFrom_, userData_, notify_);
+            var ret_ = g_object_bind_property_full(
+                source_,
+                sourceProperty_,
+                target_,
+                targetProperty_,
+                flags,
+                transformTo_,
+                transformFrom_,
+                userData_,
+                notify_
+            );
             GMarshal.PopUnhandledException();
             var ret = GetInstance<Binding>((IntPtr)ret_, Transfer.None)!;
             return ret;
@@ -359,9 +461,15 @@ namespace GISharp.Lib.GObject
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private static Runtime.Boolean BindPropertyTransformTo(Binding.UnmanagedStruct* binding_, Value* toValue_, Value* fromValue_, IntPtr userData_)
+        private static Runtime.Boolean BindPropertyTransformTo(
+            Binding.UnmanagedStruct* binding_,
+            Value* toValue_,
+            Value* fromValue_,
+            IntPtr userData_
+        )
         {
-            try {
+            try
+            {
                 var binding = GetInstance<Binding>((IntPtr)binding_, Transfer.None)!;
                 ref var toValue = ref Unsafe.AsRef<Value>(toValue_);
                 ref var fromValue = ref Unsafe.AsRef<Value>(fromValue_);
@@ -370,16 +478,23 @@ namespace GISharp.Lib.GObject
                 var ret = userData.TransformTo!(binding, toValue, ref fromValue);
                 return ret.ToBoolean();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
                 return default;
             }
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private static Runtime.Boolean BindPropertyTransformFrom(Binding.UnmanagedStruct* binding_, Value* toValue_, Value* fromValue_, IntPtr userData_)
+        private static Runtime.Boolean BindPropertyTransformFrom(
+            Binding.UnmanagedStruct* binding_,
+            Value* toValue_,
+            Value* fromValue_,
+            IntPtr userData_
+        )
         {
-            try {
+            try
+            {
                 var binding = GetInstance<Binding>((IntPtr)binding_, Transfer.None)!;
                 ref var toValue = ref Unsafe.AsRef<Value>(toValue_);
                 ref var fromValue = ref Unsafe.AsRef<Value>(fromValue_);
@@ -388,7 +503,8 @@ namespace GISharp.Lib.GObject
                 var ret = userData.TransformFrom!(binding, toValue, ref fromValue);
                 return ret.ToBoolean();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
                 return default;
             }
@@ -397,11 +513,13 @@ namespace GISharp.Lib.GObject
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         private static void BindPropertyNotify(IntPtr userData_)
         {
-            try {
+            try
+            {
                 var gcHandle = (GCHandle)userData_;
                 gcHandle.Free();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
@@ -421,17 +539,20 @@ namespace GISharp.Lib.GObject
         public object? GetProperty(UnownedUtf8 propertyName)
         {
             var pspec = objectClass.FindProperty(propertyName);
-            if (pspec is null) {
+            if (pspec is null)
+            {
                 var message = $"No such property \"{propertyName}\"";
                 throw new ArgumentException(message, nameof(propertyName));
             }
             var value = new Value(pspec.ValueType);
-            try {
+            try
+            {
                 GetProperty(propertyName, ref value);
                 var ret = value.Get();
                 return ret;
             }
-            finally {
+            finally
+            {
                 value.Unset();
             }
         }
@@ -451,16 +572,19 @@ namespace GISharp.Lib.GObject
         public void SetProperty(UnownedUtf8 propertyName, object? value)
         {
             var pspec = objectClass.FindProperty(propertyName);
-            if (pspec is null) {
+            if (pspec is null)
+            {
                 var message = $"No such property \"{propertyName}\"";
                 throw new ArgumentException(message, nameof(propertyName));
             }
             var value_ = new Value(pspec.ValueType);
-            try {
+            try
+            {
                 value_.Set(value);
                 SetProperty(propertyName, value_);
             }
-            finally {
+            finally
+            {
                 value_.Unset();
             }
         }
@@ -471,29 +595,36 @@ namespace GISharp.Lib.GObject
         /// <param name="key">
         /// name of the key for that association
         /// </param>
-        public object? this[string key] {
-            get {
+        public object? this[string key]
+        {
+            get
+            {
                 var object_ = (UnmanagedStruct*)UnsafeHandle;
                 var key_ = (byte*)GMarshal.StringToUtf8Ptr(key);
                 var data_ = g_object_get_data(object_, key_);
                 GMarshal.PopUnhandledException();
                 GMarshal.Free((IntPtr)key_);
-                if (data_ == IntPtr.Zero) {
+                if (data_ == IntPtr.Zero)
+                {
                     return null;
                 }
                 var data = GCHandle.FromIntPtr(data_).Target;
                 return data;
             }
-            set {
+            set
+            {
                 var object_ = (UnmanagedStruct*)UnsafeHandle;
                 var key_ = (byte*)GMarshal.StringToUtf8Ptr(key);
-                if (value is null) {
+                if (value is null)
+                {
                     g_object_set_data(object_, key_, IntPtr.Zero);
                     GMarshal.PopUnhandledException();
                 }
-                else {
+                else
+                {
                     var data_ = GCHandle.ToIntPtr(GCHandle.Alloc(value));
-                    var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
+                    var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)
+                        &GMarshal.DestroyGCHandle;
                     g_object_set_data_full(object_, key_, data_, destroy_);
                     GMarshal.PopUnhandledException();
                 }
@@ -507,23 +638,29 @@ namespace GISharp.Lib.GObject
         /// <param name="quark">
         /// A <see cref="Quark"/>, naming the user data
         /// </param>
-        public object? this[Quark quark] {
-            get {
+        public object? this[Quark quark]
+        {
+            get
+            {
                 var object_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_object_get_qdata(object_, quark);
                 GMarshal.PopUnhandledException();
                 var ret = GCHandle.FromIntPtr(ret_).Target;
                 return ret;
             }
-            set {
+            set
+            {
                 var object_ = (UnmanagedStruct*)UnsafeHandle;
-                if (value is null) {
+                if (value is null)
+                {
                     g_object_set_qdata(object_, quark, IntPtr.Zero);
                     GMarshal.PopUnhandledException();
                 }
-                else {
+                else
+                {
                     var data = (IntPtr)GCHandle.Alloc(value);
-                    var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
+                    var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)
+                        &GMarshal.DestroyGCHandle;
                     g_object_set_qdata_full(object_, quark, data, destroy_);
                     GMarshal.PopUnhandledException();
                 }
@@ -555,25 +692,31 @@ namespace GISharp.Lib.GObject
         /// QData). If one is found, it returns the existing managed instance,
         /// otherwise a new instance is created.
         /// </remarks>
-        public static new T? GetInstance<T>(IntPtr handle, Transfer ownership) where T : Object
+        public static new T? GetInstance<T>(IntPtr handle, Transfer ownership)
+            where T : Object
         {
-            if (handle == IntPtr.Zero) {
+            if (handle == IntPtr.Zero)
+            {
                 return null;
             }
 
             // see if the unmanaged object has a managed GC handle
             var ptr = g_object_get_qdata((UnmanagedStruct*)handle, toggleRefGCHandleQuark);
             GMarshal.PopUnhandledException();
-            if (ptr != IntPtr.Zero) {
+            if (ptr != IntPtr.Zero)
+            {
                 var gcHandle = (GCHandle)ptr;
-                if (gcHandle.IsAllocated) {
+                if (gcHandle.IsAllocated)
+                {
                     // the GC handle looks good, so we should have the managed
                     // proxy for the unmanged object here
                     var target = (Object)gcHandle.Target!;
                     // make sure the managed object has not been disposed
-                    if (target.handle == handle) {
+                    if (target.handle == handle)
+                    {
                         // release the extra reference, if there is one
-                        if (ownership != Transfer.None) {
+                        if (ownership != Transfer.None)
+                        {
                             g_object_unref((UnmanagedStruct*)handle);
                         }
                         // return the existing managed proxy

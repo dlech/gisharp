@@ -13,9 +13,11 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public string CType { get; }
 
-        public Callback(XElement element, GirNode parent) : base(element, parent)
+        public Callback(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "callback") {
+            if (element.Name != gi + "callback")
+            {
                 throw new ArgumentException("Requrires <callback> element", nameof(element));
             }
             CType = element.Attribute(c + "type").AsString();

@@ -29,7 +29,10 @@ namespace GISharp.Test.Gtk
         [Test]
         public void TestCheck()
         {
-            Assert.That<string?>(Version.Check(5, 0, 0), Is.EqualTo("GTK version too old (major mismatch)"));
+            Assert.That<string?>(
+                Version.Check(5, 0, 0),
+                Is.EqualTo("GTK version too old (major mismatch)")
+            );
         }
     }
 }

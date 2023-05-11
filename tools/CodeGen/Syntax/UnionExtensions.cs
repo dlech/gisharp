@@ -21,15 +21,18 @@ namespace GISharp.CodeGen.Syntax
             var identifier = union.GirName;
             return StructDeclaration(identifier)
                 .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
-                .AddAttributeLists(AttributeList()
-                    .AddAttributes(
-                        Attribute(ParseName(typeof(StructLayoutAttribute).FullName))
-                            .AddArgumentListArguments(
-                                AttributeArgument(ParseExpression(
-                                    $"{typeof(LayoutKind)}.{nameof(LayoutKind.Explicit)}"
-                                ))
-                            )
-                    )
+                .AddAttributeLists(
+                    AttributeList()
+                        .AddAttributes(
+                            Attribute(ParseName(typeof(StructLayoutAttribute).FullName))
+                                .AddArgumentListArguments(
+                                    AttributeArgument(
+                                        ParseExpression(
+                                            $"{typeof(LayoutKind)}.{nameof(LayoutKind.Explicit)}"
+                                        )
+                                    )
+                                )
+                        )
                 )
                 .WithLeadingTrivia(union.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
@@ -44,18 +47,26 @@ namespace GISharp.CodeGen.Syntax
                 .AddAttributes(
                     Attribute(ParseName(typeof(FieldOffsetAttribute).FullName))
                         .AddArgumentListArguments(
-                            AttributeArgument(LiteralExpression(NumericLiteralExpression, Literal(0)))
+                            AttributeArgument(
+                                LiteralExpression(NumericLiteralExpression, Literal(0))
+                            )
                         )
                 );
 
             return List<MemberDeclarationSyntax>()
                 .AddRange(union.Constants.GetMemberDeclarations())
-                .AddRange(List(union.Fields.GetStructDeclaration(forUnmanagedStruct: false).Members
-                    .Select(x => x.WithoutLeadingTrivia()
-                        .AddAttributeLists(layoutKindAttrList)
-                        .WithLeadingTrivia(x.GetLeadingTrivia())
+                .AddRange(
+                    List(
+                        union.Fields
+                            .GetStructDeclaration(forUnmanagedStruct: false)
+                            .Members.Select(
+                                x =>
+                                    x.WithoutLeadingTrivia()
+                                        .AddAttributeLists(layoutKindAttrList)
+                                        .WithLeadingTrivia(x.GetLeadingTrivia())
+                            )
                     )
-                ))
+                )
                 .AddRange(union.ManagedProperties.GetMemberDeclarations())
                 .AddRange(union.Functions.GetMemberDeclarations())
                 .AddRange(union.Methods.GetMemberDeclarations());

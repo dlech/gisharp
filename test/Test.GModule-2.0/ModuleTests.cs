@@ -19,10 +19,12 @@ namespace GISharp.Test.GModule
         public void TestBuildPath()
         {
             using var path = Module.BuildPath(default, "test");
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
                 Assert.That(path, Is.EqualTo("test.dll"));
             }
-            else {
+            else
+            {
                 Assert.That(path, Is.EqualTo("libtest.so"));
             }
         }

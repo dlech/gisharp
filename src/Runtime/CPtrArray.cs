@@ -22,9 +22,11 @@ namespace GISharp.Runtime
         /// </summary>
         public int Length { get; }
 
-        private protected CPtrArray(IntPtr handle, int length) : base(handle)
+        private protected CPtrArray(IntPtr handle, int length)
+            : base(handle)
         {
-            if (length < 0) {
+            if (length < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
             Length = length;
@@ -54,9 +56,11 @@ namespace GISharp.Runtime
             return ret;
         }
 
-        private protected T GetElement<T>(int index) where T : IOpaque?
+        private protected T GetElement<T>(int index)
+            where T : IOpaque?
         {
-            if (index < 0 || index >= Length) {
+            if (index < 0 || index >= Length)
+            {
                 throw new IndexOutOfRangeException(nameof(index));
             }
             var element_ = ((IntPtr*)UnsafeHandle)[index];
@@ -65,9 +69,11 @@ namespace GISharp.Runtime
 
         private protected ReadOnlySpan<IntPtr> Data => new((void*)UnsafeHandle, Length);
 
-        private protected IEnumerator<T> GetEnumerator<T>() where T : IOpaque?
+        private protected IEnumerator<T> GetEnumerator<T>()
+            where T : IOpaque?
         {
-            for (int i = 0; i < Length; i++) {
+            for (int i = 0; i < Length; i++)
+            {
                 yield return GetElement<T>(i);
             }
         }
@@ -76,15 +82,18 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for C array of pointers to opaque data types.
     /// </summary>
-    public unsafe class CPtrArray<T> : CPtrArray, IReadOnlyList<T> where T : IOpaque?
+    public unsafe class CPtrArray<T> : CPtrArray, IReadOnlyList<T>
+        where T : IOpaque?
     {
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, length)
+        public CPtrArray(IntPtr handle, int length, Transfer ownership)
+            : base(handle, length)
         {
-            if (ownership != Transfer.Full) {
+            if (ownership != Transfer.Full)
+            {
                 GC.SuppressFinalize(this);
                 throw new NotSupportedException("owned array must own everything");
             }
@@ -120,7 +129,8 @@ namespace GISharp.Runtime
         /// </summary>
         public static implicit operator UnownedCPtrArray<T>(CPtrArray<T>? array)
         {
-            if (array is null) {
+            if (array is null)
+            {
                 return default;
             }
             return new UnownedCPtrArray<T>(array.Data);
@@ -130,15 +140,18 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for C array of pointers to opaque data types.
     /// </summary>
-    public unsafe class WeakCPtrArray<T> : CPtrArray, IReadOnlyList<T> where T : IOpaque?
+    public unsafe class WeakCPtrArray<T> : CPtrArray, IReadOnlyList<T>
+        where T : IOpaque?
     {
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public WeakCPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, length)
+        public WeakCPtrArray(IntPtr handle, int length, Transfer ownership)
+            : base(handle, length)
         {
-            if (ownership != Transfer.Container) {
+            if (ownership != Transfer.Container)
+            {
                 GC.SuppressFinalize(this);
                 throw new NotSupportedException("weak array must only own container");
             }
@@ -167,7 +180,8 @@ namespace GISharp.Runtime
         /// </summary>
         public static implicit operator UnownedCPtrArray<T>(WeakCPtrArray<T>? array)
         {
-            if (array is null) {
+            if (array is null)
+            {
                 return default;
             }
             return new UnownedCPtrArray<T>(array.Data);
@@ -177,7 +191,8 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for zero-terminated C array of pointers to opaque data types.
     /// </summary>
-    public unsafe class WeakZeroTerminatedCPtrArray<T> : Opaque, IEnumerable<T> where T : IOpaque
+    public unsafe class WeakZeroTerminatedCPtrArray<T> : Opaque, IEnumerable<T>
+        where T : IOpaque
     {
         private int length;
 
@@ -187,12 +202,14 @@ namespace GISharp.Runtime
         /// <remarks>
         /// If the length is not already known, it will be determined by iterating the array.
         /// </remarks>
-        public int Length {
-            get {
-                if (length < 0) {
+        public int Length
+        {
+            get
+            {
+                if (length < 0)
+                {
                     var array_ = (IntPtr*)UnsafeHandle;
-                    for (length = 0; array_[length] != IntPtr.Zero; length++) {
-                    }
+                    for (length = 0; array_[length] != IntPtr.Zero; length++) { }
                 }
                 return length;
             }
@@ -202,17 +219,18 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public WeakZeroTerminatedCPtrArray(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
-        {
-        }
+        public WeakZeroTerminatedCPtrArray(IntPtr handle, Transfer ownership)
+            : this(handle, -1, ownership) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public WeakZeroTerminatedCPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle)
+        public WeakZeroTerminatedCPtrArray(IntPtr handle, int length, Transfer ownership)
+            : base(handle)
         {
-            if (ownership != Transfer.Container) {
+            if (ownership != Transfer.Container)
+            {
                 this.handle = IntPtr.Zero;
                 GC.SuppressFinalize(this);
                 throw new NotSupportedException();
@@ -224,7 +242,8 @@ namespace GISharp.Runtime
         /// <inheritdoc />
         protected override void Dispose(bool disposing)
         {
-            if (handle != IntPtr.Zero) {
+            if (handle != IntPtr.Zero)
+            {
                 GMarshal.Free(handle);
                 GMarshal.PopUnhandledException();
             }
@@ -248,8 +267,12 @@ namespace GISharp.Runtime
         /// <inheritdoc/>
         public IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; Marshal.ReadIntPtr(UnsafeHandle, i * IntPtr.Size) != IntPtr.Zero; i++) {
-                yield return GetInstance<T>(Marshal.ReadIntPtr(UnsafeHandle, i * IntPtr.Size), Transfer.None);
+            for (int i = 0; Marshal.ReadIntPtr(UnsafeHandle, i * IntPtr.Size) != IntPtr.Zero; i++)
+            {
+                yield return GetInstance<T>(
+                    Marshal.ReadIntPtr(UnsafeHandle, i * IntPtr.Size),
+                    Transfer.None
+                );
             }
         }
 
@@ -258,13 +281,16 @@ namespace GISharp.Runtime
         /// <summary>
         /// Coverts <see cref="WeakZeroTerminatedCPtrArray{T}"/> to <see cref="UnownedZeroTerminatedCPtrArray{T}"/>.
         /// </summary>
-        public static implicit operator UnownedZeroTerminatedCPtrArray<T>(WeakZeroTerminatedCPtrArray<T> value) => value.AsUnowned();
+        public static implicit operator UnownedZeroTerminatedCPtrArray<T>(
+            WeakZeroTerminatedCPtrArray<T> value
+        ) => value.AsUnowned();
     }
 
     /// <summary>
     /// Managed wrapper for unowned C arrays of pointers to opaque data types.
     /// </summary>
-    public unsafe ref struct UnownedCPtrArray<T> where T : IOpaque?
+    public unsafe ref struct UnownedCPtrArray<T>
+        where T : IOpaque?
     {
         /// <summary>
         /// Gets an empty array.
@@ -280,9 +306,8 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public UnownedCPtrArray(void* handle, int length) : this((IntPtr)handle, length, Transfer.None)
-        {
-        }
+        public UnownedCPtrArray(void* handle, int length)
+            : this((IntPtr)handle, length, Transfer.None) { }
 
         /// <summary>
         /// For internal runtime use only.
@@ -290,11 +315,13 @@ namespace GISharp.Runtime
         [EditorBrowsable(EditorBrowsableState.Never)]
         public UnownedCPtrArray(IntPtr handle, int length, Transfer ownership)
         {
-            if (ownership != Transfer.None) {
+            if (ownership != Transfer.None)
+            {
                 throw new NotSupportedException();
             }
 
-            if (length < 0) {
+            if (length < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
 
@@ -319,9 +346,12 @@ namespace GISharp.Runtime
         /// <exception cref="IndexOutOfRangeException">
         /// The index is outside of the bounds of the array.
         /// </exception>
-        public T this[int index] {
-            get {
-                if (index < 0 || index >= Data.Length) {
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= Data.Length)
+                {
                     throw new IndexOutOfRangeException();
                 }
                 return Opaque.GetInstance<T>(Data[index], Transfer.None);
@@ -341,7 +371,6 @@ namespace GISharp.Runtime
         {
             return ref Data.GetPinnableReference();
         }
-
 
         /// <summary>
         /// Enumerator for iterating <see cref="UnownedCPtrArray{T}"/>.
@@ -383,7 +412,8 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for unowned C arrays of pointers to opaque data types.
     /// </summary>
-    public unsafe ref struct UnownedZeroTerminatedCPtrArray<T> where T : IOpaque
+    public unsafe ref struct UnownedZeroTerminatedCPtrArray<T>
+        where T : IOpaque
     {
         private readonly IntPtr* handle;
         private int length;
@@ -399,11 +429,13 @@ namespace GISharp.Runtime
         /// <remarks>
         /// If the length is not already known, it will be determined by iterating the array.
         /// </remarks>
-        public int Length {
-            get {
-                if (length < 0) {
-                    for (length = 0; handle[length] != IntPtr.Zero; length++) {
-                    }
+        public int Length
+        {
+            get
+            {
+                if (length < 0)
+                {
+                    for (length = 0; handle[length] != IntPtr.Zero; length++) { }
                 }
                 return length;
             }
@@ -413,17 +445,15 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public UnownedZeroTerminatedCPtrArray(void* handle) : this((IntPtr)handle, -1, Transfer.None)
-        {
-        }
+        public UnownedZeroTerminatedCPtrArray(void* handle)
+            : this((IntPtr)handle, -1, Transfer.None) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public UnownedZeroTerminatedCPtrArray(void* handle, int length) : this((IntPtr)handle, length, Transfer.None)
-        {
-        }
+        public UnownedZeroTerminatedCPtrArray(void* handle, int length)
+            : this((IntPtr)handle, length, Transfer.None) { }
 
         /// <summary>
         /// For internal runtime use only.
@@ -431,7 +461,8 @@ namespace GISharp.Runtime
         [EditorBrowsable(EditorBrowsableState.Never)]
         public UnownedZeroTerminatedCPtrArray(IntPtr handle, int length, Transfer ownership)
         {
-            if (ownership != Transfer.None) {
+            if (ownership != Transfer.None)
+            {
                 throw new NotSupportedException();
             }
 
@@ -474,10 +505,12 @@ namespace GISharp.Runtime
             /// </summary>
             public bool MoveNext()
             {
-                if (current == null) {
+                if (current == null)
+                {
                     current = array.handle;
                 }
-                else {
+                else
+                {
                     current++;
                 }
 
@@ -508,18 +541,23 @@ namespace GISharp.Runtime
         /// Casts a managed array of pointers to an unmanaged C array.
         /// </summary>
         [return: NotNullIfNotNull("array")]
-        public static WeakCPtrArray<T>? ToWeakCPtrArray<T>(this T[]? array) where T : IOpaque
+        public static WeakCPtrArray<T>? ToWeakCPtrArray<T>(this T[]? array)
+            where T : IOpaque
         {
-            if (array is null) {
+            if (array is null)
+            {
                 return null;
             }
             var array_ = (IntPtr*)GMarshal.Alloc(array.Length * IntPtr.Size);
-            try {
-                foreach (var (h, i) in array.Select((x, i) => (x.UnsafeHandle, i))) {
+            try
+            {
+                foreach (var (h, i) in array.Select((x, i) => (x.UnsafeHandle, i)))
+                {
                     array_[i] = h;
                 }
             }
-            catch {
+            catch
+            {
                 GMarshal.Free((IntPtr)array_);
                 throw;
             }

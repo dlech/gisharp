@@ -8,7 +8,5 @@ namespace GISharp.Lib.GObject
 {
     [ExcludeFromCodeCoverage]
     [Obsolete("GParamSpecPool is deprecated and should not be used in newly-written code.")]
-    partial class ParamSpecPool
-    {
-    }
+    partial class ParamSpecPool { }
 }

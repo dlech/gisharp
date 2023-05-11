@@ -22,8 +22,12 @@ namespace GISharp.Lib.GLib
         {
             var type = value.GetType();
             var attr = type.GetCustomAttribute<GErrorDomainAttribute>();
-            if (attr is null) {
-                throw new ArgumentException("Enum type must have ErrorDomainAttribute", nameof(value));
+            if (attr is null)
+            {
+                throw new ArgumentException(
+                    "Enum type must have ErrorDomainAttribute",
+                    nameof(value)
+                );
             }
             var quark = Quark.FromString(attr.ErrorDomain);
             return quark;

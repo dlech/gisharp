@@ -14,7 +14,9 @@ namespace GISharp.Lib.GObject
     {
         private static readonly GType _GType = GType.Param;
 
-        private static readonly Quark managedProxyGCHandleQuark = Quark.FromString("gisharp-gobject-paramspec-managed-proxy-instance-quark");
+        private static readonly Quark managedProxyGCHandleQuark = Quark.FromString(
+            "gisharp-gobject-paramspec-managed-proxy-instance-quark"
+        );
 
         /// <summary>
         /// <see cref="ParamFlags"/> flags for this parameter
@@ -45,9 +47,11 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ParamSpec(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public ParamSpec(IntPtr handle, Transfer ownership)
+            : base(handle, ownership)
         {
-            if (ownership == Transfer.None) {
+            if (ownership == Transfer.None)
+            {
                 this.handle = (IntPtr)g_param_spec_ref((UnmanagedStruct*)handle);
                 GMarshal.PopUnhandledException();
             }
@@ -57,15 +61,25 @@ namespace GISharp.Lib.GObject
             // attach this managed instance to the unmanaged instanace
             var data_ = (IntPtr)GCHandle.Alloc(this, GCHandleType.Weak);
             var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
-            g_param_spec_set_qdata_full((UnmanagedStruct*)this.handle, managedProxyGCHandleQuark, data_, destroy_);
+            g_param_spec_set_qdata_full(
+                (UnmanagedStruct*)this.handle,
+                managedProxyGCHandleQuark,
+                data_,
+                destroy_
+            );
             GMarshal.PopUnhandledException();
         }
 
         /// <inheritdoc />
         protected override void Dispose(bool disposing)
         {
-            if (handle != IntPtr.Zero) {
-                g_param_spec_set_qdata((UnmanagedStruct*)handle, managedProxyGCHandleQuark, IntPtr.Zero);
+            if (handle != IntPtr.Zero)
+            {
+                g_param_spec_set_qdata(
+                    (UnmanagedStruct*)handle,
+                    managedProxyGCHandleQuark,
+                    IntPtr.Zero
+                );
                 g_param_spec_unref((UnmanagedStruct*)handle);
                 GMarshal.PopUnhandledException();
             }
@@ -81,7 +95,8 @@ namespace GISharp.Lib.GObject
             var ptr = Marshal.ReadIntPtr(CLibrary.GetSymbol("gobject-2.0", "g_param_spec_types"));
             const int paramSpecTypeCount = 23;
             paramSpecTypes = new GType[paramSpecTypeCount];
-            for (int i = 0; i < paramSpecTypeCount; i++) {
+            for (int i = 0; i < paramSpecTypeCount; i++)
+            {
                 paramSpecTypes[i] = Marshal.PtrToStructure<GType>(ptr + i * sizeof(GType));
             }
         }
@@ -92,27 +107,34 @@ namespace GISharp.Lib.GObject
         /// <param name="quark">
         /// a <see cref="Quark"/>, naming the user data
         /// </param>
-        public object? this[Quark quark] {
-            get {
+        public object? this[Quark quark]
+        {
+            get
+            {
                 var pspec_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret = g_param_spec_get_qdata(pspec_, quark);
                 GMarshal.PopUnhandledException();
-                if (ret == IntPtr.Zero) {
+                if (ret == IntPtr.Zero)
+                {
                     return null;
                 }
                 var gcHandle = (GCHandle)ret;
                 var data = gcHandle.Target;
                 return data;
             }
-            set {
+            set
+            {
                 var pspec_ = (UnmanagedStruct*)UnsafeHandle;
-                if (value is null) {
+                if (value is null)
+                {
                     g_param_spec_set_qdata(pspec_, quark, IntPtr.Zero);
                     GMarshal.PopUnhandledException();
                 }
-                else {
+                else
+                {
                     var data_ = (IntPtr)GCHandle.Alloc(value);
-                    var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
+                    var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)
+                        &GMarshal.DestroyGCHandle;
                     g_param_spec_set_qdata_full(pspec_, quark, data_, destroy_);
                     GMarshal.PopUnhandledException();
                 }
@@ -144,22 +166,28 @@ namespace GISharp.Lib.GObject
         /// QData). If one is found, it returns the existing managed instance,
         /// otherwise a new instance is created.
         /// </remarks>
-        public static new T? GetInstance<T>(IntPtr handle, Transfer ownership) where T : ParamSpec
+        public static new T? GetInstance<T>(IntPtr handle, Transfer ownership)
+            where T : ParamSpec
         {
-            if (handle == IntPtr.Zero) {
+            if (handle == IntPtr.Zero)
+            {
                 return null;
             }
 
             // see if the unmanaged object has a managed GC handle
             var ptr = g_param_spec_get_qdata((UnmanagedStruct*)handle, managedProxyGCHandleQuark);
             GMarshal.PopUnhandledException();
-            if (ptr != IntPtr.Zero) {
+            if (ptr != IntPtr.Zero)
+            {
                 var gcHandle = (GCHandle)ptr;
-                if (gcHandle.IsAllocated && gcHandle.Target is T pspec) {
+                if (gcHandle.IsAllocated && gcHandle.Target is T pspec)
+                {
                     // make sure the managed object has not been disposed
-                    if (pspec.handle == handle) {
+                    if (pspec.handle == handle)
+                    {
                         // release the extra reference, if there is one
-                        if (ownership != Transfer.None) {
+                        if (ownership != Transfer.None)
+                        {
                             g_param_spec_unref((UnmanagedStruct*)handle);
                         }
                         // return the existing managed proxy

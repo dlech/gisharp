@@ -28,15 +28,22 @@ namespace GISharp.Runtime
         /// <exception name="NullReferenceException">
         /// If this points to <c>null</c>, e.g. <c>default(UnownedUtf8).UnsafeHandle</c>.
         /// </exception>
-        public IntPtr UnsafeHandle => handle is null ? throw new NullReferenceException() : (IntPtr)handle;
+        public IntPtr UnsafeHandle =>
+            handle is null ? throw new NullReferenceException() : (IntPtr)handle;
 
         /// <summary>
         /// Gets the length of the string in bytes.
         /// </summary>
-        public int Length {
-            get {
-                if (length < 0) {
-                    length = new ReadOnlySpan<byte>((byte*)UnsafeHandle, int.MaxValue).IndexOf<byte>(0);
+        public int Length
+        {
+            get
+            {
+                if (length < 0)
+                {
+                    length = new ReadOnlySpan<byte>(
+                        (byte*)UnsafeHandle,
+                        int.MaxValue
+                    ).IndexOf<byte>(0);
                 }
                 return length;
             }
@@ -80,9 +87,8 @@ namespace GISharp.Runtime
         /// <paramref name="handle"/> is <c>null</c>.
         /// </exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe UnownedUtf8(byte* handle) : this((IntPtr)handle, -1)
-        {
-        }
+        public unsafe UnownedUtf8(byte* handle)
+            : this((IntPtr)handle, -1) { }
 
         /// <summary>
         /// Creates a <see cref="NullableUnownedUtf8"/> from this instance.
@@ -121,7 +127,8 @@ namespace GISharp.Runtime
         /// </summary>
         public bool Equals(NullableUnownedUtf8 other)
         {
-            if (!other.HasValue) {
+            if (!other.HasValue)
+            {
                 return false;
             }
             return Equals(other.Value);
@@ -133,7 +140,8 @@ namespace GISharp.Runtime
         /// </summary>
         public bool Equals(Utf8? other)
         {
-            if (other is null) {
+            if (other is null)
+            {
                 return false;
             }
             var v1_ = (byte*)UnsafeHandle;
@@ -148,7 +156,8 @@ namespace GISharp.Runtime
         /// </summary>
         public bool Equals(string? other)
         {
-            if (other is null) {
+            if (other is null)
+            {
                 return false;
             }
             return ToString() == other;
@@ -157,10 +166,12 @@ namespace GISharp.Runtime
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is Utf8 utf8) {
+            if (obj is Utf8 utf8)
+            {
                 return Equals(utf8);
             }
-            if (obj is string str) {
+            if (obj is string str)
+            {
                 return ToString() == str;
             }
             return false;
@@ -243,7 +254,8 @@ namespace GISharp.Runtime
         /// </summary>
         public static bool operator ==(UnownedUtf8 a, NullableUnownedUtf8 b)
         {
-            if (b.HasValue) {
+            if (b.HasValue)
+            {
                 return a.Equals(b.Value);
             }
             // a can't be null, so must be false
@@ -255,7 +267,8 @@ namespace GISharp.Runtime
         /// </summary>
         public static bool operator !=(UnownedUtf8 a, NullableUnownedUtf8 b)
         {
-            if (b.HasValue) {
+            if (b.HasValue)
+            {
                 return !a.Equals(b.Value);
             }
             // a can't be null, so must be true
@@ -357,9 +370,12 @@ namespace GISharp.Runtime
         /// <exception name="InvalidOperationException">
         /// The <see cref="HasValue"/> property is <c>false</c>.
         /// </exception>
-        public UnownedUtf8 Value {
-            get {
-                if (!HasValue) {
+        public UnownedUtf8 Value
+        {
+            get
+            {
+                if (!HasValue)
+                {
                     throw new InvalidOperationException();
                 }
                 return value;
@@ -378,11 +394,13 @@ namespace GISharp.Runtime
         [EditorBrowsable(EditorBrowsableState.Never)]
         public NullableUnownedUtf8(IntPtr handle, int length)
         {
-            if (handle == IntPtr.Zero) {
+            if (handle == IntPtr.Zero)
+            {
                 value = default;
                 HasValue = false;
             }
-            else {
+            else
+            {
                 value = new UnownedUtf8(handle, length);
                 HasValue = true;
             }
@@ -395,9 +413,8 @@ namespace GISharp.Runtime
         /// Pointer to the unowned unmanaged UTF-8 string or <c>null</c>.
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe NullableUnownedUtf8(byte* handle) : this((IntPtr)handle, -1)
-        {
-        }
+        public unsafe NullableUnownedUtf8(byte* handle)
+            : this((IntPtr)handle, -1) { }
 
         /// <summary>
         /// Converts an unowned string to a nullable unowned unmanaged string.
@@ -454,10 +471,12 @@ namespace GISharp.Runtime
         /// </summary>
         public bool Equals(string? other)
         {
-            if (other is null) {
+            if (other is null)
+            {
                 return !HasValue;
             }
-            if (!HasValue) {
+            if (!HasValue)
+            {
                 return false;
             }
             return Value.Equals(other);
@@ -466,13 +485,16 @@ namespace GISharp.Runtime
         /// <inheritdoc/>
         public override bool Equals(object? other)
         {
-            if (!HasValue) {
+            if (!HasValue)
+            {
                 return other is null;
             }
-            if (other is Utf8 utf8) {
+            if (other is Utf8 utf8)
+            {
                 return Value.Equals(utf8);
             }
-            if (other is string str) {
+            if (other is string str)
+            {
                 return Value.Equals(str);
             }
             return false;
@@ -484,7 +506,8 @@ namespace GISharp.Runtime
         /// </summary>
         public override int GetHashCode()
         {
-            if (HasValue) {
+            if (HasValue)
+            {
                 return value.GetHashCode();
             }
             return 0;
@@ -493,7 +516,8 @@ namespace GISharp.Runtime
         /// <inheritdoc/>
         public override string ToString()
         {
-            if (HasValue) {
+            if (HasValue)
+            {
                 return value.ToString();
             }
             return string.Empty;
@@ -578,7 +602,8 @@ namespace GISharp.Runtime
         /// </remarks>
         public static implicit operator NullableUnownedUtf8(string? value)
         {
-            if (value is null) {
+            if (value is null)
+            {
                 return default;
             }
             return stringMap.GetValue(value, v => new Utf8(v)).AsNullableUnownedUtf8();
@@ -589,7 +614,8 @@ namespace GISharp.Runtime
         /// </summary>
         public static implicit operator string?(NullableUnownedUtf8 value)
         {
-            if (!value.HasValue) {
+            if (!value.HasValue)
+            {
                 return null;
             }
             return value.ToString();
@@ -646,7 +672,13 @@ namespace GISharp.Runtime
     /// <seealso cref="UnownedUtf8"/>
     /// <seealso cref="NullableUnownedUtf8"/>
     [DebuggerDisplay("{Value}")]
-    public unsafe class Utf8 : ByteString, IComparable, IComparable<Utf8>, IComparable<string>, IConvertible, IEquatable<string>
+    public unsafe class Utf8
+        : ByteString,
+            IComparable,
+            IComparable<Utf8>,
+            IComparable<string>,
+            IConvertible,
+            IEquatable<string>
     {
         /// <summary>
         /// Enumerator for iterating the bytes of a <see cref="Utf8"/> string.
@@ -664,7 +696,8 @@ namespace GISharp.Runtime
             public IEnumerator<byte> GetEnumerator()
             {
                 byte b;
-                for (var i = 0; (b = Marshal.ReadByte(utf8.UnsafeHandle, i)) != 0; i++) {
+                for (var i = 0; (b = Marshal.ReadByte(utf8.UnsafeHandle, i)) != 0; i++)
+                {
                     yield return b;
                 }
             }
@@ -696,12 +729,16 @@ namespace GISharp.Runtime
                     current = null;
                 }
 
-                public Rune Current {
-                    get {
-                        if (utf8.handle == IntPtr.Zero) {
+                public Rune Current
+                {
+                    get
+                    {
+                        if (utf8.handle == IntPtr.Zero)
+                        {
                             throw new ObjectDisposedException(null);
                         }
-                        if (current is null) {
+                        if (current is null)
+                        {
                             throw new InvalidOperationException();
                         }
                         var ret_ = g_utf8_get_char(current);
@@ -713,20 +750,20 @@ namespace GISharp.Runtime
 
                 object IEnumerator.Current => Current;
 
-                public void Dispose()
-                {
-                }
+                public void Dispose() { }
 
                 public bool MoveNext()
                 {
                     // first call
-                    if (current is null) {
+                    if (current is null)
+                    {
                         current = (byte*)utf8.UnsafeHandle;
                         return true;
                     }
 
                     // subsequent calls
-                    if (utf8.handle == IntPtr.Zero) {
+                    if (utf8.handle == IntPtr.Zero)
+                    {
                         throw new ObjectDisposedException(null);
                     }
                     current = g_utf8_find_next_char(current, null);
@@ -783,9 +820,8 @@ namespace GISharp.Runtime
         /// <paramref name="value"/> is converted from UTF-16 to UTF-8 and stored
         /// in unmanaged memory.
         /// </remarks>
-        public Utf8(UnownedUtf8 value) : this(value.UnsafeHandle, value.MaybeLength, Transfer.None)
-        {
-        }
+        public Utf8(UnownedUtf8 value)
+            : this(value.UnsafeHandle, value.MaybeLength, Transfer.None) { }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern byte* g_utf16_to_utf8(
@@ -793,11 +829,13 @@ namespace GISharp.Runtime
             CLong len,
             CLong* itemsRead,
             CLong* itemsWritten,
-            void** error);
+            void** error
+        );
 
         static byte* NewFromManaged(string value)
         {
-            fixed (char* value_ = value) {
+            fixed (char* value_ = value)
+            {
                 var len_ = new CLong(value.Length);
                 var ret = g_utf16_to_utf8(value_, len_, null, null, null);
                 GMarshal.PopUnhandledException();
@@ -818,23 +856,22 @@ namespace GISharp.Runtime
         /// <paramref name="value"/> is converted from UTF-16 to UTF-8 and stored
         /// in unmanaged memory.
         /// </remarks>
-        public Utf8(string value) : this((IntPtr)NewFromManaged(value), -1, Transfer.Full)
-        {
-        }
+        public Utf8(string value)
+            : this((IntPtr)NewFromManaged(value), -1, Transfer.Full) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Utf8(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
-        {
-        }
+        public Utf8(IntPtr handle, Transfer ownership)
+            : this(handle, -1, ownership) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Utf8(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
+        public Utf8(IntPtr handle, int length, Transfer ownership)
+            : base(handle, ownership)
         {
             // TODO: save length
             _Value = new(() => Marshal.PtrToStringUTF8(UnsafeHandle)!);
@@ -902,7 +939,8 @@ namespace GISharp.Runtime
             byte* p,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            byte* end);
+            byte* end
+        );
 
         /// <summary>
         /// Converts a sequence of bytes encoded as UTF-8 to a Unicode character.
@@ -925,7 +963,8 @@ namespace GISharp.Runtime
         static extern uint g_utf8_get_char(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            byte* p);
+            byte* p
+        );
 
         /// <summary>
         /// Computes the length of the string in characters, not including
@@ -954,7 +993,8 @@ namespace GISharp.Runtime
             byte* p,
             /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
             /* transfer-ownership:none direction:in */
-            nint max);
+            nint max
+        );
 
         private int lengthInCharacters = -1;
 
@@ -962,9 +1002,12 @@ namespace GISharp.Runtime
         /// Gets the length of the string in Unicode characters.
         /// </summary>
         /// <seealso cref="ByteString.Length"/>
-        public int LengthInCharacters {
-            get {
-                if (lengthInCharacters == -1) {
+        public int LengthInCharacters
+        {
+            get
+            {
+                if (lengthInCharacters == -1)
+                {
                     lengthInCharacters = (int)g_utf8_strlen((byte*)UnsafeHandle, -1).Value;
                     GMarshal.PopUnhandledException();
                 }
@@ -975,7 +1018,8 @@ namespace GISharp.Runtime
 
         int IComparable.CompareTo(object? obj)
         {
-            if (obj is Utf8 other) {
+            if (obj is Utf8 other)
+            {
                 return ((IComparable<Utf8>)this).CompareTo(other);
             }
             return Value.CompareTo(obj);
@@ -1117,10 +1161,12 @@ namespace GISharp.Runtime
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is Utf8 utf8) {
+            if (obj is Utf8 utf8)
+            {
                 return Equals(utf8);
             }
-            if (obj is string str) {
+            if (obj is string str)
+            {
                 return Equals(str);
             }
             return base.Equals(obj);
@@ -1140,10 +1186,12 @@ namespace GISharp.Runtime
 
         static bool EqualsUtf8(Utf8? a, Utf8? b)
         {
-            if (a is null && b is null) {
+            if (a is null && b is null)
+            {
                 return true;
             }
-            if (a is null || b is null) {
+            if (a is null || b is null)
+            {
                 return false;
             }
             return a.Equals(b);
@@ -1200,7 +1248,8 @@ namespace GISharp.Runtime
         /// </summary>
         public static implicit operator Utf8?(NullableUnownedUtf8 value)
         {
-            if (value.HasValue) {
+            if (value.HasValue)
+            {
                 return value.Value;
             }
             return null;
@@ -1224,10 +1273,12 @@ namespace GISharp.Runtime
 
         static bool EqualsString(Utf8? a, string? b)
         {
-            if (a is null && b is null) {
+            if (a is null && b is null)
+            {
                 return true;
             }
-            if (a is null || b is null) {
+            if (a is null || b is null)
+            {
                 return false;
             }
             return a.Equals(b);

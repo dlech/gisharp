@@ -24,7 +24,8 @@ namespace GISharp.Lib.GLib
         partial void CheckRemoveRangeArgs(uint index, uint length)
         {
             AssertIndexInRange((int)index);
-            if (length < 0 || index + length > Length) {
+            if (length < 0 || index + length > Length)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
         }
@@ -53,20 +54,27 @@ namespace GISharp.Lib.GLib
         /// Gets or sets the <see cref="ByteArray"/> at the specified index.
         /// </summary>
         /// <param name="index">Index.</param>
-        public byte this[int index] {
-            get {
-                try {
+        public byte this[int index]
+        {
+            get
+            {
+                try
+                {
                     return Data[index];
                 }
-                catch (IndexOutOfRangeException) {
+                catch (IndexOutOfRangeException)
+                {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
             }
-            set {
-                try {
+            set
+            {
+                try
+                {
                     Data[index] = value;
                 }
-                catch (IndexOutOfRangeException) {
+                catch (IndexOutOfRangeException)
+                {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
             }
@@ -100,13 +108,15 @@ namespace GISharp.Lib.GLib
         /// <param name="item">Item.</param>
         public void Insert(int index, byte item)
         {
-            if (index == 0) {
+            if (index == 0)
+            {
                 Prepend(item);
                 return;
             }
 
             var len = Length;
-            if (index == len) {
+            if (index == len)
+            {
                 Append(item);
                 return;
             }
@@ -114,7 +124,8 @@ namespace GISharp.Lib.GLib
             AssertIndexInRange(index);
 
             SetSize((uint)len + 1);
-            for (var i = len; i > index; i--) {
+            for (var i = len; i > index; i--)
+            {
                 this[i] = this[i - 1];
             }
             this[index] = item;
@@ -123,7 +134,8 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         void IList<byte>.RemoveAt(int index)
         {
-            if (index < 0) {
+            if (index < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             RemoveIndex((uint)index);
@@ -132,8 +144,10 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         bool ICollection<byte>.Remove(byte item)
         {
-            for (int i = 0; i < Length; i++) {
-                if (this[i] == item) {
+            for (int i = 0; i < Length; i++)
+            {
+                if (this[i] == item)
+                {
                     RemoveIndex((uint)i);
                     return true;
                 }
@@ -172,13 +186,16 @@ namespace GISharp.Lib.GLib
         /// <param name="arrayIndex">The starting index of <paramref name="array"/>.</param>
         public void CopyTo(byte[] array, int arrayIndex)
         {
-            if (arrayIndex < 0) {
+            if (arrayIndex < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex));
             }
-            if (arrayIndex + Length > array.Length) {
+            if (arrayIndex + Length > array.Length)
+            {
                 throw new ArgumentException("Destination array is not long enough.");
             }
-            for (int i = 0; i < Length; i++) {
+            for (int i = 0; i < Length; i++)
+            {
                 array[i + arrayIndex] = this[i];
             }
         }
@@ -202,19 +219,25 @@ namespace GISharp.Lib.GLib
         public void Sort(Comparison<byte> compareFunc)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            var unmanagedCompareFunc = new UnmanagedCompareFunc((a, b) => {
-                try {
-                    var x = Marshal.ReadByte(a);
-                    var y = Marshal.ReadByte(b);
-                    var ret = compareFunc(x, y);
-                    return ret;
+            var unmanagedCompareFunc = new UnmanagedCompareFunc(
+                (a, b) =>
+                {
+                    try
+                    {
+                        var x = Marshal.ReadByte(a);
+                        var y = Marshal.ReadByte(b);
+                        var ret = compareFunc(x, y);
+                        return ret;
+                    }
+                    catch (Exception ex)
+                    {
+                        GMarshal.PushUnhandledException(ex);
+                        return default;
+                    }
                 }
-                catch (Exception ex) {
-                    GMarshal.PushUnhandledException(ex);
-                    return default;
-                }
-            });
-            var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
+            );
+            var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)
+                Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
             g_byte_array_sort(array_, compareFunc_);
             GMarshal.PopUnhandledException();
             GC.KeepAlive(unmanagedCompareFunc);
@@ -223,7 +246,8 @@ namespace GISharp.Lib.GLib
         IEnumerator<byte> GetEnumerator()
         {
             // TODO: protect against modified array
-            for (int i = 0; i < Length; i++) {
+            for (int i = 0; i < Length; i++)
+            {
                 yield return this[i];
             }
         }
@@ -234,7 +258,8 @@ namespace GISharp.Lib.GLib
 
         void AssertIndexInRange(int index)
         {
-            if (index < 0 || index >= Length) {
+            if (index < 0 || index >= Length)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
         }

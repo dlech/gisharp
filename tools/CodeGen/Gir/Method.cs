@@ -19,12 +19,10 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public bool IsRef => Element.Attribute(gs + "special-func").AsString() == "ref";
 
-
         /// <summary>
         /// Tests if this method is an unref method
         /// </summary>
         public bool IsUnref => Element.Attribute(gs + "special-func").AsString() == "unref";
-
 
         /// <summary>
         /// Tests if this method is a copy method
@@ -57,9 +55,11 @@ namespace GISharp.CodeGen.Gir
         public GIFunction FinishForFunction => _FinishForFunction.Value;
         readonly Lazy<GIFunction> _FinishForFunction;
 
-        public Method(XElement element, GirNode parent) : base(element, parent)
+        public Method(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "method") {
+            if (element.Name != gi + "method")
+            {
                 throw new ArgumentException("Requrires <method> element", nameof(element));
             }
             IsHash = Element.Attribute(gs + "hash").AsBool();
@@ -69,8 +69,11 @@ namespace GISharp.CodeGen.Gir
         }
 
         GIFunction LazyGetFinishForFunction =>
-            (GIFunction)GetNode(Element.Parent.Elements(gi + "function")
-                .Concat(Element.Parent.Elements(gi + "method"))
-                .FirstOrDefault(x => x.Attribute("async-finish")?.Value == ManagedName));
+            (GIFunction)GetNode(
+                Element.Parent
+                    .Elements(gi + "function")
+                    .Concat(Element.Parent.Elements(gi + "method"))
+                    .FirstOrDefault(x => x.Attribute("async-finish")?.Value == ManagedName)
+            );
     }
 }

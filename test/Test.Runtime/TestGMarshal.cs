@@ -15,15 +15,19 @@ namespace GISharp.Test.Runtime
         private static extern void g_main_context_invoke(
             void* context,
             delegate* unmanaged[Cdecl]<void*, GISharp.Runtime.Boolean> function,
-            void* data);
+            void* data
+        );
 
         [Test]
         public void TestUnhandledException()
         {
             g_main_context_invoke(null, &Callback, null);
 
-            Assert.That(() => GMarshal.PopUnhandledException(), Throws.TypeOf<UnhandledException>(),
-                "should raise exception from unmanaged callback");
+            Assert.That(
+                () => GMarshal.PopUnhandledException(),
+                Throws.TypeOf<UnhandledException>(),
+                "should raise exception from unmanaged callback"
+            );
 
             // should have cleared exception
             GMarshal.PopUnhandledException();
@@ -32,10 +36,12 @@ namespace GISharp.Test.Runtime
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         private static GISharp.Runtime.Boolean Callback(void* data)
         {
-            try {
+            try
+            {
                 throw new Exception("test");
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
                 return GISharp.Runtime.Boolean.False;
             }

@@ -23,8 +23,7 @@ namespace GISharp.Test.GObject
         public void TestRegister2()
         {
             // invalid because underlying type is too big.
-            Assert.That(() => typeof(TestFlags2).ToGType(),
-                Throws.ArgumentException);
+            Assert.That(() => typeof(TestFlags2).ToGType(), Throws.ArgumentException);
         }
 
         [Test]
@@ -32,8 +31,7 @@ namespace GISharp.Test.GObject
         {
             // invalid because IsProxyForUnmanagedType = true but there is not
             // a matching _GType property.
-            Assert.That(() => typeof(TestFlags3).ToGType(),
-                Throws.ArgumentException);
+            Assert.That(() => typeof(TestFlags3).ToGType(), Throws.ArgumentException);
         }
 
         [Test]
@@ -41,8 +39,7 @@ namespace GISharp.Test.GObject
         {
             // this should register successfully
             var testFlags4GType = typeof(TestFlags4).ToGType();
-            Assert.That(testFlags4GType, Is.Not.EqualTo(GType.Invalid),
-                         "Failed to register flags");
+            Assert.That(testFlags4GType, Is.Not.EqualTo(GType.Invalid), "Failed to register flags");
 
             // make sure the type is not re-registed.
             Assert.That(testFlags4GType, Is.EqualTo(typeof(TestFlags4).ToGType()));
@@ -52,13 +49,15 @@ namespace GISharp.Test.GObject
             Assert.That(testFlags4GType.IsA(GType.Flags), Is.True);
 
             // make sure that we set the typename, value name and value nick
-            Assert.That(testFlags4GType.Name, Is.EqualTo("GISharp-Test-GObject-FlagsTests+TestFlags4"));
+            Assert.That(
+                testFlags4GType.Name,
+                Is.EqualTo("GISharp-Test-GObject-FlagsTests+TestFlags4")
+            );
             using var flags4TypeClass = (FlagsClass)TypeClass.Get(testFlags4GType);
             var value = Flags.GetFirstValue(flags4TypeClass, 1);
             Assert.That(value.Value, Is.EqualTo((int)TestFlags4.One));
             Assert.That<string>(value.Name, Is.EqualTo("One"));
             Assert.That<string>(value.Nick, Is.EqualTo("One"));
-
         }
 
         [Test]
@@ -125,6 +124,7 @@ namespace GISharp.Test.GObject
         {
             [GEnumMember("test_flags_5_value_one")]
             One = 1,
+
             [GEnumMember(nick: "test_flags_5_value_two")]
             Two = 2,
             Four = 4,

@@ -14,11 +14,13 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestIsMaybe()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(vt.IsMaybe, Is.False);
             }
 
-            using (var vt = VariantType.Maybe) {
+            using (var vt = VariantType.Maybe)
+            {
                 Assert.That(vt.IsMaybe, Is.True);
             }
         }
@@ -26,11 +28,13 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestIsArray()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(vt.IsArray, Is.False);
             }
 
-            using (var vt = VariantType.Array) {
+            using (var vt = VariantType.Array)
+            {
                 Assert.That(vt.IsArray, Is.True);
             }
         }
@@ -38,11 +42,13 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestIsTuple()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(vt.IsTuple, Is.False);
             }
 
-            using (var vt = VariantType.Tuple) {
+            using (var vt = VariantType.Tuple)
+            {
                 Assert.That(vt.IsTuple, Is.True);
             }
         }
@@ -50,11 +56,13 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestIsDictEntry()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(vt.IsDictEntry, Is.False);
             }
 
-            using (var vt = VariantType.DictionaryEntry) {
+            using (var vt = VariantType.DictionaryEntry)
+            {
                 Assert.That(vt.IsDictEntry, Is.True);
             }
         }
@@ -62,11 +70,13 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestIsVariant()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(vt.IsVariant, Is.False);
             }
 
-            using (var vt = VariantType.Variant) {
+            using (var vt = VariantType.Variant)
+            {
                 Assert.That(vt.IsVariant, Is.True);
             }
         }
@@ -127,19 +137,22 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestElement()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(() => vt.Element, Throws.InvalidOperationException);
             }
 
             using (var any = VariantType.Any)
             using (var vt = VariantType.Array)
-            using (var element = vt.Element) {
+            using (var element = vt.Element)
+            {
                 Assert.That(element, Is.EqualTo(any));
             }
 
             using (var any = VariantType.Any)
             using (var vt = VariantType.Maybe)
-            using (var element = vt.Element) {
+            using (var element = vt.Element)
+            {
                 Assert.That(element, Is.EqualTo(any));
             }
         }
@@ -147,21 +160,25 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNItems()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(() => vt.ItemCount, Throws.InvalidOperationException);
             }
 
-            using (var vt = VariantType.Tuple) {
+            using (var vt = VariantType.Tuple)
+            {
                 Assert.That(() => vt.ItemCount, Throws.InvalidOperationException);
             }
 
-            using (var vt = VariantType.Unit) {
+            using (var vt = VariantType.Unit)
+            {
                 Assert.That(vt.ItemCount, Is.Zero);
             }
 
             using (var basic = VariantType.Basic)
             using (var any = VariantType.Any)
-            using (var vt = VariantType.DictionaryEntry) {
+            using (var vt = VariantType.DictionaryEntry)
+            {
                 Assert.That(vt.ItemCount, Is.EqualTo(2));
             }
         }
@@ -169,21 +186,25 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestFirstNext()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(() => vt.Items.Any(), Throws.InvalidOperationException);
             }
 
-            using (var vt = VariantType.Tuple) {
+            using (var vt = VariantType.Tuple)
+            {
                 Assert.That(() => vt.Items.Any(), Throws.InvalidOperationException);
             }
 
-            using (var vt = VariantType.Unit) {
+            using (var vt = VariantType.Unit)
+            {
                 Assert.That(vt.Items.Count(), Is.Zero);
             }
 
             using (var basic = VariantType.Basic)
             using (var any = VariantType.Any)
-            using (var vt = VariantType.DictionaryEntry) {
+            using (var vt = VariantType.DictionaryEntry)
+            {
                 var items = vt.Items.ToArray();
                 Assert.That(items.Length, Is.EqualTo(2));
                 Assert.That(items[0], Is.EqualTo(basic));
@@ -194,12 +215,14 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestKey()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(() => vt.Key, Throws.InvalidOperationException);
             }
 
             using (var basic = VariantType.Basic)
-            using (var vt = VariantType.DictionaryEntry) {
+            using (var vt = VariantType.DictionaryEntry)
+            {
                 Assert.That(vt.Key, Is.EqualTo(basic));
             }
         }
@@ -207,12 +230,14 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestValue()
         {
-            using (var vt = VariantType.Int32) {
+            using (var vt = VariantType.Int32)
+            {
                 Assert.That(() => vt.Value, Throws.InvalidOperationException);
             }
 
             using (var any = VariantType.Any)
-            using (var vt = VariantType.DictionaryEntry) {
+            using (var vt = VariantType.DictionaryEntry)
+            {
                 Assert.That(vt.Value, Is.EqualTo(any));
             }
         }

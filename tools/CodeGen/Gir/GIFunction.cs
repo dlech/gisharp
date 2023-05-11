@@ -35,7 +35,8 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public string ManagedPropertyName { get; }
 
-        private protected GIFunction(XElement element, GirNode parent) : base(element, parent)
+        private protected GIFunction(XElement element, GirNode parent)
+            : base(element, parent)
         {
             CIdentifier = Element.Attribute(c + "identifier").AsString();
             IsPInvokeOnly = Element.Attribute(gs + "pinvoke-only").AsBool();

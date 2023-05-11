@@ -53,9 +53,11 @@ namespace GISharp.Test.GLib
             Assert.That(ret, Is.True);
 
             var threadAcquiredContext = false;
-            Task.Run(() => {
-                threadAcquiredContext = context.Acquire();
-            }).Wait();
+            Task.Run(() =>
+                {
+                    threadAcquiredContext = context.Acquire();
+                })
+                .Wait();
             Assert.That(threadAcquiredContext, Is.False);
         }
 
@@ -75,7 +77,8 @@ namespace GISharp.Test.GLib
             using var context = new MainContext();
             using var mainLoop = new MainLoop(context);
             var invoked = false;
-            context.Invoke(() => {
+            context.Invoke(() =>
+            {
                 mainLoop.Quit();
                 invoked = true;
                 return Source.Remove;
@@ -83,11 +86,13 @@ namespace GISharp.Test.GLib
 
             Assert.That(invoked, Is.False);
 
-            Task.Run(() => {
-                context.PushThreadDefault();
-                mainLoop.Run();
-                context.PopThreadDefault();
-            }).Wait(100);
+            Task.Run(() =>
+                {
+                    context.PushThreadDefault();
+                    mainLoop.Run();
+                    context.PopThreadDefault();
+                })
+                .Wait(100);
 
             Assert.That(invoked, Is.True);
         }
@@ -127,7 +132,8 @@ namespace GISharp.Test.GLib
         {
             using var context = new MainContext();
             var awake = false;
-            var task = Task.Run(() => {
+            var task = Task.Run(() =>
+            {
                 context.PushThreadDefault();
                 context.Iteration(true);
                 awake = true;
@@ -143,12 +149,14 @@ namespace GISharp.Test.GLib
         {
             var invokedOnMainThread = false;
 
-            using (var context = new MainContext()) {
+            using (var context = new MainContext())
+            {
                 using var mainLoop = new MainLoop(context);
                 // use IdleSource to run stuff on the same thread as
                 // the main loop after mainLoop.Run has been called.
                 using var source = IdleSource.New();
-                source.SetCallback(() => {
+                source.SetCallback(() =>
+                {
                     // this gets the MainLoopSynchronizationContext that was
                     // set when mainLoop.Run was called. If it wasn't set, this
                     // will throw an exception.
@@ -160,24 +168,29 @@ namespace GISharp.Test.GLib
                     // start another background thread to that we can try calling back
                     // to the mainLoop thread using the scheduler.
                     // This implicitly calls MainLoopSynchronizationContext.Post()
-                    Task.Run(() => {
+                    Task.Run(() =>
+                    {
                         Assume.That(mainLoopThread, Is.Not.EqualTo(Thread.CurrentThread));
-                        Task.Factory.StartNew(() => {
-                            mainLoop.Quit();
-                            // NUnit does not catch the error here since it is on another thread.
-                            // But this is OK, we just check invokedOnMainThread later.
-                            Assert.That(mainLoopThread, Is.EqualTo(Thread.CurrentThread));
-                            invokedOnMainThread = true;
-                        },
+                        Task.Factory.StartNew(
+                            () =>
+                            {
+                                mainLoop.Quit();
+                                // NUnit does not catch the error here since it is on another thread.
+                                // But this is OK, we just check invokedOnMainThread later.
+                                Assert.That(mainLoopThread, Is.EqualTo(Thread.CurrentThread));
+                                invokedOnMainThread = true;
+                            },
                             CancellationToken.None,
                             TaskCreationOptions.None,
-                            scheduler);
+                            scheduler
+                        );
                     });
                     return Source.Remove;
                 });
                 source.Attach(context);
 
-                var task = Task.Run(() => {
+                var task = Task.Run(() =>
+                {
                     context.PushThreadDefault();
                     mainLoop.Run();
                     context.PopThreadDefault();

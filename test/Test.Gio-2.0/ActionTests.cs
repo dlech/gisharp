@@ -25,7 +25,10 @@ namespace GISharp.Test.Gio
             var gtype = typeof(IAction).ToGType();
             Assert.That(gtype.Name, Is.EqualTo("GAction"));
             var info = (InterfaceInfo)Repository.Default.FindByGtype(gtype);
-            Assert.That(Marshal.SizeOf<ActionInterface.UnmanagedStruct>(), Is.EqualTo(info.IfaceStruct.Size));
+            Assert.That(
+                Marshal.SizeOf<ActionInterface.UnmanagedStruct>(),
+                Is.EqualTo(info.IfaceStruct.Size)
+            );
         }
 
         [Test]
@@ -184,19 +187,23 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestParseDetailedNameWithInvalidName()
         {
-            Assert.That(() => IAction.ParseDetailedName("invalid name", out var actionName, out var target),
-                ThrowsGErrorException(VariantParseError.Failed));
+            Assert.That(
+                () => IAction.ParseDetailedName("invalid name", out var actionName, out var target),
+                ThrowsGErrorException(VariantParseError.Failed)
+            );
         }
 
         [Test]
         public void TestParseDetailedNameActionWithNoTarget()
         {
             IAction.ParseDetailedName("action", out var actionName, out var target);
-            try {
+            try
+            {
                 Assert.That<string>(actionName, Is.EqualTo("action"));
                 Assert.That(target, Is.Null);
             }
-            finally {
+            finally
+            {
                 actionName?.Dispose();
                 target?.Dispose();
             }
@@ -206,11 +213,13 @@ namespace GISharp.Test.Gio
         public void TestParseDetailedNameActionWithStringTarget()
         {
             IAction.ParseDetailedName("action::target", out var actionName, out var target);
-            try {
+            try
+            {
                 Assert.That<string>(actionName, Is.EqualTo("action"));
                 Assert.That((string)target, Is.EqualTo("target"));
             }
-            finally {
+            finally
+            {
                 actionName?.Dispose();
                 target?.Dispose();
             }
@@ -220,11 +229,13 @@ namespace GISharp.Test.Gio
         public void TestParseDetailedNameActionWithIntTarget()
         {
             IAction.ParseDetailedName("action(42)", out var actionName, out var target);
-            try {
+            try
+            {
                 Assert.That<string>(actionName, Is.EqualTo("action"));
                 Assert.That((int)target, Is.EqualTo(42));
             }
-            finally {
+            finally
+            {
                 actionName?.Dispose();
                 target?.Dispose();
             }
@@ -321,8 +332,6 @@ namespace GISharp.Test.Gio
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TestAction(IntPtr handle, Transfer ownership)
-            : base(handle, ownership)
-        {
-        }
+            : base(handle, ownership) { }
     }
 }

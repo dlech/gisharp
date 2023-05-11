@@ -16,7 +16,8 @@ namespace GISharp.CodeGen.Gir
         public Doc(XElement element, GirNode parent)
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
-            if (element.Name != gi + "doc") {
+            if (element.Name != gi + "doc")
+            {
                 throw new ArgumentException("Requrires <doc> element", nameof(element));
             }
         }

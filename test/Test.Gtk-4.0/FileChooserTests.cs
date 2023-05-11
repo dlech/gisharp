@@ -27,8 +27,10 @@ namespace GISharp.Test.Gtk
         [Test]
         public void BuilderErrorQuark()
         {
-            Assert.That(FileChooserError.Nonexistent.GetGErrorDomain(),
-                Is.EqualTo(FileChooserErrorDomain.Quark));
+            Assert.That(
+                FileChooserError.Nonexistent.GetGErrorDomain(),
+                Is.EqualTo(FileChooserErrorDomain.Quark)
+            );
         }
     }
 }

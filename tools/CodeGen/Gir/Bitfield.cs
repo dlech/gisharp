@@ -8,9 +8,11 @@ namespace GISharp.CodeGen.Gir
 {
     public sealed class Bitfield : GIEnum
     {
-        public Bitfield(XElement element, GirNode parent) : base(element, parent)
+        public Bitfield(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "bitfield") {
+            if (element.Name != gi + "bitfield")
+            {
                 throw new ArgumentException("Requrires <bitfield> element", nameof(element));
             }
         }

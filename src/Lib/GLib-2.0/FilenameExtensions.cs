@@ -27,7 +27,8 @@ namespace GISharp.Lib.GLib
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_filename_from_uri(uri_, null, &error_);
             GMarshal.PopUnhandledException();
-            if (error_ is not null) {
+            if (error_ is not null)
+            {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }
@@ -56,7 +57,8 @@ namespace GISharp.Lib.GLib
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_filename_from_utf8(utf8string_, -1, null, null, &error_);
             GMarshal.PopUnhandledException();
-            if (error_ is not null) {
+            if (error_ is not null)
+            {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }
@@ -82,7 +84,8 @@ namespace GISharp.Lib.GLib
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_filename_to_utf8(opsysstring_, -1, null, null, &error_);
             GMarshal.PopUnhandledException();
-            if (error_ is not null) {
+            if (error_ is not null)
+            {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }

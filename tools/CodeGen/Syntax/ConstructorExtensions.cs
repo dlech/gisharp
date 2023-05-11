@@ -17,24 +17,30 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# class member declarations for a GIR constructor
         /// </summary>
-        public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Constructor constructor)
+        public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(
+            this Constructor constructor
+        )
         {
             IEnumerable<MemberDeclarationSyntax> getMembers()
             {
                 yield return constructor.GetExternMethodDeclaration();
 
-                if (!constructor.IsPInvokeOnly) {
+                if (!constructor.IsPInvokeOnly)
+                {
                     yield return constructor.GetCheckArgsMethodDeclaration();
 
-                    if (constructor.IsCheckReturn) {
+                    if (constructor.IsCheckReturn)
+                    {
                         yield return constructor.GetCheckReturnMethodDeclaration();
                     }
 
-                    yield return constructor.GetStaticMethodDeclaration()
+                    yield return constructor
+                        .GetStaticMethodDeclaration()
                         .WithModifiers(TokenList(Token(StaticKeyword))) // strip access modifiers
                         .WithBody(constructor.GetInvokeBlock(constructor.CIdentifier));
 
-                    if (!constructor.HasCustomConstructor) {
+                    if (!constructor.HasCustomConstructor)
+                    {
                         yield return constructor.GetConstructorDeclaration();
                     }
                 }
@@ -46,12 +52,18 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# constructor declarations for a GIR constructor
         /// </summary>
-        public static ConstructorDeclarationSyntax GetConstructorDeclaration(this Constructor constructor)
+        public static ConstructorDeclarationSyntax GetConstructorDeclaration(
+            this Constructor constructor
+        )
         {
             var staticMethod = ParseExpression(constructor.ManagedName);
-            var handleArg = Argument(CastExpression(ParseTypeName("System.IntPtr"),
-                InvocationExpression(staticMethod)
-                    .WithArgumentList(constructor.ManagedParameters.GetArgumentList())));
+            var handleArg = Argument(
+                CastExpression(
+                    ParseTypeName("System.IntPtr"),
+                    InvocationExpression(staticMethod)
+                        .WithArgumentList(constructor.ManagedParameters.GetArgumentList())
+                )
+            );
 
             var ownership = constructor.ReturnValue.GetOwnershipTransfer();
             var ownershipArg = Argument(ownership);
@@ -69,11 +81,15 @@ namespace GISharp.CodeGen.Syntax
 
             var trivia = TriviaList()
                 .AddRange(constructor.Doc.GetDocCommentTrivia())
-                .AddRange(constructor.ManagedParameters.RegularParameters
-                    .SelectMany(x => x.Doc.GetDocCommentTrivia()))
+                .AddRange(
+                    constructor.ManagedParameters.RegularParameters.SelectMany(
+                        x => x.Doc.GetDocCommentTrivia()
+                    )
+                )
                 .AddRange(constructor.GetGErrorExceptionDocCommentTrivia());
 
-            syntax = syntax.WithLeadingTrivia(trivia)
+            syntax = syntax
+                .WithLeadingTrivia(trivia)
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
@@ -83,15 +99,20 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the member declarations for the constructors, logging a warning
         /// for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Constructor> constructors)
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(
+            this IEnumerable<Constructor> constructors
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var constructor in constructors) {
-                try {
+            foreach (var constructor in constructors)
+            {
+                try
+                {
                     list = list.AddRange(constructor.GetClassMembers());
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     constructor.LogException(ex);
                 }
             }

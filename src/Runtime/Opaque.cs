@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+
 namespace GISharp.Runtime
 {
     /// <summary>
@@ -26,9 +27,12 @@ namespace GISharp.Runtime
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
-        public virtual IntPtr UnsafeHandle {
-            get {
-                if (handle == IntPtr.Zero) {
+        public virtual IntPtr UnsafeHandle
+        {
+            get
+            {
+                if (handle == IntPtr.Zero)
+                {
                     throw new ObjectDisposedException(null);
                 }
                 return handle;
@@ -97,7 +101,8 @@ namespace GISharp.Runtime
         /// <summary>
         /// Marshals an unmanged pointer to a managed object.
         /// </summary>
-        public static T GetInstance<T>(IntPtr handle, Transfer ownership) where T : IOpaque?
+        public static T GetInstance<T>(IntPtr handle, Transfer ownership)
+            where T : IOpaque?
         {
             return (T)GetInstance(typeof(T), handle, ownership)!;
         }
@@ -108,32 +113,39 @@ namespace GISharp.Runtime
         public static IOpaque? GetInstance(Type type, IntPtr handle, Transfer ownership)
         {
             // special case for OpaqueInt so 0 doesn't become null
-            if (type == typeof(OpaqueInt)) {
+            if (type == typeof(OpaqueInt))
+            {
                 var ret = new OpaqueInt((int)handle);
                 return ret;
             }
 
-            if (handle == IntPtr.Zero) {
+            if (handle == IntPtr.Zero)
+            {
                 return null;
             }
 
-            if (typeResolvers.Keys
-                .Where(x => x.IsAssignableFrom(type))
-                .Select(x => typeResolvers[x])
-                .SingleOrDefault() is Func<IntPtr, Transfer, IOpaque?> getInstance
-            ) {
+            if (
+                typeResolvers.Keys
+                    .Where(x => x.IsAssignableFrom(type))
+                    .Select(x => typeResolvers[x])
+                    .SingleOrDefault()
+                is Func<IntPtr, Transfer, IOpaque?> getInstance
+            )
+            {
                 return getInstance(handle, ownership);
             }
 
             return (IOpaque)Activator.CreateInstance(type, handle, ownership)!;
         }
 
-        private static readonly Dictionary<Type, Func<IntPtr, Transfer, IOpaque?>> typeResolvers = new();
+        private static readonly Dictionary<Type, Func<IntPtr, Transfer, IOpaque?>> typeResolvers =
+            new();
 
         /// <summary>
         /// Registers a new fundamental type for getting correct subclass type.
         /// </summary>
-        protected static void RegisterTypeResolver<T>(Func<IntPtr, Transfer, IOpaque?> getInstance) where T : IOpaque
+        protected static void RegisterTypeResolver<T>(Func<IntPtr, Transfer, IOpaque?> getInstance)
+            where T : IOpaque
         {
             typeResolvers.Add(typeof(T), getInstance);
         }
@@ -147,7 +159,8 @@ namespace GISharp.Runtime
         /// <inheritdoc />
         public override bool Equals(object? obj)
         {
-            if (obj is Opaque opaque) {
+            if (obj is Opaque opaque)
+            {
                 return handle == opaque.handle;
             }
             return base.Equals(obj);

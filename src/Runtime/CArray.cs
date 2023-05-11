@@ -23,13 +23,16 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected CArray(IntPtr handle, int length, Transfer ownership) : base(handle)
+        protected CArray(IntPtr handle, int length, Transfer ownership)
+            : base(handle)
         {
-            if (ownership == Transfer.None) {
+            if (ownership == Transfer.None)
+            {
                 this.handle = IntPtr.Zero;
                 throw new NotSupportedException();
             }
-            if (length < 0) {
+            if (length < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
             Length = length;
@@ -62,7 +65,8 @@ namespace GISharp.Runtime
         /// <summary>
         /// Creates a new managed wrapper for an unmanaged C array.
         /// </summary>
-        public static CArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership) where T : unmanaged
+        public static CArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership)
+            where T : unmanaged
         {
             return new CArray<T>(handle, length, ownership);
         }
@@ -72,15 +76,15 @@ namespace GISharp.Runtime
     /// Managed wrapper around an unmanged C array.
     /// </summary>
     /// <seealso cref="CPtrArray{T}"/>
-    public unsafe class CArray<T> : CArray, IReadOnlyList<T> where T : unmanaged
+    public unsafe class CArray<T> : CArray, IReadOnlyList<T>
+        where T : unmanaged
     {
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public CArray(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
-        {
-        }
+        public CArray(IntPtr handle, int length, Transfer ownership)
+            : base(handle, length, ownership) { }
 
         /// <summary>
         /// Gets an element of this array.
@@ -91,10 +95,13 @@ namespace GISharp.Runtime
         /// <exception cref="IndexOutOfRangeException">
         /// The index is outside of the bounds of the array.
         /// </exception>
-        public T this[int index] {
-            get {
+        public T this[int index]
+        {
+            get
+            {
                 var this_ = (T*)UnsafeHandle;
-                if (index < 0 || index >= Length) {
+                if (index < 0 || index >= Length)
+                {
                     throw new IndexOutOfRangeException(nameof(index));
                 }
                 var ret = this_[index];
@@ -109,7 +116,8 @@ namespace GISharp.Runtime
 
         IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < Length; i++) {
+            for (int i = 0; i < Length; i++)
+            {
                 yield return this[i];
             }
         }
@@ -130,7 +138,8 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for unowned C arrays of pointers to opaque data types.
     /// </summary>
-    public unsafe class ZeroTerminatedCArray<T> : Opaque where T : unmanaged
+    public unsafe class ZeroTerminatedCArray<T> : Opaque
+        where T : unmanaged
     {
         private readonly int length;
 
@@ -143,25 +152,25 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ZeroTerminatedCArray(void* handle) : this((IntPtr)handle, -1, Transfer.None)
-        {
-        }
+        public ZeroTerminatedCArray(void* handle)
+            : this((IntPtr)handle, -1, Transfer.None) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ZeroTerminatedCArray(void* handle, int length) : this((IntPtr)handle, length, Transfer.None)
-        {
-        }
+        public ZeroTerminatedCArray(void* handle, int length)
+            : this((IntPtr)handle, length, Transfer.None) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ZeroTerminatedCArray(IntPtr handle, int length, Transfer ownership) : base(handle)
+        public ZeroTerminatedCArray(IntPtr handle, int length, Transfer ownership)
+            : base(handle)
         {
-            if (ownership != Transfer.Full) {
+            if (ownership != Transfer.Full)
+            {
                 GC.SuppressFinalize(this);
                 throw new NotSupportedException();
             }
@@ -203,10 +212,12 @@ namespace GISharp.Runtime
             /// </summary>
             public bool MoveNext()
             {
-                if (current == null) {
+                if (current == null)
+                {
                     current = (T*)array.UnsafeHandle;
                 }
-                else {
+                else
+                {
                     current++;
                 }
 
@@ -223,7 +234,8 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for unowned C arrays of pointers to opaque data types.
     /// </summary>
-    public unsafe ref struct UnownedZeroTerminatedCArray<T> where T : unmanaged
+    public unsafe ref struct UnownedZeroTerminatedCArray<T>
+        where T : unmanaged
     {
         private readonly T* handle;
 
@@ -231,17 +243,15 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public UnownedZeroTerminatedCArray(void* handle) : this((IntPtr)handle, -1, Transfer.None)
-        {
-        }
+        public UnownedZeroTerminatedCArray(void* handle)
+            : this((IntPtr)handle, -1, Transfer.None) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public UnownedZeroTerminatedCArray(void* handle, int length) : this((IntPtr)handle, length, Transfer.None)
-        {
-        }
+        public UnownedZeroTerminatedCArray(void* handle, int length)
+            : this((IntPtr)handle, length, Transfer.None) { }
 
         /// <summary>
         /// For internal runtime use only.
@@ -249,7 +259,8 @@ namespace GISharp.Runtime
         [EditorBrowsable(EditorBrowsableState.Never)]
         public UnownedZeroTerminatedCArray(IntPtr handle, int length, Transfer ownership)
         {
-            if (ownership != Transfer.None) {
+            if (ownership != Transfer.None)
+            {
                 throw new NotSupportedException();
             }
 
@@ -293,10 +304,12 @@ namespace GISharp.Runtime
             /// </summary>
             public bool MoveNext()
             {
-                if (current == null) {
+                if (current == null)
+                {
                     current = array.handle;
                 }
-                else {
+                else
+                {
                     current++;
                 }
 

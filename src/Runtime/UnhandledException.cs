@@ -16,8 +16,7 @@ namespace GISharp.Runtime
         /// <param name="ex">
         /// The unhandled exception. This will be set to the inner exception.
         /// </param>
-        public UnhandledException(Exception ex) : base("Unhandled exception", ex)
-        {
-        }
+        public UnhandledException(Exception ex)
+            : base("Unhandled exception", ex) { }
     }
 }

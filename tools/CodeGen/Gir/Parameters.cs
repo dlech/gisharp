@@ -30,9 +30,11 @@ namespace GISharp.CodeGen.Gir
         readonly Lazy<ErrorParameter> _ErrorParameter;
         readonly Lazy<List<GIArg>> _AllParameters;
 
-        public Parameters(XElement element, GirNode parent) : base(element, parent)
+        public Parameters(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "parameters") {
+            if (element.Name != gi + "parameters")
+            {
                 throw new ArgumentException("Requrires <parameters> element", nameof(element));
             }
             _InstanceParameter = new(LazyGetInstanceParameter, false);
@@ -54,11 +56,13 @@ namespace GISharp.CodeGen.Gir
         {
             var parameters = RegularParameters.Cast<GIArg>();
 
-            if (InstanceParameter is not null) {
+            if (InstanceParameter is not null)
+            {
                 parameters = parameters.Prepend(InstanceParameter);
             }
 
-            if (ErrorParameter is not null) {
+            if (ErrorParameter is not null)
+            {
                 parameters = parameters.Append(ErrorParameter);
             }
 
@@ -68,7 +72,6 @@ namespace GISharp.CodeGen.Gir
         IEnumerator<GIArg> IEnumerable<GIArg>.GetEnumerator() =>
             _AllParameters.Value.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() =>
-            _AllParameters.Value.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => _AllParameters.Value.GetEnumerator();
     }
 }

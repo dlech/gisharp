@@ -39,9 +39,11 @@ namespace GISharp.CodeGen.Gir
         public string BaseType => _BaseType.Value;
         readonly Lazy<string> _BaseType;
 
-        public Record(XElement element, GirNode parent) : base(element, parent)
+        public Record(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "record") {
+            if (element.Name != gi + "record")
+            {
                 throw new ArgumentException("Requrires <record> element", nameof(element));
             }
             IsDisguised = Element.Attribute("disguised").AsBool();
@@ -52,24 +54,32 @@ namespace GISharp.CodeGen.Gir
         }
 
         GIRegisteredType LazyGetIsGTypeStructForType() =>
-            (GIRegisteredType)Namespace.AllTypes.SingleOrDefault(x => x.GirName == IsGTypeStructFor);
+            (GIRegisteredType)
+                Namespace.AllTypes.SingleOrDefault(x => x.GirName == IsGTypeStructFor);
 
         string LazyGetBaseType()
         {
-            if (IsGTypeStructFor is not null) {
-                if (Fields.Any()) {
+            if (IsGTypeStructFor is not null)
+            {
+                if (Fields.Any())
+                {
                     // in GType structs, the first field is always the base type
                     return Fields.First().Type.GetManagedType();
                 }
                 // if there weren't any fields, maybe it is a class
-                if (IsGTypeStructForType is Class @class) {
+                if (IsGTypeStructForType is Class @class)
+                {
                     var parent = @class.ParentType;
                     return $"GISharp.Lib.{parent.Namespace.Name}.{parent.GTypeStruct}";
                 }
-                throw new NotSupportedException("Don't know how to get the parent for this GType struct");
+                throw new NotSupportedException(
+                    "Don't know how to get the parent for this GType struct"
+                );
             }
-            if (IsDisguised) {
-                if (HasParent) {
+            if (IsDisguised)
+            {
+                if (HasParent)
+                {
                     return Fields.First().Type.GetManagedType();
                 }
                 return typeof(Opaque).FullName;

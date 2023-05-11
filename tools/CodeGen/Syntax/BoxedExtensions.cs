@@ -21,12 +21,15 @@ namespace GISharp.CodeGen.Syntax
             var identifier = boxed.ManagedName;
 
             var syntax = ClassDeclaration(identifier)
-                .WithModifiers(TokenList(
-                    boxed.GetInheritanceModifiers(Token(SealedKeyword))
-                    .Prepend(Token(PublicKeyword))
-                    .Append(Token(UnsafeKeyword))
-                    .Append(Token(PartialKeyword))
-                ))
+                .WithModifiers(
+                    TokenList(
+                        boxed
+                            .GetInheritanceModifiers(Token(SealedKeyword))
+                            .Prepend(Token(PublicKeyword))
+                            .Append(Token(UnsafeKeyword))
+                            .Append(Token(PartialKeyword))
+                    )
+                )
                 .WithBaseList(boxed.GetBaseList())
                 .WithAttributeLists(boxed.GetGTypeAttributeLists())
                 .WithLeadingTrivia(boxed.Doc.GetDocCommentTrivia())
@@ -53,7 +56,9 @@ namespace GISharp.CodeGen.Syntax
 
             var members = List<MemberDeclarationSyntax>()
                 .AddIf(boxed.GTypeGetter != "intern", () => boxed.GetGTypeFieldDeclaration())
-                .Add(boxed.Fields.GetStructDeclaration().AddModifiers(fieldStructModifiers.ToArray()))
+                .Add(
+                    boxed.Fields.GetStructDeclaration().AddModifiers(fieldStructModifiers.ToArray())
+                )
                 .AddRange(boxed.Constants.GetMemberDeclarations())
                 .AddRange(boxed.ManagedProperties.GetMemberDeclarations())
                 .AddIf(!boxed.IsCustomDefaultConstructor, () => boxed.GetDefaultConstructor())

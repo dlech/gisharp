@@ -18,27 +18,47 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static MethodDeclarationSyntax GetExternMethodDeclaration(this GIFunction function)
         {
-            var girTrivia = TriviaList(function.ReturnValue.GetGirXmlTrivia(),
-                EndOfLine("\n"), function.ReturnValue.GetAnnotationTrivia());
+            var girTrivia = TriviaList(
+                function.ReturnValue.GetGirXmlTrivia(),
+                EndOfLine("\n"),
+                function.ReturnValue.GetAnnotationTrivia()
+            );
 
             // get parameters, injecting some comments along the way
-            var parameterList = ParameterList(SeparatedList(function.Parameters
-                .Select(x => x.GetParameter()
-                    .WithLeadingTrivia(TriviaList(x.GetGirXmlTrivia(), EndOfLine("\n"),
-                        x.GetAnnotationTrivia(), EndOfLine("\n"))))));
+            var parameterList = ParameterList(
+                SeparatedList(
+                    function.Parameters.Select(
+                        x =>
+                            x.GetParameter()
+                                .WithLeadingTrivia(
+                                    TriviaList(
+                                        x.GetGirXmlTrivia(),
+                                        EndOfLine("\n"),
+                                        x.GetAnnotationTrivia(),
+                                        EndOfLine("\n")
+                                    )
+                                )
+                    )
+                )
+            );
 
             var modifiers = TokenList();
-            if (function.PinvokeAccessModifiers is string m) {
+            if (function.PinvokeAccessModifiers is string m)
+            {
                 modifiers = modifiers.AddRange(ParseTokens(m));
             }
-            else {
+            else
+            {
                 modifiers = modifiers.Add(Token(PrivateKeyword));
             }
             modifiers = modifiers.Add(Token(StaticKeyword)).Add(Token(ExternKeyword));
 
             // adding girTrivia here makes it appear before the method declaration
             // but after the attribute lists
-            modifiers = modifiers.Replace(modifiers.First(), modifiers.First().WithLeadingTrivia(girTrivia));
+            modifiers = modifiers.Replace(
+                modifiers.First(),
+                modifiers.First().WithLeadingTrivia(girTrivia)
+            );
 
             var returnType = ParseTypeName(function.ReturnValue.Type.GetUnmanagedType());
             var syntax = MethodDeclaration(returnType, function.CIdentifier)
@@ -50,8 +70,7 @@ namespace GISharp.CodeGen.Syntax
 
             var trivia = TriviaList()
                 .AddRange(function.Doc.GetDocCommentTrivia(false))
-                .AddRange(function.Parameters
-                    .SelectMany(x => x.Doc.GetDocCommentTrivia(false)))
+                .AddRange(function.Parameters.SelectMany(x => x.Doc.GetDocCommentTrivia(false)))
                 .AddRange(function.ReturnValue.Doc.GetDocCommentTrivia(false));
 
             syntax = syntax.WithLeadingTrivia(trivia);
@@ -67,7 +86,8 @@ namespace GISharp.CodeGen.Syntax
             var returnType = function.ReturnValue.GetManagedTypeName();
             var modifiers = TokenList(function.GetCommonAccessModifiers());
 
-            if (function is Constructor) {
+            if (function is Constructor)
+            {
                 // special case for constructors since the static method is only
                 // part of the constructor
                 returnType = ParseTypeName(function.ReturnValue.Type.GetUnmanagedType());
@@ -84,19 +104,26 @@ namespace GISharp.CodeGen.Syntax
 
             var trivia = TriviaList()
                 .AddRange(function.Doc.GetDocCommentTrivia())
-                .AddRange(function.ManagedParameters
-                    .SelectMany(x => x.Doc.GetDocCommentTrivia()));
+                .AddRange(function.ManagedParameters.SelectMany(x => x.Doc.GetDocCommentTrivia()));
 
-            if (returnType.ToString() != "void") {
+            if (returnType.ToString() != "void")
+            {
                 trivia = trivia.AddRange(function.ReturnValue.Doc.GetDocCommentTrivia());
             }
 
             trivia = trivia.AddRange(function.GetGErrorExceptionDocCommentTrivia());
 
             // only set "extern doc" if method is public
-            if (syntax.Modifiers.Any(x => x.IsEquivalentTo(Token(PublicKeyword))
-                                       || x.IsEquivalentTo(Token(ProtectedKeyword)))) {
-                syntax = syntax.WithLeadingTrivia(trivia)
+            if (
+                syntax.Modifiers.Any(
+                    x =>
+                        x.IsEquivalentTo(Token(PublicKeyword))
+                        || x.IsEquivalentTo(Token(ProtectedKeyword))
+                )
+            )
+            {
+                syntax = syntax
+                    .WithLeadingTrivia(trivia)
                     .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
             }
 
@@ -107,14 +134,15 @@ namespace GISharp.CodeGen.Syntax
         {
             var name = ParseName(typeof(DllImportAttribute).FullName);
 
-            var argList = string.Format("(\"{0}\", {1} = {2}.{3})",
+            var argList = string.Format(
+                "(\"{0}\", {1} = {2}.{3})",
                 function.DllName,
                 nameof(DllImportAttribute.CallingConvention),
                 typeof(CallingConvention),
-                nameof(CallingConvention.Cdecl));
+                nameof(CallingConvention.Cdecl)
+            );
 
-            var attr = Attribute(name)
-                .WithArgumentList(ParseAttributeArgumentList(argList));
+            var attr = Attribute(name).WithArgumentList(ParseAttributeArgumentList(argList));
 
             return AttributeList().AddAttributes(attr);
         }

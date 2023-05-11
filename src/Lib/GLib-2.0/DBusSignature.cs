@@ -11,7 +11,8 @@ namespace GISharp.Lib.GLib
     {
         private static IntPtr Validate(UnownedUtf8 signature)
         {
-            if (!Variant.IsSignature(signature)) {
+            if (!Variant.IsSignature(signature))
+            {
                 throw new ArgumentException("Not a valid signature.", nameof(signature));
             }
             return signature.UnsafeHandle;
@@ -20,16 +21,14 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Creates a new D-bus signature.
         /// </summary>
-        public DBusSignature(UnownedUtf8 signature) : this(Validate(signature), signature.MaybeLength, Transfer.None)
-        {
-        }
+        public DBusSignature(UnownedUtf8 signature)
+            : this(Validate(signature), signature.MaybeLength, Transfer.None) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public DBusSignature(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
-        {
-        }
+        public DBusSignature(IntPtr handle, int length, Transfer ownership)
+            : base(handle, length, ownership) { }
     }
 }

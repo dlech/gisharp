@@ -167,8 +167,10 @@ namespace GISharp.Runtime
         /// <summary>
         /// The type for GType.
         /// </summary>
-        public static GType Type {
-            get {
+        public static GType Type
+        {
+            get
+            {
                 var ret = g_gtype_get_type();
                 GMarshal.PopUnhandledException();
                 return ret;
@@ -191,7 +193,8 @@ namespace GISharp.Runtime
         static extern GType g_type_fundamental(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
-            GType typeId);
+            GType typeId
+        );
 
         /// <summary>
         /// The fundamental type which is the ancestor of type.
@@ -201,8 +204,10 @@ namespace GISharp.Runtime
         /// derived types, thus they are the roots of distinct inheritance
         /// hierarchies.
         /// </remarks>
-        public GType Fundamental {
-            get {
+        public GType Fundamental
+        {
+            get
+            {
                 var ret = g_type_fundamental(this);
                 GMarshal.PopUnhandledException();
                 return ret;
@@ -258,7 +263,8 @@ namespace GISharp.Runtime
             GType type,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
-            TypeFlags flags);
+            TypeFlags flags
+        );
 
         /// <summary>
         /// Checks if type is an abstract type.
@@ -267,8 +273,10 @@ namespace GISharp.Runtime
         /// An abstract type cannot be instantiated and is normally used as an
         /// abstract base class for derived classes.
         /// </remarks>
-        public bool IsAbstract {
-            get {
+        public bool IsAbstract
+        {
+            get
+            {
                 var ret_ = g_type_test_flags(this, TypeFlags.Abstract);
                 GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
@@ -293,13 +301,16 @@ namespace GISharp.Runtime
         static extern Boolean g_type_check_is_value_type(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
-            GType type);
+            GType type
+        );
 
         /// <summary>
         /// Checks if this is a value type and can be used with g_value_init().
         /// </summary>
-        public bool IsValueType {
-            get {
+        public bool IsValueType
+        {
+            get
+            {
                 var ret_ = g_type_check_is_value_type(this);
                 GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
@@ -310,8 +321,10 @@ namespace GISharp.Runtime
         /// <summary>
         /// Checks if type is a classed type.
         /// </summary>
-        public bool IsClassed {
-            get {
+        public bool IsClassed
+        {
+            get
+            {
                 var ret_ = g_type_test_flags(this, TypeFlags.Classed);
                 GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
@@ -326,8 +339,10 @@ namespace GISharp.Runtime
         /// Instantiation is the process of creating an instance (object) of
         /// this type.
         /// </remarks>
-        public bool IsInstantiatable {
-            get {
+        public bool IsInstantiatable
+        {
+            get
+            {
                 var ret_ = g_type_test_flags(this, TypeFlags.Instantiatable);
                 GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
@@ -342,8 +357,10 @@ namespace GISharp.Runtime
         /// A derivable type can be used as the base class of a flat
         /// (single-level) class hierarchy.
         /// </remarks>
-        public bool IsDerivable {
-            get {
+        public bool IsDerivable
+        {
+            get
+            {
                 var ret_ = g_type_test_flags(this, TypeFlags.Derivable);
                 GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
@@ -358,8 +375,10 @@ namespace GISharp.Runtime
         /// A deep derivable type can be used as the base class of a deep
         /// (multi-level) class hierarchy.
         /// </remarks>
-        public bool IsDeepDerivable {
-            get {
+        public bool IsDeepDerivable
+        {
+            get
+            {
                 var ret_ = g_type_test_flags(this, TypeFlags.DeepDerivable);
                 GMarshal.PopUnhandledException();
                 var ret = ret_.IsTrue();
@@ -378,8 +397,10 @@ namespace GISharp.Runtime
         /// difference that GType interfaces are not derivable (but see
         /// g_type_interface_add_prerequisite() for an alternative).
         /// </remarks>
-        public bool IsInterface {
-            get {
+        public bool IsInterface
+        {
+            get
+            {
                 var ret = g_type_fundamental(this) == Interface;
                 GMarshal.PopUnhandledException();
                 return ret;
@@ -405,7 +426,8 @@ namespace GISharp.Runtime
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
-            if (obj is GType type) {
+            if (obj is GType type)
+            {
                 return this == type;
             }
             return false;
@@ -442,7 +464,8 @@ namespace GISharp.Runtime
         static extern IntPtr g_type_name(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
-            GType type);
+            GType type
+        );
 
         /// <summary>
         /// Get the unique name that is assigned to a type ID.
@@ -450,8 +473,10 @@ namespace GISharp.Runtime
         /// <returns>
         /// type name or <c>null</c>
         /// </returns>
-        public string? Name {
-            get {
+        public string? Name
+        {
+            get
+            {
                 var ret_ = g_type_name(this);
                 GMarshal.PopUnhandledException();
                 var ret = Marshal.PtrToStringUTF8(ret_);
@@ -475,7 +500,8 @@ namespace GISharp.Runtime
         static extern GType g_type_parent(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
-            GType type);
+            GType type
+        );
 
         /// <summary>
         /// Return the direct parent type of the passed in type. If the passed
@@ -485,8 +511,10 @@ namespace GISharp.Runtime
         /// <returns>
         /// the parent type
         /// </returns>
-        public GType Parent {
-            get {
+        public GType Parent
+        {
+            get
+            {
                 var ret = g_type_parent(this);
                 GMarshal.PopUnhandledException();
                 return ret;
@@ -519,7 +547,8 @@ namespace GISharp.Runtime
             GType type,
             /* <type name="guint" type="guint*" managed-name="Guint" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            uint* nChildren);
+            uint* nChildren
+        );
 
         /// <summary>
         /// Return an array of type IDs, listing the child types of this type.
@@ -527,12 +556,15 @@ namespace GISharp.Runtime
         /// <returns>
         /// array of child types
         /// </returns>
-        public ZeroTerminatedCArray<GType>? Children {
-            get {
+        public ZeroTerminatedCArray<GType>? Children
+        {
+            get
+            {
                 uint nChildren_;
                 var ret_ = g_type_children(this, &nChildren_);
                 GMarshal.PopUnhandledException();
-                if (ret_ == IntPtr.Zero) {
+                if (ret_ == IntPtr.Zero)
+                {
                     return null;
                 }
                 var ret = new ZeroTerminatedCArray<GType>(ret_, (int)nChildren_, Transfer.Full);
@@ -580,7 +612,8 @@ namespace GISharp.Runtime
         static extern GType g_type_from_name(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            IntPtr name);
+            IntPtr name
+        );
 
         /// <summary>
         /// Lookup the type ID from a given type name, returning
@@ -601,12 +634,14 @@ namespace GISharp.Runtime
         {
             AssertGTypeName(name);
             var name_ = Marshal.StringToCoTaskMemUTF8(name);
-            try {
+            try
+            {
                 var ret = g_type_from_name(name_);
                 GMarshal.PopUnhandledException();
                 return ret;
             }
-            finally {
+            finally
+            {
                 Marshal.FreeCoTaskMem(name_);
             }
         }
@@ -626,15 +661,18 @@ namespace GISharp.Runtime
         /// </remarks>
         public static void AssertGTypeName(string name)
         {
-            if (name.Length < 3) {
+            if (name.Length < 3)
+            {
                 var message = $"The name '{name}' is too short.";
                 throw new ArgumentException(message, nameof(name));
             }
-            if (Regex.IsMatch(name[0].ToString(), "[^A-Za-z_]")) {
+            if (Regex.IsMatch(name[0].ToString(), "[^A-Za-z_]"))
+            {
                 var message = $"The name '{name}' must start with letter or underscore.";
                 throw new ArgumentException(message, nameof(name));
             }
-            if (Regex.IsMatch(name, "[^0-9A-Za-z_\\-\\+]")) {
+            if (Regex.IsMatch(name, "[^0-9A-Za-z_\\-\\+]"))
+            {
                 var message = $"The name '{name}' contains an invalid character.";
                 throw new ArgumentException(message, nameof(name));
             }
@@ -656,15 +694,16 @@ namespace GISharp.Runtime
         /// </exception>
         public static string GetGTypeName(this Type type)
         {
-            var gtypeAttr = type.GetCustomAttributes()
-                .OfType<GTypeAttribute>().SingleOrDefault();
+            var gtypeAttr = type.GetCustomAttributes().OfType<GTypeAttribute>().SingleOrDefault();
 
-            var ret = gtypeAttr?.Name ?? type.ToString()
-                .Replace('.', '-')
-                .Replace("[]", "--Array--")
-                .Replace("`", "--of--")
-                .Replace("[", "")
-                .Replace("]", "");
+            var ret =
+                gtypeAttr?.Name
+                ?? type.ToString()
+                    .Replace('.', '-')
+                    .Replace("[]", "--Array--")
+                    .Replace("`", "--of--")
+                    .Replace("[", "")
+                    .Replace("]", "");
 
             GType.AssertGTypeName(ret);
 

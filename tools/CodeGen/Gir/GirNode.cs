@@ -19,6 +19,7 @@ namespace GISharp.CodeGen.Gir
         private protected static readonly XNamespace c = Globals.CNamespace;
         private protected static readonly XNamespace glib = Globals.GLibNamespace;
         private protected static readonly XNamespace gs = Globals.GISharpNamespace;
+
         // Analysis restore InconsistentNaming
 
         /// <summary>
@@ -54,123 +55,161 @@ namespace GISharp.CodeGen.Gir
 
         public static GirNode GetNode(XElement element)
         {
-            if (element is null) {
+            if (element is null)
+            {
                 return null;
             }
 
             // if this element already has a node object attached, use it
             var node = element.Annotation<GirNode>();
-            if (node is not null) {
+            if (node is not null)
+            {
                 return node;
             }
 
             // otherwise, create a new node based on the element name
-            if (element.Name == gi + "alias") {
+            if (element.Name == gi + "alias")
+            {
                 return new Alias(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "array") {
+            else if (element.Name == gi + "array")
+            {
                 return new Array(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "bitfield") {
+            else if (element.Name == gi + "bitfield")
+            {
                 return new Bitfield(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "callback") {
+            else if (element.Name == gi + "callback")
+            {
                 return new Callback(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "class") {
+            else if (element.Name == gi + "class")
+            {
                 return new Class(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "constant") {
+            else if (element.Name == gi + "constant")
+            {
                 return new Constant(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "constructor") {
+            else if (element.Name == gi + "constructor")
+            {
                 return new Constructor(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "doc") {
+            else if (element.Name == gi + "doc")
+            {
                 return new Doc(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "doc-deprecated") {
+            else if (element.Name == gi + "doc-deprecated")
+            {
                 return new DocDeprecated(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "enumeration") {
+            else if (element.Name == gi + "enumeration")
+            {
                 return new Enumeration(element, GetNode(element.Parent));
             }
-            else if (element.Name == gs + "error-parameter") {
+            else if (element.Name == gs + "error-parameter")
+            {
                 return new ErrorParameter(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "field") {
+            else if (element.Name == gi + "field")
+            {
                 return new Field(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "function") {
+            else if (element.Name == gi + "function")
+            {
                 return new Function(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "instance-parameter") {
+            else if (element.Name == gi + "instance-parameter")
+            {
                 return new InstanceParameter(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "interface") {
+            else if (element.Name == gi + "interface")
+            {
                 return new Interface(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "implements") {
+            else if (element.Name == gi + "implements")
+            {
                 return new Implements(element, GetNode(element.Parent));
             }
-            else if (element.Name == gs + "managed-property") {
+            else if (element.Name == gs + "managed-property")
+            {
                 return new ManagedProperty(element, GetNode(element.Parent));
             }
-            else if (element.Name == gs + "managed-parameters") {
+            else if (element.Name == gs + "managed-parameters")
+            {
                 return new ManagedParameters(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "member") {
+            else if (element.Name == gi + "member")
+            {
                 return new Member(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "method") {
+            else if (element.Name == gi + "method")
+            {
                 return new Method(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "namespace") {
+            else if (element.Name == gi + "namespace")
+            {
                 return new Namespace(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "package") {
+            else if (element.Name == gi + "package")
+            {
                 return new Package(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "parameter") {
+            else if (element.Name == gi + "parameter")
+            {
                 return new Parameter(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "parameters") {
+            else if (element.Name == gi + "parameters")
+            {
                 return new Parameters(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "prerequisite") {
+            else if (element.Name == gi + "prerequisite")
+            {
                 return new Prerequisite(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "property") {
+            else if (element.Name == gi + "property")
+            {
                 return new Property(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "record") {
+            else if (element.Name == gi + "record")
+            {
                 return new Record(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "return-value") {
+            else if (element.Name == gi + "return-value")
+            {
                 return new ReturnValue(element, GetNode(element.Parent));
             }
-            else if (element.Name == glib + "signal") {
+            else if (element.Name == glib + "signal")
+            {
                 return new Signal(element, GetNode(element.Parent));
             }
-            else if (element.Name == gs + "static-class") {
+            else if (element.Name == gs + "static-class")
+            {
                 return new StaticClass(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "type") {
+            else if (element.Name == gi + "type")
+            {
                 return new Type(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "union") {
+            else if (element.Name == gi + "union")
+            {
                 return new Union(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "virtual-method") {
+            else if (element.Name == gi + "virtual-method")
+            {
                 return new VirtualMethod(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "docsection") {
+            else if (element.Name == gi + "docsection")
+            {
                 return new DocSection(element, GetNode(element.Parent));
             }
-            else if (element.Name == glib + "boxed") {
+            else if (element.Name == glib + "boxed")
+            {
                 return new Boxed(element, GetNode(element.Parent));
             }
-            else if (element.Name == gi + "source-position") {
+            else if (element.Name == gi + "source-position")
+            {
                 return new SourcePosition(element, GetNode(element.Parent));
             }
 
@@ -181,7 +220,8 @@ namespace GISharp.CodeGen.Gir
         IEnumerable<GirNode> LazyGetAncestors()
         {
             var node = this;
-            while ((node = node.ParentNode) is not null) {
+            while ((node = node.ParentNode) is not null)
+            {
                 yield return node;
             }
         }

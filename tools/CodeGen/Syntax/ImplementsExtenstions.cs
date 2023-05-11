@@ -17,11 +17,14 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the C# interface event implementation declarations for a GIR
         /// implements
         /// </summary>
-        static SyntaxList<MemberDeclarationSyntax> GetSignalImplementations(this Implements implements)
+        static SyntaxList<MemberDeclarationSyntax> GetSignalImplementations(
+            this Implements implements
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var signal in implements.Interface.Signals) {
+            foreach (var signal in implements.Interface.Signals)
+            {
                 list = list.Add(signal.GetImplementsEventDeclaration());
             }
 
@@ -32,15 +35,20 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the signal member declarations for the implementses,
         /// logging a warning for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetSignalMemberDeclarations(this IEnumerable<Implements> implementses)
+        internal static SyntaxList<MemberDeclarationSyntax> GetSignalMemberDeclarations(
+            this IEnumerable<Implements> implementses
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var implements in implementses) {
-                try {
+            foreach (var implements in implementses)
+            {
+                try
+                {
                     list = list.AddRange(implements.GetSignalImplementations());
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     implements.LogException(ex);
                 }
             }
@@ -52,21 +60,33 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the C# interface method implementation declarations for a GIR
         /// implements
         /// </summary>
-        static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodImplementations(this Implements implements)
+        static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodImplementations(
+            this Implements implements
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var m in implements.Interface.VirtualMethods) {
+            foreach (var m in implements.Interface.VirtualMethods)
+            {
                 var returnType = m.ReturnValue.GetManagedTypeName();
                 var name = $"{implements.Interface.GetManagedType()}.{m.ManagedName}";
-                var paramList = ParameterList().AddParameters(m.ManagedParameters.RegularParameters
-                    .Select(x => x.GetParameter()).ToArray());
+                var paramList = ParameterList()
+                    .AddParameters(
+                        m.ManagedParameters.RegularParameters
+                            .Select(x => x.GetParameter())
+                            .ToArray()
+                    );
                 // remove default value initializers
-                paramList = paramList.WithParameters(SeparatedList(paramList.Parameters
-                    .Select(x => x.WithDefault(default))));
+                paramList = paramList.WithParameters(
+                    SeparatedList(paramList.Parameters.Select(x => x.WithDefault(default)))
+                );
                 var method = MethodDeclaration(returnType, name)
                     .WithParameterList(paramList)
-                    .WithBody(Block(ThrowStatement(ParseExpression("new System.NotImplementedException()"))));
+                    .WithBody(
+                        Block(
+                            ThrowStatement(ParseExpression("new System.NotImplementedException()"))
+                        )
+                    );
                 list = list.Add(method);
             }
 
@@ -77,15 +97,20 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the virtual method member declarations for the implementses,
         /// logging a warning for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodMemberDeclarations(this IEnumerable<Implements> implementses)
+        internal static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodMemberDeclarations(
+            this IEnumerable<Implements> implementses
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var implements in implementses) {
-                try {
+            foreach (var implements in implementses)
+            {
+                try
+                {
                     list = list.AddRange(implements.GetVirtualMethodImplementations());
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     implements.LogException(ex);
                 }
             }

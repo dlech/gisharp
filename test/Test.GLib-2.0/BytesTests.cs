@@ -14,16 +14,20 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNew()
         {
-            using (var b = new Bytes(ReadOnlySpan<byte>.Empty)) {
+            using (var b = new Bytes(ReadOnlySpan<byte>.Empty))
+            {
                 Assert.That(b.Size, Is.EqualTo(0));
             }
-            using (var b = new Bytes(new ReadOnlySpan<byte>(new byte[] { 1 }))) {
+            using (var b = new Bytes(new ReadOnlySpan<byte>(new byte[] { 1 })))
+            {
                 Assert.That(b.Size, Is.EqualTo(1));
             }
-            using (var b = new Bytes(ReadOnlyMemory<byte>.Empty)) {
+            using (var b = new Bytes(ReadOnlyMemory<byte>.Empty))
+            {
                 Assert.That(b.Size, Is.EqualTo(0));
             }
-            using (var b = new Bytes(new ReadOnlyMemory<byte>(new byte[] { 1 }))) {
+            using (var b = new Bytes(new ReadOnlyMemory<byte>(new byte[] { 1 })))
+            {
                 Assert.That(b.Size, Is.EqualTo(1));
             }
         }
@@ -42,15 +46,11 @@ namespace GISharp.Test.GLib
             Assert.That(b2[0], Is.EqualTo(2));
             Assert.That(b2[1], Is.EqualTo(3));
 
-            Assert.That(() => b1.NewFromBytes(0, 1),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => b1.NewFromBytes(0, 1), Throws.TypeOf<ObjectDisposedException>());
 
-            Assert.That(() => b2.NewFromBytes(0, 3),
-                         Throws.TypeOf<ArgumentException>());
-            Assert.That(() => b2.NewFromBytes(-1, 0),
-                         Throws.TypeOf<ArgumentOutOfRangeException>());
-            Assert.That(() => b2.NewFromBytes(0, -1),
-                         Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(() => b2.NewFromBytes(0, 3), Throws.TypeOf<ArgumentException>());
+            Assert.That(() => b2.NewFromBytes(-1, 0), Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(() => b2.NewFromBytes(0, -1), Throws.TypeOf<ArgumentOutOfRangeException>());
 
             using var b3 = b2.NewFromBytes(0, 0);
             Assert.That(b3.Size, Is.EqualTo(0));
@@ -131,7 +131,8 @@ namespace GISharp.Test.GLib
             ReadOnlyMemory<byte> data = new byte[] { 1, 2, 3 };
             using var bytes = new Bytes(data);
             var expected = 1;
-            foreach (var b in bytes) {
+            foreach (var b in bytes)
+            {
                 Assert.That(b, Is.EqualTo(expected++));
             }
             Assert.That(expected, Is.EqualTo(4));

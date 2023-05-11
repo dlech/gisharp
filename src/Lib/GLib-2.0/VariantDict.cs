@@ -10,16 +10,17 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Allocates and initialize a new <see cref="VariantDict"/>.
         /// </summary>
-        public VariantDict() : this(null)
-        {
-        }
+        public VariantDict()
+            : this(null) { }
 
         static partial void CheckNewArgs(Variant? fromAsv)
         {
-            if (fromAsv is null) {
+            if (fromAsv is null)
+            {
                 return;
             }
-            if (!fromAsv.IsOfType(VariantType.VariantDictionary)) {
+            if (!fromAsv.IsOfType(VariantType.VariantDictionary))
+            {
                 const string message = "Must be a variant dictionary, i.e. a{sv}";
                 throw new ArgumentException(message, nameof(fromAsv));
             }

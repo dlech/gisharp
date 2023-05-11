@@ -20,7 +20,8 @@ namespace GISharp.Test.GLib
 
         static IEnumerable<Rune> GetCodePoints(string str)
         {
-            for (var i = 0; i < str.Length; i += char.IsSurrogatePair(str, i) ? 2 : 1) {
+            for (var i = 0; i < str.Length; i += char.IsSurrogatePair(str, i) ? 2 : 1)
+            {
                 yield return new Rune(char.ConvertToUtf32(str, i));
             }
         }
@@ -67,7 +68,8 @@ namespace GISharp.Test.GLib
                 Assert.That(testString != utf8, Is.True);
                 Assert.That(default(string?) != utf8, Is.False);
             }
-            using (var utf8 = new Utf8(testString)) {
+            using (var utf8 = new Utf8(testString))
+            {
                 Assert.That(utf8.ToString(), Is.EqualTo(testString));
                 Assert.That((string)utf8, Is.EqualTo(testString));
                 Assert.That(utf8, Is.EqualTo(testString));

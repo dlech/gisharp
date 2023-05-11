@@ -36,9 +36,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the new <see cref="Array"/>
         /// </returns>
-        private protected static UnmanagedStruct* New(bool zeroTerminated, bool clear, int elementSize)
+        private protected static UnmanagedStruct* New(
+            bool zeroTerminated,
+            bool clear,
+            int elementSize
+        )
         {
-            if (elementSize < 0) {
+            if (elementSize < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(elementSize));
             }
             var zeroTerminated_ = zeroTerminated.ToBoolean();
@@ -48,17 +53,29 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        private protected static UnmanagedStruct* SizedNew(bool zeroTerminated, bool clear, int elementSize, int reservedSize)
+        private protected static UnmanagedStruct* SizedNew(
+            bool zeroTerminated,
+            bool clear,
+            int elementSize,
+            int reservedSize
+        )
         {
-            if (elementSize < 0) {
+            if (elementSize < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(elementSize));
             }
-            if (reservedSize < 0) {
+            if (reservedSize < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(reservedSize));
             }
             var zeroTerminated_ = zeroTerminated.ToBoolean();
             var clear_ = clear.ToBoolean();
-            var ret_ = g_array_sized_new(zeroTerminated_, clear_, (uint)elementSize, (uint)reservedSize);
+            var ret_ = g_array_sized_new(
+                zeroTerminated_,
+                clear_,
+                (uint)elementSize,
+                (uint)reservedSize
+            );
             GMarshal.PopUnhandledException();
             return ret_;
         }
@@ -69,10 +86,12 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the elements to append to the end of the array
         /// </param>
-        private protected void AppendVals<T>(ReadOnlySpan<T> data) where T : unmanaged
+        private protected void AppendVals<T>(ReadOnlySpan<T> data)
+            where T : unmanaged
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            fixed (void* data_ = data) {
+            fixed (void* data_ = data)
+            {
                 var len_ = (uint)data.Length;
                 g_array_append_vals(array_, (IntPtr)data_, len_);
                 GMarshal.PopUnhandledException();
@@ -86,8 +105,10 @@ namespace GISharp.Lib.GLib
         /// Size of each element, in bytes
         /// </returns>
         [Since("2.22")]
-        public int ElementSize {
-            get {
+        public int ElementSize
+        {
+            get
+            {
                 var array_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret = g_array_get_element_size(array_);
                 GMarshal.PopUnhandledException();
@@ -104,14 +125,17 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the elements to insert
         /// </param>
-        private protected void InsertVals<T>(int index, ReadOnlySpan<T> data) where T : unmanaged
+        private protected void InsertVals<T>(int index, ReadOnlySpan<T> data)
+            where T : unmanaged
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            if (index < 0 || index > Length) {
+            if (index < 0 || index > Length)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             var index_ = (uint)index;
-            fixed (void* data_ = data) {
+            fixed (void* data_ = data)
+            {
                 var len_ = (uint)data.Length;
                 g_array_insert_vals(array_, index_, (IntPtr)data_, len_);
                 GMarshal.PopUnhandledException();
@@ -129,10 +153,12 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the elements to prepend to the start of the array
         /// </param>
-        private protected void PrependVals<T>(ReadOnlySpan<T> data) where T : unmanaged
+        private protected void PrependVals<T>(ReadOnlySpan<T> data)
+            where T : unmanaged
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            fixed (void* data_ = data) {
+            fixed (void* data_ = data)
+            {
                 var len_ = (uint)data.Length;
                 g_array_prepend_vals(array_, (IntPtr)data_, len_);
                 GMarshal.PopUnhandledException();
@@ -149,7 +175,8 @@ namespace GISharp.Lib.GLib
         public void RemoveAt(int index)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            if (index < 0 || index >= Length) {
+            if (index < 0 || index >= Length)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             g_array_remove_index(array_, (uint)index);
@@ -168,7 +195,8 @@ namespace GISharp.Lib.GLib
         public void RemoveAtFast(int index)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            if (index < 0 || index >= Length) {
+            if (index < 0 || index >= Length)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             g_array_remove_index_fast(array_, (uint)index);
@@ -190,10 +218,12 @@ namespace GISharp.Lib.GLib
         public void RemoveRange(int index, int length)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            if (index < 0 || index >= Length) {
+            if (index < 0 || index >= Length)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
-            if (length < 0 || index + length > Length) {
+            if (length < 0 || index + length > Length)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
             g_array_remove_range(array_, (uint)index, (uint)length);
@@ -211,7 +241,8 @@ namespace GISharp.Lib.GLib
         public void SetSize(int length)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            if (length < 0) {
+            if (length < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
             g_array_set_size(array_, (uint)length);
@@ -235,7 +266,8 @@ namespace GISharp.Lib.GLib
         /// zero if <paramref name="a"/> = <paramref name="b"/>; positive
         /// value if  <paramref name="a"/> &gt; <paramref name="b"/>
         /// </returns>
-        public delegate int CompareFunc<T>(in T a, in T b) where T : unmanaged;
+        public delegate int CompareFunc<T>(in T a, in T b)
+            where T : unmanaged;
 
         /// <summary>
         /// Sorts a <see cref="Array{T}"/> using <paramref name="compareFunc"/>
@@ -250,20 +282,26 @@ namespace GISharp.Lib.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        private protected void Sort<T>(CompareFunc<T> compareFunc) where T : unmanaged
+        private protected void Sort<T>(CompareFunc<T> compareFunc)
+            where T : unmanaged
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            var unmanagedCompareFunc = new UnmanagedCompareFunc((a_, b_) => {
-                try {
-                    ref var a = ref Unsafe.AsRef<T>((void*)a_);
-                    ref var b = ref Unsafe.AsRef<T>((void*)b_);
-                    return compareFunc(a, b);
+            var unmanagedCompareFunc = new UnmanagedCompareFunc(
+                (a_, b_) =>
+                {
+                    try
+                    {
+                        ref var a = ref Unsafe.AsRef<T>((void*)a_);
+                        ref var b = ref Unsafe.AsRef<T>((void*)b_);
+                        return compareFunc(a, b);
+                    }
+                    catch (Exception ex)
+                    {
+                        GMarshal.PushUnhandledException(ex);
+                        return default;
+                    }
                 }
-                catch (Exception ex) {
-                    GMarshal.PushUnhandledException(ex);
-                    return default;
-                }
-            });
+            );
             var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)
                 Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
             g_array_sort(array_, compareFunc_);
@@ -304,22 +342,24 @@ namespace GISharp.Lib.GLib
     /// Contains the public fields of a GArray.
     /// </summary>
     [GType("GArray", IsProxyForUnmanagedType = true)]
-    public sealed unsafe class Array<T> : Array, IReadOnlyList<T>, IList<T> where T : unmanaged
+    public sealed unsafe class Array<T> : Array, IReadOnlyList<T>, IList<T>
+        where T : unmanaged
     {
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Array(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public Array(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
         /// <summary>
         /// a <see cref="Span{T}"/> to the element data. The data may be moved as elements
         /// are added to the <see cref="Array"/>.
         /// </summary>
-        public Span<T> Data {
-            get {
+        public Span<T> Data
+        {
+            get
+            {
                 var array_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret = new Span<T>(array_->Data, (int)array_->Len);
                 return ret;
@@ -345,15 +385,13 @@ namespace GISharp.Lib.GLib
         /// </param>
         public Array(bool zeroTerminated, bool clear = false, int reservedSize = 10)
             : this((IntPtr)SizedNew(zeroTerminated, clear, sizeof(T), reservedSize), Transfer.Full)
-        {
-        }
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Array{T}"/> class.
         /// </summary>
-        public Array() : this((IntPtr)New(false, false, sizeof(T)), Transfer.Full)
-        {
-        }
+        public Array()
+            : this((IntPtr)New(false, false, sizeof(T)), Transfer.Full) { }
 
         /// <summary>
         /// Adds elements onto the end of the array.
@@ -456,20 +494,27 @@ namespace GISharp.Lib.GLib
         bool ICollection<T>.IsReadOnly => false;
 
         /// <inheritdoc/>
-        public T this[int index] {
-            get {
-                try {
+        public T this[int index]
+        {
+            get
+            {
+                try
+                {
                     return Data[index];
                 }
-                catch (IndexOutOfRangeException) {
+                catch (IndexOutOfRangeException)
+                {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
             }
-            set {
-                try {
+            set
+            {
+                try
+                {
                     Data[index] = value;
                 }
-                catch (IndexOutOfRangeException) {
+                catch (IndexOutOfRangeException)
+                {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
             }
@@ -478,8 +523,10 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public bool Contains(T other)
         {
-            for (int i = 0; i < Length; i++) {
-                if (this[i].Equals(other)) {
+            for (int i = 0; i < Length; i++)
+            {
+                if (this[i].Equals(other))
+                {
                     return true;
                 }
             }
@@ -489,13 +536,16 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (arrayIndex < 0) {
+            if (arrayIndex < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex));
             }
-            if (arrayIndex + Length > array.Length) {
+            if (arrayIndex + Length > array.Length)
+            {
                 throw new ArgumentException("Destination array is not long enough.");
             }
-            for (int i = 0; i < Length; i++) {
+            for (int i = 0; i < Length; i++)
+            {
                 array[i + arrayIndex] = this[i];
             }
         }
@@ -503,8 +553,10 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public int IndexOf(T data)
         {
-            for (int i = 0; i < Length; i++) {
-                if (this[i].Equals(data)) {
+            for (int i = 0; i < Length; i++)
+            {
+                if (this[i].Equals(data))
+                {
                     return i;
                 }
             }
@@ -514,8 +566,10 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public bool Remove(T data)
         {
-            for (int i = 0; i < Length; i++) {
-                if (this[i].Equals(data)) {
+            for (int i = 0; i < Length; i++)
+            {
+                if (this[i].Equals(data))
+                {
                     RemoveAt(i);
                     return true;
                 }
@@ -528,11 +582,11 @@ namespace GISharp.Lib.GLib
 
         IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < Length; i++) {
+            for (int i = 0; i < Length; i++)
+            {
                 yield return this[i];
             }
         }
-
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
 
@@ -543,7 +597,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static implicit operator Span<T>(Array<T>? array)
         {
-            if (array is null) {
+            if (array is null)
+            {
                 return default;
             }
 

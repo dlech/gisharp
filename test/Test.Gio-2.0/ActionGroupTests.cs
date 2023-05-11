@@ -24,7 +24,10 @@ namespace GISharp.Test.Gio
             var gtype = typeof(IActionGroup).ToGType();
             Assert.That(gtype.Name, Is.EqualTo("GActionGroup"));
             var info = (InterfaceInfo)Repository.Default.FindByGtype(gtype);
-            Assert.That(Marshal.SizeOf<ActionGroupInterface.UnmanagedStruct>(), Is.EqualTo(info.IfaceStruct.Size));
+            Assert.That(
+                Marshal.SizeOf<ActionGroupInterface.UnmanagedStruct>(),
+                Is.EqualTo(info.IfaceStruct.Size)
+            );
         }
 
         [Test]
@@ -39,8 +42,17 @@ namespace GISharp.Test.Gio
         public void TestQueryAction()
         {
             using var ag = TestActionGroup.New();
-            if (ag.TryQueryAction("does-not-exist", out var enabled, out var paramType,
-                out var stateType, out var stateHint, out var state)) {
+            if (
+                ag.TryQueryAction(
+                    "does-not-exist",
+                    out var enabled,
+                    out var paramType,
+                    out var stateType,
+                    out var stateHint,
+                    out var state
+                )
+            )
+            {
                 Assert.Fail("The action does not exist, so we should not get here.");
             }
         }
@@ -63,7 +75,10 @@ namespace GISharp.Test.Gio
         public void TestGetParameterType()
         {
             using var ag = TestActionGroup.New();
-            Assert.That(ag.GetActionParameterType("does-not-exist")!, Is.EqualTo(VariantType.Int32));
+            Assert.That(
+                ag.GetActionParameterType("does-not-exist")!,
+                Is.EqualTo(VariantType.Int32)
+            );
         }
 
         [Test]
@@ -162,9 +177,8 @@ namespace GISharp.Test.Gio
             return CreateInstance<TestActionGroup>();
         }
 
-        public TestActionGroup(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public TestActionGroup(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
         void IActionGroup.DoActionAdded(UnownedUtf8 actionName)
         {
@@ -188,40 +202,49 @@ namespace GISharp.Test.Gio
 
         public event EventHandler<Variant?>? ActionActivated;
 
-        void IActionGroup.DoActivateAction(UnownedUtf8 actionName, Variant? parameter) => ActionActivated?.Invoke(this, parameter);
+        void IActionGroup.DoActivateAction(UnownedUtf8 actionName, Variant? parameter) =>
+            ActionActivated?.Invoke(this, parameter);
 
-        public event IActionGroup.ActionAddedSignalHandler ActionAddedSignal {
+        public event IActionGroup.ActionAddedSignalHandler ActionAddedSignal
+        {
             add => AddEventSignalHandler("action-added", value);
             remove => RemoveEventSignalHandler("action-added", value);
         }
 
-        public event IActionGroup.ActionEnabledChangedSignalHandler ActionEnabledChangedSignal {
+        public event IActionGroup.ActionEnabledChangedSignalHandler ActionEnabledChangedSignal
+        {
             add => AddEventSignalHandler("action-enabled-changed", value);
             remove => RemoveEventSignalHandler("action-enabled-changed", value);
         }
 
-        public event IActionGroup.ActionRemovedSignalHandler ActionRemovedSignal {
+        public event IActionGroup.ActionRemovedSignalHandler ActionRemovedSignal
+        {
             add => AddEventSignalHandler("action-removed", value);
             remove => RemoveEventSignalHandler("action-removed", value);
         }
 
-        public event IActionGroup.ActionStateChangedSignalHandler ActionStateChangedSignal {
+        public event IActionGroup.ActionStateChangedSignalHandler ActionStateChangedSignal
+        {
             add => AddEventSignalHandler("action-state-changed", value);
             remove => RemoveEventSignalHandler("action-state-changed", value);
         }
 
         public event EventHandler<Variant>? StateChanged;
-        void IActionGroup.DoChangeActionState(UnownedUtf8 actionName, Variant value) => StateChanged?.Invoke(this, value);
+
+        void IActionGroup.DoChangeActionState(UnownedUtf8 actionName, Variant value) =>
+            StateChanged?.Invoke(this, value);
 
         bool IActionGroup.DoGetActionEnabled(UnownedUtf8 actionName) => false;
 
-        VariantType? IActionGroup.DoGetActionParameterType(UnownedUtf8 actionName) => VariantType.Int32;
+        VariantType? IActionGroup.DoGetActionParameterType(UnownedUtf8 actionName) =>
+            VariantType.Int32;
 
         Variant? IActionGroup.DoGetActionState(UnownedUtf8 actionName) => new(2);
 
         Variant? IActionGroup.DoGetActionStateHint(UnownedUtf8 actionName) => new(1);
 
-        VariantType? IActionGroup.DoGetActionStateType(UnownedUtf8 actionName) => VariantType.Boolean;
+        VariantType? IActionGroup.DoGetActionStateType(UnownedUtf8 actionName) =>
+            VariantType.Boolean;
 
         bool IActionGroup.DoHasAction(UnownedUtf8 actionName) => false;
 

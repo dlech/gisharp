@@ -8,11 +8,13 @@ namespace GISharp.Lib.Gtk
         /// <summary>
         /// Gets the version of the GTK library used at compile time.
         /// </summary>
-        public static System.Version CompileTimeVersion => new(majorVersion, minorVersion, microVersion, 0);
+        public static System.Version CompileTimeVersion =>
+            new(majorVersion, minorVersion, microVersion, 0);
 
         /// <summary>
         /// Gets the version of the GTK library used at run time.
         /// </summary>
-        public static System.Version RunTimeVersion => new((int)MajorVersion, (int)MinorVersion, (int)MicroVersion, 0);
+        public static System.Version RunTimeVersion =>
+            new((int)MajorVersion, (int)MinorVersion, (int)MicroVersion, 0);
     }
 }

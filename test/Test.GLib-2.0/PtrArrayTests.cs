@@ -13,9 +13,8 @@ namespace GISharp.Test.GLib
 {
     public class PtrArrayTests : IListTests<PtrArray<OpaqueInt>, OpaqueInt>
     {
-        public PtrArrayTests() : base(GetItemAt, 0, 1, 2, 3, 4)
-        {
-        }
+        public PtrArrayTests()
+            : base(GetItemAt, 0, 1, 2, 3, 4) { }
 
         static OpaqueInt GetItemAt(PtrArray<OpaqueInt> array, int index)
         {
@@ -27,7 +26,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestConstructor()
         {
-            Assert.That(() => new PtrArray<OpaqueInt>(-1), Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(
+                () => new PtrArray<OpaqueInt>(-1),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+            );
         }
 
         [Test]
@@ -68,9 +70,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestRemoveAtFast()
         {
-            using var a = new PtrArray<OpaqueInt> {
-                _(1)
-            };
+            using var a = new PtrArray<OpaqueInt> { _(1) };
             Assume.That(a.Count, Is.EqualTo(1));
 
             a.RemoveAtFast(0);
@@ -95,18 +95,10 @@ namespace GISharp.Test.GLib
             Assert.That(() => a.RemoveAtFast(0), Throws.TypeOf<ObjectDisposedException>());
         }
 
-
         [Test]
         public void TestRemoveRange()
         {
-            using var a = new PtrArray<OpaqueInt> {
-                _(1),
-                _(2),
-                _(3),
-                _(4),
-                _(5),
-                _(6)
-            };
+            using var a = new PtrArray<OpaqueInt> { _(1), _(2), _(3), _(4), _(5), _(6) };
             Assume.That(a.Count, Is.EqualTo(6));
 
             a.RemoveRange(0, 0);
@@ -130,11 +122,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestSort()
         {
-            using var a = new PtrArray<OpaqueInt> {
-                _(3),
-                _(1),
-                _(2)
-            };
+            using var a = new PtrArray<OpaqueInt> { _(3), _(1), _(2) };
             Assume.That(GetItemAt(a, 0), Is.EqualTo(_(3)));
             Assume.That(GetItemAt(a, 1), Is.EqualTo(_(1)));
             Assume.That(GetItemAt(a, 2), Is.EqualTo(_(2)));

@@ -13,9 +13,11 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public TypeDefaultInterface(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public TypeDefaultInterface(IntPtr handle, Transfer ownership)
+            : base(handle, ownership)
         {
-            if (ownership != Transfer.Full) {
+            if (ownership != Transfer.Full)
+            {
                 throw new NotSupportedException();
             }
         }
@@ -23,7 +25,8 @@ namespace GISharp.Lib.GObject
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (handle != IntPtr.Zero) {
+            if (handle != IntPtr.Zero)
+            {
                 g_type_default_interface_unref((TypeInterface.UnmanagedStruct*)handle);
                 GMarshal.PopUnhandledException();
             }

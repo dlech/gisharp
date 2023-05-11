@@ -6,8 +6,12 @@ namespace GISharp.Lib.GObject
     {
         internal InterfaceInfo(
             delegate* unmanaged[Cdecl]<TypeInterface.UnmanagedStruct*, IntPtr, void> interfaceInit,
-            delegate* unmanaged[Cdecl]<TypeInterface.UnmanagedStruct*, IntPtr, void> interfaceFinalize,
-            IntPtr interfaceData)
+            delegate* unmanaged[Cdecl]<
+                TypeInterface.UnmanagedStruct*,
+                IntPtr,
+                void> interfaceFinalize,
+            IntPtr interfaceData
+        )
         {
             this.interfaceInit = interfaceInit;
             this.interfaceFinalize = interfaceFinalize;

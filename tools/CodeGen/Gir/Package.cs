@@ -16,7 +16,8 @@ namespace GISharp.CodeGen.Gir
         public Package(XElement element, GirNode parent)
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
-            if (element.Name != gi + "package") {
+            if (element.Name != gi + "package")
+            {
                 throw new ArgumentException("Requrires <package> element", nameof(element));
             }
 

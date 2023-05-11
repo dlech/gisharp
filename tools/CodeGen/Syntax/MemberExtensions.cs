@@ -20,13 +20,18 @@ namespace GISharp.CodeGen.Syntax
 
             // use binary literal for flags
 
-            if (member.ParentNode is Bitfield) {
-                var uintValue = member.Value.StartsWith('-') ? (uint)int.Parse(member.Value) : uint.Parse(member.Value);
+            if (member.ParentNode is Bitfield)
+            {
+                var uintValue = member.Value.StartsWith('-')
+                    ? (uint)int.Parse(member.Value)
+                    : uint.Parse(member.Value);
                 var builder = new StringBuilder(Convert.ToString(uintValue, 2));
-                while (builder.Length < 32) {
+                while (builder.Length < 32)
+                {
                     builder.Insert(0, '0');
                 }
-                for (int i = 28; i > 0; i -= 4) {
+                for (int i = 28; i > 0; i -= 4)
+                {
                     builder.Insert(i, '_');
                 }
                 builder.Insert(0, "0b");

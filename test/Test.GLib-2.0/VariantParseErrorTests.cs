@@ -13,8 +13,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestQuark()
         {
-            Assert.That(default(VariantParseError).GetGErrorDomain(),
-                Is.EqualTo(VariantParseErrorDomain.Quark));
+            Assert.That(
+                default(VariantParseError).GetGErrorDomain(),
+                Is.EqualTo(VariantParseErrorDomain.Quark)
+            );
         }
 
         [Test]
@@ -22,11 +24,19 @@ namespace GISharp.Test.GLib
         {
             using Utf8 badSourceStr = "(1, 2, 3, 'abc";
             using var err = new Error(TestError.Failed, "test");
-            Assert.That(() => VariantParseErrorDomain.PrintContext(err, badSourceStr), Throws.ArgumentException);
+            Assert.That(
+                () => VariantParseErrorDomain.PrintContext(err, badSourceStr),
+                Throws.ArgumentException
+            );
 
-            var exception = Assert.Throws<Error.Exception>(() => Variant.Parse(null, badSourceStr))!;
+            var exception = Assert.Throws<Error.Exception>(
+                () => Variant.Parse(null, badSourceStr)
+            )!;
             Assert.That(exception.Matches(VariantParseError.UnterminatedStringConstant));
-            Assert.That(VariantParseErrorDomain.PrintContext(exception.Error, badSourceStr), Is.Not.Null);
+            Assert.That(
+                VariantParseErrorDomain.PrintContext(exception.Error, badSourceStr),
+                Is.Not.Null
+            );
         }
     }
 }

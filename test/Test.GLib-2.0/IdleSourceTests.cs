@@ -17,18 +17,21 @@ namespace GISharp.Test.GLib
             using var context = new MainContext();
             using var mainLoop = new MainLoop(context);
             using var source = IdleSource.New();
-            source.SetCallback(() => {
+            source.SetCallback(() =>
+            {
                 mainLoop.Quit();
                 idleInvoked = true;
                 return Source.Remove;
             });
             source.Attach(context);
 
-            Task.Run(() => {
-                context.PushThreadDefault();
-                mainLoop.Run();
-                context.PopThreadDefault();
-            }).Wait(100);
+            Task.Run(() =>
+                {
+                    context.PushThreadDefault();
+                    mainLoop.Run();
+                    context.PopThreadDefault();
+                })
+                .Wait(100);
 
             Assert.That(idleInvoked, Is.True);
         }

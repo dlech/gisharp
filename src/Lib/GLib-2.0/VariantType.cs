@@ -227,7 +227,8 @@ namespace GISharp.Lib.GLib
 
         static partial void CheckNewArgs(UnownedUtf8 typeString)
         {
-            if (!StringIsValid(typeString)) {
+            if (!StringIsValid(typeString))
+            {
                 throw new ArgumentException("Invalid type string", nameof(typeString));
             }
         }
@@ -266,7 +267,8 @@ namespace GISharp.Lib.GLib
 
         partial void CheckGetElementArgs()
         {
-            if (!IsArray && !IsMaybe) {
+            if (!IsArray && !IsMaybe)
+            {
                 throw new InvalidOperationException();
             }
         }
@@ -300,10 +302,17 @@ namespace GISharp.Lib.GLib
             public ItemsEnumerable(VariantType type)
             {
                 var type_ = (UnmanagedStruct*)type.UnsafeHandle;
-                if (g_variant_type_is_tuple(type_).IsFalse() && g_variant_type_is_dict_entry(type_).IsFalse()) {
-                    throw new InvalidOperationException("only valid for tuple an dictionary entry types");
+                if (
+                    g_variant_type_is_tuple(type_).IsFalse()
+                    && g_variant_type_is_dict_entry(type_).IsFalse()
+                )
+                {
+                    throw new InvalidOperationException(
+                        "only valid for tuple an dictionary entry types"
+                    );
                 }
-                if (g_variant_type_equal(type_, (UnmanagedStruct*)Tuple.UnsafeHandle).IsTrue()) {
+                if (g_variant_type_equal(type_, (UnmanagedStruct*)Tuple.UnsafeHandle).IsTrue())
+                {
                     throw new InvalidOperationException("only valid for non-generic tuple types");
                 }
                 this.type = type;
@@ -325,12 +334,16 @@ namespace GISharp.Lib.GLib
                 current = null;
             }
 
-            public VariantType Current {
-                get {
-                    if (type.handle == IntPtr.Zero) {
+            public VariantType Current
+            {
+                get
+                {
+                    if (type.handle == IntPtr.Zero)
+                    {
                         throw new ObjectDisposedException(null);
                     }
-                    if (current is null) {
+                    if (current is null)
+                    {
                         throw new InvalidOperationException();
                     }
                     return new VariantType((IntPtr)current, Transfer.None);
@@ -339,18 +352,19 @@ namespace GISharp.Lib.GLib
 
             object IEnumerator.Current => Current;
 
-            public void Dispose()
-            {
-            }
+            public void Dispose() { }
 
             public bool MoveNext()
             {
-                if (current is null) {
+                if (current is null)
+                {
                     var type_ = (UnmanagedStruct*)type.UnsafeHandle;
                     current = g_variant_type_first(type_);
                 }
-                else {
-                    if (type.handle == IntPtr.Zero) {
+                else
+                {
+                    if (type.handle == IntPtr.Zero)
+                    {
                         throw new ObjectDisposedException(null);
                     }
                     current = g_variant_type_next(current);
@@ -367,24 +381,30 @@ namespace GISharp.Lib.GLib
 
         partial void CheckGetKeyArgs()
         {
-            if (!IsDictEntry) {
+            if (!IsDictEntry)
+            {
                 throw new InvalidOperationException("only valid for dictionary entry types");
             }
         }
 
         partial void CheckGetItemCountArgs()
         {
-            if (!IsTuple && !IsDictEntry) {
-                throw new InvalidOperationException("only valid for tuple an dictionary entry types");
+            if (!IsTuple && !IsDictEntry)
+            {
+                throw new InvalidOperationException(
+                    "only valid for tuple an dictionary entry types"
+                );
             }
-            if (this == Tuple) {
+            if (this == Tuple)
+            {
                 throw new InvalidOperationException("only valid for non-generic tuple types");
             }
         }
 
         partial void CheckGetValueArgs()
         {
-            if (!IsDictEntry) {
+            if (!IsDictEntry)
+            {
                 throw new InvalidOperationException("only valid for dictionary entry types");
             }
         }

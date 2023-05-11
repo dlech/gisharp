@@ -13,7 +13,8 @@ namespace GISharp.Lib.GLib
 
         static partial void CheckAddArgs(int signum, SourceFunc handler, int priority)
         {
-            if (signum != SIGHUP && signum != SIGINT && signum != SIGQUIT) {
+            if (signum != SIGHUP && signum != SIGINT && signum != SIGQUIT)
+            {
                 throw new ArgumentException("Only SIGHUP, SIGINT, SIGQUIT allowed", nameof(signum));
             }
             // TODO: add check for SIGUSR1, SIGUSR2, SIGWINCH based on runtime version

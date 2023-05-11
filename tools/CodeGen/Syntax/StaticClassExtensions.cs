@@ -18,7 +18,12 @@ namespace GISharp.CodeGen.Syntax
         {
             var identifier = staticClass.ManagedName;
             return ClassDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
+                .AddModifiers(
+                    Token(PublicKeyword),
+                    Token(StaticKeyword),
+                    Token(UnsafeKeyword),
+                    Token(PartialKeyword)
+                )
                 .WithLeadingTrivia(staticClass.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
@@ -26,7 +31,9 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# class member declarations for a GIR gs:static-class
         /// </summary>
-        public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this StaticClass staticClass)
+        public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(
+            this StaticClass staticClass
+        )
         {
             return List<MemberDeclarationSyntax>()
                 .AddRange(staticClass.Constants.GetMemberDeclarations())

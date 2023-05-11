@@ -14,9 +14,11 @@ namespace GISharp.Runtime
     public sealed class GTypeException : System.Exception
     {
         /// <inheritdoc/>
-        public GTypeException(string message) : base(message) { }
+        public GTypeException(string message)
+            : base(message) { }
 
         /// <inheritdoc/>
-        public GTypeException(string message, System.Exception inner) : base(message, inner) { }
+        public GTypeException(string message, System.Exception inner)
+            : base(message, inner) { }
     }
 }

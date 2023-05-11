@@ -19,12 +19,15 @@ namespace GISharp.CodeGen.Syntax
             var baseType = alias.Type.GetManagedType();
 
             return ClassDeclaration(identifier)
-                .WithModifiers(TokenList(
-                    alias.GetInheritanceModifiers(Token(SealedKeyword))
-                    .Prepend(Token(PublicKeyword))
-                    .Append(Token(UnsafeKeyword))
-                    .Append(Token(PartialKeyword))
-                ))
+                .WithModifiers(
+                    TokenList(
+                        alias
+                            .GetInheritanceModifiers(Token(SealedKeyword))
+                            .Prepend(Token(PublicKeyword))
+                            .Append(Token(UnsafeKeyword))
+                            .Append(Token(PartialKeyword))
+                    )
+                )
                 .AddBaseListTypes(SimpleBaseType(ParseTypeName(baseType)))
                 .WithLeadingTrivia(alias.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
@@ -36,8 +39,10 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Alias alias)
         {
             var members = List<MemberDeclarationSyntax>()
-                .AddIf(!alias.Type.IsString(), () =>
-                    alias.Fields.GetStructDeclaration().AddModifiers(Token(NewKeyword)))
+                .AddIf(
+                    !alias.Type.IsString(),
+                    () => alias.Fields.GetStructDeclaration().AddModifiers(Token(NewKeyword))
+                )
                 .AddRange(alias.Constants.GetMemberDeclarations())
                 .AddRange(alias.ManagedProperties.GetMemberDeclarations())
                 .AddIf(!alias.IsCustomDefaultConstructor, () => alias.GetDefaultConstructor())
@@ -88,9 +93,10 @@ namespace GISharp.CodeGen.Syntax
         private static FieldDeclarationSyntax GetValueFieldDeclaration(this Alias alias)
         {
             return FieldDeclaration(
-                VariableDeclaration(ParseTypeName(alias.Type.GetUnmanagedType()))
-                    .AddVariables(VariableDeclarator("value"))
-            ).AddModifiers(Token(PrivateKeyword), Token(ReadOnlyKeyword));
+                    VariableDeclaration(ParseTypeName(alias.Type.GetUnmanagedType()))
+                        .AddVariables(VariableDeclarator("value"))
+                )
+                .AddModifiers(Token(PrivateKeyword), Token(ReadOnlyKeyword));
         }
 
         /// <summary>
@@ -106,8 +112,10 @@ namespace GISharp.CodeGen.Syntax
         {
             return MethodDeclaration(ParseTypeName("void"), "ValidateValue")
                 .AddModifiers(Token(StaticKeyword), Token(PartialKeyword))
-                .AddParameterListParameters(Parameter(Identifier("value"))
-                    .WithType(ParseTypeName(alias.Type.GetUnmanagedType())))
+                .AddParameterListParameters(
+                    Parameter(Identifier("value"))
+                        .WithType(ParseTypeName(alias.Type.GetUnmanagedType()))
+                )
                 .WithSemicolonToken(Token(SemicolonToken));
         }
 
@@ -127,22 +135,23 @@ namespace GISharp.CodeGen.Syntax
         private static ConstructorDeclarationSyntax GetConstructorDeclaration(this Alias alias)
         {
             return ConstructorDeclaration(alias.GirName)
-                .AddParameterListParameters(Parameter(Identifier("value"))
-                    .WithType(ParseTypeName(alias.Type.GetUnmanagedType())
-                ))
+                .AddParameterListParameters(
+                    Parameter(Identifier("value"))
+                        .WithType(ParseTypeName(alias.Type.GetUnmanagedType()))
+                )
                 .AddModifiers(Token(PublicKeyword))
                 .AddBodyStatements(
-                    ExpressionStatement(ParseExpression(
-                        "ValidateValue(value)"
-                    )),
-                    ExpressionStatement(ParseExpression(
-                        "this.value = value"
-                    ))
+                    ExpressionStatement(ParseExpression("ValidateValue(value)")),
+                    ExpressionStatement(ParseExpression("this.value = value"))
                 )
-                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
+                .WithLeadingTrivia(
+                    ParseLeadingTrivia(
+                        @"/// <summary>
                 /// Creates a new instance.
                 /// </summary>
-                "));
+                "
+                    )
+                );
         }
 
         /// <summary>
@@ -162,36 +171,46 @@ namespace GISharp.CodeGen.Syntax
         /// }
         /// </code>
         /// </remarks>
-        private static IEnumerable<ConversionOperatorDeclarationSyntax>
-            GetExplicitCastOperatorDeclarations(this Alias alias)
+        private static IEnumerable<ConversionOperatorDeclarationSyntax> GetExplicitCastOperatorDeclarations(
+            this Alias alias
+        )
         {
             yield return ConversionOperatorDeclaration(
-                Token(ExplicitKeyword), ParseTypeName(alias.GirName)
-            )
-            .AddParameterListParameters(Parameter(Identifier("value"))
-                .WithType(ParseTypeName(alias.Type.GetUnmanagedType())))
-            .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
-            .AddBodyStatements(ReturnStatement(ParseExpression(
-                $"new {alias.GirName}(value)"
-            )))
-            .WithLeadingTrivia(ParseLeadingTrivia($@"/// <summary>
+                    Token(ExplicitKeyword),
+                    ParseTypeName(alias.GirName)
+                )
+                .AddParameterListParameters(
+                    Parameter(Identifier("value"))
+                        .WithType(ParseTypeName(alias.Type.GetUnmanagedType()))
+                )
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .AddBodyStatements(ReturnStatement(ParseExpression($"new {alias.GirName}(value)")))
+                .WithLeadingTrivia(
+                    ParseLeadingTrivia(
+                        $@"/// <summary>
             /// Converts to <see cref=""{alias.GirName}""/> from the underlying type.
             /// </summary>
-            "));
+            "
+                    )
+                );
 
             yield return ConversionOperatorDeclaration(
-                Token(ExplicitKeyword), ParseTypeName(alias.Type.GetUnmanagedType())
-            )
-            .AddParameterListParameters(Parameter(Identifier("value"))
-                .WithType(ParseTypeName(alias.GirName)))
-            .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
-            .AddBodyStatements(ReturnStatement(ParseExpression(
-                "value.value"
-            )))
-            .WithLeadingTrivia(ParseLeadingTrivia($@"/// <summary>
+                    Token(ExplicitKeyword),
+                    ParseTypeName(alias.Type.GetUnmanagedType())
+                )
+                .AddParameterListParameters(
+                    Parameter(Identifier("value")).WithType(ParseTypeName(alias.GirName))
+                )
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .AddBodyStatements(ReturnStatement(ParseExpression("value.value")))
+                .WithLeadingTrivia(
+                    ParseLeadingTrivia(
+                        $@"/// <summary>
             /// Converts from <see cref=""{alias.GirName}""/> to the underlying type.
             /// </summary>
-            "));
+            "
+                    )
+                );
         }
     }
 }

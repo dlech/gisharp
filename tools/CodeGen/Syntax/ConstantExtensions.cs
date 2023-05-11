@@ -19,7 +19,8 @@ namespace GISharp.CodeGen.Syntax
         public static FieldDeclarationSyntax GetDeclaration(this Constant constant)
         {
             var type = constant.Type.GetManagedType();
-            if (type == "GISharp.Runtime.Utf8") {
+            if (type == "GISharp.Runtime.Utf8")
+            {
                 type = "string";
             }
 
@@ -40,22 +41,31 @@ namespace GISharp.CodeGen.Syntax
 
         static LiteralExpressionSyntax GetValueAsLiteralExpression(string type, string value)
         {
-            return type switch {
-                "bool" => value switch {
-                    "true" => LiteralExpression(TrueLiteralExpression),
-                    "false" => LiteralExpression(FalseLiteralExpression),
-                    _ => throw new ArgumentException($"Unknown bool constant value '{value}'", value),
-                },
+            return type switch
+            {
+                "bool"
+                    => value switch
+                    {
+                        "true" => LiteralExpression(TrueLiteralExpression),
+                        "false" => LiteralExpression(FalseLiteralExpression),
+                        _
+                            => throw new ArgumentException(
+                                $"Unknown bool constant value '{value}'",
+                                value
+                            ),
+                    },
                 "byte" => LiteralExpression(NumericLiteralExpression, Literal(byte.Parse(value))),
                 "sbyte" => LiteralExpression(NumericLiteralExpression, Literal(sbyte.Parse(value))),
                 "short" => LiteralExpression(NumericLiteralExpression, Literal(short.Parse(value))),
-                "ushort" => LiteralExpression(NumericLiteralExpression, Literal(ushort.Parse(value))),
+                "ushort"
+                    => LiteralExpression(NumericLiteralExpression, Literal(ushort.Parse(value))),
                 "int" => LiteralExpression(NumericLiteralExpression, Literal(int.Parse(value))),
                 "uint" => LiteralExpression(NumericLiteralExpression, Literal(uint.Parse(value))),
                 "long" => LiteralExpression(NumericLiteralExpression, Literal(long.Parse(value))),
                 "ulong" => LiteralExpression(NumericLiteralExpression, Literal(ulong.Parse(value))),
                 "float" => LiteralExpression(NumericLiteralExpression, Literal(float.Parse(value))),
-                "double" => LiteralExpression(NumericLiteralExpression, Literal(double.Parse(value))),
+                "double"
+                    => LiteralExpression(NumericLiteralExpression, Literal(double.Parse(value))),
                 "string" => LiteralExpression(StringLiteralExpression, Literal(value)),
                 _ => throw new ArgumentException($"Bad constant type: {type}", nameof(type)),
             };
@@ -65,15 +75,20 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the member declarations for the constants, logging a warning
         /// for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Constant> constants)
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(
+            this IEnumerable<Constant> constants
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var constant in constants) {
-                try {
+            foreach (var constant in constants)
+            {
+                try
+                {
                     list = list.Add(constant.GetDeclaration());
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     constant.LogException(ex);
                 }
             }

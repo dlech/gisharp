@@ -41,9 +41,11 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected TypeClass(IntPtr handle, Transfer ownership) : base(handle)
+        protected TypeClass(IntPtr handle, Transfer ownership)
+            : base(handle)
         {
-            if (ownership == Transfer.None) {
+            if (ownership == Transfer.None)
+            {
                 var gtype = Marshal.PtrToStructure<GType>(handle);
                 g_type_class_ref(gtype);
                 GMarshal.PopUnhandledException();
@@ -53,9 +55,11 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Marshals an unmanged pointer to a managed object.
         /// </summary>
-        public static new T? GetInstance<T>(IntPtr handle, Transfer ownership) where T : TypeClass
+        public static new T? GetInstance<T>(IntPtr handle, Transfer ownership)
+            where T : TypeClass
         {
-            if (handle == IntPtr.Zero) {
+            if (handle == IntPtr.Zero)
+            {
                 return null;
             }
 
@@ -67,9 +71,11 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Gets the type class for the given GType.
         /// </summary>
-        public static T GetInstance<T>(GType type) where T : TypeClass
+        public static T GetInstance<T>(GType type)
+            where T : TypeClass
         {
-            if (!type.IsClassed) {
+            if (!type.IsClassed)
+            {
                 throw new ArgumentException("GType is not classed", nameof(type));
             }
             var handle = g_type_class_ref(type);
@@ -101,7 +107,11 @@ namespace GISharp.Lib.GObject
         /// <param name="create">
         /// The unmanged delegate factory create method
         /// </param>
-        protected internal static void RegisterVirtualMethod<T>(int offset, Func<MethodInfo, T> create) where T : Delegate
+        protected internal static void RegisterVirtualMethod<T>(
+            int offset,
+            Func<MethodInfo, T> create
+        )
+            where T : Delegate
         {
             var info = new VirtualMethodInfo(offset, create);
             virtualMethods.Add(typeof(T), info);
@@ -114,7 +124,11 @@ namespace GISharp.Lib.GObject
         /// <param name="class_">Pointer to the unmanaged class instance</param>
         /// <param name="type">The unmanaged delegate type</param>
         /// <param name="methodInfo">The method to install as the overload</param>
-        internal static void InstallVirtualMethodOverload(IntPtr class_, Type type, MethodInfo methodInfo)
+        internal static void InstallVirtualMethodOverload(
+            IntPtr class_,
+            Type type,
+            MethodInfo methodInfo
+        )
         {
             // Ensure that the virtual methods have been registered
             RuntimeHelpers.RunClassConstructor(type.DeclaringType!.TypeHandle);
@@ -129,19 +143,23 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Gets a delegate for the unmanaged virtual function pointer.
         /// </summary>
-        public static T? GetUnmanagedVirtualMethod<T>(GType type) where T : Delegate
+        public static T? GetUnmanagedVirtualMethod<T>(GType type)
+            where T : Delegate
         {
             var class_ = g_type_class_ref(type);
             GMarshal.PopUnhandledException();
-            try {
+            try
+            {
                 var info = virtualMethods[typeof(T)];
                 var ptr = Marshal.ReadIntPtr((IntPtr)class_, info.Offset);
-                if (ptr == IntPtr.Zero) {
+                if (ptr == IntPtr.Zero)
+                {
                     return default;
                 }
                 return Marshal.GetDelegateForFunctionPointer<T>(ptr);
             }
-            finally {
+            finally
+            {
                 g_type_class_unref(class_);
             }
         }

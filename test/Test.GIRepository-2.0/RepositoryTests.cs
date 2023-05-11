@@ -45,7 +45,8 @@ namespace GISharp.Test.GIRepository
         public void TestGetInfos()
         {
             int count = 0;
-            foreach (var info in Repository.Default.GetInfos("Gio")) {
+            foreach (var info in Repository.Default.GetInfos("Gio"))
+            {
                 // make sure all infos are the proper subclass and not base
                 Assert.That(info.GetType(), Is.Not.EqualTo(typeof(BaseInfo)));
                 count++;
@@ -100,8 +101,7 @@ namespace GISharp.Test.GIRepository
         {
             // We already know that this works because it is used in the setup function
             // so let's just test that it fails.
-            static void require() =>
-                Repository.Default.Require("DoesNotExist", "9.9");
+            static void require() => Repository.Default.Require("DoesNotExist", "9.9");
             var exception = Assert.Throws<Error.Exception>(require)!;
             Assert.True(exception.Matches(RepositoryError.TypelibNotFound));
         }

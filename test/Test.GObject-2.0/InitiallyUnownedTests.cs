@@ -15,7 +15,8 @@ namespace GISharp.Test.GObject
         public void TestFloatingReference()
         {
             using var obj = Object.CreateInstance<InitiallyUnowned>();
-            var refCount = (uint)typeof(Object).GetProperty("RefCount", Instance | NonPublic)!.GetValue(obj)!;
+            var refCount = (uint)
+                typeof(Object).GetProperty("RefCount", Instance | NonPublic)!.GetValue(obj)!;
             Assert.That(refCount, Is.EqualTo(1));
             Assert.That(obj.IsFloating, Is.False);
         }
@@ -26,7 +27,10 @@ namespace GISharp.Test.GObject
             var gtype = typeof(InitiallyUnowned).ToGType();
             Assert.That(gtype.Name, Is.EqualTo("GInitiallyUnowned"));
             var info = (ObjectInfo)Repository.Default.FindByGtype(gtype);
-            Assert.That(Marshal.SizeOf<InitiallyUnownedClass.UnmanagedStruct>(), Is.EqualTo(info.ClassStruct!.Size));
+            Assert.That(
+                Marshal.SizeOf<InitiallyUnownedClass.UnmanagedStruct>(),
+                Is.EqualTo(info.ClassStruct!.Size)
+            );
         }
     }
 }

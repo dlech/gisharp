@@ -8,9 +8,11 @@ namespace GISharp.CodeGen.Gir
 {
     public sealed class Boxed : GIRegisteredType
     {
-        public Boxed(XElement element, GirNode parent) : base(element, parent)
+        public Boxed(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != glib + "boxed") {
+            if (element.Name != glib + "boxed")
+            {
                 throw new ArgumentException("Requrires <glib:boxed> element", nameof(element));
             }
         }

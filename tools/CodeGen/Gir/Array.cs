@@ -23,9 +23,11 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public int LengthIndex { get; }
 
-        public Array(XElement element, GirNode parent) : base(element, parent)
+        public Array(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "array") {
+            if (element.Name != gi + "array")
+            {
                 throw new ArgumentException("Requrires <array> element", nameof(element));
             }
             IsZeroTerminated = element.Attribute("zero-terminated").AsBool();

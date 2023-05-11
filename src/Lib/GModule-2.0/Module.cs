@@ -10,7 +10,8 @@ namespace GISharp.Lib.GModule
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (handle != IntPtr.Zero) {
+            if (handle != IntPtr.Zero)
+            {
                 // REVISIT: should we check the return value and throw an
                 // exception if closing failed?
                 Close();
@@ -20,7 +21,8 @@ namespace GISharp.Lib.GModule
         partial void CheckCloseReturn(bool ret)
         {
             // if closing was successful, pointer is no longer valid
-            if (ret) {
+            if (ret)
+            {
                 base.Dispose(true);
             }
         }

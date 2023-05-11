@@ -35,7 +35,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestAdd()
         {
-            using var list = new FileAttributeInfoList {
+            using var list = new FileAttributeInfoList
+            {
                 { "test", FileAttributeType.Boolean, FileAttributeInfoFlags.None }
             };
             Assert.That(list.Count, Is.EqualTo(1));

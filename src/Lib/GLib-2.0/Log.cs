@@ -22,12 +22,21 @@ namespace GISharp.Lib.GLib
         public const string DefaultDomain = "";
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_log(IntPtr logDomain, LogLevelFlags logLevel, IntPtr format, IntPtr arg);
+        static extern void g_log(
+            IntPtr logDomain,
+            LogLevelFlags logLevel,
+            IntPtr format,
+            IntPtr arg
+        );
 
         static readonly Utf8 stringFormat = "%s";
         static readonly IntPtr stringFormat_ = stringFormat.UnsafeHandle;
 
-        static void Log_(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
+        static void Log_(
+            NullableUnownedUtf8 logDomain,
+            LogLevelFlags logLevel,
+            NullableUnownedUtf8 message
+        )
         {
             g_log(logDomain.UnsafeHandle, logLevel, stringFormat_, message.UnsafeHandle);
             GMarshal.PopUnhandledException();
@@ -165,7 +174,11 @@ namespace GISharp.Lib.GLib
         /// <param name="message">
         /// the message
         /// </param>
-        public static void DefaultHandler(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
+        public static void DefaultHandler(
+            NullableUnownedUtf8 logDomain,
+            LogLevelFlags logLevel,
+            NullableUnownedUtf8 message
+        )
         {
             var logDomain_ = (byte*)logDomain.UnsafeHandle;
             var message_ = (byte*)message.UnsafeHandle;
@@ -219,9 +232,7 @@ namespace GISharp.Lib.GLib
                 return new Logger(categoryName);
             }
 
-            void IDisposable.Dispose()
-            {
-            }
+            void IDisposable.Dispose() { }
         }
 
         class Logger : ILogger
@@ -230,16 +241,15 @@ namespace GISharp.Lib.GLib
 
             public Logger(string? domain = null)
             {
-                if (domain is not null) {
+                if (domain is not null)
+                {
                     this.domain = domain;
                 }
             }
 
             class Scope : IDisposable
             {
-                public void Dispose()
-                {
-                }
+                public void Dispose() { }
             }
 
             public IDisposable BeginScope<TState>(TState state)
@@ -252,7 +262,13 @@ namespace GISharp.Lib.GLib
                 return true;
             }
 
-            public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+            public void Log<TState>(
+                LogLevel logLevel,
+                EventId eventId,
+                TState state,
+                Exception exception,
+                Func<TState, Exception, string> formatter
+            )
             {
                 using var message = (Utf8)formatter(state, exception);
                 Log_(domain, MapLogLevel(logLevel), message);
@@ -260,7 +276,8 @@ namespace GISharp.Lib.GLib
 
             static LogLevelFlags MapLogLevel(LogLevel logLevel)
             {
-                return logLevel switch {
+                return logLevel switch
+                {
                     LogLevel.Trace => LogLevelFlags.Debug,
                     LogLevel.Debug => LogLevelFlags.Info,
                     LogLevel.Information => LogLevelFlags.Message,
@@ -290,22 +307,37 @@ namespace GISharp.Lib.GLib
         public static void SetDefaultHandler(LogFunc logFunc)
         {
             var oldHandler = defaultHandler;
-            if (logFunc == DefaultHandler) {
-                var logFunc_ = (delegate* unmanaged[Cdecl]<byte*, LogLevelFlags, byte*, IntPtr, void>)CLibrary.GetSymbol("glib-2.0", "g_log_default_handler");
+            if (logFunc == DefaultHandler)
+            {
+                var logFunc_ = (delegate* unmanaged[Cdecl]<
+                    byte*,
+                    LogLevelFlags,
+                    byte*,
+                    IntPtr,
+                    void>)
+                    CLibrary.GetSymbol("glib-2.0", "g_log_default_handler");
                 g_log_set_default_handler(logFunc_, IntPtr.Zero);
                 GMarshal.PopUnhandledException();
                 defaultHandler = default;
             }
-            else {
+            else
+            {
                 // this function does not fix the GIR callback scope pattern
                 // so we have to do some special memory management ourselves
-                var logFunc_ = (delegate* unmanaged[Cdecl]<byte*, LogLevelFlags, byte*, IntPtr, void>)&LogFuncMarshal.Callback;
+                var logFunc_ = (delegate* unmanaged[Cdecl]<
+                    byte*,
+                    LogLevelFlags,
+                    byte*,
+                    IntPtr,
+                    void>)
+                    &LogFuncMarshal.Callback;
                 defaultHandler = GCHandle.Alloc((logFunc, CallbackScope.Unknown));
                 var userData_ = (IntPtr)defaultHandler;
                 g_log_set_default_handler(logFunc_, userData_);
                 GMarshal.PopUnhandledException();
             }
-            if (oldHandler.IsAllocated) {
+            if (oldHandler.IsAllocated)
+            {
                 oldHandler.Free();
             }
         }
@@ -336,7 +368,8 @@ namespace GISharp.Lib.GLib
             LogField* fields_ = stackalloc LogField[fields.Count];
             var nFields_ = (nuint)fields.Count;
             nuint i = 0;
-            foreach (var item in fields) {
+            foreach (var item in fields)
+            {
                 fields_[i] = new LogField(item.Key, item.Value);
                 i++;
             }
@@ -344,21 +377,33 @@ namespace GISharp.Lib.GLib
             GMarshal.PopUnhandledException();
         }
 
-        static void Structured(LogLevelFlags logLevel, string message, string codeFile, int codeLine, string codeFunc)
+        static void Structured(
+            LogLevelFlags logLevel,
+            string message,
+            string codeFile,
+            int codeLine,
+            string codeFunc
+        )
         {
-            var fields = new Dictionary<Utf8, Utf8> {
+            var fields = new Dictionary<Utf8, Utf8>
+            {
                 { "MESSAGE", message },
                 { "CODE_FILE", codeFile },
-                { "CODE_LINE", codeLine.ToString () },
+                { "CODE_LINE", codeLine.ToString() },
                 { "CODE_FUNC", codeFunc }
             };
 
             Structured(logLevel, fields);
         }
 
-        static partial void CheckVariantArgs(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, Variant fields)
+        static partial void CheckVariantArgs(
+            NullableUnownedUtf8 logDomain,
+            LogLevelFlags logLevel,
+            Variant fields
+        )
         {
-            if (fields.Type != VariantType.VariantDictionary) {
+            if (fields.Type != VariantType.VariantDictionary)
+            {
                 throw new ArgumentException("Requires VariantType.VarDict", nameof(fields));
             }
         }

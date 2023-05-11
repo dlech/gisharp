@@ -21,13 +21,15 @@ namespace GISharp.Lib.GLib
         {
             var loop_ = (UnmanagedStruct*)UnsafeHandle;
             var oldSyncContext = SynchronizationContext.Current;
-            try {
+            try
+            {
                 var newSyncContext = Context.SynchronizationContext;
                 SynchronizationContext.SetSynchronizationContext(newSyncContext);
                 g_main_loop_run(loop_);
                 GMarshal.PopUnhandledException();
             }
-            finally {
+            finally
+            {
                 SynchronizationContext.SetSynchronizationContext(oldSyncContext);
             }
         }

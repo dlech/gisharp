@@ -16,11 +16,15 @@ namespace GISharp.Test.GLib
             var vd = new VariantDict();
             vd.Dispose();
 
-            using (var badValue = new Variant(0)) {
+            using (var badValue = new Variant(0))
+            {
                 Assert.That(() => new VariantDict(badValue), Throws.ArgumentException);
             }
 
-            using var goodValue = Variant.Parse(VariantType.VariantDictionary, "{'key': <'value'>}");
+            using var goodValue = Variant.Parse(
+                VariantType.VariantDictionary,
+                "{'key': <'value'>}"
+            );
             new VariantDict(goodValue).Dispose();
         }
 

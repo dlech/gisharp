@@ -8,9 +8,11 @@ namespace GISharp.CodeGen.Gir
 {
     public sealed class VirtualMethod : GICallable
     {
-        public VirtualMethod(XElement element, GirNode parent) : base(element, parent)
+        public VirtualMethod(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "virtual-method") {
+            if (element.Name != gi + "virtual-method")
+            {
                 throw new ArgumentException("Requrires <virtual-method> element", nameof(element));
             }
         }

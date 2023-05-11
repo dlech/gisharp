@@ -13,21 +13,29 @@ namespace GISharp.Test
 {
     sealed class LogException : Exception
     {
-        public LogException(string message) : base(message)
-        {
-        }
+        public LogException(string message)
+            : base(message) { }
     }
 
     [ExcludeFromCodeCoverage]
     [SetUpFixture]
     public class Setup
     {
-        static void HandleLog(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
+        static void HandleLog(
+            NullableUnownedUtf8 logDomain,
+            LogLevelFlags logLevel,
+            NullableUnownedUtf8 message
+        )
         {
             // FIXME: messages on the GC finalizer thread are lost
             TestContext.Error.WriteLine(TestContext.CurrentContext?.Test?.FullName);
             TestContext.Error.WriteLine($"({logDomain}) {logLevel}: {message}");
-            if (logLevel.HasFlag(LogLevelFlags.Error) || logLevel.HasFlag(Critical) || logLevel.HasFlag(Warning)) {
+            if (
+                logLevel.HasFlag(LogLevelFlags.Error)
+                || logLevel.HasFlag(Critical)
+                || logLevel.HasFlag(Warning)
+            )
+            {
                 // this will trigger GISharp.Runtime.UnhandledException and should cause test to fail
                 throw new LogException(message);
             }

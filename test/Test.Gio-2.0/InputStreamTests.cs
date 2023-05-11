@@ -44,7 +44,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestReadAsync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var stream = TestInputStream.New();
                 var buffer = new byte[10];
                 var count = await stream.ReadAsync(buffer);
@@ -55,7 +56,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestReadAllAsync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var stream = TestInputStream.New();
                 var buffer = new byte[10];
                 var count = await stream.ReadAllAsync(buffer);
@@ -66,7 +68,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestReadBytesAsync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var stream = TestInputStream.New();
                 var actual = await stream.ReadBytesAsync(10);
                 Assert.That(actual, Has.Count.EqualTo(10));
@@ -76,7 +79,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestSkipAsync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var stream = TestInputStream.New();
                 var actual = await stream.SkipAsync(10);
                 Assert.That(actual, Is.EqualTo(10));
@@ -86,7 +90,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestCloseAsync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var stream = TestInputStream.New();
                 await stream.CloseAsync();
                 Assert.That(stream.IsClosed, Is.True);
@@ -103,13 +108,13 @@ namespace GISharp.Test.Gio
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public TestInputStream(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public TestInputStream(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
         protected override int DoReadFn(IntPtr buffer, int count, Cancellable? cancellable = null)
         {
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++)
+            {
                 Marshal.WriteByte(buffer + i, (byte)i);
             }
             return count;
@@ -120,8 +125,6 @@ namespace GISharp.Test.Gio
             return count;
         }
 
-        protected override void DoCloseFn(Cancellable? cancellable = null)
-        {
-        }
+        protected override void DoCloseFn(Cancellable? cancellable = null) { }
     }
 }

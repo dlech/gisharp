@@ -24,8 +24,10 @@ namespace GISharp.Lib.GLib
         /// Gets the error message.
         /// </summary>
         /// <value>The message.</value>
-        public UnownedUtf8 Message {
-            get {
+        public UnownedUtf8 Message
+        {
+            get
+            {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->Message;
                 var ret = new UnownedUtf8((IntPtr)ret_, -1);
                 return ret;
@@ -42,9 +44,10 @@ namespace GISharp.Lib.GLib
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
         public Error(Enum code, UnownedUtf8 message)
-            : this((IntPtr)NewLiteral(code.GetGErrorDomain(), (int)(object)code, message), Transfer.Full)
-        {
-        }
+            : this(
+                (IntPtr)NewLiteral(code.GetGErrorDomain(), (int)(object)code, message),
+                Transfer.Full
+            ) { }
 
         /// <summary>
         /// Returns <c>true</c> if error matches
@@ -94,7 +97,8 @@ namespace GISharp.Lib.GLib
             /// <param name="error">
             /// The <see cref="Error"/>.
             /// </param>
-            public Exception(Error error) : base(error.Message)
+            public Exception(Error error)
+                : base(error.Message)
             {
                 Error = error;
             }
@@ -109,9 +113,7 @@ namespace GISharp.Lib.GLib
             /// A helpful error message.
             /// </param>
             public Exception(Enum code, string message)
-                : this(new Error(code.GetGErrorDomain(), Convert.ToInt32(code), message))
-            {
-            }
+                : this(new Error(code.GetGErrorDomain(), Convert.ToInt32(code), message)) { }
 
             /// <summary>
             /// Test if the exception matches a GError type

@@ -19,10 +19,16 @@ namespace GISharp.Runtime
         /// Gets the length of the string in bytes.
         /// </summary>
         /// <seealso cref="Utf8.LengthInCharacters"/>
-        public int Length {
-            get {
-                if (length < 0) {
-                    length = new ReadOnlySpan<byte>((byte*)UnsafeHandle, int.MaxValue).IndexOf<byte>(0);
+        public int Length
+        {
+            get
+            {
+                if (length < 0)
+                {
+                    length = new ReadOnlySpan<byte>(
+                        (byte*)UnsafeHandle,
+                        int.MaxValue
+                    ).IndexOf<byte>(0);
                 }
                 return length;
             }
@@ -32,9 +38,8 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ByteString(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
-        {
-        }
+        public ByteString(IntPtr handle, Transfer ownership)
+            : this(handle, -1, ownership) { }
 
         private static byte* NewManaged(byte[] source)
         {
@@ -53,17 +58,17 @@ namespace GISharp.Runtime
         /// </remarks>
         /// <param name="source">The source to copy.</param>
         public ByteString(byte[] source)
-            : this((IntPtr)NewManaged(source), source.Length, Transfer.Full)
-        {
-        }
+            : this((IntPtr)NewManaged(source), source.Length, Transfer.Full) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ByteString(IntPtr handle, int length, Transfer ownership) : base(handle)
+        public ByteString(IntPtr handle, int length, Transfer ownership)
+            : base(handle)
         {
-            if (ownership != Transfer.Full) {
+            if (ownership != Transfer.Full)
+            {
                 this.handle = (IntPtr)g_strdup((byte*)handle);
                 GMarshal.PopUnhandledException();
             }
@@ -76,7 +81,8 @@ namespace GISharp.Runtime
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (handle != IntPtr.Zero) {
+            if (handle != IntPtr.Zero)
+            {
                 GMarshal.Free(handle);
             }
             base.Dispose(disposing);

@@ -13,7 +13,8 @@ namespace GISharp.CodeGen.Syntax
     {
         static string GetQualifiedName(MemberDeclarationSyntax member, SyntaxToken identifier)
         {
-            var typeDecl = (BaseTypeDeclarationSyntax)member.Ancestors().First(x => x is BaseTypeDeclarationSyntax);
+            var typeDecl = (BaseTypeDeclarationSyntax)
+                member.Ancestors().First(x => x is BaseTypeDeclarationSyntax);
             return $"{typeDecl.Identifier.Text}.{identifier.Text}";
         }
 
@@ -40,21 +41,32 @@ namespace GISharp.CodeGen.Syntax
 
         public static string GetMemberDeclarationName(this SyntaxNode node)
         {
-            return node switch {
+            return node switch
+            {
                 ClassDeclarationSyntax @class => @class.Identifier.Text,
                 ConstructorDeclarationSyntax constructor => GetConstructorName(constructor),
                 DelegateDeclarationSyntax @delegate => @delegate.Identifier.Text,
                 EnumDeclarationSyntax @enum => @enum.Identifier.Text,
                 EnumMemberDeclarationSyntax member => GetQualifiedName(member, member.Identifier),
                 EventDeclarationSyntax @event => GetQualifiedName(@event, @event.Identifier),
-                EventFieldDeclarationSyntax eventField => GetQualifiedName(eventField, eventField.Declaration.Variables.First().Identifier),
-                FieldDeclarationSyntax field => GetQualifiedName(field, field.Declaration.Variables.First().Identifier),
+                EventFieldDeclarationSyntax eventField
+                    => GetQualifiedName(
+                        eventField,
+                        eventField.Declaration.Variables.First().Identifier
+                    ),
+                FieldDeclarationSyntax field
+                    => GetQualifiedName(field, field.Declaration.Variables.First().Identifier),
                 InterfaceDeclarationSyntax @interface => @interface.Identifier.Text,
-                PropertyDeclarationSyntax property => GetQualifiedName(property, property.Identifier),
+                PropertyDeclarationSyntax property
+                    => GetQualifiedName(property, property.Identifier),
                 MethodDeclarationSyntax method => GetMethodName(method),
                 StructDeclarationSyntax @struct => @struct.Identifier.Text,
 
-                _ => throw new ArgumentException($"Unknown syntax type {node.GetType()}", nameof(node)),
+                _
+                    => throw new ArgumentException(
+                        $"Unknown syntax type {node.GetType()}",
+                        nameof(node)
+                    ),
             };
         }
 
@@ -65,9 +77,11 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> AddIf(
             this SyntaxList<MemberDeclarationSyntax> list,
             bool condition,
-            Func<MemberDeclarationSyntax> member)
+            Func<MemberDeclarationSyntax> member
+        )
         {
-            if (condition) {
+            if (condition)
+            {
                 return list.Add(member());
             }
             return list;

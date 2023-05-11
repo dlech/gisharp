@@ -32,13 +32,13 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Creates a new <see cref="PtrArray"/>.
         /// </summary>
-        private protected PtrArray() : this((IntPtr)New(), Transfer.Full)
-        {
-        }
+        private protected PtrArray()
+            : this((IntPtr)New(), Transfer.Full) { }
 
         static UnmanagedStruct* SizedNew(int reservedSize)
         {
-            if (reservedSize < 0) {
+            if (reservedSize < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(reservedSize));
             }
             var ret = g_ptr_array_sized_new((uint)reservedSize);
@@ -46,13 +46,16 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        private protected PtrArray(int reservedSize) : this((IntPtr)SizedNew(reservedSize), Transfer.Full)
-        {
-        }
+        private protected PtrArray(int reservedSize)
+            : this((IntPtr)SizedNew(reservedSize), Transfer.Full) { }
 
-        static UnmanagedStruct* NewFull(int reservedSize, delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc)
+        static UnmanagedStruct* NewFull(
+            int reservedSize,
+            delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc
+        )
         {
-            if (reservedSize < 0) {
+            if (reservedSize < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(reservedSize));
             }
             var ret = g_ptr_array_new_full((uint)reservedSize, elementFreeFunc);
@@ -61,10 +64,11 @@ namespace GISharp.Lib.GLib
         }
 
         // IMPORTANT: elementFreeFunc cannot be allowed to be GCed
-        private protected PtrArray(int reservedSize, delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc)
-            : this((IntPtr)NewFull(reservedSize, elementFreeFunc), Transfer.Full)
-        {
-        }
+        private protected PtrArray(
+            int reservedSize,
+            delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc
+        )
+            : this((IntPtr)NewFull(reservedSize, elementFreeFunc), Transfer.Full) { }
 
         ///// <summary>
         ///// Creates a new <see cref="PtrArray{T}"/> with <paramref name="reservedSize"/> pointers preallocated
@@ -207,7 +211,8 @@ namespace GISharp.Lib.GLib
         private protected IntPtr RemoveAt(int index)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            if (index < 0 || index >= array_->Len) {
+            if (index < 0 || index >= array_->Len)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             var ret = g_ptr_array_remove_index(array_, (uint)index);
@@ -231,13 +236,15 @@ namespace GISharp.Lib.GLib
         private protected IntPtr RemoveAtFast(int index)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            if (index < 0 || index >= array_->Len) {
+            if (index < 0 || index >= array_->Len)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             var ret = g_ptr_array_remove_index_fast(array_, (uint)index);
             GMarshal.PopUnhandledException();
             return ret;
         }
+
         /// <summary>
         /// Removes the given number of pointers starting at the given index
         /// from a <see cref="PtrArray{T}"/>. The following elements are moved to close the
@@ -254,13 +261,16 @@ namespace GISharp.Lib.GLib
         public void RemoveRange(int index, int length)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            if (index < 0) {
+            if (index < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
-            if (length < 0) {
+            if (length < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
-            if (index + length > array_->Len) {
+            if (index + length > array_->Len)
+            {
                 throw new ArgumentException("index + length exceeds Count.");
             }
             g_ptr_array_remove_range(array_, (uint)index, (uint)length);
@@ -295,7 +305,8 @@ namespace GISharp.Lib.GLib
         public void SetSize(int length)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            if (length < 0) {
+            if (length < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
             g_ptr_array_set_size(array_, length);
@@ -318,20 +329,26 @@ namespace GISharp.Lib.GLib
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
 
-            var unmanagedCompareFunc = new UnmanagedCompareFunc((a_, b_) => {
-                try {
-                    var a = Marshal.ReadIntPtr(a_);
-                    var b = Marshal.ReadIntPtr(b_);
-                    var ret = compareFunc(a, b);
-                    return ret;
+            var unmanagedCompareFunc = new UnmanagedCompareFunc(
+                (a_, b_) =>
+                {
+                    try
+                    {
+                        var a = Marshal.ReadIntPtr(a_);
+                        var b = Marshal.ReadIntPtr(b_);
+                        var ret = compareFunc(a, b);
+                        return ret;
+                    }
+                    catch (Exception ex)
+                    {
+                        GMarshal.PushUnhandledException(ex);
+                        return default;
+                    }
                 }
-                catch (Exception ex) {
-                    GMarshal.PushUnhandledException(ex);
-                    return default;
-                }
-            });
+            );
 
-            var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
+            var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)
+                Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
             g_ptr_array_sort(array_, compareFunc_);
             GMarshal.PopUnhandledException();
             GC.KeepAlive(unmanagedCompareFunc);
@@ -361,7 +378,8 @@ namespace GISharp.Lib.GLib
         static extern void g_ptr_array_sort_with_data(
             UnmanagedStruct* array,
             delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> compareFunc,
-            IntPtr userData);
+            IntPtr userData
+        );
 
         /// <summary>
         /// Checks whether @needle exists in @haystack. If the element is found, %TRUE is
@@ -408,11 +426,17 @@ namespace GISharp.Lib.GLib
         {
             var methods = typeof(T).GetMethods(Static | NonPublic);
 
-            var copyMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayCopyFuncAttribute), false));
-            elementCopyFunc = (Func<IntPtr, IntPtr>)copyMethodInfo.CreateDelegate(typeof(Func<IntPtr, IntPtr>));
+            var copyMethodInfo = methods.Single(
+                m => m.IsDefined(typeof(PtrArrayCopyFuncAttribute), false)
+            );
+            elementCopyFunc =
+                (Func<IntPtr, IntPtr>)copyMethodInfo.CreateDelegate(typeof(Func<IntPtr, IntPtr>));
 
-            var freeMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayFreeFuncAttribute), false));
-            elementFreeFunc = (delegate* unmanaged[Cdecl]<IntPtr, void>)freeMethodInfo.MethodHandle.GetFunctionPointer();
+            var freeMethodInfo = methods.Single(
+                m => m.IsDefined(typeof(PtrArrayFreeFuncAttribute), false)
+            );
+            elementFreeFunc = (delegate* unmanaged[Cdecl]<IntPtr, void>)
+                freeMethodInfo.MethodHandle.GetFunctionPointer();
         }
 
         private ReadOnlySpan<IntPtr> Data => new(Data_, (int)Len);
@@ -429,9 +453,8 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The array "owns" the elements in the GLib sense.
         /// </remarks>
-        public PtrArray() : this(0)
-        {
-        }
+        public PtrArray()
+            : this(0) { }
 
         /// <summary>
         /// Creates a new <see cref="PtrArray{T}"/> instance.
@@ -442,7 +465,8 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The array "owns" the elements in the GLib sense.
         /// </remarks>
-        public PtrArray(int reservedSize) : base(reservedSize, elementFreeFunc)
+        public PtrArray(int reservedSize)
+            : base(reservedSize, elementFreeFunc)
         {
             OwnsElements = true;
         }
@@ -451,9 +475,11 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public PtrArray(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public PtrArray(IntPtr handle, Transfer ownership)
+            : base(handle, ownership)
         {
-            if (ownership == Transfer.Full) {
+            if (ownership == Transfer.Full)
+            {
                 OwnsElements = true;
             }
         }
@@ -468,7 +494,8 @@ namespace GISharp.Lib.GLib
         public void Add(T data)
         {
             var data_ = data.UnsafeHandle;
-            if (OwnsElements) {
+            if (OwnsElements)
+            {
                 data_ = elementCopyFunc(data_);
             }
             Add(data_);
@@ -490,11 +517,13 @@ namespace GISharp.Lib.GLib
         [Since("2.40")]
         public void Insert(int index, T data)
         {
-            if (index < 0 || index > Len) {
+            if (index < 0 || index > Len)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             var data_ = data.UnsafeHandle;
-            if (OwnsElements) {
+            if (OwnsElements)
+            {
                 data_ = elementCopyFunc(data_);
             }
             Insert(index, data_);
@@ -596,19 +625,25 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Gets or sets the element of the array at <paramref name="index"/>.
         /// </summary>
-        public T this[int index] {
-            get {
-                try {
+        public T this[int index]
+        {
+            get
+            {
+                try
+                {
                     var ret_ = Data[index];
                     var ret = GetInstance<T>(ret_, Transfer.None);
                     return ret;
                 }
-                catch (IndexOutOfRangeException) {
+                catch (IndexOutOfRangeException)
+                {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
             }
-            set {
-                if (index < 0 || index >= Count) {
+            set
+            {
+                if (index < 0 || index >= Count)
+                {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
                 // Doing some tricks to make this faster...
@@ -630,9 +665,11 @@ namespace GISharp.Lib.GLib
         public int IndexOf(T data)
         {
             var data_ = data.UnsafeHandle;
-            for (int i = 0; i < Len; i++) {
+            for (int i = 0; i < Len; i++)
+            {
                 var ptr = Data[i];
-                if (ptr == data_) {
+                if (ptr == data_)
+                {
                     return i;
                 }
             }
@@ -655,13 +692,16 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public void CopyTo(T[] array, int arrayIndex)
         {
-            if (arrayIndex < 0) {
+            if (arrayIndex < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex));
             }
-            if (Len > array.Length - arrayIndex) {
+            if (Len > array.Length - arrayIndex)
+            {
                 throw new ArgumentException("Destination array is not long enough.");
             }
-            for (int i = 0; i < Len; i++) {
+            for (int i = 0; i < Len; i++)
+            {
                 array[i + arrayIndex] = this[i];
             }
         }
@@ -673,7 +713,8 @@ namespace GISharp.Lib.GLib
 
         IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < Len; i++) {
+            for (int i = 0; i < Len; i++)
+            {
                 yield return this[i];
             }
         }
@@ -687,7 +728,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static implicit operator UnownedCPtrArray<T>(PtrArray<T>? array)
         {
-            if (array is null) {
+            if (array is null)
+            {
                 return default;
             }
             return new UnownedCPtrArray<T>(array.Data);
@@ -702,20 +744,24 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Creates a new <see cref="PtrArray{T}"/> from an enumerable source.
         /// </summary>
-        public static PtrArray<T> ToPtrArray<T>(this IEnumerable<T> source) where T : Opaque
+        public static PtrArray<T> ToPtrArray<T>(this IEnumerable<T> source)
+            where T : Opaque
         {
             var size = 0;
 
             // if we know the size ahead of time, use it
-            if (source is ICollection<Variant> collection) {
+            if (source is ICollection<Variant> collection)
+            {
                 size = collection.Count;
             }
-            else if (source is IReadOnlyCollection<Variant> readOnlyCollection) {
+            else if (source is IReadOnlyCollection<Variant> readOnlyCollection)
+            {
                 size = readOnlyCollection.Count;
             }
 
             var array = new PtrArray<T>(size);
-            foreach (var item in source) {
+            foreach (var item in source)
+            {
                 array.Add(item);
             }
             return array;

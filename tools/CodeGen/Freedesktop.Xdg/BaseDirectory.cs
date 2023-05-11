@@ -43,12 +43,14 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// Uses the <c>XDG_DATA_HOME</c> environment variable if set and
         /// non-empty or <c>$HOME/.local/share</c> otherwise.
         /// </remarks>
-        public static string DataHome {
-            get {
-                return GetDir ("XDG_DATA_HOME",Path.Combine (
-                    Environment.GetEnvironmentVariable ("HOME"),
-                    ".local",
-                    "share"));
+        public static string DataHome
+        {
+            get
+            {
+                return GetDir(
+                    "XDG_DATA_HOME",
+                    Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".local", "share")
+                );
             }
         }
 
@@ -60,11 +62,14 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// Uses the <c>XDG_CONFIG_HOME</c> environmet variable if set and
         /// non-empty or <c>$HOME/.config</c> otherwise.
         /// </remarks>
-        public static string ConfigHome {
-            get {
-                return GetDir ("XDG_CONFIG_HOME", Path.Combine (
-                    Environment.GetEnvironmentVariable ("HOME"),
-                    ".config"));
+        public static string ConfigHome
+        {
+            get
+            {
+                return GetDir(
+                    "XDG_CONFIG_HOME",
+                    Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config")
+                );
             }
         }
 
@@ -77,16 +82,23 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// Uses the <c>XDG_DATA_DIRS</c> environment variable if set and
         /// non-empty or <c>/usr/local/share</c>, <c>/usr/share</c> otherwise;
         /// </remarks>
-        public static string[] DataDirs {
-            get {
-                return GetDirs ("XDG_DATA_DIRS", new [] {
-                    Path.Combine (
-                        Path.DirectorySeparatorChar.ToString (),
-                        "usr", "local", "share"),
-                    Path.Combine (
-                        Path.DirectorySeparatorChar.ToString (),
-                        "usr", "share")
-                });
+        public static string[] DataDirs
+        {
+            get
+            {
+                return GetDirs(
+                    "XDG_DATA_DIRS",
+                    new[]
+                    {
+                        Path.Combine(
+                            Path.DirectorySeparatorChar.ToString(),
+                            "usr",
+                            "local",
+                            "share"
+                        ),
+                        Path.Combine(Path.DirectorySeparatorChar.ToString(), "usr", "share")
+                    }
+                );
             }
         }
 
@@ -99,13 +111,14 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// Uses the <c>XDG_CONFIG_DIRS</c> environment variable if set and
         /// non-empty or <c>/etc/xdg</c> otherwise.
         /// </remarks>
-        public static string[] ConfigDirs {
-            get {
-                return GetDirs ("XDG_CONFIG_DIRS", new [] {
-                    Path.Combine (
-                        Path.DirectorySeparatorChar.ToString (),
-                        "etc", "xdg")
-                });
+        public static string[] ConfigDirs
+        {
+            get
+            {
+                return GetDirs(
+                    "XDG_CONFIG_DIRS",
+                    new[] { Path.Combine(Path.DirectorySeparatorChar.ToString(), "etc", "xdg") }
+                );
             }
         }
 
@@ -117,18 +130,23 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// Uses the <c>XDG_CACHE_HOME</c> environment variable if set and
         /// non-empty or <c>$HOME/.cache</c> otherwise.
         /// </remarks>
-        public static string CacheHome {
-            get {
-                return GetDir ("XDG_CACHE_HOME", Path.Combine (
-                    Environment.GetEnvironmentVariable ("HOME"),
-                    ".cache"));
+        public static string CacheHome
+        {
+            get
+            {
+                return GetDir(
+                    "XDG_CACHE_HOME",
+                    Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".cache")
+                );
             }
         }
 
-        public static string RuntimeDir {
-            get {
+        public static string RuntimeDir
+        {
+            get
+            {
                 // TODO: need to figure out default directory.
-                return GetDir ("XDG_RUNTIME_DIR", null);
+                return GetDir("XDG_RUNTIME_DIR", null);
             }
         }
 
@@ -138,12 +156,14 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// </summary>
         /// <returns>The absolute path if the file exists or <c>null</c> otherwise.</returns>
         /// <param name="relativePath">The path of the file relative to the base data directory.</param>
-        public static string FindDataFile (string relativePath)
+        public static string FindDataFile(string relativePath)
         {
-            foreach (var dir in new [] { DataHome }.Union (DataDirs)) {
-                var path = Path.Combine (dir, relativePath);
-                if (File.Exists (path)) {
-                    return Path.GetFullPath (path);
+            foreach (var dir in new[] { DataHome }.Union(DataDirs))
+            {
+                var path = Path.Combine(dir, relativePath);
+                if (File.Exists(path))
+                {
+                    return Path.GetFullPath(path);
                 }
             }
             return null;
@@ -155,12 +175,14 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// </summary>
         /// <returns>The absolute path if the directory exists or <c>null</c> otherwise.</returns>
         /// <param name="relativePath">The path of the directory relative to the base data directory.</param>
-        public static string FindDataDirectory (string relativePath)
+        public static string FindDataDirectory(string relativePath)
         {
-            foreach (var dir in new [] { DataHome }.Union (DataDirs)) {
-                var path = Path.Combine (dir, relativePath);
-                if (Directory.Exists (path)) {
-                    return Path.GetFullPath (path);
+            foreach (var dir in new[] { DataHome }.Union(DataDirs))
+            {
+                var path = Path.Combine(dir, relativePath);
+                if (Directory.Exists(path))
+                {
+                    return Path.GetFullPath(path);
                 }
             }
             return null;
@@ -172,12 +194,14 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// </summary>
         /// <returns>The absolute path if the file exists or <c>null</c> otherwise.</returns>
         /// <param name="relativePath">The path of the file relative to the base data directory.</param>
-        public static string FindConfigFile (string relativePath)
+        public static string FindConfigFile(string relativePath)
         {
-            foreach (var dir in new [] { ConfigHome }.Union (ConfigDirs)) {
-                var path = Path.Combine (dir, relativePath);
-                if (File.Exists (path)) {
-                    return Path.GetFullPath (path);
+            foreach (var dir in new[] { ConfigHome }.Union(ConfigDirs))
+            {
+                var path = Path.Combine(dir, relativePath);
+                if (File.Exists(path))
+                {
+                    return Path.GetFullPath(path);
                 }
             }
             return null;
@@ -189,41 +213,50 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// </summary>
         /// <returns>The absolute path if the directory exists or <c>null</c> otherwise.</returns>
         /// <param name="relativePath">The path of the directory relative to the base data directory.</param>
-        public static string FindConfigDirectory (string relativePath)
+        public static string FindConfigDirectory(string relativePath)
         {
-            foreach (var dir in new [] { ConfigHome }.Union (ConfigDirs)) {
-                var path = Path.Combine (dir, relativePath);
-                if (Directory.Exists (path)) {
-                    return Path.GetFullPath (path);
+            foreach (var dir in new[] { ConfigHome }.Union(ConfigDirs))
+            {
+                var path = Path.Combine(dir, relativePath);
+                if (Directory.Exists(path))
+                {
+                    return Path.GetFullPath(path);
                 }
             }
             return null;
         }
 
-        static string GetDir (string envVar, string defaultValue)
+        static string GetDir(string envVar, string defaultValue)
         {
-            var dir = Environment.GetEnvironmentVariable (envVar);
-            if (string.IsNullOrWhiteSpace (dir) || !Path.IsPathRooted (dir)) {
+            var dir = Environment.GetEnvironmentVariable(envVar);
+            if (string.IsNullOrWhiteSpace(dir) || !Path.IsPathRooted(dir))
+            {
                 return defaultValue;
             }
             return dir;
         }
 
-        static string[] GetDirs (string envVar, params string[] defaultValues)
+        static string[] GetDirs(string envVar, params string[] defaultValues)
         {
-            var dirs = Environment.GetEnvironmentVariable (envVar)
-                                  ?.Split (Path.PathSeparator).ToList ();
-            if (dirs is not null) {
-                foreach (var dir in dirs.ToArray ()) {
-                    if (!Path.IsPathRooted (dir)) {
-                        dirs.Remove (dir);
+            var dirs = Environment
+                .GetEnvironmentVariable(envVar)
+                ?.Split(Path.PathSeparator)
+                .ToList();
+            if (dirs is not null)
+            {
+                foreach (var dir in dirs.ToArray())
+                {
+                    if (!Path.IsPathRooted(dir))
+                    {
+                        dirs.Remove(dir);
                     }
                 }
             }
-            if (dirs is null || !dirs.Any ()) {
+            if (dirs is null || !dirs.Any())
+            {
                 return defaultValues;
             }
-            return dirs?.ToArray ();
+            return dirs?.ToArray();
         }
     }
 }

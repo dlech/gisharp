@@ -20,8 +20,10 @@ namespace GISharp.Test.GdkPixbuf
         [Test]
         public void TestQuark()
         {
-            Assert.That(default(PixbufError).GetGErrorDomain(),
-                Is.EqualTo(PixbufErrorDomain.Quark));
+            Assert.That(
+                default(PixbufError).GetGErrorDomain(),
+                Is.EqualTo(PixbufErrorDomain.Quark)
+            );
         }
     }
 }

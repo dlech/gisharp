@@ -13,9 +13,11 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public bool HasCustomConstructor { get; }
 
-        public Constructor(XElement element, GirNode parent) : base(element, parent)
+        public Constructor(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "constructor") {
+            if (element.Name != gi + "constructor")
+            {
                 throw new ArgumentException("Requrires <constructor> element", nameof(element));
             }
             HasCustomConstructor = element.Attribute(gs + "custom-constructor").AsBool();

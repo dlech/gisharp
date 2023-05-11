@@ -80,7 +80,6 @@ namespace GISharp.CodeGen.Gir
         public GICallable Callable => _Callable.Value;
         readonly Lazy<GICallable> _Callable;
 
-
         private protected GIArg(XElement element, GirNode parent)
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {

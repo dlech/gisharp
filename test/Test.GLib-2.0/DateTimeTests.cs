@@ -76,34 +76,43 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNew()
         {
-            using (var dt = new DateTime(TimeZone.Utc, 1, 1, 1, 0, 0, 0)) {
+            using (var dt = new DateTime(TimeZone.Utc, 1, 1, 1, 0, 0, 0))
+            {
                 Assert.That(dt, Is.Not.Null);
             }
 
-            Assert.That(() => new DateTime(TimeZone.Utc, 0, 0, 0, 0, 0, 0),
-                Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(
+                () => new DateTime(TimeZone.Utc, 0, 0, 0, 0, 0, 0),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+            );
         }
 
         [Test]
         public void TestNewLocal()
         {
-            using (var dt = DateTime.GetLocal(1, 1, 1, 0, 0, 0)) {
+            using (var dt = DateTime.GetLocal(1, 1, 1, 0, 0, 0))
+            {
                 Assert.That(dt, Is.Not.Null);
             }
 
-            Assert.That(() => DateTime.GetLocal(0, 0, 0, 0, 0, 0),
-                Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(
+                () => DateTime.GetLocal(0, 0, 0, 0, 0, 0),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+            );
         }
 
         [Test]
         public void TestNewUtc()
         {
-            using (var dt = DateTime.GetUtc(1, 1, 1, 0, 0, 0)) {
+            using (var dt = DateTime.GetUtc(1, 1, 1, 0, 0, 0))
+            {
                 Assert.That(dt, Is.Not.Null);
             }
 
-            Assert.That(() => DateTime.GetUtc(0, 0, 0, 0, 0, 0),
-                Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(
+                () => DateTime.GetUtc(0, 0, 0, 0, 0, 0),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+            );
         }
     }
 }

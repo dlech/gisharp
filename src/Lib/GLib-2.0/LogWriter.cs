@@ -31,30 +31,60 @@ namespace GISharp.Lib.GLib
         [Since("2.50")]
         public static void SetFunc(LogWriterFunc func)
         {
-            if (isFuncSet) {
+            if (isFuncSet)
+            {
                 throw new InvalidOperationException("Log writer function can only be set once.");
             }
             // If using one of the default functions, pass the unmanged function
             // pointer instead of wrapping the managed version.
-            if (func == Default) {
-                var func_ = (delegate* unmanaged[Cdecl]<LogLevelFlags, LogField*, nuint, IntPtr, LogWriterOutput>)CLibrary.GetSymbol("glib-2.0", nameof(g_log_writer_default));
+            if (func == Default)
+            {
+                var func_ = (delegate* unmanaged[Cdecl]<
+                    LogLevelFlags,
+                    LogField*,
+                    nuint,
+                    IntPtr,
+                    LogWriterOutput>)
+                    CLibrary.GetSymbol("glib-2.0", nameof(g_log_writer_default));
                 g_log_set_writer_func(func_, IntPtr.Zero, null);
                 GMarshal.PopUnhandledException();
             }
-            else if (func == Journald) {
-                var func_ = (delegate* unmanaged[Cdecl]<LogLevelFlags, LogField*, nuint, IntPtr, LogWriterOutput>)CLibrary.GetSymbol("glib-2.0", nameof(g_log_writer_journald));
+            else if (func == Journald)
+            {
+                var func_ = (delegate* unmanaged[Cdecl]<
+                    LogLevelFlags,
+                    LogField*,
+                    nuint,
+                    IntPtr,
+                    LogWriterOutput>)
+                    CLibrary.GetSymbol("glib-2.0", nameof(g_log_writer_journald));
                 g_log_set_writer_func(func_, IntPtr.Zero, null);
                 GMarshal.PopUnhandledException();
             }
-            else if (func == StandardStreams) {
-                var func_ = (delegate* unmanaged[Cdecl]<LogLevelFlags, LogField*, nuint, IntPtr, LogWriterOutput>)CLibrary.GetSymbol("glib-2.0", nameof(g_log_writer_standard_streams));
+            else if (func == StandardStreams)
+            {
+                var func_ = (delegate* unmanaged[Cdecl]<
+                    LogLevelFlags,
+                    LogField*,
+                    nuint,
+                    IntPtr,
+                    LogWriterOutput>)
+                    CLibrary.GetSymbol("glib-2.0", nameof(g_log_writer_standard_streams));
                 g_log_set_writer_func(func_, IntPtr.Zero, null);
                 GMarshal.PopUnhandledException();
             }
-            else {
-                var func_ = (delegate* unmanaged[Cdecl]<LogLevelFlags, LogField*, nuint, IntPtr, LogWriterOutput>)&LogWriterFuncMarshal.Callback;
+            else
+            {
+                var func_ = (delegate* unmanaged[Cdecl]<
+                    LogLevelFlags,
+                    LogField*,
+                    nuint,
+                    IntPtr,
+                    LogWriterOutput>)
+                    &LogWriterFuncMarshal.Callback;
                 var userData_ = (IntPtr)GCHandle.Alloc(func);
-                var userDataFree_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
+                var userDataFree_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)
+                    &GMarshal.DestroyGCHandle;
                 g_log_set_writer_func(func_, userData_, userDataFree_);
                 GMarshal.PopUnhandledException();
             }
@@ -93,7 +123,8 @@ namespace GISharp.Lib.GLib
         [Since("2.50")]
         public static LogWriterOutput Default(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
-            fixed (LogField* fields_ = fields) {
+            fixed (LogField* fields_ = fields)
+            {
                 var nFields_ = (nuint)fields.Length;
                 var ret = g_log_writer_default(logLevel, fields_, nFields_, IntPtr.Zero);
                 GMarshal.PopUnhandledException();
@@ -125,9 +156,13 @@ namespace GISharp.Lib.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since("2.50")]
-        public static LogWriterOutput Journald(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
+        public static LogWriterOutput Journald(
+            LogLevelFlags logLevel,
+            ReadOnlySpan<LogField> fields
+        )
         {
-            fixed (LogField* fields_ = fields) {
+            fixed (LogField* fields_ = fields)
+            {
                 var nFields_ = (nuint)fields.Length;
                 var ret = g_log_writer_journald(logLevel, fields_, nFields_, IntPtr.Zero);
                 GMarshal.PopUnhandledException();
@@ -162,9 +197,13 @@ namespace GISharp.Lib.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since("2.50")]
-        public static LogWriterOutput StandardStreams(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
+        public static LogWriterOutput StandardStreams(
+            LogLevelFlags logLevel,
+            ReadOnlySpan<LogField> fields
+        )
         {
-            fixed (LogField* fields_ = fields) {
+            fixed (LogField* fields_ = fields)
+            {
                 var nFields_ = (nuint)fields.Length;
                 var ret = g_log_writer_standard_streams(logLevel, fields_, nFields_, IntPtr.Zero);
                 GMarshal.PopUnhandledException();
@@ -198,7 +237,11 @@ namespace GISharp.Lib.GLib
         /// string containing the formatted log message
         /// </returns>
         [Since("2.50")]
-        public static Utf8 FormatFields(LogLevelFlags logLevel, IDictionary<Utf8, Utf8> fields, bool useColor = false)
+        public static Utf8 FormatFields(
+            LogLevelFlags logLevel,
+            IDictionary<Utf8, Utf8> fields,
+            bool useColor = false
+        )
         {
             var fieldsArray = fields.Select(x => new LogField(x.Key, x.Value)).ToArray();
             return FormatFields(logLevel, fieldsArray, useColor);

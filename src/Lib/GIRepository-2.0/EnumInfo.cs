@@ -12,9 +12,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain enum type values.
         /// </summary>
-        public IndexedCollection<ValueInfo> Values {
-            get {
-                if (values is null) {
+        public IndexedCollection<ValueInfo> Values
+        {
+            get
+            {
+                if (values is null)
+                {
                     values = new(GetNValues, GetValue);
                 }
                 return values;
@@ -26,9 +29,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain enum type methods.
         /// </summary>
-        public IndexedCollection<FunctionInfo> Methods {
-            get {
-                if (methods is null) {
+        public IndexedCollection<FunctionInfo> Methods
+        {
+            get
+            {
+                if (methods is null)
+                {
                     methods = new(GetNMethods, GetMethod);
                 }
                 return methods;

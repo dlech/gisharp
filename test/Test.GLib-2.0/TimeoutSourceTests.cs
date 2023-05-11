@@ -18,18 +18,21 @@ namespace GISharp.Test.GLib
             using var mainLoop = new MainLoop(context);
             using var source = TimeoutSource.New(0);
 
-            source.SetCallback(() => {
+            source.SetCallback(() =>
+            {
                 mainLoop.Quit();
                 timeoutInvoked = true;
                 return Source.Remove;
             });
 
             source.Attach(context);
-            Task.Run(() => {
-                context.PushThreadDefault();
-                mainLoop.Run();
-                context.PopThreadDefault();
-            }).Wait(100);
+            Task.Run(() =>
+                {
+                    context.PushThreadDefault();
+                    mainLoop.Run();
+                    context.PopThreadDefault();
+                })
+                .Wait(100);
             source.Destroy();
 
             Assert.That(timeoutInvoked, Is.True);
@@ -44,18 +47,21 @@ namespace GISharp.Test.GLib
             using var mainLoop = new MainLoop(context);
             using var source = TimeoutSource.NewSeconds(0);
 
-            source.SetCallback(() => {
+            source.SetCallback(() =>
+            {
                 mainLoop.Quit();
                 timeoutInvoked = true;
                 return Source.Remove;
             });
 
             source.Attach(context);
-            Task.Run(() => {
-                context.PushThreadDefault();
-                mainLoop.Run();
-                context.PopThreadDefault();
-            }).Wait(2000);
+            Task.Run(() =>
+                {
+                    context.PushThreadDefault();
+                    mainLoop.Run();
+                    context.PopThreadDefault();
+                })
+                .Wait(2000);
             source.Destroy();
 
             Assert.That(timeoutInvoked, Is.True);

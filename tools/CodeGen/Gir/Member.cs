@@ -18,9 +18,11 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public string CIdentifier { get; }
 
-        public Member(XElement element, GirNode parent) : base(element, parent)
+        public Member(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "member") {
+            if (element.Name != gi + "member")
+            {
                 throw new ArgumentException("Requrires <member> element", nameof(element));
             }
             Value = element.Attribute("value").Value;

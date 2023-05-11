@@ -18,16 +18,18 @@ namespace GISharp.Test.Analyzers
             return Path.GetDirectoryName(path);
         }
 
-        static string NugetConfig => Path.GetFullPath(Path.Combine(SourceDirectory(), "..", "nuget.config"));
+        static string NugetConfig =>
+            Path.GetFullPath(Path.Combine(SourceDirectory(), "..", "nuget.config"));
 
-        static readonly ReferenceAssemblies refAsm = ReferenceAssemblies.Net.Net50.AddPackages(
-            ImmutableArray.Create(new PackageIdentity("GISharp.Runtime", "1.0.0"))
-        ).WithNuGetConfigFilePath(NugetConfig);
+        static readonly ReferenceAssemblies refAsm = ReferenceAssemblies.Net.Net50
+            .AddPackages(ImmutableArray.Create(new PackageIdentity("GISharp.Runtime", "1.0.0")))
+            .WithNuGetConfigFilePath(NugetConfig);
 
         [Test]
         public async Task Test0()
         {
-            const string testCode = @"
+            const string testCode =
+                @"
 #nullable enable
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -59,7 +61,8 @@ public static class Test
         [Test]
         public async Task Test1()
         {
-            const string testCode = @"
+            const string testCode =
+                @"
 #nullable enable
 using System.Diagnostics.CodeAnalysis;
 using GISharp.Runtime;
@@ -85,7 +88,8 @@ public static class Test
             var expected1 = Verify.Diagnostic("GI0001").WithLocation(17, 12).WithSeverity(Warning);
             var expected2 = Verify.Diagnostic("GI0001").WithLocation(18, 12).WithSeverity(Warning);
             var expected3 = Verify.Diagnostic("GI0001").WithLocation(19, 12).WithSeverity(Warning);
-            await new CSharpAnalyzerTest<GISharp.Analyzers.RefStructNullability, NUnitVerifier> {
+            await new CSharpAnalyzerTest<GISharp.Analyzers.RefStructNullability, NUnitVerifier>
+            {
                 TestCode = testCode,
                 ExpectedDiagnostics = { expected1, expected2, expected3 },
                 ReferenceAssemblies = refAsm

@@ -58,8 +58,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestInsertSorted()
         {
-            static int compareFunc(OpaqueInt a, OpaqueInt b) =>
-                a.Value.CompareTo(b.Value);
+            static int compareFunc(OpaqueInt a, OpaqueInt b) => a.Value.CompareTo(b.Value);
             using var list = new WeakSList<OpaqueInt>();
             Assume.That(list.Length, Is.EqualTo(0));
             list.InsertSorted(new OpaqueInt(1), compareFunc);
@@ -113,7 +112,8 @@ namespace GISharp.Test.GLib
             list.Append(new OpaqueInt(1));
             list.Append(new OpaqueInt(2));
             var callbackCount = 0;
-            list.Foreach(x => {
+            list.Foreach(x =>
+            {
                 Assert.That(x!.Value, Is.EqualTo(callbackCount));
                 callbackCount++;
             });
@@ -181,7 +181,8 @@ namespace GISharp.Test.GLib
             list.Append(new OpaqueInt(2));
             list.Append(new OpaqueInt(3));
             int i = 1;
-            foreach (var n in list) {
+            foreach (var n in list)
+            {
                 Assert.That(n.Value, Is.EqualTo(i++));
             }
         }

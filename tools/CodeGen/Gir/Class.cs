@@ -32,9 +32,11 @@ namespace GISharp.CodeGen.Gir
         public IEnumerable<Implements> Implements => _Implements.Value;
         readonly Lazy<List<Implements>> _Implements;
 
-        public Class(XElement element, GirNode parent) : base(element, parent)
+        public Class(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "class") {
+            if (element.Name != gi + "class")
+            {
                 throw new ArgumentException("Requrires <class> element", nameof(element));
             }
             IsAbstract = Element.Attribute("abstract").AsBool();
@@ -45,7 +47,8 @@ namespace GISharp.CodeGen.Gir
 
         Class LazyGetParentType()
         {
-            if (Parent is null) {
+            if (Parent is null)
+            {
                 return null;
             }
             return TypeResolver.ResolveType<Class>(Namespace, Parent);

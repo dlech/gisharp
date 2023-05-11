@@ -12,5 +12,6 @@ namespace GISharp.Lib.GLib
     /// <param name="data">
     /// the element's data
     /// </param>
-    public delegate void Func<in T>(T data) where T : IOpaque?;
+    public delegate void Func<in T>(T data)
+        where T : IOpaque?;
 }

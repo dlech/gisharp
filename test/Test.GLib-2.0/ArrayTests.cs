@@ -13,20 +13,24 @@ namespace GISharp.Test.GLib
 {
     public class ArrayTests : IListTests<Array<int>, int>
     {
-        public ArrayTests() : base(ArrayTestExtensions.UnsafeItemAt, 0, 1, 2, 3, 4)
-        {
-        }
+        public ArrayTests()
+            : base(ArrayTestExtensions.UnsafeItemAt, 0, 1, 2, 3, 4) { }
 
         [Test]
         public void TestConstructor()
         {
-            using (var a = new Array<int>()) {
+            using (var a = new Array<int>())
+            {
                 Assert.That(a.UnsafeLength(), Is.Zero);
             }
 
-            Assert.That(() => new Array<int>(false, false, -1), Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(
+                () => new Array<int>(false, false, -1),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+            );
 
-            using (var a = new Array<int>(false, false)) {
+            using (var a = new Array<int>(false, false))
+            {
                 Assert.That(a.UnsafeLength(), Is.Zero);
             }
         }
@@ -38,8 +42,7 @@ namespace GISharp.Test.GLib
             Assert.That(array.ElementSize == sizeof(int));
 
             array.Dispose();
-            Assert.That(() => array.ElementSize,
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => array.ElementSize, Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -63,8 +66,7 @@ namespace GISharp.Test.GLib
             Assert.That(array.UnsafeItemAt(5), Is.EqualTo(6));
 
             array.Dispose();
-            Assert.That(() => array.Append(1),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => array.Append(1), Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -90,8 +92,7 @@ namespace GISharp.Test.GLib
             Assert.That(array.UnsafeLength(), Is.EqualTo(5));
 
             array.Dispose();
-            Assert.That(() => array.Prepend(1),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => array.Prepend(1), Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -114,10 +115,8 @@ namespace GISharp.Test.GLib
             Assert.That(array.UnsafeItemAt(2), Is.EqualTo(3));
             Assert.That(array.UnsafeItemAt(3), Is.EqualTo(4));
 
-            Assert.That(() => array.Insert(-1, 0),
-                         Throws.TypeOf<ArgumentOutOfRangeException>());
-            Assert.That(() => array.Insert(5, 0),
-                         Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(() => array.Insert(-1, 0), Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(() => array.Insert(5, 0), Throws.TypeOf<ArgumentOutOfRangeException>());
 
             ReadOnlySpan<int> data = stackalloc int[] { 5, 6, 7 };
             array.Insert(0, data);
@@ -131,8 +130,7 @@ namespace GISharp.Test.GLib
             Assert.That(array.UnsafeItemAt(6), Is.EqualTo(4));
 
             array.Dispose();
-            Assert.That(() => array.Insert(1),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => array.Insert(1), Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -146,10 +144,14 @@ namespace GISharp.Test.GLib
             Assume.That(array.UnsafeItemAt(3), Is.EqualTo(4));
             Assume.That(array.UnsafeItemAt(4), Is.EqualTo(5));
 
-            Assert.That(() => array.RemoveAtFast(-1),
-                         Throws.InstanceOf<ArgumentOutOfRangeException>());
-            Assert.That(() => array.RemoveAtFast(5),
-                         Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(
+                () => array.RemoveAtFast(-1),
+                Throws.InstanceOf<ArgumentOutOfRangeException>()
+            );
+            Assert.That(
+                () => array.RemoveAtFast(5),
+                Throws.InstanceOf<ArgumentOutOfRangeException>()
+            );
 
             array.RemoveAtFast(4);
             Assert.That(array.UnsafeItemAt(0), Is.EqualTo(1));
@@ -163,8 +165,7 @@ namespace GISharp.Test.GLib
             Assert.That(array.UnsafeItemAt(2), Is.EqualTo(3));
 
             array.Dispose();
-            Assert.That(() => array.RemoveAtFast(0),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => array.RemoveAtFast(0), Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -178,16 +179,26 @@ namespace GISharp.Test.GLib
             Assume.That(array.UnsafeItemAt(3), Is.EqualTo(4));
             Assume.That(array.UnsafeItemAt(4), Is.EqualTo(5));
 
-            Assert.That(() => array.RemoveRange(-1, 1),
-                         Throws.InstanceOf<ArgumentOutOfRangeException>());
-            Assert.That(() => array.RemoveRange(5, 1),
-                         Throws.InstanceOf<ArgumentOutOfRangeException>());
-            Assert.That(() => array.RemoveRange(0, -1),
-                         Throws.InstanceOf<ArgumentOutOfRangeException>());
-            Assert.That(() => array.RemoveRange(0, 6),
-                         Throws.InstanceOf<ArgumentOutOfRangeException>());
-            Assert.That(() => array.RemoveRange(4, 2),
-                         Throws.InstanceOf<ArgumentOutOfRangeException>());
+            Assert.That(
+                () => array.RemoveRange(-1, 1),
+                Throws.InstanceOf<ArgumentOutOfRangeException>()
+            );
+            Assert.That(
+                () => array.RemoveRange(5, 1),
+                Throws.InstanceOf<ArgumentOutOfRangeException>()
+            );
+            Assert.That(
+                () => array.RemoveRange(0, -1),
+                Throws.InstanceOf<ArgumentOutOfRangeException>()
+            );
+            Assert.That(
+                () => array.RemoveRange(0, 6),
+                Throws.InstanceOf<ArgumentOutOfRangeException>()
+            );
+            Assert.That(
+                () => array.RemoveRange(4, 2),
+                Throws.InstanceOf<ArgumentOutOfRangeException>()
+            );
 
             array.RemoveRange(3, 2);
             Assert.That(array.UnsafeItemAt(0), Is.EqualTo(1));
@@ -198,8 +209,7 @@ namespace GISharp.Test.GLib
             Assert.That(array.UnsafeItemAt(0), Is.EqualTo(3));
 
             array.Dispose();
-            Assert.That(() => array.RemoveRange(0, 1),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => array.RemoveRange(0, 1), Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -214,8 +224,7 @@ namespace GISharp.Test.GLib
             Assert.That(() => array.SetSize(-1), Throws.TypeOf<ArgumentOutOfRangeException>());
 
             array.Dispose();
-            Assert.That(() => array.SetSize(0),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => array.SetSize(0), Throws.TypeOf<ObjectDisposedException>());
         }
 #if false
         [Test]
@@ -262,8 +271,10 @@ namespace GISharp.Test.GLib
             Assert.That(array.UnsafeItemAt(2), Is.EqualTo(3));
 
             array.Dispose();
-            Assert.That(() => array.Sort((in int x, in int y) => x - y),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(
+                () => array.Sort((in int x, in int y) => x - y),
+                Throws.TypeOf<ObjectDisposedException>()
+            );
         }
 
         [Test]
@@ -271,7 +282,8 @@ namespace GISharp.Test.GLib
         {
             Span<int> s = default(Array<int>);
             Assert.That(s.Length, Is.Zero);
-            fixed (int* p = s) {
+            fixed (int* p = s)
+            {
                 Assert.That((IntPtr)p, Is.EqualTo(IntPtr.Zero));
             }
 
@@ -279,7 +291,8 @@ namespace GISharp.Test.GLib
             s = a;
             Assert.That(s.Length, Is.EqualTo(1));
             Assert.That(s[0], Is.EqualTo(1));
-            fixed (int* p = s) {
+            fixed (int* p = s)
+            {
                 Assert.That((IntPtr)p, Is.EqualTo(Marshal.ReadIntPtr(a.UnsafeHandle)));
             }
         }
@@ -307,7 +320,8 @@ namespace GISharp.Test.GLib
         /// <summary>
         /// Gets the item at a given index without range checking.
         /// </summary>
-        public unsafe static T UnsafeItemAt<T>(this Array<T> array, int index) where T : unmanaged
+        public unsafe static T UnsafeItemAt<T>(this Array<T> array, int index)
+            where T : unmanaged
         {
             var dataPtr = Marshal.ReadIntPtr(array.UnsafeHandle);
             dataPtr += sizeof(T) * index;
@@ -315,7 +329,8 @@ namespace GISharp.Test.GLib
             return item;
         }
 
-        public static int UnsafeLength<T>(this Array<T> array) where T : unmanaged
+        public static int UnsafeLength<T>(this Array<T> array)
+            where T : unmanaged
         {
             var len = Marshal.ReadInt32(array.UnsafeHandle, IntPtr.Size);
             return len;

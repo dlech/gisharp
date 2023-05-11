@@ -36,9 +36,8 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public OpaqueInt(IntPtr handle, Transfer ownership) : base(handle)
-        {
-        }
+        public OpaqueInt(IntPtr handle, Transfer ownership)
+            : base(handle) { }
 
         static IntPtr New(int value)
         {
@@ -49,9 +48,8 @@ namespace GISharp.Runtime
         /// Initializes a new instance of the <see cref="OpaqueInt"/> class.
         /// </summary>
         /// <param name="value">The value.</param>
-        public OpaqueInt(int value) : this(New(value), Transfer.Full)
-        {
-        }
+        public OpaqueInt(int value)
+            : this(New(value), Transfer.Full) { }
 
         /// <summary>
         /// Converts a pointer to an integer.
@@ -78,7 +76,8 @@ namespace GISharp.Runtime
         /// <inheritdoc />
         public override bool Equals(object? obj)
         {
-            if (obj is OpaqueInt other) {
+            if (obj is OpaqueInt other)
+            {
                 return Value == other.Value;
             }
             return base.Equals(obj);

@@ -36,15 +36,12 @@ namespace GISharp.Lib.GLib
         /// `programname [OPTION...]`
         /// </param>
         public OptionContext(NullableUnownedUtf8 parameterString)
-            : base((IntPtr)New(parameterString), Transfer.Full)
-        {
-        }
+            : base((IntPtr)New(parameterString), Transfer.Full) { }
 
         /// <summary>
         /// Creates a new option context.
         /// </summary>
-        public OptionContext() : this(default)
-        {
-        }
+        public OptionContext()
+            : this(default) { }
     }
 }

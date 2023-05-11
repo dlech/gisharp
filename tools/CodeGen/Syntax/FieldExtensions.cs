@@ -18,20 +18,31 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets a C# field declaration for a GIR field
         /// </summary>
-        public static FieldDeclarationSyntax GetDeclaration(this Field field, bool forUnmanagedStruct)
+        public static FieldDeclarationSyntax GetDeclaration(
+            this Field field,
+            bool forUnmanagedStruct
+        )
         {
-            var type = field.Type?.GetUnmanagedType() ?? field.Callback?.GetUnmanagedType()
-                ?? throw new ArgumentException($"field '{field.GirName}' is missing type or callback", nameof(field));
+            var type =
+                field.Type?.GetUnmanagedType()
+                ?? field.Callback?.GetUnmanagedType()
+                ?? throw new ArgumentException(
+                    $"field '{field.GirName}' is missing type or callback",
+                    nameof(field)
+                );
             var name = field.ManagedName;
-            if (!forUnmanagedStruct) {
+            if (!forUnmanagedStruct)
+            {
                 name = name.ToCamelCase();
             }
             var variable = VariableDeclarator(name);
 
-            if (field.Type is Gir.Array array && array.FixedSize >= 0) {
+            if (field.Type is Gir.Array array && array.FixedSize >= 0)
+            {
                 var elementType = array.TypeParameters.Single().GetUnmanagedType();
 
-                var allowedTypes = new[] {
+                var allowedTypes = new[]
+                {
                     "bool",
                     "byte",
                     "char",
@@ -45,7 +56,8 @@ namespace GISharp.CodeGen.Syntax
                     "float",
                     "double",
                 };
-                if (!allowedTypes.Contains(elementType)) {
+                if (!allowedTypes.Contains(elementType))
+                {
                     throw new NotImplementedException("fixed size buffer with unsupported type");
                 }
 
@@ -71,30 +83,38 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = TokenList();
 
-            if (forUnmanagedStruct) {
-                if (field.IsPrivate) {
+            if (forUnmanagedStruct)
+            {
+                if (field.IsPrivate)
+                {
                     list = list.Add(Token(InternalKeyword));
                 }
-                else {
+                else
+                {
                     list = list.Add(Token(PublicKeyword));
                 }
             }
-            else {
+            else
+            {
                 list = list.Add(Token(PrivateKeyword));
             }
 
-            if (field.Type is Gir.Array array && array.FixedSize >= 0) {
+            if (field.Type is Gir.Array array && array.FixedSize >= 0)
+            {
                 list = list.Add(Token(FixedKeyword));
             }
             // readonly can't be combined with fixed
-            else if (!field.IsWriteable) {
+            else if (!field.IsWriteable)
+            {
                 list = list.Add(Token(ReadOnlyKeyword));
             }
 
             return list;
         }
 
-        internal static IEnumerable<StatementSyntax> GetVirtualMethodRegisterStatements(this Field field)
+        internal static IEnumerable<StatementSyntax> GetVirtualMethodRegisterStatements(
+            this Field field
+        )
         {
             yield return LocalDeclarationStatement(field.GetOffsetDeclaration());
             yield return ExpressionStatement(field.GetRegisterVirtualFunctionExpression());
@@ -106,15 +126,21 @@ namespace GISharp.CodeGen.Syntax
         {
             var variableType = ParseTypeName("int");
             var variableName = field.ManagedName.ToCamelCase() + "Offset";
-            var valueExpression = ParseExpression(string.Format("({0}){1}.{2}<UnmanagedStruct>(nameof(UnmanagedStruct.{3}))",
-                variableType,
-                typeof(Marshal),
-                nameof(Marshal.OffsetOf),
-                field.ManagedName));
+            var valueExpression = ParseExpression(
+                string.Format(
+                    "({0}){1}.{2}<UnmanagedStruct>(nameof(UnmanagedStruct.{3}))",
+                    variableType,
+                    typeof(Marshal),
+                    nameof(Marshal.OffsetOf),
+                    field.ManagedName
+                )
+            );
 
             var declaration = VariableDeclaration(variableType)
-                    .AddVariables(VariableDeclarator(variableName)
-                        .WithInitializer(EqualsValueClause(valueExpression)));
+                .AddVariables(
+                    VariableDeclarator(variableName)
+                        .WithInitializer(EqualsValueClause(valueExpression))
+                );
 
             return declaration;
         }
@@ -131,35 +157,58 @@ namespace GISharp.CodeGen.Syntax
         /// Gets a struct declaration containing all of the specified fields
         /// </summary>
         public static StructDeclarationSyntax GetStructDeclaration(
-            this IEnumerable<Field> fields, bool forUnmanagedStruct = true)
+            this IEnumerable<Field> fields,
+            bool forUnmanagedStruct = true
+        )
         {
             var structMembers = List<MemberDeclarationSyntax>()
                 .AddRange(fields.Select(x => x.GetDeclaration(forUnmanagedStruct)));
 
-            if (structMembers.Any()) {
+            if (structMembers.Any())
+            {
                 var firstMember = structMembers.First();
                 var warningDisable = PragmaWarningDirectiveTrivia(Token(DisableKeyword), true)
-                    .AddErrorCodes(ParseExpression("CS0169"), ParseExpression("CS0414"), ParseExpression("CS0649"));
-                structMembers = structMembers.Replace(firstMember, firstMember
-                    .WithLeadingTrivia(firstMember.GetLeadingTrivia()
-                        .Prepend(EndOfLine("\n"))
-                        .Prepend(Trivia(warningDisable))));
+                    .AddErrorCodes(
+                        ParseExpression("CS0169"),
+                        ParseExpression("CS0414"),
+                        ParseExpression("CS0649")
+                    );
+                structMembers = structMembers.Replace(
+                    firstMember,
+                    firstMember.WithLeadingTrivia(
+                        firstMember
+                            .GetLeadingTrivia()
+                            .Prepend(EndOfLine("\n"))
+                            .Prepend(Trivia(warningDisable))
+                    )
+                );
 
-                var warningRestore = warningDisable.WithDisableOrRestoreKeyword(Token(RestoreKeyword));
+                var warningRestore = warningDisable.WithDisableOrRestoreKeyword(
+                    Token(RestoreKeyword)
+                );
                 var lastMember = structMembers.Last();
-                structMembers = structMembers.Replace(lastMember, lastMember
-                    .WithTrailingTrivia(lastMember.GetTrailingTrivia()
-                        .Append(Trivia(warningRestore))
-                        .Append(EndOfLine("\n"))));
+                structMembers = structMembers.Replace(
+                    lastMember,
+                    lastMember.WithTrailingTrivia(
+                        lastMember
+                            .GetTrailingTrivia()
+                            .Append(Trivia(warningRestore))
+                            .Append(EndOfLine("\n"))
+                    )
+                );
             }
 
             return StructDeclaration("UnmanagedStruct")
                 .AddModifiers(Token(PublicKeyword))
                 .WithMembers(structMembers)
-                .WithLeadingTrivia(ParseLeadingTrivia($@"/// <summary>
+                .WithLeadingTrivia(
+                    ParseLeadingTrivia(
+                        $@"/// <summary>
                 /// The unmanaged data structure.
                 /// </summary>
-                "));
+                "
+                    )
+                );
         }
     }
 }

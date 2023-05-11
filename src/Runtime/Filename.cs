@@ -16,17 +16,15 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Filename(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
-        {
-        }
+        public Filename(IntPtr handle, Transfer ownership)
+            : this(handle, -1, ownership) { }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Filename(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
-        {
-        }
+        public Filename(IntPtr handle, int length, Transfer ownership)
+            : base(handle, length, ownership) { }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         private static extern byte* g_filename_from_utf8(
@@ -34,20 +32,26 @@ namespace GISharp.Runtime
             nint len,
             nuint* bytesRead,
             nuint* bytesWritten,
-            IntPtr* error);
+            IntPtr* error
+        );
 
         private static byte* NewFromManaged(string filename)
         {
             var utf8 = Marshal.StringToCoTaskMemUTF8(filename);
-            try {
+            try
+            {
                 var ret = g_filename_from_utf8(utf8, -1, null, null, null);
                 GMarshal.PopUnhandledException();
-                if (ret == null) {
-                    throw new Exception("Unexpected error. Use GISharp.Lib.GLib.FilenameExtensions.FromUtf8() to get a more detailed error.");
+                if (ret == null)
+                {
+                    throw new Exception(
+                        "Unexpected error. Use GISharp.Lib.GLib.FilenameExtensions.FromUtf8() to get a more detailed error."
+                    );
                 }
                 return ret;
             }
-            finally {
+            finally
+            {
                 Marshal.FreeCoTaskMem(utf8);
             }
         }
@@ -55,9 +59,8 @@ namespace GISharp.Runtime
         /// <summary>
         /// Creates a new file name from a managed UTF-16 string.
         /// </summary>
-        public Filename(string filename) : this((IntPtr)NewFromManaged(filename), Transfer.Full)
-        {
-        }
+        public Filename(string filename)
+            : this((IntPtr)NewFromManaged(filename), Transfer.Full) { }
 
         /// <summary>
         /// Converts a managed UTF-16 string to an unmanged string with OS

@@ -20,8 +20,10 @@ namespace GISharp.Test.Gtk
         [Test]
         public void RecentManagerErrorQuark()
         {
-            Assert.That(RecentManagerError.NotFound.GetGErrorDomain(),
-                Is.EqualTo(RecentManagerErrorDomain.Quark));
+            Assert.That(
+                RecentManagerError.NotFound.GetGErrorDomain(),
+                Is.EqualTo(RecentManagerErrorDomain.Quark)
+            );
         }
     }
 }

@@ -19,9 +19,11 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Closure(IntPtr handle, Transfer ownership) : base(handle)
+        public Closure(IntPtr handle, Transfer ownership)
+            : base(handle)
         {
-            if (ownership == Transfer.None) {
+            if (ownership == Transfer.None)
+            {
                 this.handle = (IntPtr)g_closure_ref((UnmanagedStruct*)handle);
             }
             g_closure_sink((UnmanagedStruct*)this.handle);
@@ -31,8 +33,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Indicates whether the closure is currently being invoked with <see cref="Invoke"/>.
         /// </summary>
-        public bool InMarshal {
-            get {
+        public bool InMarshal
+        {
+            get
+            {
                 var ret_ = BitFields >> 30;
                 var ret = Convert.ToBoolean(ret_ & 0x1);
                 return ret;
@@ -42,8 +46,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Indicates whether the closure has been invalidated by <see cref="Invalidate"/>.
         /// </summary>
-        public bool IsInvalid {
-            get {
+        public bool IsInvalid
+        {
+            get
+            {
                 var ret_ = BitFields >> 31;
                 var ret = Convert.ToBoolean(ret_ & 0x1);
                 return ret;
@@ -54,7 +60,8 @@ namespace GISharp.Lib.GObject
 
         static partial void CheckNewObjectArgs(uint sizeofClosure, Object @object)
         {
-            if (sizeofClosure < sizeOfStruct) {
+            if (sizeofClosure < sizeOfStruct)
+            {
                 const string message = "size must be at least as big as Closure.Struct";
                 throw new ArgumentOutOfRangeException(nameof(sizeofClosure), message);
             }
@@ -78,17 +85,26 @@ namespace GISharp.Lib.GObject
             var this_ = (UnmanagedStruct*)UnsafeHandle;
             var returnValue = new Value(typeof(T).ToGType());
             var paramValues_ = stackalloc Value[paramValues.Length];
-            for (int i = 0; i < paramValues.Length; i++) {
+            for (int i = 0; i < paramValues.Length; i++)
+            {
                 var p = paramValues[i];
-                if (p is string s) {
+                if (p is string s)
+                {
                     p = (Utf8)s;
                 }
                 paramValues_[i].Init(p?.GetGType() ?? throw new NotImplementedException());
                 paramValues_[i].Set(p);
             }
 
-            g_closure_invoke(this_, &returnValue, (uint)paramValues.Length, paramValues_, IntPtr.Zero);
-            for (int i = 0; i < paramValues.Length; i++) {
+            g_closure_invoke(
+                this_,
+                &returnValue,
+                (uint)paramValues.Length,
+                paramValues_,
+                IntPtr.Zero
+            );
+            for (int i = 0; i < paramValues.Length; i++)
+            {
                 paramValues_[i].Unset();
             }
 
@@ -101,30 +117,43 @@ namespace GISharp.Lib.GObject
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         internal static void ManagedDestroyNotify(IntPtr userData_, UnmanagedStruct* closure_)
         {
-            try {
+            try
+            {
                 GCHandle.FromIntPtr(userData_).Free();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        static void ManagedMetaMarshal(UnmanagedStruct* closure_, Value* returnValue_, uint nParamValues_, Value* paramValues_, IntPtr invocationHint, IntPtr marshalData)
+        static void ManagedMetaMarshal(
+            UnmanagedStruct* closure_,
+            Value* returnValue_,
+            uint nParamValues_,
+            Value* paramValues_,
+            IntPtr invocationHint,
+            IntPtr marshalData
+        )
         {
-            try {
+            try
+            {
                 var nParamValues = (int)nParamValues_;
                 var managedParams = new object?[nParamValues];
-                for (int i = 0; i < nParamValues; i++) {
+                for (int i = 0; i < nParamValues; i++)
+                {
                     managedParams[i] = paramValues_[i].Get();
                 }
                 var callback = (Func<object?[], object?>)GCHandle.FromIntPtr(marshalData).Target!;
                 var ret = callback.Invoke(managedParams);
-                if (returnValue_ != null) {
+                if (returnValue_ != null)
+                {
                     returnValue_->Set(ret);
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
@@ -135,9 +164,18 @@ namespace GISharp.Lib.GObject
             var dataHandle = GCHandle.Alloc(callback);
             var data_ = (IntPtr)dataHandle;
             var closure_ = g_closure_new_simple(sizeofClosure_, data_);
-            var notifyFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, UnmanagedStruct*, void>)&ManagedDestroyNotify;
+            var notifyFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, UnmanagedStruct*, void>)
+                &ManagedDestroyNotify;
             g_closure_add_finalize_notifier(closure_, data_, notifyFunc_);
-            var metaMarshal_ = (delegate* unmanaged[Cdecl]<UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void>)&ManagedMetaMarshal;
+            var metaMarshal_ = (delegate* unmanaged[Cdecl]<
+                UnmanagedStruct*,
+                Value*,
+                uint,
+                Value*,
+                IntPtr,
+                IntPtr,
+                void>)
+                &ManagedMetaMarshal;
             g_closure_set_meta_marshal(closure_, data_, metaMarshal_);
             GMarshal.PopUnhandledException();
             return closure_;
@@ -146,8 +184,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Creates a new closure.
         /// </summary>
-        public Closure(Func<object?[], object?> callback) : this((IntPtr)NewManaged(callback), Transfer.None)
-        {
-        }
+        public Closure(Func<object?[], object?> callback)
+            : this((IntPtr)NewManaged(callback), Transfer.None) { }
     }
 }

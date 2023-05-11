@@ -19,7 +19,7 @@ namespace GISharp.Lib.Gio
     /// function therefore needs to be careful about how it uses
     /// externally-visible state in this case. See
     /// g_task_set_return_on_cancel() for more details.
-    /// 
+    ///
     /// Other than in that case, @task will be completed when the
     /// #GTaskThreadFunc returns, not when it calls a
     /// `g_task_return_` function.

@@ -106,7 +106,8 @@ namespace GISharp.CodeGen.Gir
         public Namespace(XElement element, GirNode parent)
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
-            if (element.Name != gi + "namespace") {
+            if (element.Name != gi + "namespace")
+            {
                 throw new ArgumentException("Requrires <namespace> element", nameof(element));
             }
 
@@ -137,10 +138,14 @@ namespace GISharp.CodeGen.Gir
         /// </returns>
         public GirNode FindNodeByCIdentifier(string identifier)
         {
-            var match = Element.Descendants()
+            var match = Element
+                .Descendants()
                 .Where(x => x.Attribute(c + "identifier").AsString() == identifier)
-                .Concat(Element.Descendants(gi + "constant")
-                    .Where(x => x.Attribute(c + "type").AsString() == identifier))
+                .Concat(
+                    Element
+                        .Descendants(gi + "constant")
+                        .Where(x => x.Attribute(c + "type").AsString() == identifier)
+                )
                 .SingleOrDefault();
             return GetNode(match);
         }
@@ -176,7 +181,9 @@ namespace GISharp.CodeGen.Gir
             Element.Elements(gi + "union").Select(x => (Union)GetNode(x));
 
         IEnumerable<GIBase> LazyGetAllTypes() =>
-            Element.Elements().Select(x => GetNode(x))
+            Element
+                .Elements()
+                .Select(x => GetNode(x))
                 .Where(x => x is GIRegisteredType || x is Callback)
                 .Cast<GIBase>();
     }

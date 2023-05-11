@@ -14,9 +14,8 @@ namespace GISharp.Test.GLib
 {
     public class VariantTests : IListTests<PtrArray<Variant>, Variant>
     {
-        public VariantTests() : base(GetItemAt, (Variant)0, (Variant)1, (Variant)2, (Variant)3, (Variant)4)
-        {
-        }
+        public VariantTests()
+            : base(GetItemAt, (Variant)0, (Variant)1, (Variant)2, (Variant)3, (Variant)4) { }
 
         [Test]
         public void TestNewBoolean()
@@ -235,8 +234,7 @@ namespace GISharp.Test.GLib
             Assert.That(one >= two, Is.False);
 
             // types must match
-            Assert.That(() => one.CompareTo(otherOne),
-                Throws.InvalidOperationException);
+            Assert.That(() => one.CompareTo(otherOne), Throws.InvalidOperationException);
         }
 
         [Test]
@@ -414,13 +412,16 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCastArray()
         {
-            using (var badArray = new PtrArray<Variant> { new Variant(false), new Variant(0) }) {
+            using (var badArray = new PtrArray<Variant> { new Variant(false), new Variant(0) })
+            {
                 Assert.That(() => new Variant(null, badArray), Throws.ArgumentException);
             }
-            using (var badArray = new PtrArray<Variant>()) {
+            using (var badArray = new PtrArray<Variant>())
+            {
                 Assert.That(() => new Variant(null, badArray), Throws.ArgumentException);
             }
-            using (var badArray = default(PtrArray<Variant>)) {
+            using (var badArray = default(PtrArray<Variant>))
+            {
                 Assert.That(() => new Variant(null, badArray), Throws.ArgumentException);
                 Assert.That(() => new Variant(VariantType.Boolean, badArray), Throws.Nothing);
             }
@@ -446,11 +447,17 @@ namespace GISharp.Test.GLib
         public void TestCastDictEntry()
         {
             // only basic variant types are allowed as key
-            var badKey = new KeyValuePair<Variant, Variant>(new Variant(new Strv<Utf8>("string")), new Variant("string"));
+            var badKey = new KeyValuePair<Variant, Variant>(
+                new Variant(new Strv<Utf8>("string")),
+                new Variant("string")
+            );
             Assert.That(() => (Variant)badKey, Throws.ArgumentException);
 
             // make sure we get back what we put in
-            var expected = new KeyValuePair<Variant, Variant>(new Variant("key"), new Variant("value"));
+            var expected = new KeyValuePair<Variant, Variant>(
+                new Variant("key"),
+                new Variant("value")
+            );
             using var variant = (Variant)expected;
             Assert.That(variant.Type.IsDictEntry, Is.True);
             var actual = (KeyValuePair<Variant, Variant>)variant;
@@ -625,8 +632,10 @@ namespace GISharp.Test.GLib
             return Marshal.ReadInt32(variant.UnsafeHandle, IntPtr.Size * 4 + sizeof(int));
         }
 
-        static readonly PropertyInfo isFloatingProp =
-            typeof(Variant).GetProperty("IsFloating", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        static readonly PropertyInfo isFloatingProp = typeof(Variant).GetProperty(
+            "IsFloating",
+            BindingFlags.Instance | BindingFlags.NonPublic
+        )!;
 
         static bool GetIsFloating(Variant variant)
         {

@@ -12,11 +12,13 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static bool IsString(this GIType type)
         {
-            if (type.Interface is Alias alias) {
+            if (type.Interface is Alias alias)
+            {
                 return alias.Type.IsString();
             }
 
-            return type.GirName switch {
+            return type.GirName switch
+            {
                 "bytestring" or "utf8" or "filename" => true,
                 _ => false,
             };

@@ -34,7 +34,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestWriteAllAsync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var stream = TestOutputStream.New();
                 var buffer = new byte[10];
                 var count = await stream.WriteAllAsync(buffer);
@@ -68,7 +69,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestWritesync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var stream = TestOutputStream.New();
                 var buffer = new byte[10];
                 var count = await stream.WriteAsync(buffer);
@@ -76,11 +78,11 @@ namespace GISharp.Test.Gio
             });
         }
 
-
         [Test]
         public void TestSpliceAsync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var instream = TestInputStream.New();
                 using var stream = TestOutputStream.New();
                 var actual = await stream.SpliceAsync(instream, OutputStreamSpliceFlags.None);
@@ -91,7 +93,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestFlushAsync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var stream = TestOutputStream.New();
                 await stream.FlushAsync();
             });
@@ -100,7 +103,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestCloseAsync()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var stream = TestOutputStream.New();
                 await stream.CloseAsync();
                 Assert.That(stream.IsClosed, Is.True);
@@ -117,19 +121,18 @@ namespace GISharp.Test.Gio
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public TestOutputStream(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public TestOutputStream(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
-        protected override void DoCloseFn(Cancellable? cancellable = null)
-        {
-        }
+        protected override void DoCloseFn(Cancellable? cancellable = null) { }
 
-        protected override void DoFlush(Cancellable? cancellable = null)
-        {
-        }
+        protected override void DoFlush(Cancellable? cancellable = null) { }
 
-        protected override int DoSplice(InputStream source, OutputStreamSpliceFlags flags, Cancellable? cancellable = null)
+        protected override int DoSplice(
+            InputStream source,
+            OutputStreamSpliceFlags flags,
+            Cancellable? cancellable = null
+        )
         {
             return 0;
         }

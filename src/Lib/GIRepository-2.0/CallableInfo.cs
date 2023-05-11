@@ -13,9 +13,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain information about the arguments of this callable.
         /// </summary>
-        public IndexedCollection<ArgInfo> Args {
-            get {
-                if (args is null) {
+        public IndexedCollection<ArgInfo> Args
+        {
+            get
+            {
+                if (args is null)
+                {
                     args = new(GetNArgs, GetArg);
                 }
                 return args;
@@ -25,10 +28,13 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Iterate over all attributes associated with the return value.
         /// </summary>
-        public IEnumerable<KeyValuePair<string, string>> ReturnAttributes {
-            get {
+        public IEnumerable<KeyValuePair<string, string>> ReturnAttributes
+        {
+            get
+            {
                 var iter = default(AttributeIter);
-                while (TryIterateReturnAttributes(ref iter, out var name, out var value)) {
+                while (TryIterateReturnAttributes(ref iter, out var name, out var value))
+                {
                     yield return new KeyValuePair<string, string>(name, value);
                 }
             }

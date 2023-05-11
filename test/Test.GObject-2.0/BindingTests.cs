@@ -19,7 +19,11 @@ namespace GISharp.Test.GObject
             using var obj1 = TestObject.New();
             using var obj2 = TestObject.New();
             using var binding = obj1.BindProperty(
-                nameof(TestObject.IntValue), obj2, nameof(TestObject.IntValue), BindingFlags.Default);
+                nameof(TestObject.IntValue),
+                obj2,
+                nameof(TestObject.IntValue),
+                BindingFlags.Default
+            );
             Assume.That(obj1.IntValue, Is.EqualTo(0));
             Assume.That(obj2.IntValue, Is.EqualTo(0));
 
@@ -45,8 +49,13 @@ namespace GISharp.Test.GObject
             using var obj1 = TestObject.New();
             using var obj2 = TestObject.New();
             using var binding = obj1.BindProperty(
-                nameof(TestObject.IntValue), obj2, nameof(TestObject.IntValue),
-                BindingFlags.Default, Plus5, null);
+                nameof(TestObject.IntValue),
+                obj2,
+                nameof(TestObject.IntValue),
+                BindingFlags.Default,
+                Plus5,
+                null
+            );
             Assume.That(obj1.IntValue, Is.EqualTo(0));
             Assume.That(obj2.IntValue, Is.EqualTo(0));
 
@@ -65,12 +74,13 @@ namespace GISharp.Test.GObject
     class TestObject : Object
     {
         int _IntValue;
+
         [GProperty]
-        public int IntValue {
-            get {
-                return _IntValue;
-            }
-            set {
+        public int IntValue
+        {
+            get { return _IntValue; }
+            set
+            {
                 _IntValue = value;
                 Notify(nameof(IntValue));
             }
@@ -82,8 +92,7 @@ namespace GISharp.Test.GObject
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public TestObject(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public TestObject(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
     }
 }

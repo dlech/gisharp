@@ -24,9 +24,11 @@ namespace GISharp.CodeGen.Gir
         public GIType Type => _Type.Value;
         readonly Lazy<GIType> _Type;
 
-        public Constant(XElement element, GirNode parent) : base(element, parent)
+        public Constant(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "constant") {
+            if (element.Name != gi + "constant")
+            {
                 throw new ArgumentException("Requrires <constant> element", nameof(element));
             }
             Value = Element.Attribute("value").Value;

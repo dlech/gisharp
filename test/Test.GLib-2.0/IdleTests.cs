@@ -15,11 +15,14 @@ namespace GISharp.Test.GLib
             // Idle.Add() can only attach sources to the global main context,
             // so we need to use a lock to ensure exclusive use of the main
             // context.
-            lock (MainContextTests.MainContextLock) {
+            lock (MainContextTests.MainContextLock)
+            {
                 var idleInvoked = false;
 
-                using (var mainLoop = new MainLoop()) {
-                    var id = Idle.Add(() => {
+                using (var mainLoop = new MainLoop())
+                {
+                    var id = Idle.Add(() =>
+                    {
                         mainLoop.Quit();
                         idleInvoked = true;
                         return Source.Remove;
@@ -28,9 +31,11 @@ namespace GISharp.Test.GLib
                     Assert.That(id, Is.Not.Zero);
 
                     var source = MainContext.Default.FindSourceById(id);
-                    Task.Run(() => {
-                        mainLoop.Run();
-                    }).Wait(100);
+                    Task.Run(() =>
+                        {
+                            mainLoop.Run();
+                        })
+                        .Wait(100);
                     source.Destroy();
                 }
 
@@ -41,7 +46,8 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestRemoveByUserData()
         {
-            lock (MainContextTests.MainContextLock) {
+            lock (MainContextTests.MainContextLock)
+            {
                 Idle.Add(() => Source.Remove, out var data);
                 Assume.That(MainContext.Default.FindSourceByUserData(data), Is.Not.Null);
                 Assert.That(Idle.RemoveByData(data), Is.True);

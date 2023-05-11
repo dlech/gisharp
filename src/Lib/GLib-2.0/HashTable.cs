@@ -14,14 +14,17 @@ namespace GISharp.Lib.GLib
         private protected static UnmanagedStruct* New()
         {
             // TODO: hash and equal functions need to be retrieved from TKey and TValue
-            var hashFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, uint>)CLibrary.GetSymbol("glib-2.0", "g_direct_hash");
-            var keyEqualFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Runtime.Boolean>)CLibrary.GetSymbol("glib-2.0", "g_direct_equal");
+            var hashFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, uint>)
+                CLibrary.GetSymbol("glib-2.0", "g_direct_hash");
+            var keyEqualFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Runtime.Boolean>)
+                CLibrary.GetSymbol("glib-2.0", "g_direct_equal");
             var ret = g_hash_table_new(hashFunc_, keyEqualFunc_);
             GMarshal.PopUnhandledException();
             return ret;
         }
 
-        private protected bool TryAdd<TKey>(TKey key) where TKey : Opaque?
+        private protected bool TryAdd<TKey>(TKey key)
+            where TKey : Opaque?
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
@@ -31,7 +34,8 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        private protected bool Contains<TKey>(TKey key) where TKey : Opaque?
+        private protected bool Contains<TKey>(TKey key)
+            where TKey : Opaque?
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
@@ -41,11 +45,16 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        private protected TValue Find<TKey, TValue>(HRFunc<TKey, TValue> predicate) where TKey : Opaque? where TValue : Opaque?
+        private protected TValue Find<TKey, TValue>(HRFunc<TKey, TValue> predicate)
+            where TKey : Opaque?
+            where TValue : Opaque?
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
-            var predicate_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, Runtime.Boolean>)&FindPredicate;
-            var userDataHandle = GCHandle.Alloc(new FindUserData(typeof(TKey), typeof(TValue), predicate));
+            var predicate_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, Runtime.Boolean>)
+                &FindPredicate;
+            var userDataHandle = GCHandle.Alloc(
+                new FindUserData(typeof(TKey), typeof(TValue), predicate)
+            );
             var userData_ = (IntPtr)userDataHandle;
             var ret_ = g_hash_table_find(hashTable_, predicate_, userData_);
             userDataHandle.Free();
@@ -59,14 +68,16 @@ namespace GISharp.Lib.GLib
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         private static Runtime.Boolean FindPredicate(IntPtr key_, IntPtr value_, IntPtr userData_)
         {
-            try {
+            try
+            {
                 var userData = (FindUserData)GCHandle.FromIntPtr(userData_).Target!;
                 var key = GetInstance(userData.TKey, key_, Transfer.None);
                 var value = GetInstance(userData.TValue, value_, Transfer.None);
                 var ret = (bool)userData.Predicate.DynamicInvoke(key, value)!;
                 return ret.ToBoolean();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
                 return default;
             }
@@ -76,7 +87,9 @@ namespace GISharp.Lib.GLib
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var func_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void>)&ForeachFunc;
-            var userDataHandle = GCHandle.Alloc(new ForeachUserData(typeof(TKey), typeof(TValue), func));
+            var userDataHandle = GCHandle.Alloc(
+                new ForeachUserData(typeof(TKey), typeof(TValue), func)
+            );
             var userData_ = (IntPtr)userDataHandle;
             g_hash_table_foreach(hashTable_, func_, userData_);
             userDataHandle.Free();
@@ -88,22 +101,29 @@ namespace GISharp.Lib.GLib
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         private static void ForeachFunc(IntPtr key_, IntPtr value_, IntPtr userData_)
         {
-            try {
+            try
+            {
                 var userData = (ForeachUserData)GCHandle.FromIntPtr(userData_).Target!;
                 var key = GetInstance(userData.TKey, key_, Transfer.None);
                 var value = GetInstance(userData.TValue, value_, Transfer.None);
                 userData.Func.DynamicInvoke(key, value);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
 
-        private protected int ForeachRemove<TKey, TValue>(HRFunc<TKey, TValue> func) where TKey : Opaque? where TValue : Opaque?
+        private protected int ForeachRemove<TKey, TValue>(HRFunc<TKey, TValue> func)
+            where TKey : Opaque?
+            where TValue : Opaque?
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
-            var func_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, Runtime.Boolean>)&ForeachRemoveFunc;
-            var userDataHandle = GCHandle.Alloc(new ForeachRemoveUserData(typeof(TKey), typeof(TValue), func));
+            var func_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, Runtime.Boolean>)
+                &ForeachRemoveFunc;
+            var userDataHandle = GCHandle.Alloc(
+                new ForeachRemoveUserData(typeof(TKey), typeof(TValue), func)
+            );
             var userData_ = (IntPtr)userDataHandle;
             var ret_ = g_hash_table_foreach_remove(hashTable_, func_, userData_);
             userDataHandle.Free();
@@ -115,16 +135,22 @@ namespace GISharp.Lib.GLib
         private record ForeachRemoveUserData(Type TKey, Type TValue, Delegate Func);
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private static Runtime.Boolean ForeachRemoveFunc(IntPtr key_, IntPtr value_, IntPtr userData_)
+        private static Runtime.Boolean ForeachRemoveFunc(
+            IntPtr key_,
+            IntPtr value_,
+            IntPtr userData_
+        )
         {
-            try {
+            try
+            {
                 var userData = (ForeachRemoveUserData)GCHandle.FromIntPtr(userData_).Target!;
                 var key = GetInstance(userData.TKey, key_, Transfer.None);
                 var value = GetInstance(userData.TValue, value_, Transfer.None);
                 var ret = (bool)userData.Func.DynamicInvoke(key, value)!;
                 return ret.ToBoolean();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
                 return default;
             }
@@ -146,15 +172,18 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the number of key/value pairs in the <see cref="HashTable{K,V}"/>.
         /// </returns>
-        public int Size {
-            get {
+        public int Size
+        {
+            get
+            {
                 var ret = g_hash_table_size((UnmanagedStruct*)UnsafeHandle);
                 GMarshal.PopUnhandledException();
                 return (int)ret;
             }
         }
 
-        private protected WeakList<TKey> GetKeys<TKey>() where TKey : Opaque?
+        private protected WeakList<TKey> GetKeys<TKey>()
+            where TKey : Opaque?
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_hash_table_get_keys(hashTable_);
@@ -163,7 +192,8 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        private protected WeakList<TValue> GetValues<TValue>() where TValue : Opaque?
+        private protected WeakList<TValue> GetValues<TValue>()
+            where TValue : Opaque?
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_hash_table_get_values(hashTable_);
@@ -197,7 +227,11 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        private protected bool Lookup<TKey, TValue>(TKey lookupKey, out TKey origKey, out TValue value)
+        private protected bool Lookup<TKey, TValue>(
+            TKey lookupKey,
+            out TKey origKey,
+            out TValue value
+        )
             where TKey : Opaque?
             where TValue : Opaque?
         {
@@ -213,7 +247,8 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        private protected bool Remove<TKey>(TKey key) where TKey : Opaque?
+        private protected bool Remove<TKey>(TKey key)
+            where TKey : Opaque?
         {
             var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
             var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
@@ -260,17 +295,15 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public HashTable(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public HashTable(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HashTable{K,V}"/> class.
         /// This instance does not maintain a reference to keys or values!
         /// </summary>
-        public HashTable() : this((IntPtr)New(), Transfer.Full)
-        {
-        }
+        public HashTable()
+            : this((IntPtr)New(), Transfer.Full) { }
 
         /// <summary>
         /// This is a convenience function for using a <see cref="HashTable{K,V}"/> as a set.  It
@@ -306,7 +339,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Add(TKey key)
         {
-            if (!TryAdd(key)) {
+            if (!TryAdd(key))
+            {
                 throw new ArgumentException("key already exists");
             }
         }
@@ -507,17 +541,15 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public WeakHashTable(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public WeakHashTable(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HashTable{K,V}"/> class.
         /// This instance does not maintain a reference to keys or values!
         /// </summary>
-        public WeakHashTable() : this((IntPtr)New(), Transfer.Full)
-        {
-        }
+        public WeakHashTable()
+            : this((IntPtr)New(), Transfer.Full) { }
 
         /// <summary>
         /// This is a convenience function for using a <see cref="HashTable{K,V}"/> as a set.  It
@@ -553,7 +585,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Add(TKey key)
         {
-            if (!TryAdd(key)) {
+            if (!TryAdd(key))
+            {
                 throw new ArgumentException("key already exists");
             }
         }

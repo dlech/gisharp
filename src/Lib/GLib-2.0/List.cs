@@ -19,9 +19,11 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public override IntPtr UnsafeHandle => handle; // null handle is OK here
 
-        private protected List(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        private protected List(IntPtr handle, Transfer ownership)
+            : base(handle, ownership)
         {
-            if (ownership == Transfer.None) {
+            if (ownership == Transfer.None)
+            {
                 GC.SuppressFinalize(this);
                 throw new ArgumentException("requires owned List", nameof(ownership));
             }
@@ -79,7 +81,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the start of the new list that holds the same data as @list
         /// </returns>
-        private protected WeakList<T> Copy<T>() where T : Opaque?
+        private protected WeakList<T> Copy<T>()
+            where T : Opaque?
         {
             var list_ = (UnmanagedStruct*)handle;
             var ret_ = g_list_copy(list_);
@@ -94,15 +97,19 @@ namespace GISharp.Lib.GLib
         /// <param name="func">
         /// the function to call with each element's data
         /// </param>
-        private protected void Foreach<T>(Func<T> func) where T : Opaque?
+        private protected void Foreach<T>(Func<T> func)
+            where T : Opaque?
         {
             var list_ = (UnmanagedStruct*)UnsafeHandle;
             var func_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, void>)&FuncMarshal.Callback;
 
-            var marshalFunc = new Func((IntPtr data_) => {
-                var data = GetInstance<T>(data_, Transfer.None);
-                func(data);
-            });
+            var marshalFunc = new Func(
+                (IntPtr data_) =>
+                {
+                    var data = GetInstance<T>(data_, Transfer.None);
+                    func(data);
+                }
+            );
 
             var userDataHandle = GCHandle.Alloc((marshalFunc, CallbackScope.Call));
             var userData_ = (IntPtr)userDataHandle;
@@ -199,7 +206,8 @@ namespace GISharp.Lib.GLib
         private protected void InsertSorted(IntPtr data, UnmanagedCompareFunc func)
         {
             var list_ = (UnmanagedStruct*)handle;
-            var func_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(func);
+            var func_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)
+                Marshal.GetFunctionPointerForDelegate(func);
             handle = (IntPtr)g_list_insert_sorted(list_, data, func_);
             GMarshal.PopUnhandledException();
         }
@@ -215,8 +223,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the number of elements in the <see cref="List"/>
         /// </returns>
-        public int Length {
-            get {
+        public int Length
+        {
+            get
+            {
                 var list_ = (UnmanagedStruct*)handle;
                 var ret = g_list_length(list_);
                 GMarshal.PopUnhandledException();
@@ -315,7 +325,8 @@ namespace GISharp.Lib.GLib
         private protected void Sort(UnmanagedCompareFunc compareFunc)
         {
             var list_ = (UnmanagedStruct*)handle;
-            var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(compareFunc);
+            var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)
+                Marshal.GetFunctionPointerForDelegate(compareFunc);
             handle = (IntPtr)g_list_sort(list_, compareFunc_);
             GMarshal.PopUnhandledException();
         }
@@ -324,12 +335,14 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Enumerates a <see cref="List{T}"/>.
     /// </summary>
-    public sealed unsafe class ListEnumerator<T> : Opaque, IEnumerator<T> where T : IOpaque?
+    public sealed unsafe class ListEnumerator<T> : Opaque, IEnumerator<T>
+        where T : IOpaque?
     {
         readonly IntPtr start;
         IntPtr next;
 
-        internal ListEnumerator(IntPtr start) : base(IntPtr.Zero)
+        internal ListEnumerator(IntPtr start)
+            : base(IntPtr.Zero)
         {
             this.start = start;
             Reset();
@@ -339,14 +352,16 @@ namespace GISharp.Lib.GLib
         public void Reset() => next = start;
 
         /// <inheritdoc/>
-        public T Current => GetInstance<T>(((List.UnmanagedStruct*)UnsafeHandle)->Data, Transfer.None);
+        public T Current =>
+            GetInstance<T>(((List.UnmanagedStruct*)UnsafeHandle)->Data, Transfer.None);
 
         object? IEnumerator.Current => Current;
 
         /// <inheritdoc/>
         public bool MoveNext()
         {
-            if (next == IntPtr.Zero) {
+            if (next == IntPtr.Zero)
+            {
                 return false;
             }
             handle = next;
@@ -359,7 +374,8 @@ namespace GISharp.Lib.GLib
     /// A doubly linked list. The list does not own the data, so caution must
     /// be used since the data or the list itself could be freed at any time.
     /// </summary>
-    public sealed unsafe class UnownedList<T> : IEnumerable<T> where T : IOpaque?
+    public sealed unsafe class UnownedList<T> : IEnumerable<T>
+        where T : IOpaque?
     {
         private readonly List.UnmanagedStruct* handle;
 
@@ -381,18 +397,19 @@ namespace GISharp.Lib.GLib
     /// A doubly linked list. The list does not own the data, so caution must
     /// be used since the data could be freed at any time.
     /// </summary>
-    public sealed unsafe class WeakList<T> : List, IEnumerable<T> where T : Opaque?
+    public sealed unsafe class WeakList<T> : List, IEnumerable<T>
+        where T : Opaque?
     {
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        public WeakList() : this(IntPtr.Zero, Transfer.Container)
-        {
-        }
+        public WeakList()
+            : this(IntPtr.Zero, Transfer.Container) { }
 
         private static Transfer AssertWeak(Transfer ownership)
         {
-            if (ownership != Transfer.Container) {
+            if (ownership != Transfer.Container)
+            {
                 throw new ArgumentException("requires Transfer.Container", nameof(ownership));
             }
             return ownership;
@@ -402,9 +419,8 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public WeakList(IntPtr handle, Transfer ownership) : base(handle, AssertWeak(ownership))
-        {
-        }
+        public WeakList(IntPtr handle, Transfer ownership)
+            : base(handle, AssertWeak(ownership)) { }
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
@@ -534,13 +550,15 @@ namespace GISharp.Lib.GLib
         {
             int func_(IntPtr a_, IntPtr b_)
             {
-                try {
+                try
+                {
                     var a = GetInstance<T>(a_, Transfer.None);
                     var b = GetInstance<T>(b_, Transfer.None);
                     var ret = func(a, b);
                     return ret;
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     GMarshal.PushUnhandledException(ex);
                     return default;
                 }
@@ -558,9 +576,12 @@ namespace GISharp.Lib.GLib
         /// the element's data, or <c>null</c> if the position
         /// is off the end of the <see cref="WeakList{T}"/>
         /// </returns>
-        public T this[int n] {
-            get {
-                if (n < 0 || n >= Length) {
+        public T this[int n]
+        {
+            get
+            {
+                if (n < 0 || n >= Length)
+                {
                     throw new ArgumentOutOfRangeException(nameof(n));
                 }
                 var ret_ = NthData(n);
@@ -616,13 +637,15 @@ namespace GISharp.Lib.GLib
         {
             int compareFunc_(IntPtr a_, IntPtr b_)
             {
-                try {
+                try
+                {
                     var a = GetInstance<T>(a_, Transfer.None);
                     var b = GetInstance<T>(b_, Transfer.None);
                     var ret = compareFunc.Invoke(a, b);
                     return ret;
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     GMarshal.PushUnhandledException(ex);
                     return default;
                 }
@@ -638,7 +661,8 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// A doubly linked list.
     /// </summary>
-    public sealed unsafe class List<T> : List, IEnumerable<T> where T : Opaque?
+    public sealed unsafe class List<T> : List, IEnumerable<T>
+        where T : Opaque?
     {
         private static readonly delegate* unmanaged[Cdecl]<IntPtr, IntPtr> copyFunc;
         private static readonly delegate* unmanaged[Cdecl]<IntPtr, void> freeFunc;
@@ -651,20 +675,23 @@ namespace GISharp.Lib.GLib
             // copyData = (Func<IntPtr, IntPtr>)copyMethodInfo.CreateDelegate(typeof(Func<IntPtr, IntPtr>));
             copyFunc = default!;
 
-            var freeMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayFreeFuncAttribute), false));
-            freeFunc = (delegate* unmanaged[Cdecl]<IntPtr, void>)freeMethodInfo.MethodHandle.GetFunctionPointer();
+            var freeMethodInfo = methods.Single(
+                m => m.IsDefined(typeof(PtrArrayFreeFuncAttribute), false)
+            );
+            freeFunc = (delegate* unmanaged[Cdecl]<IntPtr, void>)
+                freeMethodInfo.MethodHandle.GetFunctionPointer();
         }
 
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        public List() : this(IntPtr.Zero, Transfer.Container)
-        {
-        }
+        public List()
+            : this(IntPtr.Zero, Transfer.Container) { }
 
         private static Transfer AssertStrong(Transfer ownership)
         {
-            if (ownership != Transfer.Full) {
+            if (ownership != Transfer.Full)
+            {
                 throw new ArgumentException("requires Transfer.Full", nameof(ownership));
             }
             return ownership;
@@ -674,9 +701,8 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public List(IntPtr handle, Transfer ownership) : base(handle, AssertStrong(ownership))
-        {
-        }
+        public List(IntPtr handle, Transfer ownership)
+            : base(handle, AssertStrong(ownership)) { }
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
@@ -761,7 +787,8 @@ namespace GISharp.Lib.GLib
         /// negative, or is larger than the number of elements in the
         /// list, the new element is added on to the end of the list.
         /// </param>
-        public void Insert(T data, int position) => Insert(data?.UnsafeHandle ?? IntPtr.Zero, position);
+        public void Insert(T data, int position) =>
+            Insert(data?.UnsafeHandle ?? IntPtr.Zero, position);
 
         /// <summary>
         /// Inserts a new element into the list before the given position.
@@ -800,13 +827,15 @@ namespace GISharp.Lib.GLib
         {
             int func_(IntPtr a_, IntPtr b_)
             {
-                try {
+                try
+                {
                     var a = GetInstance<T>(a_, Transfer.None);
                     var b = GetInstance<T>(b_, Transfer.None);
                     var ret = func(a, b);
                     return ret;
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     GMarshal.PushUnhandledException(ex);
                     return default;
                 }
@@ -824,9 +853,12 @@ namespace GISharp.Lib.GLib
         /// the element's data, or <c>null</c> if the position
         /// is off the end of the <see cref="List{T}"/>
         /// </returns>
-        public T this[int n] {
-            get {
-                if (n < 0 || n >= Length) {
+        public T this[int n]
+        {
+            get
+            {
+                if (n < 0 || n >= Length)
+                {
                     throw new ArgumentOutOfRangeException(nameof(n));
                 }
                 var ret_ = NthData(n);
@@ -886,13 +918,15 @@ namespace GISharp.Lib.GLib
         {
             int compareFunc_(IntPtr a_, IntPtr b_)
             {
-                try {
+                try
+                {
                     var a = GetInstance<T>(a_, Transfer.None);
                     var b = GetInstance<T>(b_, Transfer.None);
                     var ret = compareFunc.Invoke(a, b);
                     return ret;
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     GMarshal.PushUnhandledException(ex);
                     return default;
                 }

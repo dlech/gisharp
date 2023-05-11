@@ -34,8 +34,10 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetStructMembers(this Record record)
         {
             var members = List<MemberDeclarationSyntax>()
-                .AddIf(record.GTypeName is not null && record.GTypeGetter != "intern",
-                    () => record.GetGTypeFieldDeclaration())
+                .AddIf(
+                    record.GTypeName is not null && record.GTypeGetter != "intern",
+                    () => record.GetGTypeFieldDeclaration()
+                )
                 .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.Fields.GetStructDeclaration(forUnmanagedStruct: false).Members)
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
@@ -53,12 +55,15 @@ namespace GISharp.CodeGen.Syntax
             var identifier = record.GirName;
 
             var syntax = ClassDeclaration(identifier)
-                .WithModifiers(TokenList(
-                    record.GetInheritanceModifiers(Token(SealedKeyword))
-                    .Prepend(Token(PublicKeyword))
-                    .Append(Token(UnsafeKeyword))
-                    .Append(Token(PartialKeyword))
-                ))
+                .WithModifiers(
+                    TokenList(
+                        record
+                            .GetInheritanceModifiers(Token(SealedKeyword))
+                            .Prepend(Token(PublicKeyword))
+                            .Append(Token(UnsafeKeyword))
+                            .Append(Token(PartialKeyword))
+                    )
+                )
                 .WithBaseList(record.GetBaseList())
                 .WithAttributeLists(record.GetGTypeAttributeLists())
                 .WithLeadingTrivia(record.Doc.GetDocCommentTrivia())
@@ -82,14 +87,21 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Record record)
         {
             var fieldStructModifiers = new List<SyntaxToken>();
-            if (record.BaseType != typeof(Opaque).FullName) {
+            if (record.BaseType != typeof(Opaque).FullName)
+            {
                 fieldStructModifiers.Add(Token(NewKeyword));
             }
 
             var members = List<MemberDeclarationSyntax>()
-                .AddIf(record.GTypeName is not null && record.GTypeGetter != "intern",
-                    () => record.GetGTypeFieldDeclaration())
-                .Add(record.Fields.GetStructDeclaration().AddModifiers(fieldStructModifiers.ToArray()))
+                .AddIf(
+                    record.GTypeName is not null && record.GTypeGetter != "intern",
+                    () => record.GetGTypeFieldDeclaration()
+                )
+                .Add(
+                    record.Fields
+                        .GetStructDeclaration()
+                        .AddModifiers(fieldStructModifiers.ToArray())
+                )
                 .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
                 .AddIf(!record.IsCustomDefaultConstructor, () => record.GetDefaultConstructor())
@@ -116,9 +128,11 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = TokenList(Token(PublicKeyword));
 
-            if (record.IsGTypeStructFor is not null &&
-                record.BaseType == "GISharp.Lib.GObject.TypeInterface"
-            ) {
+            if (
+                record.IsGTypeStructFor is not null
+                && record.BaseType == "GISharp.Lib.GObject.TypeInterface"
+            )
+            {
                 // interfaces cannot be inherited
                 list = list.Add(Token(SealedKeyword));
             }
@@ -135,13 +149,16 @@ namespace GISharp.CodeGen.Syntax
             return BaseList().AddTypes(SimpleBaseType(parentType));
         }
 
-        public static SyntaxList<MemberDeclarationSyntax> GetGTypeStructClassMembers(this Record record)
+        public static SyntaxList<MemberDeclarationSyntax> GetGTypeStructClassMembers(
+            this Record record
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
             // create a struct that contains the unmanaged fields
 
-            var structDeclaration = record.Fields.GetStructDeclaration()
+            var structDeclaration = record.Fields
+                .GetStructDeclaration()
                 .AddModifiers(Token(NewKeyword));
 
             list = list.Add(structDeclaration);
@@ -150,26 +167,32 @@ namespace GISharp.CodeGen.Syntax
 
             // emit the unmanaged delegate types for callback fields
 
-            foreach (var f in record.Fields.Where(x => x.Callback is not null)) {
-                try {
+            foreach (var f in record.Fields.Where(x => x.Callback is not null))
+            {
+                try
+                {
                     list = list.Add(f.Callback.GetManagedDeclaration($"_{f.Callback.ManagedName}"))
                         .Add(f.Callback.GetUnmanagedDeclaration())
-                        .Add(f.Callback.GetDelegateMarshalDeclaration()
-                            .WithMembers(f.Callback.GetVirtualMethodDelegateMarshalMembers()));
+                        .Add(
+                            f.Callback
+                                .GetDelegateMarshalDeclaration()
+                                .WithMembers(f.Callback.GetVirtualMethodDelegateMarshalMembers())
+                        );
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     f.LogException(ex);
                 }
             }
 
             // add the default constructor
 
-            if (!record.IsCustomDefaultConstructor) {
+            if (!record.IsCustomDefaultConstructor)
+            {
                 list = list.Add(record.GetDefaultConstructor());
             }
 
-            list = list
-                .AddRange(record.Constructors.GetMemberDeclarations())
+            list = list.AddRange(record.Constructors.GetMemberDeclarations())
                 .AddRange(record.Functions.GetMemberDeclarations())
                 .AddRange(record.Methods.GetMemberDeclarations());
 
@@ -181,9 +204,12 @@ namespace GISharp.CodeGen.Syntax
             var constructor = ConstructorDeclaration(record.GirName)
                 .AddModifiers(Token(StaticKeyword));
 
-            constructor = constructor.AddBodyStatements(record.Fields
-                .Where(x => x.Callback is not null)
-                .SelectMany(x => x.GetVirtualMethodRegisterStatements()).ToArray());
+            constructor = constructor.AddBodyStatements(
+                record.Fields
+                    .Where(x => x.Callback is not null)
+                    .SelectMany(x => x.GetVirtualMethodRegisterStatements())
+                    .ToArray()
+            );
 
             return constructor;
         }

@@ -16,12 +16,21 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestValidateName()
         {
-            Assert.That(() => Signal.ValidateName("4"), Throws.ArgumentException,
-                "Name must start with a letter");
-            Assert.That(() => Signal.ValidateName("s$"), Throws.ArgumentException,
-                "$ is not allowed");
-            Assert.That(() => Signal.ValidateName("s-s_s"), Throws.ArgumentException,
-                "can't have both - and _");
+            Assert.That(
+                () => Signal.ValidateName("4"),
+                Throws.ArgumentException,
+                "Name must start with a letter"
+            );
+            Assert.That(
+                () => Signal.ValidateName("s$"),
+                Throws.ArgumentException,
+                "$ is not allowed"
+            );
+            Assert.That(
+                () => Signal.ValidateName("s-s_s"),
+                Throws.ArgumentException,
+                "can't have both - and _"
+            );
 
             Assert.That(() => Signal.ValidateName("s"), Throws.Nothing);
             Assert.That(() => Signal.ValidateName("S"), Throws.Nothing);
@@ -37,11 +46,13 @@ namespace GISharp.Test.GObject
             Assume.That(id, Is.Not.Zero);
 
             // try a real signal name
-            if (Signal.TryParseName("notify", GType.Object, out uint signalId, out Quark detail)) {
+            if (Signal.TryParseName("notify", GType.Object, out uint signalId, out Quark detail))
+            {
                 Assert.That(signalId, Is.EqualTo(id));
                 Assert.That(detail, Is.EqualTo(Quark.Zero));
             }
-            else {
+            else
+            {
                 Assert.Fail("Should have returned true");
             }
 
@@ -51,12 +62,16 @@ namespace GISharp.Test.GObject
             Assert.That(detail, Is.EqualTo(Quark.Zero));
 
             // A bad signal name returns false
-            if (Signal.TryParseName("does-not-exist", GType.Object, out signalId, out detail)) {
+            if (Signal.TryParseName("does-not-exist", GType.Object, out signalId, out detail))
+            {
                 Assert.Fail("Should have returned false");
             }
 
             // again with the exception throwing version
-            Assert.That(() => Signal.ParseName("does-not-exist", GType.Object), Throws.ArgumentException);
+            Assert.That(
+                () => Signal.ParseName("does-not-exist", GType.Object),
+                Throws.ArgumentException
+            );
         }
 
         [Test]
@@ -66,8 +81,13 @@ namespace GISharp.Test.GObject
             int handler1Count = 0;
             int handler2Count = 0;
 
-            using var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
-                false, ParamFlags.Readwrite);
+            using var pspec = new ParamSpecBoolean(
+                "test-param",
+                "test-param",
+                "test-param",
+                false,
+                ParamFlags.Readwrite
+            );
             using var obj = new Object();
             var id = Signal.Lookup("notify", GType.Object);
             Assume.That(id, Is.Not.EqualTo(0));
@@ -75,7 +95,8 @@ namespace GISharp.Test.GObject
             void handler1(Object o, ParamSpec p)
             {
                 handler1Count++;
-                if (stopEmission) {
+                if (stopEmission)
+                {
                     Signal.StopEmission(obj, id);
                 }
             }
@@ -105,14 +126,20 @@ namespace GISharp.Test.GObject
             int handler1Count = 0;
             int handler2Count = 0;
 
-            using var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
-                false, ParamFlags.Readwrite);
+            using var pspec = new ParamSpecBoolean(
+                "test-param",
+                "test-param",
+                "test-param",
+                false,
+                ParamFlags.Readwrite
+            );
             using var obj = new Object();
 
             void handler1(Object o, ParamSpec p)
             {
                 handler1Count++;
-                if (stopEmission) {
+                if (stopEmission)
+                {
                     Signal.StopEmission(obj, "notify::test-param");
                 }
             }
@@ -141,14 +168,20 @@ namespace GISharp.Test.GObject
             var signalId = Signal.Lookup<TestNetworkMonitor>("network-changed");
             Assume.That(signalId, Is.Not.Zero);
             var callbackCount = 0;
-            var hookId = Signal.AddEmissionHook(signalId,
-                (ref SignalInvocationHint ihint, ReadOnlySpan<Value> paramValues) => {
+            var hookId = Signal.AddEmissionHook(
+                signalId,
+                (ref SignalInvocationHint ihint, ReadOnlySpan<Value> paramValues) =>
+                {
                     Assert.That(ihint.SignalId, Is.EqualTo(signalId));
-                    Assert.That(paramValues[0].ValueGType, Is.EqualTo(typeof(TestNetworkMonitor).ToGType()));
+                    Assert.That(
+                        paramValues[0].ValueGType,
+                        Is.EqualTo(typeof(TestNetworkMonitor).ToGType())
+                    );
                     Assert.That((bool)paramValues[1], Is.True);
                     callbackCount++;
                     return true;
-                });
+                }
+            );
 
             using var monitor = TestNetworkMonitor.New();
             monitor.Emit(signalId, Quark.Zero, true);

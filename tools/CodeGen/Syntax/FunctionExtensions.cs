@@ -23,29 +23,35 @@ namespace GISharp.CodeGen.Syntax
             {
                 yield return function.GetExternMethodDeclaration();
 
-                if (!function.IsPInvokeOnly) {
+                if (!function.IsPInvokeOnly)
+                {
                     yield return function.GetCheckArgsMethodDeclaration();
 
-                    if (function.IsCheckReturn) {
+                    if (function.IsCheckReturn)
+                    {
                         yield return function.GetCheckReturnMethodDeclaration();
                     }
 
-                    yield return function.GetStaticMethodDeclaration()
+                    yield return function
+                        .GetStaticMethodDeclaration()
                         .WithBody(function.GetInvokeBlock(function.CIdentifier));
                 }
 
-                if (function.IsCompare) {
+                if (function.IsCompare)
+                {
                     yield return function.GetIComparableInterfaceMethodDeclaration();
-                    foreach (var op in function.GetComparisonOperatorDeclarations()) {
+                    foreach (var op in function.GetComparisonOperatorDeclarations())
+                    {
                         yield return op;
                     }
                 }
 
-                if (function.IsFinish) {
-                    yield return function.GetFinishMethodDeclaration()
+                if (function.IsFinish)
+                {
+                    yield return function
+                        .GetFinishMethodDeclaration()
                         .WithBody(Block(function.GetFinishMethodStatements()));
                 }
-
             }
 
             return List(getMembers());
@@ -55,14 +61,20 @@ namespace GISharp.CodeGen.Syntax
         /// Appends base types for interfaces implemented by functions to a class
         /// declaration, if any.
         /// </summary>
-        public static SeparatedSyntaxList<BaseTypeSyntax> GetBaseListTypes(this IEnumerable<Function> functions)
+        public static SeparatedSyntaxList<BaseTypeSyntax> GetBaseListTypes(
+            this IEnumerable<Function> functions
+        )
         {
             var list = SeparatedList<BaseTypeSyntax>();
-            foreach (var function in functions) {
+            foreach (var function in functions)
+            {
                 var type = (GIRegisteredType)function.ParentNode;
-                if (function.IsCompare) {
+                if (function.IsCompare)
+                {
                     // if we have an Compare method, then we implement the IComparable<T> interface
-                    var typeName = string.Concat(typeof(IComparable<>).FullName.TakeWhile(x => x != '`'));
+                    var typeName = string.Concat(
+                        typeof(IComparable<>).FullName.TakeWhile(x => x != '`')
+                    );
                     typeName = string.Format("{0}<{1}>", typeName, type.ManagedName);
                     list = list.Add(SimpleBaseType(ParseTypeName(typeName)));
                 }
@@ -73,17 +85,23 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets a CompareTo() method implementation for <see cref="IComparable{T}"/>.
         /// </summary>
-        static MethodDeclarationSyntax GetIComparableInterfaceMethodDeclaration(this Function function)
+        static MethodDeclarationSyntax GetIComparableInterfaceMethodDeclaration(
+            this Function function
+        )
         {
-            if (!function.IsCompare) {
-                throw new ArgumentException("function must be flagged as gs:special-func=compare",
-                    nameof(function));
+            if (!function.IsCompare)
+            {
+                throw new ArgumentException(
+                    "function must be flagged as gs:special-func=compare",
+                    nameof(function)
+                );
             }
             var argType = function.ManagedParameters.Last().Type;
             var otherParamType = ParseTypeName(argType.GetManagedType());
             var nullCheck = "";
 
-            if (!argType.IsValueType()) {
+            if (!argType.IsValueType())
+            {
                 otherParamType = NullableType(otherParamType);
                 nullCheck = $"?? throw new System.ArgumentNullException(nameof(other))";
             }
@@ -93,11 +111,17 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(PublicKeyword))
                 .AddParameterListParameters(Parameter(Identifier("other")).WithType(otherParamType))
                 .AddBodyStatements(
-                    ReturnStatement(ParseExpression($"{function.ManagedName}(this, other{nullCheck})"))
+                    ReturnStatement(
+                        ParseExpression($"{function.ManagedName}(this, other{nullCheck})")
+                    )
                 )
-                .WithLeadingTrivia(ParseLeadingTrivia($@"/// <inheritdoc/>
-                /// <seealso cref=""GISharp.Lib.{function.Namespace.Name}.{declaringType.ManagedName}.{function.ManagedName}""/>
-                "));
+                .WithLeadingTrivia(
+                    ParseLeadingTrivia(
+                        $@"/// <inheritdoc/>
+                /// <seealso cref=""GISharp.Lib.{function .Namespace .Name}.{declaringType.ManagedName}.{function.ManagedName}""/>
+                "
+                    )
+                );
 
             return declaration;
         }
@@ -114,15 +138,21 @@ namespace GISharp.CodeGen.Syntax
         /// }
         /// </code>
         /// </remarks>
-        static IEnumerable<OperatorDeclarationSyntax> GetComparisonOperatorDeclarations(this Function function)
+        static IEnumerable<OperatorDeclarationSyntax> GetComparisonOperatorDeclarations(
+            this Function function
+        )
         {
-            if (!function.IsCompare) {
-                throw new ArgumentException("function must be flagged as gs:special-func=compare",
-                    nameof(function));
+            if (!function.IsCompare)
+            {
+                throw new ArgumentException(
+                    "function must be flagged as gs:special-func=compare",
+                    nameof(function)
+                );
             }
 
             var returnType = ParseName("System.Boolean");
-            var operators = new[] {
+            var operators = new[]
+            {
                 Token(LessThanToken),
                 Token(GreaterThanToken),
                 Token(LessThanEqualsToken),
@@ -131,16 +161,19 @@ namespace GISharp.CodeGen.Syntax
 
             var parameterList = function.ManagedParameters.GetParameterList();
 
-            foreach (var op in operators) {
+            foreach (var op in operators)
+            {
                 var declaration = OperatorDeclaration(returnType, op)
                     .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                     .WithParameterList(parameterList)
                     .AddBodyStatements(
-                        ReturnStatement(ParseExpression(
-                            $@"{function.ManagedName}({string.Join(
+                        ReturnStatement(
+                            ParseExpression(
+                                $@"{function.ManagedName}({string.Join(
                                 ", ", parameterList.Parameters.Select(x => x.Identifier.ToFullString())
                             )}) {op.ToFullString()} 0"
-                        ))
+                            )
+                        )
                     )
                     .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc/>\n"));
                 yield return declaration;
@@ -149,22 +182,29 @@ namespace GISharp.CodeGen.Syntax
 
         static SyntaxList<StatementSyntax> GetFinishMethodStatements(this Function function)
         {
-            return List(function.GetFinishMethodStatements(function.FinishForFunction, function.CIdentifier));
+            return List(
+                function.GetFinishMethodStatements(function.FinishForFunction, function.CIdentifier)
+            );
         }
 
         /// <summary>
         /// Gets the member declarations for the functions, logging a warning
         /// for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Function> functions)
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(
+            this IEnumerable<Function> functions
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var function in functions) {
-                try {
+            foreach (var function in functions)
+            {
+                try
+                {
                     list = list.AddRange(function.GetClassMembers());
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     function.LogException(ex);
                 }
             }

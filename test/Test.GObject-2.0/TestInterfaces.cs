@@ -50,7 +50,11 @@ namespace GISharp.Test
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool UnmanagedInit(IntPtr initable, IntPtr cancellable, Error.UnmanagedStruct** error);
+        public delegate bool UnmanagedInit(
+            IntPtr initable,
+            IntPtr cancellable,
+            Error.UnmanagedStruct** error
+        );
 
         public delegate void Init(IntPtr cancellable);
 
@@ -60,16 +64,19 @@ namespace GISharp.Test
             {
                 bool init(IntPtr initable_, IntPtr cancellable_, Error.UnmanagedStruct** error_)
                 {
-                    try {
+                    try
+                    {
                         var initable = (IInitable)Object.GetInstance(initable_, Transfer.None)!;
                         var doInit = (Init)methodInfo.CreateDelegate(typeof(Init), initable);
                         doInit(cancellable_);
                         return true;
                     }
-                    catch (Error.Exception ex) {
+                    catch (Error.Exception ex)
+                    {
                         Error.Propagate(error_, ex.Error);
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         // FIXME: we should convert managed exception to GError
                         GMarshal.PushUnhandledException(ex);
                     }
@@ -81,21 +88,27 @@ namespace GISharp.Test
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public InitableIface(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public InitableIface(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
     }
 
     public static unsafe class Initable
     {
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_initable_newv(GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, Error.UnmanagedStruct** error);
+        static extern IntPtr g_initable_newv(
+            GType objectType,
+            uint nParameters,
+            IntPtr parameters,
+            IntPtr cancellable,
+            Error.UnmanagedStruct** error
+        );
 
         public static Object New(GType objectType, params object[] parameters)
         {
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_initable_newv(objectType, 0, IntPtr.Zero, IntPtr.Zero, &error_);
-            if (error_ is not null) {
+            if (error_ is not null)
+            {
                 var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }
@@ -105,14 +118,19 @@ namespace GISharp.Test
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_initable_init(IntPtr initable, IntPtr cancellable, Error.UnmanagedStruct** error);
+        static extern Boolean g_initable_init(
+            IntPtr initable,
+            IntPtr cancellable,
+            Error.UnmanagedStruct** error
+        );
 
         public static bool Init(this IInitable initable)
         {
             var instance = (Object)initable;
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_initable_init(instance.UnsafeHandle, IntPtr.Zero, &error_);
-            if (error_ is not null) {
+            if (error_ is not null)
+            {
                 var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }
@@ -132,8 +150,10 @@ namespace GISharp.Test
 
         [GProperty("connectivity")]
         NetworkConnectivity Connectivity { get; }
+
         [GProperty("network-available")]
         bool NetworkAvailable { get; }
+
         [GProperty("network-metered")]
         bool NetworkMetered { get; }
 
@@ -172,13 +192,17 @@ namespace GISharp.Test
     {
         static NetworkMonitorInterface()
         {
-            var networkChangedOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.NetworkChanged));
+            var networkChangedOffset = (int)
+                Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.NetworkChanged));
             RegisterVirtualMethod(networkChangedOffset, NetworkChangedFactory.Create);
-            var canReachOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanReach));
+            var canReachOffset = (int)
+                Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanReach));
             RegisterVirtualMethod(canReachOffset, CanReachFactory.Create);
-            var canReachAsyncOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanReachAsync));
+            var canReachAsyncOffset = (int)
+                Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanReachAsync));
             RegisterVirtualMethod(canReachAsyncOffset, CanReachAsyncFactory.Create);
-            var canReachAsyncFinishOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanReachAsyncFinish));
+            var canReachAsyncFinishOffset = (int)
+                Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanReachAsyncFinish));
             RegisterVirtualMethod(canReachAsyncFinishOffset, CanReachAsyncFinishFactory.Create);
         }
 
@@ -205,12 +229,15 @@ namespace GISharp.Test
             {
                 void networkChanged(IntPtr monitor_, bool available)
                 {
-                    try {
+                    try
+                    {
                         var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None)!;
-                        var doNetworkChanged = (NetworkChanged)methodInfo.CreateDelegate(typeof(NetworkChanged), monitor);
+                        var doNetworkChanged = (NetworkChanged)
+                            methodInfo.CreateDelegate(typeof(NetworkChanged), monitor);
                         doNetworkChanged(available);
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         GMarshal.PushUnhandledException(ex);
                     }
                 }
@@ -220,7 +247,12 @@ namespace GISharp.Test
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool UnmanagedCanReach(IntPtr monitor, IntPtr connectable, IntPtr cancellable, Error.UnmanagedStruct** error);
+        public delegate bool UnmanagedCanReach(
+            IntPtr monitor,
+            IntPtr connectable,
+            IntPtr cancellable,
+            Error.UnmanagedStruct** error
+        );
 
         public delegate bool CanReach(IntPtr connectable, IntPtr cancellable);
 
@@ -228,18 +260,27 @@ namespace GISharp.Test
         {
             public static UnmanagedCanReach Create(MethodInfo methodInfo)
             {
-                bool canReach(IntPtr monitor_, IntPtr connectable_, IntPtr cancellable_, Error.UnmanagedStruct** error_)
+                bool canReach(
+                    IntPtr monitor_,
+                    IntPtr connectable_,
+                    IntPtr cancellable_,
+                    Error.UnmanagedStruct** error_
+                )
                 {
-                    try {
+                    try
+                    {
                         var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None)!;
-                        var doCanReach = (CanReach)methodInfo.CreateDelegate(typeof(CanReach), monitor);
+                        var doCanReach = (CanReach)
+                            methodInfo.CreateDelegate(typeof(CanReach), monitor);
                         var ret = doCanReach(connectable_, cancellable_);
                         return ret;
                     }
-                    catch (Error.Exception ex) {
+                    catch (Error.Exception ex)
+                    {
                         Error.Propagate(error_, ex.Error);
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         // FIXME: convert managed exception to GError
                         GMarshal.PushUnhandledException(ex);
                     }
@@ -253,24 +294,40 @@ namespace GISharp.Test
         public delegate Task<bool> CanReachAsync(IntPtr connectable, IntPtr cancellable);
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedCanReachAsync(IntPtr monitor, IntPtr connectable, IntPtr cancellable, UnmanagedAsyncReadyCallback callback, IntPtr userData);
+        public delegate void UnmanagedCanReachAsync(
+            IntPtr monitor,
+            IntPtr connectable,
+            IntPtr cancellable,
+            UnmanagedAsyncReadyCallback callback,
+            IntPtr userData
+        );
 
         public static class CanReachAsyncFactory
         {
             public static UnmanagedCanReachAsync Create(MethodInfo methodInfo)
             {
-                void canReachAsync(IntPtr monitor_, IntPtr connectable_, IntPtr cancellable_, UnmanagedAsyncReadyCallback callback_, IntPtr userData_)
+                void canReachAsync(
+                    IntPtr monitor_,
+                    IntPtr connectable_,
+                    IntPtr cancellable_,
+                    UnmanagedAsyncReadyCallback callback_,
+                    IntPtr userData_
+                )
                 {
-                    try {
+                    try
+                    {
                         var task_ = GTask.g_task_new(monitor_, cancellable_, callback_, userData_);
                         var monitor = Object.GetInstance(monitor_, Transfer.None);
-                        var doCanReachAsync = (CanReachAsync)methodInfo.CreateDelegate(typeof(CanReachAsync), monitor);
+                        var doCanReachAsync = (CanReachAsync)
+                            methodInfo.CreateDelegate(typeof(CanReachAsync), monitor);
                         var task = doCanReachAsync(connectable_, cancellable_);
-                        task.ContinueWith(x => {
+                        task.ContinueWith(x =>
+                        {
                             GTask.g_task_return_boolean(task_, x.Result.ToBoolean());
                         });
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         GMarshal.PushUnhandledException(ex);
                     }
                 }
@@ -280,23 +337,34 @@ namespace GISharp.Test
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool UnmanagedCanReachAsyncFinish(IntPtr monitor, IntPtr result, Error.UnmanagedStruct** error);
+        public delegate bool UnmanagedCanReachAsyncFinish(
+            IntPtr monitor,
+            IntPtr result,
+            Error.UnmanagedStruct** error
+        );
 
         public static class CanReachAsyncFinishFactory
         {
             public static UnmanagedCanReachAsyncFinish Create(MethodInfo methodInfo)
             {
-                static bool canReachAsyncFinish(IntPtr monitor_, IntPtr result_, Error.UnmanagedStruct** error_)
+                static bool canReachAsyncFinish(
+                    IntPtr monitor_,
+                    IntPtr result_,
+                    Error.UnmanagedStruct** error_
+                )
                 {
-                    try {
+                    try
+                    {
                         var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None)!;
                         var result = Object.GetInstance<GTask>(result_, Transfer.None)!;
                         return result.PropagateBoolean();
                     }
-                    catch (Error.Exception ex) {
+                    catch (Error.Exception ex)
+                    {
                         Error.Propagate(error_, ex.Error);
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         // FIXME: convert managed exception to GError
                         GMarshal.PushUnhandledException(ex);
                     }
@@ -309,9 +377,8 @@ namespace GISharp.Test
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public NetworkMonitorInterface(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public NetworkMonitorInterface(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
     }
 
     public static unsafe class NetworkMonitor
@@ -339,14 +406,29 @@ namespace GISharp.Test
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_network_monitor_can_reach(IntPtr monitor, IntPtr connectable, IntPtr cancellable, Error.UnmanagedStruct** error);
+        static extern Boolean g_network_monitor_can_reach(
+            IntPtr monitor,
+            IntPtr connectable,
+            IntPtr cancellable,
+            Error.UnmanagedStruct** error
+        );
 
-        public static bool CanReach(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default)
+        public static bool CanReach(
+            this INetworkMonitor monitor,
+            IntPtr connectable,
+            IntPtr cancellable = default
+        )
         {
             var instance = (Object)monitor;
             var error_ = default(Error.UnmanagedStruct*);
-            var ret_ = g_network_monitor_can_reach(instance.UnsafeHandle, connectable, cancellable, &error_);
-            if (error_ is not null) {
+            var ret_ = g_network_monitor_can_reach(
+                instance.UnsafeHandle,
+                connectable,
+                cancellable,
+                &error_
+            );
+            if (error_ is not null)
+            {
                 var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }
@@ -361,42 +443,62 @@ namespace GISharp.Test
             IntPtr connectable,
             IntPtr cancellable,
             delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> callback,
-            IntPtr userData);
+            IntPtr userData
+        );
 
-        public static Task<bool> CanReachAsync(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default)
+        public static Task<bool> CanReachAsync(
+            this INetworkMonitor monitor,
+            IntPtr connectable,
+            IntPtr cancellable = default
+        )
         {
             var completion = new TaskCompletionSource<bool>();
             var this_ = monitor.AsObject().UnsafeHandle;
-            var callback_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void>)&CanReachAsyncFinish;
+            var callback_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void>)
+                &CanReachAsyncFinish;
             var userData_ = (IntPtr)GCHandle.Alloc(completion);
-            g_network_monitor_can_reach_async(this_, connectable, cancellable, callback_, userData_);
+            g_network_monitor_can_reach_async(
+                this_,
+                connectable,
+                cancellable,
+                callback_,
+                userData_
+            );
 
             return completion.Task;
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_network_monitor_can_reach_finish(IntPtr monitor, IntPtr result, Error.UnmanagedStruct** error);
+        static extern Boolean g_network_monitor_can_reach_finish(
+            IntPtr monitor,
+            IntPtr result,
+            Error.UnmanagedStruct** error
+        );
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static void CanReachAsyncFinish(IntPtr sourceObject_, IntPtr result_, IntPtr userData_)
         {
-            try {
+            try
+            {
                 var userData = (GCHandle)userData_;
                 var completion = (TaskCompletionSource<bool>)userData.Target!;
                 userData.Free();
 
                 var error_ = default(Error.UnmanagedStruct*);
                 var ret_ = g_network_monitor_can_reach_finish(sourceObject_, result_, &error_);
-                if (error_ is not null) {
+                if (error_ is not null)
+                {
                     var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                     completion.SetException(new Error.Exception(error));
                 }
-                else {
+                else
+                {
                     var ret = ret_.IsTrue();
                     completion.SetResult(ret);
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
@@ -428,17 +530,21 @@ namespace GISharp.Test
 
     static class AsyncReadyCallbackFactory
     {
-        public static (UnmanagedAsyncReadyCallback callback, IntPtr userData) Create(AsyncReadyCallback callback)
+        public static (UnmanagedAsyncReadyCallback callback, IntPtr userData) Create(
+            AsyncReadyCallback callback
+        )
         {
             void unmanagedCallback(IntPtr sourceObject_, IntPtr res_, IntPtr userData_)
             {
-                try {
+                try
+                {
                     GCHandle.FromIntPtr(userData_).Free();
                     var sourceObject = Object.GetInstance(sourceObject_, Transfer.None)!;
                     var res = (IAsyncResult)Object.GetInstance(res_, Transfer.None)!;
                     callback(sourceObject, res);
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     GMarshal.PushUnhandledException(ex);
                 }
             }
@@ -466,18 +572,20 @@ namespace GISharp.Test
 
         static AsyncResultIface()
         {
-            var getUserDataOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUserData));
+            var getUserDataOffset = (int)
+                Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUserData));
             RegisterVirtualMethod(getUserDataOffset, GetUserDataFactory.Create);
-            var getSourceObjectOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetSourceObject));
+            var getSourceObjectOffset = (int)
+                Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetSourceObject));
             RegisterVirtualMethod(getSourceObjectOffset, GetSourceObjectFactory.Create);
-            var isTaggedOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.IsTagged));
+            var isTaggedOffset = (int)
+                Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.IsTagged));
             RegisterVirtualMethod(isTaggedOffset, IsTaggedFactory.Create);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public AsyncResultIface(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public AsyncResultIface(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
         public delegate IntPtr GetUserData();
 
@@ -490,13 +598,16 @@ namespace GISharp.Test
             {
                 IntPtr getUserData(IntPtr res_)
                 {
-                    try {
+                    try
+                    {
                         var res = Object.GetInstance(res_, Transfer.None);
-                        var doGetUserData = (GetUserData)methodInfo.CreateDelegate(typeof(GetUserData), res);
+                        var doGetUserData = (GetUserData)
+                            methodInfo.CreateDelegate(typeof(GetUserData), res);
                         var ret = doGetUserData();
                         return ret;
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         GMarshal.PushUnhandledException(ex);
                     }
                     return default;
@@ -517,14 +628,17 @@ namespace GISharp.Test
             {
                 IntPtr getSourceObject(IntPtr res_)
                 {
-                    try {
+                    try
+                    {
                         var res = Object.GetInstance(res_, Transfer.None);
-                        var doGetSourceObject = (GetSourceObject)methodInfo.CreateDelegate(typeof(GetSourceObject), res);
+                        var doGetSourceObject = (GetSourceObject)
+                            methodInfo.CreateDelegate(typeof(GetSourceObject), res);
                         var ret = doGetSourceObject();
                         var ret_ = ret?.Take() ?? IntPtr.Zero;
                         return ret_;
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         GMarshal.PushUnhandledException(ex);
                     }
                     return default;
@@ -545,13 +659,15 @@ namespace GISharp.Test
             {
                 bool isTagged(IntPtr res_, IntPtr sourceTag_)
                 {
-                    try {
+                    try
+                    {
                         var res = Object.GetInstance(res_, Transfer.None);
                         var doIsTagged = (IsTagged)methodInfo.CreateDelegate(typeof(IsTagged), res);
                         var ret = doIsTagged(sourceTag_);
                         return ret;
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         GMarshal.PushUnhandledException(ex);
                     }
                     return default;
@@ -575,17 +691,15 @@ namespace GISharp.Test
             IntPtr sourceObject,
             IntPtr cancellable,
             UnmanagedAsyncReadyCallback callback,
-            IntPtr callbackData);
+            IntPtr callbackData
+        );
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public GTask(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public GTask(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_task_return_boolean(
-            IntPtr task,
-            Boolean result);
+        internal static extern void g_task_return_boolean(IntPtr task, Boolean result);
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Boolean g_task_propagate_boolean(IntPtr task, Error.UnmanagedStruct** error);
@@ -594,7 +708,8 @@ namespace GISharp.Test
         {
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_task_propagate_boolean(UnsafeHandle, &error_);
-            if (error_ is not null) {
+            if (error_ is not null)
+            {
                 var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }

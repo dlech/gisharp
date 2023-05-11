@@ -25,12 +25,14 @@ namespace GISharp.Test.GObject
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         private static int ManagedTestHandler(int i, IntPtr userData_)
         {
-            try {
+            try
+            {
                 var userData = (CClosureData)GCHandle.FromIntPtr(userData_).Target!;
                 var ret = ((TestHandler)userData.Callback).Invoke(i);
                 return ret;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
                 return default;
             }

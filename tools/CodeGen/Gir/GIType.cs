@@ -31,6 +31,7 @@ namespace GISharp.CodeGen.Gir
         /// </remarks>
         public GIBase Interface => _Interface.Value;
         readonly Lazy<GIBase> _Interface;
+
         private protected GIType(XElement element, GirNode parent)
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
@@ -41,63 +42,69 @@ namespace GISharp.CodeGen.Gir
         }
 
         IEnumerable<GIType> LazyGetTypeParameters() =>
-            Element.Elements().Where(x => x.Name == gi + "type" || x.Name == gi + "array")
+            Element
+                .Elements()
+                .Where(x => x.Name == gi + "type" || x.Name == gi + "array")
                 .Select(x => (GIType)GetNode(x));
 
         GIBase LazyGetInterface()
         {
-            if (this is Array) {
+            if (this is Array)
+            {
                 return null;
             }
 
-            switch (GirName) {
-            case "none":
-            case "gboolean":
-            case "gchar":
-            case "guchar":
-            case "gshort":
-            case "gushort":
-            case "gint":
-            case "guint":
-            case "glong":
-            case "gulong":
-            case "gint8":
-            case "guint8":
-            case "gint16":
-            case "guint16":
-            case "gint32":
-            case "guint32":
-            case "gint64":
-            case "guint64":
-            case "gfloat":
-            case "gdouble":
-            case "gtype":
-            case "utf8":
-            case "filename":
-            case "bytestring":
-            case "gpointer":
-            case "gconstpointer":
-            case "gintptr":
-            case "guintptr":
-            case "gsize":
-            case "gssize":
-            case "gunichar":
-            case "gunichar2":
-            case "GType":
-            case "GError":
-            case "GLib.List":
-            case "GLib.SList":
-            case "GLib.HashTable":
-                return null;
-            default:
-                break;
+            switch (GirName)
+            {
+                case "none":
+                case "gboolean":
+                case "gchar":
+                case "guchar":
+                case "gshort":
+                case "gushort":
+                case "gint":
+                case "guint":
+                case "glong":
+                case "gulong":
+                case "gint8":
+                case "guint8":
+                case "gint16":
+                case "guint16":
+                case "gint32":
+                case "guint32":
+                case "gint64":
+                case "guint64":
+                case "gfloat":
+                case "gdouble":
+                case "gtype":
+                case "utf8":
+                case "filename":
+                case "bytestring":
+                case "gpointer":
+                case "gconstpointer":
+                case "gintptr":
+                case "guintptr":
+                case "gsize":
+                case "gssize":
+                case "gunichar":
+                case "gunichar2":
+                case "GType":
+                case "GError":
+                case "GLib.List":
+                case "GLib.SList":
+                case "GLib.HashTable":
+                    return null;
+                default:
+                    break;
             }
 
-            if (GirName.Contains("Private", StringComparison.Ordinal)) {
+            if (GirName.Contains("Private", StringComparison.Ordinal))
+            {
                 return null;
             }
 
-            if (ParentNode is Field field && field.Callback is Callback callback) {
+            if (ParentNode is Field field && field.Callback is Callback callback)
+            {
                 return callback;
             }
 

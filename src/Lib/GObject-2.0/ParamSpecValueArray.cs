@@ -12,8 +12,10 @@ namespace GISharp.Lib.GObject
         /// a <see cref="ParamSpec"/> describing the elements contained in arrays
         /// of this property, may be <c>null</c>
         /// </summary>
-        public ParamSpec? ElementSpec {
-            get {
+        public ParamSpec? ElementSpec
+        {
+            get
+            {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->ElementSpec;
                 var ret = GetInstance((IntPtr)ret_, Transfer.None)!;
                 return ret;

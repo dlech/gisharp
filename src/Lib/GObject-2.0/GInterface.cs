@@ -26,7 +26,8 @@ namespace GISharp.Lib.GObject
     ///     }
     /// </code>
     /// </example>
-    public interface GInterface<T> : IOpaque, IDisposable where T : Object
+    public interface GInterface<T> : IOpaque, IDisposable
+        where T : Object
     {
         /// <summary>
         /// Casts the interface to its prerequisite class type.

@@ -12,9 +12,12 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the <see cref="FileAttributeInfo"/> at the specified index.
         /// </summary>
-        public FileAttributeInfo this[int index] {
-            get {
-                if (index < 0 || index >= Count) {
+        public FileAttributeInfo this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= Count)
+                {
                     throw new IndexOutOfRangeException();
                 }
                 var infos_ = ((UnmanagedStruct*)UnsafeHandle)->Infos;
@@ -30,12 +33,14 @@ namespace GISharp.Lib.Gio
 
         private IEnumerator<FileAttributeInfo> GetEnumerator()
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Count; i++)
+            {
                 yield return this[i];
             }
         }
 
-        IEnumerator<FileAttributeInfo> IEnumerable<FileAttributeInfo>.GetEnumerator() => GetEnumerator();
+        IEnumerator<FileAttributeInfo> IEnumerable<FileAttributeInfo>.GetEnumerator() =>
+            GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

@@ -16,9 +16,14 @@ namespace GISharp.Lib.GObject
                 throw new ArgumentNullException(nameof(callbackFunc));
             }
 
-            var callbackFunc_ = (delegate* unmanaged[Cdecl]<void>)callbackFunc.GetCClosureUnmanagedFunctionPointer();
+            var callbackFunc_ = (delegate* unmanaged[Cdecl]<void>)
+                callbackFunc.GetCClosureUnmanagedFunctionPointer();
             var userData_ = (IntPtr)GCHandle.Alloc(new CClosureData(callbackFunc));
-            var destroyNotify_ = (delegate* unmanaged[Cdecl]<IntPtr, Closure.UnmanagedStruct*, void>)&ManagedDestroyNotify;
+            var destroyNotify_ = (delegate* unmanaged[Cdecl]<
+                IntPtr,
+                Closure.UnmanagedStruct*,
+                void>)
+                &ManagedDestroyNotify;
             var ret_ = g_cclosure_new(callbackFunc_, userData_, destroyNotify_);
             GMarshal.PopUnhandledException();
             return ret_;
@@ -27,10 +32,18 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Creates a new closure which invokes <paramref name="callbackFunc"/>
         /// </summary>
-        public CClosure(Delegate callbackFunc) : this((IntPtr)New(callbackFunc), Transfer.None)
+        public CClosure(Delegate callbackFunc)
+            : this((IntPtr)New(callbackFunc), Transfer.None)
         {
             var closure_ = (Closure.UnmanagedStruct*)UnsafeHandle;
-            var marshalGeneric_ = (delegate* unmanaged[Cdecl]<Closure.UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void>)
+            var marshalGeneric_ = (delegate* unmanaged[Cdecl]<
+                Closure.UnmanagedStruct*,
+                Value*,
+                uint,
+                Value*,
+                IntPtr,
+                IntPtr,
+                void>)
                 CLibrary.GetSymbol("gobject-2.0", "g_cclosure_marshal_generic");
             g_closure_set_marshal(closure_, marshalGeneric_);
             GMarshal.PopUnhandledException();

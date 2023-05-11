@@ -19,9 +19,11 @@ namespace GISharp.CodeGen.Gir
         public Interface Interface => _Interface.Value;
         readonly Lazy<Interface> _Interface;
 
-        public Implements(XElement element, GirNode parent) : base(element, parent)
+        public Implements(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "implements") {
+            if (element.Name != gi + "implements")
+            {
                 throw new ArgumentException("Requrires <implements> element", nameof(element));
             }
             _Interface = new(LazyGetInterface);

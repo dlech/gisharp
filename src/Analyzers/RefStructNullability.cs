@@ -11,19 +11,28 @@ namespace GISharp.Analyzers
     [DiagnosticAnalyzer(CSharp)]
     public sealed class RefStructNullability : DiagnosticAnalyzer
     {
-        static readonly DiagnosticDescriptor descriptor = new(
-            "GI0001", "ref struct nullability", "message",
-            "Nullability", DiagnosticSeverity.Warning, isEnabledByDefault: true
-        );
+        static readonly DiagnosticDescriptor descriptor =
+            new(
+                "GI0001",
+                "ref struct nullability",
+                "message",
+                "Nullability",
+                DiagnosticSeverity.Warning,
+                isEnabledByDefault: true
+            );
 
-        static readonly ImmutableArray<DiagnosticDescriptor> supported = ImmutableArray.Create(descriptor);
+        static readonly ImmutableArray<DiagnosticDescriptor> supported = ImmutableArray.Create(
+            descriptor
+        );
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => supported;
 
         public override void Initialize(AnalysisContext context)
         {
             context.EnableConcurrentExecution();
-            context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics);
+            context.ConfigureGeneratedCodeAnalysis(
+                GeneratedCodeAnalysisFlags.Analyze | GeneratedCodeAnalysisFlags.ReportDiagnostics
+            );
             context.RegisterSyntaxNodeAction(AnalyzeInvocation, SyntaxKind.InvocationExpression);
         }
 
@@ -31,17 +40,26 @@ namespace GISharp.Analyzers
         {
             var invocation = (InvocationExpressionSyntax)context.Node;
 
-            if (context.SemanticModel.GetSymbolInfo(invocation, context.CancellationToken).Symbol is not IMethodSymbol symbol) {
+            if (
+                context.SemanticModel.GetSymbolInfo(invocation, context.CancellationToken).Symbol
+                is not IMethodSymbol symbol
+            )
+            {
                 return;
             }
 
             var args = invocation.ArgumentList.Arguments;
 
-            foreach (var arg in args) {
-                var typeInfo = context.SemanticModel.GetTypeInfo(arg.Expression, context.CancellationToken);
+            foreach (var arg in args)
+            {
+                var typeInfo = context.SemanticModel.GetTypeInfo(
+                    arg.Expression,
+                    context.CancellationToken
+                );
                 var type = typeInfo.Type;
 
-                if (type is null) {
+                if (type is null)
+                {
                     continue;
                 }
 
@@ -49,18 +67,27 @@ namespace GISharp.Analyzers
                     ? symbol.Parameters[args.IndexOf(arg)]
                     : symbol.Parameters.Single(x => x.Name == arg.NameColon.Name.Identifier.Text);
 
-                if (!param.Type.IsRefLikeType) {
+                if (!param.Type.IsRefLikeType)
+                {
                     continue;
                 }
 
-                if (!param.GetAttributes().Any(x => x.AttributeClass?.Name == "DisallowNullAttribute")) {
+                if (
+                    !param
+                        .GetAttributes()
+                        .Any(x => x.AttributeClass?.Name == "DisallowNullAttribute")
+                )
+                {
                     continue;
                 }
 
-                if (typeInfo.Nullability.FlowState == NullableFlowState.MaybeNull
-                    || arg.Expression is LiteralExpressionSyntax literal && literal.IsKind(SyntaxKind.DefaultLiteralExpression)
+                if (
+                    typeInfo.Nullability.FlowState == NullableFlowState.MaybeNull
+                    || arg.Expression is LiteralExpressionSyntax literal
+                        && literal.IsKind(SyntaxKind.DefaultLiteralExpression)
                     || arg.Expression is DefaultExpressionSyntax
-                ) {
+                )
+                {
                     context.ReportDiagnostic(Diagnostic.Create(descriptor, arg.GetLocation()));
                 }
             }

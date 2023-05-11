@@ -27,8 +27,10 @@ namespace GISharp.Test.Gtk
         [Test]
         public void IconThemeErrorQuark()
         {
-            Assert.That(IconThemeError.NotFound.GetGErrorDomain(),
-                Is.EqualTo(IconThemeErrorDomain.Quark));
+            Assert.That(
+                IconThemeError.NotFound.GetGErrorDomain(),
+                Is.EqualTo(IconThemeErrorDomain.Quark)
+            );
         }
     }
 }

@@ -17,11 +17,13 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator Quark(string? value)
         {
-            if (value is null) {
+            if (value is null)
+            {
                 return Zero;
             }
             var ret = TryString(value);
-            if (ret == Zero) {
+            if (ret == Zero)
+            {
                 var msg = $"Quark does not exist for \"{value}\"";
                 throw new InvalidCastException(msg);
             }

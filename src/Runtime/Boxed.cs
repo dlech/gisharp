@@ -18,9 +18,8 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected Boxed(IntPtr handle) : base(handle)
-        {
-        }
+        protected Boxed(IntPtr handle)
+            : base(handle) { }
 
         /// <summary>
         /// Provide a copy of a boxed structure @src_boxed which is of type @boxed_type.
@@ -43,7 +42,8 @@ namespace GISharp.Runtime
             GType boxedType,
             /* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
-            IntPtr srcBoxed);
+            IntPtr srcBoxed
+        );
 
         /// <summary>
         /// Free the boxed structure @boxed which is of type @boxed_type.
@@ -63,24 +63,30 @@ namespace GISharp.Runtime
             GType boxedType,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
-            IntPtr boxed);
+            IntPtr boxed
+        );
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        private protected static extern GType g_boxed_type_register_static(byte* name,
+        private protected static extern GType g_boxed_type_register_static(
+            byte* name,
             delegate* unmanaged[Cdecl]<IntPtr, IntPtr> boxedCopy,
-            delegate* unmanaged[Cdecl]<IntPtr, void> boxedFree);
+            delegate* unmanaged[Cdecl]<IntPtr, void> boxedFree
+        );
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         private protected static IntPtr CopyManagedType(IntPtr boxed)
         {
-            try {
-                if (boxed == IntPtr.Zero) {
+            try
+            {
+                if (boxed == IntPtr.Zero)
+                {
                     return IntPtr.Zero;
                 }
                 var target = GCHandle.FromIntPtr(boxed).Target;
                 return GCHandle.ToIntPtr(GCHandle.Alloc(target));
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
                 return default;
             }
@@ -89,13 +95,16 @@ namespace GISharp.Runtime
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         private protected static void FreeManagedType(IntPtr boxed)
         {
-            try {
-                if (boxed == IntPtr.Zero) {
+            try
+            {
+                if (boxed == IntPtr.Zero)
+                {
                     return;
                 }
                 GCHandle.FromIntPtr(boxed).Free();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
@@ -124,9 +133,11 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Boxed(IntPtr handle, Transfer ownership) : base(handle)
+        public Boxed(IntPtr handle, Transfer ownership)
+            : base(handle)
         {
-            if (ownership == Transfer.None) {
+            if (ownership == Transfer.None)
+            {
                 this.handle = g_boxed_copy(_GType, handle);
                 GMarshal.PopUnhandledException();
             }
@@ -143,14 +154,14 @@ namespace GISharp.Runtime
         /// <param name="obj">
         /// The managed object.
         /// </param>
-        public Boxed(T obj) : base(New(obj))
-        {
-        }
+        public Boxed(T obj)
+            : base(New(obj)) { }
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            if (handle != IntPtr.Zero) {
+            if (handle != IntPtr.Zero)
+            {
                 g_boxed_free(_GType, handle);
                 GMarshal.PopUnhandledException();
             }

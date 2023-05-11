@@ -13,9 +13,11 @@ namespace GISharp.CodeGen.Gir
         public IEnumerable<Prerequisite> Prerequisites => _Prerequisites.Value;
         readonly Lazy<List<Prerequisite>> _Prerequisites;
 
-        public Interface(XElement element, GirNode parent) : base(element, parent)
+        public Interface(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "interface") {
+            if (element.Name != gi + "interface")
+            {
                 throw new ArgumentException("Requrires <interface> element", nameof(element));
             }
             _Prerequisites = new(() => LazyGetPrerequisites().ToList());

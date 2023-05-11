@@ -48,8 +48,7 @@ namespace GISharp.Test.Gtk
         [Test]
         public void PrintErrorQuark()
         {
-            Assert.That(PrintError.General.GetGErrorDomain(),
-                Is.EqualTo(PrintErrorDomain.Quark));
+            Assert.That(PrintError.General.GetGErrorDomain(), Is.EqualTo(PrintErrorDomain.Quark));
         }
     }
 }

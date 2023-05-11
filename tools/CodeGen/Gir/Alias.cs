@@ -14,9 +14,11 @@ namespace GISharp.CodeGen.Gir
         public GIType Type => _Type.Value;
         readonly Lazy<GIType> _Type;
 
-        public Alias(XElement element, GirNode parent) : base(element, parent)
+        public Alias(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "alias") {
+            if (element.Name != gi + "alias")
+            {
                 throw new ArgumentException("Requrires <alias> element", nameof(element));
             }
             _Type = new(LazyGetType, false);

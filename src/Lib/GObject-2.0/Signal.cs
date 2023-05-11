@@ -12,8 +12,8 @@ namespace GISharp.Lib.GObject
 {
     unsafe partial class Signal
     {
-        static readonly Regex signalNameRegex = new("^[a-zA-Z](?:[a-zA-Z0-9_]*|[a-zA-Z0-9-]*)$",
-            RegexOptions.CultureInvariant);
+        static readonly Regex signalNameRegex =
+            new("^[a-zA-Z](?:[a-zA-Z0-9_]*|[a-zA-Z0-9-]*)$", RegexOptions.CultureInvariant);
 
         ///<summary>
         /// Tests if a signal name is valid.
@@ -33,7 +33,8 @@ namespace GISharp.Lib.GObject
         /// </exception>
         public static void ValidateName(string name)
         {
-            if (!signalNameRegex.IsMatch(name)) {
+            if (!signalNameRegex.IsMatch(name))
+            {
                 var msg = "does not meet GSignal name criteria";
                 throw new ArgumentException(msg, nameof(name));
             }
@@ -57,24 +58,40 @@ namespace GISharp.Lib.GObject
         {
             return AddEmissionHook(signalId, default, hookFunc);
         }
-        internal static (CULong id, CClosureData data, IntPtr data_) ConnectData<T>(this Object instance, UnownedUtf8 detailedSignal,
-                    T handler, ConnectFlags connectFlags = default) where T : Delegate
+
+        internal static (CULong id, CClosureData data, IntPtr data_) ConnectData<T>(
+            this Object instance,
+            UnownedUtf8 detailedSignal,
+            T handler,
+            ConnectFlags connectFlags = default
+        )
+            where T : Delegate
         {
             var instance_ = (Object.UnmanagedStruct*)instance.UnsafeHandle;
             var detailedSignal_ = (byte*)detailedSignal.UnsafeHandle;
-            var handler_ = (delegate* unmanaged[Cdecl]<void>)handler.GetCClosureUnmanagedFunctionPointer();
+            var handler_ = (delegate* unmanaged[Cdecl]<void>)
+                handler.GetCClosureUnmanagedFunctionPointer();
             var data = new CClosureData(handler);
             var dataHandle = GCHandle.Alloc(data);
             var data_ = (IntPtr)dataHandle;
-            var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, Closure.UnmanagedStruct*, void>)&Closure.ManagedDestroyNotify;
-            var ret = g_signal_connect_data(instance_, detailedSignal_, handler_, data_, notify_, connectFlags);
+            var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, Closure.UnmanagedStruct*, void>)
+                &Closure.ManagedDestroyNotify;
+            var ret = g_signal_connect_data(
+                instance_,
+                detailedSignal_,
+                handler_,
+                data_,
+                notify_,
+                connectFlags
+            );
             GMarshal.PopUnhandledException();
 
-            if (ret.Value == 0) {
+            if (ret.Value == 0)
+            {
                 dataHandle.Free();
                 data_ = IntPtr.Zero;
             }
-            
+
             return (ret, data, data_);
         }
 
@@ -100,8 +117,13 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        public static CULong Connect<T>(this Object instance, UnownedUtf8 detailedSignal,
-            T handler, ConnectFlags connectFlags = default) where T : Delegate
+        public static CULong Connect<T>(
+            this Object instance,
+            UnownedUtf8 detailedSignal,
+            T handler,
+            ConnectFlags connectFlags = default
+        )
+            where T : Delegate
         {
             var (ret, _, _) = ConnectData(instance, detailedSignal, handler, connectFlags);
             // TODO: raise exception on failure?
@@ -127,7 +149,12 @@ namespace GISharp.Lib.GObject
         /// argument list for the signal emission.
         ///  The arguments to be passed to the signal.
         /// </param>
-        public static T Emit<T>(this Object instance, uint signalId, Quark detail = default, params object[] parameters)
+        public static T Emit<T>(
+            this Object instance,
+            uint signalId,
+            Quark detail = default,
+            params object[] parameters
+        )
         {
             return (T)Emit(typeof(T), instance, signalId, detail, parameters)!;
         }
@@ -148,19 +175,33 @@ namespace GISharp.Lib.GObject
         /// argument list for the signal emission.
         ///  The arguments to be passed to the signal.
         /// </param>
-        public static void Emit(this Object instance, uint signalId, Quark detail = default, params object[] parameters)
+        public static void Emit(
+            this Object instance,
+            uint signalId,
+            Quark detail = default,
+            params object[] parameters
+        )
         {
             Emit(typeof(void), instance, signalId, detail, parameters);
         }
 
-        static object? Emit(Type type, Object instance, uint signalId, Quark detail, object[] parameters)
+        static object? Emit(
+            Type type,
+            Object instance,
+            uint signalId,
+            Quark detail,
+            object[] parameters
+        )
         {
             var query = Query(signalId);
-            if (!instance.GetGType().IsA(query.IType)) {
+            if (!instance.GetGType().IsA(query.IType))
+            {
                 throw new ArgumentException("Instance type does not match signal type");
             }
-            if (query.ParamTypes.Length != parameters.Length) {
-                var message = $"Incorrect number of parameters, expecting {query.ParamTypes.Length}, but got {parameters.Length}";
+            if (query.ParamTypes.Length != parameters.Length)
+            {
+                var message =
+                    $"Incorrect number of parameters, expecting {query.ParamTypes.Length}, but got {parameters.Length}";
                 throw new ArgumentException(message);
             }
 
@@ -168,20 +209,24 @@ namespace GISharp.Lib.GObject
 
             instanceAndParams[0].Init(instance);
 
-            for (var i = 0; i < parameters.Length; i++) {
+            for (var i = 0; i < parameters.Length; i++)
+            {
                 var paramGType = parameters[i]?.GetGType() ?? query.ParamTypes[i];
                 instanceAndParams[i + 1].Init(paramGType);
                 instanceAndParams[i + 1].Set(parameters[i]);
             }
 
-            try {
+            try
+            {
                 var ret = default(object);
 
-                if (query.ReturnType == GType.None) {
+                if (query.ReturnType == GType.None)
+                {
                     g_signal_emitv(instanceAndParams, signalId, detail, null);
                     GMarshal.PopUnhandledException();
                 }
-                else {
+                else
+                {
                     var returnValue = new Value(type.ToGType());
                     g_signal_emitv(instanceAndParams, signalId, detail, &returnValue);
                     GMarshal.PopUnhandledException();
@@ -191,8 +236,10 @@ namespace GISharp.Lib.GObject
 
                 return ret;
             }
-            finally {
-                for (int i = 0; i < parameters.Length + 1; i++) {
+            finally
+            {
+                for (int i = 0; i < parameters.Length + 1; i++)
+                {
                     instanceAndParams[i].Unset();
                 }
             }
@@ -222,20 +269,59 @@ namespace GISharp.Lib.GObject
             return Lookup(name, typeof(T).ToGType());
         }
 
-        internal static uint Newv(UnownedUtf8 signalName, GType itype, SignalFlags signalFlags, Closure? classClosure,
-            SignalAccumulator? accumulator, SignalCMarshaller? cMarshaller, GType returnType, ReadOnlySpan<GType> paramTypes)
+        internal static uint Newv(
+            UnownedUtf8 signalName,
+            GType itype,
+            SignalFlags signalFlags,
+            Closure? classClosure,
+            SignalAccumulator? accumulator,
+            SignalCMarshaller? cMarshaller,
+            GType returnType,
+            ReadOnlySpan<GType> paramTypes
+        )
         {
             var signalName_ = (byte*)signalName.UnsafeHandle;
-            var classClosure_ = (Closure.UnmanagedStruct*)(classClosure?.UnsafeHandle ?? IntPtr.Zero);
-            var accumulator_ = accumulator is null ? default(delegate* unmanaged[Cdecl]<SignalInvocationHint*, Value*, Value*, IntPtr, Boolean>)
-                : throw new NotImplementedException("need to implement UnmanagedSignalAccumulator factory");
+            var classClosure_ = (Closure.UnmanagedStruct*)(
+                classClosure?.UnsafeHandle ?? IntPtr.Zero
+            );
+            var accumulator_ = accumulator is null
+                ? default(delegate* unmanaged[Cdecl]<
+                    SignalInvocationHint*,
+                    Value*,
+                    Value*,
+                    IntPtr,
+                    Boolean>)
+                : throw new NotImplementedException(
+                    "need to implement UnmanagedSignalAccumulator factory"
+                );
             var accuData_ = IntPtr.Zero;
-            var cMarshaller_ = cMarshaller is null ? default(delegate* unmanaged[Cdecl]<Closure.UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void>)
-                : throw new NotImplementedException("need to implement UnmangagedSignalCMarshaller factory");
+            var cMarshaller_ = cMarshaller is null
+                ? default(delegate* unmanaged[Cdecl]<
+                    Closure.UnmanagedStruct*,
+                    Value*,
+                    uint,
+                    Value*,
+                    IntPtr,
+                    IntPtr,
+                    void>)
+                : throw new NotImplementedException(
+                    "need to implement UnmangagedSignalCMarshaller factory"
+                );
             var nParams_ = (uint)paramTypes.Length;
-            fixed (GType* paramTypes_ = paramTypes) {
-                var ret = g_signal_newv(signalName_, itype, signalFlags, classClosure_, accumulator_,
-                    accuData_, cMarshaller_, returnType, nParams_, paramTypes_);
+            fixed (GType* paramTypes_ = paramTypes)
+            {
+                var ret = g_signal_newv(
+                    signalName_,
+                    itype,
+                    signalFlags,
+                    classClosure_,
+                    accumulator_,
+                    accuData_,
+                    cMarshaller_,
+                    returnType,
+                    nParams_,
+                    paramTypes_
+                );
                 GMarshal.PopUnhandledException();
                 return ret;
             }
@@ -257,9 +343,22 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// A tuple containing the signal id and detail quark.
         /// </returns>
-        public static (uint, Quark) ParseName(UnownedUtf8 detailedSignal, GType itype, bool forceDetailQuark = false)
+        public static (uint, Quark) ParseName(
+            UnownedUtf8 detailedSignal,
+            GType itype,
+            bool forceDetailQuark = false
+        )
         {
-            if (TryParseName(detailedSignal, itype, out var signalId, out var detail, forceDetailQuark)) {
+            if (
+                TryParseName(
+                    detailedSignal,
+                    itype,
+                    out var signalId,
+                    out var detail,
+                    forceDetailQuark
+                )
+            )
+            {
                 return (signalId, detail);
             }
             throw new ArgumentException("matching signal could not be found");
@@ -281,7 +380,8 @@ namespace GISharp.Lib.GObject
         public static SignalQuery Query(uint signalId)
         {
             Query(signalId, out var query);
-            if (query.SignalId == 0) {
+            if (query.SignalId == 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(signalId));
             }
             return query;
@@ -316,41 +416,61 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// A valid non-0 signal handler id for a successful match.
         /// </returns>
-        public static CULong HandlerFind(Object instance, uint? signalId = default,
-            Quark? detail = default, Closure? closure = default, IntPtr? func = default,
-            IntPtr? data = default, bool unblocked = default)
+        public static CULong HandlerFind(
+            Object instance,
+            uint? signalId = default,
+            Quark? detail = default,
+            Closure? closure = default,
+            IntPtr? func = default,
+            IntPtr? data = default,
+            bool unblocked = default
+        )
         {
             var instance_ = (Object.UnmanagedStruct*)instance.UnsafeHandle;
             var mask_ = default(SignalMatchType);
             var signalId_ = default(uint);
-            if (signalId.HasValue) {
+            if (signalId.HasValue)
+            {
                 signalId_ = signalId.Value;
                 mask_ |= SignalMatchType.Id;
             }
             var detail_ = default(Quark);
-            if (detail.HasValue) {
+            if (detail.HasValue)
+            {
                 detail_ = detail.Value;
                 mask_ |= SignalMatchType.Detail;
             }
             var closure_ = default(Closure.UnmanagedStruct*);
-            if (closure is not null) {
+            if (closure is not null)
+            {
                 closure_ = (Closure.UnmanagedStruct*)closure.UnsafeHandle;
                 mask_ |= SignalMatchType.Closure;
             }
             var func_ = default(IntPtr);
-            if (func.HasValue) {
+            if (func.HasValue)
+            {
                 func_ = func.Value;
                 mask_ |= SignalMatchType.Func;
             }
             var data_ = default(IntPtr);
-            if (data.HasValue) {
+            if (data.HasValue)
+            {
                 data_ = data.Value;
                 mask_ |= SignalMatchType.Data;
             }
-            if (unblocked) {
+            if (unblocked)
+            {
                 mask_ |= SignalMatchType.Unblocked;
             }
-            var ret = g_signal_handler_find(instance_, mask_, signalId_, detail_, closure_, func_, data_);
+            var ret = g_signal_handler_find(
+                instance_,
+                mask_,
+                signalId_,
+                detail_,
+                closure_,
+                func_,
+                data_
+            );
             GMarshal.PopUnhandledException();
             return ret;
         }

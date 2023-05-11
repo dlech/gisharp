@@ -24,10 +24,15 @@ namespace GISharp.CodeGen.Gir
         readonly Lazy<List<Parameter>> _RegularParameters;
         readonly Lazy<List<GIArg>> _AllParameters;
 
-        public ManagedParameters(XElement element, GirNode parent) : base(element, parent)
+        public ManagedParameters(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gs + "managed-parameters") {
-                throw new ArgumentException("Requrires <gs:managed-parameters> element", nameof(element));
+            if (element.Name != gs + "managed-parameters")
+            {
+                throw new ArgumentException(
+                    "Requrires <gs:managed-parameters> element",
+                    nameof(element)
+                );
             }
             _ThisParameter = new(LazyGetThisParameter, false);
             _RegularParameters = new(() => LazyGetRegularParameters().ToList(), false);
@@ -44,7 +49,8 @@ namespace GISharp.CodeGen.Gir
         {
             var parameters = RegularParameters.Cast<GIArg>();
 
-            if (ThisParameter is not null) {
+            if (ThisParameter is not null)
+            {
                 parameters = parameters.Prepend(ThisParameter);
             }
 
@@ -54,7 +60,6 @@ namespace GISharp.CodeGen.Gir
         IEnumerator<GIArg> IEnumerable<GIArg>.GetEnumerator() =>
             _AllParameters.Value.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() =>
-            _AllParameters.Value.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => _AllParameters.Value.GetEnumerator();
     }
 }

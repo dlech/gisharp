@@ -25,14 +25,20 @@ namespace GISharp.CodeGen.Gir
         public Package Package => _Package.Value;
         readonly Lazy<Package> _Package;
 
-        public Repository(XDocument document) : base(document?.Root, null)
+        public Repository(XDocument document)
+            : base(document?.Root, null)
         {
-            if (Element.Name != gi + "repository") {
-                throw new ArgumentException("Requires <repository> root element.", nameof(document));
+            if (Element.Name != gi + "repository")
+            {
+                throw new ArgumentException(
+                    "Requires <repository> root element.",
+                    nameof(document)
+                );
             }
 
             Version = Element.Attribute("version").AsString();
-            if (Version != "1.2") {
+            if (Version != "1.2")
+            {
                 throw new ArgumentException("Bad GIR version.", nameof(document));
             }
 
@@ -40,10 +46,8 @@ namespace GISharp.CodeGen.Gir
             _Package = new(LazyGetPackage, false);
         }
 
-        Namespace LazyGetNamespace() =>
-            (Namespace)GetNode(Element.Element(gi + "namespace"));
+        Namespace LazyGetNamespace() => (Namespace)GetNode(Element.Element(gi + "namespace"));
 
-        Package LazyGetPackage() =>
-            (Package)GetNode(Element.Element(gi + "package"));
+        Package LazyGetPackage() => (Package)GetNode(Element.Element(gi + "package"));
     }
 }

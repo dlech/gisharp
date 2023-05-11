@@ -40,9 +40,11 @@ namespace GISharp.CodeGen.Gir
         public GIType Type => _Type.Value;
         readonly Lazy<GIType> _Type;
 
-        public Property(XElement element, GirNode parent) : base(element, parent)
+        public Property(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "property") {
+            if (element.Name != gi + "property")
+            {
                 throw new ArgumentException("Requrires <property> element", nameof(element));
             }
 

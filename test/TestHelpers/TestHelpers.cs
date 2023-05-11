@@ -31,7 +31,8 @@ namespace GISharp
         {
             var requiredVersion = new System.Version(required);
             var actualVersion = new System.Version(actual);
-            if (actualVersion < requiredVersion) {
+            if (actualVersion < requiredVersion)
+            {
                 throw new IgnoreException($"Skipping test since glib-2.0 v{actual} < v{required}");
             }
         }
@@ -49,9 +50,14 @@ namespace GISharp
         {
             var domain = code.GetGErrorDomain();
             var value = Convert.ToInt32(code);
-            return Throws.TypeOf<Error.Exception>()
-                .With.Property("Error").Property("Domain").EqualTo(domain)
-                .And.Property("Error").Property("Code").EqualTo(value);
+            return Throws
+                .TypeOf<Error.Exception>()
+                .With.Property("Error")
+                .Property("Domain")
+                .EqualTo(domain)
+                .And.Property("Error")
+                .Property("Code")
+                .EqualTo(value);
         }
 
         /// <summary>
@@ -71,9 +77,11 @@ namespace GISharp
             using var loop = new MainLoop(context);
             using var ts = TimeoutSource.New(timeout);
             context.PushThreadDefault();
-            try {
+            try
+            {
                 var task = test();
-                ts.SetCallback(() => {
+                ts.SetCallback(() =>
+                {
                     task.Dispose();
                     loop.Quit();
                     return Source.Remove;
@@ -81,7 +89,8 @@ namespace GISharp
                 task.ContinueWith(_ => loop.Quit());
                 loop.Run();
             }
-            finally {
+            finally
+            {
                 context.PopThreadDefault();
             }
         }

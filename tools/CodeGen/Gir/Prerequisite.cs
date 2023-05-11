@@ -21,15 +21,18 @@ namespace GISharp.CodeGen.Gir
         public GIRegisteredType Type => _Type.Value;
         readonly Lazy<GIRegisteredType> _Type;
 
-        public Prerequisite(XElement element, GirNode parent) : base(element, parent)
+        public Prerequisite(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "prerequisite") {
+            if (element.Name != gi + "prerequisite")
+            {
                 throw new ArgumentException("Requrires <prerequisite> element", nameof(element));
             }
             GirName = element.Attribute("name").Value;
             _Type = new(LazyGetType);
         }
 
-        GIRegisteredType LazyGetType() => TypeResolver.ResolveType<GIRegisteredType>(ParentNode.Namespace, GirName);
+        GIRegisteredType LazyGetType() =>
+            TypeResolver.ResolveType<GIRegisteredType>(ParentNode.Namespace, GirName);
     }
 }

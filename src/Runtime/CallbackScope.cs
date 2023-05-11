@@ -12,6 +12,7 @@ namespace GISharp.Runtime
         /// The callback scope is not known.
         /// </summary>
         Unknown,
+
         /// <summary>
         /// Only valid for the duration of the call.
         /// </summary>
@@ -19,10 +20,12 @@ namespace GISharp.Runtime
         /// Can be called multiple times during the call.
         /// </remarks>
         Call,
+
         /// <summary>
         /// Only valid for the duration of the first callback invocation. Can only be called once.
         /// </summary>
         Async,
+
         /// <summary>
         /// valid until the GDestroyNotify argument is called. Can be called multiple times before the GDestroyNotify is called.
         /// </summary>

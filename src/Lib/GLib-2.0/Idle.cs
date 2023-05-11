@@ -31,9 +31,14 @@ namespace GISharp.Lib.GLib
         /// the priority of the idle source. Typically this will be in the
         /// range between <see cref="Priority.DefaultIdle"/> and <see cref="Priority.HighIdle"/>.
         /// </param>
-        public static void Add(SourceFunc function, out IntPtr data, int priority = Priority.DefaultIdle)
+        public static void Add(
+            SourceFunc function,
+            out IntPtr data,
+            int priority = Priority.DefaultIdle
+        )
         {
-            var function_ = (delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean>)&SourceFuncMarshal.Callback;
+            var function_ = (delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean>)
+                &SourceFuncMarshal.Callback;
             var functionHandle = GCHandle.Alloc((function, CallbackScope.Notified));
             data = (IntPtr)functionHandle;
             var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;

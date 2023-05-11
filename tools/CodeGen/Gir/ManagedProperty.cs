@@ -27,11 +27,15 @@ namespace GISharp.CodeGen.Gir
         public GIFunction Setter => _Setter.Value;
         readonly Lazy<GIFunction> _Setter;
 
-
-        public ManagedProperty(XElement element, GirNode parent) : base(element, parent)
+        public ManagedProperty(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gs + "managed-property") {
-                throw new ArgumentException("Requrires <gs:managed-property> element", nameof(element));
+            if (element.Name != gs + "managed-property")
+            {
+                throw new ArgumentException(
+                    "Requrires <gs:managed-property> element",
+                    nameof(element)
+                );
             }
 
             _Type = new(LazyGetType, false);
@@ -40,13 +44,25 @@ namespace GISharp.CodeGen.Gir
         }
 
         GIType LazyGetType() =>
-            (GIType)GetNode(Element.Element(gi + "return-value").Element(gi + "type") ??
-                Element.Element(gi + "return-value").Element(gi + "array"));
+            (GIType)GetNode(
+                Element.Element(gi + "return-value").Element(gi + "type")
+                    ?? Element.Element(gi + "return-value").Element(gi + "array")
+            );
 
         GIFunction LazyGetGetter() =>
-            (GIFunction)GetNode(Element.Parent.Elements().Single(x => x.Attribute(gs + "property-getter-for")?.Value == ManagedName));
+            (GIFunction)GetNode(
+                Element.Parent
+                    .Elements()
+                    .Single(x => x.Attribute(gs + "property-getter-for")?.Value == ManagedName)
+            );
 
         GIFunction LazyGetSetter() =>
-            (GIFunction)GetNode(Element.Parent.Elements().SingleOrDefault(x => x.Attribute(gs + "property-setter-for")?.Value == ManagedName));
+            (GIFunction)GetNode(
+                Element.Parent
+                    .Elements()
+                    .SingleOrDefault(
+                        x => x.Attribute(gs + "property-setter-for")?.Value == ManagedName
+                    )
+            );
     }
 }

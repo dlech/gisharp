@@ -27,7 +27,8 @@ namespace GISharp.CodeGen.Syntax
                 .WithAttributeLists(property.GetCommonAttributeLists());
 
             var getter = property.Getter;
-            if (getter is Function) {
+            if (getter is Function)
+            {
                 syntax = syntax.AddModifiers(Token(StaticKeyword));
             }
 
@@ -39,25 +40,38 @@ namespace GISharp.CodeGen.Syntax
             syntax = syntax.AddAccessorListAccessors(getAccessor);
 
             var setter = property.Setter;
-            if (setter is not null) {
+            if (setter is not null)
+            {
                 var nullForgiving = "";
-                if (!setter.Parameters.Last().IsNullable && getter.ReturnValue.IsNullable) {
-                    if (getter.ReturnValue.IsUnownedUtf8()) {
+                if (!setter.Parameters.Last().IsNullable && getter.ReturnValue.IsNullable)
+                {
+                    if (getter.ReturnValue.IsUnownedUtf8())
+                    {
                         nullForgiving = ".Value";
                     }
-                    else {
-                        syntax = syntax.AddAttributeLists(AttributeList()
-                            .AddAttributes(Attribute(ParseName($"{typeof(DisallowNullAttribute)}"))));
+                    else
+                    {
+                        syntax = syntax.AddAttributeLists(
+                            AttributeList()
+                                .AddAttributes(
+                                    Attribute(ParseName($"{typeof(DisallowNullAttribute)}"))
+                                )
+                        );
                         nullForgiving = "!"; // work around https://github.com/dotnet/roslyn/issues/38943
                     }
                 }
 
-                if (setter.Parameters.Last().IsNullable && !getter.ReturnValue.IsNullable) {
-                    syntax = syntax.AddAttributeLists(AttributeList()
-                        .AddAttributes(Attribute(ParseName($"{typeof(AllowNullAttribute)}"))));
+                if (setter.Parameters.Last().IsNullable && !getter.ReturnValue.IsNullable)
+                {
+                    syntax = syntax.AddAttributeLists(
+                        AttributeList()
+                            .AddAttributes(Attribute(ParseName($"{typeof(AllowNullAttribute)}")))
+                    );
                 }
 
-                var setterExpression = ParseExpression($"{setter.ManagedName}(value{nullForgiving})");
+                var setterExpression = ParseExpression(
+                    $"{setter.ManagedName}(value{nullForgiving})"
+                );
                 var setAccessor = AccessorDeclaration(SetAccessorDeclaration)
                     .WithExpressionBody(ArrowExpressionClause(setterExpression))
                     .WithSemicolonToken(Token(SemicolonToken));
@@ -65,7 +79,8 @@ namespace GISharp.CodeGen.Syntax
                 syntax = syntax.AddAccessorListAccessors(setAccessor);
             }
 
-            syntax = syntax.WithLeadingTrivia(property.Doc.GetDocCommentTrivia())
+            syntax = syntax
+                .WithLeadingTrivia(property.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
@@ -75,15 +90,20 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the member declarations for the properties, logging a warning
         /// for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<ManagedProperty> properties)
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(
+            this IEnumerable<ManagedProperty> properties
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var property in properties) {
-                try {
+            foreach (var property in properties)
+            {
+                try
+                {
                     list = list.Add(property.GetDeclaration());
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     property.LogException(ex);
                 }
             }

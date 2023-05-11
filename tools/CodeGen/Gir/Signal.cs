@@ -34,9 +34,11 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public bool IsNoHooks { get; }
 
-        public Signal(XElement element, GirNode parent) : base(element, parent)
+        public Signal(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != glib + "signal") {
+            if (element.Name != glib + "signal")
+            {
                 throw new ArgumentException("Requrires <glib:signal> element", nameof(element));
             }
             When = Element.Attribute("when").ToEmissionStage();

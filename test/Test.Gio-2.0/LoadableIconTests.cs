@@ -23,7 +23,10 @@ namespace GISharp.Test.Gio
             var gtype = typeof(ILoadableIcon).ToGType();
             Assert.That(gtype.Name, Is.EqualTo("GLoadableIcon"));
             var info = (InterfaceInfo)Repository.Default.FindByGtype(gtype);
-            Assert.That(Marshal.SizeOf<LoadableIconIface.UnmanagedStruct>(), Is.EqualTo(info.IfaceStruct.Size));
+            Assert.That(
+                Marshal.SizeOf<LoadableIconIface.UnmanagedStruct>(),
+                Is.EqualTo(info.IfaceStruct.Size)
+            );
         }
 
         [Test]
@@ -50,7 +53,11 @@ namespace GISharp.Test.Gio
             return TestInputStream.New();
         }
 
-        void ILoadableIcon.DoLoadAsync(int size, AsyncReadyCallback? callback, Cancellable? cancellable)
+        void ILoadableIcon.DoLoadAsync(
+            int size,
+            AsyncReadyCallback? callback,
+            Cancellable? cancellable
+        )
         {
             throw new NotImplementedException();
         }
@@ -75,8 +82,7 @@ namespace GISharp.Test.Gio
             throw new NotImplementedException();
         }
 
-        public TestLoadableIcon(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public TestLoadableIcon(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
     }
 }

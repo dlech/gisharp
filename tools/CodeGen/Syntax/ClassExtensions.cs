@@ -30,11 +30,13 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = TokenList(Token(PublicKeyword));
 
-            if (@class.IsAbstract) {
+            if (@class.IsAbstract)
+            {
                 list = list.Add(Token(AbstractKeyword));
             }
 
-            if (@class.GTypeStruct is null) {
+            if (@class.GTypeStruct is null)
+            {
                 // if there is no GType Struct, then we know this class cannot
                 // be inherited, so call it sealed
                 list = list.Add(Token(SealedKeyword));
@@ -50,11 +52,15 @@ namespace GISharp.CodeGen.Syntax
 
         static BaseListSyntax GetBaseList(this Class @class)
         {
-            var parentType = @class.ParentType?.GetManagedType() ?? "GISharp.Lib.GObject.TypeInstance";
+            var parentType =
+                @class.ParentType?.GetManagedType() ?? "GISharp.Lib.GObject.TypeInstance";
             var list = SeparatedList<BaseTypeSyntax>()
                 .Add(SimpleBaseType(ParseTypeName(parentType)))
-                .AddRange(@class.Implements
-                    .Select(x => SimpleBaseType(ParseTypeName(x.Interface.GetManagedType()))))
+                .AddRange(
+                    @class.Implements.Select(
+                        x => SimpleBaseType(ParseTypeName(x.Interface.GetManagedType()))
+                    )
+                )
                 .AddRange(@class.Functions.GetBaseListTypes())
                 .AddRange(@class.Methods.GetBaseListTypes());
             return BaseList(list);
@@ -79,7 +85,8 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(@class.VirtualMethods.GetMemberDeclarations())
                 .AddRange(@class.Implements.GetVirtualMethodMemberDeclarations());
 
-            if (@class.GTypeName is not null && @class.GTypeGetter != "intern") {
+            if (@class.GTypeName is not null && @class.GTypeGetter != "intern")
+            {
                 members = members.Insert(0, @class.GetGTypeFieldDeclaration());
             }
 

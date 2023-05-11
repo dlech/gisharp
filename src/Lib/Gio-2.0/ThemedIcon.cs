@@ -26,9 +26,12 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// </remarks>
         public ThemedIcon(UnownedUtf8 iconName, bool useDefaultFallbacks = false)
-            : this(useDefaultFallbacks ? (IntPtr)NewWithDefaultFallbacks(iconName) : (IntPtr)New(iconName), Transfer.Full)
-        {
-        }
+            : this(
+                useDefaultFallbacks
+                    ? (IntPtr)NewWithDefaultFallbacks(iconName)
+                    : (IntPtr)New(iconName),
+                Transfer.Full
+            ) { }
 
         /// <summary>
         /// Creates a new themed icon for <paramref name="iconName"/>.
@@ -47,16 +50,21 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// </remarks>
         public ThemedIcon(string iconName, bool useDefaultFallbacks = false)
-            : this(useDefaultFallbacks ? (IntPtr)NewWithDefaultFallbacks(iconName) : (IntPtr)New(iconName), Transfer.Full)
-        {
-        }
+            : this(
+                useDefaultFallbacks
+                    ? (IntPtr)NewWithDefaultFallbacks(iconName)
+                    : (IntPtr)New(iconName),
+                Transfer.Full
+            ) { }
 
         static UnmanagedStruct* NewFromNames(string[] iconNames)
         {
-            if (iconNames is null) {
+            if (iconNames is null)
+            {
                 throw new ArgumentNullException(nameof(iconNames));
             }
-            if (iconNames.Length == 0) {
+            if (iconNames.Length == 0)
+            {
                 throw new ArgumentException("Must have at least one name", nameof(iconNames));
             }
             using var iconnames = new Strv<Utf8>(iconNames);
@@ -74,9 +82,7 @@ namespace GISharp.Lib.Gio
         /// an array of strings containing icon names.
         /// </param>
         public ThemedIcon(params string[] iconNames)
-            : this((IntPtr)NewFromNames(iconNames), Transfer.Full)
-        {
-        }
+            : this((IntPtr)NewFromNames(iconNames), Transfer.Full) { }
 
         /// <inheritdoc />
         public override bool Equals(object? obj)

@@ -11,10 +11,12 @@ namespace GISharp.Lib.GLib
     {
         static partial void CheckNewArgs(VariantType type)
         {
-            if (type is null) {
+            if (type is null)
+            {
                 return;
             }
-            if (!type.IsContainer) {
+            if (!type.IsContainer)
+            {
                 const string message = "Must be a variant container type";
                 throw new ArgumentException(message, nameof(type));
             }

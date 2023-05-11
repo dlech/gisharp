@@ -27,18 +27,34 @@ namespace GISharp.Test.GLib
             using var s2 = utf8.Substring(1, 3);
             Assert.That(s2, Is.EqualTo("es"));
 
-            Assert.That(() => utf8.Substring(-1, 4),
-                Throws.TypeOf<ArgumentOutOfRangeException>()
-                    .With.Property("ParamName").EqualTo("startPos"));
-            Assert.That(() => utf8.Substring(5, 4),
-                Throws.TypeOf<ArgumentOutOfRangeException>()
-                    .With.Property("ParamName").EqualTo("startPos"));
-            Assert.That(() => utf8.Substring(0, -1),
-                Throws.TypeOf<ArgumentOutOfRangeException>()
-                    .With.Property("ParamName").EqualTo("endPos"));
-            Assert.That(() => utf8.Substring(0, 5),
-                Throws.TypeOf<ArgumentOutOfRangeException>()
-                    .With.Property("ParamName").EqualTo("endPos"));
+            Assert.That(
+                () => utf8.Substring(-1, 4),
+                Throws
+                    .TypeOf<ArgumentOutOfRangeException>()
+                    .With.Property("ParamName")
+                    .EqualTo("startPos")
+            );
+            Assert.That(
+                () => utf8.Substring(5, 4),
+                Throws
+                    .TypeOf<ArgumentOutOfRangeException>()
+                    .With.Property("ParamName")
+                    .EqualTo("startPos")
+            );
+            Assert.That(
+                () => utf8.Substring(0, -1),
+                Throws
+                    .TypeOf<ArgumentOutOfRangeException>()
+                    .With.Property("ParamName")
+                    .EqualTo("endPos")
+            );
+            Assert.That(
+                () => utf8.Substring(0, 5),
+                Throws
+                    .TypeOf<ArgumentOutOfRangeException>()
+                    .With.Property("ParamName")
+                    .EqualTo("endPos")
+            );
             Assert.That(() => utf8.Substring(3, 2), Throws.ArgumentException);
         }
     }

@@ -14,22 +14,29 @@ namespace GISharp.Test.GLib
         {
             // Timeout.Add() can only attach sources to the global main context,
             // so we need lock to ensure we have exclusive use.
-            lock (MainContextTests.MainContextLock) {
+            lock (MainContextTests.MainContextLock)
+            {
                 var timeoutInvoked = false;
                 using var mainLoop = new MainLoop();
 
-                var id = Timeout.Add(0, () => {
-                    mainLoop.Quit();
-                    timeoutInvoked = true;
-                    return Source.Remove;
-                });
+                var id = Timeout.Add(
+                    0,
+                    () =>
+                    {
+                        mainLoop.Quit();
+                        timeoutInvoked = true;
+                        return Source.Remove;
+                    }
+                );
 
                 Assert.That(id, Is.Not.Zero);
 
                 using var source = MainContext.Default.FindSourceById(id);
-                Task.Run(() => {
-                    mainLoop.Run();
-                }).Wait(100);
+                Task.Run(() =>
+                    {
+                        mainLoop.Run();
+                    })
+                    .Wait(100);
                 source.Destroy();
 
                 Assert.That(timeoutInvoked, Is.True);
@@ -41,22 +48,29 @@ namespace GISharp.Test.GLib
         {
             // Timeout.AddSeconds() can only attach sources to the global main
             // context, so we need lock to ensure we have exclusive use.
-            lock (MainContextTests.MainContextLock) {
+            lock (MainContextTests.MainContextLock)
+            {
                 var timeoutInvoked = false;
                 using var mainLoop = new MainLoop();
 
-                var id = Timeout.AddSeconds(0, () => {
-                    mainLoop.Quit();
-                    timeoutInvoked = true;
-                    return Source.Remove;
-                });
+                var id = Timeout.AddSeconds(
+                    0,
+                    () =>
+                    {
+                        mainLoop.Quit();
+                        timeoutInvoked = true;
+                        return Source.Remove;
+                    }
+                );
 
                 Assert.That(id, Is.Not.EqualTo(0));
 
                 using var source = MainContext.Default.FindSourceById(id);
-                Task.Run(() => {
-                    mainLoop.Run();
-                }).Wait(2000);
+                Task.Run(() =>
+                    {
+                        mainLoop.Run();
+                    })
+                    .Wait(2000);
                 source.Destroy();
 
                 Assert.That(timeoutInvoked, Is.True);

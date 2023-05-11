@@ -24,11 +24,13 @@ namespace GISharp.Runtime
         /// </remarks>
         public static string LibraryName(string name)
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
                 return $"{name}.dll";
             }
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
                 return $"lib{name}.dylib";
             }
 
@@ -49,7 +51,10 @@ namespace GISharp.Runtime
         /// </return>
         public static IntPtr GetSymbol(string libraryName, string symbolName)
         {
-            var libraryHandle = libraryHandles.GetOrAdd(LibraryName(libraryName), x => NativeLibrary.Load(x));
+            var libraryHandle = libraryHandles.GetOrAdd(
+                LibraryName(libraryName),
+                x => NativeLibrary.Load(x)
+            );
             return NativeLibrary.GetExport(libraryHandle, symbolName);
         }
     }

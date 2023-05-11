@@ -24,8 +24,10 @@ namespace GISharp.CodeGen.Syntax
             // parameters, so the event itself just refers to the signal handler
             // delegate type, otherwise we end up with broken paramref elements
             // that have to be fixed.
-            return ParseLeadingTrivia($@"/// <seealso cref=""{signal.ManagedName}Handler""/>
-            ");
+            return ParseLeadingTrivia(
+                $@"/// <seealso cref=""{signal.ManagedName}Handler""/>
+            "
+            );
         }
 
         /// <summary>
@@ -49,31 +51,36 @@ namespace GISharp.CodeGen.Syntax
             // create the attribute
             var attrName = ParseName(typeof(GSignalAttribute).FullName);
             var nameArg = ParseExpression($"\"{signal.GirName}\"");
-            var attr = Attribute(attrName)
-                .AddArgumentListArguments(AttributeArgument(nameArg));
+            var attr = Attribute(attrName).AddArgumentListArguments(AttributeArgument(nameArg));
 
-            var whenExpression = $"{nameof(GSignalAttribute.When)} = {typeof(EmissionStage)}.{signal.When}";
-            attr = attr.AddArgumentListArguments(AttributeArgument(ParseExpression(whenExpression)));
-
+            var whenExpression =
+                $"{nameof(GSignalAttribute.When)} = {typeof(EmissionStage)}.{signal.When}";
+            attr = attr.AddArgumentListArguments(
+                AttributeArgument(ParseExpression(whenExpression))
+            );
 
             // add optional arguments
 
-            if (signal.IsNoRecurse) {
+            if (signal.IsNoRecurse)
+            {
                 var expression = ParseExpression($"{nameof(GSignalAttribute.IsNoRecurse)} = true");
                 attr = attr.AddArgumentListArguments(AttributeArgument(expression));
             }
 
-            if (signal.IsDetailed) {
+            if (signal.IsDetailed)
+            {
                 var expression = ParseExpression($"{nameof(GSignalAttribute.IsDetailed)} = true");
                 attr = attr.AddArgumentListArguments(AttributeArgument(expression));
             }
 
-            if (signal.IsAction) {
+            if (signal.IsAction)
+            {
                 var expression = ParseExpression($"{nameof(GSignalAttribute.IsAction)} = true");
                 attr = attr.AddArgumentListArguments(AttributeArgument(expression));
             }
 
-            if (signal.IsNoHooks) {
+            if (signal.IsNoHooks)
+            {
                 var expression = ParseExpression($"{nameof(GSignalAttribute.IsNoHooks)} = true");
                 attr = attr.AddArgumentListArguments(AttributeArgument(expression));
             }
@@ -96,13 +103,19 @@ namespace GISharp.CodeGen.Syntax
             var name = signal.GirName;
 
             var addAccessor = AccessorDeclaration(AddAccessorDeclaration)
-                .WithExpressionBody(ArrowExpressionClause(ParseExpression(
-                    $"AddEventSignalHandler(\"{name}\", value)")))
+                .WithExpressionBody(
+                    ArrowExpressionClause(
+                        ParseExpression($"AddEventSignalHandler(\"{name}\", value)")
+                    )
+                )
                 .WithSemicolonToken(Token(SemicolonToken));
 
             var removeAccessor = AccessorDeclaration(RemoveAccessorDeclaration)
-                .WithExpressionBody(ArrowExpressionClause(ParseExpression(
-                    $"RemoveEventSignalHandler(\"{name}\", value)")))
+                .WithExpressionBody(
+                    ArrowExpressionClause(
+                        ParseExpression($"RemoveEventSignalHandler(\"{name}\", value)")
+                    )
+                )
                 .WithSemicolonToken(Token(SemicolonToken));
 
             var accessorList = AccessorList().AddAccessors(addAccessor, removeAccessor);
@@ -129,9 +142,13 @@ namespace GISharp.CodeGen.Syntax
             return DelegateDeclaration(returnType, identifier)
                 .AddModifiers(Token(PublicKeyword))
                 .WithParameterList(signal.ManagedParameters.GetParameterList())
-                .WithLeadingTrivia(signal.Doc.GetDocCommentTrivia()
-                    .AddRange(signal.ManagedParameters.SelectMany(x => x.Doc.GetDocCommentTrivia()))
-                    .AddRange(signal.ReturnValue.Doc.GetDocCommentTrivia())
+                .WithLeadingTrivia(
+                    signal.Doc
+                        .GetDocCommentTrivia()
+                        .AddRange(
+                            signal.ManagedParameters.SelectMany(x => x.Doc.GetDocCommentTrivia())
+                        )
+                        .AddRange(signal.ReturnValue.Doc.GetDocCommentTrivia())
                 )
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
@@ -140,22 +157,30 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the member declarations for the signals, logging a warning
         /// for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Signal> signals, bool forInterface = false)
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(
+            this IEnumerable<Signal> signals,
+            bool forInterface = false
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var signal in signals) {
-                try {
+            foreach (var signal in signals)
+            {
+                try
+                {
                     list = list.Add(signal.GetSignalHandlerDelegateDeclaration());
-                    if (forInterface) {
+                    if (forInterface)
+                    {
                         list = list.Add(signal.GetInterfaceEventDeclaration());
                     }
-                    else {
+                    else
+                    {
                         list = list.Add(signal.GetEventDeclaration());
                     }
                     list = list.Add(signal.GetManagedSignalCallbackDeclaration());
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     signal.LogException(ex);
                 }
             }
@@ -163,18 +188,25 @@ namespace GISharp.CodeGen.Syntax
             return list;
         }
 
-        private static MethodDeclarationSyntax GetManagedSignalCallbackDeclaration(this Signal signal)
+        private static MethodDeclarationSyntax GetManagedSignalCallbackDeclaration(
+            this Signal signal
+        )
         {
             var returnType = ParseTypeName(signal.ReturnValue.Type.GetUnmanagedType());
             var method = MethodDeclaration(returnType, $"Managed{signal.ManagedName}Handler")
-                .AddAttributeLists(AttributeList().AddAttributes(
-                    Attribute(ParseName(typeof(UnmanagedCallersOnlyAttribute).FullName))
-                        .AddArgumentListArguments(
-                            AttributeArgument(ParseExpression(
-                                $"CallConvs = new[] {{ typeof({typeof(CallConvCdecl)}) }}"
-                            ))
+                .AddAttributeLists(
+                    AttributeList()
+                        .AddAttributes(
+                            Attribute(ParseName(typeof(UnmanagedCallersOnlyAttribute).FullName))
+                                .AddArgumentListArguments(
+                                    AttributeArgument(
+                                        ParseExpression(
+                                            $"CallConvs = new[] {{ typeof({typeof(CallConvCdecl)}) }}"
+                                        )
+                                    )
+                                )
                         )
-                ))
+                )
                 .AddModifiers(Token(PrivateKeyword), Token(StaticKeyword))
                 .WithParameterList(signal.Parameters.GetParameterList())
                 .WithBody(Block(signal.GetCallbackStatements()));
@@ -189,27 +221,37 @@ namespace GISharp.CodeGen.Syntax
         internal static EventDeclarationSyntax GetImplementsEventDeclaration(this Signal signal)
         {
             var delcaringType = signal.Ancestors.OfType<Interface>().Single();
-            var typeName = ParseTypeName($"{delcaringType.GetManagedType()}.{signal.ManagedName}Handler");
+            var typeName = ParseTypeName(
+                $"{delcaringType.GetManagedType()}.{signal.ManagedName}Handler"
+            );
             var name = signal.GirName;
 
             var addAccessor = AccessorDeclaration(AddAccessorDeclaration)
-                .WithExpressionBody(ArrowExpressionClause(ParseExpression(
-                    $"AddEventSignalHandler(\"{name}\", value)")))
+                .WithExpressionBody(
+                    ArrowExpressionClause(
+                        ParseExpression($"AddEventSignalHandler(\"{name}\", value)")
+                    )
+                )
                 .WithSemicolonToken(Token(SemicolonToken));
 
             var removeAccessor = AccessorDeclaration(RemoveAccessorDeclaration)
-                .WithExpressionBody(ArrowExpressionClause(ParseExpression(
-                    $"RemoveEventSignalHandler(\"{name}\", value)")))
+                .WithExpressionBody(
+                    ArrowExpressionClause(
+                        ParseExpression($"RemoveEventSignalHandler(\"{name}\", value)")
+                    )
+                )
                 .WithSemicolonToken(Token(SemicolonToken));
 
             return EventDeclaration(typeName, signal.ManagedName)
-                .AddModifiers(Token(PublicKeyword)
-                    // Can't add leading trivia to EventDeclaration, so have to
-                    // attach it to public keyword.
-                    // TODO: inheritdoc only makes sense when implementing an
-                    // interface. If info is GirEventInfo, we should be able to
-                    // get docs from the GIR XML
-                    .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\n")))
+                .AddModifiers(
+                    Token(PublicKeyword)
+                        // Can't add leading trivia to EventDeclaration, so have to
+                        // attach it to public keyword.
+                        // TODO: inheritdoc only makes sense when implementing an
+                        // interface. If info is GirEventInfo, we should be able to
+                        // get docs from the GIR XML
+                        .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\n"))
+                )
                 .AddAccessorListAccessors(addAccessor, removeAccessor);
         }
     }

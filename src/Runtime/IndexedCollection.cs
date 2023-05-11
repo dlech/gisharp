@@ -28,9 +28,12 @@ namespace GISharp.Runtime
         /// Gets the metadata entry at the specified index.
         /// </summary>
         /// <param name="index">0-based offset into namespace metadata for entry.</param>
-        public T this[int index] {
-            get {
-                if (index < 0 || index >= Count) {
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= Count)
+                {
                     throw new IndexOutOfRangeException();
                 }
                 return getInfoAtIndex(index);
@@ -49,7 +52,8 @@ namespace GISharp.Runtime
         public IEnumerator<T> GetEnumerator()
         {
             var count = getCount();
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++)
+            {
                 yield return getInfoAtIndex(i);
             }
         }
@@ -63,4 +67,3 @@ namespace GISharp.Runtime
         #endregion
     }
 }
-

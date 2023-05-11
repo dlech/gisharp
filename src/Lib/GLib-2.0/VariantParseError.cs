@@ -10,7 +10,8 @@ namespace GISharp.Lib.GLib
     {
         static partial void CheckPrintContextArgs(Error error, UnownedUtf8 sourceStr)
         {
-            if (error.Domain != Quark) {
+            if (error.Domain != Quark)
+            {
                 throw new ArgumentException("Requires VariantParseError", nameof(error));
             }
         }

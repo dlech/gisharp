@@ -22,13 +22,15 @@ namespace GISharp.Test.GLib
         public void TestMatches()
         {
             const TestError code = TestError.Failed;
-            using (var err = new Error(code, "test")) {
+            using (var err = new Error(code, "test"))
+            {
                 Assert.That(err.Matches(code));
             }
 
             var domain2 = Quark.FromString("test-error-domain-2");
             const int code2 = 99;
-            using (var err = new Error(domain2, code2, "test")) {
+            using (var err = new Error(domain2, code2, "test"))
+            {
                 Assert.That(err.Matches(domain2, code2));
             }
         }

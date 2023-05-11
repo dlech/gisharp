@@ -13,9 +13,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain the type information for fields.
         /// </summary>
-        public IndexedCollection<FieldInfo> Fields {
-            get {
-                if (fields is null) {
+        public IndexedCollection<FieldInfo> Fields
+        {
+            get
+            {
+                if (fields is null)
+                {
                     fields = new(GetNFields, GetField);
                 }
                 return fields;
@@ -27,9 +30,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Obtain the type information for methods.
         /// </summary>
-        public IndexedCollection<FunctionInfo> Methods {
-            get {
-                if (methods is null) {
+        public IndexedCollection<FunctionInfo> Methods
+        {
+            get
+            {
+                if (methods is null)
+                {
                     methods = new(GetNMethods, GetMethod);
                 }
                 return methods;
@@ -38,7 +44,8 @@ namespace GISharp.Lib.GIRepository
 
         partial void CheckGetDiscriminatorArgs(int n)
         {
-            if (n >= NFields) {
+            if (n >= NFields)
+            {
                 throw new ArgumentOutOfRangeException(nameof(n));
             }
         }

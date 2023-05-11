@@ -68,8 +68,7 @@ namespace GISharp.CodeGen.Gir
         ReturnValue LazyGetReturnValue() =>
             (ReturnValue)GetNode(Element.Element(gi + "return-value"));
 
-        Parameters LazyGetParameters() =>
-            (Parameters)GetNode(Element.Element(gi + "parameters"));
+        Parameters LazyGetParameters() => (Parameters)GetNode(Element.Element(gi + "parameters"));
 
         ManagedParameters LazyGetManagedParameters() =>
             (ManagedParameters)GetNode(Element.Element(gs + "managed-parameters"));

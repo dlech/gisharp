@@ -12,16 +12,12 @@ namespace GISharp.Runtime
     /// class that instructs containers how to handle owned elements.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public sealed class PtrArrayCopyFuncAttribute : Attribute
-    {
-    }
+    public sealed class PtrArrayCopyFuncAttribute : Attribute { }
 
     /// <summary>
     /// Attribute applied to the unmanaged free or unref method of an <see cref="Opaque"/>
     /// class that instructs containsers how to handle owned elements.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
-    public sealed class PtrArrayFreeFuncAttribute : Attribute
-    {
-    }
+    public sealed class PtrArrayFreeFuncAttribute : Attribute { }
 }

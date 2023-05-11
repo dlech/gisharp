@@ -25,7 +25,8 @@ namespace GISharp.CodeGen.Syntax
                 .WithLeadingTrivia(@enum.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
-            if (@enum is Bitfield) {
+            if (@enum is Bitfield)
+            {
                 syntax = syntax.AddBaseListTypes(SimpleBaseType(ParseTypeName("uint")));
             }
 
@@ -36,12 +37,14 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = @enum.GetGTypeAttributeLists();
 
-            if (@enum is Bitfield) {
+            if (@enum is Bitfield)
+            {
                 var flagsAttribute = Attribute(ParseName(typeof(FlagsAttribute).FullName));
                 list = list.Add(AttributeList().AddAttributes(flagsAttribute));
             }
 
-            if (@enum.ErrorDomain is not null) {
+            if (@enum.ErrorDomain is not null)
+            {
                 var attrName = ParseName(typeof(GErrorDomainAttribute).FullName);
                 var domainArg = ParseExpression($"\"{@enum.ErrorDomain}\"");
                 var domainAttribute = Attribute(attrName)
@@ -55,11 +58,16 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# enum member declarations for a GIR enumeration
         /// </summary>
-        public static SeparatedSyntaxList<EnumMemberDeclarationSyntax> GetEnumMembers(this GIEnum @enum)
+        public static SeparatedSyntaxList<EnumMemberDeclarationSyntax> GetEnumMembers(
+            this GIEnum @enum
+        )
         {
-            var members = @enum.Members.Select(x => x.GetDeclaration()
-                .WithLeadingTrivia(x.Doc.GetDocCommentTrivia())
-                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc")));
+            var members = @enum.Members.Select(
+                x =>
+                    x.GetDeclaration()
+                        .WithLeadingTrivia(x.Doc.GetDocCommentTrivia())
+                        .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"))
+            );
             return SeparatedList(members);
         }
 
@@ -68,15 +76,26 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static ClassDeclarationSyntax GetExtClassDeclaration(this GIEnum @enum)
         {
-            var name = @enum.ManagedName +
-                (@enum.ErrorDomain is null ? "Extensions" : "Domain");
+            var name = @enum.ManagedName + (@enum.ErrorDomain is null ? "Extensions" : "Domain");
 
             return ClassDeclaration(name)
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
-                .WithLeadingTrivia(ParseLeadingTrivia(string.Format(@"/// <summary>
+                .AddModifiers(
+                    Token(PublicKeyword),
+                    Token(StaticKeyword),
+                    Token(UnsafeKeyword),
+                    Token(PartialKeyword)
+                )
+                .WithLeadingTrivia(
+                    ParseLeadingTrivia(
+                        string.Format(
+                            @"/// <summary>
                 /// Extension methods for <see cref=""{0}""/>.
                 /// </summary>
-                ", @enum.ManagedName)));
+                ",
+                            @enum.ManagedName
+                        )
+                    )
+                );
         }
 
         /// <summary>
@@ -90,7 +109,8 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(@enum.Functions.GetMemberDeclarations())
                 .AddRange(@enum.Methods.GetMemberDeclarations());
 
-            if (@enum.GTypeName is not null) {
+            if (@enum.GTypeName is not null)
+            {
                 members = members.Insert(0, @enum.GetGTypeFieldDeclaration());
             }
 

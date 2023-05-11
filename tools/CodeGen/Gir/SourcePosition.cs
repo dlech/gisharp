@@ -8,9 +8,11 @@ namespace GISharp.CodeGen.Gir
 {
     public sealed class SourcePosition : GirNode
     {
-        public SourcePosition(XElement element, GirNode parent) : base(element, parent)
+        public SourcePosition(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "source-position") {
+            if (element.Name != gi + "source-position")
+            {
                 throw new ArgumentException("Requrires <source-position> element", nameof(element));
             }
         }

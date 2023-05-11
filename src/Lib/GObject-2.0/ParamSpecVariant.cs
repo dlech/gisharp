@@ -12,8 +12,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// A <see cref="VariantType" /> or <c>null</c>
         /// </summary>
-        public VariantType? VariantType {
-            get {
+        public VariantType? VariantType
+        {
+            get
+            {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->Type;
                 var ret = Opaque.GetInstance<VariantType>((IntPtr)ret_, Transfer.None);
                 return ret;
@@ -23,8 +25,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// A <see cref="Variant" /> or <c>null</c>
         /// </summary>
-        public new Variant? DefaultValue {
-            get {
+        public new Variant? DefaultValue
+        {
+            get
+            {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
                 var ret = Opaque.GetInstance<Variant>((IntPtr)ret_, Transfer.None);
                 return ret;

@@ -20,8 +20,10 @@ namespace GISharp.Test.Gtk
         [Test]
         public void ConstraintVflParserErrorQuark()
         {
-            Assert.That(ConstraintVflParserError.InvalidSymbol.GetGErrorDomain(),
-                Is.EqualTo(ConstraintVflParserErrorDomain.Quark));
+            Assert.That(
+                ConstraintVflParserError.InvalidSymbol.GetGErrorDomain(),
+                Is.EqualTo(ConstraintVflParserErrorDomain.Quark)
+            );
         }
     }
 }

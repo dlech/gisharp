@@ -23,7 +23,8 @@ namespace GISharp.CodeGen.Syntax
             var type = ParseTypeName(property.Type.GetManagedType());
 
             // TODO: is there a way to tell if properties are not nullable?
-            if (!property.Type.IsValueType()) {
+            if (!property.Type.IsValueType())
+            {
                 type = NullableType(type);
             }
 
@@ -34,14 +35,16 @@ namespace GISharp.CodeGen.Syntax
                 .WithLeadingTrivia(property.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
-            if (property.IsReadable) {
+            if (property.IsReadable)
+            {
                 var getAccessor = AccessorDeclaration(GetAccessorDeclaration)
                     .WithExpressionBody(ArrowExpressionClause(property.GetGetExpression(type)))
                     .WithSemicolonToken(Token(SemicolonToken));
                 syntax = syntax.AddAccessorListAccessors(getAccessor);
             }
 
-            if (property.IsWriteable) {
+            if (property.IsWriteable)
+            {
                 var setAccessor = AccessorDeclaration(SetAccessorDeclaration)
                     .WithExpressionBody(ArrowExpressionClause(property.GetSetExpression()))
                     .WithSemicolonToken(Token(SemicolonToken));
@@ -55,8 +58,11 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = property.GetCommonAttributeLists();
 
-            if (!property.IsReadable && property.IsConstructOnly) {
-                var arg = ParseExpression($"{typeof(EditorBrowsableState)}.{nameof(EditorBrowsableState.Never)}");
+            if (!property.IsReadable && property.IsConstructOnly)
+            {
+                var arg = ParseExpression(
+                    $"{typeof(EditorBrowsableState)}.{nameof(EditorBrowsableState.Never)}"
+                );
                 var attr = Attribute(ParseName(typeof(EditorBrowsableAttribute).ToString()))
                     .AddArgumentListArguments(AttributeArgument(arg));
                 list = list.Insert(0, AttributeList().AddAttributes(attr));
@@ -86,7 +92,8 @@ namespace GISharp.CodeGen.Syntax
             var type = ParseTypeName(property.Type.GetManagedType());
 
             // TODO: is there a way to tell if properties are not nullable?
-            if (!property.Type.IsValueType()) {
+            if (!property.Type.IsValueType())
+            {
                 type = NullableType(type);
             }
 
@@ -96,13 +103,15 @@ namespace GISharp.CodeGen.Syntax
                 .WithLeadingTrivia(property.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
-            if (property.IsReadable) {
+            if (property.IsReadable)
+            {
                 var getAccessor = AccessorDeclaration(GetAccessorDeclaration)
                     .WithSemicolonToken(Token(SemicolonToken));
                 syntax = syntax.AddAccessorListAccessors(getAccessor);
             }
 
-            if (property.IsWriteable) {
+            if (property.IsWriteable)
+            {
                 var setAccessor = AccessorDeclaration(SetAccessorDeclaration)
                     .WithSemicolonToken(Token(SemicolonToken));
                 syntax = syntax.AddAccessorListAccessors(setAccessor);
@@ -116,22 +125,31 @@ namespace GISharp.CodeGen.Syntax
             // create the attribute
             var attrName = ParseName(typeof(GPropertyAttribute).FullName);
             var nameArg = ParseExpression($"\"{property.GirName}\"");
-            var attr = Attribute(attrName)
-                .AddArgumentListArguments(AttributeArgument(nameArg));
+            var attr = Attribute(attrName).AddArgumentListArguments(AttributeArgument(nameArg));
 
             // add optional Construct = GPropertyConstruct.X argument
             var construct = GPropertyConstruct.No;
-            if (property.IsConstruct) {
+            if (property.IsConstruct)
+            {
                 construct = GPropertyConstruct.Yes;
             }
-            if (property.IsConstructOnly) {
+            if (property.IsConstructOnly)
+            {
                 construct = GPropertyConstruct.Only;
             }
-            if (construct != GPropertyConstruct.No) {
+            if (construct != GPropertyConstruct.No)
+            {
                 var constructType = $"{typeof(GPropertyConstruct)}.{construct}";
-                var constructArg = AttributeArgument(ParseExpression(nameof(GPropertyAttribute.Construct)));
-                constructArg = constructArg.WithExpression(AssignmentExpression(SimpleAssignmentExpression,
-                    constructArg.Expression, ParseExpression(constructType)));
+                var constructArg = AttributeArgument(
+                    ParseExpression(nameof(GPropertyAttribute.Construct))
+                );
+                constructArg = constructArg.WithExpression(
+                    AssignmentExpression(
+                        SimpleAssignmentExpression,
+                        constructArg.Expression,
+                        ParseExpression(constructType)
+                    )
+                );
                 attr = attr.AddArgumentListArguments(constructArg);
             }
 
@@ -142,20 +160,28 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the member declarations for the properties, logging a warning
         /// for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Property> properties, bool forInterface = false)
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(
+            this IEnumerable<Property> properties,
+            bool forInterface = false
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var property in properties) {
-                try {
-                    if (forInterface) {
+            foreach (var property in properties)
+            {
+                try
+                {
+                    if (forInterface)
+                    {
                         list = list.Add(property.GetInterfaceDeclaration());
                     }
-                    else {
+                    else
+                    {
                         list = list.Add(property.GetDeclaration());
                     }
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     property.LogException(ex);
                 }
             }

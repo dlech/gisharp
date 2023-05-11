@@ -115,7 +115,9 @@ namespace GISharp.CodeGen.Gir
             GTypeName = element.Attribute(glib + "type-name").AsString();
             GTypeGetter = element.Attribute(glib + "get-type").AsString();
             GTypeStruct = element.Attribute(glib + "type-struct").AsString();
-            IsCustomDefaultConstructor = element.Attribute(gs + "custom-default-constructor").AsBool();
+            IsCustomDefaultConstructor = element
+                .Attribute(gs + "custom-default-constructor")
+                .AsBool();
             IsCustomDispose = element.Attribute(gs + "custom-dispose").AsBool();
             _GTypeStructNode = new(LazyGetGTypeStructNode, false);
             _Constants = new(() => LazyGetConstants().ToList(), false);
@@ -131,11 +133,15 @@ namespace GISharp.CodeGen.Gir
 
         Record LazyGetGTypeStructNode()
         {
-            if (GTypeStruct is null) {
+            if (GTypeStruct is null)
+            {
                 return null;
             }
-            return (Record)GetNode(Element.Parent.Elements(gi + "record")
-                .Single(x => x.Attribute("name")?.Value == GTypeStruct));
+            return (Record)GetNode(
+                Element.Parent
+                    .Elements(gi + "record")
+                    .Single(x => x.Attribute("name")?.Value == GTypeStruct)
+            );
         }
 
         IEnumerable<Constant> LazyGetConstants() =>

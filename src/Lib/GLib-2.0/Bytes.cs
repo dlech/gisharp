@@ -15,13 +15,16 @@ namespace GISharp.Lib.GLib
     {
         partial void CheckNewFromBytesArgs(int offset, int length)
         {
-            if (offset < 0) {
+            if (offset < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
-            if (length < 0) {
+            if (length < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
-            if (offset + length > Size) {
+            if (offset + length > Size)
+            {
                 throw new ArgumentException("offset + length exceeds size");
             }
         }
@@ -41,13 +44,15 @@ namespace GISharp.Lib.GLib
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static void FreeMemoryHandle(IntPtr userData_)
         {
-            try {
+            try
+            {
                 var gcHandle = GCHandle.FromIntPtr(userData_);
                 var memoryHandle = (MemoryHandle)gcHandle.Target!;
                 memoryHandle.Dispose();
                 gcHandle.Free();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 GMarshal.PushUnhandledException(ex);
             }
         }
@@ -63,9 +68,8 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data to be used for the bytes
         /// </param>
-        public Bytes(ReadOnlyMemory<byte> data) : this((IntPtr)NewWithFreeFunc(data), Transfer.Full)
-        {
-        }
+        public Bytes(ReadOnlyMemory<byte> data)
+            : this((IntPtr)NewWithFreeFunc(data), Transfer.Full) { }
 
         /// <inheritdoc/>
         int IReadOnlyCollection<byte>.Count => Size;
@@ -73,12 +77,16 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Gets an element in the array.
         /// </summary>
-        public byte this[int index] {
-            get {
-                try {
+        public byte this[int index]
+        {
+            get
+            {
+                try
+                {
                     return Data[index];
                 }
-                catch (IndexOutOfRangeException) {
+                catch (IndexOutOfRangeException)
+                {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
             }
@@ -86,7 +94,8 @@ namespace GISharp.Lib.GLib
 
         IEnumerator<byte> GetEnumerator()
         {
-            for (int i = 0; i < Size; i++) {
+            for (int i = 0; i < Size; i++)
+            {
                 yield return this[i];
             }
         }

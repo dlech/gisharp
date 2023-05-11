@@ -41,10 +41,12 @@ namespace GISharp.Test.GLib
         [Obsolete("g_time_zone_new() is deprecated upstream")]
         public void TestGetIdentifier()
         {
-            using (var tz = new TimeZone(null)) {
+            using (var tz = new TimeZone(null))
+            {
                 Assert.That<string>(tz.Identifier, Is.Not.Null);
             }
-            using (var tz = new TimeZone("Z")) {
+            using (var tz = new TimeZone("Z"))
+            {
                 Assert.That<string>(tz.Identifier, Is.EqualTo("Z"));
             }
         }

@@ -21,8 +21,7 @@ namespace GISharp.Test.GObject
         public void TestRegister2()
         {
             // invalid because underlying type is too big.
-            Assert.That(() => typeof(TestEnum2).ToGType(),
-                Throws.ArgumentException);
+            Assert.That(() => typeof(TestEnum2).ToGType(), Throws.ArgumentException);
         }
 
         [Test]
@@ -30,8 +29,7 @@ namespace GISharp.Test.GObject
         {
             // invalid because IsProxyForUnmanagedType = true but there is no
             // matching GType property.
-            Assert.That(() => typeof(TestEnum3).ToGType(),
-                Throws.ArgumentException);
+            Assert.That(() => typeof(TestEnum3).ToGType(), Throws.ArgumentException);
         }
 
         [Test]
@@ -39,8 +37,11 @@ namespace GISharp.Test.GObject
         {
             // this should register successfully
             var testEnum4GType = typeof(TestEnum4).ToGType();
-            Assert.That(testEnum4GType, Is.Not.EqualTo(GType.Invalid),
-                         "Failed to register an enum");
+            Assert.That(
+                testEnum4GType,
+                Is.Not.EqualTo(GType.Invalid),
+                "Failed to register an enum"
+            );
 
             // make sure the type is not re-registed.
             Assert.That(testEnum4GType, Is.EqualTo(typeof(TestEnum4).ToGType()));
@@ -50,7 +51,10 @@ namespace GISharp.Test.GObject
             Assert.That(testEnum4GType.IsA(GType.Enum), Is.True);
 
             // make sure that we set the typename, value name and value nick
-            Assert.That(testEnum4GType.Name, Is.EqualTo("GISharp-Test-GObject-EnumTests+TestEnum4"));
+            Assert.That(
+                testEnum4GType.Name,
+                Is.EqualTo("GISharp-Test-GObject-EnumTests+TestEnum4")
+            );
             using var enum4TypeClass = (EnumClass)TypeClass.Get(testEnum4GType);
             var value = Enum.GetValue(enum4TypeClass, 1);
             Assert.That(value.Value, Is.EqualTo((int)TestEnum4.One));
@@ -121,6 +125,7 @@ namespace GISharp.Test.GObject
         {
             [GEnumMember("test_enum_5_value_one")]
             One = 1,
+
             [GEnumMember(nick: "test_enum_5_value_two")]
             Two = 2,
             Four = 4,

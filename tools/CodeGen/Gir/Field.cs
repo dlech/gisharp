@@ -35,9 +35,11 @@ namespace GISharp.CodeGen.Gir
         public Callback Callback => _Callback.Value;
         readonly Lazy<Callback> _Callback;
 
-        public Field(XElement element, GirNode parent) : base(element, parent)
+        public Field(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "field") {
+            if (element.Name != gi + "field")
+            {
                 throw new ArgumentException("Requrires <field> element", nameof(element));
             }
 
@@ -51,7 +53,6 @@ namespace GISharp.CodeGen.Gir
         GIType LazyGetType() =>
             (GIType)GetNode(Element.Element(gi + "type") ?? Element.Element(gi + "array"));
 
-        Callback LazyGetCallback() =>
-            (Callback)GetNode(Element.Element(gi + "callback"));
+        Callback LazyGetCallback() => (Callback)GetNode(Element.Element(gi + "callback"));
     }
 }

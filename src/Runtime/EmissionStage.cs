@@ -12,10 +12,12 @@ namespace GISharp.Runtime
         /// Invoke the object method handler in the first emission stage.
         /// </summary>
         First,
+
         /// <summary>
         /// Invoke the object method handler in the third emission stage.
         /// </summary>
         Last,
+
         /// <summary>
         /// Invoke the object method handler in the last emission stage.
         /// </summary>

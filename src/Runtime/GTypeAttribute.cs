@@ -14,7 +14,12 @@ namespace GISharp.Runtime
     /// unmanaged type. Otherwise, the type will be registered with the GObject
     /// type system so that it can be used in unmanged code.
     /// </remarks>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface)]
+    [AttributeUsage(
+        AttributeTargets.Class
+            | AttributeTargets.Struct
+            | AttributeTargets.Enum
+            | AttributeTargets.Interface
+    )]
     public sealed class GTypeAttribute : Attribute
     {
         /// <summary>

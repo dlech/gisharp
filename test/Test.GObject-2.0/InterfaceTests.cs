@@ -34,7 +34,8 @@ namespace GISharp.Test.GObject
         [Test]
         public void TestAsyncVirtualMethod()
         {
-            RunAsyncTest(async () => {
+            RunAsyncTest(async () =>
+            {
                 using var obj = TestNetworkMonitor.New();
                 var result = await obj.CanReachAsync(IntPtr.Zero);
                 Assert.That(result, Is.True);
@@ -111,8 +112,7 @@ namespace GISharp.Test.GObject
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public TestNetworkMonitor(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public TestNetworkMonitor(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
     }
 }

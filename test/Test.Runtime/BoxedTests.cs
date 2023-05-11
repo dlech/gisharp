@@ -12,10 +12,12 @@ namespace GISharp.Test.GObject
         public void TestBoxingManagedType()
         {
             var expected = new object();
-            using (var b = new Boxed<object>(expected)) {
+            using (var b = new Boxed<object>(expected))
+            {
                 Assert.That(b.Value, Is.EqualTo(expected));
             }
-            using (var b = new Boxed<object?>(null)) {
+            using (var b = new Boxed<object?>(null))
+            {
                 Assert.That(b.Value, Is.Null);
             }
         }

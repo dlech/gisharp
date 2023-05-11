@@ -18,10 +18,13 @@ namespace GISharp.Lib.GIRepository
         /// by software higher in the toolchain than bindings, and are distinct from
         /// normal GIR annotations.
         /// </remarks>
-        public IEnumerable<KeyValuePair<string, string>> Attributes {
-            get {
+        public IEnumerable<KeyValuePair<string, string>> Attributes
+        {
+            get
+            {
                 var iter = default(AttributeIter);
-                while (TryIterateAttributes(ref iter, out var key, out var value)) {
+                while (TryIterateAttributes(ref iter, out var key, out var value))
+                {
                     yield return new KeyValuePair<string, string>(key, value);
                 }
             }
@@ -30,7 +33,8 @@ namespace GISharp.Lib.GIRepository
         partial void CheckGetNameArgs()
         {
             // will crash in unmanaged code if we try to get name of TypeInfo
-            if (this is TypeInfo) {
+            if (this is TypeInfo)
+            {
                 throw new NotSupportedException("Cannot get name of TypeInfo");
             }
         }
@@ -51,15 +55,18 @@ namespace GISharp.Lib.GIRepository
         /// <returns>
         /// A managed proxy instance
         /// </returns>
-        public static new T? GetInstance<T>(IntPtr handle, Runtime.Transfer ownership) where T : BaseInfo
+        public static new T? GetInstance<T>(IntPtr handle, Runtime.Transfer ownership)
+            where T : BaseInfo
         {
-            if (handle == IntPtr.Zero) {
+            if (handle == IntPtr.Zero)
+            {
                 return null;
             }
 
-            Type type = g_base_info_get_type((UnmanagedStruct*)handle) switch {
+            Type type = g_base_info_get_type((UnmanagedStruct*)handle) switch
+            {
                 InfoType.Arg => typeof(ArgInfo),
-                InfoType.Boxed => typeof(StructInfo),// TODO: could be struct or union
+                InfoType.Boxed => typeof(StructInfo), // TODO: could be struct or union
                 InfoType.Callback => typeof(CallbackInfo),
                 InfoType.Constant => typeof(ConstantInfo),
                 InfoType.Enum or InfoType.Flags => typeof(EnumInfo),

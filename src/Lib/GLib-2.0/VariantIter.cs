@@ -18,7 +18,8 @@ namespace GISharp.Lib.GLib
 
         static partial void CheckNewArgs(Variant value)
         {
-            if (!value.IsContainer) {
+            if (!value.IsContainer)
+            {
                 throw new ArgumentException("must be a container", nameof(value));
             }
         }

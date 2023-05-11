@@ -239,8 +239,7 @@ namespace GISharp.Test.GLib
             var a = new Rune('a');
             var b = new Rune(0x0300); // COMBINING GRAVE ACCENT
             var c = new Rune('à');
-            Assert.That(c.FullyDecompose().ToArray(),
-                Is.EquivalentTo(new Rune[] { a, b }));
+            Assert.That(c.FullyDecompose().ToArray(), Is.EquivalentTo(new Rune[] { a, b }));
         }
 
         [Test]

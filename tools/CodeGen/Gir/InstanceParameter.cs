@@ -8,10 +8,15 @@ namespace GISharp.CodeGen.Gir
 {
     public sealed class InstanceParameter : GIArg
     {
-        public InstanceParameter(XElement element, GirNode parent) : base(element, parent)
+        public InstanceParameter(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gi + "instance-parameter") {
-                throw new ArgumentException("Requrires <instance-parameter> element", nameof(element));
+            if (element.Name != gi + "instance-parameter")
+            {
+                throw new ArgumentException(
+                    "Requrires <instance-parameter> element",
+                    nameof(element)
+                );
             }
         }
     }

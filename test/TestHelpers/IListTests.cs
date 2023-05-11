@@ -10,12 +10,20 @@ using NUnit.Framework;
 
 namespace GISharp.Test
 {
-    public abstract class IListTests<TList, TItem> where TList : IList<TItem>, IDisposable, new()
+    public abstract class IListTests<TList, TItem>
+        where TList : IList<TItem>, IDisposable, new()
     {
         readonly Func<TList, int, TItem> getItemAt;
         readonly TItem[] values = new TItem[5];
 
-        protected IListTests(Func<TList, int, TItem> getItemAt, TItem value0, TItem value1, TItem value2, TItem value3, TItem value4)
+        protected IListTests(
+            Func<TList, int, TItem> getItemAt,
+            TItem value0,
+            TItem value1,
+            TItem value2,
+            TItem value3,
+            TItem value4
+        )
         {
             this.getItemAt = getItemAt;
             values[0] = value0;
@@ -123,7 +131,8 @@ namespace GISharp.Test
             var a = new TItem[3];
             // TItem may not be a value type, so we need to explicitly initialize
             // the array with values.
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++)
+            {
                 a[i] = values[0];
                 Assume.That(a[i], Is.EqualTo(values[0]));
             }
@@ -154,7 +163,8 @@ namespace GISharp.Test
             l.Add(values[3]);
 
             var expected = 1;
-            foreach (var i in l) {
+            foreach (var i in l)
+            {
                 Assert.That(i, Is.EqualTo(values[expected++]));
             }
             Assert.That(expected, Is.EqualTo(4));
@@ -205,7 +215,10 @@ namespace GISharp.Test
             Assert.That(getItemAt(l, 2), Is.EqualTo(values[1]));
             Assert.That(getItemAt(l, 3), Is.EqualTo(values[4]));
 
-            Assert.That(() => l.Insert(-1, values[0]), Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.That(
+                () => l.Insert(-1, values[0]),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+            );
             Assert.That(() => l.Insert(5, values[0]), Throws.TypeOf<ArgumentOutOfRangeException>());
 
             l.Dispose();
@@ -283,9 +296,8 @@ namespace GISharp.Test
     /// </summary>
     public class ListTests : IListTests<DisposableList, int>
     {
-        public ListTests() : base(HandleFunc, 0, 1, 2, 3, 4)
-        {
-        }
+        public ListTests()
+            : base(HandleFunc, 0, 1, 2, 3, 4) { }
 
         static int HandleFunc(DisposableList arg1, int arg2)
         {
@@ -305,32 +317,39 @@ namespace GISharp.Test
 
         void AssertNotDisposed()
         {
-            if (isDisposed) {
+            if (isDisposed)
+            {
                 throw new ObjectDisposedException(string.Empty);
             }
         }
 
-        public int Count {
-            get {
+        public int Count
+        {
+            get
+            {
                 AssertNotDisposed();
                 return list.Count;
             }
         }
 
-        public bool IsReadOnly {
-            get {
+        public bool IsReadOnly
+        {
+            get
+            {
                 AssertNotDisposed();
                 return ((IList<int>)list).IsReadOnly;
             }
         }
 
-        public int this[int index] {
-            get {
+        public int this[int index]
+        {
+            get
+            {
                 AssertNotDisposed();
                 return list[index];
             }
-
-            set {
+            set
+            {
                 AssertNotDisposed();
                 list[index] = value;
             }

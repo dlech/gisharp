@@ -8,10 +8,15 @@ namespace GISharp.CodeGen.Gir
 {
     public sealed class ErrorParameter : GIArg
     {
-        public ErrorParameter(XElement element, GirNode parent) : base(element, parent)
+        public ErrorParameter(XElement element, GirNode parent)
+            : base(element, parent)
         {
-            if (element.Name != gs + "error-parameter") {
-                throw new ArgumentException("Requrires <gs:error-parameter> element", nameof(element));
+            if (element.Name != gs + "error-parameter")
+            {
+                throw new ArgumentException(
+                    "Requrires <gs:error-parameter> element",
+                    nameof(element)
+                );
             }
         }
     }

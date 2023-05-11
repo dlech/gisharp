@@ -41,8 +41,10 @@ namespace GISharp.Test.GLib
             Assert.That(ret, Is.False);
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Insert(null, null),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(
+                () => hashTable.Insert(null, null),
+                Throws.TypeOf<ObjectDisposedException>()
+            );
         }
 
         [Test]
@@ -68,8 +70,10 @@ namespace GISharp.Test.GLib
             Assert.That(ret, Is.False);
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Replace(null, null),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(
+                () => hashTable.Replace(null, null),
+                Throws.TypeOf<ObjectDisposedException>()
+            );
         }
 
         [Test]
@@ -91,8 +95,7 @@ namespace GISharp.Test.GLib
             Assert.That(ret, Is.False);
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Add(null),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => hashTable.Add(null), Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -115,8 +118,7 @@ namespace GISharp.Test.GLib
             Assert.That(ret, Is.True);
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Contains(null),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => hashTable.Contains(null), Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -129,8 +131,7 @@ namespace GISharp.Test.GLib
             Assert.That(hashTable.Size, Is.EqualTo(1));
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Size,
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => hashTable.Size, Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -154,8 +155,7 @@ namespace GISharp.Test.GLib
             Assert.That(ret, Is.Null.Or.EqualTo(new OpaqueInt(0)));
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Lookup(null),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => hashTable.Lookup(null), Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -175,8 +175,10 @@ namespace GISharp.Test.GLib
             Assert.That(ret, Is.True);
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Lookup(null, out key, out value),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(
+                () => hashTable.Lookup(null, out key, out value),
+                Throws.TypeOf<ObjectDisposedException>()
+            );
         }
 
         [Test]
@@ -197,8 +199,10 @@ namespace GISharp.Test.GLib
             Assert.That(count, Is.EqualTo(1));
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Foreach(foreachFunc),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(
+                () => hashTable.Foreach(foreachFunc),
+                Throws.TypeOf<ObjectDisposedException>()
+            );
         }
 
         [Test]
@@ -222,8 +226,7 @@ namespace GISharp.Test.GLib
             Assert.That(ret, Is.Not.Null);
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Find(findFunc),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => hashTable.Find(findFunc), Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -246,8 +249,7 @@ namespace GISharp.Test.GLib
             Assert.That(ret, Is.False);
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Remove(null),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => hashTable.Remove(null), Throws.TypeOf<ObjectDisposedException>());
         }
 #if false
         [Test]
@@ -330,8 +332,7 @@ namespace GISharp.Test.GLib
             Assert.That(hashTable.Size, Is.EqualTo(0));
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.RemoveAll(),
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => hashTable.RemoveAll(), Throws.TypeOf<ObjectDisposedException>());
         }
 #if false
         [Test]
@@ -360,8 +361,7 @@ namespace GISharp.Test.GLib
             Assert.That(ret.Length, Is.EqualTo(1));
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Keys,
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => hashTable.Keys, Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]
@@ -375,9 +375,7 @@ namespace GISharp.Test.GLib
             Assert.That(ret.Length, Is.EqualTo(1));
 
             hashTable.Dispose();
-            Assert.That(
-                () => hashTable.Values,
-                Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(() => hashTable.Values, Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]

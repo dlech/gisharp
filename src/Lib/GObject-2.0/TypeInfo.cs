@@ -22,7 +22,8 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Location of the base finalization function (optional)
         /// </summary>
-        public delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, void> BaseFinalize => baseFinalize;
+        public delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, void> BaseFinalize =>
+            baseFinalize;
 
         /// <summary>
         /// Location of the class initialization function for
@@ -32,14 +33,16 @@ namespace GISharp.Lib.GObject
         /// and to do type-specific setup such as registering signals and object
         /// properties.
         /// </summary>
-        public delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, IntPtr, void> ClassInit => classInit;
+        public delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, IntPtr, void> ClassInit =>
+            classInit;
 
         /// <summary>
         /// Location of the class finalization function for
         /// classed and instantiatable types. Location of the default vtable
         /// finalization function for interface types. (optional)
         /// </summary>
-        public delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, IntPtr, void> ClassFinalize => classFinalize;
+        public delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, IntPtr, void> ClassFinalize =>
+            classFinalize;
 
         /// <summary>
         /// User-supplied data passed to the class init/finalize functions
@@ -56,7 +59,10 @@ namespace GISharp.Lib.GObject
         /// Location of the instance initialization function (optional, for
         /// instantiatable types only)
         /// </summary>
-        public delegate* unmanaged[Cdecl]<TypeInstance.UnmanagedStruct*, TypeClass.UnmanagedStruct*, void> InstanceInit => instanceInit;
+        public delegate* unmanaged[Cdecl]<
+            TypeInstance.UnmanagedStruct*,
+            TypeClass.UnmanagedStruct*,
+            void> InstanceInit => instanceInit;
 
         /// <summary>
         /// A #GTypeValueTable function table for generic handling of GValues
@@ -68,12 +74,18 @@ namespace GISharp.Lib.GObject
             ushort classSize,
             delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, void> baseInit = default,
             delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, void> baseFinalize = default,
-            delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, IntPtr, void> classInit = default,
-            delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, IntPtr, void> classFinalize = default,
+            delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, IntPtr, void> classInit =
+                default,
+            delegate* unmanaged[Cdecl]<TypeClass.UnmanagedStruct*, IntPtr, void> classFinalize =
+                default,
             IntPtr classData = default,
             ushort instanceSize = default,
-            delegate* unmanaged[Cdecl]<TypeInstance.UnmanagedStruct*, TypeClass.UnmanagedStruct*, void> instanceInit = default,
-            TypeValueTable* valueTable = default)
+            delegate* unmanaged[Cdecl]<
+                TypeInstance.UnmanagedStruct*,
+                TypeClass.UnmanagedStruct*,
+                void> instanceInit = default,
+            TypeValueTable* valueTable = default
+        )
         {
             this.classSize = classSize;
             this.baseInit = baseInit;

@@ -20,11 +20,13 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestIsRunning()
         {
-            using (var mainLoop = new MainLoop(null, false)) {
+            using (var mainLoop = new MainLoop(null, false))
+            {
                 Assert.That(mainLoop.IsRunning, Is.False);
             }
 
-            using (var mainLoop = new MainLoop(null, true)) {
+            using (var mainLoop = new MainLoop(null, true))
+            {
                 Assert.That(mainLoop.IsRunning, Is.True);
             }
         }
@@ -32,7 +34,8 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestRunQuit()
         {
-            lock (MainContextTests.MainContextLock) {
+            lock (MainContextTests.MainContextLock)
+            {
                 using var mainLoop = new MainLoop();
                 Assume.That(!mainLoop.IsRunning);
                 var runTask = Task.Run(() => mainLoop.Run());

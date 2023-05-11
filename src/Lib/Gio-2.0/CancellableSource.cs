@@ -15,7 +15,8 @@ namespace GISharp.Lib.Gio
             Source.UnmanagedStruct* source,
             delegate* unmanaged[Cdecl]<Cancellable.UnmanagedStruct*, IntPtr, Runtime.Boolean> func,
             IntPtr data,
-            delegate* unmanaged[Cdecl]<IntPtr, void> notify);
+            delegate* unmanaged[Cdecl]<IntPtr, void> notify
+        );
 
         /// <summary>
         /// Sets the callback function for a <see cref="Source"/> created with
@@ -24,7 +25,11 @@ namespace GISharp.Lib.Gio
         public static void SetCallback(this Source source, CancellableSourceFunc func)
         {
             var source_ = (Source.UnmanagedStruct*)source.UnsafeHandle;
-            var func_ = (delegate* unmanaged[Cdecl]<Cancellable.UnmanagedStruct*, IntPtr, Runtime.Boolean>)&CancellableSourceFuncMarshal.Callback;
+            var func_ = (delegate* unmanaged[Cdecl]<
+                Cancellable.UnmanagedStruct*,
+                IntPtr,
+                Runtime.Boolean>)
+                &CancellableSourceFuncMarshal.Callback;
             var funcHandle = GCHandle.Alloc((func, CallbackScope.Notified));
             var data_ = (IntPtr)funcHandle;
             var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;

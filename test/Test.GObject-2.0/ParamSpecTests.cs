@@ -17,16 +17,21 @@ namespace GISharp.Test.GObject
     public class ParamSpecTests : IListTests<PtrArray<ParamSpec>, ParamSpec>
     {
         // Init for IListTests
-        public ParamSpecTests() : base(GetItemAt,
-            new ParamSpecBoolean("P0", "P0", "P0", false, ParamFlags.Readwrite),
-            new ParamSpecBoolean("P1", "P1", "P1", false, ParamFlags.Readwrite),
-            new ParamSpecBoolean("P2", "P2", "P2", false, ParamFlags.Readwrite),
-            new ParamSpecBoolean("P3", "P3", "P3", false, ParamFlags.Readwrite),
-            new ParamSpecBoolean("P4", "P4", "P4", false, ParamFlags.Readwrite))
-        {
-        }
+        public ParamSpecTests()
+            : base(
+                GetItemAt,
+                new ParamSpecBoolean("P0", "P0", "P0", false, ParamFlags.Readwrite),
+                new ParamSpecBoolean("P1", "P1", "P1", false, ParamFlags.Readwrite),
+                new ParamSpecBoolean("P2", "P2", "P2", false, ParamFlags.Readwrite),
+                new ParamSpecBoolean("P3", "P3", "P3", false, ParamFlags.Readwrite),
+                new ParamSpecBoolean("P4", "P4", "P4", false, ParamFlags.Readwrite)
+            ) { }
 
-        static T TestParamSpec<T>(GType type, Func<string, string, string, ParamFlags, T> instantiate) where T : ParamSpec
+        static T TestParamSpec<T>(
+            GType type,
+            Func<string, string, string, ParamFlags, T> instantiate
+        )
+            where T : ParamSpec
         {
             const ParamFlags flags = ParamFlags.Readwrite;
 
@@ -47,7 +52,10 @@ namespace GISharp.Test.GObject
             Assert.That(gtype, Is.EqualTo(GType.Param));
             Assert.That(gtype.Name, Is.EqualTo("GParam"));
             var info = (ObjectInfo)Repository.Default.FindByGtype(gtype);
-            Assert.That(Marshal.SizeOf<ParamSpecClass.UnmanagedStruct>(), Is.EqualTo(info.ClassStruct!.Size));
+            Assert.That(
+                Marshal.SizeOf<ParamSpecClass.UnmanagedStruct>(),
+                Is.EqualTo(info.ClassStruct!.Size)
+            );
         }
 
         [Test]
@@ -55,8 +63,11 @@ namespace GISharp.Test.GObject
         {
             const bool defaultValue = true;
 
-            var param = TestParamSpec(GType.Boolean, (name, nick, blurb, flags) =>
-                                      new ParamSpecBoolean(name, nick, blurb, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.Boolean,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecBoolean(name, nick, blurb, defaultValue, flags)
+            );
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamBoolean"));
         }
@@ -68,8 +79,11 @@ namespace GISharp.Test.GObject
             const sbyte max = 5;
             const sbyte defaultValue = 3;
 
-            var param = TestParamSpec(GType.Char, (name, nick, blurb, flags) =>
-                                      new ParamSpecChar(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.Char,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecChar(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -83,8 +97,11 @@ namespace GISharp.Test.GObject
             const byte max = 5;
             const byte defaultValue = 3;
 
-            var param = TestParamSpec(GType.UChar, (name, nick, blurb, flags) =>
-                                      new ParamSpecUChar(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.UChar,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecUChar(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -98,8 +115,11 @@ namespace GISharp.Test.GObject
             const int max = 5;
             const int defaultValue = 3;
 
-            var param = TestParamSpec(GType.Int, (name, nick, blurb, flags) =>
-                                      new ParamSpecInt(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.Int,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecInt(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -113,8 +133,11 @@ namespace GISharp.Test.GObject
             const uint max = 5;
             const uint defaultValue = 3;
 
-            var param = TestParamSpec(GType.UInt, (name, nick, blurb, flags) =>
-                                      new ParamSpecUInt(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.UInt,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecUInt(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -128,8 +151,11 @@ namespace GISharp.Test.GObject
             CLong max = new(5);
             CLong defaultValue = new(3);
 
-            var param = TestParamSpec(GType.Long, (name, nick, blurb, flags) =>
-                                      new ParamSpecLong(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.Long,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecLong(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -143,8 +169,11 @@ namespace GISharp.Test.GObject
             CULong max = new(5);
             CULong defaultValue = new(3);
 
-            var param = TestParamSpec(GType.ULong, (name, nick, blurb, flags) =>
-                                      new ParamSpecULong(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.ULong,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecULong(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -158,8 +187,11 @@ namespace GISharp.Test.GObject
             const long max = long.MaxValue - 1;
             const long defaultValue = long.MaxValue / 3;
 
-            var param = TestParamSpec(GType.Int64, (name, nick, blurb, flags) =>
-                                      new ParamSpecInt64(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.Int64,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecInt64(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -173,8 +205,11 @@ namespace GISharp.Test.GObject
             const ulong max = 5;
             const ulong defaultValue = 3;
 
-            var param = TestParamSpec(GType.UInt64, (name, nick, blurb, flags) =>
-                                      new ParamSpecUInt64(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.UInt64,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecUInt64(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -188,8 +223,11 @@ namespace GISharp.Test.GObject
             const float max = 5;
             const float defaultValue = 3;
 
-            var param = TestParamSpec(GType.Float, (name, nick, blurb, flags) =>
-                                      new ParamSpecFloat(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.Float,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecFloat(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -204,8 +242,11 @@ namespace GISharp.Test.GObject
             const double max = 5;
             const double defaultValue = 3;
 
-            var param = TestParamSpec(GType.Double, (name, nick, blurb, flags) =>
-                                      new ParamSpecDouble(name, nick, blurb, min, max, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.Double,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecDouble(name, nick, blurb, min, max, defaultValue, flags)
+            );
             Assert.That(param.Minimum, Is.EqualTo(min));
             Assert.That(param.Maximum, Is.EqualTo(max));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
@@ -228,8 +269,11 @@ namespace GISharp.Test.GObject
             var gtype = typeof(TestEnum).ToGType();
             Assume.That(gtype.IsA(GType.Enum));
 
-            var param = TestParamSpec(gtype, (name, nick, blurb, flags) =>
-                                      new ParamSpecEnum(name, nick, blurb, gtype, defaultValue, flags));
+            var param = TestParamSpec(
+                gtype,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecEnum(name, nick, blurb, gtype, defaultValue, flags)
+            );
             Assert.That(param.EnumClass.GType, Is.EqualTo(gtype));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamEnum"));
@@ -251,8 +295,11 @@ namespace GISharp.Test.GObject
             var gtype = typeof(TestFlags).ToGType();
             Assume.That(gtype.IsA(GType.Flags));
 
-            var param = TestParamSpec(gtype, (name, nick, blurb, flags) =>
-                                      new ParamSpecFlags(name, nick, blurb, gtype, defaultValue, flags));
+            var param = TestParamSpec(
+                gtype,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecFlags(name, nick, blurb, gtype, defaultValue, flags)
+            );
             Assert.That(param.FlagsClass.GType, Is.EqualTo(gtype));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamFlags"));
@@ -263,8 +310,11 @@ namespace GISharp.Test.GObject
         {
             const string defaultValue = "default";
 
-            var param = TestParamSpec(GType.String, (name, nick, blurb, flags) =>
-                                      new ParamSpecString(name, nick, blurb, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.String,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecString(name, nick, blurb, defaultValue, flags)
+            );
             Assert.That<string>(param.DefaultValue, Is.EqualTo(defaultValue));
             Assert.That<string?>(param.CsetFirst, Is.Null);
             Assert.That<string?>(param.CsetNth, Is.Null);
@@ -280,8 +330,10 @@ namespace GISharp.Test.GObject
             var gtype = typeof(ParamSpecBoolean).ToGType();
             Assume.That(gtype.IsA(GType.Param));
 
-            var param = TestParamSpec(gtype, (name, nick, blurb, flags) =>
-                                      new ParamSpecParam(name, nick, blurb, gtype, flags));
+            var param = TestParamSpec(
+                gtype,
+                (name, nick, blurb, flags) => new ParamSpecParam(name, nick, blurb, gtype, flags)
+            );
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamParam"));
         }
 
@@ -291,24 +343,31 @@ namespace GISharp.Test.GObject
             var gtype = typeof(Strv).ToGType();
             Assume.That(gtype.IsA(GType.Boxed));
 
-            var param = TestParamSpec(gtype, (name, nick, blurb, flags) =>
-                                      new ParamSpecBoxed(name, nick, blurb, gtype, flags));
+            var param = TestParamSpec(
+                gtype,
+                (name, nick, blurb, flags) => new ParamSpecBoxed(name, nick, blurb, gtype, flags)
+            );
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamBoxed"));
         }
 
         [Test]
         public void TestParamSpecPointer()
         {
-            var param = TestParamSpec(GType.Pointer, (name, nick, blurb, flags) =>
-                                      new ParamSpecPointer(name, nick, blurb, flags));
+            var param = TestParamSpec(
+                GType.Pointer,
+                (name, nick, blurb, flags) => new ParamSpecPointer(name, nick, blurb, flags)
+            );
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamPointer"));
         }
 
         [Test]
         public void TestParamSpecObject()
         {
-            var param = TestParamSpec(GType.Object, (name, nick, blurb, flags) =>
-                                      new ParamSpecObject(name, nick, blurb, GType.Object, flags));
+            var param = TestParamSpec(
+                GType.Object,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecObject(name, nick, blurb, GType.Object, flags)
+            );
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamObject"));
         }
 
@@ -317,8 +376,11 @@ namespace GISharp.Test.GObject
         {
             var defaultValue = new Rune(' ');
 
-            var param = TestParamSpec(GType.UInt, (name, nick, blurb, flags) =>
-                                      new ParamSpecUnichar(name, nick, blurb, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.UInt,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecUnichar(name, nick, blurb, defaultValue, flags)
+            );
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamUnichar"));
         }
@@ -328,8 +390,10 @@ namespace GISharp.Test.GObject
         {
             var isAType = GType.Boolean;
 
-            var param = TestParamSpec(GType.Type, (name, nick, blurb, flags) =>
-                                      new ParamSpecGType(name, nick, blurb, isAType, flags));
+            var param = TestParamSpec(
+                GType.Type,
+                (name, nick, blurb, flags) => new ParamSpecGType(name, nick, blurb, isAType, flags)
+            );
             Assert.That(param.IsAType, Is.EqualTo(isAType));
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamGType"));
         }
@@ -339,8 +403,18 @@ namespace GISharp.Test.GObject
         {
             var defaultValue = new Variant(true);
 
-            var param = TestParamSpec(GType.Variant, (name, nick, blurb, flags) =>
-                                      new ParamSpecVariant(name, nick, blurb, VariantType.Boolean, defaultValue, flags));
+            var param = TestParamSpec(
+                GType.Variant,
+                (name, nick, blurb, flags) =>
+                    new ParamSpecVariant(
+                        name,
+                        nick,
+                        blurb,
+                        VariantType.Boolean,
+                        defaultValue,
+                        flags
+                    )
+            );
             Assert.That(param.VariantType, Is.EqualTo(VariantType.Boolean));
             Assert.That(param.DefaultValue, Is.EqualTo(defaultValue));
             Assert.That(param.GetGType().Name, Is.EqualTo("GParamVariant"));

@@ -12,7 +12,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestQuark()
         {
-            Assert.That(default(OptionError).GetGErrorDomain(), Is.EqualTo(OptionErrorDomain.Quark));
+            Assert.That(
+                default(OptionError).GetGErrorDomain(),
+                Is.EqualTo(OptionErrorDomain.Quark)
+            );
         }
     }
 }

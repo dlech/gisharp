@@ -11,8 +11,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new UnownedUtf8 DefaultValue {
-            get {
+        public new UnownedUtf8 DefaultValue
+        {
+            get
+            {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
                 var ret = new UnownedUtf8((IntPtr)ret_, -1);
                 return ret;
@@ -22,8 +24,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// a string containing the allowed values for the first byte
         /// </summary>
-        public NullableUnownedUtf8 CsetFirst {
-            get {
+        public NullableUnownedUtf8 CsetFirst
+        {
+            get
+            {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->CsetFirst;
                 var ret = new NullableUnownedUtf8((IntPtr)ret_, -1);
                 return ret;
@@ -33,8 +37,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// a string containing the allowed values for the subsequent bytes
         /// </summary>
-        public NullableUnownedUtf8 CsetNth {
-            get {
+        public NullableUnownedUtf8 CsetNth
+        {
+            get
+            {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->CsetNth;
                 var ret = new NullableUnownedUtf8((IntPtr)ret_, -1);
                 return ret;
@@ -52,8 +58,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// replace empty string by <c>null</c>
         /// </summary>
-        public bool NullFoldIfEmpty {
-            get {
+        public bool NullFoldIfEmpty
+        {
+            get
+            {
                 var ret = Convert.ToBoolean(Bitfield & 0x1);
                 return ret;
             }
@@ -62,8 +70,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// replace <c>null</c> strings by an empty string
         /// </summary>
-        public bool EnsureNonNull {
-            get {
+        public bool EnsureNonNull
+        {
+            get
+            {
                 var ret = Convert.ToBoolean(Bitfield & 0x2);
                 return ret;
             }

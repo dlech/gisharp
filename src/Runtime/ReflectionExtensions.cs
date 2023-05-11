@@ -24,17 +24,24 @@ namespace GISharp.Runtime
         public static PropertyInfo? TryGetMatchingInterfacePropertyInfo(this PropertyInfo info)
         {
             var accessor = info.GetGetMethod() ?? info.GetSetMethod();
-            var interfaceMapping = info.DeclaringType!.GetInterfaces()
+            var interfaceMapping = info.DeclaringType!
+                .GetInterfaces()
                 .Select(t => info.DeclaringType.GetInterfaceMap(t))
                 .SingleOrDefault(m => m.TargetMethods.Contains(accessor));
-            if (interfaceMapping.Equals(default(InterfaceMapping))) {
+            if (interfaceMapping.Equals(default(InterfaceMapping)))
+            {
                 return null;
             }
 
             MethodInfo match = interfaceMapping.InterfaceMethods
-                .Select((m, i) => new Tuple<MethodInfo, MethodInfo>(m, interfaceMapping.TargetMethods[i]))
-                .Single(t => t.Item2 == accessor).Item1;
-            var propInfo = interfaceMapping.InterfaceType.GetProperties()
+                .Select(
+                    (m, i) =>
+                        new Tuple<MethodInfo, MethodInfo>(m, interfaceMapping.TargetMethods[i])
+                )
+                .Single(t => t.Item2 == accessor)
+                .Item1;
+            var propInfo = interfaceMapping.InterfaceType
+                .GetProperties()
                 .Single(p => p.GetAccessors().Contains(match));
 
             return propInfo;
@@ -51,9 +58,10 @@ namespace GISharp.Runtime
         public static string? TryGetGPropertyName(this PropertyInfo info)
         {
             var propAttr = info.GetCustomAttribute<GPropertyAttribute>(true);
-            if (propAttr is null) {
-                propAttr = info.TryGetMatchingInterfacePropertyInfo()?
-                    .GetCustomAttribute<GPropertyAttribute>();
+            if (propAttr is null)
+            {
+                propAttr = info.TryGetMatchingInterfacePropertyInfo()
+                    ?.GetCustomAttribute<GPropertyAttribute>();
             }
             return propAttr?.Name ?? info.Name;
         }

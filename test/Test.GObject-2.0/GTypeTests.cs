@@ -188,10 +188,14 @@ namespace GISharp.Test.GObject
         public void TestFromName()
         {
             Assert.That(GType.FromName("void"), Is.EqualTo(GType.None));
-            Assert.That(GType.FromName("there-should-never-be-a-type-with-this-name"),
-                         Is.EqualTo(GType.Invalid));
-            Assert.That(() => GType.FromName("name has invalid characters"),
-                         Throws.ArgumentException);
+            Assert.That(
+                GType.FromName("there-should-never-be-a-type-with-this-name"),
+                Is.EqualTo(GType.Invalid)
+            );
+            Assert.That(
+                () => GType.FromName("name has invalid characters"),
+                Throws.ArgumentException
+            );
         }
 
         [Test]
@@ -236,35 +240,49 @@ namespace GISharp.Test.GObject
 
             var asmBuilder = AssemblyBuilder.DefineDynamicAssembly(
                 new AssemblyName(testName + "_assembly"),
-                AssemblyBuilderAccess.Run);
+                AssemblyBuilderAccess.Run
+            );
             var modBuilder = asmBuilder.DefineDynamicModule(testName + "_module");
-            var typeBuilder = modBuilder.DefineType(testName + "_type",
-                TypeAttributes.Public);
+            var typeBuilder = modBuilder.DefineType(testName + "_type", TypeAttributes.Public);
             var gtypeAttribute = typeof(GTypeAttribute);
-            typeBuilder.SetCustomAttribute(new CustomAttributeBuilder(
-                gtypeAttribute.GetConstructors().Single(),
-                new object[] { dummyTypeName },
-                new PropertyInfo[] {
-                    gtypeAttribute.GetProperty("IsProxyForUnmanagedType")!,
-                },
-                new object[] {
-                    true, // IsProxyForUnmanagedType
-                }));
+            typeBuilder.SetCustomAttribute(
+                new CustomAttributeBuilder(
+                    gtypeAttribute.GetConstructors().Single(),
+                    new object[] { dummyTypeName },
+                    new PropertyInfo[] { gtypeAttribute.GetProperty("IsProxyForUnmanagedType")!, },
+                    new object[]
+                    {
+                        true, // IsProxyForUnmanagedType
+                    }
+                )
+            );
             var gtypeStructAttribute = typeof(GTypeStructAttribute);
-            typeBuilder.SetCustomAttribute(new CustomAttributeBuilder(
-                gtypeStructAttribute.GetConstructors().Single(),
-                new object[] { typeof(ObjectClass) },
-                System.Array.Empty<FieldInfo>(), System.Array.Empty<object>()));
+            typeBuilder.SetCustomAttribute(
+                new CustomAttributeBuilder(
+                    gtypeStructAttribute.GetConstructors().Single(),
+                    new object[] { typeof(ObjectClass) },
+                    System.Array.Empty<FieldInfo>(),
+                    System.Array.Empty<object>()
+                )
+            );
 
             // define a private static readonly field named _GType
-            var gtypeField = typeBuilder.DefineField("_GType", typeof(GType),
-                FieldAttributes.Private | FieldAttributes.Static | FieldAttributes.InitOnly);
+            var gtypeField = typeBuilder.DefineField(
+                "_GType",
+                typeof(GType),
+                FieldAttributes.Private | FieldAttributes.Static | FieldAttributes.InitOnly
+            );
 
             // define a static constructor that sets the value of _GType to GetDummyGType()
-            var staticCtor = typeBuilder.DefineConstructor(MethodAttributes.Private |
-                MethodAttributes.HideBySig | MethodAttributes.SpecialName |
-                MethodAttributes.RTSpecialName | MethodAttributes.Static,
-                CallingConventions.Standard, null);
+            var staticCtor = typeBuilder.DefineConstructor(
+                MethodAttributes.Private
+                    | MethodAttributes.HideBySig
+                    | MethodAttributes.SpecialName
+                    | MethodAttributes.RTSpecialName
+                    | MethodAttributes.Static,
+                CallingConventions.Standard,
+                null
+            );
             var getDummyGType = GetType().GetMethod(nameof(GetDummyGType))!;
             var generator = staticCtor.GetILGenerator();
             generator.Emit(OpCodes.Call, getDummyGType);
@@ -281,12 +299,20 @@ namespace GISharp.Test.GObject
 
         const string dummyTypeName = "GTypeTestDummyType";
         static GType _dummyGType;
+
         public static GType GetDummyGType()
         {
-            if (_dummyGType == GType.Invalid) {
-                _dummyGType = g_type_register_static_simple(GType.Object,
+            if (_dummyGType == GType.Invalid)
+            {
+                _dummyGType = g_type_register_static_simple(
+                    GType.Object,
                     GMarshal.StringToUtf8Ptr(dummyTypeName),
-                    new UIntPtr(256), IntPtr.Zero, new UIntPtr(32), IntPtr.Zero, 0);
+                    new UIntPtr(256),
+                    IntPtr.Zero,
+                    new UIntPtr(32),
+                    IntPtr.Zero,
+                    0
+                );
             }
 
             return _dummyGType;
@@ -300,6 +326,7 @@ namespace GISharp.Test.GObject
             IntPtr classInit,
             UIntPtr instanceSize,
             IntPtr instanceInit,
-            uint flags);
+            uint flags
+        );
     }
 }

@@ -15,13 +15,18 @@ namespace GISharp.CodeGen.Syntax
 {
     public static class VirtualMethodExtensions
     {
-        public static IEnumerable<MethodDeclarationSyntax> GetClassMembers(this VirtualMethod method)
+        public static IEnumerable<MethodDeclarationSyntax> GetClassMembers(
+            this VirtualMethod method
+        )
         {
             var delcaringType = (GIRegisteredType)method.ParentNode;
             var gtypeStruct = delcaringType.GTypeStructNode;
             var field = gtypeStruct.Fields.Single(x => x.GirName == method.GirName);
-            var type = ParseTypeName($"{gtypeStruct.ManagedName}.Unmanaged{field.Callback.ManagedName}");
-            var invoker = $"GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<{type}>(_GType)!";
+            var type = ParseTypeName(
+                $"{gtypeStruct.ManagedName}.Unmanaged{field.Callback.ManagedName}"
+            );
+            var invoker =
+                $"GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<{type}>(_GType)!";
 
             var returnType = method.ReturnValue.GetManagedTypeName();
 
@@ -30,12 +35,17 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(ProtectedKeyword), Token(VirtualKeyword))
                 .WithParameterList(method.ManagedParameters.GetParameterList())
                 .WithBody(method.GetInvokeBlock(invoker, checkArgs: false))
-                .WithLeadingTrivia(TriviaList()
-                    .AddRange(method.Doc.GetDocCommentTrivia())
-                    .AddRange(method.ManagedParameters.RegularParameters
-                        .SelectMany(x => x.Doc.GetDocCommentTrivia()))
-                    .AddRange(method.ReturnValue.Doc.GetDocCommentTrivia())
-                    .AddRange(method.GetGErrorExceptionDocCommentTrivia()))
+                .WithLeadingTrivia(
+                    TriviaList()
+                        .AddRange(method.Doc.GetDocCommentTrivia())
+                        .AddRange(
+                            method.ManagedParameters.RegularParameters.SelectMany(
+                                x => x.Doc.GetDocCommentTrivia()
+                            )
+                        )
+                        .AddRange(method.ReturnValue.Doc.GetDocCommentTrivia())
+                        .AddRange(method.GetGErrorExceptionDocCommentTrivia())
+                )
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             yield return syntax;
@@ -51,12 +61,17 @@ namespace GISharp.CodeGen.Syntax
                 .WithAttributeLists(method.GetAttributeLists())
                 .WithParameterList(method.ManagedParameters.GetParameterList())
                 .WithSemicolonToken(Token(SemicolonToken))
-                .WithLeadingTrivia(TriviaList()
-                    .AddRange(method.Doc.GetDocCommentTrivia())
-                    .AddRange(method.ManagedParameters.RegularParameters
-                        .SelectMany(x => x.Doc.GetDocCommentTrivia()))
-                    .AddRange(method.ReturnValue.Doc.GetDocCommentTrivia())
-                    .AddRange(method.GetGErrorExceptionDocCommentTrivia()))
+                .WithLeadingTrivia(
+                    TriviaList()
+                        .AddRange(method.Doc.GetDocCommentTrivia())
+                        .AddRange(
+                            method.ManagedParameters.RegularParameters.SelectMany(
+                                x => x.Doc.GetDocCommentTrivia()
+                            )
+                        )
+                        .AddRange(method.ReturnValue.Doc.GetDocCommentTrivia())
+                        .AddRange(method.GetGErrorExceptionDocCommentTrivia())
+                )
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
@@ -67,16 +82,16 @@ namespace GISharp.CodeGen.Syntax
             var delcaringType = (GIRegisteredType)method.ParentNode;
             var gtypeStruct = delcaringType.GTypeStructNode;
             var field = gtypeStruct.Fields.Single(x => x.GirName == method.GirName);
-            var type = ParseTypeName($"{gtypeStruct.ManagedName}.Unmanaged{field.Callback.ManagedName}");
+            var type = ParseTypeName(
+                $"{gtypeStruct.ManagedName}.Unmanaged{field.Callback.ManagedName}"
+            );
             var typeArg = AttributeArgument(TypeOfExpression(type));
 
             // TODO: there is an unused GIR attribute must-chain-up="1" that
             // could be turned into a parameter to GVirtualMethodAttribute
 
-            var attr = Attribute(ParseName(attrName))
-                .AddArgumentListArguments(typeArg);
-            var list = method.GetCommonAttributeLists()
-                .Add(AttributeList().AddAttributes(attr));
+            var attr = Attribute(ParseName(attrName)).AddArgumentListArguments(typeArg);
+            var list = method.GetCommonAttributeLists().Add(AttributeList().AddAttributes(attr));
 
             return list;
         }
@@ -85,20 +100,28 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the member declarations for the virtual methods, logging a warning
         /// for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<VirtualMethod> methods, bool forInterface = false)
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(
+            this IEnumerable<VirtualMethod> methods,
+            bool forInterface = false
+        )
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var method in methods) {
-                try {
-                    if (forInterface) {
+            foreach (var method in methods)
+            {
+                try
+                {
+                    if (forInterface)
+                    {
                         list = list.Add(method.GetInterfaceDeclaration());
                     }
-                    else {
+                    else
+                    {
                         list = list.AddRange(method.GetClassMembers());
                     }
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     method.LogException(ex);
                 }
             }

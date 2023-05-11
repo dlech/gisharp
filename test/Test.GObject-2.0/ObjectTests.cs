@@ -22,7 +22,10 @@ namespace GISharp.Test.GObject
             Assert.That(gtype, Is.EqualTo(GType.Object));
             Assert.That(gtype.Name, Is.EqualTo("GObject"));
             var info = (ObjectInfo)Repository.Default.FindByGtype(gtype);
-            Assert.That(Marshal.SizeOf<ObjectClass.UnmanagedStruct>(), Is.EqualTo(info.ClassStruct!.Size));
+            Assert.That(
+                Marshal.SizeOf<ObjectClass.UnmanagedStruct>(),
+                Is.EqualTo(info.ClassStruct!.Size)
+            );
         }
 
         [Test]
@@ -33,7 +36,8 @@ namespace GISharp.Test.GObject
 
             // getting an object that already exists should return that object
             var o2 = Object.GetInstance(handle, Transfer.None)!;
-            try {
+            try
+            {
                 Assert.That(ReferenceEquals(o1, o2), Is.True);
 
                 // Simulate unmanaged code taking a reference so that the handle is
@@ -56,7 +60,8 @@ namespace GISharp.Test.GObject
                 o2 = Object.GetInstance(handle, Transfer.Full)!;
                 Assert.That(ReferenceEquals(o1, o2), Is.False);
             }
-            finally {
+            finally
+            {
                 o2.Dispose();
             }
         }
@@ -76,7 +81,8 @@ namespace GISharp.Test.GObject
             // Now for the actual test.
 
             IntPtr handle = IntPtr.Zero;
-            new Action(() => {
+            new Action(() =>
+            {
                 var o = new Object();
                 weakRef = new(o);
                 // Simulate unmanaged code taking a reference. This should trigger
@@ -105,12 +111,10 @@ namespace GISharp.Test.GObject
             // type system.
 
             // Objects without the GType attribute will fail.
-            Assert.That(() => typeof(TestObject1).ToGType(),
-                Throws.ArgumentException);
+            Assert.That(() => typeof(TestObject1).ToGType(), Throws.ArgumentException);
 
             // Objects that do not inherit from GISharp.Lib.GObject.Object fail
-            Assert.That(() => typeof(TestObject2).ToGType(),
-                Throws.ArgumentException);
+            Assert.That(() => typeof(TestObject2).ToGType(), Throws.ArgumentException);
 
             // this one should actually work since it is setup correctly
             var testObject3GType = typeof(TestObject3).ToGType();
@@ -147,12 +151,18 @@ namespace GISharp.Test.GObject
 
             Assert.That(((TestObjectPropertiesBase)obj).IntValue, Is.EqualTo(0));
 
-            using var baseObjClass = (ObjectClass)TypeClass.Get(typeof(TestObjectPropertiesBase).ToGType());
-            using var subclassObjClass = (ObjectClass)TypeClass.Get(typeof(TestObjectPropertiesSubclass).ToGType());
+            using var baseObjClass = (ObjectClass)
+                TypeClass.Get(typeof(TestObjectPropertiesBase).ToGType());
+            using var subclassObjClass = (ObjectClass)
+                TypeClass.Get(typeof(TestObjectPropertiesSubclass).ToGType());
             using (var baseIntValueProp = baseObjClass.FindProperty(nameof(obj.IntValue))!)
-            using (var subclassIntValueProp = subclassObjClass.FindProperty(nameof(obj.IntValue))!) {
+            using (var subclassIntValueProp = subclassObjClass.FindProperty(nameof(obj.IntValue))!)
+            {
                 // ...so ParamSpecs should not be the same
-                Assert.That(baseIntValueProp.UnsafeHandle, Is.Not.EqualTo(subclassIntValueProp.UnsafeHandle));
+                Assert.That(
+                    baseIntValueProp.UnsafeHandle,
+                    Is.Not.EqualTo(subclassIntValueProp.UnsafeHandle)
+                );
             }
 
             // But the override keyword replaces property...
@@ -164,7 +174,10 @@ namespace GISharp.Test.GObject
             using var baseBoolValueProp = baseObjClass.FindProperty("bool-value")!;
             using var subclassBoolValueProp = subclassObjClass.FindProperty("bool-value")!;
             // ...so ParamSpecs should be the same
-            Assert.That(baseBoolValueProp.UnsafeHandle, Is.EqualTo(subclassBoolValueProp.UnsafeHandle));
+            Assert.That(
+                baseBoolValueProp.UnsafeHandle,
+                Is.EqualTo(subclassBoolValueProp.UnsafeHandle)
+            );
         }
 
         [Test]
@@ -173,7 +186,8 @@ namespace GISharp.Test.GObject
             using var obj = TestObjectPropertiesBase.New();
             var notificationCount = 0;
 
-            ((INotifyPropertyChanged)obj).PropertyChanged += (sender, e) => {
+            ((INotifyPropertyChanged)obj).PropertyChanged += (sender, e) =>
+            {
                 Assert.That(e.PropertyName == nameof(obj.DoubleValue));
                 notificationCount++;
             };
@@ -203,12 +217,24 @@ namespace GISharp.Test.GObject
             // check that ComponentModel attributes map to ParamSpec
             using (var baseObj = TestObjectPropertiesBase.New())
             using (var baseObjClass = TypeClass.GetInstance<ObjectClass>(baseObj.GetGType()))
-            using (var basePspec = baseObjClass.FindProperty("bool-value")!) {
-                Assert.That<string>(basePspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
-                Assert.That<string>(basePspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
-                Assert.That<string?>(basePspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
-                Assert.That(basePspec.DefaultValue.Get(),
-                    Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
+            using (var basePspec = baseObjClass.FindProperty("bool-value")!)
+            {
+                Assert.That<string>(
+                    basePspec.Name,
+                    Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName)
+                );
+                Assert.That<string>(
+                    basePspec.Nick,
+                    Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick)
+                );
+                Assert.That<string?>(
+                    basePspec.Blurb,
+                    Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb)
+                );
+                Assert.That(
+                    basePspec.DefaultValue.Get(),
+                    Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyDefaultValue)
+                );
             }
 
             // The subclass will inherit the values of the parent class.
@@ -217,11 +243,22 @@ namespace GISharp.Test.GObject
             using var subObj = TestObjectPropertiesSubclass.New();
             using var subObjClass = TypeClass.GetInstance<ObjectClass>(subObj.GetGType());
             using var subPspec = subObjClass.FindProperty("bool-value")!;
-            Assert.That<string>(subPspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
-            Assert.That<string>(subPspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
-            Assert.That<string?>(subPspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
-            Assert.That(subPspec.DefaultValue.Get(),
-                Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
+            Assert.That<string>(
+                subPspec.Name,
+                Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName)
+            );
+            Assert.That<string>(
+                subPspec.Nick,
+                Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick)
+            );
+            Assert.That<string?>(
+                subPspec.Blurb,
+                Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb)
+            );
+            Assert.That(
+                subPspec.DefaultValue.Get(),
+                Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyDefaultValue)
+            );
         }
 
         [Test]
@@ -232,9 +269,7 @@ namespace GISharp.Test.GObject
             Assume.That(id, Is.Not.Zero);
             Assume.That(() => Signal.HandlerFind(obj, id), Throws.Exception);
 
-            static void notify(Object gobject, ParamSpec pspec)
-            {
-            }
+            static void notify(Object gobject, ParamSpec pspec) { }
 
             // adding event handler should connect signal
             obj.NotifySignal += notify;
@@ -263,15 +298,11 @@ namespace GISharp.Test.GObject
         }
 
         // This will fail because it lacks the GTypeAttribute
-        class TestObject1 : Object
-        {
-        }
+        class TestObject1 : Object { }
 
         // This will fail because it does not inherit from GISharp.Lib.GObject.Object
         [GType]
-        class TestObject2
-        {
-        }
+        class TestObject2 { }
 
         [GType]
         class TestObject3 : Object
@@ -282,9 +313,8 @@ namespace GISharp.Test.GObject
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public TestObject3(IntPtr handle, Transfer ownership) : base(handle, ownership)
-            {
-            }
+            public TestObject3(IntPtr handle, Transfer ownership)
+                : base(handle, ownership) { }
         }
 
         [GType]
@@ -305,12 +335,13 @@ namespace GISharp.Test.GObject
             public virtual bool BoolValue { get; set; } = BoolValuePropertyDefaultValue;
 
             double _DoubleValue;
+
             [GProperty]
-            public double DoubleValue {
-                get {
-                    return _DoubleValue;
-                }
-                set {
+            public double DoubleValue
+            {
+                get { return _DoubleValue; }
+                set
+                {
                     _DoubleValue = value;
                     Notify(nameof(DoubleValue));
                 }
@@ -325,9 +356,8 @@ namespace GISharp.Test.GObject
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public TestObjectPropertiesBase(IntPtr handle, Transfer ownership) : base(handle, ownership)
-            {
-            }
+            public TestObjectPropertiesBase(IntPtr handle, Transfer ownership)
+                : base(handle, ownership) { }
         }
 
         [GType]
@@ -349,9 +379,8 @@ namespace GISharp.Test.GObject
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public TestObjectPropertiesSubclass(IntPtr handle, Transfer ownership) : base(handle, ownership)
-            {
-            }
+            public TestObjectPropertiesSubclass(IntPtr handle, Transfer ownership)
+                : base(handle, ownership) { }
         }
 
         [GType]
@@ -361,6 +390,7 @@ namespace GISharp.Test.GObject
             public event Action? EventHappened;
 
             readonly uint eventHappendSignalId;
+
             public void OnEventHappened()
             {
                 this.Emit(eventHappendSignalId);
@@ -372,7 +402,8 @@ namespace GISharp.Test.GObject
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
-            public TestObjectSignal(IntPtr handle, Transfer ownership) : base(handle, ownership)
+            public TestObjectSignal(IntPtr handle, Transfer ownership)
+                : base(handle, ownership)
             {
                 eventHappendSignalId = Signal.Lookup<TestObjectSignal>(nameof(EventHappened));
             }

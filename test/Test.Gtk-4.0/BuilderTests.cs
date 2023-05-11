@@ -27,8 +27,10 @@ namespace GISharp.Test.Gtk
         [Test]
         public void BuilderErrorQuark()
         {
-            Assert.That(BuilderError.InvalidTypeFunction.GetGErrorDomain(),
-                Is.EqualTo(BuilderErrorDomain.Quark));
+            Assert.That(
+                BuilderError.InvalidTypeFunction.GetGErrorDomain(),
+                Is.EqualTo(BuilderErrorDomain.Quark)
+            );
         }
     }
 }

@@ -26,7 +26,8 @@ namespace GISharp.Lib.GLib
             public override void Post(SendOrPostCallback d, object? state)
             {
                 using var source = IdleSource.New();
-                source.SetCallback(() => {
+                source.SetCallback(() =>
+                {
                     d.Invoke(state);
                     return Source.Remove;
                 });
@@ -35,7 +36,8 @@ namespace GISharp.Lib.GLib
 
             public override void Send(SendOrPostCallback d, object? state)
             {
-                context.Invoke(() => {
+                context.Invoke(() =>
+                {
                     d.Invoke(state);
                     return Source.Remove;
                 });
@@ -54,9 +56,12 @@ namespace GISharp.Lib.GLib
         /// ...should be called once at the begining of a program so that async
         /// function callbacks will run in the default GLib main context.
         /// </remarks>
-        public SynchronizationContext SynchronizationContext {
-            get {
-                if (_SynchronizationContext is null) {
+        public SynchronizationContext SynchronizationContext
+        {
+            get
+            {
+                if (_SynchronizationContext is null)
+                {
                     _SynchronizationContext = new(this);
                 }
                 return _SynchronizationContext;

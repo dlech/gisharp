@@ -19,13 +19,16 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Variant(IntPtr handle, Transfer ownership) : base(handle)
+        public Variant(IntPtr handle, Transfer ownership)
+            : base(handle)
         {
-            if (ownership == Transfer.None) {
+            if (ownership == Transfer.None)
+            {
                 g_variant_ref_sink((UnmanagedStruct*)handle);
                 GMarshal.PopUnhandledException();
             }
-            else {
+            else
+            {
                 g_variant_take_ref((UnmanagedStruct*)handle);
                 GMarshal.PopUnhandledException();
             }
@@ -35,7 +38,11 @@ namespace GISharp.Lib.GLib
         static IntPtr Copy(IntPtr value) => (IntPtr)g_variant_ref((UnmanagedStruct*)value);
 
         [PtrArrayFreeFunc]
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl, EntryPoint = "g_variant_unref")]
+        [DllImport(
+            "glib-2.0",
+            CallingConvention = CallingConvention.Cdecl,
+            EntryPoint = "g_variant_unref"
+        )]
         static extern void Free(UnmanagedStruct* value);
 
         /// <summary>
@@ -44,10 +51,14 @@ namespace GISharp.Lib.GLib
         /// entries.  It is an error to call this function on any other type of
         /// <see cref="Variant"/>.
         /// </summary>
-        public IndexedCollection<Variant> ChildValues {
-            get {
-                if (childValues is null) {
-                    if (!Type.IsContainer) {
+        public IndexedCollection<Variant> ChildValues
+        {
+            get
+            {
+                if (childValues is null)
+                {
+                    if (!Type.IsContainer)
+                    {
                         throw new InvalidOperationException("Variant must be a container type");
                     }
                     childValues = new(NChildren, GetChildValue);
@@ -58,7 +69,8 @@ namespace GISharp.Lib.GLib
 
         private UnownedUtf8 GetString()
         {
-            if (!IsOfType(VariantType.String)) {
+            if (!IsOfType(VariantType.String))
+            {
                 throw new InvalidOperationException();
             }
             var value_ = (UnmanagedStruct*)UnsafeHandle;
@@ -70,7 +82,8 @@ namespace GISharp.Lib.GLib
 
         private DBusObjectPath DupDBusObjectPath()
         {
-            if (!IsOfType(VariantType.DBusObjectPath)) {
+            if (!IsOfType(VariantType.DBusObjectPath))
+            {
                 throw new InvalidOperationException();
             }
             var value_ = (UnmanagedStruct*)UnsafeHandle;
@@ -82,7 +95,8 @@ namespace GISharp.Lib.GLib
 
         private DBusSignature DupDBusSignature()
         {
-            if (!IsOfType(VariantType.DBusSignature)) {
+            if (!IsOfType(VariantType.DBusSignature))
+            {
                 throw new InvalidOperationException();
             }
             var value_ = (UnmanagedStruct*)UnsafeHandle;
@@ -99,7 +113,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator bool(Variant value)
         {
-            if (value.Type != VariantType.Boolean) {
+            if (value.Type != VariantType.Boolean)
+            {
                 throw new InvalidCastException();
             }
             return value.Boolean;
@@ -118,7 +133,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator byte(Variant v)
         {
-            if (v.Type != VariantType.Byte) {
+            if (v.Type != VariantType.Byte)
+            {
                 throw new InvalidCastException();
             }
             return v.Byte;
@@ -137,7 +153,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator ByteString(Variant v)
         {
-            if (v.Type != VariantType.ByteString) {
+            if (v.Type != VariantType.ByteString)
+            {
                 throw new InvalidCastException();
             }
             return v.Bytestring;
@@ -156,7 +173,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator WeakZeroTerminatedCPtrArray<ByteString>?(Variant v)
         {
-            if (v.Type != VariantType.ByteStringArray) {
+            if (v.Type != VariantType.ByteStringArray)
+            {
                 throw new InvalidCastException();
             }
             return v.GetBytestringArray();
@@ -167,7 +185,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator Strv<ByteString>?(Variant v)
         {
-            if (v.Type != VariantType.ByteStringArray) {
+            if (v.Type != VariantType.ByteStringArray)
+            {
                 throw new InvalidCastException();
             }
             return v.DupBytestringArray();
@@ -202,7 +221,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator double(Variant v)
         {
-            if (v.Type != VariantType.Double) {
+            if (v.Type != VariantType.Double)
+            {
                 throw new InvalidCastException();
             }
             return v.Double;
@@ -222,7 +242,8 @@ namespace GISharp.Lib.GLib
 
         public static explicit operator DBusHandle(Variant v)
         {
-            if (v.Type != VariantType.DBusHandle) {
+            if (v.Type != VariantType.DBusHandle)
+            {
                 throw new InvalidCastException();
             }
             return v.Handle;
@@ -241,7 +262,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator short(Variant v)
         {
-            if (v.Type != VariantType.Int16) {
+            if (v.Type != VariantType.Int16)
+            {
                 throw new InvalidCastException();
             }
             return v.Int16;
@@ -260,7 +282,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator int(Variant v)
         {
-            if (v.Type != VariantType.Int32) {
+            if (v.Type != VariantType.Int32)
+            {
                 throw new InvalidCastException();
             }
             return v.Int32;
@@ -279,7 +302,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator long(Variant v)
         {
-            if (v.Type != VariantType.Int64) {
+            if (v.Type != VariantType.Int64)
+            {
                 throw new InvalidCastException();
             }
             return v.Int64;
@@ -298,7 +322,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator DBusObjectPath(Variant v)
         {
-            if (v.Type != VariantType.DBusObjectPath) {
+            if (v.Type != VariantType.DBusObjectPath)
+            {
                 throw new InvalidCastException();
             }
             return v.DupDBusObjectPath();
@@ -317,7 +342,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator DBusSignature(Variant v)
         {
-            if (v.Type != VariantType.DBusSignature) {
+            if (v.Type != VariantType.DBusSignature)
+            {
                 throw new InvalidCastException();
             }
             return v.DupDBusSignature();
@@ -338,7 +364,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator ValueTuple(Variant value)
         {
-            if (!value.IsOfType(VariantType.Unit)) {
+            if (!value.IsOfType(VariantType.Unit))
+            {
                 throw new InvalidCastException();
             }
             return default;
@@ -357,7 +384,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator WeakZeroTerminatedCPtrArray<DBusObjectPath>(Variant v)
         {
-            if (v.Type != VariantType.DBusObjectPathArray) {
+            if (v.Type != VariantType.DBusObjectPathArray)
+            {
                 throw new InvalidCastException();
             }
             return v.Objv;
@@ -384,7 +412,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator string(Variant v)
         {
-            if (v.Type != VariantType.String) {
+            if (v.Type != VariantType.String)
+            {
                 throw new InvalidCastException();
             }
             return v.GetString();
@@ -403,7 +432,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator WeakZeroTerminatedCPtrArray<Utf8>?(Variant v)
         {
-            if (v.Type != VariantType.StringArray) {
+            if (v.Type != VariantType.StringArray)
+            {
                 throw new InvalidCastException();
             }
             return v.Strv;
@@ -414,7 +444,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator Strv<Utf8>?(Variant v)
         {
-            if (v.Type != VariantType.StringArray) {
+            if (v.Type != VariantType.StringArray)
+            {
                 throw new InvalidCastException();
             }
             return v.DupStrv();
@@ -433,7 +464,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator ushort(Variant v)
         {
-            if (v.Type != VariantType.UInt16) {
+            if (v.Type != VariantType.UInt16)
+            {
                 throw new InvalidCastException();
             }
             return v.Uint16;
@@ -452,7 +484,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator uint(Variant v)
         {
-            if (v.Type != VariantType.UInt32) {
+            if (v.Type != VariantType.UInt32)
+            {
                 throw new InvalidCastException();
             }
             return v.Uint32;
@@ -471,7 +504,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator ulong(Variant v)
         {
-            if (v.Type != VariantType.UInt64) {
+            if (v.Type != VariantType.UInt64)
+            {
                 throw new InvalidCastException();
             }
             return v.Uint64;
@@ -490,7 +524,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator KeyValuePair<Variant, Variant>(Variant v)
         {
-            if (!v.Type.IsDictEntry) {
+            if (!v.Type.IsDictEntry)
+            {
                 throw new InvalidCastException();
             }
             return new KeyValuePair<Variant, Variant>(v.ChildValues[0], v.ChildValues[1]);
@@ -504,22 +539,40 @@ namespace GISharp.Lib.GLib
             return new Variant(value.Key, value.Value);
         }
 
-        static partial void CheckNewArrayArgs(VariantType? childType, UnownedCPtrArray<Variant> children)
+        static partial void CheckNewArrayArgs(
+            VariantType? childType,
+            UnownedCPtrArray<Variant> children
+        )
         {
-            if (childType is null && (children.Data.Length == 0)) {
-                throw new ArgumentException("Must specify child type when no children", nameof(childType));
+            if (childType is null && (children.Data.Length == 0))
+            {
+                throw new ArgumentException(
+                    "Must specify child type when no children",
+                    nameof(childType)
+                );
             }
-            if (childType is null && children.Data.Length == 0) {
+            if (childType is null && children.Data.Length == 0)
+            {
                 throw new ArgumentException("childType and children cannot both be null");
             }
-            if (children.Data.Length != 0) {
+            if (children.Data.Length != 0)
+            {
                 var testChildType = childType ?? children[0].Type;
-                foreach (var item in children) {
-                    if (item is null) {
-                        throw new ArgumentException("Array cannot have null elements", nameof(children));
+                foreach (var item in children)
+                {
+                    if (item is null)
+                    {
+                        throw new ArgumentException(
+                            "Array cannot have null elements",
+                            nameof(children)
+                        );
                     }
-                    if (item.Type != testChildType) {
-                        throw new ArgumentException("All children must have the same variant type.", nameof(children));
+                    if (item.Type != testChildType)
+                    {
+                        throw new ArgumentException(
+                            "All children must have the same variant type.",
+                            nameof(children)
+                        );
                     }
                 }
             }
@@ -570,13 +623,12 @@ namespace GISharp.Lib.GLib
         /// strings.
         /// </summary>
         public Variant(UnownedZeroTerminatedCPtrArray<ByteString> value)
-            : this((IntPtr)NewBytestringArray(value), Transfer.None)
-        {
-        }
+            : this((IntPtr)NewBytestringArray(value), Transfer.None) { }
 
         static partial void CheckNewDictEntryArgs(Variant key, Variant value)
         {
-            if (!key.Type.IsBasic) {
+            if (!key.Type.IsBasic)
+            {
                 throw new ArgumentException("Key must be a basic variant type.", nameof(key));
             }
         }
@@ -588,9 +640,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         [Since("2.24")]
         public Variant(KeyValuePair<Variant, Variant> value)
-            : this(value.Key, value.Value)
-        {
-        }
+            : this(value.Key, value.Value) { }
 
         /// <summary>
         /// Constructs an array of strings #GVariant from the given array of
@@ -625,9 +675,8 @@ namespace GISharp.Lib.GLib
         /// an array of strings
         /// </param>
         [Since("2.24")]
-        public Variant(Strv<Utf8> strv) : this((IntPtr)NewStrv(strv), Transfer.None)
-        {
-        }
+        public Variant(Strv<Utf8> strv)
+            : this((IntPtr)NewStrv(strv), Transfer.None) { }
 
         /// <summary>
         /// Creates a new tuple #GVariant out of the items in @children.  The
@@ -652,11 +701,16 @@ namespace GISharp.Lib.GLib
             var children_ = stackalloc UnmanagedStruct*[children.Length];
             var nChildren_ = (nuint)children.Length;
 
-            for (var i = 0; i < children.Length; i++) {
+            for (var i = 0; i < children.Length; i++)
+            {
                 var child = (Variant?)children[i];
 
-                if (child is null) {
-                    throw new ArgumentException("Tuple cannot have null elements", nameof(children));
+                if (child is null)
+                {
+                    throw new ArgumentException(
+                        "Tuple cannot have null elements",
+                        nameof(children)
+                    );
                 }
 
                 children_[i] = (UnmanagedStruct*)child.UnsafeHandle;
@@ -682,9 +736,8 @@ namespace GISharp.Lib.GLib
         /// the items to make the tuple out of
         /// </param>
         [Since("2.24")]
-        public Variant(ITuple children) : this((IntPtr)NewTuple(children), Transfer.None)
-        {
-        }
+        public Variant(ITuple children)
+            : this((IntPtr)NewTuple(children), Transfer.None) { }
 
         /// <summary>
         /// Parses a #GVariant from a text representation.
@@ -735,7 +788,8 @@ namespace GISharp.Lib.GLib
             var text_ = (byte*)text.UnsafeHandle;
             var error_ = default(Error.UnmanagedStruct*);
             var ret = g_variant_parse(type_, text_, null, null, &error_);
-            if (error_ is not null) {
+            if (error_ is not null)
+            {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new Error.Exception(error);
             }
@@ -744,7 +798,8 @@ namespace GISharp.Lib.GLib
 
         static partial void CheckCompareArgs(Variant one, Variant two)
         {
-            if (one.Type != two.Type) {
+            if (one.Type != two.Type)
+            {
                 var message = $"Variant types must match but have '{one.Type}' and '{two.Type}'";
                 throw new InvalidOperationException(message);
             }
@@ -752,142 +807,168 @@ namespace GISharp.Lib.GLib
 
         partial void CheckGetBooleanArgs()
         {
-            if (!IsOfType(VariantType.Boolean)) {
+            if (!IsOfType(VariantType.Boolean))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetByteArgs()
         {
-            if (!IsOfType(VariantType.Byte)) {
+            if (!IsOfType(VariantType.Byte))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetBytestringArgs()
         {
-            if (!IsOfType(VariantType.ByteString)) {
+            if (!IsOfType(VariantType.ByteString))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetBytestringArrayArgs()
         {
-            if (!IsOfType(VariantType.ByteStringArray)) {
+            if (!IsOfType(VariantType.ByteStringArray))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckDupBytestringArrayArgs()
         {
-            if (!IsOfType(VariantType.ByteStringArray)) {
+            if (!IsOfType(VariantType.ByteStringArray))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetChildValueArgs(int index)
         {
-            if (!IsContainer) {
+            if (!IsContainer)
+            {
                 throw new InvalidOperationException();
             }
-            if (index < 0) {
+            if (index < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
         }
 
         partial void CheckGetDoubleArgs()
         {
-            if (!IsOfType(VariantType.Double)) {
+            if (!IsOfType(VariantType.Double))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetHandleArgs()
         {
-            if (!IsOfType(VariantType.DBusHandle)) {
+            if (!IsOfType(VariantType.DBusHandle))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetInt16Args()
         {
-            if (!IsOfType(VariantType.Int16)) {
+            if (!IsOfType(VariantType.Int16))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetInt32Args()
         {
-            if (!IsOfType(VariantType.Int32)) {
+            if (!IsOfType(VariantType.Int32))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetInt64Args()
         {
-            if (!IsOfType(VariantType.Int64)) {
+            if (!IsOfType(VariantType.Int64))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetMaybeArgs()
         {
-            if (!IsOfType(VariantType.Maybe)) {
+            if (!IsOfType(VariantType.Maybe))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetObjvArgs()
         {
-            if (!IsOfType(VariantType.DBusObjectPathArray)) {
+            if (!IsOfType(VariantType.DBusObjectPathArray))
+            {
                 throw new InvalidOperationException();
             }
         }
+
         partial void CheckGetStringArgs()
         {
-            if (!IsOfType(VariantType.String) && !IsOfType(VariantType.DBusObjectPath) && !IsOfType(VariantType.DBusSignature)) {
+            if (
+                !IsOfType(VariantType.String)
+                && !IsOfType(VariantType.DBusObjectPath)
+                && !IsOfType(VariantType.DBusSignature)
+            )
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetStrvArgs()
         {
-            if (!IsOfType(VariantType.StringArray)) {
+            if (!IsOfType(VariantType.StringArray))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckDupStrvArgs()
         {
-            if (!IsOfType(VariantType.StringArray)) {
+            if (!IsOfType(VariantType.StringArray))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetUint16Args()
         {
-            if (!IsOfType(VariantType.UInt16)) {
+            if (!IsOfType(VariantType.UInt16))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetUint32Args()
         {
-            if (!IsOfType(VariantType.UInt32)) {
+            if (!IsOfType(VariantType.UInt32))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetUint64Args()
         {
-            if (!IsOfType(VariantType.UInt64)) {
+            if (!IsOfType(VariantType.UInt64))
+            {
                 throw new InvalidOperationException();
             }
         }
 
         partial void CheckGetBoxedVariantArgs()
         {
-            if (!IsOfType(VariantType.Variant)) {
+            if (!IsOfType(VariantType.Variant))
+            {
                 throw new InvalidOperationException();
             }
         }
@@ -914,17 +995,21 @@ namespace GISharp.Lib.GLib
         public void Store(Span<byte> data)
         {
             var value_ = (UnmanagedStruct*)UnsafeHandle;
-            if (data.Length < Size) {
+            if (data.Length < Size)
+            {
                 throw new ArgumentException("Not large enough", nameof(data));
             }
-            fixed (void* data_ = data) {
+            fixed (void* data_ = data)
+            {
                 g_variant_store(value_, (IntPtr)data_);
                 GMarshal.PopUnhandledException();
             }
         }
 
         private IEnumerator<Variant> GetEnumerator() => new VariantIter(this);
+
         IEnumerator<Variant> IEnumerable<Variant>.GetEnumerator() => GetEnumerator();
+
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
@@ -964,7 +1049,13 @@ namespace GISharp.Lib.GLib
         /// Deconstruct as tuple.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3, out Variant v4, out Variant v5)
+        public void Deconstruct(
+            out Variant v1,
+            out Variant v2,
+            out Variant v3,
+            out Variant v4,
+            out Variant v5
+        )
         {
             v1 = ChildValues[0];
             v2 = ChildValues[1];
@@ -977,7 +1068,14 @@ namespace GISharp.Lib.GLib
         /// Deconstruct as tuple.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3, out Variant v4, out Variant v5, out Variant v6)
+        public void Deconstruct(
+            out Variant v1,
+            out Variant v2,
+            out Variant v3,
+            out Variant v4,
+            out Variant v5,
+            out Variant v6
+        )
         {
             v1 = ChildValues[0];
             v2 = ChildValues[1];
@@ -991,7 +1089,15 @@ namespace GISharp.Lib.GLib
         /// Deconstruct as tuple.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3, out Variant v4, out Variant v5, out Variant v6, out Variant v7)
+        public void Deconstruct(
+            out Variant v1,
+            out Variant v2,
+            out Variant v3,
+            out Variant v4,
+            out Variant v5,
+            out Variant v6,
+            out Variant v7
+        )
         {
             v1 = ChildValues[0];
             v2 = ChildValues[1];
@@ -1006,7 +1112,16 @@ namespace GISharp.Lib.GLib
         /// Deconstruct as tuple.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3, out Variant v4, out Variant v5, out Variant v6, out Variant v7, out Variant v8)
+        public void Deconstruct(
+            out Variant v1,
+            out Variant v2,
+            out Variant v3,
+            out Variant v4,
+            out Variant v5,
+            out Variant v6,
+            out Variant v7,
+            out Variant v8
+        )
         {
             v1 = ChildValues[0];
             v2 = ChildValues[1];

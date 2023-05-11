@@ -16,25 +16,33 @@ namespace GISharp.Test.GLib
             // Idle.Add() can only attach sources to the global main context,
             // so we need to use a lock to ensure exclusive use of the main
             // context.
-            lock (MainContextTests.MainContextLock) {
+            lock (MainContextTests.MainContextLock)
+            {
                 Assert.That(() => UnixSignal.Add(0, () => Source.Remove), Throws.ArgumentException);
 
                 var callbackInvoked = false;
 
-                using (var mainLoop = new MainLoop()) {
-                    var id = UnixSignal.Add((int)Signum.SIGINT, () => {
-                        mainLoop.Quit();
-                        callbackInvoked = true;
-                        return Source.Remove;
-                    });
+                using (var mainLoop = new MainLoop())
+                {
+                    var id = UnixSignal.Add(
+                        (int)Signum.SIGINT,
+                        () =>
+                        {
+                            mainLoop.Quit();
+                            callbackInvoked = true;
+                            return Source.Remove;
+                        }
+                    );
 
                     Assert.That(id, Is.Not.Zero);
                     Syscall.kill(Syscall.getpid(), Signum.SIGINT);
 
                     var source = MainContext.Default.FindSourceById(id);
-                    Task.Run(() => {
-                        mainLoop.Run();
-                    }).Wait(100);
+                    Task.Run(() =>
+                        {
+                            mainLoop.Run();
+                        })
+                        .Wait(100);
                     source.Destroy();
                 }
 

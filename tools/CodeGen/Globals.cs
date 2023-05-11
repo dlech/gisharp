@@ -29,12 +29,15 @@ namespace GISharp.CodeGen
 
         public static bool EnableDebugLogging { get; set; }
 
-        public static ILoggerFactory LoggerFactory => Microsoft.Extensions.Logging.LoggerFactory.Create(builder => {
-            builder.AddFilter(level => EnableDebugLogging || level >= LogLevel.Information);
-            builder.AddSimpleConsole(options => {
-                options.SingleLine = true;
-                options.TimestampFormat = "hh:mm:ss ";
+        public static ILoggerFactory LoggerFactory =>
+            Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
+            {
+                builder.AddFilter(level => EnableDebugLogging || level >= LogLevel.Information);
+                builder.AddSimpleConsole(options =>
+                {
+                    options.SingleLine = true;
+                    options.TimestampFormat = "hh:mm:ss ";
+                });
             });
-        });
     }
 }

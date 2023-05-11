@@ -24,7 +24,10 @@ namespace GISharp.Test.Gio
             var gtype = typeof(IAsyncResult).ToGType();
             Assert.That(gtype.Name, Is.EqualTo("GAsyncResult"));
             var info = (InterfaceInfo)Repository.Default.FindByGtype(gtype);
-            Assert.That(Marshal.SizeOf<AsyncResultIface.UnmanagedStruct>(), Is.EqualTo(info.IfaceStruct.Size));
+            Assert.That(
+                Marshal.SizeOf<AsyncResultIface.UnmanagedStruct>(),
+                Is.EqualTo(info.IfaceStruct.Size)
+            );
         }
 
         [Test]
@@ -49,9 +52,8 @@ namespace GISharp.Test.Gio
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public TestAsyncResult(IntPtr handle, Transfer ownership) : base(handle, ownership)
-        {
-        }
+        public TestAsyncResult(IntPtr handle, Transfer ownership)
+            : base(handle, ownership) { }
 
         Object? IAsyncResult.DoGetSourceObject() => source;
 
