@@ -629,7 +629,7 @@ namespace GISharp.Test.GLib
         static int GetRefCount(Variant variant)
         {
             // WARNING: GVariant is a private structure, so this could break!
-            return Marshal.ReadInt32(variant.UnsafeHandle, IntPtr.Size * 4 + sizeof(int));
+            return Marshal.ReadInt32(variant.UnsafeHandle, IntPtr.Size * 6 + sizeof(int));
         }
 
         static readonly PropertyInfo isFloatingProp = typeof(Variant).GetProperty(
